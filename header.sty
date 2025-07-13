@@ -1,0 +1,87 @@
+\ProvidesPackage{header}
+
+\usepackage[UKenglish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\usepackage{amsmath, amsthm, mathtools, amsfonts}
+\mathtoolsset{mathic}
+
+% Common packages
+\usepackage{wrapfig}
+\usepackage{physics}
+\usepackage{gensymb}
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
+\setlist[enumerate,2]{label={(\alph*)}}
+\usepackage{relsize, siunitx, booktabs, algorithm2e, array, multirow, parskip}
+\usepackage{tcolorbox}
+\tcolorboxenvironment{definition}{colback=blue!10, colframe=white, breakable}
+\tcolorboxenvironment{theorem}{colback=pink!10, colframe=white, breakable}
+\tcolorboxenvironment{lemma}{colback=green!10, colframe=white, breakable}
+\tcolorboxenvironment{corollary}{colback=green!10, colframe=white, breakable}
+\tcolorboxenvironment{proposition}{colback=green!10, colframe=white, breakable}
+\tcolorboxenvironment{claim}{colback=blue!10, colframe=white, breakable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=green!40!black}
+
+\numberwithin{equation}{section}
+
+% Theorem environments
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+\frenchspacing
+
+% Math macros
+\DeclareDocumentCommand\mathbf{m}{\symbfup{#1}}
+\newcommand{\bm}[1]{\symbfup{#1}}
+\DeclareDocumentCommand\vnabla{}{\nabla}
+\DeclareDocumentCommand\dotproduct{}{\cdot}
+\DeclareDocumentCommand\crossproduct{}{\times}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\inv}[1]{{#1}^{-1}}
+\newcommand{\pf}{\textit{Proof. }}
+\DeclareMathOperator{\ima}{im}
+\newcommand{\test}{\mathrm{hello}}
+\newcommand{\ddempty}{\mathrm{d}}
+\newcommand{\dn}[2]{\mathrm{d}^#1#2}
+\newcommand{\st}{\text{ s.t.\ }}
+\newcommand{\contradiction}{\(\#\)}
+\newcommand{\genset}[1]{\left\langle{} #1 \right\rangle}
+\newcommand{\vu}[1]{\hat{\vb{#1}}}
+\newcommand{\transpose}{\intercal}
+\newcommand{\acts}{\curvearrowright}
+\newcommand{\adjugate}[1]{\widetilde{#1}}
+\newcommand{\mathhuge}[1]{\mathlarger{\mathlarger{\mathlarger{#1}}}}
+\newcommand{\prob}[1]{\mathbb{P}\left({#1}\right)}
+\newcommand{\expect}[1]{\mathbb{E}\left[{#1}\right]}
+\newcommand{\Var}[1]{\Varop\left({#1}\right)}
+\newcommand{\Cov}[1]{\Covop\left({#1}\right)}
+\newcommand{\inner}[1]{\left\langle{#1}\right\rangle}
+\DeclareMathOperator{\vecspan}{span}
+\DeclareMathOperator{\Varop}{Var}
+\DeclareMathOperator{\Covop}{Cov}
+\DeclareMathOperator{\RePart}{Re}
+\DeclareMathOperator{\ImPart}{Im}
+
+
+
+% Redefinitions to fix physics conflicts
+\renewcommand{\Re}{\RePart}
+\renewcommand{\Im}{\ImPart}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
