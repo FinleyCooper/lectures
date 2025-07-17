@@ -10,6 +10,8 @@
 \DeclareMathOperator{\stab}{stab}
 \DeclareMathOperator{\aut}{Aut}
 \DeclareMathOperator{\ccl}{ccl}
+\DeclareMathOperator{\syl}{Syl}
+
 
 \begin{document}
   \maketitle
@@ -84,7 +86,7 @@ Some observations we can make are,
 \begin{proposition}
 	Let $ G $ be a group and $ g\in G $. Then $ \mathrm {ord}(g) $ divides $ |G| $
 \end{proposition}
-\textit{Proof.} Let $ g\in G $. Consider the subset, $ H=\{e, g, g^2,\cdots, g^{n-1}\} $ where $ n $ is the order of $ g $. We claim $ H $ is a subgroup. $ e\in H $ so $ H  $ is non-empty. Observe that $ g^rg^{-s}=g^{r-s}\in H $ so we have that $ H\le G $. Elements are distinct since if $ g_i=g_j, i\ne j, 0\le i<j<n $ then $ g{j-i}=e $ which contradicts the minimality of $ n $ since $ 0\le j-i\le n $. We have that $ |H|=n $, so by Lagrange, $ |H| $ divides, $ |G| $.
+\textit{Proof.} Let $ g\in G $. Consider the subset, $ H=\{e, g, g^2,\cdots, g^{n-1}\} $ where $ n $ is the order of $ g $. We claim $ H $ is a subgroup. $ e\in H $ so $ H  $ is non-empty. Observe that $ g^rg^{-s}=g^{r-s}\in H $ so we have that $ H\le G $. Elements are distinct since if $ g_i=g_j, i\ne j, 0\le i<j<n $ then $ g{j-i}=e $ which contradicts the minimality of $ n $ since $ 0\le j-i\le n $. We have that $ |H|=n $, so by Lagrange, $ |H| $ divides $ |G| $.\qed
 \subsection{Normal subgroups}
 When does $ gH=g'H $? Then $ g\in g'H $, so we have that $ \inv {g'}g\in H $. The converse also holds.
 \begin{lemma}
@@ -113,7 +115,7 @@ This is a very constrained condition. For example $ f(e_G)=e_H $ always. To see 
 \end{lemma}
 \textit{Proof.} Calculate $ f(g\inv g) $ in two ways.\\
 	In the first way $ f(g\inv g)=f(e)=e, $ in the second way $ f(g\inv g)=f(g)f(\inv g). $\\
-Equating gives that $ f(\inv g)=\inv{f(g)}. $
+Equating gives that $ f(\inv g)=\inv{f(g)}. $\qed
 \begin{definition}
 	Let $ f:G\rightarrow H $ be a homomorphism. The \textit{kernal} of $ f $ is $ \ker f =\{g\in G: f(g)=e\} $. The \textit{image} of $ f $ is $ \ima f=\{ h\in H: h=f(g)\text{ for some } g\in G\} $.
 	\end{definition}
@@ -121,7 +123,7 @@ Equating gives that $ f(\inv g)=\inv{f(g)}. $
 	Let $ f:G\rightarrow H $ be a homomorphism. Then $ \ker f \triangleleft G $ and $ \ima f \le H.$
 \end{proposition}
 \textit{Proof.} First let's proof that $ \ker f $ is a subgroup by the subgroup test. Observe by the lemma that $ e\in\ker f. $. If $ x,y \in\ker f $, then $ f(x\inv y)=f(x)\inv{f(y)}=e\implies x\inv y\in \ker f $. For normality, let $ x\in G $ and $ g\in\ker f $. Calculate $ f(xg\inv x)=f(x)f(g)\inv{f(x)} $. But $ f(g)=e $. So we just get the identity. Hence we have that $ xg\inv x\in\ker f. $ So $ ker f\nrm G $.\\
-	To check that the $ \ima f \le H $, take $ a,b\in \ima f $, say that $ a=f(x), b=f(y) $. Then $ a\inv b=f(x)\inv{f(y)}=f(x\inv y) $. But $ x\inv y\in G $ so $ f(x\inv y)\in \ima f $. Also $ e\in \ima f $, so we have that $ \ima f\le H $.
+	To check that the $ \ima f \le H $, take $ a,b\in \ima f $, say that $ a=f(x), b=f(y) $. Then $ a\inv b=f(x)\inv{f(y)}=f(x\inv y) $. But $ x\inv y\in G $ so $ f(x\inv y)\in \ima f $. Also $ e\in \ima f $, so we have that $ \ima f\le H $.\qed
 \begin{definition}
 	(Isomorphism) A homomorphism $ f:G\rightarrow H $ is an \textit{isomorphism} if it is a bijection. Two groups are called \textit{isomorphic} if there exists an isomorphism between them.
 \end{definition}
@@ -132,13 +134,13 @@ Equating gives that $ f(\inv g)=\inv{f(g)}. $
 Finally let's check $ \varphi $ is bijective. First for surjectivity, let $ h\in \ima f $, then $ h=f(g) $ for some $ g\in G $. So we have that $ h=\varphi(g\ker f) $.\\
 Now for injectivity, $ \varphi(g\ker f)=\varphi(g'\ker f)\implies f(g)=f(g') \implies g'\inv g\in\ker f $. Hence the cosets are the same by the coset equality criterion, so we have that $ g\ker f=g'\ker f $, hence we have injectivity, so $ \varphi $ is an isomorphism.\\
 \\
-For an example of this theorem, consider the groups $ (\mathbb C, +) $ and $ (\mathbb C^*, \times) $ related by the homomorphism, $ \varphi(z)= e^z$. The kernal of $ \exp $ is exactly, $ 2\pi i \mathbb Z\le \mathbb C $, so the first isomorphism theorem gives that $ \frac{\mathbb C}{2\pi i \mathbb Z}\cong \mathbb C^* $. \textit{(Try to visualise this!)} 
+For an example of this theorem, consider the groups $ (\mathbb C, +) $ and $ (\mathbb C^*, \times) $ related by the homomorphism, $ \varphi(z)= e^z$. The kernal of $ \exp $ is exactly, $ 2\pi i \mathbb Z\le \mathbb C $, so the first isomorphism theorem gives that $ \frac{\mathbb C}{2\pi i \mathbb Z}\cong \mathbb C^* $. \textit{(Try to visualise this!)}\qed 
 \begin{theorem}
 	(Second isomorphism theorem) Let $ H\le G $ and $ K\nrm G $. Then $ HK=\{hk : h\in H, k\in K\} $ is a subgroup of $ G $, the set $ H\cap K$ is normal in H, and $ \frac{HK}K\cong \frac H{H\cap K} $.
 \end{theorem}
 \pf We take the statements in turn. First we can see that $ HK $ is a subgroup. Clearly it contains the identity, and take some $ x,y\in HK $, $ x=hk, y=h'k' $. We will show that $ y\inv x\in HK $. Observe that $ y\inv x = h'k'\inv k \inv h = h'(\inv h h)(k' \inv k)\inv h = (h'\inv h)h\underbrace{(k'\inv k)}_{k''}\inv h $. But we have that $ hk''\inv h \in K $ by the normality of $ K $, hence $ y\inv x \in HK $. So we have that $ HK\le G $.\\\\
 Now we prove that $ H\cap K\nrm G $. Consider the homomorphism, $ \varphi: H\to G/K $, defined as $ \varphi(h)=hK $. This is a well defined homomorphism for the same reason that the group structure $ G/K $ is well-defined. The kernal of $ \varphi $, is $ \ker \varphi = \{h: hK=K\}=\{h:h\in K\}=H\cap K\nrm G $.\\\\
-Now finally we're left to prove the isomorphism. Now apply the first isomorphism theorem to $ \varphi $. This tells us that $ \frac H{\ker \varphi}=\frac H {H\cap K}\cong \ima \varphi $. The image of the $ \varphi $ is exactly those coests of $ K $ in $ G $ that can be represented as $ hK $ which is exactly $ \frac{HK}K $.\\
+Now finally we're left to prove the isomorphism. Now apply the first isomorphism theorem to $ \varphi $. This tells us that $ \frac H{\ker \varphi}=\frac H {H\cap K}\cong \ima \varphi $. The image of the $ \varphi $ is exactly those coests of $ K $ in $ G $ that can be represented as $ hK $ which is exactly $ \frac{HK}K $.\qed\\
 \begin{theorem}
 	(Correspondence theorem). Consider a group $ G $ with $ K\nrm G $, with the homomorphism $ p:G\to G/K $, by $ p(g)=gK $. Then there is a bijection between the subgroups of $ G $ which contain $ K $ and the subgroups of $ G/K $.
 \end{theorem}
@@ -153,19 +155,19 @@ We can think of this as taking $ L\to p(L) $ and $ \inv p(A)\leftarrow A $.
 	(Third isomorphism theorem) Let $ K,L $ be normal subgroups of $ G $ with $ K\le L\le G $. Then we have that $ \frac{G/K}{L/K}\cong \frac GL $.
 \end{theorem}
 \pf Define a map $ \varphi: G/K \rightarrow G/L $, by $ \varphi(gK)=gL $. First we'll show that $ \varphi $ is a well-defined homomorphism, then we'll calculate the image and kernal, and finally apply the first isomophism theorem. To see well-definedness, if $ gK=g'K $, then $ g'\inv g\in K\subseteq L $, so $ g'L=gL $, so $ \varphi $ is well-defined. Obviously a homomorphism.\\
-The kernal of $ \varphi $ is $ \ker \varphi = \{gK:gL=L\} =\{gK: g\in L\} = L/K $. $ \varphi $ is clearly surjective, so we conclude by the first isomorphism theorem that $ \frac{G/K}{L/K}\cong \frac GL $.
+The kernal of $ \varphi $ is $ \ker \varphi = \{gK:gL=L\} =\{gK: g\in L\} = L/K $. $ \varphi $ is clearly surjective, so we conclude by the first isomorphism theorem that $ \frac{G/K}{L/K}\cong \frac GL $.\qed
 \begin{definition}
 	(Simple groups) A group $ G $ is called \textit{simple} if the only normal subgroups are $ G $ itself and $ \{ e \} $.
 \end{definition}
 \begin{proposition}
   Let $ G $ be an abelian group. Then $ G $ is simple if and only if  $ G\cong C_p $, for $ p $ prime.
 \end{proposition}
-\pf If $ G\cong C_p, $ then any $ g\in G, g\ne e $ is a generator of $ G $ by Lagrange. Conversely if $ G $ is simple and abelian, then take some non-identity, $ g\in G $, then $ \{g^n :n\in \mathbb Z\} $ is a subgroup, and because $ G $ is abelian, this subgroup is normal. Since $ g\ne e $, we must have $ G $ is cyclic, generated by $ g $. Now if $ G $ is infinitely cyclic, then $ G\cong\mathbb Z $, which is not simple since $ 2\mathbb Z\nrm \mathbb Z $, so we can't have this. Therefore $ G\cong C_m $ for some $ m\in \mathbb Z_{>0} $. Say $ q $ divides $ m $, then the subgroup of $ G $ generated by $ g^{\frac mq} $ is a normal subgroup, so we must have that $ q=m $ or $ q=1 $ by simplicity, hence we have that $ m $ is prime.
+\pf If $ G\cong C_p, $ then any $ g\in G, g\ne e $ is a generator of $ G $ by Lagrange. Conversely if $ G $ is simple and abelian, then take some non-identity, $ g\in G $, then $ \{g^n :n\in \mathbb Z\} $ is a subgroup, and because $ G $ is abelian, this subgroup is normal. Since $ g\ne e $, we must have $ G $ is cyclic, generated by $ g $. Now if $ G $ is infinitely cyclic, then $ G\cong\mathbb Z $, which is not simple since $ 2\mathbb Z\nrm \mathbb Z $, so we can't have this. Therefore $ G\cong C_m $ for some $ m\in \mathbb Z_{>0} $. Say $ q $ divides $ m $, then the subgroup of $ G $ generated by $ g^{\frac mq} $ is a normal subgroup, so we must have that $ q=m $ or $ q=1 $ by simplicity, hence we have that $ m $ is prime.\qed
 \begin{theorem}
 	(Composition series) Let $ G $ be a finite group. Then there exists subgroups such that, $ G=H_1\triangleright H_2\triangleright H_3\triangleright\cdots \triangleright H_n=\{e\} $, such that $ \frac {H_i}{H_{i+1}} $ is simple.
 \end{theorem}
 \pf If $ G $ is simple then take $ H_2=\{e\} $ and we're done. Otherwise, let $ H_2 $ be a proper normal subgroup of maximal order in $ G $. We claim that $ G/H_2 $ is simple. To see this, suppose not and consider $ \varphi: G\to G/H_2 $.
- By non-simplicity and correspondence between normal subgroups, we find a proper normal in $ G/H_2 $ and therefore a proper normal $ K\nrm G $. This leads to a contradiction as $ K $ contains $ H_2 $ non-trivally, so we contradict maximality, so $ G/H_2 $ is simple. Now we continue by replacing $ G $ with $ H_2 $ and iterate the process. Either we get that $ H_2 $ simple and we're done again, or we get find a proper normal subgroup $ H_3\nrm H_2 $ of maximal order. This process must terminate, since $ G $ is finite and the order is strictly decreasing in each step.\\\\
+ By non-simplicity and correspondence between normal subgroups, we find a proper normal in $ G/H_2 $ and therefore a proper normal $ K\nrm G $. This leads to a contradiction as $ K $ contains $ H_2 $ non-trivally, so we contradict maximality, so $ G/H_2 $ is simple. Now we continue by replacing $ G $ with $ H_2 $ and iterate the process. Either we get that $ H_2 $ simple and we're done again, or we get find a proper normal subgroup $ H_3\nrm H_2 $ of maximal order. This process must terminate, since $ G $ is finite and the order is strictly decreasing in each step.\qed\\\\
  We know from Part IA groups that $ A_5 $ is simple. We see a series like this for $ S_5 $, namely, $ S_5\triangleright A_5\triangleright \{e\} $.
  \subsection{Groups actions and permutations}
 
@@ -190,7 +192,7 @@ For some homomorphism, $ \varphi: G\to\sym(X) $ we map the homomorphism to $ a(\
 \begin{proposition}
   The funtion $ a $ above is a bijection from the set of homomorphism from $ G\to\sym(X) $ to the set of actions from $ G $ on $ X $.
 \end{proposition}
-\pf We'll construct an inverse of $ a $. Given a group action $ *:G\times X \to X $. Define $ \varphi(*): G\to \sym(X) $ defined by sending $ g\to\varphi(*)(g) $, where $ \varphi(*)(g)(x)=g*x $. We aim to show that $ \varphi(*)(g):X\to X $ is a permutation. We have an inverse $ \varphi(*)(\inv g) $, and to see that it is a homomorphism $ \varphi(*)(g_1)\varphi(*)(g_2)(x)=g_1*(g_2*x)=(g_1g_2)*x=\varphi(*)(g_1g_2)(x) $. This is true for all $ x $, so the construction is a group homomorphism.\\
+\pf We'll construct an inverse of $ a $. Given a group action $ *:G\times X \to X $. Define $ \varphi(*): G\to \sym(X) $ defined by sending $ g\to\varphi(*)(g) $, where $ \varphi(*)(g)(x)=g*x $. We aim to show that $ \varphi(*)(g):X\to X $ is a permutation. We have an inverse $ \varphi(*)(\inv g) $, and to see that it is a homomorphism $ \varphi(*)(g_1)\varphi(*)(g_2)(x)=g_1*(g_2*x)=(g_1g_2)*x=\varphi(*)(g_1g_2)(x) $. This is true for all $ x $, so the construction is a group homomorphism.\qed\\
 \\  \textit{Notation}: Given a group action $ G $ acting on $ X $ given by $ \varphi:G\to\sym(X) $, denote $ G^X=\ima(\varphi) $, and $ G_X=\ker(\varphi) $. By the first isomorphism theorem we have that $ G_X\nrm G $ and $ G/G_X\cong G^X $.\\\\
 For an example, consider the unit cube. Let $ G $ be the symmetric group it. Now let $ X $ be the set of (body) diagonals of the cube. Any element of $ G $ sends a diagonal to another diagonal, we get an action $ G\to\Sym(X)\cong S_4 $. The kernal $ G_X=\ker(\varphi)=\{\id, \text{ send each vertex to its opposite} \} $. Easy exercise to check that any diagonal can be sent to any other diagonal, so $ G^X=\ima (\varphi)=\sym(X) $. So by the first isomorphism theorem, we have that $ S_4\cong G^X\cong G/G_X\implies \frac{|G|}2 = 4!\implies |G|=48 $.\\\\
 For the next example let's look at a group acting on itself. Let $ G $ act on itself by $ G\times G\to G $, sending $ (g,g_1)\to gg_1 $. This gives a homomorphism $ G\to \sym(G) $ (easy to check that $ \varphi $ is injective since the kernal is trival). By the first isomorphism theorem we get that every group is isomorphism to a subgroup of a symmetric group (Cayley's theorem).\\\\
@@ -198,12 +200,12 @@ Now let $ H\le G $ and let $ X=G/H $, let $ G $ act on $ X $ by $ g*g_1H=gg_1 H 
 \begin{theorem}
 	  Let $ G $ be finite and $ H\le G $ of index $ n $. There exists a normal subgroup of $ G $, $ K\nrm G $, with $ K\le H $, such that $ G/K $ is isomorphic to a subgroup of $ S_n $. Thus, $ |G/K| $ divides $ n! $, and $ |G/K|\ge n$.
 \end{theorem}
-\pf Consider $ G $ acting on $ G/H $ in the previous example. So the kernal of $ \varphi:G\to\sym(G/H) $ is normal, denote it by $ K $. We've shown it is contained by $ H $. First isomorphism theorem gives that $ G/K\cong \ima(\varphi)\le Sym(X)\cong S_n $. Give that $ |G/K| $ divides $ n! $ by Lagrange. Since that $ K\le H, $ we have that $ |G/K|\ge |G/H|\implies |G/K|\ge n $.
+\pf Consider $ G $ acting on $ G/H $ in the previous example. So the kernal of $ \varphi:G\to\sym(G/H) $ is normal, denote it by $ K $. We've shown it is contained by $ H $. First isomorphism theorem gives that $ G/K\cong \ima(\varphi)\le Sym(X)\cong S_n $. Give that $ |G/K| $ divides $ n! $ by Lagrange. Since that $ K\le H, $ we have that $ |G/K|\ge |G/H|\implies |G/K|\ge n $.\qed
 \begin{corollary}
 	  Let $ G $ be non-abelian and simple. Let $ H\le G $ be a proper subgroup of index $ n>1 $. Then $ G $ is isomorphism to a subgroup $ A_n $. Moreover, $ n\ge 5, $ i.e. no subgroup of index less than $ 5 $.
 \end{corollary}
 \pf Action of $ G $ on the set $ X=G/H $ gives a homomorphism $ \varphi:G\to \sym(X)\cong S_n $. Since the kernal is normal, since $ G $ is simple it is either $ G $ or $ \{e\} $. Since $ H $ is a proper subgroup, for some $ g\in G $, $ gH\ne H $, so we must have that $ \ker \varphi=\{e\} $. So $ G\cong \ima\varphi\le S_n $. Now we want to show that $ \ima\varphi\le A_n $. To see this observe that $ A_n\nrm S_n $. Consider $ A_n\cap \ima\varphi\le \ima\varphi $. By the second isomorphism theorem, $ \ima\varphi\cap A_n\nrm \ima\varphi\implies\ima\varphi\cap A_n=\{e\} $ or $ \ima\varphi $ itself. By the rest of the second isomorphism theorem, if $ \ima\varphi\cap A_n=\{e\}\implies \ima\varphi\cong\frac{\ima\varphi}{\ima\varphi\cap A_n}\cong \frac{\ima\varphi A_n}{A_n}\le \frac{S_n}{A_n} \cong C_2 $, but $ G $ is non-abelian, so $ \ima \varphi $ is non-abelian, so we have a contradiction. So we have that $ \ima\varphi\cap A_n =\ima\varphi $, so $ \ima \varphi $ is a subgroup of $ A_n $.\\
-For the next part of the corollary, $ S_1,S_2 $ are abelian and $ S_3,S_4 $ have no non-abelian simple subgroups, so we must have $ n\ge 5 $.
+For the next part of the corollary, $ S_1,S_2 $ are abelian and $ S_3,S_4 $ have no non-abelian simple subgroups, so we must have $ n\ge 5 $.\qed
 
 \begin{definition}
 	(Orbits and stabiliser) Let $ G $ act on some set $ X $. Then, the \textit{orbit} of $ x\in X $ is $ G\cdot x=\orb x=\{gx : g\in G\}\subseteq X $. And the \textit{stabiliser} of $ x\in X $ is $ G_x=\stab_G(x) = \{g\in G:gx=x\}\le G $.
@@ -231,9 +233,9 @@ Fix $ g\in G $. Then the permutation $ G\to G $ given by $ h\to gh\inv g $ is al
 \end{corollary}	
 \pf Apply orbit-stabiliser to the conjugation action.
 \begin{definition}
-	(Normaliser) Let $ H\le G $. The \textit{normaliser} of $ H $ in $ G $ is $ N_G(H)=\{g\in G: gh\inv g\in H, \forall h\in H\} $.
+	(Normaliser) Let $ H\le G $. The \textit{normaliser} of $ H $ in $ G $ is $ N_G(H)=\{g\in G: gH\inv g = H\} $
 \end{definition}
-We can see clearly that $ H\subseteq N_G(H) $ so $ N_G(H) $ is non-empty, and if we pick two elements $ x,y\in N_G(H) $, then we can see that $ (xy)h\inv{(xy)}\in H $. So we have that $ N_G(H)\le G $.\\\\
+		We can see clearly that $ H\subseteq N_G(H) $ so $ N_G(H) $ is non-empty and we also have that $ N_G(H)\le G $.\\\\
 In fact we have that $ N_G(H) $ is the largest subgroup containing $ H $ in which $ H $ is normal.
 \subsection{Simplicity of $ A_n $ for $ n\ge 5 $}
 Recall from Part IA groups that a conjugacy class in $ S_n $ consists of the set of all elements with a fixed cycle type.
@@ -253,8 +255,91 @@ First we prove the first claim. Let $ g\in A_n $, when viewed in $ S_n $ it is t
 	\item $ (ab)(cd)=(acb)(acd)\in A_n $.
 \end{itemize}
 In each case we can write all products of transpositions as a product of 3-cycles, hence we can write all elements in $ A_n $ as a product of 3-cycles.\\\\
-Now for the second claim, any two 3-cycles in $ A_n $ are conjugate when viewed in $ S_n $. Let $ \delta, \delta' $ be 3-cycles and write $ \delta' =\sigma\delta\inv\sigma $, where $ \sigma\in S_n $. If $ \sigma $ is even, we're done since it's in $ A_n $. If $ \sigma $ is odd, observe since $ n\ge 5 $, there exists a transposition $ \tau $ disjoint from $ \delta $, now $ \delta'=\sigma(\tau\inv\tau)\delta\inv\sigma=(\sigma\tau)\delta\inv{(\sigma\tau)} $. Since $ \sigma\tau $ is even, we're done.
+Now for the second claim, any two 3-cycles in $ A_n $ are conjugate when viewed in $ S_n $. Let $ \delta, \delta' $ be 3-cycles and write $ \delta' =\sigma\delta\inv\sigma $, where $ \sigma\in S_n $. If $ \sigma $ is even, we're done since it's in $ A_n $. If $ \sigma $ is odd, observe since $ n\ge 5 $, there exists a transposition $ \tau $ disjoint from $ \delta $, now $ \delta'=\sigma(\tau\inv\tau)\delta\inv\sigma=(\sigma\tau)\delta\inv{(\sigma\tau)} $. Since $ \sigma\tau $ is even, we're done.\\\\
+Finally for the last claim take some $ H\nrm A_n $ not trival. We break into cases
+\begin{itemize}
+	\item (a) If $ H $ contains an element on the form $ \sigma=(1\space 2\cdots r)\tau $ where $ \tau $ is disjoint from $ 1,\dots, r, $ and $ r\ge 4 $. Then let $ \delta = (1\space2\space3) $. Now consider $ \delta\sigma\inv\delta\in H $ (by normality). But then $ \inv\sigma\inv\delta\sigma\delta\in H $ as well. As $ \tau $ misses $ 1,2,3 $ and commutes with $ (1\space2\cdots r) $ we expand this: $ \inv\sigma\inv\delta\sigma\delta=(r\cdots 2\space 1)(1\space 3\space 2)(1\space 2\space 3\cdots r)(1\space 2\space 3)=(2\space 3\space r) $ so we find a 3-cycle.
+	\item (b) Suppose $ H $ contains $ \sigma=(123)(456)\tau $ (or any relabeling of such). $ \tau $ is disjoint from $ 1,\cdots,6 $. Take $ \delta = (124) $ and calculate the conjugation $ \inv\sigma\inv\delta\sigma\delta=(124236) $ which is a 5-cycle so we're done by the first case.
+	\item (c) Suppose that $ H $ contains $ \sigma $ of the form $ \sigma = (123)\tau $ where $ \tau $ is a product of disjoint transpositions. Note if $ \tau $ contains anything longer than a tranposition, we can just apply case (a) or (b). Then $ \sigma^2=(123)^2 $ which is a 3-cycle since the transpositions cancel.
+	\item (d) Suppose that $ H $ contains $ \sigma=(12)(34)\tau $, where $ \tau $ is a product of transpositions. Let $ \delta = (123) $, consider $ \mu = \inv \sigma\inv\delta\sigma\delta=(14)(23) $. Let $ \nu = (152)\mu(125) = (13)(45) $. But observe that $ \mu\nu\in H $, but this is a 5-cycle, so we're done by case (a).
+\end{itemize} 
+Up to relabeling, we're covered all the cases. Hence any normal subgroup of $ A_5 $ must be trivial or $ A_5 $ itself, so $ A_5 $ is normal.\qed
+\subsection{Finite $p$-groups}
+\begin{definition}
+	(Finite $ p $-groups) For $ p $ prime, a \textit{finite $ p $-group} is a group of order $ p^n $, $ n\in\N $.
+\end{definition}
+
+\begin{theorem}
+  Let $ G $ be a finite $ p $-group. Then $ Z(G) $ is non-trival.
+\end{theorem}
+\pf Consider $ G $ acting on itself by conjugation. The centre of $ G $ is the union of orbits of size 1. The orbits partition $ G $, so
+\[
+	|G|=p^n=|Z(G)|+\sum\text{sizes of conjugacy classes of size} > 1  
+\]
+We know that the sizes of the non-trivial conjugacy classes always divide $ p^n $. So all the terms of size larger than one are divisible by $ p $. Hence we have that $ p $ divides $ |Z(G)| $. So since $ p\ge 2 $, the centre is non-trivial.\qed
+\begin{theorem}
+  A group of size $ p^2 $ must be abelian.
+\end{theorem}
+\pf Follows from an independently interesting technical result:
+\begin{lemma}
+	If $ G $ is any group and $ \frac G{Z(G)} $ is cyclic, then $ G $ is abelian.
+\end{lemma}
+\pf Let $ xZ(G) $ generate $ \frac G{Z(G)} $. Every coset of the form $ x^mZ(G), m\in Z $. Since any $ g\in G $ lies in some coset of $ Z(G) $, we can write $ g=x^mz $, for some $ z\in Z(G) $. Now for some $ g'\in G $, $ g'=x^nz' $, so $ gg'=x^mzx^nz'=x^{n+m}zz'=x^nz'x^mz=g'g $, so the group is abelian.\\\\
+Our proof of the theorem follows since $ Z(G) $ is non-trivial, so it either has size $ p^2 $ or $ p $. If it has size $ p^2 $, the group is abelian so we're done. If it has size $ p $, the $ G/Z(G) $ also has size $ p $, so it's cyclic, hence it's abelian, so by the lemma we have that $ G $ is abelian.\qed
+\begin{theorem}
+  Let $ G $ be a group of size $ p^n $. Then for any $ 0\ge k \ge n$, $ G $ has a subgroup of size $ p^k $.
+\end{theorem}
+\pf (Inductive proof) The base case $ n=1 $ is clear because the group must be cyclic. Now suppose that $ n>1 $, if $ k=0 $, we take $ \{e\} $, so we're done, so assume that $ k\ge 1 $.  Note that $ Z(G) $ is non-trivial, let $ x\in Z(G) $ with $ x\ne e $. The order of $ x $ is a power of $ p $. By raising $ x $ to some power we can find an element with order $ p $ in $ Z(G) $. Replacing $ x $ with this element we can assume $ \mathrm{ord}(x)=p $. The subgroup generated by $ x $ is normal of size $ p $ because $ x $ is central of order $ p $. Now $ \frac{G}{\langle x\rangle} $ is a group of order $ p^{n-1} $ so inductive hypothesis allies. Let $ L\le \frac{G}{\langle x\rangle} $ of size $ p^{k-1} $. But by the subgroup correspondence result, we can find some $ K\le G $ containing $ \langle x\rangle $ such that $ \frac K{\langle x\rangle}=L $. So $ K $ has size $ p^k	 $, so we're done.\qed
+
+\subsection {Finite abelian groups}
+\begin{theorem}
+	(Classification of finite abelian groups) Let $ G $ be a finite abelian group. There exists positive integers $ d_1,\cdots, d_r $ such that:
+	\[
+		G\cong C_{d_1}\times C_{d_2}\times \cdots\times C_{d_r}
+	\]
+	Moreover, we can choose $ d_i $ such that $ d_{i+1}\mid d_i $ in which case this is unique.
+\end{theorem}
+\pf To come later...\\\\
+Abelian groups of order 8 are exactly $ C_8, C_4\times C_2, C_2\times C_2\times C_2 $.
+\begin{lemma}
+	(Chinese remainder theorem) If $ n $ and $ m $ are coprime, then $ C_n\times C_m\cong C_{nm} $
+\end{lemma}
+\pf Consider $ C_n\times C_m $. Suffices to produce an element of order $ nm $. Let $ g\in C_n $ and $ h\in C_m $ be generators of order $ n $ and $ m $ respectively. Consider $ (g,h) $. Say its order is $ k\implies (g,h)^k=(e,e) $. So $ n,m $ both divide $ k $, and since $ n,m $ are coprime we have that $ nm $ divides $ k $ and by Lagrange we have that $ k $ divides $ nm $, so we're done.\qed
+\subsection{Sylow Theorem}
+\begin{definition}
+	(Sylow $ p $-subgroup) Let $ G $ be a finite group of order $ p^am$, where $ p\nmid m $, $ p $ is a prime. Then a \textit{Sylow p-subgroup} of $ G $ is a subgroup of size $ p^a $.
+\end{definition}
+\begin{theorem}
+	(Sylow theorems) For a finite group $ G $ of order $ p^am $, where $ p\nmid m $, $ p $ is prime:
+	\begin{itemize}
+		\item The set $ \syl_p(G)=\{P\le G$ $ |$ $P \text{ is a Sylow p-subgroup of } G \}$ is non-empty.\\
+		\item Any $ H,H'\in \syl_p(G) $ are conjugate, namely $ H=gH'\inv g $, for some $ g\in G $.\\
+		\item If $ n_p=|\syl_p(G)| $ then $ n_p\equiv 1 \mod p $ \textit{and} $ n_p $ divides $ |G| $, so $ n_p\mid m $
+	\end{itemize} 
+\end{theorem}
+Before we prove the statement, let's see why this theorem is useful.
+\begin{lemma}
+	If $ \syl_p(G)=\{P\} $, then $ P $ is normal in $ G $.
+\end{lemma}
+\pf For any $ g\in G $, the subgroup $ g P\inv g $ is isomorphic (as a group) to $ P $. So $ g P\inv g $ is in $ \syl_p(G) \implies gP\inv g=P$, which proves the claim.\qed
+\begin{corollary}
+	Let $ G $ be a non-abelian simple group, and $ p\mid |G| $, $ p $ prime. Then $ |G| $ divides $ \frac{n_p!}2 $ and $ n_p\ge 5 $.
+\end{corollary}
+Let $ G $ act by conjugation on $ \syl_p(G) $ which gives a homomorphism $ \varphi:G\to \sym(\syl_p(G))\cong S_{n_p} $. By simplicity, $ \ker \varphi=G $ or $ \{e\} $. If $ \ker \varphi=G $, then $ gP\inv g=P $ for all $ g\in G $ and all $ P\in\syl_p(G) $. So $ P $ is normal. Thus $ P $ is either $ \{e\} $ or $ G $. Well $ P$ is Sylow-$ p $ so it can't be $ \{e\} $, so $ P=G $. So $ G $ would be a $ p $-group. But from earlier, the centre of $ G $ is non-trivial proper since $ G $ is non-abelian, but the centre is always normal, so this contradicts simplicity, hence $ \ker \varphi=\{e\} $. So we have that $ \varphi $ is an injective homomorphism $ G\to S_{n_p} $, so by the first isomorphism theorem, $ G\cong \ima \varphi $. We'll show that $ \varphi $ lands in $ A_{n_p} $. Consider the composition $ G\to S_{n_p}\to \{\pm 1\} $. If this composition is surjective, then $ \ker (\mathrm{sgn} \circ \varphi) $ is index $ 5 $, but $ G $ simple so not possible. So $ \ima\varphi\subseteq \ker(\mathrm{sgn})=A_{n_p} $, so we're done by Lagrange. For the final statement we show all non-abelian subgroups of $ A_2, A_3, A_4 $ are not simple which finishes the statement which is just grunt work, and I pinky promise it's true, so we're done.\qed\\\\
+Let's see a sample application. Let have $ G $ has size $ 11\times 12 $. If $ G $ is simple then there are exactly $ 12 $ Sylow 11-subgroups. Consider the number $ n_{11} $. We know from the Sylow theorems that $ n_{11}\equiv 1\mod 11 $ and $ n_{11}\mid 12 $. So $ n_{11} = 12 $ since $ G $ is simple. Similarly $ n_3\equiv 1 \mod 3 $ and $ n_3\mid 44 $. So either $ n_3 = 4 $ or $ 22 $. The corollary says that $ G $ divides $ \frac{n_3!}2 $, so $ n_3 $ can't be $ 4 $, so $ n_3=22 $. But this is a lot of elements. And 2 Sylow 11-subgroups interset only at the identity which leads to too many elements, so none of this even works, which seems confusing, but actually just means that $ G $ can't exist, hence all groups of order $ 132 $ are non-simple.\\\\
+Finally we now prove the Sylow theorems.\\
+\pf Let $ G $ be a group of order $ n=p^am $, with $ p\nmid m $, $ p $ prime. Define the set $ \Omega=\{X\subseteq G : |X|=p^a $. Let $ G $ act on $ \Omega $ by multiplying all elements of $ \Omega $ on the left by $ g\in G $ (we can see this obeys the axioms of the group action after some quick inspection. We have $ |\Omega|= \binom{n}{p^a}\equiv m\ne 0\mod p $. The proof of this can be seen by expanding out the binomial coeffient, but we'll assume it here. Suppose we have some $ U\in\Omega $, then let $ H\le G $ stabilise $ U $. Then $ |H|\mid |U| $. We can prove this by seeing that $ hU=U $ for all $ h\in H $. In other words for each $ u\in U $ the coset $ Hu $ is contained in $ U $. Every $ u\in U $ lies in some coset of $ H $, so the cosets partition $ U $, so $ |H|\mid |U| $. We know that $ |\Omega|\ne 0\mod p $. Since orbits partition, we know that
+	\[
+		|\Omega|=|O_1|+|O_2|+\cdots +|O_r|\text{, } O_i \text{ are the orbits}
+	\]
+So there exists an orbit $ \Theta $ whose size is prime to $ p $.
+Let $ T\in\Theta $. By orbit-stabiliser, $ |G|=|\Theta||\stab(T)| $. So $ p^am=|\Theta||\stab(T)| $. By our previous lemma, $ |\stab T|\mid p^a $, so we're done because there are no factors of $ p $ in $ \Theta $.
+
+
 
 \end{document}
+
+
+
 
 
