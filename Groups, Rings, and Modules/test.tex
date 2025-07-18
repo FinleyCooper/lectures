@@ -333,8 +333,64 @@ Finally we now prove the Sylow theorems.\\
 		|\Omega|=|O_1|+|O_2|+\cdots +|O_r|\text{, } O_i \text{ are the orbits}
 	\]
 So there exists an orbit $ \Theta $ whose size is prime to $ p $.
-Let $ T\in\Theta $. By orbit-stabiliser, $ |G|=|\Theta||\stab(T)| $. So $ p^am=|\Theta||\stab(T)| $. By our previous lemma, $ |\stab T|\mid p^a $, so we're done because there are no factors of $ p $ in $ \Theta $.
+Let $ T\in\Theta $. By orbit-stabiliser, $ |G|=|\Theta||\stab(T)| $. So $ p^am=|\Theta||\stab(T)| $. By our previous lemma, $ |\stab T|\mid p^a $, so we're done because there are no factors of $ p $ in $ \Theta $, so we've prove the first part of the theorem.\\\\
+Now for the second part, we actually show something stronger, that is, if $ Q\le G $ is a subgroup of size $ p^b $, where $ 0\le b\le a $, then there exists $ g\in G $ and $ P\in \syl_p(G) $, such that $ gQ\inv g\le P $. To prove this, let $ Q $ act on $ G/P $ by left coset multiplication. Note that the size of $ G/P $ does not divide by $ p $. Orbits have size dividing $ p^b $, so each orbit has size $ 1 $ or a power of $ p $. But $ p\nmid |G/P| $, so there exists a size 1 orbit. In other words, there exists some coset $ gP $ such that $ \forall q\in Q $, $ qgP=gP $, so rearranging gives that $ gQ\inv Q\le P $. So our second statement follows taking $ b=a $.\\\\
+For the final theorem, we need to show that $ n_p\mid |G| $, and $ n_p\equiv 1\mod p $. For the first statement, consider $ G $ acting on $ \syl_p(G) $ by conjugation. By the second theorem, we know that there is one orbit of size $ n_p $, so the statement follows instantly from orbit-stabiliser. For the second statement, let $ P\in \syl_p(G) $. Consider $ P $ acting on $ \syl_p(G) $ by conjugation. By orbit-stabiliser, all the orbits have size 1 or $ p $. Since $ \{P\} $ is a size 1 orbit, to prove the statement is suffices to show that $ \{P\} $ is the only size 1 orbit. Say $ \{Q\} $ is another size 1 orbit. So $ \forall h\in P $, we have $ hQ\inv h=Q $. This means that $ N_G(Q) $ contains $ P $. Now observe if $ p^a $ is the largest power of $ p $ dividing $ |G| $, we know that it's the largest power of $ p $ dividing $ |N_G(Q)| $. But $ Q $ is normal in $ N_G(Q) $ by definition, and $ Q,P\in \syl_p(N_G(Q))\implies P=Q $, since normality $ \iff $ uniqueness for Sylow subgroups. So we've prove all the Sylow theorems and we're done. \qed
+\newpage
+\section{Rings}
+\subsection{Definitions and examples}
+\begin{definition}
+	(Rings) A \textit{ring} is a quintuple $ (R,+,\circ,0_R,1_R) $, where $ R $ is a set with $ 0_R,1_R\in R $, and $ +:R\times R\to R $, and $ \circ:R\times R\to R $, called addition and multiplication are functions satisfying the following:
+	\begin{itemize}
+		\item $ (R,+,0_R) $ is an abelian group.
+		\item $ \circ $ is associative, so $ a\circ(b\circ c)=(a\circ b)\circ c $.
+		\item $ 1_R\circ a = a\circ 1_R=a $.
+		\item We have distributivity, so $ r_1\circ (r_2+r_3)=(r_1\circ r_2)+(r_1\circ r_3) $ and $ (r_1+r_2)\circ r_3=(r_1\circ r_3)+(r_2\circ r_3) $.
+	\end{itemize}
+\end{definition}
 
+Usually we just say "Let $ R $ by a ring..." with everything implicit. The symbol $ (-r) $ denotes the additive inverse of $ r $.\\\\
+In IB Groups, Rings and Modules, rings will always be commutative, so $ r_1\circ r_2=r_2\circ r_1 $ for all $ r_1,r_2\in R $.
+
+\begin{definition}
+	(Subring) A \textit{subring} of a ring $ R $, is a subset $ S\subseteq R $, such that $ 0_R,1_R\in S $, $ S $ is closed under both multiplication and addition of the ring, and $ (S,+,\circ, 0_R,1_R) $ is a ring. 
+\end{definition}
+We notate this as $ S\le R $.\\\\
+For examples we have $ \Z\le\Q\le\R\le\C $ which are all rings under usual multipliction and addition. Along a similar line, we also have the Gaussian integers, $ \Z[i]=\{a+ib:a,b\in \Z\} $ with multiplication and addition induced by $ \C $.\\
+\\
+Another example is $ \Z/n\Z $ which forms a ring under addition and multiplication modulo $ n $. In $ \Z/6 $ we have $ 2, 3\in \Z/6 $ such that $ 2\circ 3=0\mod 6 $ which is perfectly allowed.
+
+\begin{definition}
+	(Units) An element $ u\in R $, is called a \textit{unit} if there exists some $ v\in R $, such that $ uv=1_R\in R $.
+\end{definition}
+This notion does \textit{not} interact well with subrings, as we can take a unit in a subring without taking it's inverse, making it no longer a unit. For example 2 is a unit $ \Q $, but not in $ \Z $.
+\\\\\textit{Discussion.} Does $ 0_R $ behave like it should? We would like $ 0\circ R=0_R $ for all $ r\in R $. In $ R $ we have that $ 0_R+0_R =0_R $, now multiplying by $ r\in R $, so $ r\circ 0_R+r\circ 0_R=r\circ 0_R $, hence cancelling a $ r\circ 0_R $ on both sides gives that $ r\circ 0_R=0_R $.\\
+In particular this implies that if $ 1_R=0_R $ then for any $ r\in R $, $ r=r\circ 1_R=r\circ 0_R=0_R $ so for all $ r\in R $, $ r=0_R $, so $ R $ must be the zero ring, $ \{0_R\} $.\\\\
+
+\begin{definition}
+	(Polynomial) Let $ R $ be a ring. Then a \textit{polynomial}in $ x $ with coefficents in $ R $ in an expression:
+	\[
+		f(x)=a_0+a_1x+\cdots+a_nx^n
+	\]
+	and $ x^i $ are formal symbols. We will identify $ f(x) $ with $ f(x)+0\irc x^{n+1} $ as the same. The largest $ i $ such that $ a_i \ne 0$ is called the degree of the polynomial. A polynomial $ f(x) $ is monic of degree $ n $ if $ a_n=1 $ and it is of degree $ n $.
+\end{definition} 
+\begin{definition}
+	(Polynomial ring) The \textit{polynomial ring} $ R[X] $ is given by:
+	\[
+		R[X]= \{f(X): \text{ f is a polynomial in } X \text { with coefficents in } R\}
+	\]
+	$+, \circ  $ are the usual operations, $ 0_{R[X]}=0_R $ and $ 1_{R[X]}=1_R $.
+\end{definition}
+
+\begin{definition}
+	(Ring of formal power series) The \textit{ring of formal power series} is a ring in $ X $ with coefficents in $ R $ is:
+	\[
+		R[[X]]=\left{\sum_{n=0}^\infty r_iX^i\right}
+	\]
+	with the standard $ +,\circ $ of $ R $.
+\end{definition}
+For an example consider $ (1-x)\in R[X] $. Is it a unit? No! If $ g(x)(1-x)=1 $, then if $ g(x)=a_0+a_1x+\cdots a_nx^n $, $ a_n\ne 0 $, then $ (1-x)g(x) = a_0 + (a_1-a_0)x+\cdots (a_n-a_{n-1}x^n-a_nx^{n+1} $ which cannot be 1 since the highest power term has a non-zero coefficent.\\\\
+However $ (1-x) $ is a unit in $ R[[X]] $! $ (1-x)(1+x+x^2+\cdots)=1\in R[[X]] $.
 
 
 \end{document}
