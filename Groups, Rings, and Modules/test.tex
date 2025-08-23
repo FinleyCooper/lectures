@@ -525,11 +525,113 @@ For a set of non-examples we have $ \Z/6, \Z/pq, \C[X]/(X^2) $ etc.
 \begin{lemma}
   Let $ R $ be a finite integral domain. Then $ R $ is a field.
 \end{lemma}
-\pf Let $ a\in R $ be non-zero. Consider the function $ \mu_a: R\to R $ sending $ r\to ar $. It's easy to verify that $ \mu_a $ is a (additive) group homomorphism for all $ a $ non-zero. Since $ R $ is an integral domain, $ \ker\mu_a $ is trivial so the map is injective. So since $ R $ is finite, $ \mu_a $ is also surjective. In particular $ 1=ab $ for some $ b\in R $ hence this is an inverse of $ a $, so $ R $ is a field.\qed
+\pf Let $ a\in R $ be non-zero. Consider the function $ \mu_a: R\to R $ sending $ r\to ar $. It's easy to verify that $ \mu_a $ is an (additive) group homomorphism for all $ a $ non-zero. Since $ R $ is an integral domain, $ \ker\mu_a $ is trivial so the map is injective. So since $ R $ is finite, $ \mu_a $ is also surjective. In particular $ 1=ab $ for some $ b\in R $ hence this is an inverse of $ a $, so $ R $ is a field.\qed
+\begin{definition}
+	Let $ R $ be an integral domain. A \textit{text of fractions} for $ R $ is a field $ F $ such that:
+	\begin{itemize}
+		\item $ R\le F $ is a subring,
+		\item every $ x\in F $ can be written as $ a\inv b $, where $ a,b\in R, $ where $ \inv b $ is the multiplictive inverse to $ b $ in $ F $.
+	\end{itemize}
+\end{definition}
+$ \Q $ is a field of fractions for $ \Z $.
+\begin{theorem}
+  Every integral domain has a field of fractions.
+\end{theorem}
+\pf Define a set $ S=\{(a,b)\in R\times R:b\ne 0\} $. Place an equivalence relation $ \sim $, defined as $ (a,b)\sim (c,d)\iff ad=bc $ on $ S $. We can check this is an equivalence relation, the only non-trivial axiom to check is transitivity. Suppose that $ (a,b)\sim (c,d) $ and $ (c,d)\sim (e,f) $. So we have that $ ad=bc $ and $ cf=de $. We wish to deduce that $ af=be $. Multiple the first equality by $ f $ and the second by $ b $. So we get that $ adf=bcf $ and $ bcf=bed $. Rearranging we get $ d(af-be)=0 $ since $ d $ is non-zero and $ R $ is an integral domain we know that $ af=be $. So $ \sim $ is an equivalence relation. Now define $ F=\frac S\sim $ with notation $ \frac ab = [(a,b)]_\sim $. Now we turn $ F $ into a ring. Take the operations to be $ \frac ab + \frac cd = \frac {ad+bc}{bd} $ and $ \frac ab\frac cd = \frac{ac}{bd} $. Some elementary operations show that these operations are well-defined and makes $ F $ into a ring. To see that $ F $ is a field, if $ \frac ab\ne 0_F $ i.e. $ \frac ab\ne \frac 01\implies a\cdot 1\ne b\cdot 0 =0  $, so $ a\ne 0 $. now $ \frac ba \in F $ and $ \frac ba\frac ab=1_F $, so $ F $ is a field.\\\\
+We now construct an injective homomorphism $ R\to F $ by $ r\to \frac r1 $. Straightforward to check that this is a ring homomorphism. The kernal is $ \{r\in R: \frac r1 = 0 \text { in } F\} =(0)$. By the first isomorphism theorem $ R $ is isomorphic to the image of $ R\to F $, in other words $ R\le F $.
+Finally since $ \frac ab\in F $ is $ \frac ab= \frac a1\cdot \frac 1b\implies \frac a1\inv{(\frac b1)}=a\inv b $\qed
 
+Sometimes we write $ \mathrm{FF}(R) $ for a field of fractions of $ R $.
+\begin{proposition}
+  Let $ R $ be a ring. Then $ R $ is a field if and only if the only ideals in $ R $ are $ (0) $ and $ R $.
+\end{proposition}
+\pf If $ R $ is a field and $ I\nrm R $ is non-zero then $ I $ contains a unit $ u $. Since $ 1=uv $ we have that $ 1\in I $. But for any $ r\in R $, we have $ 1\cdot r =r\in I $, so $ I=R $.\\
+Conversely suppose that $ (0) $ and $ R $ are the only ideals of $ R $. Take $ r\in R $ non-zero. We know that $ (r)=R $ since $ r $ is non-zero. Since $ 1\in (r) $ we know that $ r\cdot b = 1 $ for some $ b\in R $ so $ r $ is a unit hence $ R $ is a field.
 
+\begin{definition}
+	(Maximal ideal) An ideal $ I\nrm R $ is called \textit{maximal} if it is not $ R $ itself and if for any $ J\nrm R $ with $ I\subseteq J\subseteq R $, either $ J=I $ or $ J=R $.
+\end{definition}
 
+\begin{proposition}
+  An ideal $ I\nrm R $ is maximal if and only if $ R/I $ is a field.
+\end{proposition}
+\pf $ R/I $ is a field if and only if the ideals are $ R/I $ and $ (0) $. Now apply the ideal correspondence theorem.\qed
+\begin{definition}
+	(Prime ideal) An ideal $ I\nrm R $ is \textit{prime} if whenever $ ab\in I $ either $ a $ or $ b $ lies in $ I $.
+\end{definition}
+An ideal $ n\Z\nrm \Z $ is a prime ideal if and only if $ n $ is a prime number (or zero). We can see this since if $ n=p $ is prime, and $ ab\in p\Z $ then $ ab $ is a multiple of $ p $ so either $ a $ or $ b $ must be a multiple of $ p $ hence in $ p\Z $. Conversely if $ n $ is not prime and wlog positive (zero case is trivial) we know that $ n=m_1m_2 $, $ 1<m_1,m_2<n $. Then $ m_1,m_2\notin n\Z $ but $ m_1m_2\in n\Z $ so the ideal is not a prime ideal.
+\\ Interestingly $ p\Z\nrm \Z $ for $ p $ non-zero prime, then $ \Z/p\Z $ is a field so $ p\Z $ is maximal.
+
+\begin{proposition}
+  An ideal $ I\nrm R$ is prime if and only if $ R/I $ is an integral domain.
+\end{proposition}
+\pf If $ I \nrm R $ is prime, then let $ (a+I) $ and $ (b+I)\in R/I $. Suppose $ (a+I)\cdot(b+I)=(ab+I)=0+I $ (recall $ 0+I $ is the zero element in $ R/I $). This means that $ ab\in I $ but $ I $ is prime so $ a $ or $ b\in I $, so $ a+I $ or $ b+I $ is $ 0 $.\\
+Conversely if $ R/I $ is an integral domain, consider $ ab\in I $. Then $ ab + I = 0 $. So either $ a+I $ or $ b+I $ is zero so $ a $ or $ b $ lies in $ I $. So $ I $ is a prime ideal.\qed
+
+\begin{corollary}
+  If $ R $ is a prime and $ I\nrm R $ is maximal, then $ I $ is prime.
+\end{corollary}
+\pf Since $ I\nrm R $ is maximal then $ R/I $ is a field. Hence $ R/I $ is an integral domain so $ I $ is prime by the proposition.\qed\\\\
+Every nonzero ring $ R $ has a maximal ideal and therefore a prime ideal (proof is very set theoretic, equivalent to the axiom of choice through Zorn's lemma)
+
+\subsection{Factorisation in integral domains}
+From now on we let $ R $ be a general integral domain
+\begin{definition}
+	(Division) Let $ a,b\in R $ we say that a \textit{divides} b, written as $ a\mid b $ if there exists some $ c \in R $ such that $ b=ac $. Equivalently we have that $ (b)\subseteq (a) $.
+\end{definition}
+\begin{definition}
+	(Associates) We say that $ a $ and $ b $ in $ R $ are \textit{associates} if $ a=bc $ for $ c\in R $ a unit. Equivalent to $ (a)=(b) $ and also equivalent to that $ a\mid b $ and $ b\mid a $.
+\end{definition}
+In $ \Z $ for example, we want to factorise up to units, i.e $ 6=2\times 3 = (-2)\times (-3) $. But as $ 2 $ and $ -2 $ are associates we declare some amount of uniqueness.
+\begin{definition}
+	(Irreducible) An element $ a\in R $ is called \textit{irreducible} if $ a\ne 0 $, $ a $ is not a unit, and if $ a=xy $ then either $ x $ or $ y $ is a unit.
+\end{definition}
+In the special case of $ \Z $ irreducible and prime are the same thing. But this is NOT always the case.
+\begin{definition}
+	(Prime element) We say that an element $ p\in R $ is \textit{prime} if $ p\ne 0 $, not a unit and if $ p\mid xy $, then either $ p\mid x $ or $ p\mid y $.
+\end{definition}
+\begin{proposition}
+  Let $ r\in R $. Then $ r\ne 0 $ is prime if and only if $ (r) $ is a prime ideal.
+\end{proposition}
+\pf Suppose that $ (r) $ is a prime ideal. Then it is proper by definition, so $ r $ is not a unit. Suppose that $ r\mid xy $, so $ xy\in (r) $ so by primality either $ x $ or $ y $ lies in $ (r) $ so $ r\mid x $ or $ r\mid y $.
+Conversely let $ r\in R $ be a prime. Suppose $ xy\in (r) $ then $ r\mid xy $ so $ r|x $ or $ r|y $ so $ x\in (r) $ or $ y\in (r) $ \qed\\\\
+Again irreducible and prime are not the same thing. However...
+\begin{proposition}
+  Let $ r\in R $ be prime. Then $ r $ is irreducible.
+\end{proposition}
+\pf Let $ r\in R $ be a prime and suppose can write $ r $ as $ r=xy $. Since $ r=1_Rr $ we have that $ r\mid xy $ so either $ r\mid x $ or $ r\mid y $. Assume by symmetry that $ r\mid x $. This means that $ x=rz $ for $ \in R $. So $ r=xy=rzy $. So since we're in an integral domain and $ r\ne 0 $ we have that $ zy=1 $ hence $ y $ is a unit\qed\\\\
+Now let's look at an example.\\\\
+Let $ R=\Z[\sqrt{-5}]\le \C $, i.e. elements of the form $ a+b\sqrt{-5} $ for $ a,b\in \Z $. Observe that $ R $ is an integral domain since it is a subring of a field. Let's discuss the units. We define a "norm", $ N:R\to \Z_{\ge 0} $ sending $ a+b\sqrt{-5}\to a^2+5b^2 $. This is a function and importantly it is multiplicative, so $ N(ab)=N(a)N(b) $. Notice that all units have norm 1, since if $ 1=uv $, then $ N(1)=N(u)N(v)=1 $, so we must have that $ N(u)=N(v)=1 $. This implies the units are $ \pm 1 $.
+\begin{claim}
+  $ 2\in R $ is an irreducible element
+\end{claim}
+\pf If $ 2=ab $ then $ N(2)=4=N(a)N(b) $. But no element in $ R $ has norm of $ 2 $. Therefore either either $ a $ or $ b $ has norm 1, which means either $ a $ or $ b $ is a unit.\qed\\\\
+A similar calculation shows that $ 3, 1\pm \sqrt{-5} $ are all also irreducible.
+But are they prime?\\
+Observe that $ 6=(1+\sqrt{-5})(1-\sqrt{-5})=2\times 3 $
+\begin{claim}
+	2 does not divide $ 1\pm \sqrt{-5} $
+\end{claim}
+\pf If it did then $ N(2)\mid N(1\pm\sqrt{-5}) $ but $ N(2)=4 $ and $ N(1\pm \sqrt{-5})=6 $ but $ 4\nmid 6 $ so 2 is no longer a prime in $ \Z[\sqrt{-5}] $.\\
+In this same example, we see unique factorisation of 6 no longer holds.
+
+\begin{definition}
+	An integral domain $ R $ is called a \textit{Euclidean domain} if there exists a Euclidean function $ \varphi:R\setminus \{0\}\to\Z_{\ge 0} $ such that:
+	\begin{itemize}
+	\item $ \varphi(ab)\ge \varphi(b) $ for all $ a,b\ne 0 $.
+	\item If $ a,b\in R $ with $ b\ne 0 $, then there exists $ q,r\in R $ such that $ a=bq+r $ and either $ r=0 $ or $ \varphi(r)<\varphi(b) $.
+	\end{itemize}
+\end{definition}
+This definition is just saying we can run the Euclidean algorithm (or some equivalent form of it) on the ring.\\\\
+We've already seen $ \Z $ is an integral domain where $ \varphi(x)=|x| $. Also seen, that if we take $ K $ a field, then $ K[X] $ is a Euclidean domain with a Euclidean function given by the degree of the polynomial.\\\\
+
+Now take $ R=\Z[i]\le \C $ (Gaussian integers). This is a Euclidean domain with Euclidean function $ \varphi(z)=|z|^2 $
+\begin{claim}
+  $\varphi$ is a Euclidean function of $ R $
+\end{claim} 
+\pf The first requirement is obvious. For the second requirement, consider $ a,b\in\Z[i] $, with $ b\ne 0 $. Consider the ratio $ \frac ab\in \C $. There is a point $ q\in \Z[i] $ that has distance at most 1 from $ \frac ab $. So we have that $ \left|\frac ab - q\right|<1 $. Then write $ \frac ab = q+c $ where $ |c|<1 $. Then we have that $ a=bq+bc $, now set $ r=bc $. We know that $ r=a-bq\in R $. And finally $ \varphi(r)=\varphi(b)\varphi(c)<\varphi(b) $ \qed
 \end{document}
+
 
 
 
