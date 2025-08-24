@@ -630,7 +630,224 @@ Now take $ R=\Z[i]\le \C $ (Gaussian integers). This is a Euclidean domain with 
   $\varphi$ is a Euclidean function of $ R $
 \end{claim} 
 \pf The first requirement is obvious. For the second requirement, consider $ a,b\in\Z[i] $, with $ b\ne 0 $. Consider the ratio $ \frac ab\in \C $. There is a point $ q\in \Z[i] $ that has distance at most 1 from $ \frac ab $. So we have that $ \left|\frac ab - q\right|<1 $. Then write $ \frac ab = q+c $ where $ |c|<1 $. Then we have that $ a=bq+bc $, now set $ r=bc $. We know that $ r=a-bq\in R $. And finally $ \varphi(r)=\varphi(b)\varphi(c)<\varphi(b) $ \qed
+
+\begin{definition}
+	(Principal ideal domain) A ring $ R $ is a \textit{principle ideal domain} (PID) if it is an integral domain, and every ideal is a principal ideal, i.e for all $ I\nrm R $, there is some $ a $ such that $ I=(a) $.
+\end{definition}
+\begin{proposition}
+  Every Euclidean domain is a principal ideal domain.
+\end{proposition}
+\pf Identical to the case of $ \Z $ just with a general Euclidean function $ \varphi $ instead of $ |x| $.
+\\\\
+$\Z, \R[X], \C[X], \Z[i] $ are all examples of PIDs.
+\\\\
+For a non-example we have $ R=\Z[X] $ and let $ I= (2, X) $. Suppose that $ I $ is principal, so $ I=(f) $, hence $ 2\in (f) $. So we have that $ 2=fg $ for some $ g\in R $. Hence we have that $ f $ is of degree zero, so $ f\in \{\pm 1, \pm 2\} $. But we can't have $ f=\pm 1 $ since $ \pm 1 $ are units in $ \Z[X] $ (since $ (2,X)\ne R $). But now since $ X\in (f) $ we must have that $ \pm 2\mid X $ which is false, hence $ (2,X) $ is not a principal ideal.\\\\
+Simiarly $ \C[X,Y] $, $ K[X_1,\cdots, X_n $, $ n\ge 2 $ are not PIDs
+\begin{definition}
+	(Unique factorisation domain) An integral domain $ R $ is a \textit{unique factorisation domain} (UFD) if:
+	\begin{itemize}
+		\item Every non-unit in $ R $ can be written as a product of irreducibles.
+		\item If $ p_1\dots p_n=q_1\cdots q_m $, where $ p_i, q_i $ are irreducible, then $ n=m $ and up to reordering $ p_i $ are $ q_i $ are associates.
+	\end{itemize} 
+\end{definition}
+Now we aim to show that PID $ \implies $ UFD.
+\begin{lemma}
+  In a PID, any irreducible element is also prime.
+\end{lemma}
+\pf Let $ R $ be a PID and $ p\in R $ irreducible. Suppose $ p\mid ab $ and $ p\nmid a $ then we need to show that $ p\mid b $. Let's consider the ideal $ (p, a) $. This is principal so $ (p,a)=(d) $ for some $ d\in R $. So we must have that $ d\mid p $ and $ d\mid a $. So we have that $ p=q_1d $ so since $ p $ is irreducible we know that either $ d $ or $ q_1 $ is a unit. If $ q_1 $ is a unit, then $ d=\inv q_1 p $ and this divides $ a $ so we have that $ a=\inv q_1px $ which is a contradiction since $ p\nmid a $. So we have that $ d $ is a unit, so $ 1_R\in (p,a) $ so we can write $ 1_R=rp+sa $ for some $ r,s\in R $, so $ b=rpb+sab $. But now we can see that $ ab $ is divisible by $ p $ so $ b $ is divisible by $ p $.\qed
+\begin{lemma}
+	(PIDs are Noetherian) Let $ R $ be a PID. If $ I_1\subseteq I_2\subseteq\cdots $ ideals in $ R $ then for some $ N\in \Z_{> 0} $, we have for all $ n\ge N $, $ I_n=I_{n+1} $.
+\end{lemma}
+\pf Consider $ I=\bigcup_iI_i $. This is an ideal and $ I\nrm R $ so $ I=(a) $ for some $ a\in R $. But $ a\in I_N $ for some $ N $, so the result follows. \qed
+\begin{theorem}
+  Let $ R $ be a principal ideal domain. Then $ R $ is a unique factorisation domain.
+\end{theorem}
+\pf First we show that any $ r\in R $ is a product of irreducibles. If $ r $ is irreducible, we're done. If not, we can write $ r=r_1s_1 $ where either $ r_1 $ or $ s_1 $ are units. If both are products of irreducibles, then we're done. We can therefore assume by relabeling that $ r_1 $ is not a product of irreducibles. So we can write $ r_1=r_2s_2 $ with $ r_2,s_2 $ not units. Again without loss of generality we suppose that $ r_2 $ cannot be factored as a product of irreducibles. We continue in this way. So we can write that $ (r)\subseteq (r_1)\subseteq (r_2)\subseteq\cdots $. But by our lemma this chain stabilises so there is some $ n $ such that $ (r_n)=(r_{n+1})=\cdots $, so we have that $ s_{n+1} $ is a unit which is a contradiction so $ r $ must be a product of irreducibles.\\
+For uniqueness let $ p_1p_2\dots p_n=q_1q_2\dots q_m $ with $ p_i,q_i $ irreducibles. So in particular we have that $ p_1\mid q_1\dots q_m $. Since $ p_1 $ is irreducible it is prime by our lemma so $ p_1 $ divides some $ q_i $. We reorder and suppose that $ p_1\mid q_1 $. So $ q_1=p_1a $ for some $ a $. But since $ q_1 $ is irreducible, $ a $ must be a unit so $ p_1 $ and $ q_1 $ are asssociates. Since $ R $ is a principal ideal domain, it is an integral domain so we can cancel $ p_1 $ to get that $ p_2p_3\dots p_n=(aq_2)q_3\dots q_m $. Now we can rename $ aq_2 $ as $ q_2 $ and continue as above show that $ p_i, q_i $ are associates for all $ i $. This also shows that $ n=m $ as if we had a leftover product, suppose $ p_{k_1}\dots p_n = 1$ which is a contradiction since they are irreducible so a product of them cannot be a unit as that would imply that each $ p_i $ was a unit for $ k+1\le i \le n $.\qed
+
+\begin{claim}
+  Let $ R $ be a unique factorisation domain. Then every irreducible in $ R $ is prime.
+\end{claim}
+If $ p\in R $ is irreducible and $ ab\in (p) $. Write $ ab=pc $. Now compare unique factorisation so $ (q_1\dots q_r)(s_1\dots s_k)=p(t_1\dots t_\ell) $ So $ p $ is an associate of soem $ q_i $ or $ s_j $. So done because either $ a $ or $ b $ is $ p $ times some element so lies in $ (p) $.
+\begin{definition}
+	(Greatest common divisor) Let $ R $ be an integral domain and $ a_1,\dots, a_n\in R $. We say that $ d\in  R $ is a \textit{greatest common divisor} (GCD) of $ a_1, \dots, a_n $ if:
+        \begin{itemize}
+ 	         \item $ d\mid a_i $ for all $ i $.
+	         \item If $ d'\mid a_i $ for all $ i $ then $ d'\mid d $.
+        \end{itemize}
+\end{definition}
+\begin{definition}
+	(Least common multiple) Let $ R $ be an integral domain and $ a_1,\dots, a_n\in R $. We say that $ m\in R $ is a \textit{least common multiple} (LCM) of $ a_1,\dots, a_n $ if:
+	\begin{itemize}
+		\item $ a_i\mid m $ for all $ i $.
+		\item If $ a_i\mid m' $ for all $ i $ then $ m\mid m' $.
+	\end{itemize}	
+\end{definition}
+\begin{theorem}
+  Let $ R $ be a unique factorisation domain. Then gcd's and lcm's exist and are unique up to associates.
+\end{theorem}
+\pf Let $ a_1,\dots,a_n\in R $. Let $ p_1,\dots,p_nn $ be list of all irreducible factors of the $ a_i $ and no two are associates of each other. So we can write
+\[
+	a_i=u_i\prod_{j=1}^mp_j^{n_{ij}},
+\]
+where $ n_{ij}\in \N $ and $ u_i $ are units. Now we can let
+\[
+	m_j=\min_i\{n_{ij}\},
+\]
+and set
+\[
+	d=\prod_{i=1}^mp_u^{m_j}.
+\]
+So clearly, for all $ i $ we have that $ d\mid a_i $. Suppose we have some $ d'|a_i $, $ \forall i $, can set write $ d' $ as
+\[
+	d'=v\prod_{j=1}^np_j^{t_j},
+\]
+for some unit $ v $. So we must have that $ t_j\le n_{ij} $ for all $ i,j $. So we must have that $ t_j\le m_j $ for all $ j $. So $ d'\mid d $.\\
+Now uniqueness up to associates follows from the fact that and two greatest common divisors must divide each other by definition, hence they must be associates. The argument for least common multiples is similar.\qed
+\\\\ We've created a lot of 'special' types of rings, so to make this section clearer use the following class inclusion.\\\\
+$
+	\text{rings} \supset \text{integral domains}\supset\text{unique factorisation domains} \supset \text{principal ideal domains}\supset \text{Euclidean domains} \supset \text{fields}
+$\\\\
+It should be very obvious why fields are Euclidean domains.
+\subsection{Factorisation in polynomial rings}
+Recall that, for $ F $ a field, $ F[X] $ is a Euclidean domain. Hence it is also a principal ideal domain and therefore a unique factorisation domain. This gives a few consequences.
+\begin{itemize}
+	\item If $ I\nrm F[X] $, then $ I=(f) $ for some $ f\in F[X] $.
+	\item If $ f\in F[X] $, then $ f $ is irreducible if and only if $ f $ is prime.
+	\item If $ f $ is irreducible suppose $ (f)\subseteq J\subseteq F[X] $. Then $ J=(g) $ for some $ g\in F[X] $. Since $ (f)\subseteq (g) $ we must have that $ f=gh $. But since $ f $ is irreducible, either $ g $ or $ h $ is a unit. If $ h $ is a unit, then $ (f)=(g) $ and if $ g $ is a unit, then $ J=F[X] $ so $ (f) $ is a maximal ideal.
+	\item $ J\nrm F[X] $ is a non-zero prime ideal if and only if it is a maximal ideal. We've seen that maximal ideals implies prime ideals, so conversely suppose $ (f) $ is a prime ideal, non-zero. Hence $ f $ is prime and therefore irreducible so be the previous point $ (f) $ is maximal.
+	\item Finally we have that $ f\in F[X] $ is irreducible if and only if $ F[X]/(f) $ is a field.
+\end{itemize} 
+We have that $ X^2+1 $ is irreducible in $ \R[X] $. Hence we have that $ \frac{\R[X]}{X^2+1}\cong\C $.
+\begin{definition}
+	(Content) Let $ R $ be a unique factorisation domain and let $ f=a_0+a_1X+\cdots+a_nX^n\in R[X] $. We define the \textit{content} as
+	\[
+	  c(f)=\gcd(a_0,\dots,a_n)\in R.
+	\]
+\end{definition}
+Since the gcd is only defined up to a unit, so is the content.
+\begin{definition}
+	(Primitive polynomials) A polynomial is called \textit{primitive} if $ c(g) $ is a unit.
+\end{definition}
+Now we want to introduce Gauss' Lemma which provides an equivalency for reducibility using the field of fractions of a unique factorisation domain. But before that we require some preparation.
+\begin{lemma}
+	Let $ R $ be a unique factorisation domain. If $ f,g\in R[X] $ are primitive, then so is $ fg $.
+\end{lemma}
+\pf Let
+\begin{gather*}
+  f=a_0+a_1X+\cdots a_nX^n \\
+  g=b_0+b_1X+\cdots b_mX^m
+\end{gather*}
+be primitive, with $ a_n,b_m\ne 0 $. Suppose for contradiction, $ c(fg) $ is not a unit. Since $ R $ is a UFD, we can find irreducible $ p\in R $ which divides $ c(fg) $. By assumption, $ c(g) $ and $ c(f) $ are units, so $ p\nmid c(g) $, $ p\nmid c(f) $. Let $ k $ be minimal such that $ p\nmid a_k $ and let $ \ell $ be minimal such that $ p\nmid b_\ell $. Consider the coefficient of $ X^{k+\ell} $ in fg, given by
+\[
+	\sum_{i+j=k+\ell}a_ib_j.
+\]
+Since $ p\mid c(fg) $ we have that
+\[
+	p\mid \sum_{i+j=k+\ell}a_ib_j.
+\]
+However $ p|a_{k+\ell}b_0+\dots a_{k+1}b_{\ell -1} $ and $ p |a_{k-1}b_{\ell +1} + \dots a_0b_{\ell +k} $, therefore $ p\mid a_kb_\ell $ so either $ p\mid a_k $ or $ p\mid b_\ell $ which in either case is a contradiction, so $ c(fg) $ is a unit.\qed
+\begin{corollary}
+	Let $ R $ be a unique factorisation domain. Then for $ f,g\in R[X] $, $ c(fg) $ is an associate of $ c(f)c(g) $.
+\end{corollary}
+\pf Write $ f=c(f)f_1 $ and $ g=c(g)g_1 $ so we have that $ f_1,g_1 $ are primitive. Then 
+\[
+  fg=c(f)c(g)f_1g_1
+\]
+so therefore $ c(fg)=c(f)c(g)c(f_1g_1) $ and $ c(f_1g_2) $ is a unit so they are associates.
+\\\\ Finally we can now prove Gauss' lemma.
+\begin{lemma}
+	(Gauss' lemma) Let $ R $ be a unique factorisation domain with $ F $ its field of fractions. Let $ f\in R[X] $ be primitive. Then $ f $ is reducible in $ R[X] $ if and only if $ f $ is reducible in $ F[X] $.
+\end{lemma}
+\pf First for the forwards direction, let $ f=gh $ be a product in $ R[X] $ with $ g,h $ not units. Since $ f $ is primitive so are $ g $ and $ h $. So both have non-zero degree hence they are not units. So $ f $ is reducible in $ F[X] $.\\
+For the other direct let $ f=gh $ in $ F[X] $ with $ g $ and $ h $ not units. So we can clear denominators so we pick $ a,b\in R $ such that $ ag,bh\in R[X] $. then we have that $ abf=(ag)(bh) $.\\
+Let
+\begin{gather*}
+  ag=c(ag)g_1,\\
+  bh=c(bh)h_1,
+\end{gather*}
+where $ g_1 $ and $ h_1 $ are primitive. So $ ab=uc(abf)=uc((ag)(bh))=u'c(ag)c(bh) $. But $ abf=c(ag)(bh)g_1h_1=\inv u abg_1h_1 $, since we're in a integral domain we can cancel $ ab $ to get $ f=\inv u g_1h_1\in R[X] $. So $ f $ is reducible in $ R[X] $.\qed\\
+
+Now for an example. Consider $ f=X^3+X+1\in \Z[X] $. We can see that $ c(f) =1 $ so $ f $ is primitive. Suppose for contradiction that $ f $ is reducible in $ \Q[X] $. So by Gauss' lemma, $ f $ is reducible in $ \Z[X] $, so $ X^3+X+1=gh $ where $ g,h\in \Z[X] $ not units. Hence $ \deg(g),\deg(h)\ge 1 $. Since $ \deg(f)=3=\deg(g)+\deg(h) $, suppose that $ \deg(g)=1 $ and $ \deg(h)=2 $. Hence let $ g=b_0+b_1X $ and let $ h=c_0+c_1X+c_2X^2 $. Multiplying out and equating coefficents we get that $ b_0c_0=1 $ and $ c_2b_1=1 $. Hence $ b_0,b_1 $ must be $ \pm 1 $, so we must have that $ g $ is either $ 1\pm X $ or $ -1\pm X $. Hence $ \pm 1 $ is a root of $ g $ which is a contradiction since $ f $ does not have a root of $ \pm 1 $. So $ f $ is not reducible in $ \Q[X] $, hence it has no root in $ \Q $ and we have that $ \Q[X]/(X^3+X+1) $ is a field.
+\begin{proposition}
+	Let $ R $ be a unique factorisation domain and $ F $ its field of fractions. Let $ g\in R[X] $ be primitive. Then a polynomial $ f\in R[X] $ is divisble by $ g $ in $ R[X] $ if and only if it is divisble by $ g $ in $ F[X] $. Or in other words if $ J=(g)\nrm R[X] $ and $ I=(g)\nrm F[X] $ then $ J=I\cap R[X] $.
+\end{proposition}
+\pf We'll prove the second formualation. Certainly we have that $ J\subseteq I\cap R[X] $. So let $ f\in I\cap R[X] $. So we can write
+\[
+	f=gh \quad\text{with }h\in F[X] 
+\]
+Now we clear denominators by choosing $ b \in R $ such that $ bh\in R[X] $. We know by multiplying by $ b $ so that $ bf=g(bh) $. We let $ (bh)=c(bh)h_1 $ where $ h_1 $ is primitive and $ h_1\in R[X] $. So $ bf = c(bh)gh_1 $, but $ g $ and $ h_1 $ are both primitive, so $ gh_1 $ is also primitive. So $ c(bh) = c(bf)u $ where $ u $ is a unit. Since $ bf $ is a product in $ R[X] $
+\[
+  c(bf)=c(b)c(f)=b\cdot c(f)
+\]
+This gives that $ bf = ub\cdot c(f)gh_1 $ so cancelling $ b $ gives that $ f $ is divisble by $ g $.\qed
+\begin{theorem}
+	If $ R $ is a unique factorisation domain, then $ R[X] $ is also a unique factorisation domain.
+\end{theorem}
+\pf First we prove that factorisations exist. Let $ f\in R[X] $. We can write $ f = c(f)f_1 $ where $ f_1 $ is primitive. Since $ F $ is a UFD, factorise $ c(f) $ as $ p_1\dots p_n $ for $ p_i\in R $ irreducible. Now we deal with $ f_1 $. If $ f_1 $ is not irreducible then write $ f_1=f_2f_3 $ where $ f_2,f_3 $ are not units. Since $ f_1 $ is primitive neither $ f_2 $ nor $ f_3 $ can be constant. So $ \deg(f_2),\deg(f_3)>0 $ and also $ \deg(f_1)=\deg(f_2)+\deg(f_3) $ using the fact that we're working in an integral domain \textit{(think!)}. Induct on the degree, if $ f_2 $ and $ f_3 $ are irreducible, we're done otherwise repeat the same steps until the process terminates, which will happen in finitely many steps since the degree is strictly decreasing. Putting this together we can write $ f=p_1\dots p_nq_1\cdots q_m $ all irreducibles.\\
+Now for uniqueness. First we deal with the $ p $'s. The content has a unique factorisation $ c(f)=p_1\dots p_n $. So cancelling the content suffices to show uniqueness of factorisation for $ f_1=q_1\dots q_m $. Suppose $ f_1=q_1\dots q_m=r_1\dots r_\ell $ are two factorisations in $ R[X] $. Viewing this in $ F[X] $, where $ F $ is the fraction field of $ R $, since $ F[X] $ is a Euclidean domain, we know that $ \ell=m $ and up to reordering $ q_i $ and $ r_i $ are associates in $ F[X] $. So $ q_i\mid r_i $ and $ r_i\mid q_i $ in $ F[X] $. But from the previous proposition we get the same statement in $ R[X] $\qed\\\\
+This gives us that rings such as $ \Z[X] $ and $ \C[X,Y]  $ are not principal ideal domains, but they are unique factorisation domains.
+\begin{theorem}
+	(Eisenstein's criterion) Let $ R $ be a unique factorisation domain and 
+	\[
+		f=a_0+a_1X+a_2X^2+\cdots+a_nX^n\in R[X]
+	\]
+	is primitive, with $ a_n\ne 0 $. Let $ p\in R $ be irreducible such that         \begin{itemize}
+		\item $ p\nmid a_n $.
+		\item $ p\mid a_i $ for $ 0\le i\le n-1 $.
+		\item $ p^2 \nmid a_0 $.
+	\end{itemize}
+	Then $ f $ is irreducible in $ R[X] $.
+\end{theorem}
+\pf Suppose we have $ f=gh $, with $ g=r_0+r_1X+\cdots r_kX^k $ and $ h = s_0+s_1X + \cdots s_\ell X^\ell $ and $ r_k, s_\ell \ne 0 $. We know that and since $ p\nmid a_n $ it does not divide $ r_k $ nor $ s_\ell $. Similarly $ r_0s_0=a_0 $ and $ p^2\nmid a_0 $ so $ p $ divides exactly one of $ r_0 $ and $ s_0 $. Let assume $ p\mid r_0 $ so $ p\nmid s_0 $. Let $ j $ be the index such that
+\[
+	p\mid r_0, \quad p\mid r_1,\cdots, \quad p\mid r_{j-1},\quad p\nmid r_j.
+\]
+Consider $ a_j $. We know $ a_j=r_0s_j+r_1s_{j-1}+\cdots +r_{j-1}s_1+r_js_0 $. We know that $ p \mid r_0s_j+\cdots +r_{j-1}s_1 $, also $ p\nmid r_j $ and $ p\nmid s_0 $, because $ p $ is prime, $ p\nmid a_j $. So we must have that $ j=n $. We also have that $ j\le k \le n $, so $ j=k=n $. Hence $ \deg g = n $ and $ \deg h =0 $. Since $ f $ is primitive we must have that $ h $ is a unit, so this is not a proper factorisation. Hence $ f $ is irreducible in $ R[X] $.\qed
+
+For an example consider the polynomial $ X^n-p\in \Z[X] $ with $ p $ prime. Apply Eisenstein's criterion with $ p\in \Z $ and observe all the conditions hold. This is certainly primitive, since this is monic. So $ X^n-p $ is irreducible in $ \Z[X] $, hence it is also irreducible in the fraction field polynomial, namely $ \Q[X] $. In particular $ X^n-p $ has no rational roots, so $ \sqrt[n]{p} $ is irrational.\\\\
+Next, consider $ f=X^{p-1}+X^{p-2}+\cdots + X + 1\in \Z[X] $ for $ p $ prime. See that we can write $ f $ as
+\[
+	f=\frac{X^p-1}{X-1}.
+\]
+So perchance we should write $ Y=X-1 $. Then we get a new polynomial
+\[
+	\hat f(Y)=\frac{(Y+1)^p-1}Y = Y^{p-1}+\binom p1Y^{p-2}+\cdots+\binom p{p-1}.
+\]
+So now we can apply Eisenstein's criterion so $ \hat f $. So $ \hat f $ is irreducible in $ \Z[X] $. If we had a factorisation $ f(X)=g(X)h(X)\implies \hat f(Y)=g(Y+1)h(Y+1) $, but we know that $ \hat f $ cannot be factorised, so $ f $ is irreducible.
+\subsection{Gaussian integers}
+
+
+
+
+
+
+
+
+
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
