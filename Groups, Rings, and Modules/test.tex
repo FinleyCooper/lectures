@@ -816,14 +816,137 @@ So perchance we should write $ Y=X-1 $. Then we get a new polynomial
 \]
 So now we can apply Eisenstein's criterion so $ \hat f $. So $ \hat f $ is irreducible in $ \Z[X] $. If we had a factorisation $ f(X)=g(X)h(X)\implies \hat f(Y)=g(Y+1)h(Y+1) $, but we know that $ \hat f $ cannot be factorised, so $ f $ is irreducible.
 \subsection{Gaussian integers}
+This is the ring $ \Z[i]=\{a+ib:a,b\in \Z\}\le \C $ and we have the usual norm $ N(a+ib)=a^2+b^2 $ which helpfully is a Euclidean function. This implies that $ \Z[i] $ is a Euclidean domain, hence it is a principal ideal domain and therefore a unique factorisation domain. So irreducible and prime are the same in the Gaussian integers. The units in $ \Z[i] $ are $ \pm 1 $ and $ \pm i $ which are exactly the norm $ 1 $ elements.\\\\
+We make the following observations.
+\begin{itemize}
+	\item We have $ 2 = (1+i)(1-i)$ so $ 2 $ is not a prime.
+	\item Similiarly $ 5=(1+2i)(1-2i) $ so also not a prime.
+	\item We claim that $ 3 $ is a prime in $ \Z[i] $. The norm of $ 3 $ is $9 $ so if $ 3=uv $ then either $ N(u) $ or $ N(v) $ is $ 1 $ (so one is a unit) or $ N(u)=N(v)=3 $. But if $ u=a+bi $ then we'd need $ a^2+b^2=3 $ which has no solutions for $ a,b\in \Z $. So one of $ u $ or $ v $ is a unit, hence $ 3 $ is prime. 
+\end{itemize} 
+So what are the primes in $ \Z[i] $?
+\begin{proposition}
+	A prime number $ p\in \Z $ remains prime when viewed in $ \Z[i] $ if and only if $ p\ne a^2+b^2 $ for $ a,b\in \Z\setminus \{0\} $.
+\end{proposition}
+\pf If $ p=a^2+b^2 $ then in $ \Z[i] $ we can write $ p=(a+bi)(a-bi) $ so $ p $ is not irreducible and hence not prime.\\
+Conversely suppose $ p = uv $ is a product of non-units in $ \Z[i] $ then $ p^2=N(u)N(v) $. Since $ u $ and $ v $ are non-units then $ N(u)=N(v)=p $. Write $ u=a+bi $. Then we have that $ a^2+b^2=p $.\qed
+\\\\
+Now we want to classify all of the primes in $ \Z[i] $. But before that we need a lemma.
+\begin{lemma}
+	Let $ p $ be a prime number. Then the group $ \mathbb F_p^\times $ of non-zero elements $ \mod p $ under multiplication is a cyclic group. So $ \mathbb F_p^\times \cong C_{p-1}. $
+\end{lemma}
+\pf
+Certainly $ \mathbb F_p^\times $ is finite abelian. By the classification of finite abelian groups, if $ \mathbb F_p^\times $ is not cyclic then it contains $ C_m\times C_m  $ as a subgroup for some $ m>1 $. This means there are at least $ m^2 $ elements $ x\in \mathbb F_p^\times $ satisfying $ x^m-1=0 $. But a polynomial with coefficients in $ \mathbb F_p $ has number of solutions bounded above by the degree, which is a contradiction. \qed\\\\
+Now let's prove the theorem.
+\begin{theorem}
+	(Classification of primes in $ \Z[i] $) The primes in $ \Z[i] $ up to associates are exactly
+	\begin{itemize}
+		\item The primes $ p\in\Z $ such that $ p\equiv 3 \mod 4 $.
+		\item Gaussian integers $ z\in \Z[i] $ with $ N(z)=p $ where $ p $ is a prime that is either $ 2 $ or $ 1 \mod 4$.
+	\end{itemize}
+\end{theorem}
+\pf Firstly we prove the two types of Gaussian integers are prime. If $ p\in \Z $ is $ 3\mod 4 $ then $ p\ne a^2+b^2 $ for $ a,b\in \Z\setminus \{0\} $ (by arithmetic) so by our proposition these are primes in $ \Z[i] $. Now for $ z\in\Z[i] $ if $ N(z)=p $, with $ p $ prime congruent to $ 2 $ or $ 1 \mod 4 $, we'll show that $ z $ is irreducible. Write $ z=uv $ in $ \Z[i] $, then $ p=N(z)=N(u)N(v) $ in $ \Z_{\ge 0 } $. So either $ N(u) $ or $ N(v) $ is $ 1 $ so $ u $ or $ v $ is a unit, so $ z $ is irreducible hence prime.\\\\
+Now we show all primes in $ \Z[i] $ are of this form. Let $ z\in \Z[i] $ be prime. Observe that $ N(z)=z\overline z $ is a factorisation of $ N(z) $ viewed inside $ \Z[i] $ into irreducibles. Let $ p $ be a prime number that divides $ N(z) $ in $ \Z_{\ge 0} $. Suppose $ p\equiv 3\mod 4 $ so $ p $ is prime in $ \Z[i] $. So $ p=z\overline z $ hence $ p\mid z $ or $ p\mid \overline z $ therefore because $ z $ is conjugate to $ \overline z $ so $ p\mid z$ and $ p\mid \overline z $. But then $ p=z $ up to associates. Now assume that $ p\equiv 2 $ or $ 1\mod 4 $. The $ p\equiv 2 \mod 4 $ case can be worked out by hand, so assume $ p=4k+1 $ for $ k \in \Z $. By the lemma we know that $ \mathbb F_p^\times \cong C_{4k} $. There is a unique order $ 2 $ element here (which is $ -1 $). If $ a\in \mathbb F_p^\times $ is order $ 4 $, then we have $ a^2\equiv -1\mod p $. So $ p $ divides $ (a+i)(a-i) $ but not $ a+i $ or $ a-i $ individually. So $ p $ is not irreducible in $ \Z[i] $. So now we can write $ p=z_1z_2 $ non-units. Taking the norm we get that $ N(p)=p^2=N(z_1)N(z_2) $. Because these are non-units, we must have that $ N(z_1)=N(z_2)=p $. So $ \overline z_1=z_2 $. Finally we have that $ p= , z_1\overline z_1\mid N(z)=z\overline z $ all of $ z,z_i $ are irreducible so $ z,z_1 $ or $ z,\overline z_1 $ are associates. Hence $ N(z)=p. $\qed
+\begin{corollary}
+  An non-negative integer $ n $ can be written as a sum of two squares if and only if when we write $ n $ as a product of distinct primes,
+  \[
+	  n=p_1^{n_1}p_2^{n_2}\cdots p_k^{n_k}
+  \]
+  $ p_i\equiv 3\mod 4 $ implies that $ n_i $ is even.
+\end{corollary}
+\pf If $ n=x^2+y^2 $ we have that $ n=N(z) $ where $ z=x+iy\in \Z[i] $. Factorise $ z $ into primes, $ z=\alpha_1\cdots\alpha_q $. Either $ \alpha_i $ is a prime number in $ \Z $ that is $ 3\mod 4 $ or it has norm $ p $ where $ p $ is $ 2 $ or $ 1\mod 4 $. Taking norms we get that $ n=x^2+y^2=N(z)=N(\prod \alpha_i)=\prod_i N(\alpha_i) $. Each factor is this product is either $ p^2 $ or $ p\equiv 3\mod 4 $ or $ p $ with $ p=2 $ or $ p\equiv 1\mod 4 $. For the converse let $ n=p_1^{n_1}\cdots p_k^{n_k} $ satisfying hypothesis given. Now we know that $ p_i=N(\alpha_i) $ if $ p_i\equiv 3\mod 4 $, $ p_i^{n_i}=N(p_i)^{\frac{n_i}2} $ otherwise $ p_i=2 $ or $ p_i=1\mod 4 $ so $ p_i=N(\alpha_i) $ for some $ \alpha_i $ so $ p_i^{n_i}=N(\alpha_i^{n_i}) $ so write $ n $ as $ N(z) $ in this way.\qed
 
-
-
-
-
-
-
-
+\subsection{Algebraic integers}
+\begin{definition}
+	(Algebraic integer) A complex number $ \alpha\in \C $ is an \textit{algebraic integer} if it is a root of a monic polynomial in $ \Z[X] $.
+\end{definition}
+\\\\
+For a piece of notation we write $ \Z[\alpha]\le \C $ for an algebraic integer $ \alpha $, as the smallest subring containing $ \alpha $ so
+\[
+	\Z[\alpha]=\bigcap_{\substack{R\le \C \\ \alpha\in R}}R.
+\]
+Or equivalently $ \Z[\alpha] $ is the image of $ e_\alpha:\Z[X]\to \C $ given by $ g\to g(\alpha) $
+\begin{proposition}
+	Let $ \alpha\in \C $ be an algebraic integer. The ideal $ I=\ker (e_\alpha)\nrm \Z[X] $ is principal, and $ I=(f_\alpha) $ with $ f_\alpha $ monic and irreducible.
+\end{proposition}
+Recall that $ \Z[X] $ is not a principal ideal domain, so this proposition is not trival.\\ From our proposition we can use the following definition.
+\begin{definition}
+	(Minimal polynomial) The \textit{minimal polynomial} of an algebraic integer $ \alpha $ is the irreducible monic $ f_\alpha $ such that $ (f_\alpha)=\ker (e_\alpha) $.
+\end{definition}
+Now for the proof of the proposition\\\\
+\pf By definition $ I=\ker e_\alpha $ is non-zero. Take $ f_\alpha\in I $ of minimal degree. We can assume $ f_\alpha $ is primiative (since monic). Now we aim to show that $ I=(f_\alpha) $. Let $ h\in I $. In $ \Q[X] $ we have the Euclidean algorithm so we can write $ h=f_\alpha q+r $ with $ r=0 $ or $ \deg r<\deg f_\alpha $. Now clearing denominators so for some $ a\in \Z $ we get that $ ah=f_\alpha(aq)+(ar) $. Now plugging in $ \alpha $ we get that
+\[
+  ah(\alpha)=f_\alpha(\alpha)aq(\alpha)+ar(\alpha)
+\]
+Since that $ f_\alpha,h\in I $ we get that $ f_\alpha(\alpha)=h(\alpha)=0 $, so we have that $ ar(\alpha)=0 $. So $ (ar)\in I $. But since we have that $ f_\alpha\in I $ has minimal degree, and $ \deg(r)=\deg(ar) $ we must have that $ r=0 $. So we know that $ ah=f_\alpha\cdot (aq) $. This almost what we want, we just need to factorise $ h $ instead of $ ah $. Taking the contents we know that $ c(f_\alpha) $ is a unit so $ c(ah)=c(aq) $, so $ a\mid c(aq) $. Therefore $ aq=a\overline q $ for $ \overline q\in \Z[X] $. So this means that $ q=\overline q\in \Z[X] $. So we know that $ h=f_\alpha q\in (f_\alpha) $. Hence $ I=(f_\alpha) $.\\\\
+Now we're left to show that $ f_\alpha $ is irreducible. We know that
+\[
+	\frac{\Z[X]}{(f_\alpha)}\cong\im(e_\alpha)\le \C.
+\]
+But since $ \C $ is an integral domain all of its subrings are integral domains, so $ \Z[X]/(f_\alpha) $ is an integral domain, so $ (f_\alpha) $ is prime hence $ f_\alpha $ is prime, so it's irreducible.\qed\\\\
+We have plenty of examples of algebraic integers.
+\begin{itemize}
+	\item $ \alpha=i $ is an algebraic integer with $ f_\alpha=X^2+1 $.
+	\item $ \alpha=\frac 12(1+\sqrt{-3}) $ is an algebraic integer with $ f_\alpha=X^2-X-1 $.
+	\item The monic polynomial $ X^5-X+d $ with $ d\in \Z_{\ge 1} $ has exactly one real root which is an algebraic integer.
+\end{itemize}
+\begin{theorem}
+	The real root of $ X^5-X+d $ cannot be written using integers and the operations $ \times, +,-,\divide,\sqrt[n]{} $.
+\end{theorem}
+\pf II Galois Theory
+\begin{proposition}
+  Let $ \alpha\in \Q $ be an algebraic integer. Then $ \alpha\in \Z $.
+\end{proposition}
+\pf Let $ f_\alpha $ be the minimal polynomial of $ \alpha $ irreducible. So by Gauss' lemma we have that the polynomial is also irreducible in $ \Q[X] $. But $ (X-\alpha) $ divides it in $ \Q[X] $ so $ f_\alpha=(X-\alpha) $ hence $ \alpha\in\Z $.\\\\
+It should be noted that the set of algebraic integers form a ring, but this is not obvious and will be proved later.
+\subsection{Hilbert's basis theorem}
+\begin{definition}
+	(Noetherian ring). A ring is \textit{Noetherian} if for any chain of ideals
+	\[
+	  I_1\subseteq I_2\subseteq I_3\subseteq \cdots
+	\]
+	then there is some $ N $ such that $ I_N=I_{N+1}=\cdots $. This is known as the \textit{ascending chain condition} (ACC).
+\end{definition}
+\begin{definition}
+	(Finitely generated ideal) An ideal $ I\nrm R $ is finitely generated if it can be written as $ I=(r_1,\dots, r_n) $ for some $ r_1,\dots, r_n\in R $.
+\end{definition}
+\begin{proposition}
+  A ring $ R $ is Noetherian if and only if every ideal is finitely generated.
+\end{proposition}
+\pf Suppose all ideals are finitely generated. Given the chain $ I_1\subseteq I_2\subseteq \cdots $ Consider
+\[
+	I=\bigcap_{j=1}^\infty I_j.
+\]
+$ I $ is an ideal (Example Sheet 2) so we know that $ I $ is finitely generated, so $ I=(r_1,\dots,r_n) $ with $ r_i\in I_{k_i} $. So let
+\[
+	K=\max_{i=1,\dots n}\{k_i\}.
+\]
+Then we have that $ r_1,\dots,r_n\in I_K $, so $ I_K=I=I_{K+1}=\cdots $ so $ R $ is Noetherian.\\\\
+For the converse if $ I $ is not finitely generated, pick $ r_1\in I $ such that $ I\ne (r_1) $. Pick $ r_2\in I\setminus (r_1) $ such that $ (r_1,r_2)\ne I $, and so on to get $ (r_1)\subseteq (r_1,r_2)\subseteq \cdots $ strictly increasing so $ R $ is not Noetherian. \qed
+\begin{theorem}
+	(Hilbert's basis theorem) Let $ R $ be a Noetherian ring. Then $ R[X] $ is also Noetherian.
+\end{theorem}
+\pf Let $ J\nrm R[X] $ be an ideal. Let $ f_1\in J $ have minimal degree. If $ J \ne (f_1) $ pick $ f_2\in J\setminus (f_1) $ of minimal degree, and so on. If $ J=(f_1,\dots, f_k) $ then we're done so suppose for contradiction we don't get this. Let $ a_i $ be the leading coefficient of $ f_i $. The chain $ (a_1)\subseteq (a_1,a_2)\subseteq \cdots $ stabilises by ACC for $ R $. So for some $ m $ we have that $ (a_1,a_2,\dots, a_m)=(a_1,a_2,\dots) $. Now we let
+\[
+	a_{m+1}=\sum_{i=1}^ma_ib_i
+\]
+and consider the polynomial
+\[
+	g=\sum_{i=1}^mb_if_iX^{\deg f_{m+1}-\deg f_i}.
+\]
+This has the same degree and leading coefficient as $ f_{m+1} $. Then $ f_{m+!}-g $ has smaller degree and lies in $ J $, but not in $ (f_1,\dots f_m) $. This contradicts minimality of $ \deg f_{m+1} $. So the process must terminate, hence $ R[X] $ is Noetherian.\qed
+\\\\
+We also have that $ R[[X]] $ is Noetherian
+\begin{corollary}
+	$ \Z[X_1,X_2,\dots, X_n] $ is Noetherian, and for $ F $ a field $ F[X_1,X_2,\dots, X_n]  $ is Noetherian.
+\end{corollary}
+\pf Let $ J\nrm \frac RI  $ and let $ J'\nrm R $ be the corresponding ideal in $ R $. If $ J' $ is generated by $ r_1,\dots, r_m $ then $ J $ is generated by $ (r_1+I),\dots, (r_m+I) $.\qed
+\\\\
+In fact all finitely-generated rings is a quotient of some $ \Z[X_1,\dots, X_n] $ giving the final corollary of this section.
+\begin{corollary}
+  All finitely-generated rings are Noetherian.
+\end{corollary}
+\pf Obvious \qed
+\section{Modules}
 
 \end{document}
 
