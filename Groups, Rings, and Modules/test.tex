@@ -11,7 +11,7 @@
 \DeclareMathOperator{\aut}{Aut}
 \DeclareMathOperator{\ccl}{ccl}
 \DeclareMathOperator{\syl}{Syl}
-
+\DeclareMathOperator{\Ann}{Ann}
 
 \begin{document}
   \maketitle
@@ -947,8 +947,145 @@ In fact all finitely-generated rings is a quotient of some $ \Z[X_1,\dots, X_n] 
 \end{corollary}
 \pf Obvious \qed
 \section{Modules}
+\subsection{Definitions and examples}
+An example of a module is a vector space over a field $ K $. (Recall a vector space is an abelian group $ V $ with a 'scaling', $ K\times V\to V $.)\\\\
+Another example is that if $ A $ is any abelian group, we can think of $\Z\times A\to A $ sending $ (n,a)\to \underbrace{a+a+\cdots +a}_{n \text{ times} } $
+\begin{definition}
+	(R-module) Let $ R $ be a communiative ring. Then a quadruple $ (M,+,0_M,\circ) $ is an \textit{R-module} if
+	\begin{enumerate}
+		\item $ (M,+,0_M) $ is an abelian group.
+		\item $ \circ:R\times M\to M $ satisfies
+			\begin{enumerate}
+				\item $ (r_1+r_2)\circ m = r_1m+r_2m $;
+				\item $ r\circ (m_1+m_2) = (r\circ m_1)+(r\circ m_2)$;
+				\item $ r_1\circ (r_2\circ m)=(r_1\circ r_2)\circ m $; and
+				\item $ 1_R\circ M = m $.
+			\end{enumerate}
+	\end{enumerate}
+	for all $ m_1,m_2,m\in M $ and $ r_1,r_2,r\in R $.
+\end{definition}
+If $ R=K $ is a field, then an $ R $-module is a $ K $-vector space. Any abelian group is naturally a $ \Z $-module.\\\\
+For any $ R $ the self product $ R^m=\underbrace{R\times\cdots\times R}_{m \text{ times}} $ is an $ R $-module via $ R\times R^m\to R^m $ given by $ (r,r_1,\dots,r_m)\to (rr_1,\dots, rr_m) $.\\\\
+If $ I\nrm R $ then $ I $ is an $ R $-module via multiplication.\\\\
+Similarly the group $ R/I $ is also an $ R $-module via $ R\times R/I\to R/I $ given by $ (r,s+I)\to (rs+I) $.\\\\
+Let $ V $ be a $ K $-vector space and let $ \alpha\in \mathrm{End} $(V)	so $ \alpha $ is a linear map. We can give $ V $ the structure of a module over $ K[X] $ by
+\begin{align*}
+	K[X]\times V\to V \\
+	(f,v)\to f(\alpha)(v)
+\end{align*}
+giving a $ K[X] $-module.\\\\
+Another important example. Let $ \varphi:R\to S $ be a ring homomorphism and let $ M $ be an $ S $-module. We can turn $ M $ into an $ R $-module via:
+\begin{align*}
+  R\times M\to M\\
+  (r,m)\to \varphi(r)m.
+\end{align*}
+In particular this turns $ S $ into an $ R $-module.
+\begin{definition}
+	(Submodule) Let $ M $ be an $ R $-module. A subgroup $ N\subseteq M $ is an $ R $\textit{-submodule} if for every $ n\in N $ and $ r\in R $, we have $ rn\in N $. We write $ N\le M $.
+\end{definition}
+For a non-example $ \R^n $ is an $ \R $-vector space hence it is an $ \R $-module. But $ \Q^n $ is not a $ \R $-submodule because it's not closed under the scaling operation.\\\\
+If $ R=K $ then a $ K $-submodule of $ V $ is just a $ K $-vector subspace.
+
+\begin{definition}
+	(Quotient module) Let $ N\le M $ be an $ R $-module. The \textit{quotient module} is the group $ M/N $ equipped with
+	\begin{align*}
+	  R\times M/N\to M/N \\
+	  (r,m+N)\to (rm+N).
+	\end{align*}
+\end{definition}
+It can be see that this is well defined and itself an $ R $-module.
+
+\begin{definition}
+  Let $ M,N $ be. $ R $-modules. An $ R $-module homomorphism is group homomorphism $ \varphi: M\to N $ such that $ \varphi(rm)=r\varphi(m) $ for all $ r\in R $ and $ m \in M$
+\end{definition}
+\begin{definition}
+	(Isomorphism) An \textit{isomorphism} of $ R $-modules is a bijective homomorphism. We say that the modules are \textit{isomorphic}.
+\end{definition}
+Again we have the isomorphism theorems and a correspondence theorem for modules.
+\begin{theorem}
+	(First isomorphism theorem) Let $ \varphi: M\to N$ be a homomorphism of $ R $-modules. Then
+	\[
+		\ker\varphi=\{m\in M:\varphi(m)=0\}
+	\]
+	is a submodule of $ M $. The image
+	\[
+		\ima\varphi= \{\varphi(m):m\in M\}
+	\]
+	is a submodule of $ N $. Furthermore there is an isomorphism
+	\[
+	  M/\ker\varphi\cong\ima\varphi
+	\]
+\end{theorem}
+\pf Immediate from the first isomorphism theorem of groups.\qed
+
+\begin{theorem}
+	(Second isomorphism theorem) Let $ L,K\le M $ be $ R $-submodules. Then
+	\[
+		K+L=\{k+\ell :k\in K, \ell\in L\} 
+	\]
+	is an $ R $-submodule of $ M $. Moreover
+	\[
+		\frac{K+L}K\cong \frac L{L\cap K}
+	\]
+	is an isomorphism of $ R $-modules.
+\end{theorem}
+\pf Immediate from the second isomorphism theorem of groups.\qed
+\begin{theorem}
+	(Third isomorphism theorem) Let $ N\le L\le M $. Then
+	\[
+		M/L\cong\frac{M/N}{L/N}
+	\]
+	is an isomorphism of $ R $-modules.
+\end{theorem}
+\pf Immediate from the third isomorphism theorem of groups.\qed
+\begin{theorem}
+	(Correspondence theorem) We have the correspondence
+	\[
+		\{\text{Submodules of } M/N\}\leftrightarrow{} \{\text{Submodules of } M \text{ which contain } N \}.
+	\]
+\end{theorem}
+\pf Same as the correspondence theorem for groups.\qed
+\begin{definition}
+	(Annihilator) Let $ M $ be an $ R $-module. For $ m\in M $ its \textit{annihilator} is 
+	\[
+		\Ann(m)=\{r\in R:rm=0\}.
+	\]
+	For any set $ S\subseteq M $ we define
+	\[
+		\Ann(S)=\{r\in R:rm=0\text{ for all } m \in S\}=\bigcap_{s\in S}\Ann(s).
+	\]
+\end{definition}
+We observe that the annihilator of $ S\subseteq M $ is an ideal in $ R $.
+\begin{definition}
+(Submodule generated by an element) Let $ M $ be a $ R $-module and $ m\in M $. The submodule generated by $ m $ is
+\[
+	Rm=\{rm\in M:r\in R\}.
+\]
+\end{definition}
+\begin{proposition}
+  For $ m\in M $ there is an isomorphism $ R/\Ann(m)\cong Rm $.
+\end{proposition}
+\pf Consider the function $ R\to M $ sending $ r\to rm $. This is clearly a $ R $-module homomorphism, so the result follows from the first isomorphism theorem.\qed
+\begin{definition}
+	(Finite generation) An $ R $-module $ M $ is finitely generated if there exists elements $ m_1,\dots,m_k $ such that
+	\[
+		M=Rm_1+Rm_2+\cdots Rm_k=\{r_1m_1+\cdots r_km_k:r_i\in R\}.
+	\]
+\end{definition}
+\begin{lemma}
+  An $ R $-module $ M $ is finitely generated if and only if there is a surjective $ R $-module homomorphism from $ R^k\to M $.
+\end{lemma}
+\pf If $ M =Rm_1+\cdots+Rm_k $ then consider
+\begin{align*}
+  R^k\to M \\
+  (r_1,\dots,r_k)\to \sum r_im_i,
+\end{align*}
+clearly surjective homomorphism.
+Conversely if $ \varphi:R^K\to M $ is given, let $ \e_i=(0,\dots, 0,1,0,\dots, 0) $ with a $ 1 $ in the $ i $th position and $ m_i =\varphi(e_i) $ and now we can check that $ m_i $ generates $ M $ by surjectivity. \qed
+
 
 \end{document}
+
 
 
 
