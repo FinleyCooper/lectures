@@ -24,11 +24,11 @@
   We'll start with some simple definitions covered in IA Groups
   \begin{definition}
 	  A group is a \textit{triple}, $ (G,\circ,e) $ consisting of a set $ G $, a binary operation $ \circ:G\times G\rightarrow G $ and an identity element $ e\in G $ where we have the following three properties,
-          \begin{itemize}	  
+          \begin{enumerate}	  
 		  \item $ \forall a,b,c\in G, (a\circ b) \circ c =a\circ(b\circ c) $
 	          \item $ \forall a\in G, a\circ e = e\circ a = a $
 		  \item $ \forall a\in G, \exists \inv a \in G, a \circ \inv a = \inv a \circ a = e $
-          \end{itemize}
+          \end{enumerate}
   We say that the \textit{order} of the group $ (G,\circ, e) $ is the size of the set $ G $	
   \end{definition}
 
@@ -37,12 +37,12 @@
 \end{proposition}
 \textit{Proof.} Basic algebraic manipulation, covered in Part IA Groups.
 \begin{definition}
-	If $ G $ is a group, then a subset $ H\subseteq G $ is a \testit{subgroup} if the following hold,
-\begin{itemize}
+	If $ G $ is a group, then a subset $ H\subseteq G $ is a \textit{subgroup} if the following hold,
+\begin{enumerate}
 	\item $ e\in H $
 	\item If $ a,b\in H $ then $ a\circ b\in H $
 \item $ (H,\circ, e) $ forms a group.
-\end{itemize}
+\end{enumerate}
 \end{definition}
 Now we'll give simple test for a subset being a subgroup
 \begin{lemma}
@@ -53,36 +53,37 @@ Now we'll give simple test for a subset being a subgroup
   A group $ G $ is abelian if $ \forall g_1,g_2\in G $ we have that $ g_1g_2=g_2g_1 $
 \end{definition}
 Let's look at some examples of groups.
-\begin{itemize}
+\begin{enumerate}
 	\item The integers under addition, $ (\mathbb Z, +) $
 	\item The integers modulo $ n $ under addition $ (\mathbb Z_n, +_n) $
 	\item The rational numbers under addition $ (\mathbb Q, +) $
 	\item The set of all bijections from $ \{1,\cdots,n\} $ to itself with the operation given by functional composition, $ S_n $
 	\item The set of all bijections from a set $ X $ to itself under functional composition is a group $ \mathrm{Sym}(X) $
 	\item The dihedral group, $ D_{2n} $ the set of symmetries of the regular $ n $-gon
-\item The general linear group over $ \mathbb R $, $ \mathrm{GL}(n,\mathbb R) $, is the set of functions from $ \mathbb R\rightarrow \mathbb R $ which are linear and invertiable. Or we can think of the group as the set of $ n\times n $ invertiable matrices under matrix multiplication. We can view this group as a subgroup of $ \mathrm{Sym}(\mathbb R^n) $
+\item The general linear group over $ \mathbb R $, $ \mathrm{GL}(n,\mathbb R) $, is the set of functions from $ \mathbb R\rightarrow \mathbb R $ which are linear and invertible. Or we can think of the group as the set of $ n\times n $ invertible matrices under matrix multiplication. We can view this group as a subgroup of $ \mathrm{Sym}(\mathbb R^n) $
 \item The subgroup of $ S_n $ which are even permutations, so can be written as a product of evenly many transpositions, $ A_n $
 \item The subgroup of $ D_{2n} $ which are only the rotation symmetries which is denoted by $ C_n $
-\item The subgroup of $ \mathrm {GL}(n,\mathbb R) $ of matrices which have determinate $ 1 $ which is $ \mathrm {SL}(n,\mathbb R) $
+\item The subgroup of $ \mathrm {GL}(n,\mathbb R) $ of matrices which have determinant $ 1 $ which is $ \mathrm {SL}(n,\mathbb R) $
 \item The Klein four-group, which is $ K_4=C_2\times C_2 $, the symmetries of the non-square rectangle
 \item The quaternions, $ Q_8 $ with the elements $ \{\pm 1, \pm i, \pm j, \pm k\} $ with multiplication defined with $ ij =k, ji = -k $, $ i^2=j^2=k^2=-1 $
+\end{enumerate}
 	\subsection{Cosets}
 	\begin{definition}
 		Let $ G $ be a group and $ g\in G $. Let $ H $ be a subgroup of $ G $. The \textit{left coset}, written as $ gH $ is the set $ \{gh : h\in H\} $
 	\end{definition}
 Some observations we can make are,
-\begin{itemize}
+\begin{enumerate}
 	\item Since $ e\in H $ we have that $ g\in gH $. So every element is in some coset
 	\item The cosets partition, so if $ gH\cap g'H\ne \emptyset $ then $ gH=g'H $
 	\item The function, $ f: H\rightarrow gH $ defined by $ f(h)= gh $ is a bijection, so all cosets are the same size
-\end{itemize}
+\end{enumerate}
 \begin{theorem}
 	(Lagrange's Theorem) If $ G $ is a finite group, then for a subgroup $ H $ of $ G $, $ |G|=|H||G:H| $, where $ |G:H| $ is the number of left cosets of $ H $ in $ G $
 \end{theorem}
 \textit{Proof.} Obvious from the observations we've just made.
 
 \begin{definition}
-	Let $ G $ be a group, and take some element $ g\in G $. We define the \textit{order} of $ g $ as the smallest positive integer $ n $, such that $ g^n = e $. If no such $ n $ exists, we say the order of $ g $ is infinite. We denote the order by \mathrm {ord}(g).
+	Let $ G $ be a group, and take some element $ g\in G $. We define the \textit{order} of $ g $ as the smallest positive integer $ n $, such that $ g^n = e $. If no such $ n $ exists, we say the order of $ g $ is infinite. We denote the order by $ \mathrm {ord}(g) $.
 \end{definition}
 \begin{proposition}
 	Let $ G $ be a group and $ g\in G $. Then $ \mathrm {ord}(g) $ divides $ |G| $
@@ -93,12 +94,16 @@ When does $ gH=g'H $? Then $ g\in g'H $, so we have that $ \inv {g'}g\in H $. Th
 \begin{lemma}
 	For a group $ G $ with $ g, g'\in G $ and subgroup $ H $ we have that $ gH=g'H $ if and only if $ \inv {g'} g\in H $
 \end{lemma}
-\textit{Proof.} In Part IA Groups\\\\ 
-Let $ G/H = \{gH:g\in G\} $ be the set of left cosets. This partitions $ G $. Does $ G/H $ have a natural group structure?\\
-We propose the formula that $ g_1H\cdot g_2H=(g_1g_2)\cdot H $ for a group law on $ G/H $.\\
-We need to check well definedness of this proposed formula.\\
-\textit{Case 1:} Suppose that $ g_2H=g_2'H. $ Then $ g_2'=g_2h $ for some $ h\in H $. $ (g_1H)\cdot (g_2'H)=g_1g_2'H $ by the proposed formula. By the previous relation this is $ g_1g_2hH=g_1g_2H $.\\\\
-\textit{Case 2:} Suppose that $ g_1H=g_1'H $ we have that $ g_1'=g_1h $ for some $ h\in H $. We need $ g_1g_2 H = \underbrace{g_1h}_{g'_1}g_2H $. Equivalently we need that $ \inv{(g_1g_2)}g_1hg_2\in H $. Or equivalently still, $ \inv{g_2}hg_2\in H $ for all $ g_2 $ and $ h $. This the definition of normality.
+\textit{Proof.} In Part IA Groups
+\par
+Let $ G/H = \{gH:g\in G\} $ be the set of left cosets. This partitions $ G $. Does $ G/H $ have a natural group structure?
+
+We propose the formula that $ g_1H\cdot g_2H=(g_1g_2)\cdot H $ for a group law on $ G/H $.
+
+We need to check well definedness of this proposed formula.
+\textit{Case 1:} Suppose that $ g_2H=g_2'H. $ Then $ g_2'=g_2h $ for some $ h\in H $. $ (g_1H)\cdot (g_2'H)=g_1g_2'H $ by the proposed formula. By the previous relation this is $ g_1g_2hH=g_1g_2H $.
+\par
+\textit{Case 2:} Suppose that $ g_1H=g_1'H $ we have that $ g_1'=g_1h $ for some $ h\in H $. We need $ g_1g_2 H = \underbrace{g_1h}_{g'_1}g_2H $. Equivalently we need that $ \inv{(g_1g_2)}g_1hg_2\in H $. Or equivalently still, $ \inv{g_2}hg_2\in H $ for all $ g_2 $ and $ h $. This is the definition of normality.
 \begin{definition}
 		(Normality) A subgroup $ H\le G $ is \textit{normal} if $ \forall g \in G $, $ h\in H $, we have that $ gh\inv g\in H $
 \end{definition}
@@ -114,8 +119,10 @@ This is a very constrained condition. For example $ f(e_G)=e_H $ always. To see 
 \begin{lemma}
 	If $ f:G\rightarrow H $ is a homomorphism. Then $ f(\inv g)=\inv{f(g)} $
 \end{lemma}
-\textit{Proof.} Calculate $ f(g\inv g) $ in two ways.\\
-	In the first way $ f(g\inv g)=f(e)=e, $ in the second way $ f(g\inv g)=f(g)f(\inv g). $\\
+\textit{Proof.} Calculate $ f(g\inv g) $ in two ways.
+
+In the first way $ f(g\inv g)=f(e)=e, $ in the second way $ f(g\inv g)=f(g)f(\inv g). $
+
 Equating gives that $ f(\inv g)=\inv{f(g)}. $\qed
 \begin{definition}
 	Let $ f:G\rightarrow H $ be a homomorphism. The \textit{kernal} of $ f $ is $ \ker f =\{g\in G: f(g)=e\} $. The \textit{image} of $ f $ is $ \ima f=\{ h\in H: h=f(g)\text{ for some } g\in G\} $.
@@ -123,39 +130,49 @@ Equating gives that $ f(\inv g)=\inv{f(g)}. $\qed
 \begin{proposition}
 	Let $ f:G\rightarrow H $ be a homomorphism. Then $ \ker f \triangleleft G $ and $ \ima f \le H.$
 \end{proposition}
-\textit{Proof.} First let's proof that $ \ker f $ is a subgroup by the subgroup test. Observe by the lemma that $ e\in\ker f. $. If $ x,y \in\ker f $, then $ f(x\inv y)=f(x)\inv{f(y)}=e\implies x\inv y\in \ker f $. For normality, let $ x\in G $ and $ g\in\ker f $. Calculate $ f(xg\inv x)=f(x)f(g)\inv{f(x)} $. But $ f(g)=e $. So we just get the identity. Hence we have that $ xg\inv x\in\ker f. $ So $ ker f\nrm G $.\\
-	To check that the $ \ima f \le H $, take $ a,b\in \ima f $, say that $ a=f(x), b=f(y) $. Then $ a\inv b=f(x)\inv{f(y)}=f(x\inv y) $. But $ x\inv y\in G $ so $ f(x\inv y)\in \ima f $. Also $ e\in \ima f $, so we have that $ \ima f\le H $.\qed
+\textit{Proof.} First let's proof that $ \ker f $ is a subgroup by the subgroup test. Observe by the lemma that $ e\in\ker f. $. If $ x,y \in\ker f $, then $ f(x\inv y)=f(x)\inv{f(y)}=e\implies x\inv y\in \ker f $. For normality, let $ x\in G $ and $ g\in\ker f $. Calculate $ f(xg\inv x)=f(x)f(g)\inv{f(x)} $. But $ f(g)=e $. So we just get the identity. Hence we have that $ xg\inv x\in\ker f. $ So $ ker f\nrm G $.
+
+To check that the $ \ima f \le H $, take $ a,b\in \ima f $, say that $ a=f(x), b=f(y) $. Then $ a\inv b=f(x)\inv{f(y)}=f(x\inv y) $. But $ x\inv y\in G $ so $ f(x\inv y)\in \ima f $. Also $ e\in \ima f $, so we have that $ \ima f\le H $.\qed
 \begin{definition}
 	(Isomorphism) A homomorphism $ f:G\rightarrow H $ is an \textit{isomorphism} if it is a bijection. Two groups are called \textit{isomorphic} if there exists an isomorphism between them.
 \end{definition}
 \begin{theorem}
 	(First isomorphism theorem) Let $ f:G\to H $ be a homomorphism. Then $ \ker f $ is normal, and the function $ \varphi:G/\ker f\rightarrow \ima f $, by $ \varphi(g\ker f)=f(g) $, is a well-defined, isomorphism of groups.
 \end{theorem}
-\pf Already shown $ \ker f\nrm G $. Consider whenever $ \varphi $ is well-defined. Suppose that $ g\ker f=g'\ker f. $ Need to check $ \varphi(g\ker f)=\varphi(g'\ker f). $ We know that $ g\inv{g'}\in \ker f $, so $ f(g'\inv g)=e\iff f(g')=f(g) $. To see that $ \varphi $ is a homomorphism: $ \varphi(g\ker f g'\ker f)=\varphi(gg'\ker f)=f(gg')=f(g)f(g')=\varphi(g\ker f)\varphi(g'\ker f) $. So $ \varphi $ is a homomorphism.\\\\
-Finally let's check $ \varphi $ is bijective. First for surjectivity, let $ h\in \ima f $, then $ h=f(g) $ for some $ g\in G $. So we have that $ h=\varphi(g\ker f) $.\\
-Now for injectivity, $ \varphi(g\ker f)=\varphi(g'\ker f)\implies f(g)=f(g') \implies g'\inv g\in\ker f $. Hence the cosets are the same by the coset equality criterion, so we have that $ g\ker f=g'\ker f $, hence we have injectivity, so $ \varphi $ is an isomorphism.\\
-\\
+\pf Already shown $ \ker f\nrm G $. Consider whenever $ \varphi $ is well-defined. Suppose that $ g\ker f=g'\ker f. $ Need to check $ \varphi(g\ker f)=\varphi(g'\ker f). $ We know that $ g\inv{g'}\in \ker f $, so $ f(g'\inv g)=e\iff f(g')=f(g) $. To see that $ \varphi $ is a homomorphism: $ \varphi(g\ker f g'\ker f)=\varphi(gg'\ker f)=f(gg')=f(g)f(g')=\varphi(g\ker f)\varphi(g'\ker f) $. So $ \varphi $ is a homomorphism.
+
+\par
+Finally let's check $ \varphi $ is bijective. First for surjectivity, let $ h\in \ima f $, then $ h=f(g) $ for some $ g\in G $. So we have that $ h=\varphi(g\ker f) $.
+
+Now for injectivity, $ \varphi(g\ker f)=\varphi(g'\ker f)\implies f(g)=f(g') \implies g'\inv g\in\ker f $. Hence the cosets are the same by the coset equality criterion, so we have that $ g\ker f=g'\ker f $, hence we have injectivity, so $ \varphi $ is an isomorphism.
+
+\par
 For an example of this theorem, consider the groups $ (\mathbb C, +) $ and $ (\mathbb C^*, \times) $ related by the homomorphism, $ \varphi(z)= e^z$. The kernal of $ \exp $ is exactly, $ 2\pi i \mathbb Z\le \mathbb C $, so the first isomorphism theorem gives that $ \frac{\mathbb C}{2\pi i \mathbb Z}\cong \mathbb C^* $. \textit{(Try to visualise this!)}\qed 
 \begin{theorem}
 	(Second isomorphism theorem) Let $ H\le G $ and $ K\nrm G $. Then $ HK=\{hk : h\in H, k\in K\} $ is a subgroup of $ G $, the set $ H\cap K$ is normal in H, and $ \frac{HK}K\cong \frac H{H\cap K} $.
 \end{theorem}
-\pf We take the statements in turn. First we can see that $ HK $ is a subgroup. Clearly it contains the identity, and take some $ x,y\in HK $, $ x=hk, y=h'k' $. We will show that $ y\inv x\in HK $. Observe that $ y\inv x = h'k'\inv k \inv h = h'(\inv h h)(k' \inv k)\inv h = (h'\inv h)h\underbrace{(k'\inv k)}_{k''}\inv h $. But we have that $ hk''\inv h \in K $ by the normality of $ K $, hence $ y\inv x \in HK $. So we have that $ HK\le G $.\\\\
-Now we prove that $ H\cap K\nrm G $. Consider the homomorphism, $ \varphi: H\to G/K $, defined as $ \varphi(h)=hK $. This is a well defined homomorphism for the same reason that the group structure $ G/K $ is well-defined. The kernal of $ \varphi $, is $ \ker \varphi = \{h: hK=K\}=\{h:h\in K\}=H\cap K\nrm G $.\\\\
-Now finally we're left to prove the isomorphism. Now apply the first isomorphism theorem to $ \varphi $. This tells us that $ \frac H{\ker \varphi}=\frac H {H\cap K}\cong \ima \varphi $. The image of the $ \varphi $ is exactly those coests of $ K $ in $ G $ that can be represented as $ hK $ which is exactly $ \frac{HK}K $.\qed\\
+\pf We take the statements in turn. First we can see that $ HK $ is a subgroup. Clearly it contains the identity, and take some $ x,y\in HK $, $ x=hk, y=h'k' $. We will show that $ y\inv x\in HK $. Observe that $ y\inv x = h'k'\inv k \inv h = h'(\inv h h)(k' \inv k)\inv h = (h'\inv h)h\underbrace{(k'\inv k)}_{k''}\inv h $. But we have that $ hk''\inv h \in K $ by the normality of $ K $, hence $ y\inv x \in HK $. So we have that $ HK\le G $.
+
+\par
+Now we prove that $ H\cap K\nrm G $. Consider the homomorphism, $ \varphi: H\to G/K $, defined as $ \varphi(h)=hK $. This is a well defined homomorphism for the same reason that the group structure $ G/K $ is well-defined. The kernal of $ \varphi $, is $ \ker \varphi = \{h: hK=K\}=\{h:h\in K\}=H\cap K\nrm G $.
+
+\par
+Now finally we're left to prove the isomorphism. Now apply the first isomorphism theorem to $ \varphi $. This tells us that $ \frac H{\ker \varphi}=\frac H {H\cap K}\cong \ima \varphi $. The image of the $ \varphi $ is exactly those coests of $ K $ in $ G $ that can be represented as $ hK $ which is exactly $ \frac{HK}K $.\qed
 \begin{theorem}
 	(Correspondence theorem). Consider a group $ G $ with $ K\nrm G $, with the homomorphism $ p:G\to G/K $, by $ p(g)=gK $. Then there is a bijection between the subgroups of $ G $ which contain $ K $ and the subgroups of $ G/K $.
 \end{theorem}
-\pf For some subgroup $ L $, we have $ K\nrm L \le G $, and we map $ L $ to $ L/K $, so we have that $ L/K\le G/K $. In the reverse direction, for a subgroup $ A\le G/K $, we map it to $ \{g\in G: gK\in A\} $.\\
+\pf For some subgroup $ L $, we have $ K\nrm L \le G $, and we map $ L $ to $ L/K $, so we have that $ L/K\le G/K $. In the reverse direction, for a subgroup $ A\le G/K $, we map it to $ \{g\in G: gK\in A\} $.
 We can think of this as taking $ L\to p(L) $ and $ \inv p(A)\leftarrow A $.
-\\\\ Now we will state some facts without proof. (Although the proofs are fairly straightforward).
-\begin{itemize}
+\par Now we will state some facts without proof. (Although the proofs are fairly straightforward).
+\begin{enumerate}
 	\item This is a bijection.
 	\item This correspondence maps normal subgroups to normal subgroups.
-\end{itemize}
+\end{enumerate}
 \begin{theorem}
 	(Third isomorphism theorem) Let $ K,L $ be normal subgroups of $ G $ with $ K\le L\le G $. Then we have that $ \frac{G/K}{L/K}\cong \frac GL $.
 \end{theorem}
-\pf Define a map $ \varphi: G/K \rightarrow G/L $, by $ \varphi(gK)=gL $. First we'll show that $ \varphi $ is a well-defined homomorphism, then we'll calculate the image and kernal, and finally apply the first isomophism theorem. To see well-definedness, if $ gK=g'K $, then $ g'\inv g\in K\subseteq L $, so $ g'L=gL $, so $ \varphi $ is well-defined. Obviously a homomorphism.\\
+\pf Define a map $ \varphi: G/K \rightarrow G/L $, by $ \varphi(gK)=gL $. First we'll show that $ \varphi $ is a well-defined homomorphism, then we'll calculate the image and kernal, and finally apply the first isomophism theorem. To see well-definedness, if $ gK=g'K $, then $ g'\inv g\in K\subseteq L $, so $ g'L=gL $, so $ \varphi $ is well-defined. Obviously a homomorphism.
+
 The kernal of $ \varphi $ is $ \ker \varphi = \{gK:gL=L\} =\{gK: g\in L\} = L/K $. $ \varphi $ is clearly surjective, so we conclude by the first isomorphism theorem that $ \frac{G/K}{L/K}\cong \frac GL $.\qed
 \begin{definition}
 	(Simple groups) A group $ G $ is called \textit{simple} if the only normal subgroups are $ G $ itself and $ \{ e \} $.
@@ -168,7 +185,9 @@ The kernal of $ \varphi $ is $ \ker \varphi = \{gK:gL=L\} =\{gK: g\in L\} = L/K 
 	(Composition series) Let $ G $ be a finite group. Then there exists subgroups such that, $ G=H_1\triangleright H_2\triangleright H_3\triangleright\cdots \triangleright H_n=\{e\} $, such that $ \frac {H_i}{H_{i+1}} $ is simple.
 \end{theorem}
 \pf If $ G $ is simple then take $ H_2=\{e\} $ and we're done. Otherwise, let $ H_2 $ be a proper normal subgroup of maximal order in $ G $. We claim that $ G/H_2 $ is simple. To see this, suppose not and consider $ \varphi: G\to G/H_2 $.
- By non-simplicity and correspondence between normal subgroups, we find a proper normal in $ G/H_2 $ and therefore a proper normal $ K\nrm G $. This leads to a contradiction as $ K $ contains $ H_2 $ non-trivally, so we contradict maximality, so $ G/H_2 $ is simple. Now we continue by replacing $ G $ with $ H_2 $ and iterate the process. Either we get that $ H_2 $ simple and we're done again, or we get find a proper normal subgroup $ H_3\nrm H_2 $ of maximal order. This process must terminate, since $ G $ is finite and the order is strictly decreasing in each step.\qed\\\\
+ By non-simplicity and correspondence between normal subgroups, we find a proper normal in $ G/H_2 $ and therefore a proper normal $ K\nrm G $. This leads to a contradiction as $ K $ contains $ H_2 $ non-trivally, so we contradict maximality, so $ G/H_2 $ is simple. Now we continue by replacing $ G $ with $ H_2 $ and iterate the process. Either we get that $ H_2 $ simple and we're done again, or we get find a proper normal subgroup $ H_3\nrm H_2 $ of maximal order. This process must terminate, since $ G $ is finite and the order is strictly decreasing in each step.\qed
+
+\par
  We know from Part IA groups that $ A_5 $ is simple. We see a series like this for $ S_5 $, namely, $ S_5\triangleright A_5\triangleright \{e\} $.
  \subsection{Groups actions and permutations}
 
@@ -176,11 +195,11 @@ The kernal of $ \varphi $ is $ \ker \varphi = \{gK:gL=L\} =\{gK: g\in L\} = L/K 
 	Let $ X $ be a set. Let $ \sym(x) $ denote the symmetric group of $ X $ and $ S_n=\sym([n]) $ where we have that $ [n]=\{1,2,\dots, n\} $.
 \end{definition}
 Reminders from IA Groups:
-\begin{itemize}
+\begin{enumerate}
 	\item We can write any $ \sigma\in S_n $ as a product of disjoint cycles.
 	\item If $ \sigma \in S_n $ we can write $ \sigma $ as a product of transpositions. The number of transpositions needed to write $ \sigma $ is well-defined modulo 2. This is called the sign of the transposition, denoted by $ \mathrm {sgn} $, where $ \mathrm{sgn}: S_n\to \{\pm 1\} $.
-	\item \mathrm{sgn} is a homomorphism between the groups where $ \{\pm 1\} $ is given the unique group structure. When $ n\ge 3 $, the homomorphism is surjective.
-\end{itemize}
+	\item $ \mathrm{sgn} $ is a homomorphism between the groups where $ \{\pm 1\} $ is given the unique group structure. When $ n\ge 3 $, the homomorphism is surjective.
+\end{enumerate}
 \begin{definition}
 	(Alternating group) The \textit{alternating group} $ A_n $ is the kernal of $ \mathrm{sgn} $.
 \end{definition}
@@ -188,16 +207,25 @@ A homomorphism $ \varphi: G\to \sym(X) $ is called a permutation representation 
 \begin{definition}
 	(Group action) An \textit{action} of $ G $ on a set $ X $ is a function $ \tau:G\times X\to X $ sending $ (g,x) \to \tau(g,x)\in X $ such that $ \tau(e,x)=x, \forall x\in X $, and $ \tau(g_1,\tau(g_2,x))=\tau(g_1g_2,x), \forall g_1g_2\in G, \forall x\in X $.
 \end{definition}
-How are actions and permmutation representations related?\\
+How are actions and permmutation representations related?
+
 For some homomorphism, $ \varphi: G\to\sym(X) $ we map the homomorphism to $ a(\varphi):G\times X\to X $, where $ (g,x)\to\varphi(g)(x) $.
 \begin{proposition}
   The funtion $ a $ above is a bijection from the set of homomorphism from $ G\to\sym(X) $ to the set of actions from $ G $ on $ X $.
 \end{proposition}
-\pf We'll construct an inverse of $ a $. Given a group action $ *:G\times X \to X $. Define $ \varphi(*): G\to \sym(X) $ defined by sending $ g\to\varphi(*)(g) $, where $ \varphi(*)(g)(x)=g*x $. We aim to show that $ \varphi(*)(g):X\to X $ is a permutation. We have an inverse $ \varphi(*)(\inv g) $, and to see that it is a homomorphism $ \varphi(*)(g_1)\varphi(*)(g_2)(x)=g_1*(g_2*x)=(g_1g_2)*x=\varphi(*)(g_1g_2)(x) $. This is true for all $ x $, so the construction is a group homomorphism.\qed\\
-\\  \textit{Notation}: Given a group action $ G $ acting on $ X $ given by $ \varphi:G\to\sym(X) $, denote $ G^X=\ima(\varphi) $, and $ G_X=\ker(\varphi) $. By the first isomorphism theorem we have that $ G_X\nrm G $ and $ G/G_X\cong G^X $.\\\\
-For an example, consider the unit cube. Let $ G $ be the symmetric group it. Now let $ X $ be the set of (body) diagonals of the cube. Any element of $ G $ sends a diagonal to another diagonal, we get an action $ G\to\Sym(X)\cong S_4 $. The kernal $ G_X=\ker(\varphi)=\{\id, \text{ send each vertex to its opposite} \} $. Easy exercise to check that any diagonal can be sent to any other diagonal, so $ G^X=\ima (\varphi)=\sym(X) $. So by the first isomorphism theorem, we have that $ S_4\cong G^X\cong G/G_X\implies \frac{|G|}2 = 4!\implies |G|=48 $.\\\\
-For the next example let's look at a group acting on itself. Let $ G $ act on itself by $ G\times G\to G $, sending $ (g,g_1)\to gg_1 $. This gives a homomorphism $ G\to \sym(G) $ (easy to check that $ \varphi $ is injective since the kernal is trival). By the first isomorphism theorem we get that every group is isomorphism to a subgroup of a symmetric group (Cayley's theorem).\\\\
-Now let $ H\le G $ and let $ X=G/H $, let $ G $ act on $ X $ by $ g*g_1H=gg_1 H $. We get $ \varphi G\to\sym(X) $. Consider $ G_X=\ker \varphi $. If $ g\in G_X $, then $ gg_1H=g_1H, \forall g_1\in G $, so $ \inv {g_1}gg_1 H=H\implies G_X\subseteq \bigcap_{g_1\in G} g_1H\inv{g_1}.$ This argument is completely reversible, so if $ g\in\bigcap_{g_1}g_1H\inv g_1, $ then for each $ g_1\in G, $ we have \inv{g_1}gg_1\in H, so $ g\in G_X\implies G_X=\bigcap_{g_1\in G}g_1H\inv{g_1} $. Since $ G_X $ is a kernal and is a subset of $ H $, we've got a way of making $ H $ smaller and making it normal. This is the largest normal subgroup contained in $ H $.
+\pf We'll construct an inverse of $ a $. Given a group action $ *:G\times X \to X $. Define $ \varphi(*): G\to \sym(X) $ defined by sending $ g\to\varphi(*)(g) $, where $ \varphi(*)(g)(x)=g*x $. We aim to show that $ \varphi(*)(g):X\to X $ is a permutation. We have an inverse $ \varphi(*)(\inv g) $, and to see that it is a homomorphism $ \varphi(*)(g_1)\varphi(*)(g_2)(x)=g_1*(g_2*x)=(g_1g_2)*x=\varphi(*)(g_1g_2)(x) $. This is true for all $ x $, so the construction is a group homomorphism.\qed
+
+\par
+\par \textit{Notation}: Given a group action $ G $ acting on $ X $ given by $ \varphi:G\to\sym(X) $, denote $ G^X=\ima(\varphi) $, and $ G_X=\ker(\varphi) $. By the first isomorphism theorem we have that $ G_X\nrm G $ and $ G/G_X\cong G^X $.
+
+\par
+For an example, consider the unit cube. Let $ G $ be the its symmetric group. Now let $ X $ be the set of (body) diagonals of the cube. Any element of $ G $ sends a diagonal to another diagonal, we get an action $ G\to\sym(X)\cong S_4 $. The kernal $ G_X=\ker(\varphi)=\{e, \text{ send each vertex to its opposite} \} $. Easy exercise to check that any diagonal can be sent to any other diagonal, so $ G^X=\ima (\varphi)=\sym(X) $. So by the first isomorphism theorem, we have that $ S_4\cong G^X\cong G/G_X\implies \frac{|G|}2 = 4!\implies |G|=48 $.
+
+\par
+For the next example let's look at a group acting on itself. Let $ G $ act on itself by $ G\times G\to G $, sending $ (g,g_1)\to gg_1 $. This gives a homomorphism $ G\to \sym(G) $ (easy to check that $ \varphi $ is injective since the kernal is trival). By the first isomorphism theorem we get that every group is isomorphism to a subgroup of a symmetric group (Cayley's theorem).
+
+\par
+Now let $ H\le G $ and let $ X=G/H $, let $ G $ act on $ X $ by $ g*g_1H=gg_1 H $. We get $ \varphi G\to\sym(X) $. Consider $ G_X=\ker \varphi $. If $ g\in G_X $, then $ gg_1H=g_1H, \forall g_1\in G $, so $ \inv {g_1}gg_1 H=H\implies G_X\subseteq \bigcap_{g_1\in G} g_1H\inv{g_1}.$ This argument is completely reversible, so if $ g\in\bigcap_{g_1}g_1H\inv g_1, $ then for each $ g_1\in G, $ we have $ \inv{g_1}gg_1\in H $, so $ g\in G_X\implies G_X=\bigcap_{g_1\in G}g_1H\inv{g_1} $. Since $ G_X $ is a kernal and is a subset of $ H $, we've got a way of making $ H $ smaller and making it normal. This is the largest normal subgroup contained in $ H $.
 \begin{theorem}
 	  Let $ G $ be finite and $ H\le G $ of index $ n $. There exists a normal subgroup of $ G $, $ K\nrm G $, with $ K\le H $, such that $ G/K $ is isomorphic to a subgroup of $ S_n $. Thus, $ |G/K| $ divides $ n! $, and $ |G/K|\ge n$.
 \end{theorem}
@@ -205,7 +233,7 @@ Now let $ H\le G $ and let $ X=G/H $, let $ G $ act on $ X $ by $ g*g_1H=gg_1 H 
 \begin{corollary}
 	  Let $ G $ be non-abelian and simple. Let $ H\le G $ be a proper subgroup of index $ n>1 $. Then $ G $ is isomorphism to a subgroup $ A_n $. Moreover, $ n\ge 5, $ i.e. no subgroup of index less than $ 5 $.
 \end{corollary}
-\pf Action of $ G $ on the set $ X=G/H $ gives a homomorphism $ \varphi:G\to \sym(X)\cong S_n $. Since the kernal is normal, since $ G $ is simple it is either $ G $ or $ \{e\} $. Since $ H $ is a proper subgroup, for some $ g\in G $, $ gH\ne H $, so we must have that $ \ker \varphi=\{e\} $. So $ G\cong \ima\varphi\le S_n $. Now we want to show that $ \ima\varphi\le A_n $. To see this observe that $ A_n\nrm S_n $. Consider $ A_n\cap \ima\varphi\le \ima\varphi $. By the second isomorphism theorem, $ \ima\varphi\cap A_n\nrm \ima\varphi\implies\ima\varphi\cap A_n=\{e\} $ or $ \ima\varphi $ itself. By the rest of the second isomorphism theorem, if $ \ima\varphi\cap A_n=\{e\}\implies \ima\varphi\cong\frac{\ima\varphi}{\ima\varphi\cap A_n}\cong \frac{\ima\varphi A_n}{A_n}\le \frac{S_n}{A_n} \cong C_2 $, but $ G $ is non-abelian, so $ \ima \varphi $ is non-abelian, so we have a contradiction. So we have that $ \ima\varphi\cap A_n =\ima\varphi $, so $ \ima \varphi $ is a subgroup of $ A_n $.\\
+\pf Action of $ G $ on the set $ X=G/H $ gives a homomorphism $ \varphi:G\to \sym(X)\cong S_n $. Since the kernal is normal, since $ G $ is simple it is either $ G $ or $ \{e\} $. Since $ H $ is a proper subgroup, for some $ g\in G $, $ gH\ne H $, so we must have that $ \ker \varphi=\{e\} $. So $ G\cong \ima\varphi\le S_n $. Now we want to show that $ \ima\varphi\le A_n $. To see this observe that $ A_n\nrm S_n $. Consider $ A_n\cap \ima\varphi\le \ima\varphi $. By the second isomorphism theorem, $ \ima\varphi\cap A_n\nrm \ima\varphi\implies\ima\varphi\cap A_n=\{e\} $ or $ \ima\varphi $ itself. By the rest of the second isomorphism theorem, if $ \ima\varphi\cap A_n=\{e\}\implies \ima\varphi\cong\frac{\ima\varphi}{\ima\varphi\cap A_n}\cong \frac{\ima\varphi A_n}{A_n}\le \frac{S_n}{A_n} \cong C_2 $, but $ G $ is non-abelian, so $ \ima \varphi $ is non-abelian, so we have a contradiction. So we have that $ \ima\varphi\cap A_n =\ima\varphi $, so $ \ima \varphi $ is a subgroup of $ A_n $.\par
 For the next part of the corollary, $ S_1,S_2 $ are abelian and $ S_3,S_4 $ have no non-abelian simple subgroups, so we must have $ n\ge 5 $.\qed
 
 \begin{definition}
@@ -216,7 +244,9 @@ For the next part of the corollary, $ S_1,S_2 $ are abelian and $ S_3,S_4 $ have
 \end{theorem}
 \pf In the IA Groups course.
 \subsection{Conjugacy, centralisers, and normalisers}
-Let $ G $ be a group. The conjugation action of $ G $ acting on itself by $ G\times G\to G $, is $ (g,h)\to gh\inv g $. This is equivilent to a homomorphism $ G\to\sym(G) $.\\\\
+Let $ G $ be a group. The conjugation action of $ G $ acting on itself by $ G\times G\to G $, is $ (g,h)\to gh\inv g $. This is equivilent to a homomorphism $ G\to\sym(G) $.
+
+\par
 Fix $ g\in G $. Then the permutation $ G\to G $ given by $ h\to gh\inv g $ is also a homomorphism.
 
 \begin{definition}
@@ -236,7 +266,9 @@ Fix $ g\in G $. Then the permutation $ G\to G $ given by $ h\to gh\inv g $ is al
 \begin{definition}
 	(Normaliser) Let $ H\le G $. The \textit{normaliser} of $ H $ in $ G $ is $ N_G(H)=\{g\in G: gH\inv g = H\} $
 \end{definition}
-		We can see clearly that $ H\subseteq N_G(H) $ so $ N_G(H) $ is non-empty and we also have that $ N_G(H)\le G $.\\\\
+We can see clearly that $ H\subseteq N_G(H) $ so $ N_G(H) $ is non-empty and we also have that $ N_G(H)\le G $.
+
+\par
 In fact we have that $ N_G(H) $ is the largest subgroup containing $ H $ in which $ H $ is normal.
 \subsection{Simplicity of $ A_n $ for $ n\ge 5 $}
 Recall from Part IA groups that a conjugacy class in $ S_n $ consists of the set of all elements with a fixed cycle type.
@@ -244,26 +276,30 @@ Recall from Part IA groups that a conjugacy class in $ S_n $ consists of the set
   Let $ n\ge 5 $. Then $ A_n $ is simple.
 \end{theorem}
 \pf We will prove the statement via these three claims:
-\begin{itemize}
+\begin{enumerate}
 	\item $ A_n $ is generated by 3-cycles
 	\item If $ H\nrm A_n $ that contains a 3-cycle then it contains all the 3-cycles
 	\item Any non-trival $ H\nrm A_n $ contains a 3-cycle.
-\end{itemize}
+\end{enumerate}
 First we prove the first claim. Let $ g\in A_n $, when viewed in $ S_n $ it is the product of evenly many transposition. Consider a product of two transpositions:
-\begin{itemize}
+\begin{enumerate}
 	\item $ (ab)(ab)=e\in A_n $
 	\item $ (ab)(bc)=(abc)\in A_n $
 	\item $ (ab)(cd)=(acb)(acd)\in A_n $.
-\end{itemize}
-In each case we can write all products of transpositions as a product of 3-cycles, hence we can write all elements in $ A_n $ as a product of 3-cycles.\\\\
-Now for the second claim, any two 3-cycles in $ A_n $ are conjugate when viewed in $ S_n $. Let $ \delta, \delta' $ be 3-cycles and write $ \delta' =\sigma\delta\inv\sigma $, where $ \sigma\in S_n $. If $ \sigma $ is even, we're done since it's in $ A_n $. If $ \sigma $ is odd, observe since $ n\ge 5 $, there exists a transposition $ \tau $ disjoint from $ \delta $, now $ \delta'=\sigma(\tau\inv\tau)\delta\inv\sigma=(\sigma\tau)\delta\inv{(\sigma\tau)} $. Since $ \sigma\tau $ is even, we're done.\\\\
+\end{enumerate}
+In each case we can write all products of transpositions as a product of 3-cycles, hence we can write all elements in $ A_n $ as a product of 3-cycles.
+
+\par
+Now for the second claim, any two 3-cycles in $ A_n $ are conjugate when viewed in $ S_n $. Let $ \delta, \delta' $ be 3-cycles and write $ \delta' =\sigma\delta\inv\sigma $, where $ \sigma\in S_n $. If $ \sigma $ is even, we're done since it's in $ A_n $. If $ \sigma $ is odd, observe since $ n\ge 5 $, there exists a transposition $ \tau $ disjoint from $ \delta $, now $ \delta'=\sigma(\tau\inv\tau)\delta\inv\sigma=(\sigma\tau)\delta\inv{(\sigma\tau)} $. Since $ \sigma\tau $ is even, we're done.
+
+\par
 Finally for the last claim take some $ H\nrm A_n $ not trival. We break into cases
-\begin{itemize}
+\begin{enumerate}
 	\item (a) If $ H $ contains an element on the form $ \sigma=(1\space 2\cdots r)\tau $ where $ \tau $ is disjoint from $ 1,\dots, r, $ and $ r\ge 4 $. Then let $ \delta = (1\space2\space3) $. Now consider $ \delta\sigma\inv\delta\in H $ (by normality). But then $ \inv\sigma\inv\delta\sigma\delta\in H $ as well. As $ \tau $ misses $ 1,2,3 $ and commutes with $ (1\space2\cdots r) $ we expand this: $ \inv\sigma\inv\delta\sigma\delta=(r\cdots 2\space 1)(1\space 3\space 2)(1\space 2\space 3\cdots r)(1\space 2\space 3)=(2\space 3\space r) $ so we find a 3-cycle.
 	\item (b) Suppose $ H $ contains $ \sigma=(123)(456)\tau $ (or any relabeling of such). $ \tau $ is disjoint from $ 1,\cdots,6 $. Take $ \delta = (124) $ and calculate the conjugation $ \inv\sigma\inv\delta\sigma\delta=(124236) $ which is a 5-cycle so we're done by the first case.
 	\item (c) Suppose that $ H $ contains $ \sigma $ of the form $ \sigma = (123)\tau $ where $ \tau $ is a product of disjoint transpositions. Note if $ \tau $ contains anything longer than a tranposition, we can just apply case (a) or (b). Then $ \sigma^2=(123)^2 $ which is a 3-cycle since the transpositions cancel.
 	\item (d) Suppose that $ H $ contains $ \sigma=(12)(34)\tau $, where $ \tau $ is a product of transpositions. Let $ \delta = (123) $, consider $ \mu = \inv \sigma\inv\delta\sigma\delta=(14)(23) $. Let $ \nu = (152)\mu(125) = (13)(45) $. But observe that $ \mu\nu\in H $, but this is a 5-cycle, so we're done by case (a).
-\end{itemize} 
+\end{enumerate} 
 Up to relabeling, we're covered all the cases. Hence any normal subgroup of $ A_5 $ must be trivial or $ A_5 $ itself, so $ A_5 $ is normal.\qed
 \subsection{Finite $p$-groups}
 \begin{definition}
@@ -285,7 +321,9 @@ We know that the sizes of the non-trivial conjugacy classes always divide $ p^n 
 \begin{lemma}
 	If $ G $ is any group and $ \frac G{Z(G)} $ is cyclic, then $ G $ is abelian.
 \end{lemma}
-\pf Let $ xZ(G) $ generate $ \frac G{Z(G)} $. Every coset of the form $ x^mZ(G), m\in Z $. Since any $ g\in G $ lies in some coset of $ Z(G) $, we can write $ g=x^mz $, for some $ z\in Z(G) $. Now for some $ g'\in G $, $ g'=x^nz' $, so $ gg'=x^mzx^nz'=x^{n+m}zz'=x^nz'x^mz=g'g $, so the group is abelian.\\\\
+\pf Let $ xZ(G) $ generate $ \frac G{Z(G)} $. Every coset of the form $ x^mZ(G), m\in Z $. Since any $ g\in G $ lies in some coset of $ Z(G) $, we can write $ g=x^mz $, for some $ z\in Z(G) $. Now for some $ g'\in G $, $ g'=x^nz' $, so $ gg'=x^mzx^nz'=x^{n+m}zz'=x^nz'x^mz=g'g $, so the group is abelian.
+
+\par
 Our proof of the theorem follows since $ Z(G) $ is non-trivial, so it either has size $ p^2 $ or $ p $. If it has size $ p^2 $, the group is abelian so we're done. If it has size $ p $, the $ G/Z(G) $ also has size $ p $, so it's cyclic, hence it's abelian, so by the lemma we have that $ G $ is abelian.\qed
 \begin{theorem}
   Let $ G $ be a group of size $ p^n $. Then for any $ 0\ge k \ge n$, $ G $ has a subgroup of size $ p^k $.
@@ -300,7 +338,9 @@ Our proof of the theorem follows since $ Z(G) $ is non-trivial, so it either has
 	\]
 	Moreover, we can choose $ d_i $ such that $ d_{i+1}\mid d_i $ in which case this is unique.
 \end{theorem}
-\pf To come later...\\\\
+\pf To come later...
+
+\par
 Abelian groups of order 8 are exactly $ C_8, C_4\times C_2, C_2\times C_2\times C_2 $.
 \begin{lemma}
 	(Chinese remainder theorem) If $ n $ and $ m $ are coprime, then $ C_n\times C_m\cong C_{nm} $
@@ -312,11 +352,11 @@ Abelian groups of order 8 are exactly $ C_8, C_4\times C_2, C_2\times C_2\times 
 \end{definition}
 \begin{theorem}
 	(Sylow theorems) For a finite group $ G $ of order $ p^am $, where $ p\nmid m $, $ p $ is prime:
-	\begin{itemize}
-		\item The set $ \syl_p(G)=\{P\le G$ $ |$ $P \text{ is a Sylow p-subgroup of } G \}$ is non-empty.\\
-		\item Any $ H,H'\in \syl_p(G) $ are conjugate, namely $ H=gH'\inv g $, for some $ g\in G $.\\
+	\begin{enumerate}
+		\item The set $ \syl_p(G)=\{P\le G$ $ |$ $P \text{ is a Sylow p-subgroup of } G \}$ is non-empty.
+		\item Any $ H,H'\in \syl_p(G) $ are conjugate, namely $ H=gH'\inv g $, for some $ g\in G $.
 		\item If $ n_p=|\syl_p(G)| $ then $ n_p\equiv 1 \mod p $ \textit{and} $ n_p $ divides $ |G| $, so $ n_p\mid m $
-	\end{itemize} 
+	\end{enumerate} 
 \end{theorem}
 Before we prove the statement, let's see why this theorem is useful.
 \begin{lemma}
@@ -326,54 +366,62 @@ Before we prove the statement, let's see why this theorem is useful.
 \begin{corollary}
 	Let $ G $ be a non-abelian simple group, and $ p\mid |G| $, $ p $ prime. Then $ |G| $ divides $ \frac{n_p!}2 $ and $ n_p\ge 5 $.
 \end{corollary}
-Let $ G $ act by conjugation on $ \syl_p(G) $ which gives a homomorphism $ \varphi:G\to \sym(\syl_p(G))\cong S_{n_p} $. By simplicity, $ \ker \varphi=G $ or $ \{e\} $. If $ \ker \varphi=G $, then $ gP\inv g=P $ for all $ g\in G $ and all $ P\in\syl_p(G) $. So $ P $ is normal. Thus $ P $ is either $ \{e\} $ or $ G $. Well $ P$ is Sylow-$ p $ so it can't be $ \{e\} $, so $ P=G $. So $ G $ would be a $ p $-group. But from earlier, the centre of $ G $ is non-trivial proper since $ G $ is non-abelian, but the centre is always normal, so this contradicts simplicity, hence $ \ker \varphi=\{e\} $. So we have that $ \varphi $ is an injective homomorphism $ G\to S_{n_p} $, so by the first isomorphism theorem, $ G\cong \ima \varphi $. We'll show that $ \varphi $ lands in $ A_{n_p} $. Consider the composition $ G\to S_{n_p}\to \{\pm 1\} $. If this composition is surjective, then $ \ker (\mathrm{sgn} \circ \varphi) $ is index $ 5 $, but $ G $ simple so not possible. So $ \ima\varphi\subseteq \ker(\mathrm{sgn})=A_{n_p} $, so we're done by Lagrange. For the final statement we show all non-abelian subgroups of $ A_2, A_3, A_4 $ are not simple which finishes the statement which is just grunt work, and I pinky promise it's true, so we're done.\qed\\\\
-Let's see a sample application. Let have $ G $ has size $ 11\times 12 $. If $ G $ is simple then there are exactly $ 12 $ Sylow 11-subgroups. Consider the number $ n_{11} $. We know from the Sylow theorems that $ n_{11}\equiv 1\mod 11 $ and $ n_{11}\mid 12 $. So $ n_{11} = 12 $ since $ G $ is simple. Similarly $ n_3\equiv 1 \mod 3 $ and $ n_3\mid 44 $. So either $ n_3 = 4 $ or $ 22 $. The corollary says that $ G $ divides $ \frac{n_3!}2 $, so $ n_3 $ can't be $ 4 $, so $ n_3=22 $. But this is a lot of elements. And 2 Sylow 11-subgroups interset only at the identity which leads to too many elements, so none of this even works, which seems confusing, but actually just means that $ G $ can't exist, hence all groups of order $ 132 $ are non-simple.\\\\
-Finally we now prove the Sylow theorems.\\
+Let $ G $ act by conjugation on $ \syl_p(G) $ which gives a homomorphism $ \varphi:G\to \sym(\syl_p(G))\cong S_{n_p} $. By simplicity, $ \ker \varphi=G $ or $ \{e\} $. If $ \ker \varphi=G $, then $ gP\inv g=P $ for all $ g\in G $ and all $ P\in\syl_p(G) $. So $ P $ is normal. Thus $ P $ is either $ \{e\} $ or $ G $. Well $ P$ is Sylow-$ p $ so it can't be $ \{e\} $, so $ P=G $. So $ G $ would be a $ p $-group. But from earlier, the centre of $ G $ is non-trivial proper since $ G $ is non-abelian, but the centre is always normal, so this contradicts simplicity, hence $ \ker \varphi=\{e\} $. So we have that $ \varphi $ is an injective homomorphism $ G\to S_{n_p} $, so by the first isomorphism theorem, $ G\cong \ima \varphi $. We'll show that $ \varphi $ lands in $ A_{n_p} $. Consider the composition $ G\to S_{n_p}\to \{\pm 1\} $. If this composition is surjective, then $ \ker (\mathrm{sgn} \circ \varphi) $ is index $ 5 $, but $ G $ simple so not possible. So $ \ima\varphi\subseteq \ker(\mathrm{sgn})=A_{n_p} $, so we're done by Lagrange. For the final statement we show all non-abelian subgroups of $ A_2, A_3, A_4 $ are not simple which finishes the statement which is just grunt work, and I pinky promise it's true, so we're done.\qed
+
+\par
+Let's see a sample application. Let have $ G $ has size $ 11\times 12 $. If $ G $ is simple then there are exactly $ 12 $ Sylow 11-subgroups. Consider the number $ n_{11} $. We know from the Sylow theorems that $ n_{11}\equiv 1\mod 11 $ and $ n_{11}\mid 12 $. So $ n_{11} = 12 $ since $ G $ is simple. Similarly $ n_3\equiv 1 \mod 3 $ and $ n_3\mid 44 $. So either $ n_3 = 4 $ or $ 22 $. The corollary says that $ G $ divides $ \frac{n_3!}2 $, so $ n_3 $ can't be $ 4 $, so $ n_3=22 $. But this is a lot of elements. And 2 Sylow 11-subgroups interset only at the identity which leads to too many elements, so none of this even works, which seems confusing, but actually just means that $ G $ can't exist, hence all groups of order $ 132 $ are non-simple.
+
+\par
+Finally we now prove the Sylow theorems.
+
 \pf Let $ G $ be a group of order $ n=p^am $, with $ p\nmid m $, $ p $ prime. Define the set $ \Omega=\{X\subseteq G : |X|=p^a $. Let $ G $ act on $ \Omega $ by multiplying all elements of $ \Omega $ on the left by $ g\in G $ (we can see this obeys the axioms of the group action after some quick inspection. We have $ |\Omega|= \binom{n}{p^a}\equiv m\ne 0\mod p $. The proof of this can be seen by expanding out the binomial coeffient, but we'll assume it here. Suppose we have some $ U\in\Omega $, then let $ H\le G $ stabilise $ U $. Then $ |H|\mid |U| $. We can prove this by seeing that $ hU=U $ for all $ h\in H $. In other words for each $ u\in U $ the coset $ Hu $ is contained in $ U $. Every $ u\in U $ lies in some coset of $ H $, so the cosets partition $ U $, so $ |H|\mid |U| $. We know that $ |\Omega|\ne 0\mod p $. Since orbits partition, we know that
 	\[
 		|\Omega|=|O_1|+|O_2|+\cdots +|O_r|\text{, } O_i \text{ are the orbits}
 	\]
 So there exists an orbit $ \Theta $ whose size is prime to $ p $.
-Let $ T\in\Theta $. By orbit-stabiliser, $ |G|=|\Theta||\stab(T)| $. So $ p^am=|\Theta||\stab(T)| $. By our previous lemma, $ |\stab T|\mid p^a $, so we're done because there are no factors of $ p $ in $ \Theta $, so we've prove the first part of the theorem.\\\\
-Now for the second part, we actually show something stronger, that is, if $ Q\le G $ is a subgroup of size $ p^b $, where $ 0\le b\le a $, then there exists $ g\in G $ and $ P\in \syl_p(G) $, such that $ gQ\inv g\le P $. To prove this, let $ Q $ act on $ G/P $ by left coset multiplication. Note that the size of $ G/P $ does not divide by $ p $. Orbits have size dividing $ p^b $, so each orbit has size $ 1 $ or a power of $ p $. But $ p\nmid |G/P| $, so there exists a size 1 orbit. In other words, there exists some coset $ gP $ such that $ \forall q\in Q $, $ qgP=gP $, so rearranging gives that $ gQ\inv Q\le P $. So our second statement follows taking $ b=a $.\\\\
+Let $ T\in\Theta $. By orbit-stabiliser, $ |G|=|\Theta||\stab(T)| $. So $ p^am=|\Theta||\stab(T)| $. By our previous lemma, $ |\stab T|\mid p^a $, so we're done because there are no factors of $ p $ in $ \Theta $, so we've prove the first part of the theorem.
+
+\par
+Now for the second part, we actually show something stronger, that is, if $ Q\le G $ is a subgroup of size $ p^b $, where $ 0\le b\le a $, then there exists $ g\in G $ and $ P\in \syl_p(G) $, such that $ gQ\inv g\le P $. To prove this, let $ Q $ act on $ G/P $ by left coset multiplication. Note that the size of $ G/P $ does not divide by $ p $. Orbits have size dividing $ p^b $, so each orbit has size $ 1 $ or a power of $ p $. But $ p\nmid |G/P| $, so there exists a size 1 orbit. In other words, there exists some coset $ gP $ such that $ \forall q\in Q $, $ qgP=gP $, so rearranging gives that $ gQ\inv Q\le P $. So our second statement follows taking $ b=a $.
+
+\par
 For the final theorem, we need to show that $ n_p\mid |G| $, and $ n_p\equiv 1\mod p $. For the first statement, consider $ G $ acting on $ \syl_p(G) $ by conjugation. By the second theorem, we know that there is one orbit of size $ n_p $, so the statement follows instantly from orbit-stabiliser. For the second statement, let $ P\in \syl_p(G) $. Consider $ P $ acting on $ \syl_p(G) $ by conjugation. By orbit-stabiliser, all the orbits have size 1 or $ p $. Since $ \{P\} $ is a size 1 orbit, to prove the statement is suffices to show that $ \{P\} $ is the only size 1 orbit. Say $ \{Q\} $ is another size 1 orbit. So $ \forall h\in P $, we have $ hQ\inv h=Q $. This means that $ N_G(Q) $ contains $ P $. Now observe if $ p^a $ is the largest power of $ p $ dividing $ |G| $, we know that it's the largest power of $ p $ dividing $ |N_G(Q)| $. But $ Q $ is normal in $ N_G(Q) $ by definition, and $ Q,P\in \syl_p(N_G(Q))\implies P=Q $, since normality $ \iff $ uniqueness for Sylow subgroups. So we've prove all the Sylow theorems and we're done. \qed
 \newpage
 \section{Rings}
 \subsection{Definitions and examples}
 \begin{definition}
 	(Rings) A \textit{ring} is a quintuple $ (R,+,\circ,0_R,1_R) $, where $ R $ is a set with $ 0_R,1_R\in R $, and $ +:R\times R\to R $, and $ \circ:R\times R\to R $, called addition and multiplication are functions satisfying the following:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $ (R,+,0_R) $ is an abelian group.
 		\item $ \circ $ is associative, so $ a\circ(b\circ c)=(a\circ b)\circ c $.
 		\item $ 1_R\circ a = a\circ 1_R=a $.
 		\item We have distributivity, so $ r_1\circ (r_2+r_3)=(r_1\circ r_2)+(r_1\circ r_3) $ and $ (r_1+r_2)\circ r_3=(r_1\circ r_3)+(r_2\circ r_3) $.
-	\end{itemize}
+	\end{enumerate}
 \end{definition}
 
-Usually we just say "Let $ R $ by a ring..." with everything implicit. The symbol $ (-r) $ denotes the additive inverse of $ r $.\\\\
+Usually we just say "Let $ R $ by a ring..." with everything implicit. The symbol $ (-r) $ denotes the additive inverse of $ r $.\par
 In IB Groups, Rings and Modules, rings will always be commutative, so $ r_1\circ r_2=r_2\circ r_1 $ for all $ r_1,r_2\in R $.
 
 \begin{definition}
 	(Subring) A \textit{subring} of a ring $ R $, is a subset $ S\subseteq R $, such that $ 0_R,1_R\in S $, $ S $ is closed under both multiplication and addition of the ring, and $ (S,+,\circ, 0_R,1_R) $ is a ring. 
 \end{definition}
-We notate this as $ S\le R $.\\\\
-For examples we have $ \Z\le\Q\le\R\le\C $ which are all rings under usual multipliction and addition. Along a similar line, we also have the Gaussian integers, $ \Z[i]=\{a+ib:a,b\in \Z\} $ with multiplication and addition induced by $ \C $.\\
-\\
+We notate this as $ S\le R $.\par
+For examples we have $ \Z\le\Q\le\R\le\C $ which are all rings under usual multipliction and addition. Along a similar line, we also have the Gaussian integers, $ \Z[i]=\{a+ib:a,b\in \Z\} $ with multiplication and addition induced by $ \C $.\par
 Another example is $ \Z/n\Z $ which forms a ring under addition and multiplication modulo $ n $. In $ \Z/6 $ we have $ 2, 3\in \Z/6 $ such that $ 2\circ 3=0\mod 6 $ which is perfectly allowed.
 
 \begin{definition}
 	(Units) An element $ u\in R $, is called a \textit{unit} if there exists some $ v\in R $, such that $ uv=1_R\in R $.
 \end{definition}
 This notion does \textit{not} interact well with subrings, as we can take a unit in a subring without taking it's inverse, making it no longer a unit. For example 2 is a unit $ \Q $, but not in $ \Z $.
-\\\\\textit{Discussion.} Does $ 0_R $ behave like it should? We would like $ 0\circ R=0_R $ for all $ r\in R $. In $ R $ we have that $ 0_R+0_R =0_R $, now multiplying by $ r\in R $, so $ r\circ 0_R+r\circ 0_R=r\circ 0_R $, hence cancelling a $ r\circ 0_R $ on both sides gives that $ r\circ 0_R=0_R $.\\
-In particular this implies that if $ 1_R=0_R $ then for any $ r\in R $, $ r=r\circ 1_R=r\circ 0_R=0_R $ so for all $ r\in R $, $ r=0_R $, so $ R $ must be the zero ring, $ \{0_R\} $.\\\\
+\par\textit{Discussion.} Does $ 0_R $ behave like it should? We would like $ 0\circ R=0_R $ for all $ r\in R $. In $ R $ we have that $ 0_R+0_R =0_R $, now multiplying by $ r\in R $, so $ r\circ 0_R+r\circ 0_R=r\circ 0_R $, hence cancelling a $ r\circ 0_R $ on both sides gives that $ r\circ 0_R=0_R $.\par
+In particular this implies that if $ 1_R=0_R $ then for any $ r\in R $, $ r=r\circ 1_R=r\circ 0_R=0_R $ so for all $ r\in R $, $ r=0_R $, so $ R $ must be the zero ring, $ \{0_R\} $.\par
 
 \begin{definition}
-	(Polynomial) Let $ R $ be a ring. Then a \textit{polynomial}in $ x $ with coefficents in $ R $ in an expression:
+	(Polynomial) Let $ R $ be a ring. Then a \textit{polynomial} in $ x $ with coefficents in $ R $ in an expression:
 	\[
 		f(x)=a_0+a_1x+\cdots+a_nx^n
 	\]
-	and $ x^i $ are formal symbols. We will identify $ f(x) $ with $ f(x)+0\irc x^{n+1} $ as the same. The largest $ i $ such that $ a_i \ne 0$ is called the degree of the polynomial. A polynomial $ f(x) $ is monic of degree $ n $ if $ a_n=1 $ and it is of degree $ n $.
+	and $ x^i $ are formal symbols. We will identify $ f(x) $ with $ f(x)+0\circ x^{n+1} $ as the same. The largest $ i $ such that $ a_i \ne 0$ is called the degree of the polynomial. A polynomial $ f(x) $ is monic of degree $ n $ if $ a_n=1 $ and it is of degree $ n $.
 \end{definition} 
 \begin{definition}
 	(Polynomial ring) The \textit{polynomial ring} $ R[X] $ is given by:
@@ -390,8 +438,8 @@ In particular this implies that if $ 1_R=0_R $ then for any $ r\in R $, $ r=r\ci
 	\]
 	with the standard $ +,\circ $ of $ R $.
 \end{definition}
-For an example consider $ (1-x)\in R[X] $. Is it a unit? No! If $ g(x)(1-x)=1 $, then if $ g(x)=a_0+a_1x+\cdots a_nx^n $, $ a_n\ne 0 $, then $ (1-x)g(x) = a_0 + (a_1-a_0)x+\cdots (a_n-a_{n-1}x^n-a_nx^{n+1} $ which cannot be 1 since the highest power term has a non-zero coefficent.\\\\
-However $ (1-x) $ is a unit in $ R[[X]] $! $ (1-x)(1+x+x^2+\cdots)=1\in R[[X]] $.\\
+For an example consider $ (1-x)\in R[X] $. Is it a unit? No! If $ g(x)(1-x)=1 $, then if $ g(x)=a_0+a_1x+\cdots a_nx^n $, $ a_n\ne 0 $, then $ (1-x)g(x) = a_0 + (a_1-a_0)x+\cdots (a_n-a_{n-1}x^n-a_nx^{n+1} $ which cannot be 1 since the highest power term has a non-zero coefficent.\par
+However $ (1-x) $ is a unit in $ R[[X]] $! $ (1-x)(1+x+x^2+\cdots)=1\in R[[X]] $.\par
 \begin{definition}
 	(Laurent polynomials) If $ R $ is a ring then a \textit{Laurent polynomial} with coeffients in $ R $ is:
 	\[
@@ -404,12 +452,12 @@ If $ R $ is a ring, and $ X $ is a set the set of $ R $-valued functions, namely
 \subsection{Homomorphisms, ideals, and quotients}
 \begin{definition}
 	(Ring homomorphism) Let $ R $ and $ S $ be rings. A function $ f:R\to S $ is a \textit{ring homomorphism} if for all $ r_1,r_2\in R $:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $ f(r_1+r_2)=f(r_1)+f(f_2) $
 		\item $ f(0_R)=0_S $
 		\item $ f(r_1r_2)=f(r_1)f(r_2) $
 		\item $ f(1_R)=1_S $.
-	\end{itemize}
+	\end{enumerate}
 \end{definition}
 These first two conditions are the conditions for $ f $ to be a group homomorphism with the addition operation. Note that the second condition is not required and it follows from the first condition. But non-symmetrically the fourth condition is not implied by the third condition.
 \begin{definition}
@@ -433,8 +481,8 @@ Keep in mind that an ideal is usually not a subring, since if $ 1_R\in I $ then 
 \begin{lemma}
   If $ f:R\to S $ is a ring homomorphism then $ \ker f \nrm R$.
 \end{lemma} 
-\pf Since $ f $ is also a group homomorphism, then $ \ker f $ is a subgroup. If $ a\in \ker f $ and $ b\in R $ then $ f(ab)=f(a)(b)=0f(b)=0 $, so $ ab\in \ker f $. \qed\\\\
-Now we'll look at some examples.\\\\
+\pf Since $ f $ is also a group homomorphism, then $ \ker f $ is a subgroup. If $ a\in \ker f $ and $ b\in R $ then $ f(ab)=f(a)(b)=0f(b)=0 $, so $ ab\in \ker f $. \qed\par
+Now we'll look at some examples.\par
 If $ \Z $ is the ring of integers then $ n\Z $ are ideals for all $ n\in\N \cup \{0\} $. In fact, every ideal of $ \Z $ has this form. To see this $ I\ne \{0\} $ is an ideal. Let $ n\in \Z $ be the smallest postive element of $ I $. We claim that $ I=n\Z $. Let $ m\in I $. We claim that it's divisible by $ n $. Apply the Euclidean algorithm so $ m=qn+r $ where $ 0\le r<n $. But $ qn\in I $ by the absorbing property so $ r\in I $ since $ I $ is a subgroup which contradicts minimality unless $ r=0 $.\qed
 \begin{definition}
   Let $ A\subseteq R $. The ideal generated by $ A $ is
@@ -454,33 +502,33 @@ For another example let $ \R[X] $ be the polynomial ring in one variable over $ 
 \begin{proposition}
   The quotient ring is a ring. The function $ f:R\to R/I $ sending $ r $ to $ r+ I $ is a ring homomorphism.
 \end{proposition}
-\pf Obviously an abelian group. Multiplication is well-defined. To see this suppose $ r_1+I=r_1'+I $ and $ r_2+I=r_2'+I $. Then $ r_1-r_1'=a_1\in I $, and $ r_2-r_2'=a_2\in I $, so $ r_1'r_2'=(r_1+a_1)(r_2+a_2)=r_1r_2+r_1a_2+r_2a_1+a_1a_2 $. By the absorbing property the last three terms are contained in $ I $, so $ r_1r_2+ I=r_1'r_2'+I $. The rest is straightforward.\qed\\\\
-For another example, we have $ n\Z\nrm\Z $. The quotient $ \Z/n\Z $ is the usual ring of integers modulo $ n $.\\\\
+\pf Obviously an abelian group. Multiplication is well-defined. To see this suppose $ r_1+I=r_1'+I $ and $ r_2+I=r_2'+I $. Then $ r_1-r_1'=a_1\in I $, and $ r_2-r_2'=a_2\in I $, so $ r_1'r_2'=(r_1+a_1)(r_2+a_2)=r_1r_2+r_1a_2+r_2a_1+a_1a_2 $. By the absorbing property the last three terms are contained in $ I $, so $ r_1r_2+ I=r_1'r_2'+I $. The rest is straightforward.\qed\par
+For another example, we have $ n\Z\nrm\Z $. The quotient $ \Z/n\Z $ is the usual ring of integers modulo $ n $.\par
 Take $ (X)\nrm \C[X] $. The elements of $ \C[X]/(X) $ are represeneted by:
 \[
 	a_0+a_1X+\cdots a_n X^n+(X),\  \text{but} \ \sum_{i=1}^na_iX^i\in (X)
 \]
-so each coset is represented equivalently by $ a_0+(X) $, so we have that $ \C[X]/(X)\cong \C $.\\\\
-Similarly $ (X^2)\nrm \C[X] $, the ring $ \C[X]/(X^2) $ consists of elements represented by linear polynomials $ a_0+a_1X+(X) $ with the following multiplication given by $ (a_0+a_1X)(b_0+b_1X)=a_0b_0+(a_1b_0+a_0b_1)X $.\\
+so each coset is represented equivalently by $ a_0+(X) $, so we have that $ \C[X]/(X)\cong \C $.\par
+Similarly $ (X^2)\nrm \C[X] $, the ring $ \C[X]/(X^2) $ consists of elements represented by linear polynomials $ a_0+a_1X+(X) $ with the following multiplication given by $ (a_0+a_1X)(b_0+b_1X)=a_0b_0+(a_1b_0+a_0b_1)X $.\par
 This ring is quite weird. For example if we take $ X\in \C[X]/(X^2) $. Then $ 0\ne X $ but $ X^2=0 $. We say that $ X $ is nilpotent.
 
 \begin{proposition}
 	(Euclidean algorithm for polynomials in $ X $) Let $ K $ be a field and $ f,g\in K[X] $. Then there exists polynomials $ r,q\in K[X] $ such that $ f=gq+r $ with $ \mathrm{deg}(r)<\mathrm{deg}(g) $.
 \end{proposition}
-\pf Let $ n $ be the degree of $ f $. So $ f=\sum_{i=0}^na_iX^i $ with $ a_i\in K,a_n\ne 0 $. Similarly $ g=\sum_{i=0}^mb_iX^i $ with $ b_i\in K $ and $ b_m\ne 0 $.\\
-If $ n< m $ set $ q=0 $ and $ r=f $ so we're finished.\\
-If instead $ n\ge m $, proceed by induction on the degree. Let $ f_1=f-a_n\inv b_mX^{n-m}g $. Observe that $ \mathrm{deg}(f_1)<n $. If $ n=m $ then $ \mathrm{deg}(f_1)<n=m $. So write $ f=(a_\inv b_mX^{n-m})g+f_1 $, so we're done. Otherwise if $ n>m $, then because $ \mathrm{deg}(f_1)<n $, by induction we cab wrute write $ f_1=gq_1+r_1 $ where $ \mathrm{deg}(r_1)<\mathrm{deg}(g)=m $. Then $ f=(a_n\inv b_m)X^{n-m}g+q_1g+r_1=(a_n\inv b_mX^{n-m}+q_1)g+r_1 $\qed
+\pf Let $ n $ be the degree of $ f $. So $ f=\sum_{i=0}^na_iX^i $ with $ a_i\in K,a_n\ne 0 $. Similarly $ g=\sum_{i=0}^mb_iX^i $ with $ b_i\in K $ and $ b_m\ne 0 $.\par
+If $ n< m $ set $ q=0 $ and $ r=f $ so we're finished.\par
+If instead $ n\ge m $, proceed by induction on the degree. Let $ f_1=f-a_n\inv b_mX^{n-m}g $. Observe that $ \mathrm{deg}(f_1)<n $. If $ n=m $ then $ \mathrm{deg}(f_1)<n=m $. So write $ f=(a_{\inv b_m}X^{n-m})g+f_1 $, so we're done. Otherwise if $ n>m $, then because $ \mathrm{deg}(f_1)<n $, by induction we cab wrute write $ f_1=gq_1+r_1 $ where $ \mathrm{deg}(r_1)<\mathrm{deg}(g)=m $. Then $ f=(a_n\inv b_m)X^{n-m}g+q_1g+r_1=(a_n\inv b_mX^{n-m}+q_1)g+r_1 $\qed
 
 \begin{corollary}
 	If $ K $ is a field then $ K[X] $ every ideal is principle.
 \end{corollary}
-\pf Identical to the case of $ \Z $ using the proposition.\\\\
+\pf Identical to the case of $ \Z $ using the proposition.\par
 This proof fails for $ \Z [X] $ (since $ \Z $ is not a field) and for $ K[X,Y] $.
 \begin{theorem}
 	(First isomorphism theorem) Let $ \varphi:R\to S $ be a ring homomorphism. Then the function $ f:R/\ker\varphi\to\ima\varphi\le S $ sending $ r+\ker\varphi\to\varphi(r) $ is well-defined and an isomorphism of rings.
 \end{theorem}
 \pf Well-definedness, bijective, additive homomorphism property all follow from the group statement. We check multiplicativity. $ f((f+\ker\varphi)(t+\ker\varphi))=f(rt+\ker\varphi)=\varphi(rt)=\varphi(r)\varphi(t)=f(r+\ker\varphi)(f+t+\ker\varphi) $ since $ \varphi $ is a ring homomorphism.\qed
-\\\\
+\par
 For an example consider the homomorphism $ \varphi:\R[X]\to \C $. sending $ f(X) $ to $ f(i) $. Clearly this is a surjective ring homomorphism since $ a+bX\to a+bi $ under $ \varphi $. The kernal is exactly real polynomials $ f(X) $ such that $ f(i)=0 $ i.e $ i $ is a root. But since $ f $ has real coefficents that means that $ (X+i)(X-i)\mid f(X) $ i.e. $ (X^2+1)\mid f(X) $. So in fact $ \ker\varphi=(X^2+1) $, the ideal generated by $ X^2+1 $. Now applying the first isomorphism theorem $ \frac{\R[X]}{(X^2+1)}\cong \C $.
 
 \begin{theorem}
@@ -490,13 +538,13 @@ For an example consider the homomorphism $ \varphi:\R[X]\to \C $. sending $ f(X)
 	\]
 \end{theorem}
 \pf Define a function $ \varphi:R\to S/J $ by $ r\to r+J $. The kernal is $ \{r:r+J=0\}=\{r\in J\}=R\cap J $. The image $ \ima\varphi=\{r+J:r\in R\}=\frac{R+J}J $, so apply the first isomorphism theorem to conclude.\qed
-\\\\
+\par
 Again similar to groups we have a correspondence result.
 \begin{theorem}
 	(Correspondence theorem) If $ I\nrm R $ is an ideal there is a bijection between subrings of $ R/I $ and subrings of $ R $ which contain $ I $. This is given by sending $ L\le R/I\to \{r\in R: r+I\in L\} $ and conversely $ I\nrm S\le R\to S/I\le R/I $
 \end{theorem}
 \pf Same as from groups.
-\\
+\par
 Similar for ideals there is a bijection betwen ideals in $ R/I $ and ideals in $ R $ that contain $ I $.
 \begin{theorem}
 	(Third isomorphism theorem) Let $ I\nrm R $ and $ J\nrm R $ with $ I\subseteq J $. Then $ \frac JI\nrm \frac RI $ and we have that,
@@ -519,8 +567,8 @@ In the ring $ \Z/6 $ we have that $ 2\cdot 3 = 0 $. In an integral domain this w
 \begin{definition}
 	(Integral domain) A nonzero ring $ R $ is an integral domain if $ \forall a,b\in R $, if $ ab=0 $ then $ a=0 $ or $ b=0 $.
 \end{definition}
-An element that violates this is called a zero divisor, i.e. a zero divisor is a non-zero element $ a\in R $ such that $ \exists b\in R, b\ne 0 $ where $ ab=0 $.\\
-All fields are integral domains, since if $ ab=0, b\ne 0 $ then $ a(b\inv b)=0\inv b=0 $ so $ a=0 $.\\
+An element that violates this is called a zero divisor, i.e. a zero divisor is a non-zero element $ a\in R $ such that $ \exists b\in R, b\ne 0 $ where $ ab=0 $.\par
+All fields are integral domains, since if $ ab=0, b\ne 0 $ then $ a(b\inv b)=0\inv b=0 $ so $ a=0 $.\par
 Any subring of an integral domain is an integral domain. To list a set of examples we have $ \Z,\Z[i],\Q,\C,\R[X],\Z[X], $ etc.
 For a set of non-examples we have $ \Z/6, \Z/pq, \C[X]/(X^2) $ etc.
 \begin{lemma}
@@ -529,16 +577,16 @@ For a set of non-examples we have $ \Z/6, \Z/pq, \C[X]/(X^2) $ etc.
 \pf Let $ a\in R $ be non-zero. Consider the function $ \mu_a: R\to R $ sending $ r\to ar $. It's easy to verify that $ \mu_a $ is an (additive) group homomorphism for all $ a $ non-zero. Since $ R $ is an integral domain, $ \ker\mu_a $ is trivial so the map is injective. So since $ R $ is finite, $ \mu_a $ is also surjective. In particular $ 1=ab $ for some $ b\in R $ hence this is an inverse of $ a $, so $ R $ is a field.\qed
 \begin{definition}
 	Let $ R $ be an integral domain. A \textit{text of fractions} for $ R $ is a field $ F $ such that:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $ R\le F $ is a subring,
 		\item every $ x\in F $ can be written as $ a\inv b $, where $ a,b\in R, $ where $ \inv b $ is the multiplictive inverse to $ b $ in $ F $.
-	\end{itemize}
+	\end{enumerate}
 \end{definition}
 $ \Q $ is a field of fractions for $ \Z $.
 \begin{theorem}
   Every integral domain has a field of fractions.
 \end{theorem}
-\pf Define a set $ S=\{(a,b)\in R\times R:b\ne 0\} $. Place an equivalence relation $ \sim $, defined as $ (a,b)\sim (c,d)\iff ad=bc $ on $ S $. We can check this is an equivalence relation, the only non-trivial axiom to check is transitivity. Suppose that $ (a,b)\sim (c,d) $ and $ (c,d)\sim (e,f) $. So we have that $ ad=bc $ and $ cf=de $. We wish to deduce that $ af=be $. Multiple the first equality by $ f $ and the second by $ b $. So we get that $ adf=bcf $ and $ bcf=bed $. Rearranging we get $ d(af-be)=0 $ since $ d $ is non-zero and $ R $ is an integral domain we know that $ af=be $. So $ \sim $ is an equivalence relation. Now define $ F=\frac S\sim $ with notation $ \frac ab = [(a,b)]_\sim $. Now we turn $ F $ into a ring. Take the operations to be $ \frac ab + \frac cd = \frac {ad+bc}{bd} $ and $ \frac ab\frac cd = \frac{ac}{bd} $. Some elementary operations show that these operations are well-defined and makes $ F $ into a ring. To see that $ F $ is a field, if $ \frac ab\ne 0_F $ i.e. $ \frac ab\ne \frac 01\implies a\cdot 1\ne b\cdot 0 =0  $, so $ a\ne 0 $. now $ \frac ba \in F $ and $ \frac ba\frac ab=1_F $, so $ F $ is a field.\\\\
+\pf Define a set $ S=\{(a,b)\in R\times R:b\ne 0\} $. Place an equivalence relation $ \sim $, defined as $ (a,b)\sim (c,d)\iff ad=bc $ on $ S $. We can check this is an equivalence relation, the only non-trivial axiom to check is transitivity. Suppose that $ (a,b)\sim (c,d) $ and $ (c,d)\sim (e,f) $. So we have that $ ad=bc $ and $ cf=de $. We wish to deduce that $ af=be $. Multiple the first equality by $ f $ and the second by $ b $. So we get that $ adf=bcf $ and $ bcf=bed $. Rearranging we get $ d(af-be)=0 $ since $ d $ is non-zero and $ R $ is an integral domain we know that $ af=be $. So $ \sim $ is an equivalence relation. Now define $ F=\frac S\sim $ with notation $ \frac ab = [(a,b)]_\sim $. Now we turn $ F $ into a ring. Take the operations to be $ \frac ab + \frac cd = \frac {ad+bc}{bd} $ and $ \frac ab\frac cd = \frac{ac}{bd} $. Some elementary operations show that these operations are well-defined and makes $ F $ into a ring. To see that $ F $ is a field, if $ \frac ab\ne 0_F $ i.e. $ \frac ab\ne \frac 01\implies a\cdot 1\ne b\cdot 0 =0  $, so $ a\ne 0 $. now $ \frac ba \in F $ and $ \frac ba\frac ab=1_F $, so $ F $ is a field.\par
 We now construct an injective homomorphism $ R\to F $ by $ r\to \frac r1 $. Straightforward to check that this is a ring homomorphism. The kernal is $ \{r\in R: \frac r1 = 0 \text { in } F\} =(0)$. By the first isomorphism theorem $ R $ is isomorphic to the image of $ R\to F $, in other words $ R\le F $.
 Finally since $ \frac ab\in F $ is $ \frac ab= \frac a1\cdot \frac 1b\implies \frac a1\inv{(\frac b1)}=a\inv b $\qed
 
@@ -546,7 +594,7 @@ Sometimes we write $ \mathrm{FF}(R) $ for a field of fractions of $ R $.
 \begin{proposition}
   Let $ R $ be a ring. Then $ R $ is a field if and only if the only ideals in $ R $ are $ (0) $ and $ R $.
 \end{proposition}
-\pf If $ R $ is a field and $ I\nrm R $ is non-zero then $ I $ contains a unit $ u $. Since $ 1=uv $ we have that $ 1\in I $. But for any $ r\in R $, we have $ 1\cdot r =r\in I $, so $ I=R $.\\
+\pf If $ R $ is a field and $ I\nrm R $ is non-zero then $ I $ contains a unit $ u $. Since $ 1=uv $ we have that $ 1\in I $. But for any $ r\in R $, we have $ 1\cdot r =r\in I $, so $ I=R $.\par
 Conversely suppose that $ (0) $ and $ R $ are the only ideals of $ R $. Take $ r\in R $ non-zero. We know that $ (r)=R $ since $ r $ is non-zero. Since $ 1\in (r) $ we know that $ r\cdot b = 1 $ for some $ b\in R $ so $ r $ is a unit hence $ R $ is a field.
 
 \begin{definition}
@@ -561,18 +609,18 @@ Conversely suppose that $ (0) $ and $ R $ are the only ideals of $ R $. Take $ r
 	(Prime ideal) An ideal $ I\nrm R $ is \textit{prime} if whenever $ ab\in I $ either $ a $ or $ b $ lies in $ I $.
 \end{definition}
 An ideal $ n\Z\nrm \Z $ is a prime ideal if and only if $ n $ is a prime number (or zero). We can see this since if $ n=p $ is prime, and $ ab\in p\Z $ then $ ab $ is a multiple of $ p $ so either $ a $ or $ b $ must be a multiple of $ p $ hence in $ p\Z $. Conversely if $ n $ is not prime and wlog positive (zero case is trivial) we know that $ n=m_1m_2 $, $ 1<m_1,m_2<n $. Then $ m_1,m_2\notin n\Z $ but $ m_1m_2\in n\Z $ so the ideal is not a prime ideal.
-\\ Interestingly $ p\Z\nrm \Z $ for $ p $ non-zero prime, then $ \Z/p\Z $ is a field so $ p\Z $ is maximal.
+\par Interestingly $ p\Z\nrm \Z $ for $ p $ non-zero prime, then $ \Z/p\Z $ is a field so $ p\Z $ is maximal.
 
 \begin{proposition}
   An ideal $ I\nrm R$ is prime if and only if $ R/I $ is an integral domain.
 \end{proposition}
-\pf If $ I \nrm R $ is prime, then let $ (a+I) $ and $ (b+I)\in R/I $. Suppose $ (a+I)\cdot(b+I)=(ab+I)=0+I $ (recall $ 0+I $ is the zero element in $ R/I $). This means that $ ab\in I $ but $ I $ is prime so $ a $ or $ b\in I $, so $ a+I $ or $ b+I $ is $ 0 $.\\
+\pf If $ I \nrm R $ is prime, then let $ (a+I) $ and $ (b+I)\in R/I $. Suppose $ (a+I)\cdot(b+I)=(ab+I)=0+I $ (recall $ 0+I $ is the zero element in $ R/I $). This means that $ ab\in I $ but $ I $ is prime so $ a $ or $ b\in I $, so $ a+I $ or $ b+I $ is $ 0 $.\par
 Conversely if $ R/I $ is an integral domain, consider $ ab\in I $. Then $ ab + I = 0 $. So either $ a+I $ or $ b+I $ is zero so $ a $ or $ b $ lies in $ I $. So $ I $ is a prime ideal.\qed
 
 \begin{corollary}
   If $ R $ is a prime and $ I\nrm R $ is maximal, then $ I $ is prime.
 \end{corollary}
-\pf Since $ I\nrm R $ is maximal then $ R/I $ is a field. Hence $ R/I $ is an integral domain so $ I $ is prime by the proposition.\qed\\\\
+\pf Since $ I\nrm R $ is maximal then $ R/I $ is a field. Hence $ R/I $ is an integral domain so $ I $ is prime by the proposition.\qed\par
 Every nonzero ring $ R $ has a maximal ideal and therefore a prime ideal (proof is very set theoretic, equivalent to the axiom of choice through Zorn's lemma)
 
 \subsection{Factorisation in integral domains}
@@ -595,36 +643,36 @@ In the special case of $ \Z $ irreducible and prime are the same thing. But this
   Let $ r\in R $. Then $ r\ne 0 $ is prime if and only if $ (r) $ is a prime ideal.
 \end{proposition}
 \pf Suppose that $ (r) $ is a prime ideal. Then it is proper by definition, so $ r $ is not a unit. Suppose that $ r\mid xy $, so $ xy\in (r) $ so by primality either $ x $ or $ y $ lies in $ (r) $ so $ r\mid x $ or $ r\mid y $.
-Conversely let $ r\in R $ be a prime. Suppose $ xy\in (r) $ then $ r\mid xy $ so $ r|x $ or $ r|y $ so $ x\in (r) $ or $ y\in (r) $ \qed\\\\
+Conversely let $ r\in R $ be a prime. Suppose $ xy\in (r) $ then $ r\mid xy $ so $ r|x $ or $ r|y $ so $ x\in (r) $ or $ y\in (r) $ \qed\par
 Again irreducible and prime are not the same thing. However...
 \begin{proposition}
   Let $ r\in R $ be prime. Then $ r $ is irreducible.
 \end{proposition}
-\pf Let $ r\in R $ be a prime and suppose can write $ r $ as $ r=xy $. Since $ r=1_Rr $ we have that $ r\mid xy $ so either $ r\mid x $ or $ r\mid y $. Assume by symmetry that $ r\mid x $. This means that $ x=rz $ for $ \in R $. So $ r=xy=rzy $. So since we're in an integral domain and $ r\ne 0 $ we have that $ zy=1 $ hence $ y $ is a unit\qed\\\\
-Now let's look at an example.\\\\
+\pf Let $ r\in R $ be a prime and suppose can write $ r $ as $ r=xy $. Since $ r=1_Rr $ we have that $ r\mid xy $ so either $ r\mid x $ or $ r\mid y $. Assume by symmetry that $ r\mid x $. This means that $ x=rz $ for $ \in R $. So $ r=xy=rzy $. So since we're in an integral domain and $ r\ne 0 $ we have that $ zy=1 $ hence $ y $ is a unit\qed\par
+Now let's look at an example.\par
 Let $ R=\Z[\sqrt{-5}]\le \C $, i.e. elements of the form $ a+b\sqrt{-5} $ for $ a,b\in \Z $. Observe that $ R $ is an integral domain since it is a subring of a field. Let's discuss the units. We define a "norm", $ N:R\to \Z_{\ge 0} $ sending $ a+b\sqrt{-5}\to a^2+5b^2 $. This is a function and importantly it is multiplicative, so $ N(ab)=N(a)N(b) $. Notice that all units have norm 1, since if $ 1=uv $, then $ N(1)=N(u)N(v)=1 $, so we must have that $ N(u)=N(v)=1 $. This implies the units are $ \pm 1 $.
 \begin{claim}
   $ 2\in R $ is an irreducible element
 \end{claim}
-\pf If $ 2=ab $ then $ N(2)=4=N(a)N(b) $. But no element in $ R $ has norm of $ 2 $. Therefore either either $ a $ or $ b $ has norm 1, which means either $ a $ or $ b $ is a unit.\qed\\\\
+\pf If $ 2=ab $ then $ N(2)=4=N(a)N(b) $. But no element in $ R $ has norm of $ 2 $. Therefore either either $ a $ or $ b $ has norm 1, which means either $ a $ or $ b $ is a unit.\qed\par
 A similar calculation shows that $ 3, 1\pm \sqrt{-5} $ are all also irreducible.
-But are they prime?\\
+But are they prime?\par
 Observe that $ 6=(1+\sqrt{-5})(1-\sqrt{-5})=2\times 3 $
 \begin{claim}
 	2 does not divide $ 1\pm \sqrt{-5} $
 \end{claim}
-\pf If it did then $ N(2)\mid N(1\pm\sqrt{-5}) $ but $ N(2)=4 $ and $ N(1\pm \sqrt{-5})=6 $ but $ 4\nmid 6 $ so 2 is no longer a prime in $ \Z[\sqrt{-5}] $.\\
+\pf If it did then $ N(2)\mid N(1\pm\sqrt{-5}) $ but $ N(2)=4 $ and $ N(1\pm \sqrt{-5})=6 $ but $ 4\nmid 6 $ so 2 is no longer a prime in $ \Z[\sqrt{-5}] $.\par
 In this same example, we see unique factorisation of 6 no longer holds.
 
 \begin{definition}
 	An integral domain $ R $ is called a \textit{Euclidean domain} if there exists a Euclidean function $ \varphi:R\setminus \{0\}\to\Z_{\ge 0} $ such that:
-	\begin{itemize}
+	\begin{enumerate}
 	\item $ \varphi(ab)\ge \varphi(b) $ for all $ a,b\ne 0 $.
 	\item If $ a,b\in R $ with $ b\ne 0 $, then there exists $ q,r\in R $ such that $ a=bq+r $ and either $ r=0 $ or $ \varphi(r)<\varphi(b) $.
-	\end{itemize}
+	\end{enumerate}
 \end{definition}
-This definition is just saying we can run the Euclidean algorithm (or some equivalent form of it) on the ring.\\\\
-We've already seen $ \Z $ is an integral domain where $ \varphi(x)=|x| $. Also seen, that if we take $ K $ a field, then $ K[X] $ is a Euclidean domain with a Euclidean function given by the degree of the polynomial.\\\\
+This definition is just saying we can run the Euclidean algorithm (or some equivalent form of it) on the ring.\par
+We've already seen $ \Z $ is an integral domain where $ \varphi(x)=|x| $. Also seen, that if we take $ K $ a field, then $ K[X] $ is a Euclidean domain with a Euclidean function given by the degree of the polynomial.\par
 
 Now take $ R=\Z[i]\le \C $ (Gaussian integers). This is a Euclidean domain with Euclidean function $ \varphi(z)=|z|^2 $
 \begin{claim}
@@ -639,17 +687,17 @@ Now take $ R=\Z[i]\le \C $ (Gaussian integers). This is a Euclidean domain with 
   Every Euclidean domain is a principal ideal domain.
 \end{proposition}
 \pf Identical to the case of $ \Z $ just with a general Euclidean function $ \varphi $ instead of $ |x| $.
-\\\\
+\par
 $\Z, \R[X], \C[X], \Z[i] $ are all examples of PIDs.
-\\\\
-For a non-example we have $ R=\Z[X] $ and let $ I= (2, X) $. Suppose that $ I $ is principal, so $ I=(f) $, hence $ 2\in (f) $. So we have that $ 2=fg $ for some $ g\in R $. Hence we have that $ f $ is of degree zero, so $ f\in \{\pm 1, \pm 2\} $. But we can't have $ f=\pm 1 $ since $ \pm 1 $ are units in $ \Z[X] $ (since $ (2,X)\ne R $). But now since $ X\in (f) $ we must have that $ \pm 2\mid X $ which is false, hence $ (2,X) $ is not a principal ideal.\\\\
+\par
+For a non-example we have $ R=\Z[X] $ and let $ I= (2, X) $. Suppose that $ I $ is principal, so $ I=(f) $, hence $ 2\in (f) $. So we have that $ 2=fg $ for some $ g\in R $. Hence we have that $ f $ is of degree zero, so $ f\in \{\pm 1, \pm 2\} $. But we can't have $ f=\pm 1 $ since $ \pm 1 $ are units in $ \Z[X] $ (since $ (2,X)\ne R $). But now since $ X\in (f) $ we must have that $ \pm 2\mid X $ which is false, hence $ (2,X) $ is not a principal ideal.\par
 Simiarly $ \C[X,Y] $, $ K[X_1,\cdots, X_n $, $ n\ge 2 $ are not PIDs
 \begin{definition}
 	(Unique factorisation domain) An integral domain $ R $ is a \textit{unique factorisation domain} (UFD) if:
-	\begin{itemize}
+	\begin{enumerate}
 		\item Every non-unit in $ R $ can be written as a product of irreducibles.
 		\item If $ p_1\dots p_n=q_1\cdots q_m $, where $ p_i, q_i $ are irreducible, then $ n=m $ and up to reordering $ p_i $ are $ q_i $ are associates.
-	\end{itemize} 
+	\end{enumerate} 
 \end{definition}
 Now we aim to show that PID $ \implies $ UFD.
 \begin{lemma}
@@ -663,7 +711,7 @@ Now we aim to show that PID $ \implies $ UFD.
 \begin{theorem}
   Let $ R $ be a principal ideal domain. Then $ R $ is a unique factorisation domain.
 \end{theorem}
-\pf First we show that any $ r\in R $ is a product of irreducibles. If $ r $ is irreducible, we're done. If not, we can write $ r=r_1s_1 $ where either $ r_1 $ or $ s_1 $ are units. If both are products of irreducibles, then we're done. We can therefore assume by relabeling that $ r_1 $ is not a product of irreducibles. So we can write $ r_1=r_2s_2 $ with $ r_2,s_2 $ not units. Again without loss of generality we suppose that $ r_2 $ cannot be factored as a product of irreducibles. We continue in this way. So we can write that $ (r)\subseteq (r_1)\subseteq (r_2)\subseteq\cdots $. But by our lemma this chain stabilises so there is some $ n $ such that $ (r_n)=(r_{n+1})=\cdots $, so we have that $ s_{n+1} $ is a unit which is a contradiction so $ r $ must be a product of irreducibles.\\
+\pf First we show that any $ r\in R $ is a product of irreducibles. If $ r $ is irreducible, we're done. If not, we can write $ r=r_1s_1 $ where either $ r_1 $ or $ s_1 $ are units. If both are products of irreducibles, then we're done. We can therefore assume by relabeling that $ r_1 $ is not a product of irreducibles. So we can write $ r_1=r_2s_2 $ with $ r_2,s_2 $ not units. Again without loss of generality we suppose that $ r_2 $ cannot be factored as a product of irreducibles. We continue in this way. So we can write that $ (r)\subseteq (r_1)\subseteq (r_2)\subseteq\cdots $. But by our lemma this chain stabilises so there is some $ n $ such that $ (r_n)=(r_{n+1})=\cdots $, so we have that $ s_{n+1} $ is a unit which is a contradiction so $ r $ must be a product of irreducibles.\par
 For uniqueness let $ p_1p_2\dots p_n=q_1q_2\dots q_m $ with $ p_i,q_i $ irreducibles. So in particular we have that $ p_1\mid q_1\dots q_m $. Since $ p_1 $ is irreducible it is prime by our lemma so $ p_1 $ divides some $ q_i $. We reorder and suppose that $ p_1\mid q_1 $. So $ q_1=p_1a $ for some $ a $. But since $ q_1 $ is irreducible, $ a $ must be a unit so $ p_1 $ and $ q_1 $ are asssociates. Since $ R $ is a principal ideal domain, it is an integral domain so we can cancel $ p_1 $ to get that $ p_2p_3\dots p_n=(aq_2)q_3\dots q_m $. Now we can rename $ aq_2 $ as $ q_2 $ and continue as above show that $ p_i, q_i $ are associates for all $ i $. This also shows that $ n=m $ as if we had a leftover product, suppose $ p_{k_1}\dots p_n = 1$ which is a contradiction since they are irreducible so a product of them cannot be a unit as that would imply that each $ p_i $ was a unit for $ k+1\le i \le n $.\qed
 
 \begin{claim}
@@ -672,17 +720,17 @@ For uniqueness let $ p_1p_2\dots p_n=q_1q_2\dots q_m $ with $ p_i,q_i $ irreduci
 If $ p\in R $ is irreducible and $ ab\in (p) $. Write $ ab=pc $. Now compare unique factorisation so $ (q_1\dots q_r)(s_1\dots s_k)=p(t_1\dots t_\ell) $ So $ p $ is an associate of soem $ q_i $ or $ s_j $. So done because either $ a $ or $ b $ is $ p $ times some element so lies in $ (p) $.
 \begin{definition}
 	(Greatest common divisor) Let $ R $ be an integral domain and $ a_1,\dots, a_n\in R $. We say that $ d\in  R $ is a \textit{greatest common divisor} (GCD) of $ a_1, \dots, a_n $ if:
-        \begin{itemize}
+        \begin{enumerate}
  	         \item $ d\mid a_i $ for all $ i $.
 	         \item If $ d'\mid a_i $ for all $ i $ then $ d'\mid d $.
-        \end{itemize}
+        \end{enumerate}
 \end{definition}
 \begin{definition}
 	(Least common multiple) Let $ R $ be an integral domain and $ a_1,\dots, a_n\in R $. We say that $ m\in R $ is a \textit{least common multiple} (LCM) of $ a_1,\dots, a_n $ if:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $ a_i\mid m $ for all $ i $.
 		\item If $ a_i\mid m' $ for all $ i $ then $ m\mid m' $.
-	\end{itemize}	
+	\end{enumerate}	
 \end{definition}
 \begin{theorem}
   Let $ R $ be a unique factorisation domain. Then gcd's and lcm's exist and are unique up to associates.
@@ -703,22 +751,22 @@ So clearly, for all $ i $ we have that $ d\mid a_i $. Suppose we have some $ d'|
 \[
 	d'=v\prod_{j=1}^np_j^{t_j},
 \]
-for some unit $ v $. So we must have that $ t_j\le n_{ij} $ for all $ i,j $. So we must have that $ t_j\le m_j $ for all $ j $. So $ d'\mid d $.\\
+for some unit $ v $. So we must have that $ t_j\le n_{ij} $ for all $ i,j $. So we must have that $ t_j\le m_j $ for all $ j $. So $ d'\mid d $.\par
 Now uniqueness up to associates follows from the fact that and two greatest common divisors must divide each other by definition, hence they must be associates. The argument for least common multiples is similar.\qed
-\\\\ We've created a lot of 'special' types of rings, so to make this section clearer use the following class inclusion.\\\\
+\par We've created a lot of 'special' types of rings, so to make this section clearer use the following class inclusion.\par
 $
 	\text{rings} \supset \text{integral domains}\supset\text{unique factorisation domains} \supset \text{principal ideal domains}\supset \text{Euclidean domains} \supset \text{fields}
-$\\\\
+$\par
 It should be very obvious why fields are Euclidean domains.
 \subsection{Factorisation in polynomial rings}
 Recall that, for $ F $ a field, $ F[X] $ is a Euclidean domain. Hence it is also a principal ideal domain and therefore a unique factorisation domain. This gives a few consequences.
-\begin{itemize}
+\begin{enumerate}
 	\item If $ I\nrm F[X] $, then $ I=(f) $ for some $ f\in F[X] $.
 	\item If $ f\in F[X] $, then $ f $ is irreducible if and only if $ f $ is prime.
 	\item If $ f $ is irreducible suppose $ (f)\subseteq J\subseteq F[X] $. Then $ J=(g) $ for some $ g\in F[X] $. Since $ (f)\subseteq (g) $ we must have that $ f=gh $. But since $ f $ is irreducible, either $ g $ or $ h $ is a unit. If $ h $ is a unit, then $ (f)=(g) $ and if $ g $ is a unit, then $ J=F[X] $ so $ (f) $ is a maximal ideal.
 	\item $ J\nrm F[X] $ is a non-zero prime ideal if and only if it is a maximal ideal. We've seen that maximal ideals implies prime ideals, so conversely suppose $ (f) $ is a prime ideal, non-zero. Hence $ f $ is prime and therefore irreducible so be the previous point $ (f) $ is maximal.
 	\item Finally we have that $ f\in F[X] $ is irreducible if and only if $ F[X]/(f) $ is a field.
-\end{itemize} 
+\end{enumerate} 
 We have that $ X^2+1 $ is irreducible in $ \R[X] $. Hence we have that $ \frac{\R[X]}{X^2+1}\cong\C $.
 \begin{definition}
 	(Content) Let $ R $ be a unique factorisation domain and let $ f=a_0+a_1X+\cdots+a_nX^n\in R[X] $. We define the \textit{content} as
@@ -756,18 +804,18 @@ However $ p|a_{k+\ell}b_0+\dots a_{k+1}b_{\ell -1} $ and $ p |a_{k-1}b_{\ell +1}
   fg=c(f)c(g)f_1g_1
 \]
 so therefore $ c(fg)=c(f)c(g)c(f_1g_1) $ and $ c(f_1g_2) $ is a unit so they are associates.
-\\\\ Finally we can now prove Gauss' lemma.
+\par Finally we can now prove Gauss' lemma.
 \begin{lemma}
 	(Gauss' lemma) Let $ R $ be a unique factorisation domain with $ F $ its field of fractions. Let $ f\in R[X] $ be primitive. Then $ f $ is reducible in $ R[X] $ if and only if $ f $ is reducible in $ F[X] $.
 \end{lemma}
-\pf First for the forwards direction, let $ f=gh $ be a product in $ R[X] $ with $ g,h $ not units. Since $ f $ is primitive so are $ g $ and $ h $. So both have non-zero degree hence they are not units. So $ f $ is reducible in $ F[X] $.\\
-For the other direct let $ f=gh $ in $ F[X] $ with $ g $ and $ h $ not units. So we can clear denominators so we pick $ a,b\in R $ such that $ ag,bh\in R[X] $. then we have that $ abf=(ag)(bh) $.\\
+\pf First for the forwards direction, let $ f=gh $ be a product in $ R[X] $ with $ g,h $ not units. Since $ f $ is primitive so are $ g $ and $ h $. So both have non-zero degree hence they are not units. So $ f $ is reducible in $ F[X] $.\par
+For the other direct let $ f=gh $ in $ F[X] $ with $ g $ and $ h $ not units. So we can clear denominators so we pick $ a,b\in R $ such that $ ag,bh\in R[X] $. then we have that $ abf=(ag)(bh) $.\par
 Let
 \begin{gather*}
   ag=c(ag)g_1,\\
   bh=c(bh)h_1,
 \end{gather*}
-where $ g_1 $ and $ h_1 $ are primitive. So $ ab=uc(abf)=uc((ag)(bh))=u'c(ag)c(bh) $. But $ abf=c(ag)(bh)g_1h_1=\inv u abg_1h_1 $, since we're in a integral domain we can cancel $ ab $ to get $ f=\inv u g_1h_1\in R[X] $. So $ f $ is reducible in $ R[X] $.\qed\\
+where $ g_1 $ and $ h_1 $ are primitive. So $ ab=uc(abf)=uc((ag)(bh))=u'c(ag)c(bh) $. But $ abf=c(ag)(bh)g_1h_1=\inv u abg_1h_1 $, since we're in a integral domain we can cancel $ ab $ to get $ f=\inv u g_1h_1\in R[X] $. So $ f $ is reducible in $ R[X] $.\qed\par
 
 Now for an example. Consider $ f=X^3+X+1\in \Z[X] $. We can see that $ c(f) =1 $ so $ f $ is primitive. Suppose for contradiction that $ f $ is reducible in $ \Q[X] $. So by Gauss' lemma, $ f $ is reducible in $ \Z[X] $, so $ X^3+X+1=gh $ where $ g,h\in \Z[X] $ not units. Hence $ \deg(g),\deg(h)\ge 1 $. Since $ \deg(f)=3=\deg(g)+\deg(h) $, suppose that $ \deg(g)=1 $ and $ \deg(h)=2 $. Hence let $ g=b_0+b_1X $ and let $ h=c_0+c_1X+c_2X^2 $. Multiplying out and equating coefficents we get that $ b_0c_0=1 $ and $ c_2b_1=1 $. Hence $ b_0,b_1 $ must be $ \pm 1 $, so we must have that $ g $ is either $ 1\pm X $ or $ -1\pm X $. Hence $ \pm 1 $ is a root of $ g $ which is a contradiction since $ f $ does not have a root of $ \pm 1 $. So $ f $ is not reducible in $ \Q[X] $, hence it has no root in $ \Q $ and we have that $ \Q[X]/(X^3+X+1) $ is a field.
 \begin{proposition}
@@ -785,19 +833,20 @@ This gives that $ bf = ub\cdot c(f)gh_1 $ so cancelling $ b $ gives that $ f $ i
 \begin{theorem}
 	If $ R $ is a unique factorisation domain, then $ R[X] $ is also a unique factorisation domain.
 \end{theorem}
-\pf First we prove that factorisations exist. Let $ f\in R[X] $. We can write $ f = c(f)f_1 $ where $ f_1 $ is primitive. Since $ F $ is a UFD, factorise $ c(f) $ as $ p_1\dots p_n $ for $ p_i\in R $ irreducible. Now we deal with $ f_1 $. If $ f_1 $ is not irreducible then write $ f_1=f_2f_3 $ where $ f_2,f_3 $ are not units. Since $ f_1 $ is primitive neither $ f_2 $ nor $ f_3 $ can be constant. So $ \deg(f_2),\deg(f_3)>0 $ and also $ \deg(f_1)=\deg(f_2)+\deg(f_3) $ using the fact that we're working in an integral domain \textit{(think!)}. Induct on the degree, if $ f_2 $ and $ f_3 $ are irreducible, we're done otherwise repeat the same steps until the process terminates, which will happen in finitely many steps since the degree is strictly decreasing. Putting this together we can write $ f=p_1\dots p_nq_1\cdots q_m $ all irreducibles.\\
-Now for uniqueness. First we deal with the $ p $'s. The content has a unique factorisation $ c(f)=p_1\dots p_n $. So cancelling the content suffices to show uniqueness of factorisation for $ f_1=q_1\dots q_m $. Suppose $ f_1=q_1\dots q_m=r_1\dots r_\ell $ are two factorisations in $ R[X] $. Viewing this in $ F[X] $, where $ F $ is the fraction field of $ R $, since $ F[X] $ is a Euclidean domain, we know that $ \ell=m $ and up to reordering $ q_i $ and $ r_i $ are associates in $ F[X] $. So $ q_i\mid r_i $ and $ r_i\mid q_i $ in $ F[X] $. But from the previous proposition we get the same statement in $ R[X] $\qed\\\\
+\pf First we prove that factorisations exist. Let $ f\in R[X] $. We can write $ f = c(f)f_1 $ where $ f_1 $ is primitive. Since $ F $ is a UFD, factorise $ c(f) $ as $ p_1\dots p_n $ for $ p_i\in R $ irreducible. Now we deal with $ f_1 $. If $ f_1 $ is not irreducible then write $ f_1=f_2f_3 $ where $ f_2,f_3 $ are not units. Since $ f_1 $ is primitive neither $ f_2 $ nor $ f_3 $ can be constant. So $ \deg(f_2),\deg(f_3)>0 $ and also $ \deg(f_1)=\deg(f_2)+\deg(f_3) $ using the fact that we're working in an integral domain \textit{(think!)}. Induct on the degree, if $ f_2 $ and $ f_3 $ are irreducible, we're done otherwise repeat the same steps until the process terminates, which will happen in finitely many steps since the degree is strictly decreasing. Putting this together we can write $ f=p_1\dots p_nq_1\cdots q_m $ all irreducibles.\par
+Now for uniqueness. First we deal with the $ p $'s. The content has a unique factorisation $ c(f)=p_1\dots p_n $. So cancelling the content suffices to show uniqueness of factorisation for $ f_1=q_1\dots q_m $. Suppose $ f_1=q_1\dots q_m=r_1\dots r_\ell $ are two factorisations in $ R[X] $. Viewing this in $ F[X] $, where $ F $ is the fraction field of $ R $, since $ F[X] $ is a Euclidean domain, we know that $ \ell=m $ and up to reordering $ q_i $ and $ r_i $ are associates in $ F[X] $. So $ q_i\mid r_i $ and $ r_i\mid q_i $ in $ F[X] $. But from the previous proposition we get the same statement in $ R[X] $\qed\par
 This gives us that rings such as $ \Z[X] $ and $ \C[X,Y]  $ are not principal ideal domains, but they are unique factorisation domains.
 \begin{theorem}
 	(Eisenstein's criterion) Let $ R $ be a unique factorisation domain and 
 	\[
 		f=a_0+a_1X+a_2X^2+\cdots+a_nX^n\in R[X]
 	\]
-	is primitive, with $ a_n\ne 0 $. Let $ p\in R $ be irreducible such that         \begin{itemize}
+	is primitive, with $ a_n\ne 0 $. Let $ p\in R $ be irreducible such that
+	\begin{enumerate}
 		\item $ p\nmid a_n $.
 		\item $ p\mid a_i $ for $ 0\le i\le n-1 $.
 		\item $ p^2 \nmid a_0 $.
-	\end{itemize}
+	\end{enumerate}
 	Then $ f $ is irreducible in $ R[X] $.
 \end{theorem}
 \pf Suppose we have $ f=gh $, with $ g=r_0+r_1X+\cdots r_kX^k $ and $ h = s_0+s_1X + \cdots s_\ell X^\ell $ and $ r_k, s_\ell \ne 0 $. We know that and since $ p\nmid a_n $ it does not divide $ r_k $ nor $ s_\ell $. Similarly $ r_0s_0=a_0 $ and $ p^2\nmid a_0 $ so $ p $ divides exactly one of $ r_0 $ and $ s_0 $. Let assume $ p\mid r_0 $ so $ p\nmid s_0 $. Let $ j $ be the index such that
@@ -806,7 +855,7 @@ This gives us that rings such as $ \Z[X] $ and $ \C[X,Y]  $ are not principal id
 \]
 Consider $ a_j $. We know $ a_j=r_0s_j+r_1s_{j-1}+\cdots +r_{j-1}s_1+r_js_0 $. We know that $ p \mid r_0s_j+\cdots +r_{j-1}s_1 $, also $ p\nmid r_j $ and $ p\nmid s_0 $, because $ p $ is prime, $ p\nmid a_j $. So we must have that $ j=n $. We also have that $ j\le k \le n $, so $ j=k=n $. Hence $ \deg g = n $ and $ \deg h =0 $. Since $ f $ is primitive we must have that $ h $ is a unit, so this is not a proper factorisation. Hence $ f $ is irreducible in $ R[X] $.\qed
 
-For an example consider the polynomial $ X^n-p\in \Z[X] $ with $ p $ prime. Apply Eisenstein's criterion with $ p\in \Z $ and observe all the conditions hold. This is certainly primitive, since this is monic. So $ X^n-p $ is irreducible in $ \Z[X] $, hence it is also irreducible in the fraction field polynomial, namely $ \Q[X] $. In particular $ X^n-p $ has no rational roots, so $ \sqrt[n]{p} $ is irrational.\\\\
+For an example consider the polynomial $ X^n-p\in \Z[X] $ with $ p $ prime. Apply Eisenstein's criterion with $ p\in \Z $ and observe all the conditions hold. This is certainly primitive, since this is monic. So $ X^n-p $ is irreducible in $ \Z[X] $, hence it is also irreducible in the fraction field polynomial, namely $ \Q[X] $. In particular $ X^n-p $ has no rational roots, so $ \sqrt[n]{p} $ is irrational.\par
 Next, consider $ f=X^{p-1}+X^{p-2}+\cdots + X + 1\in \Z[X] $ for $ p $ prime. See that we can write $ f $ as
 \[
 	f=\frac{X^p-1}{X-1}.
@@ -817,35 +866,35 @@ So perchance we should write $ Y=X-1 $. Then we get a new polynomial
 \]
 So now we can apply Eisenstein's criterion so $ \hat f $. So $ \hat f $ is irreducible in $ \Z[X] $. If we had a factorisation $ f(X)=g(X)h(X)\implies \hat f(Y)=g(Y+1)h(Y+1) $, but we know that $ \hat f $ cannot be factorised, so $ f $ is irreducible.
 \subsection{Gaussian integers}
-This is the ring $ \Z[i]=\{a+ib:a,b\in \Z\}\le \C $ and we have the usual norm $ N(a+ib)=a^2+b^2 $ which helpfully is a Euclidean function. This implies that $ \Z[i] $ is a Euclidean domain, hence it is a principal ideal domain and therefore a unique factorisation domain. So irreducible and prime are the same in the Gaussian integers. The units in $ \Z[i] $ are $ \pm 1 $ and $ \pm i $ which are exactly the norm $ 1 $ elements.\\\\
+This is the ring $ \Z[i]=\{a+ib:a,b\in \Z\}\le \C $ and we have the usual norm $ N(a+ib)=a^2+b^2 $ which helpfully is a Euclidean function. This implies that $ \Z[i] $ is a Euclidean domain, hence it is a principal ideal domain and therefore a unique factorisation domain. So irreducible and prime are the same in the Gaussian integers. The units in $ \Z[i] $ are $ \pm 1 $ and $ \pm i $ which are exactly the norm $ 1 $ elements.\par
 We make the following observations.
-\begin{itemize}
+\begin{enumerate}
 	\item We have $ 2 = (1+i)(1-i)$ so $ 2 $ is not a prime.
 	\item Similiarly $ 5=(1+2i)(1-2i) $ so also not a prime.
 	\item We claim that $ 3 $ is a prime in $ \Z[i] $. The norm of $ 3 $ is $9 $ so if $ 3=uv $ then either $ N(u) $ or $ N(v) $ is $ 1 $ (so one is a unit) or $ N(u)=N(v)=3 $. But if $ u=a+bi $ then we'd need $ a^2+b^2=3 $ which has no solutions for $ a,b\in \Z $. So one of $ u $ or $ v $ is a unit, hence $ 3 $ is prime. 
-\end{itemize} 
+\end{enumerate} 
 So what are the primes in $ \Z[i] $?
 \begin{proposition}
 	A prime number $ p\in \Z $ remains prime when viewed in $ \Z[i] $ if and only if $ p\ne a^2+b^2 $ for $ a,b\in \Z\setminus \{0\} $.
 \end{proposition}
-\pf If $ p=a^2+b^2 $ then in $ \Z[i] $ we can write $ p=(a+bi)(a-bi) $ so $ p $ is not irreducible and hence not prime.\\
+\pf If $ p=a^2+b^2 $ then in $ \Z[i] $ we can write $ p=(a+bi)(a-bi) $ so $ p $ is not irreducible and hence not prime.\par
 Conversely suppose $ p = uv $ is a product of non-units in $ \Z[i] $ then $ p^2=N(u)N(v) $. Since $ u $ and $ v $ are non-units then $ N(u)=N(v)=p $. Write $ u=a+bi $. Then we have that $ a^2+b^2=p $.\qed
-\\\\
+\par
 Now we want to classify all of the primes in $ \Z[i] $. But before that we need a lemma.
 \begin{lemma}
 	Let $ p $ be a prime number. Then the group $ \mathbb F_p^\times $ of non-zero elements $ \mod p $ under multiplication is a cyclic group. So $ \mathbb F_p^\times \cong C_{p-1}. $
 \end{lemma}
 \pf
-Certainly $ \mathbb F_p^\times $ is finite abelian. By the classification of finite abelian groups, if $ \mathbb F_p^\times $ is not cyclic then it contains $ C_m\times C_m  $ as a subgroup for some $ m>1 $. This means there are at least $ m^2 $ elements $ x\in \mathbb F_p^\times $ satisfying $ x^m-1=0 $. But a polynomial with coefficients in $ \mathbb F_p $ has number of solutions bounded above by the degree, which is a contradiction. \qed\\\\
+Certainly $ \mathbb F_p^\times $ is finite abelian. By the classification of finite abelian groups, if $ \mathbb F_p^\times $ is not cyclic then it contains $ C_m\times C_m  $ as a subgroup for some $ m>1 $. This means there are at least $ m^2 $ elements $ x\in \mathbb F_p^\times $ satisfying $ x^m-1=0 $. But a polynomial with coefficients in $ \mathbb F_p $ has number of solutions bounded above by the degree, which is a contradiction. \qed\par
 Now let's prove the theorem.
 \begin{theorem}
 	(Classification of primes in $ \Z[i] $) The primes in $ \Z[i] $ up to associates are exactly
-	\begin{itemize}
+	\begin{enumerate}
 		\item The primes $ p\in\Z $ such that $ p\equiv 3 \mod 4 $.
 		\item Gaussian integers $ z\in \Z[i] $ with $ N(z)=p $ where $ p $ is a prime that is either $ 2 $ or $ 1 \mod 4$.
-	\end{itemize}
+	\end{enumerate}
 \end{theorem}
-\pf Firstly we prove the two types of Gaussian integers are prime. If $ p\in \Z $ is $ 3\mod 4 $ then $ p\ne a^2+b^2 $ for $ a,b\in \Z\setminus \{0\} $ (by arithmetic) so by our proposition these are primes in $ \Z[i] $. Now for $ z\in\Z[i] $ if $ N(z)=p $, with $ p $ prime congruent to $ 2 $ or $ 1 \mod 4 $, we'll show that $ z $ is irreducible. Write $ z=uv $ in $ \Z[i] $, then $ p=N(z)=N(u)N(v) $ in $ \Z_{\ge 0 } $. So either $ N(u) $ or $ N(v) $ is $ 1 $ so $ u $ or $ v $ is a unit, so $ z $ is irreducible hence prime.\\\\
+\pf Firstly we prove the two types of Gaussian integers are prime. If $ p\in \Z $ is $ 3\mod 4 $ then $ p\ne a^2+b^2 $ for $ a,b\in \Z\setminus \{0\} $ (by arithmetic) so by our proposition these are primes in $ \Z[i] $. Now for $ z\in\Z[i] $ if $ N(z)=p $, with $ p $ prime congruent to $ 2 $ or $ 1 \mod 4 $, we'll show that $ z $ is irreducible. Write $ z=uv $ in $ \Z[i] $, then $ p=N(z)=N(u)N(v) $ in $ \Z_{\ge 0 } $. So either $ N(u) $ or $ N(v) $ is $ 1 $ so $ u $ or $ v $ is a unit, so $ z $ is irreducible hence prime.\par
 Now we show all primes in $ \Z[i] $ are of this form. Let $ z\in \Z[i] $ be prime. Observe that $ N(z)=z\overline z $ is a factorisation of $ N(z) $ viewed inside $ \Z[i] $ into irreducibles. Let $ p $ be a prime number that divides $ N(z) $ in $ \Z_{\ge 0} $. Suppose $ p\equiv 3\mod 4 $ so $ p $ is prime in $ \Z[i] $. So $ p=z\overline z $ hence $ p\mid z $ or $ p\mid \overline z $ therefore because $ z $ is conjugate to $ \overline z $ so $ p\mid z$ and $ p\mid \overline z $. But then $ p=z $ up to associates. Now assume that $ p\equiv 2 $ or $ 1\mod 4 $. The $ p\equiv 2 \mod 4 $ case can be worked out by hand, so assume $ p=4k+1 $ for $ k \in \Z $. By the lemma we know that $ \mathbb F_p^\times \cong C_{4k} $. There is a unique order $ 2 $ element here (which is $ -1 $). If $ a\in \mathbb F_p^\times $ is order $ 4 $, then we have $ a^2\equiv -1\mod p $. So $ p $ divides $ (a+i)(a-i) $ but not $ a+i $ or $ a-i $ individually. So $ p $ is not irreducible in $ \Z[i] $. So now we can write $ p=z_1z_2 $ non-units. Taking the norm we get that $ N(p)=p^2=N(z_1)N(z_2) $. Because these are non-units, we must have that $ N(z_1)=N(z_2)=p $. So $ \overline z_1=z_2 $. Finally we have that $ p= , z_1\overline z_1\mid N(z)=z\overline z $ all of $ z,z_i $ are irreducible so $ z,z_1 $ or $ z,\overline z_1 $ are associates. Hence $ N(z)=p. $\qed
 \begin{corollary}
   An non-negative integer $ n $ can be written as a sum of two squares if and only if when we write $ n $ as a product of distinct primes,
@@ -860,7 +909,6 @@ Now we show all primes in $ \Z[i] $ are of this form. Let $ z\in \Z[i] $ be prim
 \begin{definition}
 	(Algebraic integer) A complex number $ \alpha\in \C $ is an \textit{algebraic integer} if it is a root of a monic polynomial in $ \Z[X] $.
 \end{definition}
-\\\\
 For a piece of notation we write $ \Z[\alpha]\le \C $ for an algebraic integer $ \alpha $, as the smallest subring containing $ \alpha $ so
 \[
 	\Z[\alpha]=\bigcap_{\substack{R\le \C \\ \alpha\in R}}R.
@@ -869,35 +917,35 @@ Or equivalently $ \Z[\alpha] $ is the image of $ e_\alpha:\Z[X]\to \C $ given by
 \begin{proposition}
 	Let $ \alpha\in \C $ be an algebraic integer. The ideal $ I=\ker (e_\alpha)\nrm \Z[X] $ is principal, and $ I=(f_\alpha) $ with $ f_\alpha $ monic and irreducible.
 \end{proposition}
-Recall that $ \Z[X] $ is not a principal ideal domain, so this proposition is not trival.\\ From our proposition we can use the following definition.
+Recall that $ \Z[X] $ is not a principal ideal domain, so this proposition is not trival.\par From our proposition we can use the following definition.
 \begin{definition}
 	(Minimal polynomial) The \textit{minimal polynomial} of an algebraic integer $ \alpha $ is the irreducible monic $ f_\alpha $ such that $ (f_\alpha)=\ker (e_\alpha) $.
 \end{definition}
-Now for the proof of the proposition\\\\
+Now for the proof of the proposition\par
 \pf By definition $ I=\ker e_\alpha $ is non-zero. Take $ f_\alpha\in I $ of minimal degree. We can assume $ f_\alpha $ is primiative (since monic). Now we aim to show that $ I=(f_\alpha) $. Let $ h\in I $. In $ \Q[X] $ we have the Euclidean algorithm so we can write $ h=f_\alpha q+r $ with $ r=0 $ or $ \deg r<\deg f_\alpha $. Now clearing denominators so for some $ a\in \Z $ we get that $ ah=f_\alpha(aq)+(ar) $. Now plugging in $ \alpha $ we get that
 \[
   ah(\alpha)=f_\alpha(\alpha)aq(\alpha)+ar(\alpha)
 \]
-Since that $ f_\alpha,h\in I $ we get that $ f_\alpha(\alpha)=h(\alpha)=0 $, so we have that $ ar(\alpha)=0 $. So $ (ar)\in I $. But since we have that $ f_\alpha\in I $ has minimal degree, and $ \deg(r)=\deg(ar) $ we must have that $ r=0 $. So we know that $ ah=f_\alpha\cdot (aq) $. This almost what we want, we just need to factorise $ h $ instead of $ ah $. Taking the contents we know that $ c(f_\alpha) $ is a unit so $ c(ah)=c(aq) $, so $ a\mid c(aq) $. Therefore $ aq=a\overline q $ for $ \overline q\in \Z[X] $. So this means that $ q=\overline q\in \Z[X] $. So we know that $ h=f_\alpha q\in (f_\alpha) $. Hence $ I=(f_\alpha) $.\\\\
+Since that $ f_\alpha,h\in I $ we get that $ f_\alpha(\alpha)=h(\alpha)=0 $, so we have that $ ar(\alpha)=0 $. So $ (ar)\in I $. But since we have that $ f_\alpha\in I $ has minimal degree, and $ \deg(r)=\deg(ar) $ we must have that $ r=0 $. So we know that $ ah=f_\alpha\cdot (aq) $. This almost what we want, we just need to factorise $ h $ instead of $ ah $. Taking the contents we know that $ c(f_\alpha) $ is a unit so $ c(ah)=c(aq) $, so $ a\mid c(aq) $. Therefore $ aq=a\overline q $ for $ \overline q\in \Z[X] $. So this means that $ q=\overline q\in \Z[X] $. So we know that $ h=f_\alpha q\in (f_\alpha) $. Hence $ I=(f_\alpha) $.\par
 Now we're left to show that $ f_\alpha $ is irreducible. We know that
 \[
-	\frac{\Z[X]}{(f_\alpha)}\cong\im(e_\alpha)\le \C.
+	\frac{\Z[X]}{(f_\alpha)}\cong\ima(e_\alpha)\le \C.
 \]
-But since $ \C $ is an integral domain all of its subrings are integral domains, so $ \Z[X]/(f_\alpha) $ is an integral domain, so $ (f_\alpha) $ is prime hence $ f_\alpha $ is prime, so it's irreducible.\qed\\\\
+But since $ \C $ is an integral domain all of its subrings are integral domains, so $ \Z[X]/(f_\alpha) $ is an integral domain, so $ (f_\alpha) $ is prime hence $ f_\alpha $ is prime, so it's irreducible.\qed\par
 We have plenty of examples of algebraic integers.
-\begin{itemize}
+\begin{enumerate}
 	\item $ \alpha=i $ is an algebraic integer with $ f_\alpha=X^2+1 $.
 	\item $ \alpha=\frac 12(1+\sqrt{-3}) $ is an algebraic integer with $ f_\alpha=X^2-X-1 $.
 	\item The monic polynomial $ X^5-X+d $ with $ d\in \Z_{\ge 1} $ has exactly one real root which is an algebraic integer.
-\end{itemize}
+\end{enumerate}
 \begin{theorem}
-	The real root of $ X^5-X+d $ cannot be written using integers and the operations $ \times, +,-,\divide,\sqrt[n]{} $.
+	The real root of $ X^5-X+d $ cannot be written using integers and the operations $ \times, +,-,\sqrt[n]{},\div $.
 \end{theorem}
 \pf II Galois Theory
 \begin{proposition}
   Let $ \alpha\in \Q $ be an algebraic integer. Then $ \alpha\in \Z $.
 \end{proposition}
-\pf Let $ f_\alpha $ be the minimal polynomial of $ \alpha $ irreducible. So by Gauss' lemma we have that the polynomial is also irreducible in $ \Q[X] $. But $ (X-\alpha) $ divides it in $ \Q[X] $ so $ f_\alpha=(X-\alpha) $ hence $ \alpha\in\Z $.\\\\
+\pf Let $ f_\alpha $ be the minimal polynomial of $ \alpha $ irreducible. So by Gauss' lemma we have that the polynomial is also irreducible in $ \Q[X] $. But $ (X-\alpha) $ divides it in $ \Q[X] $ so $ f_\alpha=(X-\alpha) $ hence $ \alpha\in\Z $.\par
 It should be noted that the set of algebraic integers form a ring, but this is not obvious and will be proved later.
 \subsection{Hilbert's basis theorem}
 \begin{definition}
@@ -921,7 +969,7 @@ $ I $ is an ideal (Example Sheet 2) so we know that $ I $ is finitely generated,
 \[
 	K=\max_{i=1,\dots n}\{k_i\}.
 \]
-Then we have that $ r_1,\dots,r_n\in I_K $, so $ I_K=I=I_{K+1}=\cdots $ so $ R $ is Noetherian.\\\\
+Then we have that $ r_1,\dots,r_n\in I_K $, so $ I_K=I=I_{K+1}=\cdots $ so $ R $ is Noetherian.\par
 For the converse if $ I $ is not finitely generated, pick $ r_1\in I $ such that $ I\ne (r_1) $. Pick $ r_2\in I\setminus (r_1) $ such that $ (r_1,r_2)\ne I $, and so on to get $ (r_1)\subseteq (r_1,r_2)\subseteq \cdots $ strictly increasing so $ R $ is not Noetherian. \qed
 \begin{theorem}
 	(Hilbert's basis theorem) Let $ R $ be a Noetherian ring. Then $ R[X] $ is also Noetherian.
@@ -935,13 +983,13 @@ and consider the polynomial
 	g=\sum_{i=1}^mb_if_iX^{\deg f_{m+1}-\deg f_i}.
 \]
 This has the same degree and leading coefficient as $ f_{m+1} $. Then $ f_{m+!}-g $ has smaller degree and lies in $ J $, but not in $ (f_1,\dots f_m) $. This contradicts minimality of $ \deg f_{m+1} $. So the process must terminate, hence $ R[X] $ is Noetherian.\qed
-\\\\
+\par
 We also have that $ R[[X]] $ is Noetherian
 \begin{corollary}
 	$ \Z[X_1,X_2,\dots, X_n] $ is Noetherian, and for $ F $ a field $ F[X_1,X_2,\dots, X_n]  $ is Noetherian.
 \end{corollary}
 \pf Let $ J\nrm \frac RI  $ and let $ J'\nrm R $ be the corresponding ideal in $ R $. If $ J' $ is generated by $ r_1,\dots, r_m $ then $ J $ is generated by $ (r_1+I),\dots, (r_m+I) $.\qed
-\\\\
+\par
 In fact all finitely-generated rings is a quotient of some $ \Z[X_1,\dots, X_n] $ giving the final corollary of this section.
 \begin{corollary}
   All finitely-generated rings are Noetherian.
@@ -949,7 +997,7 @@ In fact all finitely-generated rings is a quotient of some $ \Z[X_1,\dots, X_n] 
 \pf Obvious \qed
 \section{Modules}
 \subsection{Definitions and examples}
-An example of a module is a vector space over a field $ K $. (Recall a vector space is an abelian group $ V $ with a 'scaling', $ K\times V\to V $.)\\\\
+An example of a module is a vector space over a field $ K $. (Recall a vector space is an abelian group $ V $ with a 'scaling', $ K\times V\to V $.)\par
 Another example is that if $ A $ is any abelian group, we can think of $\Z\times A\to A $ sending $ (n,a)\to \underbrace{a+a+\cdots +a}_{n \text{ times} } $
 \begin{definition}
 	(R-module) Let $ R $ be a communiative ring. Then a quadruple $ (M,+,0_M,\circ) $ is an \textit{R-module} if
@@ -965,16 +1013,16 @@ Another example is that if $ A $ is any abelian group, we can think of $\Z\times
 	\end{enumerate}
 	for all $ m_1,m_2,m\in M $ and $ r_1,r_2,r\in R $.
 \end{definition}
-If $ R=K $ is a field, then an $ R $-module is a $ K $-vector space. Any abelian group is naturally a $ \Z $-module.\\\\
-For any $ R $ the self product $ R^m=\underbrace{R\times\cdots\times R}_{m \text{ times}} $ is an $ R $-module via $ R\times R^m\to R^m $ given by $ (r,r_1,\dots,r_m)\to (rr_1,\dots, rr_m) $.\\\\
-If $ I\nrm R $ then $ I $ is an $ R $-module via multiplication.\\\\
-Similarly the group $ R/I $ is also an $ R $-module via $ R\times R/I\to R/I $ given by $ (r,s+I)\to (rs+I) $.\\\\
+If $ R=K $ is a field, then an $ R $-module is a $ K $-vector space. Any abelian group is naturally a $ \Z $-module.\par
+For any $ R $ the self product $ R^m=\underbrace{R\times\cdots\times R}_{m \text{ times}} $ is an $ R $-module via $ R\times R^m\to R^m $ given by $ (r,r_1,\dots,r_m)\to (rr_1,\dots, rr_m) $.\par
+If $ I\nrm R $ then $ I $ is an $ R $-module via multiplication.\par
+Similarly the group $ R/I $ is also an $ R $-module via $ R\times R/I\to R/I $ given by $ (r,s+I)\to (rs+I) $.\par
 Let $ V $ be a $ K $-vector space and let $ \alpha\in \mathrm{End} $(V)	so $ \alpha $ is a linear map. We can give $ V $ the structure of a module over $ K[X] $ by
 \begin{align*}
 	K[X]\times V\to V \\
 	(f,v)\to f(\alpha)(v)
 \end{align*}
-giving a $ K[X] $-module.\\\\
+giving a $ K[X] $-module.\par
 Another important example. Let $ \varphi:R\to S $ be a ring homomorphism and let $ M $ be an $ S $-module. We can turn $ M $ into an $ R $-module via:
 \begin{align*}
   R\times M\to M\\
@@ -984,7 +1032,7 @@ In particular this turns $ S $ into an $ R $-module.
 \begin{definition}
 	(Submodule) Let $ M $ be an $ R $-module. A subgroup $ N\subseteq M $ is an $ R $\textit{-submodule} if for every $ n\in N $ and $ r\in R $, we have $ rn\in N $. We write $ N\le M $.
 \end{definition}
-For a non-example $ \R^n $ is an $ \R $-vector space hence it is an $ \R $-module. But $ \Q^n $ is not a $ \R $-submodule because it's not closed under the scaling operation.\\\\
+For a non-example $ \R^n $ is an $ \R $-vector space hence it is an $ \R $-module. But $ \Q^n $ is not a $ \R $-submodule because it's not closed under the scaling operation.\par
 If $ R=K $ then a $ K $-submodule of $ V $ is just a $ K $-vector subspace.
 
 \begin{definition}
@@ -1082,11 +1130,11 @@ We observe that the annihilator of $ S\subseteq M $ is an ideal in $ R $.
   (r_1,\dots,r_k)\to \sum r_im_i,
 \end{align*}
 clearly surjective homomorphism.
-Conversely if $ \varphi:R^K\to M $ is given, let $ \e_i=(0,\dots, 0,1,0,\dots, 0) $ with a $ 1 $ in the $ i $th position and $ m_i =\varphi(e_i) $ and now we can check that $ m_i $ generates $ M $ by surjectivity. \qed
+Conversely if $ \varphi:R^K\to M $ is given, let $ e_i=(0,\dots, 0,1,0,\dots, 0) $ with a $ 1 $ in the $ i $th position and $ m_i =\varphi(e_i) $ and now we can check that $ m_i $ generates $ M $ by surjectivity. \qed
 \begin{corollary}
   If $ M $ is finitely generated $ R $-module and $ N\le M $ then $ M/N $ is finitely generated.
 \end{corollary}
-\pf Using the previous lemma we can compose surjection $ R^k\to M $ and surjection $ M\to M/N $ hence we have a surjection $ R^k\to M/N $.\qed\\\\
+\pf Using the previous lemma we can compose surjection $ R^k\to M $ and surjection $ M\to M/N $ hence we have a surjection $ R^k\to M/N $.\qed\par
 However a submodule of a finitely-generated module need not be finitely-generated. For example let $ R=\C[X_1,X_2,\dots] $. And consider the module $ M=R $ so the submodule $ I $ generated by $ (X_1,X_2,\dots) $ is not finitely-generated but $ M $ is finitely-generated (by $ 1 $).
 \subsection{Direct sums and free modules}
 Now we'll slug through some definitions.
@@ -1124,7 +1172,7 @@ Now let's look at an example. Consider the $ \Z $-module $ \Z/2 $. Suppose $ \Z/
 		\item Every $ m\in M $ is uniquely expressible as $ m=r_1m_1+\cdots r_km_k $.
 	\end{enumerate}
 \end{proposition}
-\pf The fact that (ii) $ \iff $ (ii) follows from IB Linear Algebra.\\
+\pf The fact that (ii) $ \iff $ (ii) follows from IB Linear Algebra.\par
 For the first statement, suppose that $ S $ genreates $ M $ freely. If $ S $ is not linearly independent we can write
 \[
   0=r_1m_1+r_2m_2+\cdots +r_km_k
@@ -1135,7 +1183,7 @@ For the converse assume (iii). Since every $ m $ is uniquely $ m=\sum^k_{i=1}r_i
   \varphi_f(r_1m_1+\cdots r_km_k)=r_1\varphi_f(m_1)+\cdots+r_k\varphi_f(m_k).
 \]
 We have well-definedness by uniqueness and is clearly an $ R $-module homomorphism. So $ S $ generates $ M $.\qed
-\\\\
+\par
 Now take $ \{2,3\}\subseteq \Z $. This set generates $ \Z $ by Bezout's, but
 \[
   0=3\cdot 2 + (-2)\cdot 3
@@ -1151,7 +1199,7 @@ And for someone completely different.
 \begin{proposition}
 	(Invariance of dimension/rank) Let $ R $ be a non-zero ring. Then if $ R^n\cong R^m $ then $ n=m $.
 \end{proposition}
-\pf We will prove the statement by reducing to $ R $ to a field where we know the result follows.\\
+\pf We will prove the statement by reducing to $ R $ to a field where we know the result follows.\par
 If $ I\nrm R $ is an ideal and $ M $ is an $ R $-module, consider $ IM = \{ r\cdot m:r\in I, m\in M\}\le M $. So we can consider $ M/IM $ as an $ R $-module. If $ r\in I $ then its action on $ M/IM $ is
 \[
   r(m+IM)=rm+IM=0+IM=IM.
@@ -1165,11 +1213,11 @@ Now let $ I\nrm R $ be a maximal ideal So we have an isomorphism $ (R/I)^n\cong 
 For the rest of the course we'll fix a Euclidean domain $ R $ along with a Euclidean function $ \varphi: R\setminus \{0\}\to \Z_{\ge 0} $. We know that for $ a,b\in R $ we can find $ x,y\in R $ such that $ ax+by=\gcd(a,b) $.
 \begin{definition}
 	(Elementary row operations) Let $ A $ be an $ m\times n $ matrix with entries in $ R $. The \textit{elementary row opertaions} are the following
-	\begin{itemize}
+	\begin{enumerate}
 		\item [(ER1)] Add $ c\in R $ times row $ i $ to row $ j $
 		\item [(ER2)] Swap row $ i $ and row $ j $
 		\item [(ER3)] Multiply the $ i $th row by a \textit{unit} $ c\in R $. 
-	\end{itemize}
+	\end{enumerate}
 	A similarly we can do column operations in the same way.
 \end{definition}
 How 'nice' can we make $ A $?
@@ -1178,7 +1226,7 @@ How 'nice' can we make $ A $?
 	\[
 	  B=QA\inv T
 	\]
-	for $ Q,T $ invertiable.
+	for $ Q,T $ invertible.
 \end{definition}
 Notice that the matrix $
 \begin{pmatrix}
@@ -1240,12 +1288,12 @@ Where $ d'=r $. By applying this finitely many times we get a matrix
 	  0 & & &
   \end{pmatrix}
 \]
-where $ d $ divides every entry in $ C $.\\
+where $ d $ divides every entry in $ C $.\par
 Now recurse with $ C $ replacing $ A $ from the start of the proof. Then the output matrix is as claimed.\qed
 \begin{remark}
   However we haven't shown the invariant factors are well-defined.
 \end{remark}
-Recall for a matrix $ A $ a $ k\times k $ minor is the determinate of a $ k\times k $ submatrix.
+Recall for a matrix $ A $ a $ k\times k $ minor is the determinant of a $ k\times k $ submatrix.
 \begin{definition}
 	(Fitting ideals) For $ A $ a matrix over $ R $, the $ k $th \textit{fitting ideal} is the ideal 
 	\[
@@ -1261,15 +1309,15 @@ Recall for a matrix $ A $ a $ k\times k $ minor is the determinate of a $ k\time
 \end{proposition}
 \pf We'll check that $ \Fit_k(A) $ is unchanged by row and column operations. Since $ \Fit_k(A)=\Fit_k(A^T) $ it suffices to check row operations. Consider $ C $ a $ k\times k $-submatrix of $ A $. Consider adding $ c $ times row $ i $ to row $ j $.
 \begin{enumerate}
-	\item If both rows lie inside $ C $ then the minor is unchanged by properties of the determinate.
+	\item If both rows lie inside $ C $ then the minor is unchanged by properties of the determinant.
 	\item If the $ j $th row is outside $ C $ then $ C $ is unchanged obviously.
-	\item Suppose the $ j $th row in $ C $ and the $ i $th row is not. If row $ i $ is $ [f_1,\dots, f_k] $ the nthe new row $ i $ is $ [C_{j1}+cf_1,\cdots, C_{jk}+cf_k] $. Now computing the determinate of this new submatrix along this row. So
+	\item Suppose the $ j $th row in $ C $ and the $ i $th row is not. If row $ i $ is $ [f_1,\dots, f_k] $ then the new row $ i $ is $ [C_{j1}+cf_1,\cdots, C_{jk}+cf_k] $. Now computing the determinant of this new submatrix along this row. So
 		\[
 		  \det C'=\det C+c\det D
 		\]
 		where $ D $ is obtained from $ C $ by replacing row $ j $ with $ [f_1,\cdots, f_k] $ But $ D $ is a $ k\times k $ submatrix of $ A $ so we're done since ideals are closed under addition and multiplication.
 \end{enumerate}
-The remaining operations are straightforward to check. We conclude that $ \Fit_k(A)\subseteq \Fit_k(B) $ and since all row operations are invertiable we have that $ \Fit_k(A)=\Fit_k(B) $\qed
+The remaining operations are straightforward to check. We conclude that $ \Fit_k(A)\subseteq \Fit_k(B) $ and since all row operations are invertible we have that $ \Fit_k(A)=\Fit_k(B) $\qed
 \begin{corollary}
   If $ A $ has Smith normal form then
   \[
@@ -1322,7 +1370,7 @@ Pick a basis $ v_1,\dots,v_m $ for $ R^m $ such that $ \ker\gamma $ is generated
 	M\cong\frac{R^m}{\left\langle(d_1,0,\dots,0),(0,d_2,0,\dots,0),\cdots,(0,\dots,d_r,0,\dots,0)\right\rangle}\cong \frac R{(d_1)}\oplus\cdots\oplus \frac R{(d_r)}\oplus R\oplus\cdots\oplus R
 \]
 hence we're done.\qed
-\\\\
+\par
 Suppose that $ G $ is abelian generated by $ a,b,c\in G $ with the following relations
 \begin{align*}
   2a+3b+c=0 \\
@@ -1356,12 +1404,12 @@ So $ G\cong \Z/3 $
 	  \frac R{(a)}\oplus \frac R{(b)}\cong \frac R{(ab)}.
   \]
 \end{proposition}
-\pf Consider $ \varphi: R/(a)\oplus R/(b)\to R/(ab) $, given by $ (r_1+(a),r_2+(b))\to (br_1+ar_2+(ab)) $. To show well-definedness, say $ (r_1+(a),r_2+(b))=(r_1'+(a),r_2'+(b)) $. So $ r_1=r_1'+za $ and $ r_2=r_2'+wr_2=r_2'+wb $. So by computation we get that $ br_1+ar_2+(ab)=br_1'+bza+ar_2'+awb=br_1'+ar_2'+(ab) $. Hence $ \varphi $ is well-defined.\\
+\pf Consider $ \varphi: R/(a)\oplus R/(b)\to R/(ab) $, given by $ (r_1+(a),r_2+(b))\to (br_1+ar_2+(ab)) $. To show well-definedness, say $ (r_1+(a),r_2+(b))=(r_1'+(a),r_2'+(b)) $. So $ r_1=r_1'+za $ and $ r_2=r_2'+wr_2=r_2'+wb $. So by computation we get that $ br_1+ar_2+(ab)=br_1'+bza+ar_2'+awb=br_1'+ar_2'+(ab) $. Hence $ \varphi $ is well-defined.\par
 By the Euclidean algorithm we can write $ 1=ax+by $. Observe that
 \[
   \varphi(y+(a),x+(v))=1+(ab)
 \]
-and since $ R/(ab) $ is generated by $ 1_{R/(ab)} $ and $ \varphi $ is an $ R $-module homomorphism, the map is surjective.\\
+and since $ R/(ab) $ is generated by $ 1_{R/(ab)} $ and $ \varphi $ is an $ R $-module homomorphism, the map is surjective.\par
 Finally for injectivity we calculate $ \ker\varphi $. If $ br_1+ar_2\in (ab) $ then write
 \[
   br_1+ar_2=abx
@@ -1386,7 +1434,7 @@ For notation we'll write $ V_\alpha $ for this module.
 	If $ \dim V $ is finite then $ V_\alpha $ is a finitely generated $ \F[X] $-module.
 \end{lemma}
 If we have a generating set for $ V $ as an $ \F $-module then they also generate $ V_\alpha $ since $ \F\le \F[X] $.\qed
-\\\\
+\par
 For an example suppose that $ V_\alpha\cong \F[X]/(X^r) $. As a vector space ove r $ \F $, $ V_\alpha $ is spanned by $ 1,X,X^2,\dots, X^{r-1} $ which is a basis. As a matrix $ \alpha $ i.e. multiplication by $ X $ is given by
 \[
   \begin{pmatrix}
@@ -1440,7 +1488,7 @@ with $ f_1\mid f_2\mid \cdots\mid f_s $ and there exists a basis for $ V $ where
 \begin{lemma}
 	The primes in $ \C[X] $ are exactly $ (X-\alpha) $ for $ \alpha\in \C $.
 \end{lemma}
-\pf Any constant is either a unit or 0 so not prime. Any quadratic or above has a root so not irreducible. Clearly $ (X-\alpha) $ are always prime since $ \C[X]/(X-\alpha)\cong \C $ which is a field.\qed\\\\
+\pf Any constant is either a unit or 0 so not prime. Any quadratic or above has a root so not irreducible. Clearly $ (X-\alpha) $ are always prime since $ \C[X]/(X-\alpha)\cong \C $ which is a field.\qed\par
 Now for the final theorem! (woah)
 \begin{theorem}
 	(Jordan canonical form)	Let $ V $ be a vector space over $ \C $ and let $ \alpha\in \mathrm{End}(V) $. Then
