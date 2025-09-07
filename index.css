@@ -16,7 +16,7 @@ body {
 }
 
 .name-title {
-    position: fixed;
+    position: absolute;
     top: 30px;
     left: 30px;
     font-size: 32px;
