@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{../header}
+\newcommand{\E}{\mathbb E}
 \title{Markov Chains}
 \author{Notes made by Finley Cooper}
 \begin{document}
@@ -7,4 +8,41 @@
   \newpage
   \tableofcontents
   \newpage
+  \section{Markov Chains}
+  \subsection{The Markov property}
+  Throughout all our random variables and random processes will be assumed to be defined on an appropiate underlying probablity space $ (\Omega, \mathcal F, \mathbb P) $.
+  \begin{definition}
+  (Markov chain) A discrete-time Markov chain is a sequence $ \doubleline X=(X_n)_{n\ge 0} $ of random variables taking values in the same discrete countable state space $ I $, such that:
+	  \[
+		  \prob{X_{n+1}=x_{n+1}|X_0=x_0,\dots, X_n=x_n}=\prob{X_{n+1}=x_{n+1}|X_n=x_n}\quad \forall n\ge 0.
+	  \]
+  \end{definition}
+  If $ \prob{X_{n+1} = y | X_n = x} $ is indepedent of $ n $ for all $ x,y $ then we call $ \doubleline X $ a time-homogeneous Markov chain. For this course all Markov chains are time-homogeneous with a countable state space.\par
+\begin{definition}
+	(Transition matrix) We define the transition matrix $ P $ as the matrix
+	\[
+		P(x,y)=P_{xy}=\prob{X_{n+1}=y|X_n=x}.
+	\]
+\end{definition}
+Note that $ P $ is a stochastic matrix i.e. $ P_{xy}\ge 0  $ for all $ x,y $ and the sum of each row is 1.
+For example take the simple Markov chain with $ I=\{0,1\} $ moving from $ 0 $ to $ 1 $ w.p. $ \alpha $ and moving from $ 1 $ to $ 0 $ w.p. $ \beta $,
+so \[P = 
+  \begin{pmatrix}
+	  1-\alpha & \alpha \\
+	  \beta & 1-\beta 
+  \end{pmatrix}
+\]
+We say that $ \doubleline X= (X_n) $ is a Markov chain with transition matrix $ P $ with initial distribution $ \lambda $ if $ \lambda=(\lambda_n) $ is a distribution and $ I $ is such that $ \prob{X_0=x}=\lambda_{something} $, for all $ x\in I $, P is the transition matrix of $ \doubleline X $ i.e.
+\[
+	\prob{X_{n+1}=y|X_n=x,X_{n-1}=i_{n-1},\dots, X_0=i_0}=P_{xy}
+\]
+for all $ i_0,\dots, i_{n-1}\in I $. Then $ \doubleline X\sim \text{Markov}(\lambda, P) $
+\begin{theorem}
+$ \doubleline X = (X_n)$ is $ \text{Markov}(\lambda, P) $ on $ I $ iff
+\[
+\prob{X_0=i_0,X_1=i_1,\dots, X_n=i_n)=\lambda_{i_0}p_{i_0,i_1},\dots p_{i_{n-1},i_n}}
+\]
+\pf Exercise
+\pf Exercise..
+\end{theorem} 
 \end{document}

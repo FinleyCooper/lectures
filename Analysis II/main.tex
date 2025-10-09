@@ -2,9 +2,69 @@
 \usepackage{../header}
 \title{Analysis II}
 \author{Notes made by Finley Cooper}
+\newcommand{\eps}{\varepsilon}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
+  \section{Uniform Convergence}
+For a subset $ E\subseteq \R $, have a sequence $ f_n:E\to \R $. What does it mean for the sequence $ (f_n) $ to converge? The most basic notion for any $ x \in E $ require that the sequence of real numbers $ f_n(x) $ to converge in $ \R $. If this holds we can defined a new function $ f: E\to \R $ by setting each value to the limit of the function.
+\begin{definition}
+	(Pointwise limit) We say that $ (f_n) $ converges \textit{pointwise} if for all $ x $ in its domain we have that
+	\[
+		f(x)=\lim_{n\to\infty}f_n(x)
+	\]
+	converges. We write that $ f_n\to f $ pointwise.
+\end{definition}
+Are properties such as continuity, differentiability integrability, preserved in the limit? We'll use an example to show that continuity is not preserved.\par
+We can see this by taking a sequence of functions which converge to a step function by taking tighter and tighter curvers which get steeper and steeper. For example take,
+\[
+	f_n:[-1,1]\to \R,\quad f_n(x)=x^{\frac 1{2n+1}}.
+\]
+So in the limit we get that
+\[
+  f_n(x)\to f(x)=\begin{cases}
+	  1 & 0< x \le 1 \\
+	  0 & x = 0 \\
+	  -1 & -1\le x < 0 
+  \end{cases}
+\]
+which is not continious.\par
+For an example where integability is not preserved, let $ q_1,q_2,q_3,\dots $ be an enumeration of $ \Q\cap [0,1] $ and define
+\[
+  f_n(x)=\begin{cases}
+	  1 & x\in\{q_1,\dots, q_n\} \\
+	  0 & \text{otherwise}
+  \end{cases}
+\]
+so we get $ f_n(x) $ continious everywhere on $ [0,1] $ apart from a finite number of points, then $ f_n $ is integrable on $ [0,1] $ (IA Analysis I). But,
+\[
+	\lim_{n\to\infty}f_n(x)=\boldsymbol{1}_\Q(x)
+\]
+which we know is not integrable.\par
+If $ f_n\to f $ pointwise, $ f_n $ integrable, $ f $ integrable, does it follow that $ \int f_n\to\int f $? (Spoiler: No)
+For example take $ f_n $ to be a 'spike' with height $ n $ and width $ \frac 2n $, concretely,
+\[
+  f_n(x)=\begin{cases}
+	  n^2x& 0\le x \le \frac 1n \\
+	  n^2(\frac 2n - x) & \frac 1n \le x \le \frac 2n \\
+	  0 & \text{otherwise}
+  \end{cases}
+\]
+So the integral of $ f_n $ over $ [0,1] $ is $ 1 $, but we can see that $ f_n $ converges pointwise to zero. So $ \int_0 ^1 f_n\to 1 $ but $ \int_0 ^1f\to0 $.\par So we need a better (stronger) notion for the convergence of a sequence of functions.
+We can't use something too strong, such as $ f_n \to f$ if $ f_n $ is eventually $ f $ for large enough $ n $. We've got to find something inbetween. This is uniform convergence.
+\begin{definition}
+	(Uniform convergence) Let $ f_n,f: E\to \R $, for $ n\in\N $. We say that $ (f_n) $ converges \textit{uniformly} on $ E $ if the following holds. For all $ \eps>0 $, $ \exists N=N(\eps) $ such that for every $ n\ge N $ and for every $ x\in E $ we have that $ |f_n(x)-f(x)|<\eps $.
+\end{definition}
+\begin{remark}
+  This statement is equivalent to the following,
+  \[
+	  \forall\eps >0,\exists N=N(\eps), \text{ s.t. } \forall n\ge N, \sup_{x\in E}|f_n(x)-f(x)|<\eps.
+  \]
+\end{remark}
+Comparing this to pointwise convergence, $ \forall x \in E $ and $ \forall \eps>0 $, $ \exists N=N(\eps,x) $ such that $ n\ge N\implies |f_n(x)-f(x)|<\eps $. So we can change our $ N $ value for each individual $ x $. However we can't in uniform convergence, which makes this is stronger statement.\par
+Hence we see Uniform convergence $ \implies $ Pointwise convergence.
+
+
 \end{document}
