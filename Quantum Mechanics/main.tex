@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Quantum Mechanics}
+\author{Notes made by Finley Cooper}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+\section{Historical Introduction}
+\subsection{Classical mechanics}
+Classical mechanics is based on two distinct concepts.
+\begin{enumerate}
+	\item Particles - Point-like objects which have positions and velocities fully determinated by Newton's second law as a function of time. $ mx''(t)=F(x(t),x'(t)) $. Once $ x(t_0), x'(t_0) $ is known, the solution of the equation gives the position and velocity at all times. Particles can collide, scatter, but never interfer.
+	\item Waves - Spread out objects which are functions of time and position. Periodic in $ t/x $. Propagation is determined by the wave equation which is \[
+			\frac{\partial^2f(x,t)}{\partial t^2}-c^2\frac{\partial^2f(x,t)}{\partial x^2}=\nu
+	\]
+	We have solution $ f_{\pm}(x,t)=A_{\pm}\exp[i(kx-\omega t)] $. And the solutions obey the dispersion relation $ \omega=ck $. We have that $ \omega $ is the angular  frequency related to $ \lambda $ (wavelength) by $ \nu=\frac \omega{2\pi} $ and $ \lambda = \frac {2\pi c}{\omega}=\frac c\nu $. Waves interfer, causing constructive interference when in-phase and destructive interference when out of phase.
+\end{enumerate}
+\smallskip
+However we have some programs with classical mehcanics.
+	\begin{enumerate}
+		\item Light behaving like particles
+			\begin{enumerate}
+				\item Black body radiation \textit{(NE)}
+				\item Photoelectric effect
+				\item Compton scattering \textit{(NE)}
+			\end{enumerate}
+
+		\item Stability of atom
+		\item Particles behaving like waves
+			\begin{enumerate}
+				\item De Broglie Principle
+				\item Electron diffraction
+			\end{enumerate}
+	\end{enumerate}
+\subsection{Photoelectric effect}
+This is the experiement when light hits a metal surface and causes electrons to be emitted. They used monochromatic radiation with fixed wavelength and changed the intensity of light and the wavelength. The classical expectation were:
+\begin{enumerate}
+	\item Incident light carries $ E\propto I=|A|^2 $. They proposed that as the intensity increases they is enough energy to break the bond of the electron with the metal atoms, causing it to be released.
+	\item The emission rate of the electrons should be constant over intensity past a certain point.
+\end{enumerate}
+However what they actually observered was surprising.
+\begin{enumerate}
+	\item Below given $ \omega $ there was no emission of electrons.
+\item The velocity (i.e. KE) depended on $ \omega $ not on $ I $.
+\item The emission rate increased with intensity.
+\end{enumerate}
+In 1905 Einstein used these observations to propose the following
+\begin{enumerate}
+	\item Light comes in small quanta (now called photons).
+	\item Each photon carries a small packet of energy, $ E $.
+		\[
+			E=\hbar \omega,\quad \mathbf{p}=\hbar\mathbf{k}
+		\]
+		where
+		\[
+			\hbar = \frac h {2\pi}
+		\]
+		where $ h $ is the Planck constant.
+	\item The interaction seen in the photoelectric effect was caused by each photon interacting with each photon in a \textit{one-to-one} interaction. So we have that
+		\[
+			\text{Kinetic energy of } e^- = \text{Kinetic energy of } \gamma - \text{binding energy of the metal}
+		\]
+		we write this equation as 
+		\[
+			E_{min}=0=\hbar\omega_{min}-\phi.
+		\]
+		So the kinetic energy of the electrons is directly proposition to $ \omega $, not $ I $ which we expected in classical mechanics. Instead increasing the intensity increases the emission rate as we have more photons interacting with each electron.
+\end{enumerate}
+\subsection{Atomic spectra}
+In 1897 Thomson plum-pudding model purposed a uniform distribution of positive charge, with negatively charged electrons inside.\par
+Later in 1908, Rutherford performed his gold foil experiement, showing Rutherford scattering (large angle scattering), hence proving that the atom was mostly empty space, and the positively charged part was concentrated at the centre of the atom. This couldn't work since the electrons would radiate energy in an orbit and the electrons would collapse on the nucleus. Also it didn't explain the spectra of light emitted by atoms in a set of discrete values of 
+\[
+	w_{mn}=2\pi c R_0\left(\frac 1 {n^2}-\frac 1{m^2}\right)\quad n,m\in \N.
+\]
+But in 1913 Bohe showed that the electron orbits are quantised so that the $ L $ (orbital angular model) takes only these values
+\[
+  L_n=n\hbar
+\]
+So it was proposed that $ L $ was quantised hence so it $ r, v, $ and $ E $.
+\end{document}
