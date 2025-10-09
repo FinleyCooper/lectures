@@ -3,8 +3,10 @@
 \usepackage[UKenglish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper]{geometry}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{amsmath, amsthm, mathtools, amsfonts, amssymb}
 \mathtoolsset{mathic}
+
 
 % Common packages
 \usepackage{wrapfig}
@@ -15,12 +17,19 @@
 \setlist[enumerate,2]{label={(\alph*)}}
 \usepackage{relsize, siunitx, booktabs, algorithm2e, array, multirow, parskip}
 \usepackage{tcolorbox}
-\tcolorboxenvironment{definition}{colback=blue!10, colframe=white, breakable}
-\tcolorboxenvironment{theorem}{colback=pink!10, colframe=white, breakable}
-\tcolorboxenvironment{lemma}{colback=green!10, colframe=white, breakable}
-\tcolorboxenvironment{corollary}{colback=green!10, colframe=white, breakable}
-\tcolorboxenvironment{proposition}{colback=green!10, colframe=white, breakable}
-\tcolorboxenvironment{claim}{colback=blue!10, colframe=white, breakable}
+
+\definecolor{lightpurple}{RGB}{239, 234, 255}
+\definecolor{lightblue}{RGB}{230, 255, 255}
+\definecolor{lightpink}{RGB}{255, 228, 255}
+\tcbuselibrary{listings,breakable}
+
+\tcolorboxenvironment{definition}{colback=lightpurple, colframe=white, breakable}
+\tcolorboxenvironment{theorem}{colback=lightblue, colframe=white, breakable}
+\tcolorboxenvironment{lemma}{colback=lightpink, colframe=white, breakable}
+\tcolorboxenvironment{corollary}{colback=lightpurple, colframe=white, breakable}
+\tcolorboxenvironment{proposition}{colback=lightpink, colframe=white, breakable}
+\tcolorboxenvironment{claim}{colback=lightpurple, colframe=white, breakable}
+
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linktoc=all, linkcolor=black}
 
@@ -56,14 +65,11 @@
 \newcommand{\inv}[1]{{#1}^{-1}}
 \newcommand{\pf}{\textit{Proof. }}
 \DeclareMathOperator{\ima}{im}
-\newcommand{\test}{\mathrm{hello}}
 \newcommand{\ddempty}{\mathrm{d}}
 \newcommand{\dn}[2]{\mathrm{d}^#1#2}
 \newcommand{\st}{\text{ s.t.\ }}
 \newcommand{\contradiction}{\(\#\)}
 \newcommand{\genset}[1]{\left\langle{} #1 \right\rangle}
-\newcommand{\vu}[1]{\hat{\vb{#1}}}
-\newcommand{\transpose}{\intercal}
 \newcommand{\acts}{\curvearrowright}
 \newcommand{\adjugate}[1]{\widetilde{#1}}
 \newcommand{\mathhuge}[1]{\mathlarger{\mathlarger{\mathlarger{#1}}}}
@@ -79,8 +85,6 @@
 \DeclareMathOperator{\ImPart}{Im}
 
 
-
-% Redefinitions to fix physics conflicts
 \renewcommand{\Re}{\RePart}
 \renewcommand{\Im}{\ImPart}
 
