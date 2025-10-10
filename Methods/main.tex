@@ -1,7 +1,136 @@
-\documentclass{articles}
+\documentclass{article}
 \usepackage{../header}
 \title{Methods}
 \author{Notes made by Finley Cooper}
 \begin{document}
-  
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Fourier Series}
+\subsection{Motivation}
+In 1807 J. Fourier was studying head conduction along a metal rod. This lead him to study $ 2\pi $-periodic functions i.e. functions $ f:\R\to \R $ was such that $ f(\theta+2\pi)=f(\theta) $ for all $ \theta\in \R $ then he found that if \[
+	f(\theta)=\sum_{n\in\Z}\hat{f_n}e^{in\theta}
+\]
+then you can write down the coefficients $ \{\hat{f_n}\} $ via the formula
+\[
+	\hat{f_n}=\frac 1{2\pi}\int_{0}^{2\pi}f(\theta)e^{-in\theta}\mathrm d\theta,\quad n\in \Z.
+\]
+And Fourier believed that this worked for any $ 2\pi $-periodic function $ f $. So computing each $ \{\hat{f}_n\} $ and construcuted the sum as above, then it would return the original function. He was wrong.
+\subsection{Modern Treatment}
+Introduce a vector space $ V $ of $ L $-periodic functions. Hence
+\[
+	V=\{f:\R\to\C:\text{ with } f \text{ a "nice" function},\text { } f(\theta+L)=f(\theta), \forall \theta\in\R\}.
+\]
+Note for $ f\in V $ need only to consider values of $ f $ taken in an interval of length $ L $, i.e. $ [0,L) $ or $ (-\frac L2,\frac L2] $ since periodicity covers elsewhere.\par
+We can introduce an inner product on $ V $ with
+\[
+	\langle f,g\rangle=\int_0^1f(\theta)\overline{g(\theta)}\mathrm d\theta.
+\]
+This gives the associated norm,
+\[
+	||f||=\sqrt{\langle f,f\rangle}.
+\]
+For $ n\in \Z $ consider $ e_n\in V $ defined by $ e_n(\theta)=e^{2\pi i n\theta / L }$.
+\[
+\langle e_n,e_m\rangle = \int_0^L e^{2\pi i (n-m)\theta / L}\,\mathrm d\theta = L\,\delta_{nm}.
+\]
+So $ \{e_n\} $ are orthogonal and $ ||e_n||^2=L $ for each $ n\in \Z $. This looks like IA Vectors and Matrices.\par
+Recall that if $ v_N $ is $ N $-dim vector space equipped with usual inner product and $ \{ e_n\}^N_{n=1} $ are orthogonal with $ | e_n|=L $, then for each $  x\in V $ we can write $  x = \sum_{n=1}^N \hat{x}_n{e_n} $ for some $ \{\hat {x}_n\} $. To find $ \{\hat{x}_n\} $ take the inner product of both sides with $  e_m $. So
+\[
+	( x,  e_m)=\sum_{n=1}^N \hat{x}_n( e_n\cdot  e_m)=L\hat{x}_m
+\]
+i.e
+\[
+\hat x_n = \frac 1L( x\cdot  e_n).
+\]
+Now could this work on $ V $? $ V $ is not finite dimensional so it's not obvious. Every subset of $ \{e_n\} $ is linearly indepedent. Ignoring this for now we assume that for all $ f\in V $ we can write $ f $ in our basis $ \{e_n\} $. Then
+\[
+  f(\theta)=\sum_n\hat f_ne_n(\theta),
+\]
+So taking the inner product as before
+\[
+  \langle f,e_m\rangle = \sum_n\hat f_n\langle e_n,e_m\rangle
+\]
+so using the delta as before
+\[
+  =L\hat f_m
+\]
+i.e.
+\[
+	\hat f_n=\frac{1}{L}\langle f, e_n\rangle = \frac{1}{L} \int_0^1 f(\theta)e^{-2\pi in\theta/L}\mathrm d\theta
+\]
+\begin{definition}
+	(Complex Fourier series) For an $ L $-periodic $ f:\R\to \C $ define its \textit{complex Fourier series} by
+	\[
+		\sum_n\hat f_n e^{2\pi in \theta /L}
+	\]
+	where
+	\[
+		\hat f_n = \frac 1L \int_0^1 f(\theta) e^{-2\pi in\theta/L}\mathrm d \theta
+	\]
+	are called the complex Fourier coefficients. We will write for $ f\in V $
+	\[
+		f(\theta)\sim \sum_n\hat f_n e^{2\pi in\theta/L}
+	\]
+	to mean the series on the right corresponds to complex Fourier series for the function on the left.
+\end{definition}
+We'd like to replace the $ \sim $ symbol with equality, but we require a bit more than that.\par
+If we split the complex Fourier series into the parts $\{n=0\}\cup\{n>0\}\cup\{n<0\}$ we get
+\[
+\sum_n\hat f_n e^{2\pi i n\theta / L} = \hat f_0 + \sum_{n=1}^\infty \hat f_n\left[\cos\left(\frac{2\pi n\theta}{L}\right)+i\sin\left(\frac{2\pi n\theta}{L}\right)\right]
++
+\sum_{n=1}^\infty \hat f_{-n}\left[\cos\left(\frac{2\pi n\theta}{L}\right)-i\sin\left(\frac{2\pi n\theta}{L}\right)\right].
+\]
+
+\begin{definition}
+	(Fourier series) For $ f: \R\to \C $ an $ L $-periodic function define its \textit{Fourier series} by
+	\[
+		\frac 1L a_0+\sum_{n=1}^\infty\left[a_n\cos\left(\frac{2\pi n\theta}L\right)+b_n\sin\left(\frac{2\pi n\theta}L\right)\right]
+	\]
+	where
+	\[
+		a_n=\frac 2L\int^L_0f(\theta)\cos\left(\frac{2\pi n\theta}L\right)\mathrm d\theta
+	\]
+	and
+	\[
+		b_n=\frac 2L\int^L_0f(\theta)\sin\left(\frac{2\pi n\theta}L\right)\mathrm d\theta
+	\]
+	are called the Fourier cofficients for $ f $.
+\end{definition}
+If we set
+\begin{align*}
+c_n(\theta) &= \cos\left(\frac{2\pi n\theta}{L}\right),\\
+s_n(\theta) &= \sin\left(\frac{2\pi n\theta}{L}\right),
+\end{align*}
+then we can show, for $ m,n\ge 1 $ that $ \langle c_n,c_m\rangle=\langle s_n, s_m\rangle =\frac L2 \delta_{mn} $ and
+\[
+  \langle c_n,1\rangle = \langle s_m,1\rangle = \langle c_n, s_m \rangle = 0.
+\]
+So we have that $ \{1,c_n,c_n\} $ is orthogonal set in $ V $.\par
+For an example take $ f:\R\to \R $, $1$-periodic, such that $ f(\theta)=\theta(1-\theta)$ on $[0,1)$. For $n\neq 0$ we have
+\[
+\hat f_n = \int_0^1 \theta(1-\theta)e^{-2\pi i n\theta}\,\mathrm d\theta.
+\]
+Integrating by parts (or using a standard Fourier integral computation) yields
+\[
+\hat f_n = -\frac{1}{2(\pi n)^2},\qquad n\neq 0,
+\]
+and
+\[
+\hat f_0 = \int_0^1 (\theta-\theta^2)\,\mathrm d\theta = \frac{1}{6}.
+\]
+Hence
+\[
+f(\theta) \sim \frac{1}{6} - \sum_{n\neq 0}\frac{e^{2\pi i n\theta}}{2(\pi n)^2}.
+\]
+so the sine terms cancel in the sum giving just cosine terms as we expect since our $ f $ function is even.
 \end{document}
+
+
+
+
+
+
+
+

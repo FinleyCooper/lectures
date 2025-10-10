@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Linear Algebra}
+\author{Notes by Finley Cooper}
+\newcommand{\F}{\mathbb{F}}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  \section{Vector Spaces}
+  For this lecture course, $ \F $ will always be field.
+  \begin{definition}
+	  (Vector Space) A $ \F $\textit{-vector space} (or a vector space over $ \F $) is an abelian group $ (V,+,\boldsymbol 0) $ equipped with a function
+	  \begin{align*}
+	    \F\times V\to V \\
+	    (\lambda, v)\to \lamda v
+	  \end{align*}
+	  which we call scalar multiplication such that $ \forall v,w\in V, \forall \lambda,\mu\in\F $
+	  \begin{enumerate} 
+		  \item $ (\lambda + \mu)v=\lambda v + \mu v $
+		  \item $ \lambda(v + w)=\lambda v + \lambda w $
+		  \item $ \lambda(\mu v)=(\lambda \mu)v $
+		  \item $ 1\cdot v = v\cdot 1 = v $
+	  \end{enumerate}
+  \end{definition}
+  Remember that $ \boldsymbol 0 $ and $ 0 $ are not the same thing. $ 0 $ is an element in the field $ \F $ and $ \boldsymbol 0 $ is the additive identity in $ V $.\par
+  For an example consider $ \F^n $ n-dimensional column vectors with entries in $ \F $. We also have the example of a vector space $ \C^n $ which is a complex vector space, but also a real vector space (taking either $ \C $ or $ \R $ as the underlying scalar field).\par
+  We also can see that $ M_{m\times n}(\F) $ form a vector space with $ m $ rows and $ n $ columns.\\
+  For any non-empty set $ X $, we denote $ \F^X $ as the space of functions from $ X $ to $ \F $ equipped with operations such that:
+\begin{align*}
+	f+g \text{ is given by } (f+g)(x)=f(x)+g(x)\\
+	\lambda f \text{ is given by } (\lambda f)(x)=\lambda f(x)
+\end{align*}
+\begin{proposition}
+  For all $ v\in V $ we have that $ 0\cdot v = \boldsymbol 0 $ and $ (-1)\cdot v=-v $ where $ -v $ denotes the additive inverse of $ v $.
+\end{proposition}
+\pf Trivial.
+\begin{definition}
+	(Subspace) A \textit{subspace} of a $ \F $-vector space $ V $ is a subset $ U\subseteq V $ which is a $ \F $-vector space itself under the same operations as $ V $. Equivalently, $ (U,+) $ is a subgroup of $ (V,+) $ and $ \forall \lambda\in \F $, $\forall u\in U $ we have that $ \lambda u \in U $.
+\end{definition}
+\begin{remark}
+  Axioms (i)-(iv) are always automatically inherited into all subspaces.
+\end{remark}
+\begin{proposition}
+	(Subspace test) Let $ V $ be a $ \F $-vector space and $ U\subseteq V $ then $ U $ is a subspace of $ V $ if and only if,
+	\begin{enumerate}
+		\item $ U $ is nonempty.
+		\item $ \forall \lambda\in\F $ and $ \forall u,w\in U $ we have that $ u+\lambda w \in U $.
+	\end{enumerate}
+\end{proposition}
+\pf If $ U $ is a subspace then $ U $ satisfies (i) and (ii) since it contains $ 0 $ and is closed. Conversely suppose that $ U\subseteq V $ satisfies (i) and (ii). Taking $ \lambda = -1 $ so $ \forall u,w\in V $, $ u-w\in U $ hence $ (U,+) $ is a subgroup of $ (V,+) $ by the subgroup test. Finally taking $ u=\boldsymbol 0 $ so we have that $ \forall w\in U,\forall\lambda\in \F $ we have that $ \lambda w\in U $. So $ U $ is a subspace of $ V $.\qed\par
+We notate $ U $ by $ U\le V $.\par
+For some examples
+\begin{enumerate}
+	\item \[
+	\left\{\begin{pmatrix}
+			x \\
+			y \\
+			z \\
+	\end{pmatrix}\in \R^3:x+y+z=t\right\}\subseteq \R^3, 
+\]
+for fixed $ t\in \R $ is a subspace of $ \R^3 $ iff $ t = 0 $.\par
+\item Take $ \R^\R $ as all the functions from $ \R $ to $ \R $ then the set of continuous functions is a subspace.
+\item Also we have that $ C^\infty(\R) $, the set of infintely differentiable functions from $ \R $ to $ \R $ is a subspace of $ \R^\R $ and the subspace of continuous functions.
+\item A further subspace of all of those subspaces is the set of polynomial functions.
+\end{enumerate}
+\begin{lemma}
+  For $ U,W\le V $ we have that $ U\cap W\le V $.
+\end{lemma}
+\pf We'll use the subspace test. Both $ U,W $ are subspaces so they contain $ \boldsymbol 0 $ hence $ \boldsymbol 0\in U\cap W $ so $ U\cap W $ is nonempty. Secondly take $ x,y\in U\cap W $ with $ \lambda \in \F $. Then $ U\le V $ and $ x,y\in U $ so $ x+\lambda y\in U $. Similarly with $ W $ so $ x+\lambda y \in W $ hence we have that $ x+\lambda y \in U \cap W $ hence $ U\cap W\le V $\qed
+\begin{remark}
+  This does not apply for subspaces, in fact from IA Groups, we know it doesn't even hold for the underlying abelian group.
+\end{remark}
+\begin{definition}
+	(Subspace sum) For $ U,W\le V $, the \textit{subspace sum} of $ U, W $ is
+	\[
+		U+W=\{u+w:u\in U, w\in W\}.
+	\]
+\end{definition}
+\begin{lemma}
+  If $ U, W\le V $ then $ U+W\le V $.
+\end{lemma}
+\pf Simple application of the subspace test.
+\begin{remark}
+  $ U+W $ is the smallest subgroup of $ U, W $ in terms of inclusion, i.e. if $ K $ is such that $ U\subseteq K $ and $ W\subseteq K $ then $ U+W\subseteq K $.
+\end{remark}
+\begin{definition}
+	(Linear map) For $ V $, $ W $ $ \F $-vector spaces. A \textit{linear map} from $ V $ to $ W $ is a group homomorphism, $ \varphi $, from $ (V,+) $ to $ (W,+) $ such that $ \forall v\in V $
+	\[
+	  \varphi(\lambda v) = \lambda\varphi(v)
+	\]
+\end{definition}
+Equivalently to show any function $\alpha: V\to W $ is a linear map we just need to show that $ \forall u,w\in V $, $ \forall \lambda \in\F $ we have
+\[
+  \alpha(u+\lambda w)=\alpha(u)+\lambda\alpha(w).
+\]
+For some examples of linear maps
+\begin{enumerate}
+	\item $ V=\F^n, W=\F^m $ $ A\in M_{m\times n}(\F) $. Then let $ \alpha:V\to W $ be given by $ \alpha(v)=Av $. Then $ \alpha $ is linear.
+	\item $ \alpha:C^\infty(\R)\to C^\infty(\R) $ defined by taking the derivative.
+	\item $ \alpha: C(\R)\to \R $ defined by taking the integral from $ 0 $ to $ 1 $.
+	\item $ X $ any nonempty  set, $ x_0\in X $,
+		\begin{align*}
+		  \alpha:\F^X\to \F \\
+		  f\to f(x_0)
+		\end{align*}
+	\item For any $ V,W $ the identity mapping from $ V $ to $ V $ is linear and so is the zero map from $ V $ to $ W $.
+	\item The composition of two linear maps is linear.
+	\item For a non-example squaring in $ \R $ is not linear. Similiarly adding constants is not linear, since linear maps preserve the zero vector.
+\end{enumerate}
+\end{document}
