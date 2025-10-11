@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Varitational Principles}
+\author{Notes by Finley Cooper}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  \section{Calculus on $ \R^n $}
+  Consider $ f:\R^n\to \R $. We'll write $ (x_1,x_2,\dots,x_n) $ as $ \mathbf x $. Assume $ f $ is sufficiently differentiable (at least in $ C^2 $).
+  \subsection{Stationary points}
+  \begin{definition}
+	  (Stationary point) A point $\mathbf a\in \R^n  $ is a \textit{stationary point} of $ f $ if and only if $ (\nabla f)(\mathbf a)=0 $
+  \end{definition}
+  Taylor expand about such an $ \mathbf a $:
+  \[
+	  f(\mathbf x)=f(\mathbf a)+\sum_{i=1}^n(x_i-a_i)(\nabla_i f)(\mathbf a)+\frac 12 \sum_{i,j}(x_i-a_i)(x_j-a_j)H_{ij}(\mathbf a)+O(|\mathbf x-\mathbf a|^3).
+  \]
+  Since $ \mathbf a $ is stationary point, the linear term is zero, hence the behaviour of $ f $ around $ \mathbf a $ is determined by the Hessian.
+  \[
+	  H_{ij}=\frac{\partial^2 f}{\partial x_i\partial x_j}=H_{ji}
+  \]
+  We can assume \textit{wlog} that $ \mathbf a = 0 $ by a translation, so
+  \[
+	  f(\mathbf x)-f(\mathbf a)=\frac 12 x_iH_{ij}x_j+O(|\mathbf x|^3).
+  \]
+  Since $ H_{ij} $ is symmetric, we can diagonalise $ H $ by a rotation matrix so $ x_i=R_{ij}x_j' $ we choose $ R $ so that
+  $ H'=R^HR=\mathrm{diag}(\lambda_1,\lambda_2,\dots,\lambda_n) $. Since $ H $ is symmetric, $ \lambda_i\in \R $ for all $ i $. So the series becomes
+  \[
+	  f(\mathbf x)-f(\mathbf a)=\frac 12 \sum_{i=1}^n\lambda_i(x'_i)^2+O(|\mathbf x|^3).
+  \]
+  If $ \lambda_i>0 $ for all $ i $ then $ f(\mathbf x)>f(\mathbf a) $ for small enough $ \mathbf x $ so we get a local minimium.\\
+  If $ \lambda_i<0 $ for all $ i $ then $ f(\mathbf x)<f(\mathbf a) $ for small enough $ \mathbf x $ so we get a local maximium.\\
+  Otherwise if all non-zero we get a saddle point, and if some are zero then we get a degenerate stationary point, so we need to look at the next term in the Taylor expansion to describe the behaviour at the point.\par
+  If we're working in $ \R^2 $ we can work with determinates and traces since $ \det H=\lambda_1\lambda_2 $ and $ \tr(H)=\lambda_1+\lambda_2 $ so
+  \begin{enumerate}
+	  \item If $ \det H>0 $, $ \tr H>0 \implies $ local minimium.
+	  \item If $ \det H>0 $, $ \tr H<0 \implies $ local maximium.
+	  \item If $ \det < 0 $ we get a saddle point.
+	  \item If $ \det = 0 $ we're in the degenerate case.
+  \end{enumerate}
+  \begin{remark}
+    A local minimium is not a global minimium. There might be some other stationary point which is the global minimium, the minimium may also occur on the boundary of the domain or the function might be unbounded from below in the domain and not achieve a global minimium. We can make the same statements for maximiums.
+\end{remark}
+Let's see an example with the function $ f(x,y)=x^3+y^3-3xy $.
+\[
+  \nabla f=(3x^2-3y,3y^2-3x)
+\]
+So $ \nabla f = 0\iff x^2=y $ and $ y^2=x $. This gives the solutions $ (0,0),(1,1) $ only.
+\[
+	H= 
+  \begin{pmatrix}
+	  6x & -3 \\
+	  -3 & 6y
+  \end{pmatrix}
+\]
+So
+\[
+	\det H = 9(4xy-1) \text{ and } \tr H = 6(x+y).
+\]
+Hence our point $ (1,1) $ is a local minimium and the point $ (0,0) $ is a saddle point.\\
+We can work out the eigenvectors of the point $ (0,0) $ which are
+\begin{align*}
+	\lambda_1=-3 &\quad e_1=\begin{pmatrix}
+	  1 \\
+	  1
+	\end{pmatrix}\\
+		\lambda_2=3 &\quad e_2=\begin{pmatrix}
+		  1 \\
+		  -1
+		\end{pmatrix}
+\end{align*}
+So it is a maximium along the line $ y=x $ and a minimium along the line $ y=-x $.\\
+For this example there does not exist a global minimium or maximium since $ f $ increases/decreases without bound on the domain.
+\subsection{Convex functions}
+\begin{definition}
+	(Convex set) A set $ S $ is \textit{convex} if and only if $ \forall x,y\in S $ and $ \forall t\in (0,1) $ we have that $ (1-t)x+ty\in S $.
+\end{definition}
+Now we'll define convexity for functions. Let $ f $ be a function domain with domain $ D(f)\subseteq \R^n  $. The graph of $ f $ is the surface $ z=f(\mathbf x) $ in $ \R^{n+1} $ with coordinates $ (\mathbf x,z) $. A chord of $ f $ is a line section joining two points of its graph.
+\begin{definition}
+	(Convex function) A function $ f:S\to \R $ is convex if
+	\begin{enumerate}
+		\item $ S $ is a convex set
+		\item The graph of $ f $ lies below on or below all of its chords i.e we have that
+			\[
+			  f((1-t)\mathbf x + t\mathbf y)\le (1-t)f(\mathbf x)+tf(\mathbf y)
+			\]
+			for all $ t\in (0,1) $ and for all $ \mathbf x, \mathbf y \in S $.\\
+			We say that $ f $ is \textit{strictly convex} if the condition in (ii) is strict when $ \mathbf x\ne \mathbf y $.
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+See that we require the property $ (i) $ to exists for property (ii) to be well-defined.
+\end{remark}
+\begin{lemma}
+  $ f $ is strictly concave if and only if $ f $ is strictly convex.
+\end{lemma}
+\pf Trivial. \qed
+
+\end{document}
+
