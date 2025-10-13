@@ -9,6 +9,7 @@
   \tableofcontents
   \newpage
   \section{Vector Spaces}
+  \subsection{Definitions}
   For this lecture course, $ \F $ will always be field.
   \begin{definition}
 	  (Vector Space) A $ \F $\textit{-vector space} (or a vector space over $ \F $) is an abelian group $ (V,+,\boldsymbol 0) $ equipped with a function
@@ -85,6 +86,7 @@ for fixed $ t\in \R $ is a subspace of $ \R^3 $ iff $ t = 0 $.\par
 \begin{remark}
   $ U+W $ is the smallest subgroup of $ U, W $ in terms of inclusion, i.e. if $ K $ is such that $ U\subseteq K $ and $ W\subseteq K $ then $ U+W\subseteq K $.
 \end{remark}
+\subsection{Linear maps, isomorphisms, and quotients}
 \begin{definition}
 	(Linear map) For $ V $, $ W $ $ \F $-vector spaces. A \textit{linear map} from $ V $ to $ W $ is a group homomorphism, $ \varphi $, from $ (V,+) $ to $ (W,+) $ such that $ \forall v\in V $
 	\[
@@ -109,4 +111,126 @@ For some examples of linear maps
 	\item The composition of two linear maps is linear.
 	\item For a non-example squaring in $ \R $ is not linear. Similiarly adding constants is not linear, since linear maps preserve the zero vector.
 \end{enumerate}
+\begin{definition}
+	(Isomorphism) A linear map $ \alpha:V\to W $ is an \textit{isomorphism} if it is bijective.\par
+	We say that $ V $ and $ W $ are isomorphic, if there exists an isomorphism from $ V\to W $ and denote this by $ V\cong W $.
+\end{definition}
+An example is the vector space $ V=\F^4 $ and $ W=M_{2\times 2}(\F) $ we can define the map
+\begin{align*}
+	\alpha:V &\to W\\
+	        \begin{pmatrix}
+	         a\\b\\c\\d
+	       \end{pmatrix}
+		 &\to \begin{pmatrix}
+		       a & b \\
+		       c & d 
+	       \end{pmatrix}
+\end{align*}
+Then $ \alpha $ is an isomorphism.
+\begin{proposition}
+  If $ \alpha: V\to W $ is an isomorphism then $ \inv\alpha:W\to V $ is also an isomorphism.
+\end{proposition}
+\pf Clearly $ \inv\alpha $ is a bijection. We need to prove that $ \inv\alpha $ is linear. Take $ w_1,w_2\in W $ and $ \lambda\in \F $. So we can write $ w_i=\alpha(v_i) $ for $ i=1,2 $. Then \[ \inv\alpha(w_1+\lambda w_2)=\inv \alpha(\alpha(v_1)+\lambda\alpha(v_2))=\inv\alpha(\alpha(v_1+\lambda v_2))=v_1+\lambda v_2=\inv \alpha(w_1)+\lambda\inv \alpha(w_2) \]. Hence $ \inv\alpha $ is linear, so $ \inv\alpha $ is an isomorphism.\qed 
+\begin{definition}
+	(Kernal) Let $ V,W $ be $ \F $-vector spaces. Then the \textit{kernal} of the linear map $ \alpha:V\to W $ is
+	\[
+		\ker(\alpha)=\{v\in V:\alpha(v)=\mathbf 0_W\}\subseteq V
+	\]
+\end{definition}
+\begin{definition}
+	(Image) Let $ V,W $ be $ \F $-vector spaces. Then the \textit{image} of a linear map $ \alpha:V\to W $ is
+	\[
+		\ima(\alpha)=\{\alpha(v):v\in V\}\subseteq W
+	\]
+\end{definition}
+\begin{lemma}
+  For a linear map $ \alpha:V\to W $ the following hold.
+  \begin{enumerate}
+	  \item $ \ker\alpha\le V $ and $ \ima \alpha \le W $
+	  \item $ \alpha $ is surjective if and only if $ \ima \alpha =W $
+	  \item $ \alpha $ is injective if and only if $ \ker\alpha=\{\mathbf 0_V\} $
+  \end{enumerate}
+\end{lemma}
+\pf $ \mathbf 0_V+\mathbf 0_V=\mathbf 0_V $, so applying $ \alpha $ to both sides any using the fact that $ \alpha $ is linear gives that $ \alpha(\mathbf 0_V)=\mathbf 0_W $. So $ \ker\alpha $ is nonempty. The rest of the proof is a simple application of the subspace test.\\
+The second statement is immediate from the definition.\\
+For the final statement suppose $ \alpha $ injective. Suppose $ v\in \ker \alpha $. Then $ \alpha(v)=\mathbf 0_W=\alpha(\mathbf 0_w) $ so $ v=\mathbf 0_V $ by injectivity. Hence $ \ker\alpha $ is trivial.
+Conversely suppose that $ \ker \alpha=\{0_V\} $ Let $ u,v\in V $ and suppose that $ \alpha(u)=\alpha(v) $. The $ \alpha(u-v)=\mathbf 0_W $, so $ u-v\in\ker\alpha $, so $ u=v $.\qed\par
+
+For $ V $ a $ \F $-vector space, $ W\le V $ write
+	\[
+		\frac VW=\{v+W:v\in V\}
+	\]
+	as the left cosets of $ W $ in $ V $. Recall that two cosets $ v + V $ and $ u+W $ are the same coset if and only if $ v-u\in W $.
+\begin{proposition}
+  $ V/W $ is an $ \F $-vector space under operations
+  \begin{align*}
+   (u+W)+(v+W)&=(u+v)+W \\
+   \lambda (v+W)&=(\lambda v)+W
+\end{align*}
+We call $ V/W $ the quotient space of $ V $ by $ W $.
+\end{proposition}
+\pf The proof is long and requires a lot of vector space axioms so we'll just sketch out the proof.\\
+We check that operations are well-defined, so for $ u,\overline u, v,\overline v \in V $ and $ \lambda\in \F $ if
+\[
+  u+W=\overline u + W,\quad v+W=\overline v + W
+\]
+then
+\[
+	(u+v)+W=(\overline u+\overline w)+W
+\]
+and
+\[
+	(\lambda u) + W = (\lambda\overline u)+W
+\]
+The vector space axioms are inherited from $ V $.\qed
+\begin{proposition}
+	(Quotient map) The function $ \pi_W: V\to \frac VW $ called a \textit{quotient map} is given by
+  \[
+    \pi_W(v)=v+W
+  \]
+  is a well-defined, surjective, linear map with $ \ker\pi_W=W $.
+\end{proposition}
+\pf Surjectivity is clear. For linearity let $ u,v \in V $ and $ \lambda\in \F $. Then 
+\begin{align*}
+	\pi_W(u+\lambda v)&=(u+\lambda v) + W \\
+			  &= (u+W)+(\lambda v+W)\\
+			  &= (u+W)+\lambda(v+W) \\
+			  &= \pi_W(u)+\lambda\pi_W(v)
+\end{align*}
+For $ v\in V $, we have that  $ v\in\ker \pi_W \iff \pi_W(v) = \mathbf 0_{V/W} $. So $ v+W=\mathbf 0_V+W $ so finally $ v=v-\mathbf 0_V\in W $.\qed
+\begin{theorem}
+	(First isomorphism theorem) Let $ V,W $ be $ \F $-vector spaces and $ \alpha:V\to W  $ linear. Then there is an isomorphism
+	\[
+		\overline\alpha:\frac{V}{\ker \alpha}\to\ima\alpha
+	\]
+	given by $ \overline\alpha(v+\ker\alpha)=\alpha(v) $
+\end{theorem}
+\pf For $ u,v\in V $,
+\begin{align*}
+	u+K=v=K &\iff u-v\in K
+		&\iff \alpha(u-v)=\mathbf 0_W
+		&\iff \alpha(u)=\alpha(v)
+		&\iff \overline \alpha(u+\ker\alpha)=\overline\alpha(v+\ker\alpha)
+\end{align*}
+The forward direction shows that $ \overline\alpha $ is well-defined, and the converse shows that $ \overline\alpha $ is injective. For surjectivity given $ w\in\ima\alpha $, there exists some $ v\in V \st w=\alpha(v)$. Then $ w=\overline\alpha(v+\ker\alpha) $.\\
+Finally for linearity given $ u,v\in V $, $ \lambda\in\F $,
+\begin{align*}
+	\overline\alpha((u+\ker\alpha)+\lambda(v+\ker\alpha))&=\overline\alpha((u+\lambda v)+\ker\alpha)\\
+  &= \alpha(u+\lambda v)\\
+  &= \alpha(u)+\lambda\alpha(v) \\
+  &= \overline\alpha(u+\ker\alpha)+\lambda\overline\alpha(v+\ker\alpha)
+\end{align*}
+So $ \overline \alpha$ is linear hence is an isomorphism\qed
+\subsection{Basis}
+\begin{definition}
+	(Span) Let $ V $ be a $ \F $-vector space. Then the \textit{span} of some subset $ S\subseteq V $ is
+	\[
+		\langle S\rangle = \left\{\sum_{s\in S}\lambda_s\cdot s: \lambda_s\in \F\right\}
+	\]
+	where $ \sum $ denotes finite sums. An expression the form above is called a \textit{linear combination} of $ S $.\\
+	We say that $ S $ \textit{spans} $ V $ if $ \langle S\rangle =V $
+\end{definition}
+\begin{definition}
+	(Finite-dimensional) For a vector space $ V $ we say that it is \textit{finite-dimensional} if there exists a finite spanning set.
+\end{definition}
 \end{document}
