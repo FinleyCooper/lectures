@@ -93,10 +93,122 @@ Now we'll define convexity for functions. Let $ f $ be a function domain with do
 \begin{remark}
 See that we require the property $ (i) $ to exists for property (ii) to be well-defined.
 \end{remark}
+For strict convexity we replace the $ \le $ sign with the $ < $ sign.
 \begin{lemma}
   $ f $ is strictly concave if and only if $ f $ is strictly convex.
 \end{lemma}
 \pf Trivial. \qed
-
+\subsection{First order conditions}
+\begin{theorem}
+  If $ f $ is differentiable $ f $ on a convex domain $ D(f) $, then $ f $ is convex if and only if
+  \[
+    f(\mathbf y) \ge  f(\mathbf x) + (\mathbf y -\mathbf x) \cdot\nabla f(\mathbf x).
+  \]
+\end{theorem}
+\begin{corollory}
+  If $ f $ is convex and differentiable then any stationary point is a global minimium.
+\end{corollory}
+\begin{remark}
+   We have similiar statements for concave functions and global maximiums.
+\end{remark}
+\pf (Of the corollory) If $ \mathbf a $ is a stationary point, then $ \nabla \mathbf a = 0 $ so taking $ \mathbf x = \mathbf a $ in the theorem we get that \[
+  f(\mathbf y)\ge f(\mathbf x)\quad\forall\mathbf y\in D(f)
+\]
+hence $ \mathbf x $ is a global minimium \qed\par
+\pf (Of the theorem) Let's first show the forward direction and let 
+\[
+  h(t)=(1-t)f(\mathbf x)+tf(\mathbf y)-f((1-t)\mathbf x + t\mathbf y).
+\]
+Since $ f $ is differentiable we can take the derivative with respect to $ t $. This gives that
+\[
+  h'(0)=-f(\mathbf x)+f(\mathbf y)-(\mathbf y - \mathbf x)\cdot\nabla f(\mathbf x).
+\]
+Now consider
+\[
+	h'(0)=\lim_{t\to 0}\frac{h(t)-h(0)}t=\lim_{t\to 0}\frac{h(t)}t
+\]
+and from our assumptions we have that $ h(t) $ is positive in $ (0,1) $ so $ h'(0)\ge 0 $ so we have the statement in our theorem.\\
+For the converse, we have that
+\begin{align*}
+	f(\mathbf x)&\ge f(\mathbf z)+(\mathbf x - \mathbf z)\cdot\nabla f(\mathbf z)\\
+	f(\mathbf y) &\ge f(\mathbf z) + (\mathbf y - \mathbf z)\cdot \nabla f(\mathbf z)
+\end{align*}
+which gives that
+\[
+	(1-t)f(\mathbf x)+tf(\mathbf y)\ge f(\mathbf z)+[(1-t)\mathbf x +t\mathbf y - \mathbf z]\cdot\nabla f(\mathbf z)
+\]
+Now if we choose
+\[
+  \mathbf z=(1-t)\mathbf x +t \mathbf y
+\]
+we get the required result, which completes the proof.\qed\par
+We also have an alternative first order condition which is equivalent.
+\begin{claim}
+  The previous theorem is also equivalent to the inequality
+  \[
+	  (\mathbf y-\mathbf x)\cdot\left[\nabla f(\mathbf y)-\nabla f(\mathbf x)\right]\ge 0\quad \forall \mathbf x,\mathbf y\in D(f). 
+  \]
+\end{claim}
+For $ n=1 $ the claim says that $ (y-x)(f'(y)-f'(x)) $ which implies that $ f'(y)\ge f'(x) $ for $ y>x $ i.e. that $ f'(x) $ is increasing on the domain.\par
+\pf Assuming that $ f(\mathbf y)\ge f(\mathbf x) +(\mathbf y-\mathbf x)\cdot\nabla f(\mathbf x) $ and the same equation formed by replacing $ y\to x $ and $ x\to y $ and adding the two equations we exactly get the equation required.\\
+For the converse assume our claim. Now define $ \mathbf z = (1-t)\mathbf x + t\mathbf y $.
+\begin{align*}
+	f(\mathbf y) - f(\mathbf x)=\left[f(z)\right]^{t=1}_{t=0}&=\int_0^1\mathrm dt \frac{\mathrm d}{\mathrm dt}f(\mathbf z)\\
+								 &=\int_0^1\mathrm dt(\mathbf y-\mathbf x)\cdot\nabla f(\mathbf z) \\
+	f(\mathbf y)-f(\mathbf x)-(\mathbf y-\mathbf x)\cdot\nabla f(\mathbf x)&= \int_0^1\mathrm dt\left\{(\mathbf y-\mathbf x)\cdot\left[\nabla f(\mathbf z)-\nabla f(\mathbf x)\right]\right\}							
+\end{align*}
+Replacing $ \mathbf y\to\mathbf z $ and using our claim, we see that the integand is positive hence the LHS $ \ge 0 $ so we've proved our claim.\qed
+\subsection{Second order conditions}
+\begin{claim}
+  If $ f\in C^2 $ then the first order conditions are equivalent to all the eigenvalues of the Hessian matrix being non-negative $ \forall \mathbf x\in D(f) $.
+\end{claim}
+\pf Let's assume the first order conditions, replacing $ \mathbf y = \mathbf x +\mathbf h $ so we get that 
+\[
+	\mathbf h\cdot[\nabla f(\mathbf x+\mathbf h-\nabla f(\mathbf x)]\ge 0.
+\]
+Taylor expanding we get that
+\[
+	\nabla_i f(\mathbf x+\mathbf h)=\nabla_i f(\mathbf x)+h_jH_{ij}(\mathbf x)+o(h^2)
+\]
+therefore 
+\[
+	h_ih_jH_{ij}+o(h^3)\ge 0
+\]
+If $ H(\mathbf x) $ had a negative eigenvalue $ \lambda $ with eigenvector $ \mathbf e $ set $ \mathbf h=h\mathbf e $.
+\begin{align*}
+  \implies \lambda h^2\mathbf e^2+o(h^3)\ge 0
+\end{align*}
+but the LHS is less than $ 0 $ for small enough $ h $ contradiction.\par
+Now for the converse assume that $ n=1 $. So $ H(x)=f''(x) $. Hence we have that $ f''(x)\ge 0 $ for all $ x $.
+\begin{align*}
+	0&\ge \mathrm{sgn}(y-x)\int_x^yf''(z)\mathrm dz\\
+	 &=\mathrm{sgn}(y-x)(f'(y)-f'(x))\\
+	 &= (y-x)(f'(y)-f'(x))
+\end{align*}
+which is the first order condition. Hence we've proved both directions.\qed
+\section{Legendre Transform}
+\begin{definition}
+	(Legendre transform) The \textit{Legendre transform} of a function $ f:D(f)\to \R $ is defined as
+	\[
+		f^*(\mathbf p)=\sup_{\mathbf x}\left[\mathbf p\cdot \mathbf x-f(\mathbf x)\right]
+	\]
+	with the domain of $ f^* $ being the subset of $ \R^n $ where the suprenum exists.
+\end{definition}
+\begin{claim}
+  $ f^* $ is convex.
+\end{claim}
+\pf Let $ \mathbf p,\mathbf q\in D(f^*) $ and take $ t\in (0,1) $. Then we need to show that
+\begin{align*}
+	\sup\left\{\left[(1-t)\mathbf p +t\mathbf q\right]\cdot \mathbf x-f(\mathbf x)\right\}&=\sup\left\{(1-t)[\mathbf p \cdot \mathbf x-f(\mathbf x)]+t[\mathbf q\cdot \mathbf x-f(\mathbf x)]\right\}\\
+									&\le (1-t)\sup[\mathbf p\cdot\mathbf x- f(\mathbf x)]+t\sup[\mathbf q\cdot \mathbf x - f(\mathbf x)]
+\end{align*}
+So RHS finite $ \implies $ LHS finite $ \implies (1-t)\mathbf p + t\mathbf q \in D(f^*)$. Hence we have that $ D(f^*) $ convex and $ f^*((1-t)\mathbf p+t\mathbf q) \le (1-t)f^*(\mathbf p)+tf^*(\mathbf q) $ \qed
+\begin{claim}
+	If $ f $ is a convex function, then $ F_{\mathbf p}(\mathbf x)=f(\mathbf x)-\mathbf p\cdot\mathbf x $ is also convex
+\end{claim}
+\pf Exercise.
+\begin{corollary}
+  If $ f $ convex and differentiable then any stationary point of $ \mathbf p\cdot\mathbf x - f(\mathbf x) $ is a global maximium occuring at $ \mathbf x(\mathbf p)  $ found by solving $ \nabla f(\mathbf x)=\mathbf p $.
+\end{corollary}
+Legendre transform of $ f $ is then $ f^*(\mathbf p)=\mathbf p \cdot \mathbf x(\mathbf p)-f(\mathbf x(\mathbf p)) $
 \end{document}
-
