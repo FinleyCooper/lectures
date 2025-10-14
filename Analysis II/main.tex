@@ -114,6 +114,91 @@ From now on we will denote $ C([a,b]) = \{f:[a,b]\to \R:f\text{ is continuous on
 	Let $ (f_n) $ be a uniformly Cauchy sequence of functions in $ C([a,b]) $ the it converges to a function in $ C([a,b]) $.
 \end{theorem}
 \pf Trivial from our theorems earlier proved. \qed
+\begin{theorem}
+	(Uniform convergence implies convergence of integrals) For $ f_n,f:[a,b]\to \R $ be such that $ f_n,f $ are bounded and integrable on $ [a,b] $. If $ f_n\to f $ uniformly on $ [a,b] $ then
+	\[
+	  \int_a^bf_n(x)\mathrm dx\to \int_a^bf(x)\mathrm dx
+	\]
+\end{theorem}
+\begin{remark}
+  The assumption that $ f $ is integrable is redundant. We will see later that integrability of $ f_n $ implies that $ f $ is integrable if $ f_n\to f $ uniformly
+\end{remark}
+\pf
+\begin{align*}
+	\left|\int_a^bf_n(x)\mathrm dx-\int_a^bf(x)\mathrm dx|&=\left|\int_a^bf_n(x)-f(x)\mathrm dx \\
+							      &\le \int_a^b |f_n(x)-f(x)|\mathrm dx \\
+							      &\le \sup_{x\in [a,b]}|f_n(x)-f(x)|(b-a) \to 0
+\end{align*}
+by assumption.
+\subsection{Differentation and uniform convergence}
+This is more subtle if $ f_n\to f $ uniformly on some interval and if $ f_n $ are differentiable it does not follow that
+\begin{enumerate}
+	\item That $ f $ is differentiable.
+	\item Even if $ f $ is differentiable that $ f_n'(x)\to f(x) $.
+\end{enumerate}
+We can view this in the example of $ f_n:[-1,1]\to \R $ with $ f_n(x)=|x|^{1+\frac 1n} $. Hence we have that 
+\[
+	\lim_{x\to 0}\frac{f_n(x)-f_n(0)}{x}=\lim_{x\to 0}\mathrm{sgn}(x^{\frac 1n})=0
+\]
+So $ f_n $ is differentialbe at $ 0 $ with $ f_n(0)=0 $ and clearly $ f_n $ is differentiable everywhere where $ x=0 $ too. We can check that $ f_n\to |x| $ uniformly. But $ |x| $ is not differentiable at $ x=0 $.\par
+Now consider the example $ f_n:\R\to\R $ with
+\[
+	f_n(x)=\frac{\sin(nx)}{\sqrt n}.
+\]
+So $ f_n\to 0 $ uniformly on $ \R $. So we have a differentiable limit but $ f_n'(x)=\sqrt n \cos(nx) $ which is not convergent as $ n\to\infty $. So we don't have $ f_n'(x)\to f'(x) $ pointwise on $ \R $.
+\begin{theorem}
+	Let $ f_n:[a,b]\to \R $ be a sequence of differentiable functions (at the end points this means that the one-sided derivative exists). Suppose that:
+	\smallskip\begin{enumerate}
+		\item $ f_n'\to g $ uniformly for some function $ g:[a,b]\to \R $.
+		\item For some $ c\in[a,b] $ the sequence $ (f_n(c)) $ converges.
+	\end{enumerate}\smallskip
+	Then $ (f_n) $ converges uniformly to some function $ f:[a,b]\to \R $ where $ f $ is differentiable everywhere on $ [a,b] $ and $ f'(x)=g(x) $ for all $ x\in[a,b] $.
+\end{theorem}
+This proves that
+\[
+	\left(\lim_{n\to \infty}f_n\right)'=\lim_{n\to\infty}f'_n
+\]
+i.e. we can exchange the derivative and limit in this case.
+\begin{remark}
+If we assume that $ f'_n $ are continuous, then the proof is more straightforward and can be based on the fundamental theorem of calculus. 
+\end{remark}
+\pf By the mean value theorem applied to the difference $ (f_n-f_m) $ we have that for any $ x\in[a,b] $
+\begin{align*}
+	f_n(x)-f_m(x)&=f_n(c)-f_m(c)+(x-c)(f_n-f_m)'(x_{n,m}) \\
+	\implies |f_n(x)-f_m(x)|&\le |f_n(c)-f_m(c)|+(b-a)|f_n'(x_{n,m})-f_m'(x_{n,m})|\\
+	\implies \sup|f_n-f_m|&<|f_n(c)-f_m(c)|+(b-a)\sup|f_n'-f_m'|\to 0
+\end{align*}
+as $ n\to\infty $. So $ (f_n) $ is uniformly Cauchy and hence there is an $ f : [a,b]\to \R \st f_n\to f$ uniformly.\par
+For the next part fix some $ y\in [a,b] $. Define
+\[
+  h(x)=\begin{cases}
+	  \frac{f(x)-f(y)}{x-y} & x\ne y \\
+	  g(y) & x=y
+  \end{cases}
+\]
+Now we only have to estabilish that $ h $ is continuous at $ y $ to show that $ f $ is differentiable at $ y $ with $ f'(y)=g(y) $. Let
+\[
+  h_n(x)=\begin{cases}
+	  \frac{f_n(x)-f_n(y)}{x-y} & x\ne y\\
+	  f_n'(y) & x = y 
+  \end{cases}
+\]
+then since $ f_n $ is differentiable at $ y $ we see that $ h_n $ is continuous on $ [a,b] $. The pointwise limit of $ (h_n) $ is $ h $ almost by definition since $ f'_n\to g $ at $ x=y $. Since the uniform limit of sequence of continuous functions is continuous, we just need to show that $ (h_n) $ is uniformly Cauchy on $ [a,b] $ since the limit must be $ h $ since it converges pointwise to $ h $.
+\begin{align*}
+  h_n(x)-h_m(x)=\begin{cases}
+	  \frac{(f_n-f_m)(x)-(f_n-f_m)(y)}{x-y} & x\ne y \\
+	  (f_n'-f_m')(y) & x=y
+  \end{cases}.
+\end{align*}
+By the mean value theorem,
+\begin{align*}
+	h_n(x)-h_m(x)&=\begin{cases}
+	  (f_n-f_m)'(x_{n,m}) \text{ for some } x_{n,m} \text{ between } x \text{ and } y & x\ne y\\
+	  (f_n-f_m)'(y) & x=y
+  \end{cases}\\
+		\sup_{[a,b]}|h_n-h_m|&\le \sup_{[a,b]}|f_n'-f_m'|\to 0
+\end{align*}
+as $ n,m\to \infty $. So $ (h_n) $ is uniformly Cauchy so we're done. \qed
 
 
 

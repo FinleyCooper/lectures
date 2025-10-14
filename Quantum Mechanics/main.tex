@@ -74,9 +74,84 @@ Later in 1908, Rutherford performed his gold foil experiement, showing Rutherfor
 \[
 	w_{mn}=2\pi c R_0\left(\frac 1 {n^2}-\frac 1{m^2}\right)\quad n,m\in \N.
 \]
-But in 1913 Bohe showed that the electron orbits are quantised so that the $ L $ (orbital angular model) takes only these values
+But in 1913 Bohr showed that the electron orbits are quantised so that the $ L $ (orbital angular model) takes only these values
 \[
   L_n=n\hbar
 \]
-So it was proposed that $ L $ was quantised hence so it $ r, v, $ and $ E $.
+So it was proposed that $ L $ was quantised hence so is $ r, v, $ and $ E $.\\
+\pf $ \mathbf L = m_e\mathbf v \times \mathbf r$ so we have that
+\begin{align*}
+	|\mathbf L| = L = M_e v r \implies v=\frac{L}{m_er}\implies v_n=n\frac{\hbar}{m_er}\\
+	\mathbf F^{\text{Coulomb}}=-\frac{e^2}{4\pi\varepsilon_0}\frac1{r^2}\mathbf e_r
+\end{align*}
+and we know that
+\[
+	|\mathbf F^{\text{Coulomb}}|=m_ea_r
+\]
+so
+\[
+	\frac{e^2}{4\pi\varepsilon_0}\frac{1}{r^2}=m_e\frac{v^2}r\implies r_h=\frac{4\pi\varepsilon_0\hbar^2}{m_ee^2}n^2
+\]
+so finally
+\[
+	r_0=\frac{4\pi\varepsilon_0}{m_ee^2}\hbar^2
+\]
+similiarly the energy is quantised since
+\[
+	E=\frac 12 m_ev^2-\frac{e^2}{4\pi\varepsilon_0}\frac 1r\implies E_n=-\frac{e^2}{8\pi \varepsilon_0r_0}\frac{1}{n^2}.
+\]
+The lowest energy state is called the Ground level, $ E_1 $ and the exicted levels $ E_2,E_3,\dots $ get closer to eachother as energy increases.\par
+We have that
+\[
+	\omega_{mn}=\frac{\Delta E_{mn}}{\hbar}=2\pi c\left(\frac{e^2}{4\pi\varepsilon_0\hbar c}\right)^2\left(\frac{1}{n^2}-\frac1{m^2}\right)
+\]
+where $ \omega_{mn} $ is the angular frequency of light associated with an electron moving from energy state $ m $ to level $ n $. This the Bohr prediction from Rydberg constatant $ R_0 $. 
+\subsection{The wave-like behaviour of particles}
+In 1923 De Broglie hypothesised that each particle of any mass is associated with a wave having angular frequency, $ \omega $ given by
+\[ \omega=\frac E\hbar \].
+In 1927 this was observed by showing electron scattering off crystals which observed an interference pattern consistant with De Broglie's hypothesis.
+\section{Foundation of Quantum Mechanics}
+In quantum mechanics instead of a vector, we have a state represented by the letter $ \psi $. The basis is a continuous basis $ \{\mathbf x\}\to \psi(\mathbf x, t) $. Instead of a vector space $ \C^n $ we have a space of square-integrable functions, $ L^2(\R^3) $. We define an inner product of two states, $ \psi,\phi\in L^2(\R^3) $ as
+\[
+	(\psi,\phi)=\int_{\R^3}\phi(\mathbf x,t)\psi(\mathbf x,t)\mathrm d^3t.
+\]
+An operator $ \hat O $ sends a state $ \psi $ to a state $ \phi $ as shown,
+\[
+  \phi=\hat O\psi.
+\]
+\subsection{Wave function and probabilistic interpretation}
+In classical mechanics $ \mathbf x $ and $ \dot{\mathbf x} $ determine the dynamics of a particle in a deterministic way.\par
+However in quantum mechanics the state $ \psi(\mathbf x,t) $ determinates the dynamics of particles in a probablilistic way.
+\begin{definition}
+	(State of a particle) We say that $ \psi $ is the \textit{state} of a particle, where $ \psi(\x,t) $ is the complex coefficient of $ \psi $ in the continuous basis of $ \x $ at a given time $ t $. i.e. $ \psi(\x,t) $ is $ \psi $ in the $ \x $ representation and is called a wave function.
+	\[
+	  \psi(\x,t):R^3\to \C
+	\]
+	that satisfies mathematical properties dictated by its physical interpretation.
+\end{definition}
+Born's rule or the probabilistic interpretation for a particle described by a state $ \psi $ to sit at $ \x $ at given time $ t $ is
+\[
+  \rho(\x,t)\propto|\psi(\x,t)|^2=\psi^*(\x,t)\psi(\x,t)
+\]
+where
+\[
+	\rho(\x,t)\mathrm dV=\text{ probability that the particle sits in the some small volume } \mathrm dV \text {cented at } \x.
+\]
+From this we get properties on $ \psi $ as follows:
+\begin{enumerate}
+	\item $ \int_{\R^3}|\psi(\x,t)|^2\mathrm d^3x=N\le\infty $ with $ N\in\R $ and $ N\ne 0 $.
+	\item Because the total probablity has to be equal to $ 1 $ the wavefunction must be normalised to $ 1 $. So
+		\[
+			\overline\psi(\x,t)=\frac{1}{\sqrt N}\psi(\x,t)
+		\]
+		which integrates to $ 1 $ over $ \R^3 $, giving that $ \psi(\x,t)=|\overline\psi(\x,t)|^2 $.
+\end{enumerate}
+\begin{remark}
+Often we drop the $ \overline\psi $ notation and just write $ \psi $, and normalise at the end.
+\end{remark}
+If $ \tilde{\psi}(\x,t) =e^{i\alpha}\psi(\x,t) $ with $ \alpha\in \R $ then we have that
+\[
+	|\tilde{\psi}(\x,t)|^2=|\psi(\x,t)|^2
+\]
+so $ \psi $ and $ \tilde\psi $ are equivalent states.
 \end{document}

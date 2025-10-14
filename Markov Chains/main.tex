@@ -38,10 +38,79 @@ We say that $ \doubleline X= (X_n) $ is a Markov chain with transition matrix $ 
 \]
 for all $ i_0,\dots, i_{n-1}\in I $. Then $ \doubleline X\sim \text{Markov}(\lambda, P) $
 \begin{theorem}
-$ \doubleline X = (X_n)$ is $ \text{Markov}(\lambda, P) $ on $ I $ iff
+$ \doubleline X = (X_n)$ is $ \text{Markov}(\lambda, P) $ on $ I $ if and only if
 \[
-\prob{X_0=i_0,X_1=i_1,\dots, X_n=i_n)=\lambda_{i_0}p_{i_0,i_1},\dots p_{i_{n-1},i_n}}
+\prob{X_0=x_0,X_1=x_1,\dots, X_n=x_n}=\lambda_{x_0}p_{x_0x_1},\dots p_{x_{n-1}x_n}
 \]
+for all $ n\ge 0 $ and all $ x_0,x_1,\dots, x_n\in I $.
 \end{theorem} 
-\pf Exercise
+\pf First let's prove the forward direction. Suppose that $ \doubleline X $ is Markov. Then \begin{align*}
+  &\prob{X_0=x_0,X_1=x_1,\dots,X_n=x_n}
+	=& \prob{X_0=x_0,\dots, X_{n-1}=x_{n-1}}\prob{X_n=x_n|X_{n-1}=x_{n-1}\dots, X_0=x_0}
+\end{align*}
+which iterating over $ n $ gives that
+\[
+	=\prob{X_0=x_0}P_{x_0x_1}\dots P_{x_{n-1}x_n}
+\]
+proving the foward direction. For the converse
+\begin{align*}
+	\prob{X_n=x_n|X_{n-1}=x_{n-1},\dots,X_0=x_0}\\
+	= \frac{\prob{X_0=x_0,\dots,X_n=x_n}}{\prob{X_0=x_0,\dots, X_{n-1}=x_{n-1}}}=\frac{\lambda_{x_0}P_{x_0x_1}\dots}{\lambda_{x_0}P_{x_0x_1}\dots}=P_{x_{n-1}x_n}
+\end{align*}
+and with $ n=0 $ we get our $ \prob{X_0=x_0)}=\lambda_{x_0} $
+\begin{definition}
+  For $ i\in I $ the $ \delta_i $-mass at $ i $ denotes the probability mass function at $ i $ 
+  \[
+	  \delta_{ij}=\begin{cases}
+		  1 & j=i \\
+		  0 & j\ne 1
+	  \end{cases}
+  \]
+\end{definition}
+Recall that form a finite collection of random variables $ (X_0,\dots, X_n) $ are indepedent if and only if
+\[
+	\prob{X_0=x_0,\dots, X_n=x_n)}=\prod_{i=0}^n\prob{X_i=x_i}
+\]
+for all $ x_0,\dots, x_n \in I$.\par
+A process $ (X_n) $ consistant of indepedent RVS ifand only if for any collection of indices $ \{t_1,\dots, t_k\} $ in $ \N $ we have that
+\[
+	\prob{X_{t_1}=x_{t_1},\dots,X_{t_k}=x_{t_k}}=\prod_{i=1}^k\prob{X_{t_i}=x_{t_i}}
+\]
+The process $ (X_i) $ is indepedent from the process $ (Y_i) $ iff for any $ \{t_1,t_2,\dots, t_k\} $ and $ \{s_1,\dots, s_m\} $ for any $ k,m\ge \N $ we have that 
+\[
+	\prob{X_{t_1}=x_{t_1},\cdots, Y_{s_1}=y_{s_1},\cdots} = \prob{X_{t_1}=x_{t_1},\cdots}\prob{Y_{s_1}=y_{s_1},\cdots}
+\]
+Note that for a Markov chain $ \doubleline X $ it is always the case that $ X_{n+1} $ is conditional independent of $ X_{n-1} $ given $ X_{n} $. But typically $ X_{n+1} $ is not indepedent of $ X_{n-1} $. Let's see an example of this.
+\par
+If $ (X_n) $ are IID then $ \doubleline X=(X_n) $ is a Markov chain. What is $ \lambda $ and $ P $.
+\begin{theorem}
+	(Markov property) If $ \overline X \sim \text{Markov}(\lambda, P) $. Then for any $ m\ge 1 $ and $ i\in I $ conditional on $ X_m=i $ the process $ (X_{m+n}) $ is $ \text{Markov}(\delta_i,P) $ and it is indepdent of $ X_0,\dots, X_m $.
+\end{theorem}
+\pf Clearly, $ \prob{X_m=j|X_m=i}=\delta_{ij} $,
+\begin{align*}
+	\prob{X_{m+n}=x_{m+n} | X_m=x_m\dots, X_{m+n-1}=x_{m+n-1}} \\
+	=\prob{X_{m+n}=x_{m+n} | X_{m+n-1}=x_{m+n-1}}=P_{x_{m+n-1}x_{m_n}}
+\end{align*}
+so we have that $ (X_{m+n}) $ is $ \text{Markov}(\delta_i, P) $.\par
+Now to show independence, is just an application of the law of total probability and is a lot and lot of indices.\qed
+\section{Powers of the transition matrix}
+Suppose that $ \doubleline X\sim\text{Markov}(\lambda, P) $. Where is $ \prob{X_n=x_n} $ for large $ n $?
+\begin{align*}
+	\prob{X_n=x}&=\sum_{x_0,\dots, x_{n-1}}\prob{X_0=x_0,\dots, X_n=x_n} \\ &= \sum_{x_0,\dots, x_{n-1}}\lambda_{x_0}P_{x_0x_1}\dots P_{x_{n-1}x_n} \\
+		    &= (\lambda P^n)_{x_n}
+\end{align*}
+So to understand the long time distribution of $ \doubleline X $ it suffices understand the behaviour of $ P^n $ for stochastic matrices. Recall that $ P $ is stochastic if $ P_{xy}\ge 0  $ and each row is a PMF.
+\begin{theorem}
+Suppose that $ \doubleline X\sim\text{Markov}(\lambda, P) $. Then 
+\begin{enumerate}
+	\item $ \prob{X_n=x}=(\lambda P^n)_x $ for all $ x\in I, n \ge1 $.
+	\item $ \prob{X_{n+m}=y | X_m=x}=(\delta_xP^n)_y=(P^n)_{xy} $.
+\end{enumerate}
+\end{theorem}
+\pf We've proved the first part, let's prove the second statement. Let $ (X_{n+m}) $ be Markov with initial distribution $ \delta_m $ conditional on $ X_m=x $. So by the first statement
+\[
+	\prob{X_{m+n}=y|X_n=x}=(\delta_x P^n)_y=(P^n)_{xy}
+\]
+
+
 \end{document}
