@@ -217,10 +217,114 @@ Thus
 \[
 	f(\theta)\sim \frac 4\pi \sum_{n \text{ odd}} \frac{\sin(n\theta)}n
 \]
-
+\subsection{Peridoic extensions: Cosine and sine series}
+Given a function $ f:[0,L)\to \C $ we can define $ 2L $-periodic even/odd extensions called $ f_{even},f_{odd} $. Define,
+\[
+	f_{even}(\theta)=\begin{cases}
+		f(\theta) & \theta\in[0,L)\\
+		f(-\theta) & \theta\in[-L,0)\\
+	\end{cases}
+\]
+and\[ 
+f_{odd}(\theta)=\begin{cases}
+		f(\theta) & \theta\in[0,L)\\
+		-f(-\theta) & \theta\in[-L,0)\\
+	\end{cases}
+\].
+Note that $ f(\theta)=f_{even}(\theta)=f_{odd}(\theta) $ if $ \theta\in [0,L) $.
+\begin{align*}
+	f_{even}(\theta)&\sim \frac 12 A_0+\sum_{n=1}^\infty A_n\cos\left(\frac{2\pi n \theta}{2L}\right)
+	\\
+	A_n&=\frac2{2L}\int_{-L}^Lf_{even}(\theta)cos\left(\frac{2\pi n\theta}{2L}\right)\mathrm d\theta\\
+	   &= \frac 2L\int_0^Lf(\theta)cos\left(\frac{2\pi\theta}L\right)\mathrm d\theta
+\end{align*}
+simiarly we have that 
+\begin{align*}
+	f_{odd}(\theta)&\sim\sum_{n=1}^\infty B_n\sin\left(\frac{2\pi n\theta}{2L}\right)\\
+	B_n&=\frac 2L\int_0^Lf(\theta)\sin\left(\frac{n\pi\theta}L\right)\mathrm d\theta
+\end{align*}
+\begin{definition}
+	For $ f: [0,L)\to \C $ define its \textit{cosine} and \textit{sine} series by
+	\begin{align*}
+		\frac{1}2 A_0+\sum_{n=1}^\infty A_n\cos\left(\frac{n\pi\theta}L\right),\quad \sum_{n=1}^\infty B_n\sin\left(\frac{n\pi\theta}L\right)
+	\end{align*}
+	where $ A_n $ and $ B_n $ defined as before.
+\end{definition}
+For an example consider $ f(\theta)=1 $ on $ [0,\pi) $. For the sine series,
+\begin{align*}
+	B_n=\frac 2\pi \int_0^\pi \sin(n\theta)\mathrm d\theta=\frac2{n\pi}(1-(-1)^n)
+\end{align*}
+On the interval $ (0,\pi) $ we get that $ 1=f(\theta)=f_{odd}(\theta)=4\sum_{n\in \N}\frac{\sin(n\theta)}{n\pi} $. Whereas for the cosine series we get that 
+\[
+A_0=2,\quad A_n=0\quad n\ge 1
+\]
+So for $ \theta\in[0,\pi) $ we get that $ f_{even}=\frac 12\cdot 2 =1 =f(\theta) $.
+\subsection{Regularity and decay of Fourier coefficients}
+A true but non-examinable fact is that if $ g:[a,b]\to \C $ is integrable on $ [a,b] $ and $ \lambda\in \R $ then 
+\[
+	\int_a^be^{-i\lambda\theta}g(\theta)\mathrm d\theta\to 0 \text{ as } |\lambda|\to \infty. 
+\]
+IF $ f:\R\to \C $ is a $ L $-periodic function and integrable on $ [0,L) $ then
+\begin{align*}
+	\hat f = \frac 1L\int_0^Le^{-2\pi i n \theta/L}f(\theta)\mathrm d{\theta}
+\end{align*}
+so taking $ \lambda=\frac{2\pi n}L $ gives that $ \hat f_n\to 0 $ as $ n\to \infty $ by the Riemann-Lebesgue lemma. Also\[
+a_n=\hat f_n+\hat f_{-n} \quad b_n=i(\hat f_n -\hat f_{-n}),\] 
+both go to zero as $ n\to \infty $.\par
+Suppose that $ f $ is $ L $-periodic and $ f\in C^k(\R) $.
+\begin{align*}
+	\hat f_n&=\frac 1L\int_0^Le^{-2\pi in\theta/L}f(\theta)\mathrm d\theta\\
+		&=-\frac 1L\left(\frac{L}{2\pi in}\right)f(\theta)e^{-2\pi in\theta/L}\mathhuge|^L_{\theta=0}+\left(\frac{L}{2\pi in}\right)\frac 1L \int_0^Le^{-2\pi i n \theta/L}f'(\theta)\mathrm d\theta \\
+		&= -\frac{L}{2\pi in}\left[\frac{f(L^-)-f(0^+)}L\right]+\frac{L}{2\pi in}\frac 1L\int_0^Le^{-2\pi in \theta}f'(\theta)\mathrm d\theta
+\end{align*}
+Since $ f $ is periodic and continuously differentiable we have that 
+\[
+  f(0^+)=f(L^+)=f(L^-)
+\]
+hence the boundary term cancels so repeating we get that 
+\[
+	\hat f_n=\left(\frac{L}{2\pi in}\right)^k\frac 1L\int_0^Le^{-2\pi in\theta/L}f^{(k)}(\theta)\mathrm d\theta
+\]
+and the integral is $ o(1) $ by the Rieman-Lebesgue lemma.\par
+So we get that if $ f $ is $ C^k(\R) $ then $ \hat f_n = o\left(\frac 1{n^k}\right) $ as $ |n|\to \infty $.
+\subsection{Termwise differentiation}
+Suppose $ f $ is $ L $-periodic continuously differentiable on $ [0,L) $ with $ f'=g $ thne $ g $ is continuous on $ [0,L) $ so
+\begin{align*}
+	\hat g_n&=\frac 1L\int_0^Le^{-2\pi in\theta/L}f'(\theta)\mathrm d\theta\\
+		&=\frac{f(L^-)-f(0^+)}L+\left(\frac{2\pi in}{L}\right)\frac 1L\int_0^Le^{-2\pi in\theta/L}f(\theta)\mathrm d\theta
+\end{align*}
+If $ f $ is continuous on $ \R $ then by periodicity we have that 
+\begin{align*}
+  f(0^+)=f(L^+)=f(L^-)
+\end{align*}
+so that 
+\[
+	\hat g_n=\left(\frac{2\pi in}L\right)\hat f_n
+\]
+i.e.
+\[
+	f'(\theta)=g(\theta)\sim \sum_n\left(\frac{2\pi in}L\right)\hat f_ne^{2\pi in\theta/L}
+\]
+\subsection{Parseval's theorem}
+	If we have that \[f(\theta)\sim \sum_n\hat f_n e_n(\theta) \]
+	and
+	\[
+	  g(\theta)\sim \sum_n\hat g_n e_n(\theta)
+	\]
+	then taking the inner product of both function we get that
+	\begin{align*}
+		\langle f,g\rangle &= \sum_{n,m}\hat f_n\overline{\hat g_n}\langle e_n,e_m\rangle\\
+				   &= L\sum_n\hat f_n \overline{\hat g_n}
+	\end{align*}
+	finally that
+	\begin{align*}
+		\frac 1L\int_0^L f(\theta)\overline{g(\theta)}\mathrm d\theta=\sum_n \hat f_n \overline{\hat g_n}
+	\end{align*}
+	 and when $ f $ and $ g $ are the same we get that
+	 \[
+	   \frac 1L\int_0^L|f(\theta)|^2\mathrm d\theta=\sum_n|\hat f_n|^2
+	 \]
 \end{document}
-
-
 
 
 

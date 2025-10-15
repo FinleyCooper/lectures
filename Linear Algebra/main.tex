@@ -233,4 +233,144 @@ So $ \overline \alpha$ is linear hence is an isomorphism\qed
 \begin{definition}
 	(Finite-dimensional) For a vector space $ V $ we say that it is \textit{finite-dimensional} if there exists a finite spanning set.
 \end{definition}
+We'll give some simple remarks without proof.
+  \begin{enumerate}
+	  \item $ \langle S \rangle\le V $ and conversely if $ W\le V $ and $ S\subseteq W $ then $ \langle S\rangle \le W $.
+	  \item If $ S,T\subseteq W $ and $ S $ spans $ V $ and $ S\subseteq \langle V\rangle $ then $ T $ spans $ V $.
+	  \item By convention $ \langle\emptyset\rangle =\{\mathbf 0_V\} $.
+	  \item $ \langle S\cup T\rangle = \langle S\rangle + \langle T\rangle $
+  \end{enumerate}
+For an example consider $ V=\R^3 $ and consider the sets
+\begin{align*}
+  S=\left\{\begin{pmatrix}
+    1\\0\\0
+  \end{pmatrix},\begin{pmatrix}
+    1\\1\\2
+\end{pmatrix}\right\}\\
+T=\left\{\begin{pmatrix}
+  2\\1\\2
+\end{pmatrix},\begin{pmatrix}
+  0\\1\\2
+\end{pmatrix},\begin{pmatrix}
+  -1\\2\\4
+\end{pmatrix}\right\}
+\end{align*}
+Then $ \langle S\rangle = \langle T\rangle =\left\{\begin{pmatrix}
+  x\\y\\2y
+\end{pmatrix}:x,y\in \R\right\} \le \R^3.$\par
+For a second example consider $ V=\R^\N $ and set $ T=\{\delta_n:n\in \N\} $. This is not a spanning set, since we require infinitely many elements from $ T $ to make an element in $ V $. In fact we can write that
+\[
+	\langle T\rangle =\{f\in \R^\N:f(n)=0\text{ for all but finitely many terms}\}.
+\]
+\begin{definition}
+	(Linear Independence) A subset $ S\subseteq V $ is called \textit{linearly independent} if, for all finite linear combinations
+\[
+	\sum_{s\in S}\lambda_ss\quad \text{of S}
+\]
+if the sum is the zero vector in $ V $ the $ \lambda_s=0 $ for all $ s\in S $.
+\end{definition}
+If $ S $ is not linearly indepedent we say that $ S $ is linearly dependent.\par
+We'll make some more remarks
+\begin{enumerate}
+	\item If $ \mathbf 0 \in S $ then $ S $ is not linearly independent.
+	\item If we have a finite set, then to show linearly independent, we only need to consider the linear combination of all elements, not all finite lienar combinations.
+	\item However is $ S $ is infinite, then we have to consider every possible finite subset of $ S $ and show it's linearly independent.
+	\item Every subset of a linearly independent set is itself linearly indepedent.	
+\end{enumerate}
+\begin{definition}
+	(Basis) A subset $ S\subseteq V $ is a \textit{basis} for $ V $ if $ S $ is linearly independent and a spanning set.
+\end{definition}
+For an example consider $ e_i\in \F^n $ be given by
+\[
+  e_i=\begin{pmatrix}
+    0\\ \vdots \\ 0 \\ 1 \\ 0 \\\vdots \\ 0
+\end{pmatrix}\quad \text{with the 1 in the } i\text{th entry}
+\]
+then the set $ \{e_i:1\le i\le n\} $ is the standard basis for $ \F^n $.\par
+For $ P(\R) $ the set of real polynomial functions and let $ p_n\in P(\R) $ be given by $ p_n(x)=x^n $, then $ \{p_n:n\in\Z_{\ge 0}\} $ is a basis for $ P(\R) $.
+\begin{proposition}
+  If $ S\subseteq V $ is a finite spanning set, then there exists a subset $ S'\subseteq S $ such that $ S' $ is a basis.
+\end{proposition}
+\pf If $ S $ is linearly independent then we're done. Otherwise write $ S=\{v_1,\dots, v_n\} $. Then there exists $ \lambda_1,\dots, \lambda_n $ such that $ \lambda_1v_1+\cdots\lambda_nv_n=\mathbf 0 $ wlog suppose that $ \lambda_n $ is nonzero. Then
+\begin{align*}
+	v_n=-\frac 1{\lambda_n}\sum_{i=1}^{n-1}\lambda_iv_i
+\end{align*}
+so $ v_n $ is in the span of the other vectors. Hence $ S\setminus \{v_n\} $ is still a spanning set. Repeat which the set is linearly independent, must terminate since the set is finite and the empty set is not a spanning set.\qed
+\begin{corollary}
+  Every finite-dimensional vector space has a finite basis.
+\end{corollary}
+\pf Trivial application of the proposition\qed
+\begin{theorem}
+	(Steinitz Exchange Lemma) Let $ S,T\subseteq V $ finite with $ S $ linearly independent and $ T $ a spanning set of $ V $. Then
+	\begin{enumerate}
+		\item $ |S|\le |T| $,
+		\item and there exists $ T'\subseteq T $ which has size $ |T'|=|T|-|S| $ and $ S\cup T' $ spans $ V $.
+	\end{enumerate}
+\end{theorem}
+\pf To come later...\par
+Let's look at some consequences of the lemma first.
+\begin{corollary}
+	For a finite-dimensional vector space $ V $,
+  \begin{enumerate}
+	  \item Every basis for $ V $ is finite.
+	  \item All finite basis have the same size.
+  \end{enumerate}
+\end{corollary}
+\pf $ V $ has a finite basis $ B $, suppose we have some other basis $ B' $ infinite. Let $ B''\subseteq B' $ with $ |B''|=|B|+1 $ then $ |B''| $ is linearly independent, so applying (i) of the Steinitz exchange lemma with $ S=B'' $ and $ T=B $ we get a contradiction.\par
+For the second part, let $ B_1,B_2 $ be finite basis for $ V $ then apply Steinitz symmetrically since both are spanning set and linearly independent, so we get that $ |B_1|\ge |B_2| $ and $ |B_1|\ge |B_2| $ so $ |B_1|=|B_2| $.\qed
+\begin{definition}
+	(Dimension) For a vector space $ V $ the \textit{dimension} of $ V $ is the size of any basis. We write this as \dim V.
+\end{definition}
+This definition is well-defined by the previous corollary.\par
+For an example $ \dim \F^n=n $ since we've shown the standard basis has size $ n $. As a complex vector space $ \C $ is one-dimensional as a complex vector space and two-dimension as a real vector space, with basis $ \{1\} $ and $ \{1,i\} $ repectively.
+\begin{corollary}
+  For a vector space $ V $ let $ S,T\subseteq V $ finite, with $ S $ linearly independent and $ T $ a spanning set, then
+  \begin{align*}
+	  |S|\le \dim V\le |T|
+	  \end{align*}
+	  with equality if and only if $ S $ spans or $ V $ is linearly independent respectively.
+\end{corollary}
+\pf The inequalities are immediate from Steinitz. If $ S $ is a basis then $ |S|=\dim V $ from the previous corollary. Conversely if $ |S|=\dim V $ and let $ B $ be a basis for $ V $ so we have that $ |B|=|S| $ so $ B $ is a spanning set. So we can apply Steinitz (ii) to $ B $ so there exists $ B'\subseteq B $ with $ |B'|=|B|-|S|=0 $ and $ S\cup B'=S\cup \emptyset $ spans $ V $. So $ S $ is a basis. Similiar we have a very similiar proof for equality in $ V $.\par We will not prove that every vector space has a basis, however some non-finitely dimensional vector spaces have an infinite basis, for example $ P(\R) $.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
