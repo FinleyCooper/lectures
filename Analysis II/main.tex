@@ -199,7 +199,64 @@ By the mean value theorem,
 		\sup_{[a,b]}|h_n-h_m|&\le \sup_{[a,b]}|f_n'-f_m'|\to 0
 \end{align*}
 as $ n,m\to \infty $. So $ (h_n) $ is uniformly Cauchy so we're done. \qed
-
-
-
+\begin{remark}
+  $ f_n' $ need not be continuous consider
+  \[
+    f(x)=\begin{cases}
+	    x^2\sin \frac 1x & x\ne 0 \\
+	    0 & x = 0
+    \end{cases}
+  \]
+  the $ f $ is differentiable on $ [-1,1] $ with f'(x) not continuous at $ x=0 $ and we can take $ f_n(x)=f(x) $ for all $ n $ (or $ f_n(x)=f(x)+\frac xn $.
+\end{remark}
+We have a shorter proof of the above theorem, assuming that $ (f_n') $ are continuous in addition to the hypothesis. For any $ x\in [a,b] $ we can write
+\begin{align*}
+  f_n(x)=f_n(c)+\int_c^xf_n'(t)\mathrm dt
+\end{align*}
+by FTC. Then
+\begin{align*}
+	|f_n(x)-f_m(x)|&=\left|f_n(c)-f_m(c)+\int_c^x(f_n'(c)-f_m'(c))\mathrm dt\right|\\
+		       &\le |f_n(c)-f_m(c)|+\sup_{t\in[a,b]}|f_n'(t)-f_m'(t)|(b-a)\to 0
+\end{align*} as $ n,m\to\infty $. So $ (f_n) $ is uniformly Cauchy, hence converges uniformly.\par
+Note that 
+\[
+	\int_c^xf_n'(t)\mathrm dt\to \int_c^xg(t)\mathrm dt
+\]
+by uniform convergence of $ f_n'\to g $ which implies $ g $ is continuous and hence also integrable. We can let $ n\to\infty $ the first equation for $ f_n(x) $ which gives that
+\[
+  f(x)=f(c)+\int_c^xg(x)\mathrm dt
+\]
+So we can take the derivative of both sides giving that $ f'(x)=g(x)=\lim f_n'(x) $.\qed
+\begin{proposition}
+  If $ f_n,g_n:E\to \R $ with $ f_n\to f $ uniformly on $ E $ and $ g_n\to g $ uniformly on $ E $ then $ f_n+g_n $ converges uniformly to $ f+g $ on $ E $, and if $ h:E\to \R $ is a bounded function then $ hf_n\to hf $ uniformly on $ E $ also.
+\end{proposition}
+\pf On the example sheet.
+\section{Series of functions}
+\begin{definition}
+	(Convergence of a series of functions) Let $ g_n: E\to \R $ for $ n\in\N $ then write
+  \[
+	  f_n=\sum_{j=1}^ng_j
+  \]
+  defined pointwise. Then we say that that,
+  \begin{enumerate}
+	  \item The series of functions $ \sum_{n=1}^\infty g_n $ is convergent at a point $ x\in E $ if the sequence of partial sums $ (f_n(x)) $ converges.
+	  \item The series of functions $ \sum_{n=1}^\infty g_n $ uniformly on $ E $ if the sequence $ (f_n) $ converges uniformly on $ E $.
+	  \item $ \sum_{n=1}^\infty g_n $ converges absolutely at $ x\in E $ if the series $ \sum_{n=1}^\infty |g_n(x)| $ converges.
+	  \item $ \sum_{n=1}^\infty g_n $ converges absolutely uniformly on $ E $ if $ \sum_{n=1}^\infty |g_n| $ converges uniformly on $ E $.
+  \end{enumerate}
+\end{definition}
+We know from IA Analysis I that absolutely convergence $ \implies $ convergence for a sequences in $ \R $. From this we have that if $ \sum_{n=1}^\infty  g_n $ converges absolutely at a point $ x\in E $ then $ \sum_{n=1}^\infty g_n $ converges at $ x $. Similiar to this we have the following proposition relating absolute uniform convergence and uniform convergence.
+\begin{proposition}
+	(Absolute uniform convergence implies uniform convergence) If $ g_n:E\to \R $ and if $ \sum_{n=1}^\infty g_n $ converges absolutely uniformly on $ E $ then $ \sum_{n=1}^\infty g_n$ converges uniformly on $ E $.
+\end{proposition}
+\pf Let $ f_n=\sum_{i=1}^n g_i $ Then
+\begin{align*}
+	|f_n(x)-f_m(x)|&=\left|\sum_{i=m+1}^ng(i)\right|\\
+		       &= \sum_{i=m+1}^n|g_i(x)|=h_n(x)-h_m(x),\quad\text{where } h_n(x)=\sum_{i=1}^n|g_i(x)|\\
+	\sup_{x\in E}|f_n(x)-f_m(x)|&\le \sup_{x\in E}|h_n(x)-h_m(x)|\to 0
+\end{align*}
+as $ n,m\to \infty $ so $ (f_n) $ converges uniformly on $ E $.\qed
+\begin{remark}
+  Uniform convergence and absolute pointwise convergence aren't enough to conclude that the series convergence absolutely uniformly.
+\end{remark}
 \end{document}

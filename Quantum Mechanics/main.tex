@@ -139,10 +139,10 @@ where
 \]
 From this we get properties on $ \psi $ as follows:
 \begin{enumerate}
-	\item $ \int_{\R^3}|\psi(\x,t)|^2\mathrm d^3x=N\le\infty $ with $ N\in\R $ and $ N\ne 0 $.
+	\item $ \int_{\R^3}|\psi(\x,t)|^2\mathrm d^3x=\nu\le\infty $ with $ \nu\in\R $ and $ \nu\ne 0 $.
 	\item Because the total probablity has to be equal to $ 1 $ the wavefunction must be normalised to $ 1 $. So
 		\[
-			\overline\psi(\x,t)=\frac{1}{\sqrt N}\psi(\x,t)
+			\overline\psi(\x,t)=\frac{1}{\sqrt \nu}\psi(\x,t)
 		\]
 		which integrates to $ 1 $ over $ \R^3 $, giving that $ \psi(\x,t)=|\overline\psi(\x,t)|^2 $.
 \end{enumerate}
@@ -154,4 +154,150 @@ If $ \tilde{\psi}(\x,t) =e^{i\alpha}\psi(\x,t) $ with $ \alpha\in \R $ then we h
 	|\tilde{\psi}(\x,t)|^2=|\psi(\x,t)|^2
 \]
 so $ \psi $ and $ \tilde\psi $ are equivalent states.
+\subsection{The Hilbert space}
+The set of all square-integrable functions in $ \R^3 $ is called the \textit{Hilbert space} denoted by $ \mathcal H $ or $ L^2(\R^3) $.\par
+\begin{theorem}
+  If $ \psi_1,\psi_2\in\mathcal H $ then for $ a_1,a_2\in \C $ we have that 
+  \[
+    a_1\psi_1+a_2\psi_2\in\mathcal H
+  \]
+\end{theorem}
+\pf 
+\begin{align*}
+	\int_{\R^3}|\psi_1(\mathbf x,t)|^2\mathrm d^3x=\nu_1\le\infty\\
+	\int_{\R^3}|\psi_2(\mathbf x,t)|^2\mathrm d^3x=\nu_1\le\infty
+
+
+\end{align*}
+So by the triangle inequality for complex numbers, if $ z_1,z_2\in \C $ we have that $ |z_1+z_2|\le|z_1|+|z_2| $. So setting
+\begin{align*}
+	z_1&=a_1\psi_1(\mathrm x,t) \\
+	z_2&=a_2\psi_2(\mathbf x,t)
+\end{align*}
+we get that
+\begin{align*}
+	\int_{\R^3}|\psi(\mathbf x,t)|^2\mathrm d^3x&=\int_{\R^3}|a_1\psi_1(\mathbf x,t)+a_2\psi_2(\mathbf x,t)|^2\mathrm d^3x\\
+						    &\le \int_{\R^3}(|a_1\psi(\mathbf x,t)|+|a_2\psi_2(\mathbf x ,t)|)^2\mathrm d^3x\\
+						    &= \int_{\R^3}(|a_1\psi_1(\mathbf x,t)|^2+|a_2\psi_2(\mathbf x,t)|^2+2|a_1\psi_1||a_2\psi_2|\mathrm d^3x\\
+						    &\le \int_{\R^3}(2|a_1\psi_1(\mathbf x,t)|^2+2|a_2\psi_2(\mathrm x,t)|^2)\mathrm d^3x\\
+						    &= 2|a_1|^2\nu_1+2|a_2|^2\nu_2\le \infty\qed
+\end{align*}
+\subsection{Inner product in $ \mathcal H $}
+\begin{definition}
+  Inner product in $ \mathcal H $ is defined as
+  \[
+	  (\psi,\phi)=\int_{\R^3}\psi(\mathbf x,t)\psi(\mathbf x,t)\mathrm d^3x.
+  \]
+\end{definition}
+\begin{theorem}
+  If $ \psi,\pgi\in\mathcal H $ then their inner product exists.
+\end{theorem}
+\pf
+\begin{align*}
+	\int_{\R^3}|\psi(\mathbf x,t)|^2\mathrm d^3x=\nu_1\le\infty \\		\int_{\R^3}|\phi(\mathbf x,t)|^2\mathrm d^3x=\nu_2\le\infty 
+\end{align*}
+So we have that
+\[
+	|(\psi,\phi)|=\left|\int_{\R^3}\psi^*(\mathbf x,t)\phi(\mathbf x,t)\mathrm d^3x\right|
+\]
+Hence by the integral Schwartz inequality we have that
+\[
+	\le\sqrt{\int_{\R^3}|\psi(\mathbf x,t)|^2\mathrm d^3x\cdot \int_{\R^3}|\phi(\mathbf x,t)|^2\mathrm d^3x}
+\]
+which is
+\[
+	\le \sqrt{\nu_1\nu_2}\le\infty
+\]
+We have some properties of the inner product
+\begin{enumerate}
+	\item $ (\psi,\phi)=(\phi,\psi)^*$
+	\item Antilinear in the first entry and linear in the first entry so we have for $ a_1,a_2\in \C $ that
+		\begin{align*}
+			(a_1\psi_1+a_2\psi_2,\phi)&=a_1^*(\psi_1,\phi)+a_2^*(\psi_2,\phi)\\
+			(\psi,a_1\phi_1+a_2\phi_2)&=a_1(\psi,\phi_1)+a_2(\psi,\phi_2)
+		\end{align*}
+	\item Inner product of $ \psi\in\mathcal H $ is postive i.e. that
+		\[
+			(\psi,\psi)=\int_{\R^3}|\psi(\mathbf x,t)|^2\mathrm d^3x>0
+		\]
+\end{enumerate}
+\begin{definition}
+	(Norm) The \textit{Norm} of a wavefunction $ \psi $ is the real function
+	\[
+		||\psi||=\sqrt{(\psi,\psi)}.
+	\]
+\end{definition}
+\begin{definition}
+	(Normalised) For a wavefunction $ \psi $ we say that $ \psi $ is normalised if
+	\[
+	  ||\psi||=1
+	\]
+\end{definition}
+\begin{definition}
+	(Orthogonal) We say that two wavefunctions $ \psi,\phi\in\H $ are \textit{orthogonal} if
+	\[
+		(\psi,\phi)=0
+	\]
+\end{definition}
+\begin{definition}
+	(Orthonormal) A set of wavefunctions $ \{\psi_n\} $ is called \textit{orthonormal} if
+	\begin{align*}
+		(\psi_m,\psi_n)=\delta_{mn}=\begin{cases}
+			0& m\ne n\\
+			1 & m =n 
+		\end{cases}
+	\end{align*}
+\end{definition}
+\begin{definition}
+	(Complete) A set of wavefunctions $ \{\psi_n\} $ is \textit{complete} if $ \forall\phi\in \mathcal H $ we can write $ \phi $ as a linear combination of $ \{\psi_n\} $.
+\end{definition}
+
+\begin{lemma}
+	If $ \{\psi_n\} $ forms a complete and orthonormal basis of $ \mathcal H $ then
+	\[
+	  c_n=(\psi_n,\phi)
+	\]
+\end{lemma}
+\pf
+\begin{align*}
+	(\psi_n,\phi)&=\left(\psi_n,\sum_{m=0}^\infty c_m\psi_m\right) \\
+		     &= \sum_{m=0}^\infty c_m(\psi_n,\psi_m)\\
+		     &= \sum_{m=0}^\infty c_m\delta_{nm}\\
+		     &=c_n
+\end{align*}
+\subsection{Time-dependent Schrodinger equation}
+We recap that the first postulate of quantum mechanics if that 
+\[
+  \rho(\mathbf x,t)\mathrm d^3t=|\psi(\mathbf x,t)|^2\mathrm d^3
+\]
+The second postulate of quantum mechanics is Schrodinger's equation
+\[
+	i\hbar\frac{\partial\psi(\mathbf x,t)}{\partial t}=-\frac{\hbar^2}{2m}\nalba\psi(\mathbf x,t)+\nu(\mathbf x)\psi(\mathbf x,t)
+\]
+where $ \nabla^2 $ is the Laplacian, and $ \nu(\mathbf x)\in\R $ is called the potential.\par
+We can see that once $ \psi(\x,t_0) $ is known we have that $ \psi(\x,t) $ is known.\par
+We also have an asymmetry in space and time so the equation is non-relativsitic so only holds for speeds not near the speed of light.\par
+The equation is complicated, so let's try and see a heuristic interpretation of the equation. The solution of the wave equation is something like
+\[
+	\exp[i(kx-\omega t)]
+\]
+and for an electromagnetic wave we have that $ \omega=ck $. If we plug the solution to the wave equation into the Schrodinger equation with $ \nu=0 $ we find that $ \omega\propto k^2 $. This is consistant with De Broglie's formula for the wavelength of a particle
+\[
+	k=\frac p\hbar,\quad \omega=\frac E\hbar
+\]
+For a free particle with $ \nu=0 $ we have that $ E=\frac{p^2}{2m} $, so using De Broglie's formula,
+\begin{align*}
+	\omega=\frac{p^2}{2m\hbar}=\frac{\hbar}{2m}k^2
+\end{align*}
+hence $ \omega\propto k^2 $. So the dispersion relation for a wavefunction is different from the dispersion relation of an electromagnetic wave for with $ \omega\propto k $. So the free wave solution to TDSE is
+\[
+	\sim \exp[i\left(kx-\frac{k^2\hbar}{2m}t\right)].
+\]
+We want to verify two properties of the TDSE.
+\begin{enumerate}
+	\item If $ \psi $ obeys the TDSE then normalisation is constant.\\
+		\pf In lecture notes, very tedious algebra.
+\end{enumerate}
 \end{document}
+
+
