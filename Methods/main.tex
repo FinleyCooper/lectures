@@ -324,6 +324,148 @@ i.e.
 	 \[
 	   \frac 1L\int_0^L|f(\theta)|^2\mathrm d\theta=\sum_n|\hat f_n|^2
 	 \]
+	 \section{Sturm-Liouville Theory}
+	 \subsection{Abstract eigenvalues problem}
+	 Recall from IA Vectors and Matrices that a linear map $ A:V_N\to V_n $ was called \textit{Hermitian} if $ A^\dagger = A $ or equivalently we have that
+	 \[
+	   \mathbf x \cdot(A\mathbf y)=(A\mathbf x)\cdot \mathbf x
+	 \]
+	 for all $ \mathbf x,\mathbf y\in V_N $.\par
+	 They had properties where all eigenvalues are real, eigenvectors with distinct eigenvalues were orthogonal, and that we could pick an porthogonal set of eigenvectors $ \{\mathbf v_i\}^N_{i=1} $ such that for each $ \mathbf x\in V_n $ we have that
+	 \[
+		 \mathbf x = \sum_{i=1}^N\hat{\mathbf x}_i\mathbf v_i
+	 \]
+	 where
+	 \[
+		 \hat{\mathbf x}_i=\frac{\mathbf x\cdot \mathbf y}{|\mathbf v_i|^2}.
+	 \]
+	 But now we're in $ N=\infty $, we can't assume everything we've learnt so far.\par
+	 Use a vector space of nice functions, $ f:[a,b]\to \C $ with an inner product
+	 \[
+		 \langle f,g\rangle_w=\int_a^bf(x)\overline{g(x)}w(x)\mathrm dx.
+	 \]
+	 where $ w $ is real valued and $ w>0 $ on $ (a,b) $. We call $ w $ the \textit{weight function} associated with the inner product. This gives an associated norm
+	 \[
+		 ||f||=\sqrt{\langle f,f\rangle_w}
+	 \]
+	 when $ w(x)=1 $ we just write $ \langle \cdot, \cdot \rangle $.
+	 \begin{definition}
+		 (Self-adjoint) A linear differential operator, $ L $, is said to be \textit{self-adjoint} on $ (V,\langle \cdot,\cdot\rangle_w) $ if
+		 \[
+		   \langle Ly_1,y_2\rangle_w=\langle y_1,Ly_2\rangle_w\quad\forall y_1,y_2\in V.
+		 \]
+	 \end{definition}
+	 \begin{definition}
+		 (Eigenfunction/value) For $ (y,\lambda) \in (V\setminus\{0\}\times \C $ is an \textit{eigenfunction, eigenvalue} pair for $ L $ if $ Ly=\lambda y $.
+	 \end{definition}
+	 \begin{proposition}
+	  If $ L $ is self-adjoint on $ (V,\langle \cdot,\cdot,\rangle_w) $ then:
+	  \begin{enumerate}
+		  \item Eigenvalues are real,
+		  \item eigenfunctions with distinct eigenvalues are orthogonal,
+		  \item there exists a complete orthogonal set of eigenfunctions $ \{y_n\}_{n=1}^\infty $ i.e. for each $ f \in V $ we can write,
+			  \[
+				  f=\sum_{n=1}^\infty \hat f_ny_n
+			  \]
+			  where
+			  \[
+				  \hat f_n=\frac{\langle f, y_n\rangle_w}{||y_n||_w^2}
+			  \]
+	  \end{enumerate}
+	 \end{proposition}
+	 \pf (For (i)) If $ Ly=\lambda y $ with $ y\ne 0 $ then
+	 \begin{align*}
+		 (\lambda-\overline\lambda)||y||_w^2&=\langle \lambda y,y\rangle_w-\langle y,\lambda y\rangle_w \\
+						    &= \langle Ly, y\rangle_w - \langle y,Ly\rangle_w \\
+						    &= 0 \implies \lambda = \overline \lambda
+	 \end{align*}
+	 (For (ii)) If $ Ly_1=\lambda_1y_1, Ly_2=\lambda_2y_2 $ with $ \lambda_1\ne \lambda_2 $,
+	 \begin{align*}
+		 (\lambda_1-\lambda_2)\langle y_1,y_2\rangle_w &= \langle \lambda_1y_1,y_2\rangle_w-\langle y_1,\lambda_2y_2\rangle _w\\
+							       &= \langle Ly_1,y_2\rangle - \langle y_1,Ly_2\rangle_w \\
+							       &= 0 \implies \langle y_1,y_2\rangle_w=0
+	 \end{align*}
+	 The third statement is too hard to prove for this course.\qed
+\par
+We will study problems of the form
+\begin{align}
+  \begin{cases}
+	  Ly=\lambda y a<x<b \\
+	  y \text{ satisfies some boundary conditions at } x=a,b
+  \end{cases}
+\end{align}
+\begin{definition}
+	(Sturm-Liouville operator) We say that $ L $ is a \textit{Sturm-Liouville operator} on $ (a,b) $ if it has the form
+	\begin{align*}
+		L&=\frac 1w\left[-\frac{\mathrm d}{\mathrm d x}\left(p\frac{\mathrm d \mathhuge\cdot}{\mathrm dx}\right)+q\mathhuge\cdot\right]\\
+		 &= \frac 1w\left[-p\frac{\mathrm d^2\mathhuge \cdot}{\mathrm dx^2}-p^2\frac{\mathrm d \mathhuge \cdot}{\mathrm dx}+q\mathhuge\cdot\right]
+		\end{align*}
+		where $ p,q,w $ are real valued and $ p,w>0 $ on $ (a,b) $. We call $ w $ the \textit{weight function}.
+\end{definition}
+See that $ Ly=\lambda y $ is equvialent to
+\[
+	-\frac{\mathrm d}{\mathrm dx}\left(p\frac{\mathrm dy}{\mathrm dx}\right)+qy=\lambda wy\quad a<x<b.
+\]
+We will enforce boundary conditions by stipulating that $ y $ belongs to a suitable vector space of functions that appropriate behaviour at the boundaries.
+\begin{definition}
+	(Singular) For a Sturm-Liiouville operator on $ (a,b) $ say an endpoint $ c\in \{a,b\} $ is \textit{singular} if $ p(c)=0 $ and \textit{non-singular} otherwise. 
+\end{definition}
+We will impose real homogeneous boundary conditions of the form
+\[
+	c\in \{a,b\}\quad \alpha_cy(c)+\beta_cy'(c)=0
+\]
+at each non-singular endpoint, :w
+for $ \alpha_c,\beta_c\in \R $ and $ \alpha_c^2+\beta_c^2\ne 0 $.\par
+We will work on generic vector spaces of the form
+\[
+	V=\mathhuge{\{}
+	  y\in C^2[a,b]: y \text{ satisfies real homogeneous boundary conditions at each non-singular endpoint }
+  \mathhuge{\}}
+\]
+Let's look at the example
+\[
+	-\frac{\mathrm d}{\mathrm dx}\left[(1-x^2)\frac{\mathrm dy}{\mathrm dx}\right]=\lambda y\quad -1<x< 1.
+\]
+So we have that $ p=(1-x^2),q=0,w=1 $. Then $ x=\pm 1 $ both singular. Take $ V=\{y\in C^2[a,b]\} $ then
+\[
+	\langle f,g\rangle_w=\int_{-1}^1f(x)\overline{g(x)}\mathrm dx.
+\]
+\begin{proposition}
+	If $ L $ is a Sturm-Lionville operator on $ (a,b)  $ with weight function $ w $ then if $ y_1,y_0\in C^2[a,b] $ we have that 
+	\[
+		\langle Ly_1,y_2\rangle_w-\langle y_1,Ly_2\rangle_w=p(x)W(y_1,\overline{y_2})(x)\mathhuge{|}^b_a
+	\]
+	where $ W $ is the Wronskian.
+\end{proposition}
+So if $ y_1,y_2\in V $ then $ L $ is self-adjoint on $ (V,\langle\cdot,\cdot\rangle_w) $.\par
+\pf
+\begin{align*}
+	&\int_a^b\frac 1w\left[-(py')'+qy_1\right]\bar{y_2}w\mathrm dx-\int_a^by_1\frac 1w\left[-(p\bar{y_2})'+q\bar{y_2}\right]w\mathrm dx\\
+&= \int_a^b\left[y_1(p\bar{y_2})'-\bar{y_2}(py'_1)'\right]\mathrm dx\\
+	&= \int_a^b\frac{\mathrm d}{\mathrm dx}\left[p(x)W(y_1,\bar{y_2})(x)\right]\mathrm dx\\
+	&= p(x)W(y_1,\bar{y_2})(x)\mathhuge{|}_a^b.
+\end{align*}
+Now assume that $ y_1,y_2\in V $. If $ x=c \in \{a,b\} $ is singular then $ p(c)=0 $ hence $ p(c)W(y_1,\bar {y_2})(c)=0 $. If $ c\in \{a,b\} $ non-singular then $ y_1,y_2 $ satisfy boundary conditions of the form
+\[
+  \alpha_cy(c)+\beta_cy'(c)=0,\quad \alpha_c,\beta_c\in \R, \alpha_c^2+\beta_c^2\ne 0.
+\]
+Since $ \alpha_c,\beta_c\in \R $ we know that $ \bar y $ also satisfies the same boundary conditions hence
+\[
+  \begin{pmatrix}
+	  y_1(c) & y'_1(c) \\
+	  \bar{y_2}(c) & \bar{y_2}'(c) \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    \alpha_c \\
+    \beta_c \\
+  \end{pmatrix}
+  =0
+\]
+So the determinate of the matrix on the left is zero because $ \alpha_c $ and $ \beta_c $ don't both equal zero hence $ W(y_1,\bar y_2)(c) = \det(\cdots)=0 $ Hence we have that
+ \begin{align*}
+   \langle Ly_1,y_2\rangle_w-\langle y_1,Ly_2\rangle_w=0
+ \end{align*}
+ for all $ y_1,y_2\in V $.\qed
 \end{document}
 
 

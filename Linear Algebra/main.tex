@@ -3,6 +3,8 @@
 \title{Linear Algebra}
 \author{Notes by Finley Cooper}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\n}{\mathrm{n}}
+\newcommand{\rk}{\mathrm{rk}}
 \begin{document}
   \maketitle
   \newpage
@@ -330,14 +332,142 @@ For an example $ \dim \F^n=n $ since we've shown the standard basis has size $ n
 	  \end{align*}
 	  with equality if and only if $ S $ spans or $ V $ is linearly independent respectively.
 \end{corollary}
-\pf The inequalities are immediate from Steinitz. If $ S $ is a basis then $ |S|=\dim V $ from the previous corollary. Conversely if $ |S|=\dim V $ and let $ B $ be a basis for $ V $ so we have that $ |B|=|S| $ so $ B $ is a spanning set. So we can apply Steinitz (ii) to $ B $ so there exists $ B'\subseteq B $ with $ |B'|=|B|-|S|=0 $ and $ S\cup B'=S\cup \emptyset $ spans $ V $. So $ S $ is a basis. Similiar we have a very similiar proof for equality in $ V $.\par We will not prove that every vector space has a basis, however some non-finitely dimensional vector spaces have an infinite basis, for example $ P(\R) $.
-
-
-
-
-
-
-
+\pf The inequalities are immediate from Steinitz. If $ S $ is a basis then $ |S|=\dim V $ from the previous corollary. Conversely if $ |S|=\dim V $ and let $ B $ be a basis for $ V $ so we have that $ |B|=|S| $ so $ B $ is a spanning set. So we can apply Steinitz (ii) to $ B $ so there exists $ B'\subseteq B $ with $ |B'|=|B|-|S|=0 $ and $ S\cup B'=S\cup \emptyset $ spans $ V $. So $ S $ is a basis. Similiar we have a very similiar proof for equality in $ V $.\qed\par We will not prove that every vector space has a basis, however some non-finitely dimensional vector spaces have an infinite basis, for example $ P(\R) $.
+\begin{proposition}
+  If $ V $ is a finite-dimensional vector space, then if $ U\le V $ then $ U $ is finite-dimensional, namely, $ \dim U \le \dim V $ with equality if and only if $ U=V $.
+\end{proposition}
+\pf If $ U=\{\mathbf 0\} $, we're done. Otherwise let $ \mathbf 0\ne u_1\in U $. Then $ \{u_1\}\subseteq U $ is linearly indepedent. Repeating, after repeating $ k $ times suppose we have $ \{u_1,\dots, u_k\} $ linearly indepedent with $ k\le \dim(V) $ by the previously corollary. If the set spans $ U $ we're done, if not we'll add another vector, $ u_{k+1} $ outside of the span of our space. If $ \{u_1,\dots, u_{k+1}\} $ is not linearly indepedent, we can write $ \mathbf 0 $ non-trivially, so
+\[
+	\sum_{i=1}^{k+1}\lambda_i u_i=\mathbf 0
+\]
+with $ \lambda_{k+1}\ne 0 $ since $ \{u_1,\dots, u_k\} $ linearly indepedent. Thus we have that
+\[
+	u_{k+1}=-\frac 1{\lambda_{k+1}}\left(\sum_{i=1}^k\lambda_iu_i\right)
+\]
+this process must terminate after at most $ \dim V $ many steps, by the previous corollary. If $ \dim U=\dim V $ apply the previous corollary with $ S $ being any basis for $ U $.\qed
+\begin{proposition}
+	(Extending a basis) Let $ U\le V $. For any basis $ B_U $ of $ U $ there exists a basis $ B_V $ of $ V $ such that $ B_U\subseteq B_V $.
+\end{proposition}
+\pf Apply the second result from Steinitz with $ S=B_U $ and $ T $ is any basis for $ V $. We obtain that $ T'\subseteq T\st $ 
+\[
+  |T'|=|T|-|S|=\dim V-\dim U
+\]
+and $ B_V=B_U\cup T' $ spans $ V $. But we have that
+\[
+  |B_V|\le |B_U|+|T'|=\dim V
+\]
+so by the previous corollary, $ B_V $ is a basis for $ V $.\qed\par
+Now we'll finally prove the Steinitz exchange lemma.\par
+\pf Let $ S=\{u_1,\dots, u_m\} $, $ T=\{v_1,\dots, v_n\} $ with $ |T|=m $ and $ |T|=n $. If $ S $ is empty then we're done. Otherwise there exists $ \lambda_i\in \F $ such that 
+\[
+	u_1=\sum_{i=1}^n\lambda_iv_i
+\]
+so by renumbering we can say that $ \lambda_1\ne 0 $. Then
+\[
+	v_1=\frac 1{\lambda_1}\left(u_1-\sum_{i=2}^n\lambda_iv_i\right)
+\]
+So $ \{u_1,v_2,\dots, v_n\} $ spans $ V $. After repeating $ k $ times with $ k<m $ suppose $ \{u_1,\dots, u_k,v_{k+1},\dots, v_n\} $ spans V, then there exists $ \lambda_i,\mu_j\in\F $ such that
+\begin{align*}
+	u_{k+1}=\sum_{j=1}^k\mu_ju_j+\sum_{i=k+1}^n\lambda_iv_i
+\end{align*}
+If for all $ \lambda_i= 0 $ then
+\[
+	\left(\sum_{j=1}^k\mu_ju_j\right) -u_{k+1}=\mathbf 0
+\]
+which is a contradiction since $ S $ is linearly independent. So by relabeling we have that $ \lambda_{k+1}\ne 0 $ such that 
+\[
+	v_{k+1}=\frac 1{\lambda_{k+1}}\left(u_{k+1}-\sum_{j=1}^k\mu_ju_j-\sum_{i=k+1}^n\lambda_iv_i\right)
+\]
+so $ (u_1,\dots, u_{k+1},v_{k+2},\dots, v_n\}$ spans $ V $. So we can conclude that $ m\ne n $ and $ \{u_1,\dots, u_m,v_{m+1},\dots, v_n\} $ spans $ V $ hence the set $ T'=\{v_{m+1},\dots, v_n\} $ exists as claimed. \qed
+\begin{definition}
+	(Nullity) For a linear map $ \alpha:V\to W $ we define the \textit{nullity} of $ \alpha $ as
+	\[
+	  \n(\alpha)=\dim\ker\alpha.
+	\]
+\end{definition}
+\begin{definition}
+	(Rank) For a linear map $ \alpha:V\to W $ we define the \textit{rank} of $ \alpha $ as
+	\[
+	  \rk(\alpha)=\dim\ima\alpha.
+	\]
+\end{definition}
+\begin{theorem}
+	(Rank-nullity theorem) If $ V $ is a finite dimensional $ \F $-vector space and $ W  $ is a $ \F $-vector space. Then if $ \alpha:V\to W $ is linear then $ \ima \alpha $ is finite dimensional and
+	\[
+	  \dim V=\n(\alpha)+\rk(\alpha).
+	\]
+\end{theorem}
+\pf Recall the first isomorphism theorem so
+\[
+	\frac V{\ker \alpha}\cong \ima\alpha
+\]
+It is sufficient to prove the lemma
+\begin{lemma}
+  For $ U\le V $,
+  \[
+    \dim(V/U)=\dim V-\dim U
+  \]
+\end{lemma}
+\pf Let $ B_U=\{u_1,\dots, u_m\} $ be a basis of $ U $. Extend to a basis $ B_V=\{u_1,\dots, u_m,v_{m+1},\dots, v_n\} $ of $ V $ where $ m=\dim U $ and $ n=\dim V $.\\
+Set $ B_{V/U}=\{v_i+U:m+1\le i\le n $. The we claim that $ B_{V/U} $ is a basis for $ V/U $ of size $ n-m $. To show spanning, for $ v\in V $ write
+	\[
+	  v=\sum_i\lambda_iv_i+\sum_j\mu_jv_j
+	\]
+	Then $ v+U=\sum_i\lambda_i(v_i+U)\in \langle B_{V/U}\rangle $. For linear independence, suppose
+	\[
+	  \sum_i\lambda_i(v_i+U)=\mathbf 0+U
+  \]
+	hence 
+	\begin{align*}
+	  =\left(\sum_i\lambda_iv_i\right)+U \\
+	  \sum_i\lambda_iv_i\in U\\
+	  \sum_i\lambda_iv_i=\sum_j\mu_ju_j
+	\end{align*}
+	since $ B_V $ is linearly independent, we have that all $ \lambda_i $ and $ \mu_j $ are zero. Similiarly if $ v_i+U=v_j+U $ with $ i\ne j $ then we can write $ v_i-v_j=\sum_j\mu_ju_j $ which is a contradiction.\qed
+	\begin{remark}
+	   We can maek a direct proof without quotient spaces by rearranging some of the arguments of the proof.
+	\end{remark}
+\begin{corollary}
+	(Linear Pigeonhole principle) If $ \dim V=\dim W=n $ and $ \alpha: V\to W $ then the following conditions are equivalent.
+	\begin{enumerate}
+		\item $ \alpha $ is injective,
+		\item $ \alpha $ is surjective,
+		\item $ \alpha $ is an isomorphism.
+	\end{enumerate}
+\end{corollary}
+\pf If $ \alpha $ injective then $ \n(\alpha)=0 $ so by rank nullity we have that $ \rk(\alpha)=n $ so $ \alpha $ is surjective. If $ \alpha $ is surjective then $ \rk(\alpha)=n $ so by rank nullity, the dimension of the kernal is $ 0 $ hence the kernal is trivial, so $ \alpha $ injective, hence $ \alpha $ is an isomorphism. If $ \alpha $ is an isomorphism, clearly it's injective, so all equivalent.\qed
+\begin{proposition}
+  Suppose $ V $ is a vector space with a basis $ B $. For any vector space $ W	 $ and any function $ f:B\to W $ there is a unique linear map $ F:V\to W $ such that $ F(B)=W $.
+\end{proposition}
+\pf First we'll show existance. For $ v\in V $ write $ v=\sum_b\lambda_bb $ for a finite sum. Then define
+\[
+  F(v)=\sum_b \lambda_bf(b).
+\]
+This is well-defined, since $ B $ is a basis the $ \lambda_b $ are uniquely determined by $ v $. For $ u,v\in V $ and $ \lambda\in \F $ we write
+\[
+  u=\sum_b\mu_bb,\quad \sum_b\lambda_bb.
+\]
+Then \begin{align*}
+	F(u+\lambdav)&=F(\sum_b(\mu_b+\lambda\lambda_b)f(b)\\
+		     &= \sum_b\mu_bf(b)+\lambda\sum_b\lambda_bf(b)\\
+		     &= F(u)+\lambda F(v).
+\end{align*}
+So $ F $ is linear. To show uniqueness $ \overline F:V\to W $ is another linear map extending $ f $ then,
+\[
+  \overline F\left(\sum_b\lambda bb\right)=\sum_b\lambda_b\overline F(b)
+\]
+which is the same as our definition for $ F $ hence they are the same function.
+\begin{corollary}
+	For a vector space, $ V $, with $ \dim V=n $ with a basis $ B=\{v_1,\dots, v_n\} $ for $ V $ then there is a isomorphism
+  \begin{align*}
+	  F_B:V&\to \F^n\\
+	       \sum_{i=1}^n\lambda_iv_i &\to \begin{pmatrix}
+	        \lambda_1\\
+		\vdots \\
+		\lambda_n
+	      \end{pmatrix}
+  \end{align*}
+  \end{corollary}
 
 
 
