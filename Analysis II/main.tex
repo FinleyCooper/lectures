@@ -259,4 +259,112 @@ as $ n,m\to \infty $ so $ (f_n) $ converges uniformly on $ E $.\qed
 \begin{remark}
   Uniform convergence and absolute pointwise convergence aren't enough to conclude that the series convergence absolutely uniformly.
 \end{remark}
+\begin{theorem}
+	(Weierstrass M-test) Let  $ g_n:E\to\R $ be a sequence of functions and suppose that $ \exists M_n $ such that
+	\[
+		\sup_{x\in E}|g_n(x)|\le M_n
+	\]
+	and that
+	\[
+		\sum_{n=1}^\infty M_n
+	\]
+	converges. Then
+	\[
+		\sum_{n=1}^\infty g_n
+	\]
+	converges absolutely uniformly on $ E $.
+\end{theorem}
+\pf Let
+\[
+	h_n(x)=\sum_{j=1}^n |g_n(x)|
+\]
+for $ n>m $,
+\begin{align*}
+	h_n(x)-h_m(x)=\sum_{j=m+1}^n|g_j(x)|\le \sum_{j=k+1}^nM_j=\sum_{j=1}^nM_j -\sum_{j=1}^m M_j\\
+	\implies \sup_{x\in E}|h_n(x)-h_m(x)|\le \left|\sum_{j=1}^n M_j-\sum_{j=1}^m M_j\right|\quad\forall n,m
+\end{align*}
+by assumption the right hand side $ \to 0 $ since $ \sum_{j=1}^\infty M_j $ is convergent, hence $ (h_n) $ is uniformly Cauchy hence converges uniformly.
+\subsection{Power series}
+We'll now specialise to the case where $ g_n(x)=c_n(x-a)^n $ for $ a,c_n\in \R $. This gives a real power series.
+\begin{theorem}
+	(Radius of convergence) Let $ \sum_{n=0}^\infty c_n(x-a)^n $ be a real power series then there exists a $ R\in[0,\infty] $ called the \textit{radius of convergence} of the power series such that
+	\begin{enumerate}
+		\item If $ |x-a|<R $ then the power series converges absolutely.
+		\item If $ |x-a|>R $ then the power series diverges.
+		\item R is given by
+			\[
+				R=\frac{1}{\limsup_{n\rightarrow\infty}|c_n|^{\frac 1n}}
+			\]
+			where if the limit is zero, then $ R=\infty $.
+		\item For any $ r\in (0,R) $ we have the power series converges uniformly on $ [a-r,a+r] $, in particular the function that the power series converges to is continuous on $ (a-R,a+R) $.
+	\end{enumerate}
+\end{theorem}
+\pf The proof for (i), (ii), and (iii) are in IA Analysis I. We'll just prove (iv). Note first that the power series converges absolutely at $ x=a+r $ i.e. we have that
+\[
+	\sum_{n=0}^\infty |c_n|r^n
+\]
+is convergent. Since $ |c_n(x-a)^n|\le |c_n|r^n $ for any $ x\in[a-r,a+r] $ we can apply the Weierstrass $ M $-test with $ M_n=|c_n|r^n $ to conclude that the series
+\[
+	\sum_{n=0}^\infty c_n(x-a)^n\to f
+\]
+converges absolutely uniformly on $ [a-r,a+r] $. It follows that $ f $ is continuous. at any point in $ (a-R,a+R) $ by picking $ r $ small enough.
+\begin{remark}
+   (Boundary behaviour. Let
+   \[
+	   f(x)=\sum_{n=0}^\infty c_n(x-a)^n
+   \]
+   with power series boundary $ R $ with $ 0< R<\infty $. If the power series converges at one of the boundary points of the interval of convergence, say at $ x=a+R $ i.e. $ \sum_{n=0}^\infty c_nR^n $ is convergent then
+   \[
+	   \lim_{x\to a+R}f(x)=\sum_{n=0}^\infty c_nR^n
+   \]
+   so $ f $ extends to $ (a-R,a+R] $ as a continuous function.
+\end{remark}
+Moreover, under the same conditions that $ \sum_{n=0}^\infty c_nR^n $ converges we have that the series converges uniformly on $ [a-r,a+r] $ for any $ r\in (0,R) $. Same discussion applies at the endpoint $ a-R $.
+\begin{theorem}
+	(Differentation of power series) Let $ \sum_{n=0}^\infty c_n(x-a)^n $ be a power series with radius of convergent $ R>0 $. Let
+	\[
+		f(x)=\sum_{n=0}^\infty c_n(x-a)^n
+	\]
+	defined on $ (a-R,a+R) $. We have the following
+	\begin{enumerate}
+		\item The derived series \[
+		  \sum_{n=1}^\infty nc_n(x-a)^{n-1}
+	  \]
+	  has radius of convergent $ R $.
+  \item $ f $ is differentiable on $ (a-R,a+R) $ with
+	  \[
+		  f'(x)=\sum_{n=1}^\infty nc_n(x-a)^{n-1}\quad\forall x\in(a-R,a+R)
+	  \]
+	\end{enumerate}
+\end{theorem}
+\pf
+\begin{align*}
+	\limsup_{n\to\infty}(n|c_n|)^{\frac 1n}=\limsup_{n\to\infty}|c_n|^{\frac 1n}
+\end{align*}
+since we have that $ \lim_{n\to\infty}n^{\frac 1n} = 1$. So we have $ (i) $.\par
+Define $ f_n(x)=\sum_{j=0}^jc_j(x-a)^j $ is clearly differentiable on $ \R $ with $ f_n'(x)=\sum_{j=1}^njc_j(x-a)^{j-1} $. By (i) we have that $ f_n'(x) $ converges uniformly on $ [a-r,a+r] $ for all $ r<R $ and $ f_n(a)=c_0 \forall n $ so $ (f_n(a)) $ converges. So the limit is differentiable in $ [a-r,a+r] $, with \[ f'(x)=\lim_{n\to\infty}f_n'(x) =\lim_{n\to\infty}\sum_{j=1}^njc_j(x-a)^{j-1}\].\qed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

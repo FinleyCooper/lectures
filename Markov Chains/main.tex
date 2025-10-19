@@ -110,7 +110,88 @@ Suppose that $ \doubleline X\sim\text{Markov}(\lambda, P) $. Then
 \pf We've proved the first part, let's prove the second statement. Let $ (X_{n+m}) $ be Markov with initial distribution $ \delta_m $ conditional on $ X_m=x $. So by the first statement
 \[
 	\prob{X_{m+n}=y|X_n=x}=(\delta_x P^n)_y=(P^n)_{xy}
+\]\qed
+\par
+We will use the notation that
+\begin{align*}
+	\mathbb P_x(\cdots)=\mathbb P(\cdots \mid X_0=x)\\
+	\mathbb E_x[\cdots]=\mathbb E[\cdots \mid X_0=x]
+\end{align*}
+Let's look how to calculate $ P_{ij}(n) $. Suppose that $ I $ is finite, say that $ I=\{1,\dots, k\} $. How do we compute $ P_{11}(n) $? If the matrix $ P $ has $ k $ distinct real eigenvalues, then it is diagonalisable. So we can write
+\[
+	P=U\mathrm{diag}(\lambda_1,\dots,\lambda_k)\inv U
 \]
-
-
+using a change of basis matrix $ U $. Then
+\[
+	P^n=U\mathrm{diag}(\lambda_1^n,\dots, \lambda_k^n)\inv U
+\].
+So $ P_{11}(x)=(P^n)_{11}=a_1\lambda_1^n+\cdots+a_k\lambda_k^n $. Then we can find $ P_{11}(n) $ for small values of $ n $, substitute them to find $ a_1,\dots, a_k $.\par
+If $ P $ has some complex eigenvalues, since $ P $ is a real-valued matrix, they necessarily come in complex conjugate pairs. So if $ \lambda_1,\dots, \lambda_{k-2} $ are real and distinct, then $ \lambda_{k-1}=re^{i\theta} $ and $ \lambda_k=re^{-i\theta} $. In this case since all $ P_{ij}(n) $ are real
+\[
+	P_{11}(n)=\sum_{i=1}^{k-2}a_i\lambda_i^n+a_{k-1}r^n\cos(n\theta)+a_kr^n\sin(n\theta).
+\]
+If the are repeated eigenvalues, e.g. if $ \lambda_1,\dots, \lambda_{k-2} $ are distinct and $ \lambda_{k-1}=\lambda_k $ then we can use the Jordan normal form of $ P $ to get that the same expansion holds for $ P_{11}(n) $ except that we need to include a term of the form $ (a+bn)\lambda^n_{k-1} $.
+\begin{definition}
+	We say that state $ i $ \textit{leads to} $ j $, denoted as $ i\to j $ if
+	\[
+		\prob{X_n=j\text{ for some $ n\ge 0 $}\mid X_0=i}
+	\]
+	and we say that $ i $ and $ j $ \textit{communicate} if $ i\to j $ and $ j\to i $ we denote this as $ i\longleftrightarrow j $.
+\end{definition}
+\begin{theorem}
+  The following statements are equivalent.
+  \begin{enumerate}
+	  \item $ i\to j $.
+	  \item There is a path $ x_0=i,x_1,\dots, x_n=j $ such that $ p_{x_0x_1},\dots,p_{x_{n-1}x_n} $ are all positive.
+	  \item $ P_{ij}(n)\ge 0 $ for some $ n $.
+  \end{enumerate}
+\end{theorem}
+  \pf We have equality in the events
+  \[
+	  \{x_0=j\text{ for some } n\ge 0 \}=\bigcup_{n\ge 0}\{X_n=j\}
+  \]
+  hence (i)$ \iff $ (iii)\par
+  Also
+  \begin{align*}
+	  P_{ij}(n)&=\mathbb P_i(X_n=j) \\
+		   &= \sum_{\text{all } x_1,\dots, x_{n-1}}P_{ix_1}P_{x_1x_2}\cdots P_{x_{n-1}j}
+  \end{align*}
+  hence we have that (ii) $ \iff $ (iii).\qed
+\begin{corollary}
+  Communication defines a equvalence relation on the state space.
+\end{corollary}
+\pf
+By definition $ x\longleftrightarrow x $ and $ x\longleftrightarrow y \iff y\longleftrightarrow x $ are obvious. Suppose that $ x\longleftrightarrow y $ and $ y\longleftrightarrow z $. Then by (ii) in the theorem we have a path from $ x $ to $ y $ to $ z $ so $ x\longleftrightarrow z $.\qed
+\begin{definition}
+	(Communicating class) The induced equivalences classes are called \textit{communicating classes}. A communicating class $ C\subseteq I $ is \textit{closed} if $ x\to y $ for some $ x\in C $ and $ y\in I $ then we have that $ y\in C $.
+\end{definition}
+\begin{definition}
+	(Absorbing) A state $ x $ is absorbing if $ \{x\} $ is closed.
+\end{definition}
+This is equivalent to $ P_{xx}=1 $.
+\begin{definition}
+	(Irreducible) A transition matrix $ P $ is called \textit{irreducible} if $ I $ is a communicating class. i.e. $ x\longleftrightarrow y $ for all $ x,y\in I $.
+\end{definition}
+\begin{definition}
+	(First hitting time) Let $ A\subseteq I $. Then the \textit{first hitting time} $ T_A $ for $ A $ is 
+	\[
+		T_A=\inf\{x\ge 0: X_n\in A\}
+	\]
+	which can be infinite if the set empty. The \textit{hitting probability} of $ A $ is the function 
+	\[
+		h^A:I\to [0,1]
+	\]
+	defined by
+	\[
+	  h_i^A=\mathbb P_i(T_A\le \infty)
+	\]
+	and the \texit{mean hitting time} is the function
+	\[
+		k^A:I\to(0,\infty]
+	\]
+	is
+	\[
+		k^A_i=\mathbb E_i(T_A)=\sum_{n=0}^\infty n\mathbb P_i(T_A=n)+\infty\cdot\prob{T_A=\infty}.
+	\]
+\end{definition}
 \end{document}
