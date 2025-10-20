@@ -466,9 +466,122 @@ So the determinate of the matrix on the left is zero because $ \alpha_c $ and $ 
    \langle Ly_1,y_2\rangle_w-\langle y_1,Ly_2\rangle_w=0
  \end{align*}
  for all $ y_1,y_2\in V $.\qed
+ \subsection{Sturm-Lioville Eigenvalue problems}
+ We'll be studying problems of the form
+ \[
+	 -\frac{\mathrm d}{\mathrm dx}\left[p\frac{\mathrm dy}{\mathrm dx}\right] + qy = \lambda y\quad y\in V
+ \]
+ where
+ \[
+	 V=\left\{y\in C^2[a,b]:y\text{ satisfies real homogeneous BCs at each non-ingular end point} \right\}
+ \]
+ Equip $ V $ with an inner product with a weight function as before. Assume elements of $ V $ are real-valued \textit{wlog} since if $ y=u+iv $ and $ Ly=\lambda y $ then we can split up into
+ \[
+   Lu=\lambda u, \quad Lv=\lambda v
+ \]
+ since $ p,q,w,\lambda\in \R $. So
+ \[
+	 \langle y_1,y_2\rangle_w=\int_a^by_1(x)y_2(x)\mathrm dx.
+ \]
+ Since $ L $ is self-adjoint, we know there exists $ (y_n,\lambda_n)\in (V\setminus \{0\})\times \R $ such that $ Ly_n=\lambda_ny_n $ with $ \langle y_n,y_m\rangle_w=0 $ if $ \lambda_n\ne \lambda_m $ and for $ f\in V $ we have
+ \begin{align*}
+	 f(x)&=\sum_{n=1}^\infty \hat f_n y_n(x)\\
+	 \hat f_n&=\frac{\langle f,y_n\rangle_w}{||y_n||^2_w}
+ \end{align*}
+ are the generalised Fourier coefficients of $ f $. It will also be the cases that $ \lambda_1<\lambda_2<\cdots $ with $ \lambda_n\to \infty $ as $ n\to \infty $. Let's look at an example. Take
+ \[
+   \begin{cases}
+	   -y''=\lambda y & 0<x<L \\
+	   y(0)=y(L)=0
+   \end{cases}
+ \]
+ so $ p=w=1 $ and $ q=0 $ and $ V=\{y\in C^2[0,L]: y(0)=y(L)=0\} $.\par
+ Solving $ y''+\lambda y= 0 $ then $ y=A\sin(\sqrt{\lambda}x)+B\cos(\sqrt{\lambda}x) $. If $ \lambda\le 0 $ we only get the trivial solution, so we must have that $ \lambda>0 $. If we use $ y(0)=0\implies B=0 $ and $ y(L)=0\implies A\sin(\sqrt{\lambda}L)=0 $ so other than the trivial solution, we have that
+ \[
+	 \sqrt\lambda = \frac{n\pi}L,\quad n=1,2,\dots
+ \]
+ So
+ \[
+	 \lambda = \left(\frac{n\pi}L\right)^2,\quad y_n(x)=\sin\left(\frac{n\pi x}L\right).
+ \]
+We can see that $ \lambda_n\to \infty $ and $ \lambda_1<\lambda_2<\cdots $ and
+\begin{align*}
+	\langle y_n,y_m\rangle &= \int_0^L\sin\left(\frac{n\pi x}L\right)\sin\left(\frac{m\pi x}L\right)\mathrm dx \\
+			       &= \frac L2\delta_{nm}
+\end{align*}
+For $ f\in V $,
+\begin{align*}
+	f(x)&=\sum_{n=1}^\infty \hat f_n\sin\left(\frac{n\pi x}L\right)\\
+	\hat f_n&=\frac{\langle f,y_n\rangle}{||y_n||^2}\\
+		&= \frac 2L\int_0^Lf(x)\sin\left(\frac{n\pi x}L\right)\mathrm dx
+\end{align*}
+We have re-derived the Fourier sine series from the previous section.
+\subsection{Reduction to Sturn-Lionville form}
+Consider a general eigenvalue problem of the form
+\begin{align*}
+	\alpha(x)\frac{\mathrm d^2y}{\mathrm dx^2}+\beta(x)\frac{\mathrm dy}{\mathrm dx}+\gamma(x)y+\lambda y=0
+\end{align*}
+with $ \alpha(x)>0 $. Divide the equation by $ \alpha(x) $ and multiply by
+\[
+	I(x)=\exp\left[\int^x\frac{\beta(t)}{\alpha(t)}\mathrm dt\right]
+\]
+\begin{proposition}
+  The equation
+  \[
+    \alpha(x)\frac{\mathrm d^2y}{\mathrm dx^2}+\beta(x)\frac{\mathrm dy}{\mathrm dx}+\gamma(x)y+\lambda y=0
+  \]
+  is equivalent to
+  \[
+	  -\frac{\mathrm d}{\mathrm dx}\left[p\frac{\mathrm dy}{\mathrm dx}\right] + qy=\lambda wy
+  \]
+  where
+  \begin{enumerate}
+	  \item $ p(x)=I(x) $,
+	  \item $ q(x)=-\frac{I(x)\gamma(x)}{\alpha(x)} $,
+	  \item $ w(x)=\frac{I(x)}{\alpha(x)} $.
+  \end{enumerate}
+\end{proposition}
+\pf 
+\begin{align*}
+  -\frac{\mathrm d}{\mathrm dx}\left[p\frac{\mathrm dy}{\mathrm dx}\right] + qy-\lambda wy &= I\left[-\frac{\mathrm d^2y}{\mathrm dx^2}-\frac{\beta(x)}{\alpha(x)}\frac{\mathrm dy}{\mathrm dx}-\frac{\gamma(x)}{\alpha(x)}y-\frac{\lambda y}{\alpha(x)}\right]\\
+\end{align*}
+since $ I>0 $ we get that the equation is zero if and only if $ LHS=0 $.\qed\par
+For an example consider
+\begin{align*}
+  \begin{cases}
+	  y''=2y'+\lambda y= 0 & 0<x<1\\
+	  y(0)=y'(1)=0
+  \end{cases}
+\end{align*}
+So we have that 
+\[
+	I(x)=\exp\left[\int^x -\frac 21\right]=e^{-2x}
+\]
+So the ODE becomes
+\[
+	-\frac{\mathrm d}{\mathrm dx}\left[e^{-2x}\frac{\mathrm dy}{\mathrm dx}\right]=\lambda e^{-2x}y.
+\]
+So we get $ e^{-2x} $ as our weight function.\par
+To solve put $ y\propto e^{-\alpha x} \implies \alpha=1\pm\sqrt{1-\lambda} $ So if $ \lambda \ne 1 $ we'll get solutions of the form
+\[
+	y=e^x\left[Ae^{x\sqrt{1-\lambda}}+Be^{-x\sqrt{1-\lambda}}\right]
+\]
+We need $ 1-\lambda < 0 $ for non-trivial solutions.\par
+We can see $ y(0=0\implies B=0 $ and $ y'(1)=0\implies Ae\left[\sin \mu+\mu\cos\mu\right]=0 $ where $ \mu^2=\lambda -1 $ and $ \mu>0 $ \textit{wlog}. So $ \tan\mu=-\mu $. By plotting the graph we can see we have infinitely many solutions for the equation. Call $ \mu_1,\mu_2,\dots $ so we have $ \lambda_n=1+\mu_n^2 $. From the graph we have that $ \mu_n\to\infty $ hence $ \lambda_n\to \infty $. The corresponding eigenfunctions are
+\[
+	y_n(x)=e^x\sin(\mu_nx),\quad n=1,2,\dots
+\]
+Check that $ \langle y_n,y_m\rangle\propto \delta_{nm} $.
+\begin{align*}
+	\langle y_n,y_m\rangle_w &= \int_0^1e^x\sin(\mu_n x)e^x\sin(\mu_m x)e^{-2x}\mathrm dx\\
+				 &= \int_0^1 \sin(\mu_n x)\sin(\mu_m x)\mathrm dx\\
+				 &=\frac 12\int_0^1\left[\cos((\mu_n-\mu_m)x)-cos((\mu_n+\mu_m)x)\right]\mathrm dx\\
+				 &\quad\vdots\\
+				 &= 0
+\end{align*}
+(ommitting a large amount of the algebra.)
+
 \end{document}
-
-
 
 
 

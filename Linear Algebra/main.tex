@@ -448,7 +448,7 @@ This is well-defined, since $ B $ is a basis the $ \lambda_b $ are uniquely dete
   u=\sum_b\mu_bb,\quad \sum_b\lambda_bb.
 \]
 Then \begin{align*}
-	F(u+\lambdav)&=F(\sum_b(\mu_b+\lambda\lambda_b)f(b)\\
+	F(u+\lambda v)&=F(\sum_b(\mu_b+\lambda\lambda_b)f(b)\\
 		     &= \sum_b\mu_bf(b)+\lambda\sum_b\lambda_bf(b)\\
 		     &= F(u)+\lambda F(v).
 \end{align*}
@@ -458,7 +458,7 @@ So $ F $ is linear. To show uniqueness $ \overline F:V\to W $ is another linear 
 \]
 which is the same as our definition for $ F $ hence they are the same function.
 \begin{corollary}
-	For a vector space, $ V $, with $ \dim V=n $ with a basis $ B=\{v_1,\dots, v_n\} $ for $ V $ then there is a isomorphism
+	For a vector space, $ V $, with $ \dim V=n $ with a basis $ B=\{v_1,\dots, v_n\} $ for $ V $ then there is a unique isomorphism
   \begin{align*}
 	  F_B:V&\to \F^n\\
 	       \sum_{i=1}^n\lambda_iv_i &\to \begin{pmatrix}
@@ -468,15 +468,117 @@ which is the same as our definition for $ F $ hence they are the same function.
 	      \end{pmatrix}
   \end{align*}
   \end{corollary}
+  \pf Let $ E=\{e_1,\dots, e_n\} $ be the standard basis for $ \F^n $. Define
+  \begin{align*}
+	  f:B&\to W\\
+	  v_i&\to e_i
+  \end{align*}
+  and let $ F_B $ be the unique linear extension of $ f $ to $ V $. We see that $ f $ defines a bijection from $ B\to E $. Let $ \bar F_B $ be the unique linear extension of $ \inv f:E\to B $. Then $ \bar F_B\cdot F_B $ is the composition of two linear maps, hence it's linear, moreover it is $ \mathrm{id}_B $. But also $ \mathrm{id}_V $ is also a linear extension of $ \mathrm{id}_B $, by the proposition, they are the same map so $ \bar F_B\cdot F_B=F_B\cdot \bar F_B=\mathrm{id}_B $. Hence $ F_B $ is bijective, so it is an isomorphism.\qed
+  \begin{corollary}
+    If $ V,W $ are finite dimensional $ \F $-vector spaces. Then
+    \[
+      V\cong W\iff \dim V=\dim W
+    \]
+  \end{corollary}
+  \pf Trivial from the corollary using the transitivity of the isomorphism relation.\qed
+\begin{definition}
+	(Coordinate vector) $ F_B(v)=[v]_B $ is the \textit{coordinate vector} of $ v $ with respect to the basis $ B $
+\end{definition}
+For an example if $ V\cong \F^n $ and $ U\le V $ with $ U\cong \F^m $ then $ \dim(V/U)=n-m $, so $ \frac VU\cong \F^{n-m} $.
+\subsection{Direct sums}
+\begin{definition}
+	(External direct sum) For $ \F $-vector spaces, $ V $ and $ W $, we dnote the \textit{external direct sum} of $ V $ and $ W $ as $ V\oplus W $ with underlying set $ V\times W $ with addition and scalar multiplication given in the obvious sense.
+\end{definition}
+We can similiarly define
+\[
+	V_1\oplus \cdots \oplus V_n=\bigoplus_{i=1}^nV_i.
+\]
+\begin{lemma}
+  For $ V,W $ finite dimensional vector spaces,
+  \[
+    \dim(V\oplus W)=\dim V+\dim W
+  \]
+\end{lemma}
+\pf\\(First Proof) Let $ B,C $ be basis for $ V,W $ respectively. Set
+\[
+	D=(B\times\{\mathbf 0_W\})\cup (\{\mathbf 0_V\}\times C)
+\]
+it is straightfoward to check that $ D $ is basis of $ V\oplus W $ of the size $ \dim V + \dim W $.\qed\par
+(Second Proof) Suppose $ V\cong \F^n $ and $ W\cong \F^m $ construct an isomorphism $ V\oplus W\cong\F^{n+m} $.\qed
 
-
-
-
-
-
-
-
-
+\begin{proposition}
+  Let $ V $ be a vector space with $ U,W\le V $. There is a surjective linear map
+  \begin{align*}
+	  \varphi: U\oplus W &\to U+W\\
+	  (u,w) &\to u+w
+  \end{align*}
+  with $ \ker\varphi\cong U\cap W $.
+\end{proposition}
+\pf Surjectively and linearity are clear. Note for $ (u,w)\in U\oplus W $ then $ (u,w)\in\ker\varphi $ if and only if $ w=-u $. Hence
+\[
+	\ker\varphi=\{(x,-x):x\in U\cap W\}
+\]
+the map $ \psi:U\cap W\to \ker\varphi $ sending $ x\to(x,-x) $ is an isomorphism.
+\begin{corollary}
+	(Sum-Intersection Formula) If $ V $ is finite dimensional and $ U,W\le V $ then
+	\[
+	  \dim (U+W)=\dim U + \dim V-\dim(U\cup V)
+	\]
+\end{corollary}
+Applying the rank-nullity theorem to the linear map $ \varphi $ in the proposition we get that
+\begin{align*}
+	\dim U + \dim W&=\dim (U\oplus V)\\
+		       &=\dim(\ker\varphi)+\dim(\ima\varphi)\\
+		       &=\dim(U+W)+\dim(U\cap W)\qed
+\end{align*}
+We can also give an explicit basis. Given a basis $ B $ for $ U\cap W $, extend $ B $ to a basis $ B_U $ for $ U $, and a basis $ B_W $ for $ W $. Then $ B_U\cap B_W $ spans $ U+W $ and
+\[
+  |B_U\cup B_W|\le |B_U|+|B_W|-|B|=\dim(U+V)
+\]
+hence $ B_U\cup B_W $ is linearly independent so it's a basis for $ U+W $.
+\begin{remark}
+We could also check directly that $ B_U\cup B_W $ is linearly independent of the size $ \dim(U+V) $ without assuming the sum-intersection formula, so this alos servers as an alternative proof of the sum-intersection formula.
+\end{remark}
+\begin{definition}
+	(Internal direct sum) Suppose $ U,W\le V $ satisify 
+	\begin{enumerate}
+		\item $ U+W=V $,
+		\item $ U\cap W=\{\mathbf 0_V\} $.
+	\end{enumerate}
+	Then 
+	\begin{align*}
+	  \varphi: U\oplus W\to V
+	\end{align*}
+	is an isomorphism, and we say that $ V $ is the \textit{internal direct sum} of $ U $ and $ W $, and we write that $ V=U\oplus W $.
+\end{definition}
+Alternatively, every element $ v\in V $ can be written \textit{uniquely} as $ v=u+w $ for $ u\in U, w\in W $.
+\begin{definition}
+	(Direct complement) For $ U\le V $ a \textit{direct complement} to $ U $ in $ V $ is a subspace $ W\le V $ satisfying $ V=U\oplus W $.
+\end{definition}
+\begin{proposition}
+  If $ V $ is finite dimensional then every subspace has a direct complement.
+\end{proposition}
+\pf Let $ U\le V $ and let $ B_U $ be a basis for $ U $. Extend to a basis $ B_V $ for $ V $. Set $ W=\langleB_V\setminus B_U\rangle $. Then
+\begin{align*}
+	V=\langle B_V\rangle &= \langle B_U\cup (B_V\setminus B_U)\rangle\\
+			     &= \langle B_U\rangle + \langle B_V\setminus B_U\rangle \\
+			     &=U+W.
+\end{align*}
+Moreover using the sum-intersection formula
+\begin{align*}
+	\dim (U\cap W)=|B_V|+|B_U|-|B_V\setminus B_U|=0.
+\end{align*}
+Hence $ U\oplus W=V $.\qed\par
+More generally for $ U_1,\dots, U_n\le V $ we say that $ V $ is the direct sum of the $ U_i $ and write that
+\[
+	V=U_1\oplus+\cdots +\oplus V_n=\bigoplus_{i=1}^n V_i
+\]
+if the map
+\begin{align*}
+	\varphi: U_1\oplus\cdots\oplus U_n &\to V\\
+	(u_1,\dots, u_n) &\to u_1,\dots, u_n
+\end{align*}
+is an isomorphism. Equivalently every $ v\in V $ can be uniquely written as $ v=u_1+\dots +u_n $ for $ u_i\in U_i $.
 
 
 
