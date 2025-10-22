@@ -579,7 +579,114 @@ if the map
 	(u_1,\dots, u_n) &\to u_1,\dots, u_n
 \end{align*}
 is an isomorphism. Equivalently every $ v\in V $ can be uniquely written as $ v=u_1+\dots +u_n $ for $ u_i\in U_i $.
-
+\section{Matrices and Linear Maps}
+\subsection{Vector spaces of linear maps}
+\begin{definition}
+  For $ V,W $ $ \F $-vector spaces we define
+  \[
+	  \mathcal L(V,W)=\{\alpha:V\to W:\alpha\text{ is linear} \}
+  \]
+  which forms a $ \F $-vector space under pointwise addition and obvious scalar multiplication.
+\end{definition}
+Recall that $ M_{m\times n} $ is the space of matrices over $ \F $ with $ m $ rows and $ n $ columns. For $ A\in M_{m\times n}(\F) $ we write $ A=(a_{ij}) $ where $ a_{ij}\in \F $ is the entry in the $ i $th row and the $ j $th column.\par
+Let $ B=\{v_1,\dots, v_n\}, C=\{w_1,\dots, w_m\} $ are \textit{ordered} basis for $ V,W $.\par
+Let $ \alpha\in\mathcal L(V,W) $. We can write
+\begin{align*}
+	\alpha(v_1)&=a_{11}w_1+a_{21}w_2+\cdots + a_{m1}w_m\\
+	\alpha(v_2)&=a_{12}w_1+a_{22}w_2+\cdots + a_{m1}w_m\\
+	^\vdots\\
+	\alpha(v_n)&=a_{1n}w_1+a_{2n}w_2+\cdots +a_{mn}w_m
+\end{align*}
+\begin{definition}
+	(Matrix) The \textit{matrix} of $ \alpha $ with respect to the ordered basis $ B,C $ is
+	\[
+		[\alpha]^B_C=(a_{ij})\in M_{m\times n}(\F)
+	\]
+\end{definition}
+Recall we have a linear isomorphism
+\begin{align*}
+	\varepsilon_B:V &\to \F^n\\
+	v=\sum_{i=1}^n\lambda_iv_i &\to (\lambda_i)_i=[v]_B
+\end{align*}
+where $ [v]_B $ is the coordinate vector of $ v $ with respect to $ B $.
+\begin{theorem}
+  For finite-dimensional vector spaces $ V,W $ with basis $ B,C $ respectively and $ \alpha:V\to W $ linear  then
+  \begin{enumerate}
+	  \item For all $ v\in V $
+		  \[
+			  [\alpha]^B_C[v]_B=[\alpha(v)]_C
+		  \]
+	  \item $ [\alpha]_C^B $ is the only matrix $ A\in M_{m\times n}(\F) $ satisfying $ A[v]_B =[\alpha(v)]_C $ for all $ v\in V $.
+	  \item There is an isomorphism of $ \F $-vector spaces
+		  \begin{align*}
+			  \varepsilon_C^B:\mathcal L(V,W)&\to M_{m\times n}(\F)\\
+			  \alpha &\to [\alpha]^B_C
+		  \end{align*}
+\end{theorem}
+\pf Let $ v\in V $ write $ v=\sum_{j=1}^n\lambda_jv_j $. Then
+\begin{align*}
+	\alpha(v)&=\sum_{j=1}^n\lambda_j\alpha(v_j)\\
+		 &=\sum_{j=1}^n\lambda_j\sum_{i=1}^ma_{ij}w_i\\
+		 &=\sum_{i=1}^m\left(\sum_{j=1}^n\lambda_ja_{ij}\right)w_i.
+\end{align*}
+So
+\begin{align*}
+	[\alpha(v)]_C&=\left(\sum_{j=1}^n a_{ij}\lambda_j\right)_i\\
+		     &=(a_{ij})\cdot(\lambda_j)\\
+		     &=[\alpha]^B_C[v]_B.
+\end{align*}
+Hence (i) is proved. For (ii), take $ 1\le j\le n $, so $ [v_j]_B=e_j $. Hence for $ A\in M_{m\times n}(\F) $, $ A[v_j]_B $ is the $ j $th column of $ A $. But if $ A[v_j]_B=[\alpha(v_j)]_C=[\alpha]^B_C[v_j]_B=[\alpha]^B_Ce_j $, then $ A[v_j]_B $ is also the $ j $th column of $ [\alpha]^B_C $. Since this holds for all $ j $ in our range, they are the same matrix.\par
+Now for part (iii), let $ \alpha,\beta\in\mathcal L(V,W) $ and $ \lambda\in \F $. Then
+\begin{align*}
+	[\alpha+\lambda\beta]^B_C[v]_B&=[(\alpha+\lambda\beta)(v)]_C\\
+				      &=[\alpha(v)+\lambda\beta(v)]_C\\
+				      &= [\alpha(v)]_C+\lambda[\beta(v)]_C\\
+				      &= ([\alpha]^B_C+\lambda[\beta]^B_C)[v]_B
+\end{align*}
+for all $ v\in V $. Hence by (ii) we get that $ [\alpha+\lambda\beta]^b_c=[\alpha]_C^B+\lambda[\beta]^B_C $ so the map is linear. Let $ \alpha\in\ker(\varepsilon_C^B) $ so that $ [\alpha]^B_C=0\in M_{m\times n} (\F)$. Then by (i) we have that $ [\alpha(v)]_C=0 $ for all $ v\in V $. But $ \varepsilon:w\to [w]_C $ is an isomorphism so $ \alpha(v)=0 $ for all $ v\in V $ hence $ \alpha=0 $ and $ \alpha $ is injective. For surjectivity let $ A\in M_{m\times n}(\F) $ and define $ f:B\to W $ by $ f(v_j)=\sum_{i=1}^na_{ij}w_I $ and extend $ f $ to a linear map $ F:V\to W $. Then $ [F]_C^B=A $. So $ \varepsilon_C^B $ is an isomorphism.\qed
+\begin{proposition}
+  Let $ V,W,X $ be finite-dimensional $ \F $-vector spaces with basis $ B,C,D $ and $ \alpha\in\mathcal L(V,W) $ and $ \beta\in\mathcal L(W,X) $. Then
+  \[
+	  [\beta\circ \alpha]^B_D=[\beta]^C_D[\alpha]^B_C.
+  \]
+\end{proposition}
+\pf By the theorem $ [\beta\circ\alpha]^B_D $ is the unique matrix $ A $ satisfying
+\[
+	A[v]_B=[\beta(\alpha(v))]_D,\quad \forall v\in V.
+\]
+But $ [\beta]^C_D[\alpha]^B_C[v]_B=[\beta]^C_D[\alpha(v)]_C=[\beta(\alpha(v))]_D $. So by (ii) of theorem they are equal.\qed
+\begin{remark}
+  For any basis $ B $ of $ V $,
+  \[
+	  [\mathrm{id}_V]^B_B=I_{\dim V}.
+  \]
+\end{remark}
+\begin{definition}
+	(Change of basis matrix) Let $ B,B' $ be basis for $ V $ and $ \dim V=n $. The \textit{change of basis matrix} from $ B $ to $ B' $ is given by
+	\[
+		P=[\mathrm{id}_V]^B_{B'}\in M_{m\times n}(\F)
+	\]
+\end{definition}
+Equivalently letting $ B=\{v_i\}_{i=1}^n $ and $ B'=\{v_i'\}_{i=1}^n $, then
+\[
+	P=(p_{ij})\quad\text{where}\quad v_j=\sum_{i=1}^n p_{ij}v_i'
+\]
+so the $ j $th column of $ P $ is $ [v_j]_{B'} $.
+\begin{proposition}
+	For $ V,W $ finite-dimensional vector spaces,\smallskip
+  \begin{enumerate}
+	  \item $ [\mathrm{id}_V]^B_{B'}\in GL_n(\F) $ with inverse $ [\mathrm{id}_V]^{B'}_B $.
+	  \item If $ \alpha\in\mathcal L(V,W) $ and $ B,B' $ basis for $ V $ and $ C,C' $ basis for $ W $, then
+		  \[
+			  [\alpha]^{B'}_{C'}=[\mathrm{id}_W]^C_{C'}[\alpha]^B_C[\mathrm{id}_V]^{B'}_B.
+		  \]
+  \end{enumerate}
+\end{proposition}
+\pf By the remark,
+\begin{align*}
+	I_n=[\mathrm{id}_V]^B_B=[\mathrm{id}_V]^{B'}_B[\mathrm{id}_V]^B_{B'}
+\end{align*}
+and symmetrically swapping $ B $ and $ B' $. For the second part the result is immediate from the proposition.
 
 
 

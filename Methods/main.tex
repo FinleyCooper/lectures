@@ -580,9 +580,108 @@ Check that $ \langle y_n,y_m\rangle\propto \delta_{nm} $. For $ n\ne m $
 				 &= 0
 \end{align*}
 (ommitting a large amount of the algebra.)
-
+\subsection{Legendre's Equation}
+Consider an eigenvalue problem defined as
+\[
+	-\frac{\mathrm d}{\mathrm dx}\left[(1-x^2)\frac{\mathrm d y}{\mathrm dx}\right]=\lambda y\quad -1<x<1
+\]
+So $ p=1-x^2 $, $ q=0 $, $ w=1 $. Since both endpoints are singular, work on $ V=C^2[-1,1] $. Since $ x=0 $ is a regular point we can look for solutions in the form
+\[
+	y=\sum_{n=0}^\infty a_nx^n.
+\]
+By subbing in, we get that
+\[
+	a_{n+2}=\left[\frac{n(n+1)-\lambda}{(n+1)(n+2)}\right]a_n
+\]
+Which gives two linearly independent solutions.
+\begin{align*}
+	y_0&=a_0 \left[1+\frac{(-\lambda)x^2}{2!}+\frac{(-\lambda)(6-\lambda)x^3}{4!}+\cdots\right]\\
+	y_1&=a_1 \left[x+\frac{(2-\lambda)x^3}{3!}+\frac{(2-\lambda)(12-\lambda)x^5}{5!}+\cdots\right].
+\end{align*}
+Note that $ y_0 $ collapses if $ \lambda=0,6 $. In general if $ \lambda=k(k+1) $ for $ k=0,1,2,\dots $ either $ y_0 $ or $ y_1 $ gives a polynomial. What if $ \lambda\ne k(k+1) $? Since the ratio $\left|\frac{a_{n+2}}{a_n}\right|\to 1 $ we know that both series will converge on $ |x|<1 $. This doesn't tell us about $ y(\pm 1) $. Let's look at $ y_0 $ only, $ y_1 $ is treated similiar. Let $ A_n=a_{2n} $, so
+\[
+	\frac{A_n}{A_{n+1}}=\frac{(2n+1)(2n+2)}{2n(2n+1)-\lambda}=1+\frac 1n+\varepsilon_n
+\]
+where $ |\varepsilon_n|\le M/n^2 $, $ M=M(\lambda)>0 $. In particular the RHS true for $ n $ sufficiently large, say $ n\ge N $. So $ \{A_n\} $ have the same sign for $ n\ge N $. Using $ e^x > 1+x $ for all $ x\in \R $ we get that
+\begin{align*}
+	\frac{|A_n|}{|A_{n+1}|}&\le e^{1/n}+|\varepsilon_n|\\
+	\implies |A_{n+1}|&\ge \frac{e^{-1/n}|A_n|}{1+e^{-1/n}|\varepsilon_n|}\\
+	\ge \frac{e^{-1/n}|A_n|}{1+|\varepsilon_n|}&\ge e^{-1/n}|A_n|e^{-|2n}
+\end{align*}
+So for $ n\ge N $ we can repeat to get that
+\[
+	|A_{n+1}|\ge |A_n|\exp\left[-\left(\frac 1n+ \frac 1{n-1}+\cdots + \frac 1N\right)-\left(|\varepsilon_n|+\cdots + |\varepsilon_N|\right)\right]
+\]
+hence we have that
+\begin{align*}
+	|A_{n+1}|\ge |A_N|e^{-H_n+H_{N-1}}e^{-M\pi^2/6}.
+\end{align*}
+Since $ H_n\le \log n +2\gamma $
+\begin{align*}
+	|A_{n+1}|&\ge |A_N|e^{H_{N-1}-M\pi^2/6}e^{-\log n-2\gamma}\\
+		 &> \frac{c}{n+1}
+\end{align*}
+Hence we have that
+\begin{align*}
+	y_0=\sum_{n\le N }A_nx^{2n}+\sum_{n>N}A_nx^{2n}
+\end{align*}
+and since $ \{A_n\} $ have the same sign, assume all positive \textit{wlog}. Note that
+\begin{align*}
+	\sum_{n>N}A_nx^{2n}&>c\sum_{n=1}^\infty\frac{x^{2n}}n-\sum_{n\le N}\frac{x^{2n}}n.\\
+			   &=C\left[\log\left(\frac1{1-x^2}\right)-\text{ (some polynomial in x)}\right]\to \infty\quad \text{as }x\to \pm 1.
+\end{align*}
+So $ y_0\notin V $ so we must have that $ \lambda_k=k(k+1) $. This gives an even polynomial of degree $ k $ from $ y_0 $. Make normalisation so $ y(1)=1 $ choosing $ a_0 $ and $ a_1 $ accordingly then the solutions are called Legendre polynomials.
+\subsection{Bessel's Equation}
+Fix an integer $ n\ge 0 $. Consider the eigenvalue problem
+\[
+	-\frac{\mathrm d}{\mathrm dr}\left[r\frac{\mathrm dy}{\mathrm dx}\right]+\frac {m^2}ry=\lambda ry
+\]
+with $ 0<r<1 $ and $ y(1)=0 $. We have $ p=r,q=\frac{m^2}r,w=r $. Expanding out derivatives gives that
+\[
+  r^2y''+ry'+(\lambda r^2-m^2)y=0.
+\]\smallskip
+Set $ z=\sqrt{\lambda}r $ (we can show that $ \lambda>0 $). Set $ R(z)=y(r) $. This gives that
+\[
+	z^2R''+zR'+(z^2-m^2)R=0 \quad 0<z<\sqrt{\lambda}, R(\sqrt{\lambda})=0
+\].
+This is \textit{Bessel's equation of order} $ m $.
+Since $ x=0 $ is a regular singular point, get can get solutions in the form \[
+	z\to z^\sigma\sum_{n=0}^\infty a_nz^n
+\]
+by Fuch's theorem. We get two linearly independent solutions only one of which is non-singular as $ z\to 0 $. Label the cooresponding solution $ R=J_m(z) $. We can show that
+\[
+	J_m(z)=\left(\frac z2\right)^m\sum_{n=0}^\infty\frac{(-1)^n}{n!(n+m)!}\left(\frac z2\right)^{2n}.
+\]
+These are \textit{Bessel functions of the first kind} of order $ m $. We can show that $ J_n(z) $ has infinitely many zeros on the $ z $ axis, we label them $ j_{mk} $. Since we require that $ J_m(\sqrt{\lambda})=0 $, solutions to the equation are
+\[
+	y_k(r)=J_m(j_{mk}r),\quad \lambda_k=j_{mk}^2
+\]
+for $ k=1,2,3,\dots $
+\subsection{Inhomogeneous Problems}
+Let $ L $ be a Sturm-Liouville operator. Consider problems of the form
+\begin{align*}
+	\text{find } y\in V : Ly=f\in V.
+\end{align*}
+\textit{wlog}, $ w=1 $. Let $ \{y_k\} $ be normalised eigenfunctions of $ L $. Be completeness we can write that
+\begin{align*}
+	y&=\sum A_ky_K,\quad f=\sum B_ky_k\\
+	 &\implies \sum_{k=1}^\infty (\lambda_kA_k-B_k)y_k=0\\
+	 &\implies \lambda_kA_k=B_k\quad k=0,1,2,\dots
+\end{align*}
+So if $ \lambda_k\ne 0 $, $ A_k=B_k/\lambda_k $, we get have
+\[
+	y(x)=\sum_{k=1}^\infty\frac{B_k}{\lambda_k}y_k(x),\quad B_k=\int_a^bf(\xi)y_k(\xi)\mathrm d\xi
+\]
+Putting the $ B_k $ into $ y $ and changing sums and integrals we get that
+\[
+	y(x)=\int_a^bG(x;\xi)f(\xi)\mathrm d\xi
+\]
+where
+\[
+	G(x;\xi)=\sum_{k=1}^\infty\frac{y_k(\xi)y_k(x)}{\lambda_k}
+\]
+is called the Green's function.
 \end{document}
-
 
 
 
