@@ -338,15 +338,64 @@ Moreover, under the same conditions that $ \sum_{n=0}^\infty c_nR^n $ converges 
 	\end{enumerate}
 \end{theorem}
 \pf
+Before we prove the theorem let's give a definition we've seen slightly before.
+\begin{definition}
+	If $ (a_n) $ is a sequence of reals let 
+	\begin{align*}
+		p_n&= \sup\{a_m: m\ge n\}\\
+		q_n&=\inf\{a_m:m\ge n\}.
+	\end{align*}
+        Then we define
+	\begin{align*}
+		\limsup_{n\to\infty}a_n&=\lim_{n\to\infty}p_n\\
+		\liminf_{n\to\infty}a_n&=\lim_{n\to\infty}q_n.
+	\end{align*}
+	which exists in $ \R\cup\{\infty\} $ since $ (q_n) $ and $ (p_n) $ are monotone.
+\end{definition}
 \begin{align*}
 	\limsup_{n\to\infty}(n|c_n|)^{\frac 1n}=\limsup_{n\to\infty}|c_n|^{\frac 1n}
 \end{align*}
 since we have that $ \lim_{n\to\infty}n^{\frac 1n} = 1$. So we have $ (i) $.\par
-Define $ f_n(x)=\sum_{j=0}^jc_j(x-a)^j $ is clearly differentiable on $ \R $ with $ f_n'(x)=\sum_{j=1}^njc_j(x-a)^{j-1} $. By (i) we have that $ f_n'(x) $ converges uniformly on $ [a-r,a+r] $ for all $ r<R $ and $ f_n(a)=c_0 \forall n $ so $ (f_n(a)) $ converges. So the limit is differentiable in $ [a-r,a+r] $, with \[ f'(x)=\lim_{n\to\infty}f_n'(x) =\lim_{n\to\infty}\sum_{j=1}^njc_j(x-a)^{j-1}\].\qed
-
-
-
-
+Define $ f_n(x)=\sum_{j=0}^jc_j(x-a)^j $ is clearly differentiable on $ \R $ with $ f_n'(x)=\sum_{j=1}^njc_j(x-a)^{j-1} $. By (i) we have that $ f_n'(x) $ converges uniformly on $ [a-r,a+r] $ for all $ r<R $ and $ f_n(a)=c_0 \forall n $ so $ (f_n(a)) $ converges. So the limit is differentiable in $ [a-r,a+r] $, with \[ f'(x)=\lim_{n\to\infty}f_n'(x) =\lim_{n\to\infty}\sum_{j=1}^njc_j(x-a)^{j-1}\].\qed\par
+If we have a power series $ \sum_{n=1}^\infty c_n(x-a)^n $ we say the power series converges \textit{locally uniformly} on the interval of convergence $ (a-R,a+R) $ i.e. for all $ 0<r<R $ the power series converges uniformly on $ [a-r,a+r] $.
+\begin{remark}
+	By repeatedly applying the above theorem we get that if $f(x)= \sum_{n=1}^\infty c_n(x-a)^n $ has radius of convergence $ R>0 $ then $ f $ is differentiable to any order $ k\in\N $ in $ (a-R,a+R) $ and the $ k $th derivative is given by
+	\[
+		f^{(k)}(x)=\sum_{n=k}^\infty n(n-1)\cdots(n-k+1)c_n(x-a)^{(n-k)}.
+	\]
+	Plugging in $ x=a $ we get that 
+	\[
+		c_n=\frac{f^{(k)}(a)}{k!}.
+	\]
+	This says that $ f $ is uniquely determined by its values in an arbitrarily small interval around the point $ x=a $ since that's all we need to capture it's derivatives and form its power series.
+\end{remark}
+\section{Uniform continuity and Riemann integrability}
+\subsection{Uniform continuity}
+\begin{definition}
+	(Uniform continuity) Let $ E\subseteq \R $ and let $ f:E\to \R $. We say that $ f $ is \textit{Uniformly continuous} on $ E $ if $ \forall \eps>0 $ there exists a $ \delta>0 $ such that $ \forall x,y\in E $ we have that
+	\[
+	  |x-y|<\delta\implies |f(x)-f(y)|<\eps
+	\]
+\end{definition}
+This differs from our usual definition of continuity. We require some $ \delta $ to work for \textit{any} $ x,y\in E $ given some $ \eps $, rather than picking a $ \delta $ for each $ \eps $ and $ x $ value. Clearly uniform continuity implies continuity but the converse is not true. For an example consider $ f(x)=\frac 1x $ on $ (0,1) $. Clearly continuous at each $ x $, but not uniformly continuous since it gets too steep around $ 0 $.\par
+Not even boundedness and continuity is enough for uniform continuity, consider $ \sin(\frac 1x) $, take $ x_n=\frac 1{2n\pi} $ and $ y_n=\frac 1{2n+\frac 12)\pi} $ then $ |f(x)-f(y)|=1 $, so no $ \delta $ works, we can always choose an $ n $ large enough.
+\begin{theorem}
+	Let $ [a,b] $ be a closed, bounded interval and $ f:[a,b]\to \R $ a continuous function. Then $ f $ is uniformly continuous.
+\end{theorem}
+\pf Argue by contradiction. Suppose that $ f $ is not uniformly continuous, so there exists an $ \eps>0 $ such that for all $ \delta>0 $ there is a pair of points $ x,y\in [a,b] $ such that $ |y-x|<\delta $ but $ |f(x)-f(y)|\ge \eps $. Now let $ \delta_n=\frac 1n $, so we get a sequence of functions $ x_n $ and $ y_n $ satisfying the above for each $ \delta_n $. By Bolzano-Weiestrass, there exists a subsequence $ (x_{n_k}) $ that converges to a point $ x\in [a,b] $.
+\begin{align*}
+	|x-y_{n_k}|\le |x-x_{n_k}|+|x_{n_k}-y_{n_k}\le |x-y_{n_k}|+\frac 1{n_k}\to 0\text{ as } n\to\infty 
+\end{align*}
+By the continuity of $ f $ at $ x $ we get $ f(x_{n_k})\to f(x) $ and $ f(y_{n_k})\to f(x) $. But this is contradiction since $ f(x) $ and $ f(y_{n_k}) $ are always seperated by some distance $ \eps $.\qed\par
+We can actually strengthen this theorem.
+\begin{theorem}
+	Let $ f:[a,b]\to \R $ where $ -\infty<a<b<\infty $ be any function. Suppose that there is a collection $ \mathcal C $ of open intevals $ I\subseteq \R $ such that if
+	\[
+		F=[a,b]\setminus\bigcup_{I\in\mathcal C}I
+	\]
+	then $ f $ is continuous at every point in $ F $ (i.e. the set of discontinuities is contained in the union). Then $ \forall \eps>0 \exists\delta>0\st $ $ x\in F,y\in [a,b] $, with $ |x-y|<\delta \implies |f(x)-f(y)|<\eps $.
+\end{theorem}
+\pf Same as above, using the fact that $ F $ is \textit{closed} so it contains all of its limit points.
 
 
 

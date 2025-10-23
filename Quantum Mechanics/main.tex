@@ -297,7 +297,78 @@ We want to verify two properties of the TDSE.
 \begin{enumerate}
 	\item If $ \psi $ obeys the TDSE then normalisation is constant.\\
 		\pf In lecture notes, very tedious algebra.
+	\item Probablity is conserved.
+		\pf Follows from the same proof as above.
 \end{enumerate}
+\subsection{Measurements in Quantum Mechanics}
+How do we extract information from a state $ \psi $?
+\begin{definition}
+	(Observable) A property is \textit{observable} if is described by a particle's state $ \psi $ and can be measured.
+\end{definition}
+So a measurement is the expectation of an operator acting on $ \psi $. Let's give a heuristic derivation of $ \hat x $ and $ \hat p $ in one dimension.\par
+From the probablitistic interpretation if we want to measure the position of the particle
+\begin{align*}
+	\langle x\rangle &= \int_{-\infty}^\infty x|\psi(x,t)|^2\mathrm dx\\
+			 &= \int_{-\infty}^\infty \psi^*(x,y)x\psi(x,t)\mathrm dx
+\end{align*}
+The expectation value of an observable property is the mean of an infinite series of measurements performed on particles on the same state $ \psi $. So if we want to measure $ p $ instead,
+\begin{align*}
+	\langle p\rangle &=m\frac{\mathrm d\langle x\rangle}{\mathrm dt}=m\frac{\mathrm d}{\mathrm dt}\int_{-\infty}^\infty \psi^*(x,t)x\psi(x,t)\mathrm dx\\
+			 &=m\int_{-\infty}^\infty x\frac\partial{\partial t}(\psi^*\psi)\mathrm dx\\
+			 &= \frac{i\hbar m}{2m}\int_{-\infty}^\infty x\frac{\partial}{\partial x}\left(\psi^*\frac{\partial \psi}{\partial x}-\psi\frac{\partial \psi^*}{\partial x}\right)\mathrm dx\\
+			 &= -\frac{i\hbar}2\int_{-\infty}^\infty\left(\psi^*\frac{\partial \psi}{\partial x}-\psi\frac{\partial \psi^*}{\partial x}\right)\mathrm dx\\
+			 &= -i\hbar \int_{-\infty}^\infty \psi^*\frac{\partial \psi}{\partial x}\mathrm dx\\
+			 &= \int_{-\infty}^\infty \psi^*\left(-i\hbar\frac{\partial}{\partial x}\right)\psi\mathrm dx.
+\end{align*}
+Heuristically, position is given by the operator $ x $ and momentum is given by the operator $ -i\hbar\frac{\partial}{\partial x} $.
+\subsection{Hermitian operators}
+\begin{definition}
+  An operator $ \hat O $ is any linear map $ \H\to\H $ such that
+  \[
+    \hat O(a_1\psi_1+a_2\psi_2)=a_1\hat O\psi_1+a_2\hat O\psi_2
+  \]
+  with $ a_1,a_2\in \C $ and $ \psi_1,\psi_2\in\H $.
+\end{definition}
+An example of an operator is the finite differential operators in the form
+\[
+	\sum_{n=0}^Nq_n(x)\frac{\partial^n}{\partial x^n}
+\]
+with $ q_n(x) $ a polynomial. Our position and momentum operators both form in the this class.\par
+We also have t ranslation operators sending $ \psi(x)\to\psi(x-a) $ and parity operations $ \psi(x)\to\psi(-x) $.
+\begin{definition}
+	(Hermitian conjugate) For an operator $ \hat O $, its \textit{Hermitian conjugate} $ \hat O^\dagger $ is the operator such that
+	\[
+		(\hat O^\dagger \psi_1,\psi_2)=(\psi_1,\hat O\psi_2)
+	\]
+	for all $ \psi_1,\psi_2\in \H $.
+\end{definition}
+\begin{remark}
+   We can see clearly that
+   \begin{enumerate}
+	   \item $ (a_1\hat A_1+a_2\hat A_2)^\dagger=a_1^*\hat A_1^\dagger + a_2^*\hat A_2^\dagger $ for all $ a_1,a_2\in\C $.
+	   \item $ (\hat A\hat B)^\dagger = \hat B^\dagger\hat B^\dagger $.
+   \end{enumerate}
+\end{remark}
+\begin{definition}
+	(Hermitian) An operator $ \hat O $ is \textit{Hermitian} if
+	\[
+	  \hat O =\hat O^\dagger.
+	\]
+\end{definition}
+All phyiscal quantities in quantum mechanics are represeneted by Hermitian operators. It's not too hard to check all the operators we've covered so far are Hermitian, including, position, momentum, kinetic energy, potential energy, and total energy.
+\begin{theorem}
+  The eigenvalues of Hermitian operators are real.
+\end{theorem}
+\pf Suppose $ \hat A $ is Hermitian with an eigenvalue $ a\in \C $ and $ \psi \H $ with $ ||\psi||=1 $. Then
+\[
+	(\psi,\hat A\psi)=(\psi,a\psi)=a(\psi,\psi)=a||\psi||^2=a.
+\]
+But $ \hat A $ is Hermitian so
+\[
+	(\psi,\hat A\psi)=(\hat A\psi,\psi)=(a\psi,\psi)=a^*(\psi,\psi)=a^*=a
+\]
+so $ a\in\R $.\qed
 \end{document}
+
 
 
