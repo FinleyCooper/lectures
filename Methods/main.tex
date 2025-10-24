@@ -681,7 +681,132 @@ where
 	G(x;\xi)=\sum_{k=1}^\infty\frac{y_k(\xi)y_k(x)}{\lambda_k}
 \]
 is called the Green's function.
+\section{Linear PDEs and Seperation of Variables}
+\subsection{Superposition}
+We will be interested in solving boundary value problems (BVP) and initial boundary value problems (IBVP)
+\[
+	(\dagger) \begin{cases}
+	  P\psi(\mathbf x)=0&\mathbf x\in\Omega\\
+	  \text{some B.Cs} & \mathbf x\in\partial\Omega
+  \end{cases}
+\]
+\[
+	(\dagger\dagger) \begin{cases}
+		Q\phi(\mathbf x,t)=0&(\mathbf x,t)\in \Omega\times (0,T)\\
+		\text{some I.Cs} & (\mathbf x,t)\in \Omega\times\{t=0\}\\
+		\text{some B.Cs} & (\mathbf x,t)\in\partial\Omega\times (0,T)
+	\end{cases}
+\]
+where $ P,Q $ are \textit{linear} partial differentiable operators and $ \Omega $ will be bounded on an open subset of $ \R^n $ for $ n=1,2,3 $.
+\begin{remark}
+  We can split $ (\dagger\dagger) $ into
+  \[
+    \begin{cases}
+	    Q\phi_1(\mathbf x,t)=0 \quad Q\phi_2(\mathbf x,t)=0 & (\mathbf x,t)\in\cdots \\
+	    \text{I.Cs} =0 \quad \text{ some I.Cs} & \vdots \\
+	    \text{Some B.Cs} \quad \text{B.Cs} = & (\mathbf x,t)\in \cdots 
+    \end{cases}
+  \]
+\end{remark}
+In this course, $ \Omega $ will always be (possibly after a change of variables) a line/rectangle/cuboid. So \textit{wlog} we can always deal with B.Cs that are zero everywhere apart from on one endpoint/edge/face. For example
+\[
+	(\dagger\dagger\dagger)=\begin{cases}
+		P\psi(\mathbf x)=0& \mathbf x\in (0,1)\times (0,1) \\
+		\psi = f_1 & \text{ on side }i\text{ for } i = 1,2,3,4
+	\end{cases}
+\]
+We could look at 4 problems for $ \{\psi_i\}_{i=1}^4 $
+\[
+  \begin{cases}
+	  P\psi_i(\mathbf x)=0 & \mathbf x\in (0,1)\times (0,1) \\
+	  \psi_i=0 & \text{on side } \ne i \\
+	  \psi_i=f_i & \text{on side } = i
+  \end{cases}
+\]
+Then $ \psi=\psi_1+\cdots+\psi_4 $ solves $ (\dagger\dagger\dagger) $.
+\subsection{Laplace's Equation}
+Recall for $ \varphi:\R^n\to \R $, Laplace's equation is
+\[
+  \Delta \varphi = 0
+\]
+where $ \Delta=\nabla\cdot\nabla=\nabla^2 $. So on the Cartesian coordinates,
+\[
+	\Delta = \frac{\partial^2}{\partial x^2}+\cdots + \frac{\partial^2}{\partial z^2}.
+\]
+We say that $ \varphi $ is \textit{harmonic} if $ \Delta\varphi=0 $. Harmonic functions are always infinitely differentiable. Let's look at an example.\par
+If $ \mathbf u:\R^3\to \R^3 $ is the velocity of an incompressible fluid (so $ \nabla\cdot \mathbf u=0 $) that is irrotational, i.e. $ \nabla\times \mathbf u = 0 $ then we can solve Laplace's equation. Since $ \mathbf u $ is irrotational on the whole of $ \R^3 $ there exists a scalar potential such that $ \mathbf u =\nabla \varphi $. Then $ \Delta\varphi=\nabla\cdot(\nabla \varphi)=\nabla\cdot\mathbf u= 0$.\par
+We will consider  BVPs of the following
+\[
+  \begin{cases}
+	  \Delta\varphi(\mathbf x)=0&\mathbf x \in \Omega\\
+	  B\varphi=f(\mathbf x)& \mathbf x \in \partial\Omega
+  \end{cases}
+\]
+where $ B\varphi\equiv \varphi $ (Dirichlet) or $ B\varphi=\frac{\partial \varphi}{\partial \mathbf n} $ (Neumann), or even $ B\varphi = \varphi + \frac{\partial \varphi}{\partial\mathbf n} $ (Robin).
+\subsubsection{Serpation of variables on the square}
+Consider
+\[
+  \begin{cases}
+	  \varphi_{xx}+\varphi_{yy}=0 & (x,y)\in(0,1)\times (0,1) \\
+	  \varphi(x,y)=0 & \text{on } x=0,x=1,y=0\\
+	  \varphi(x,1)=f(x) & \text{otherwise}
+  \end{cases}
+\]
+Try a separable solution of the form $ \varphi=X(x)Y(y) $. Then we get that
+\[
+  X''(x)Y(y)+X(x)Y''(y)=0.
+\]
+Dividing through by $ XY $ gives that
+\begin{align*}
+	\frac{X''(x)}{X(x)}+\frac{Y''(y)}{Y(y)}=0,
+\end{align*}
+hence there exists a $ \lambda\in\R $ such that
+\[
+	\frac{X''}X = -\lambda,\quad \frac{Y''}Y=\lambda.
+\]
+Since $ \varphi=0 $ at $ x=0,1 $ looking just at the $ X $-equation we get that
+\[
+  \begin{cases}
+	  X''+\lambda X=0 & 0< x< 1\\
+	  X(0)=0\\
+	  X(1)=0
+  \end{cases}.
+\]
+This is a Sturm-Liouville problem. So there exists $ (X_n,\lambda_n)^\infty_{n=1} $ solutions with $ \lambda_1<\lambda_2<\cdots $ and $ \langle X_n,X_m\rangle=\int_0^1X_n(x)X_m(x)\mathrm dx\propto \delta_{nm} $.\par
+We check that we require $ \lambda>0 $ for non-trivial solutions. General solutions are
+\[
+	X(x)=A\sin(\sqrt{\lambda}x)+B\cos(\sqrt{\lambda}x)
+\]
+with $ X(0)=0\implies B=0 $ and $ X(1)=0\implies A\sin(\sqrt{\lambda})=0\implies \lambda=\lambda_n=(n\pi)^2 $. So we get that $ X_n(x)=\sin(n\pi x) $ with eigenvalues $ \lambda_n=(n\pi)^2 $ and that $ \langle X_n,X_m\rangle =\frac 12\delta_{nm} $. The $ Y $ problem becomes $ Y''-(n\pi)^2Y=0 $ with $ Y(0)=0 $ which gives that
+\[
+  Y=A\sinh(n\pi y)+B\cosh(n\pi y).
+\]
+Now $ Y(0)=0\implies B=0 $, so $ Y_n(y)=A_n\sinh(n\pi y) $. So we have functions $ \{\varphi_n\}_{n=1}^\infty $ with
+\[
+  \varphi_n(x,y)=A_n\sin(n\pi x)\sinh(n\pi y)
+\]
+and each satisfies $ \Delta\varphi_n=0 $ in $ (0,1)\times (0,1) $ and $ \varphi_n=0 $ on $ x=0,x=1,y=0 $. So same is true for their sum
+\[
+	\varphi(x,y)=\sum_{n=1}^\infty A_n\sin(n\pi x)\sinh(n\pi y).
+\]
+We still want that $ \varphi(x,1)=f(x) $ so we set
+\[
+	f(x)=\sum_{n=1}^\infty A_n\sin(n\pi x)\sinh(n\pi)
+\]
+we need to find the $ A_n $s to use get equality.\par
+By orthogonality
+\begin{align*}
+	\langle f,X_n\rangle &= \sum_{n=0}^\infty A_n{\langle X_n,X_m\rangle}\sinh(m\pi)\\
+	&= \frac{A_n}2\sinh(n\pi)
+\end{align*}
+So our final solution is
+\[
+	\varphi(x,y)=\sum_{n=1}^\infty A_n\sin(n\pi x)\sinh(n\pi y)
+\]
+where
+\[
+	A_n &=\frac 2{\sinh(n\pi)}\langle f,X_n\rangle\\
+	    &= \frac2{\sinh(n\pi)}\int_0^1f(x)\sin(n\pi x)\mathrm dx
+\]
 \end{document}
-
-
 
