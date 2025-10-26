@@ -395,25 +395,116 @@ We can actually strengthen this theorem.
 	\]
 	then $ f $ is continuous at every point in $ F $ (i.e. the set of discontinuities is contained in the union). Then $ \forall \eps>0 \exists\delta>0\st $ $ x\in F,y\in [a,b] $, with $ |x-y|<\delta \implies |f(x)-f(y)|<\eps $.
 \end{theorem}
-\pf Same as above, using the fact that $ F $ is \textit{closed} so it contains all of its limit points.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\pf Same as above, using the fact that $ F $ is \textit{closed} so it contains all of its limit points.\par
+Let's show some applications of uniform continuity.
+\subsection{Riemann Integration}
+We'll do a quick recap of Riemann integration. For full proofs, look at IA Analysis I. Let $ f: [a,b]\to \R $ be a bounded function. Say that $ m\le f(x)\le M $ for $ m,M\in \R $. Let $ P =\{a_0=a, a_1,a_2,\dots, a_n=b\} $ be a partition of the interval $ [a,b] $ with $ a_0<a_1<\cdots<a_n $. We will write $ P=\{a_0=a<a_1<\cdots<a_n=b \} $ as shorthand.\par
+We write that $ I_j=[a_j,a_{j+1}] $ for $ 0\le j<n $. Define the upper sum of $ f $ with $ P $ as
+\[
+	U(P,f)=\sum_{j=0}^{n-1}(a_{j+1}-a_j)\sup_{I_j}f
+\]
+and the lower sum of $ f $ with $ P $ as
+\[
+	L(P,f)=\sum_{j=0}^{n-1}(a_{j+1}-a_j)\inf_{I_j}f.
+\]
+We can see immediately that $ m(b-a) \le L(P,f)\le U(P,f)\le M(b-a) $. When we refine the partition by adding finitely many new points the uppers sum decreases or stays the same, and the lower sum increases or stays the same. So now we can define the upper and lower Riemann integral as
+\begin{align*}
+	I^*(f)&=\inf_PU(P,f)\\
+	I_*(f)&=\sup_PL(P,f).
+\end{align*}
+We say that $ f $ is Riemann integrable if $ I^*(f)=I_*(f) $. We denote
+\[
+  \int_a^bf(x)\mathrm dx
+\]
+as this common value.
+\begin{theorem}
+	(Riemann criterion for integrability) For $ f:[a,b]\to \R $ bounded, $ f $ is integrable if and only if for all $ \eps>0 $ there exists a partition $ P $ of $ [a,b] $ such that
+	\[
+	  U(P,f)-L(P,f)<\eps
+	\]
+\end{theorem}
+\pf In IA Analysis I.
+\begin{theorem}
+	Let $ f:[a,b]\to[A,B] $ be integrable and $ g:[A,B]\to\R $ continuous. Then the composite function $ g\circ f:[a,b]\to\R $ is integrable.
+\end{theorem}
+We may ask does this hold is we switch the order? i.e. given the both conditions is $ f\circ g$ always be integrable?\par
+\pf Since $ g $ is continuous in a bounded interval, it is uniformly continuous. Given any $ \eps >0 $ there is a $ \delta $ such that $ x,y\in [A,B] $ with $ |y-x|<\delta\implies|g(x)-g(y)|<\eps $. We also have by integrability that there exists a partition $ P $ such that $ U(P,f)-L(P,f)<\eps' $ for all $ \eps' >0 $.
+\begin{align*}
+	U(P,g\circ f)-L(P, g\circ f)=\sum (a_{j+1}-a_j)\left(\sup_{I_j}g\circ f-\inf_{I_j}g\circ f\right)
+\end{align*}
+Take $ J=\left\{j: \sup_{I_j}f -\inf_{I_j}f\le \delta \right\}$. For any $ j\in J $ for all $ x,y \in I_J $ we must have that
+\[
+	|f(x)-f(y)|\le \sup_{z_1,z_2\in I_j}(f(z_1)-f(z_2))=\sup_{I_j}-\inf_{I_j}\le \delta.
+\]
+Hence we get that
+\[
+  |g\circ f(x)-g\circ f(y)|<\eps
+\]
+so
+\begin{align*}
+	\sup_{I_j}\left(g\circ f(x)-g\circ f(y)\right)\le \eps\\
+	\sup_{I_j}g\circ f - \inf_{I_j}g\circ f\le \eps
+\end{align*}
+which gives that
+\begin{align*}
+	U(P,g\circ f)-L(P,g\circ f)&=\sum_{j=0}^n(a_{j+1}-a_j)\left(\sup_{I_j}g\circ f-\inf_{I_j}g\circ f\right)\\
+				   &=\sum_{j\in J}(a_{j+1}-a_j)\left(\sup_{I_j}g\circ f-\inf_{I_j}g\circ f\right)+\sum_{j\notin J}(a_{j+1}-a_j)\left(\sup_{I_j}g\circ f-\inf_{I_j}g\circ f\right),\\
+				   &\le \eps(b-a)+2\sup_{[A,B]}|g|\sum_{j\notin J} (a_{j+1}-a_j)
+\end{align*}
+hence it suffices to make the sum over the $ j $s not in $ J $ small enough. We know that
+\[
+	\sum_{j\notin J}(a_{j+1}-a_j)<\frac{\eps'}\delta
+\]
+so if we pick $ \eps'=\eps \delta $ we get that 
+\[
+	U(P,g\circ f)-L(P,g\circ f)<\left((b-a)+2\sup_{[A,B]}|g|\right)\eps.\qed
+\]
+\begin{corollary}
+  If $ f $ is continuous then it is integrable
+\end{corollary}
+\pf Apply the theorem with $ g=\mathrm{id} $ which is clearly integrable.\qed
+\begin{theorem}
+	(Uniform limits of integrable functions are integrable) Suppose we have $ f_n:[a,b]\to\R $ be a sequence of Riemann integrable functions and $ f_n\to f $ uniformly. Then $ f $ is bounded, Riemann integrable and
+	\[
+		\int_a^bf_n\to \int_a^bf
+	\]
+\end{theorem}
+\pf 
+\[
+	\sup_{[a,b]}|f|\le \sup_{[a,b]}|f-f_n|+\sup_{[a,b]}|f_n|\le 1+\sup_{[a,b]}|f_n|
+\]
+for $ n $ sufficently large (setting $ \eps=1 $). Hence $ f $ is bounded.\par
+Let $ P=\{a_0,\dots, a_m\} $ be a partition of $ [a,b] $. Given some $ \eps>0 $ and consider
+\begin{align*}
+	U(P,f)-L(P,f)&=\sum_{j=0}^{m-1}(a_{j+1}-a_j)\left(\sup_{I_j}f-\inf_{I_j}f\right)\\
+	&=\sum_{j=0}^{m-1}(a_{j+1}-a_j)\left(\sup_{I_j}(f-f_n+f_n)-\inf_{I_j}(f-f_n+f_n)\right)\\
+	&\le \sum_{j=0}^{m-1}(a_{j+1}-a_j)\left(\sup_{I_j}(f-f_n)+\sup_{I_j}(f_n)-\inf_{I_j}(f-f_n)-\inf_{I_j}(f_n)\right)\\
+	&\le U(P,f_n)-L(P,f_n)+2(a-b)\sup_{[a,b]}|f-f_n|
+\end{align*}
+So for our $ \eps> 0$ choose some $ N $ such that $ 2(b-a)\sup_{[a,b]}|f-f_N|\le\frac \eps 2 $ by uniform convergence. Now also choose a partition $ P $ such that $ U(P,f_N)-L(P,f_N)<\frac \eps2 $ since $ f_N $ is Riemann integrable. Hence $ U(P,f)-L(P,f)<\frac \eps 2+ \frac\eps 2=\eps $ for any $ \eps>0 $ so $ f $ is integrable by the Riemann criterion. The last part have been proved previously in the course.\qed\par
+\textit{Non-examinable} We'll now prove an equivalent condition for a function to be Riemann integrable. First we'll set up some frameworks. For a function $ f:[a,b]\to\R $ bounded, we use $ \mathcal D_f $ to denote its set of discontinuities. We know that there are functions with $ \mathcal D_f $ non-empty which are still Riemann integrable, such as Thomae's function which has $ \mathcal D_f=\Q $. We also know that all monotone functions are integrable. What condition on $ \mathcal D_f $ do we need for integrability?
+\begin{definition}
+	(Null set) A subset $ \mathcal R\subseteq \R $ is said to be a \textit{null set} (or a set of \textit{Lebesgue measure zero}) if $ \forall\eps>0 $ there exists an at most countable collection of open intevals $ I_j=(a_i,b_i) $ such that
+	\[
+		\mathcal D\subseteq \bigcup_{i=1}^nI_i
+	\]
+	and
+\[
+	\sum_{j=1}^\infty|I_j|\le \eps
+\]
+where $ |I_j|=b_j-a_j $.
+\end{definition}
+We have a few examples of null sets.
+\begin{enumerate}
+	\item The empty set and singleton sets are null.
+	\item Any subset of small enough sets are null.
+	\item Any countable union of null sets is null (namely $ \Q $ is a null set and any other countable set like the algebraic numbers).
+	\item The (standard) Cantor set is a null set even though it's uncountable.
+	\item However not every set is a null set, every (open or closed) interval is not a null set.
+\end{enumerate}
+Now for the big theorem completely characterising Riemann integrable functions.
+\begin{theorem}
+	(Lebesgue's theorem on the Riemann integral) Let $ f:[a,b]\to\R $ bounded. Then $ f $ is Riemann integrable if and only if $ \mathcal D_f $ is a null set.
+\end{theorem}
+\pf See Part II Probability and Measure.
 \end{document}
