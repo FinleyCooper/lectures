@@ -803,8 +803,7 @@ If $ A' $ has column-rank $ r $ then both matrices are equivalent to $ \begin{pm
 	I_r&0\\ 0 & 0
 \end{pmatrix}\in M_{m\times n}(\F) $. Then $ A^T $ is equivalent to $ Q^TA^TP^T=(PAQ)^T=\begin{pmatrix}
 	I_r & 0 \\ 0 & 0
-\end{pmatrix} \in M_{n\times m}(\F)$. By the previous theorem, the column-rank of $ A^T $ is $ r $ which also the row-rank of $ A $.\qed
-\par
+\end{pmatrix} \in M_{n\times m}(\F)$. By the previous theorem, the column-rank of $ A^T $ is $ r $ which also the row-rank of $ A $.\qed\par
 Let $ V $ be a finite-dimensional vector space and $ B,B' $ be basis for $ V $. Now let $ \alpha\in\mathrm{End}(V)=\mathcal L(V,V) $. Then
 \[
 	[\alpha]^{B'}_{B'}=[\mathrm{id}_V]^B_{B'}[\alpha]^B_B[\mathrm{id}_V]^{B'}_B
@@ -820,14 +819,74 @@ We have some remarks showing the similarity and equivalence are not the same thi
 \end{enumerate}
 For example every matrix in $ GL_n(\F) $ is equivalent to $ I_n $ but $ I_n $ forms its only single element equivalence class, when we think about similarity.
 \end{remark}
-
-
-
-
-
-
-
-
+\subsection{Elementary operations on matrices}
+\begin{definition}
+(Elementary row operations)
+Let $ r_1,\dots, r_m $ be the rows of $ A $. We have three types of \textit{elementary row operations} on $ A $
+\begin{enumerate}
+	\item Swap $ r_i $ and $ r_j $ with $ i\ne j $.
+	\item Replace $ r_i $ with $ \lambda r_i $ with $ 0\ne\lambda\in\F $.
+	\item Replace $ r_i $ with $ r_i+\lambda r_j $ with $ \lambda\in \F $ and $ i\ne j $.
+\end{enumerate}
+\end{definition}
+Similarly there are three types of elementary column operations.
+\begin{remark}
+  These are all reversable.
+\end{remark}
+Each elementary operation has a corresponding matrix representation repesentation. All corresponding matrices are invertiable.
+\begin{lemma}
+  If $ E $ is a matrix of type (i)-(iii) then $ EA $ is obtained from $ A $ by applying the corresponding ERO to $ A $.
+\end{lemma}
+\pf Direct matrix computation.
+\begin{remark}
+  Similarly $ AE $ is obtained by applying the corresponding ECO
+\end{remark}
+\begin{remark}
+  EROs preserve $ \Row(A) $ (and ECOs preserve $ \Col(A) $).
+\end{remark}
+So both EROs and ECOs preserve the row-rank of a matrix, and therefore also the rank of the linear map corresponding to the matrix.
+\begin{definition}
+	(Row reduced echelon form) A matrix $ A\in M_{m\times n}(\F) $ is said to be in \textit{row reduced echelon form} (RRE) if
+	\begin{enumerate}
+		\item All non-zero rows of $ A $ appear above all zero rows.
+		\item The leftmost non-zero element of a non-zero row is $ 1 $ (called the \textit{pivot entry}).
+		\item If row $ r_i,r_j $ are non-zero rows with $ i<j $ then the index of the pivot entry of $ i $ is less than the index of the pivot entry of $ j $.
+		\item In a column containing a pivot entry, every other entry is zero.
+	\end{enumerate}
+\end{definition}
+For an example consider
+\[
+  M=\begin{pmatrix}
+	  1 & a & 0 & 0 & b\\
+	  0 & 0 & 1 & 0 & c\\
+	  0 & 0 & 0 & 1 & d
+  \end{pmatrix}
+\]
+which is in row reduced echelon form. Similarly we have column reduced echelon form, which have the exact same rules but transposed.
+\begin{lemma}
+  If $ A $ is in row reduced echelon form then the row rank of $ A $ is the number of non-zero rows of $ A $.
+\end{lemma}
+\pf Let $ r_1,\dots, r_k $ be the non-zero rows of $ A $ let $ j_i=P(v_i) $ be the pivot entry. Certainly $ r_1,\dots, r_k $ span $ \Row(A) $. Suppose that
+\[
+	v=\sum_{i=1}^k\lambda_ir_i=0\quad (\lambda_i\in\F).
+\]
+Then $ (v)_{j_i} =\lambda_i=0 $ so the non-zero rows are linearly independent so we're done.\qed
+\begin{proposition}
+	Every matrix $ A \in M_{m\times n}(\F) $ can be put into row reduced echelon form with elementary row operations.
+\end{proposition}
+\pf Proceed by induction on $ n $. Write that $ A=\left[c_1\mid \cdots \mid c_n\right] $. If $ c_1=0 $ apply induction to $ [c_2\mid \cdots \mid c_n] $, so suppose that $ c_1\ne 0 $, suppose that element in $ (i,1) $ is non-zero. Applying row operations (i) we can move it to $ (1,1) $.  Apply row operation (ii) to rescale it to be $ 1 $. Now we can clear the rest of the column by (iii). By induction we can use elementary row operation on rows $ 2$-$ m $ to reduce further. This is decreasing the dimension to the process terminates, hence the matrix can be put into row reduced echelon form.\qed
+\begin{remark}
+  Putting a matrix into RRE form preserves the row-space and the RRE of any matrix is unique. Also if $ A $ is a square matrix then $ A $ either has a zero row or is the identity. 
+\end{remark}
+\begin{theorem}
+	For $ A\in M_{m\times n}(\F) $ the following are equivalent:
+	\begin{enumerate}
+		\item $ \rk (A)=n $.
+		\item $ A $ is a product of elementary matrices.
+		\item $ A $ is invertiable.
+	\end{enumerate}
+\end{theorem}
+\pf Let's prove that (i) $ \implies $ (ii). By the proposition there exists elementary matrices $ E_i $ such that $ E_1\dots E_\ell A $ is in RRE form. By the remark this is $ I_n $ hence $ A=\inv E_\ell\cdots \inv E_1 $ which are also elementary. For (ii) $ \implies $ (iii) elementary matrix lie in $ GL_n(\F) $ which is a group, hence closed. Finially for (iii) $ \implies $ (i) suppose there exists $ B\in M_{m\times n}(\F) $ such that $ AB=I_n $. Then for $ v\in \F^n $ we have that $ v=(AB)v=A(Bv) $, so $ v\in \ima A $.
 
 
 

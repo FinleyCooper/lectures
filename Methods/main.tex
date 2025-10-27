@@ -808,5 +808,99 @@ where
 	A_n &=\frac 2{\sinh(n\pi)}\langle f,X_n\rangle\\
 	    &= \frac2{\sinh(n\pi)}\int_0^1f(x)\sin(n\pi x)\mathrm dx
 \]
+\subsubsection{Seperation of variables in a disc/annulus}
+We want to solve Laplace's equation in the region $ r_1<|\mathbf x|<r_2 $ in the $ (x,y) $ plane. Use plane polar coordinates $ (r,\theta) $ so that Laplace's equation becomes
+\[
+	\Delta\varphi=\frac 1r\frac{\partial}{\partial r}\left(r\frac{\partial\varphi}{\partial r}\right)+\frac1{r^2}\frac{\partial ^2 \varphi}{\partial \theta^2}=0.
+\]
+Look for seperable solutions in the form $ \varphi=R(r)\Theta(\theta) $. So
+\[
+	\frac{r(rR')'}R+\frac{\Theta''}\Theta=0
+\]
+so there exists a $ \lambda\in \R $ such that
+\begin{align*}
+	r(rR')' &= \lambda R\\
+	\Theta'' + \lambda \Theta = 0.
+\end{align*}
+The solution to the $ \Theta $-equation is going to be
+\[
+  \Theta(\theta)=\begin{cases}
+	  A\cos(\sqrt\lambda\theta) + B\sin(\sqrt\lambda\theta) & \lambda >0 \\
+	  A\theta +B & \lambda =0 \\
+	  A\cosh(\sqrt\lambda\theta) + B\sinh(\sqrt\lambda\theta) & \lambda <0
+  \end{cases}.
+\]
+We need $ \Theta(\theta+2\pi)=\Theta(\theta) $ for all $ \theta $. This forces $ \Theta $ to be a constant or $ \lambda>0 $ with $ \lambda = n^2 $ for $ n\in \N \cup \{0\} $. So
+\begin{align*}
+	\Theta_0(\theta)&=A\\
+	\Theta_n(\theta)&=C_n\cos(n\theta)+D_n\sin(n\theta)
+\end{align*}
+Plug $ \lambda=n^2 $ into the $ R $-equation. So
+\begin{align*}
+  r(rR')'=n^2R
+\end{align*}
+For $ n=0 $ we have that $ rR' $ is constant, integrating gives that
+\[
+  R_0(r)=A+B\log r.
+\]
+And for $ n>0 $ we try a solution in the form $ R(r)=r^\alpha $. Plugging this gives that $ \alpha^2=n^2 $ so $ \alpha=\pm n $,
+\[
+	R_n(r)=A_nr^n+B_nr^{-n}
+\]
+so we have the general solution
+\[
+	\varphi(r,\theta)=A+B\log r+\sum_{r=1}^\infty\left[A_nr^n+B_nr^{-n}\right]\left[C_n\cos(n\theta)+D_n\sin(n\theta)\right].
+\]
+If the point $ r=0 $ belongs to our domain we have to throw out the $ r^{-n} $ and $ \log r $ terms since they're not defined. So we must take $ B=B_n=0 $ for each $ n $.\par
+Let's see an example.\\
+Solve
+\[
+  \Delta\varphi=0\quad r_1<r<r_2
+\]
+with $ \varphi=0 $ on $ r=r_1 $ and $ \varphi=f(\theta) $ on $ r=r_2 $. We can repeat analysis but require $ R_n(r)=0 $ where $ r=r_1 $ for $ n=0,1,2,\dots $. Then $ R_0(r)=\log\left(\frac rr_1\right) $ and $ R(r)=\left(\frac r{r_1}\right)^n-\left(\frac{r_1}r\right)^n $ to get solutions of the form
+\[
+	\varphi(r,\theta)=C_0\log\left(\frac r{r_1}\right)+\sum_{n=1}^\infty \left[\left(\frac r{r_1}\right)^n-\left(\frac{r_1}r\right)\right]\left[A_n\cos(n\theta)+B_n\sin(n\theta)\right].
+\]
+The boundary condition $ r=r_2 $ gives that
+\[
+	f(\theta)=C_0\log\left(\frac {r_2}{r_1}\right)+\sum_{n=1}^\infty \left[\left(\frac {r_2}{r_1}\right)^n-\left(\frac{r_1}{r_2}\right)\right]\left[A_n\cos(n\theta)+B_n\sin(n\theta)\right].
+\]
+which can be written as
+\[
+	f(\theta)=\frac 1na_0+\sum_{n=0}^\infty \left[ a_n\cos(n\theta) + b_n\sin(n\theta)\right]
+\]
+i.e. the right hand side should be a Fourier series for $ f $. So $ a_n $ and $ b_n $ are given by
+\begin{align*}
+	a_n&=\frac 1\pi\int_0^{2\pi} f(\theta)\cos(n\theta)\mathrm d\theta \\
+	b_n&= \frac 1\pi\int_0^{2\pi} f(\theta)\sin(n\theta)\mathrm d\theta.
+\end{align*}
+For a more general problem, where $ \varphi $ takes the values of a function $ g(\theta) $ on the interior $ r=r_1 $, we write that $ \varphi=\varphi_1+\varphi_2 $ where $ \varphi_i=0 $ on $ r_i $ and use superposition to split our task up for two Fourier series computations.
+\subsubsection{Seperation of variables on a ball/shell (anti-symmetric case)}
+We want to solve $ \Delta\varphi=0 $ in the region $ a<|\mathbf x|<b  $ in $ \R^3 $ but under the restriction that the problem is symmetric about the $ z $-axis. We'll work in spherical polar coordinates, so
+\begin{align*}
+	\frac 1{r^2}\frac\partial{\partial r}\left[r^2\frac{\partial \varphi}{\partial r}\right]+\frac 1{r^2\sin\theta}\frac{\partial}{\partial \theta}\left[\sin\theta\frac{\partial \varphi}{\partial\theta}\right]+\frac{1}{r^2\sin^2\theta}\frac{\partial^2\varphi}{\partial \phi^2}=0.
+\end{align*}
+Here the last term vanishes using symmetry about the $ z $-axis. Look for a solution in the form $ \varphi=R(r)\Theta(\theta) $ so
+\[
+	\frac{[r^2R']'}R+\frac1 {\Theta\sin\theta}[\sin\theta\cdot\theta']'=0
+\]
+so there exists a $ \lambda\in\R $ such that
+\begin{align*}
+	[r^2R']'=\lambda R-[\sin\theta\cdot \Theta']'=\lambda\sin\theta\cdot\Theta
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
