@@ -7,6 +7,7 @@
 \newcommand{\rk}{\mathrm{rk}}
 \newcommand{\Col}{\mathrm{Col}}
 \newcommand{\Row}{\mathrm{Row}}
+\newcommand{\sgn}{\mathrm{sgn}}
 \begin{document}
   \maketitle
   \newpage
@@ -887,12 +888,65 @@ Then $ (v)_{j_i} =\lambda_i=0 $ so the non-zero rows are linearly independent so
 	\end{enumerate}
 \end{theorem}
 \pf Let's prove that (i) $ \implies $ (ii). By the proposition there exists elementary matrices $ E_i $ such that $ E_1\dots E_\ell A $ is in RRE form. By the remark this is $ I_n $ hence $ A=\inv E_\ell\cdots \inv E_1 $ which are also elementary. For (ii) $ \implies $ (iii) elementary matrix lie in $ GL_n(\F) $ which is a group, hence closed. Finially for (iii) $ \implies $ (i) suppose there exists $ B\in M_{m\times n}(\F) $ such that $ AB=I_n $. Then for $ v\in \F^n $ we have that $ v=(AB)v=A(Bv) $, so $ v\in \ima A $.
+\section{Determinant and Traces}
+\subsection{Determinant}
+\begin{theorem}
+	There exists a unique function $ F:M_{m\times n}\to \F $ satisfying
+	\begin{enumerate}
+		\item (Alternating) If $ c_i=c_j $ for some $ i\ne j $ then $ F(A)=0 $.
+		\item (Multilinear in columns) For all $ 1\le i\le n $ and $ v_j\in \F^n $ the function 
+			\begin{align*}
+				\F^n&\to \F\\
+				v&\to F(v_1\mid \cdots \mid v_{j-1} \mid v \mid v_{j+1} \mid \cdots \mid v_n )
+			\end{align*}
+			is linear.
+		\item $ F(I_n)=1 $.
+	\end{enumerate}
+\end{theorem}
+\begin{definition}
+	(Determinant) We shall defined the $ F $ in the previous theorem as the $ n $\textit{-dimensional determinant}, written as $ F(A)=\det(A) $. A function satisfying conditions (i) and (ii) of the theorem is called an $ n $-\textit{-dimensional volumn form}.
+\end{definition}
 
-
-
-
-
-
-
-
+\begin{lemma}
+	If $ F $ is an $ n $-dimensional volumn form, $ A\in M_{m\times n}(\F) $,
+	\begin{enumerate}
+		\item If $ A $ has a zero column then $ F(A)=0 $,
+		\item $ F(AT_{ij})=-F(A) $,
+		\item $ F(AM_{i,\lambda})=\lambda F(A) $,
+		\item $ F(AC_{i,j,\lambda})=F(A) $.
+	\end{enumerate}
+\end{lemma}
+\pf Let $ f_i:\F^n \to \F $ be given by $ v\to F(c_1\mid \cdots c_{i-1} \mid v\mid c_{i+1}\mid \cdots \mid c_n) $. So that $ f_i $ is linear. Then $ f_i(c_j)=\delta_{ij}F(A) $. iF $ c_i=0 $ then $ F(A)=f_i(c)=f_i(0)=0 $. For (ii), let $ \bar A $ be the matrix obtained from $ A $ by replacing both $ i $th and $ j $th columns of $ A $ by $ c_i+c_j $. Then $ 0=F(\bar A)=F(A)+f_i(c_j)+f_i(c_i)+F(AT_{ij}) $. For (iii), $ F(AM_{i,\lambda})=f_i(\lambda c_i)=\lambda f_i(c_i)=\lambda F(A) $. Now for (iv), $ F(AC_{i,j,\lambda})=f_j(c_j+\lambda c_i)=f_i(c_j)+\lambda f_j(c_i)=F(A) $.\qed\par
+Now we're ready to prove the theorem.\\
+\pf First we'll prove uniqueness. Let $ F $ be an $ n $-dimensional volumn form with $ F(I_n)=1 $. By the lemma, $ F(T_{i,j})=-1, F(M_{i,\lambda})=\lambda, F(C_{i,j,\lambda})=1, F(AE)=F(A)F(E) $ for $ E $ elementary. Let $ A\in M_{n\times n}(\F) $, so there exists elementary matrices $ E_1,\dots, E_\ell $ such that $ A'=AE_1\cdots E_\ell $ with $ A' $ in CRE form. Then $ F(A)=F(A')\inv {F(E_1)}\cdots \inv{F(E_\ell)} $, so either $ A'=I_n $ so $ F(A)=\inv{(F(E_1)}\cdots \inv{F(E_\ell)} $ or $ A' $ has a zero colun so by the lemma, $ F(A)=F(A')=0 $.\par
+This also proves the corollary.
+\begin{corollary}
+  $ \det A\ne 0 $ if and only if $ A $ is invertible. In this case, $ A=E_1\cdots E_\ell $ then $ \det A=\det(E_1)\cdots \det(E_\ell) $.
+\end{corollary}
+Recall that from IA Groups that $ \sgn:S_n\to \{\pm 1 \} $ is the unique homomorphism satisfying $ \sgn(\tau)=-1 $ for all transpositions. Now we can define the determinant.
+\begin{align*}
+	\det:M_{n\times n}(\F)&\to \F \\
+	a&\to \sum_{\sigma\in S_n}\sgn(\sigma)\prod_{i=1}^na_{\sigma(i)i}
+\end{align*}
+Clearly we have that $ \det I_n=1 $. Each product $ \prod_{i=1}^na_{\sigma(i)i} $ is multilinear in columns. Hence so is $ \det A $. Suppose that $ c_k=c_\ell $ for $ k\ne \ell $. Set $ \tau=(k\ \ell) $ so that $ a_{ij}=a_{i\tau(j)} $ for all $ i,j $. Then
+\begin{align*}
+	\det A&=\sum_{\sigma\in A_n}\sgn(\sigma)\prod_{i=1}^n a_{\sigma(i)i}+\sum_{\sigma\in A_n}\sgn(\sigma\tau)\prod_{i=1}^n a_{\sigma\tau(i)i}\\
+	      &= \sum_{\sigma\in A_n}\prod_{i=1}^na_{\sigma(i)i}-\sum_{\sigma\in A_n}\prod_{i=1}^n a_{\sigma\tau(i)i}\\
+	      &=\sum_\sigma\prod_ia_{\sigma(i)i}-\sum_\sigma\prod_ia_{\sigma\tau(i)\tau(i)}\\
+	      &=\sum_\sigma\prod_ia_{\sigma(i)i}-\sum_\sigma\prod_ja_{\sigma(j)j}
+\end{align*}\qed\par
+Now we will observe some properties of the determinant.
+\begin{lemma}
+	For $ A\in M_{n\times n}(\F) $, we have that $ \det(A^T)=\det(A) $.
+\end{lemma}
+\pf 
+\begin{align*}
+	\det(A^T)&=\sum_{\sigma\in S_n}\sgn(\sigma)\prod_{i=1}^na_{i\sigma(i)}\\
+		 &= \sum_{\sigma\in S_n}\sgn(\sigma)\prod_ja_{\inv{\sigma(j)}j}\\
+		 &=\sum_{\sigma\in S_n}\sgn(\inv\sigma)\prod_ja_{\inv{\sigma(j)}j}\qed
+\end{align*}
+\begin{proposition}
+	For all $ A,B\in M_{n\times n}(\F) $ we have that $ \det(AB)=\det(A)\det(B) $.
+\end{proposition}
+\pf Recall that $ \rk(AB)\le \min(\rk(A),\rk(b)) $, so if either $ A $ or $ B $ has rank less than $ n $ then so does $ AB $ so by the corollary above $ \det(AB)=0=\det(A)\det(B) $. If not, $ A $ and $ B $ are invertible and can be written as a product of elementary matrices, so $ A=E_1\cdots E_\ell $, $ B+E_1'\cdots E_k' $. So $ AB=E_1\cdots E_\ell E_1'\cdots E_k' $, hence $ \det(AB)=\det(E_1)\cdots \det(E_\ell)\det(E_1')\cdots \det(E_k')=\det(A)\det(B)$.\qed
 \end{document}

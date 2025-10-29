@@ -888,19 +888,134 @@ so there exists a $ \lambda\in\R $ such that
 \begin{align*}
 	[r^2R']'=\lambda R-[\sin\theta\cdot \Theta']'=\lambda\sin\theta\cdot\Theta
 \end{align*}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+which then can be solved using the techniques discussed earlier.
+\subsection{Wave Equation}
+Consider a taut string, under constant tension $ \tau $ clamped at ends $ x=0 $ and $ x=L $. Let $ y =y(x,t)$ denote vertical displacement of the string. Assume that oscillations are transverse and that the slope $ |y_x|\ll 1 $. Note that
+\begin{align*}
+|y(x,t)|&=\left|\int_0^x y_x(s,t)\mathrm ds\right|\\
+	&\le \int_0^L |y_x|\mathrm ds \ll 1.
+\end{align*}
+Take a diagram of a string with tension $ \tau $ arcing upwards. Let there be two points $ x_A $ and $ x_B $ with midpoint $ x $. Let $ \theta_A $ and $ \theta_B $ be the subtended angles from the string to the horizontal respectively. Then resolving forces horizontally we get that (given no transverse motion) that
+\[
+  \tau\cos\theta_B-\tau\cos\theta_A=0.
+\]
+This is consistant since that $ \tan\theta_A=\left(\frac{\partial y}{\partial x}\right)_A $ so we get that $ \cos\theta_A=\frac1{\sqrt{1+(\frac{\partial y}{\partial x})_A^2}}\approx 1 $. Also the mass of the string is proportional to its length so
+\[
+	\int_{x_A}^{x_B}\mathrm ds=\int_{x_A}^{x_B}\sqrt{1+y_x^2}\mathrm dx\approx \delta x.
+\]
+So reasonable to assume that mass is $ \mu\delta x $ where $ \mu>0 $ is density. Resolving vertically and using Newton's second law gives that
+\[
+	\frac{\mu\delta x}{\tau}\frac{\partial^2y}{\partial x^2}=\frac{\tau\sin\theta_B}{\tau\cos\theta_B}-\frac{\tau\sin\theta_A}{\tau\cos\theta_A}=\left(\frac{\partial y}{\partial x}\right)_B-\left(\frac{\partial y}{\partial x}\right)_A.
+\]
+Divide by $ \tau $ to ge that $ \tau=\tau\cos\theta_A=\tau\cos\theta_B $ to leading order. Hence by MVT we get that
+\[
+	\frac{\mu}\tau\delta x\frac{\partial ^2y}{\partial^2t}=\frac{\partial^2y}{\partial x^2}\delta x.
+\]
+where the first partial is evaluated at $ x $ and the second is evaluated at some $ \xi\in (x_A,x_B) $. Divide by $ \delta x $ and take $ \delta x\to 0 $ and $ \xi\to x $ giving that 
+\[
+	\frac 1{c^2}\frac{\partial^2y}{\partial t^2}=\frac{\partial ^2y}{\partial x^2},\quad c^2=\frac \tau\mu.
+\]
+call $ c $ the wave speed. We have boundary conditions given by $ y(0,t)=y(L,t)=0 $ and Newton's second law gives initial conditions that $ y(x,0)=f(x) $ and $ y_t(x,0)=g(x) $.
+\subsubsection{Waves on a string}
+Solve IBVP
+\[
+  \begin{cases}
+	  y_tt -c^2y_xx=0 & (x,t)=(0,L)\times (0,\infty) \\
+	  y(0,t)=0 & t\in (0,\infty) \\
+	  y(L,t)=0 & t\in (0,\infty)\\
+	  y(x,0)=f(x) & x\in (0,L) \\
+	  y_t(x,0)=g(x) & x\in (0,L)
+  \end{cases}
+\]
+Try a solution in the form $ y=X(x)T(t) $ with $ X(0)=0 $ and $ X(L)=0 $. We get that
+\[
+	\frac{\ddot{T}}{c^2T}=\frac{X''}X
+\]
+so there must exists some $ \lambda\in \R $ such that we have that
+\begin{align*}
+  X''+\lambda X=0\\
+  X(0)=X(L)=0
+\end{align*}
+and
+\begin{align*}
+  \ddot T+\lambda c^2T=0.
+\end{align*}
+The solutions to the $ X $ equation is a S-L problem, which has known solutions with
+\[
+	X_n(x)=\sin(\frac{n\pi x}L),\quad \lambda_n=\left(\frac{n\pi}L\right)^2,\quad n=1,2,\dots
+\]
+The $ T $-equation becomes
+\[
+	\ddot T+\left(\frac{n\pi c}L\right)^2T=0
+\]
+which we solve as
+\[
+	T_n(t)=A_n\cos(\frac{n\pi ct}L)+B_n\sin(\frac{n\pi ct}L)
+\]
+so by superposition,
+\begin{align*}
+	y(x,t)=\sum_{n=1}^\infty \sin(\frac{n\pi x}L)\left[A_n\cos(\frac{n\pi ct}L)+B_n\sin(\frac{n\pi ct}L)\right]
+\end{align*}
+solves the wave equation with $ y(0,t)=y(L,t)=0 $. The initial conditions gives that
+\[
+	f(x)=\sum_{n=1}^\infty A_n\sin(\frac{n\pi x}L),\quad g(x)=\sum_{n=1}^\infty \left(\frac{n\pi c}L\right)B_n\sin(\frac{n\pi x}L).
+\]
+which look like the sine series. By orthogonality $ \langle X_n,X_m\rangle=\frac L2\delta_{nm} $, so
+\begin{align*}
+	A_n&=\frac 2L\int_0^Lf(x)\sin(\frac{n\pi x}L)\mathrm dx\\
+	B_n&=\left(\frac{L}{n\pi c}\right)\frac 2L\int_0^Lg(x)\sin(\frac{n\pi x}L)\mathrm dx
+\end{align*}
+\subsubsection{Waves on a drum}
+The higher dimensional analogue of the wave equation is
+\[
+	\frac 1{c^2}\frac{\partial^2\varphi}{\partial t^2}=\Delta \varphi
+\]
+Solving the IBVP on a drum,
+\[
+	\Omega=\{(r,\theta): 0\le r < 1, 0\le \theta < 2\pi\}
+\]
+\[
+  \begin{align}
+	  \varphi_{tt}-c^2\Delta \varphi=0 & \Omega\times (0,\infty)\\
+	  \varphi=0 & \partial\Omega\times(0,\infty)\\
+	  \varphi=f & \Omega\times{t=0}\\
+	  \varphi_t=g & \Omega\times {t=0}
+  \end{align}
+\]
+For simplicity assume that $ f=f(r) $, $ g=g(r) $. So that $ \varphi=\varphi(r,t) $. Wave equation becomes
+\begin{align*}
+	\frac 1{c^2}\frac{\partial^2 \varphi}{\partial t^2}=\frac 1r\frac{\partial}{\partial r}\left(r\frac{\partial \varphi}{\partial r}\right)+\frac1{r^2}\frac{\partial^2 \varphi}{\partial \theta^2}.
+\end{align*}
+Where the last term is zero since the solution is independent of $ \theta $. So we can try a solution in the form $ \varphi=R(r)T(t) $. Hence
+\[
+	\frac{\ddot T}{c^2 T}=\frac{[rR']'}{rR}.
+\]
+So there exists a $ \lambda\in \R $ such that
+\begin{align*}
+	-\frac{\mathrm d}{\mathrm dr}\left[r\frac{\mathrm R}{\mathrm r}\right]&= \lambda rR \qquad 0<r < 1, R(1)=0\\
+	\ddot T+c^2\lambda T &= 0.
+\end{align*}
+So the $ R $-equation is the Bessel problem with $ m=0 $. This gives solutions
+\[
+	R_k(r)=J_0(j_{0k}r),\quad\lambda_k=j_{0k}^2.
+\]
+The $ T $-equation becomes
+\[
+	\ddot T+(cj_{0k})^2T=0
+\]
+so we get a solution in the form
+\[
+	\varphi(r,t)=\sum_{k=1}^\infty J_0(j_{0k}r)\left[A_k\cos(j_{0k}ct)+B_k\sin(j_{0k}ct)\right]
+\]
+which solves the PDE and boundary conditions. The initial conditions are
+\begin{align*}
+	f(r)=\sum_{k=1}^\infty A_kJ_0(j_{0k}r)\\
+	g(r)=\sum_{k=1}^\infty B_kj_{0k}cJ_0(j_{0k}r)
+\end{align*}
+Recall that $ \langle R_k,R_\ell\rangle_w=\int_0^1 J_0(j_{0k}r)J_0(j_{0\ell r})r\mathrm dr = \frac 12 J_0'(j_{0k})^2\delta_{k\ell} $, so by orthogonality we get that
+\begin{align*}
+	A_k&=\frac 2{J_0'(j_{0k})}^2\int_0^1f(r)J(j_{0k}r)r\mathrm dr\\
+		B_k&=\frac 2{J_0'(j_{0k})^2}\frac 1{cj_{0k}}\int_0^1g(r)J_0(j_{0k}r)r\mathrm dr
+\end{align*}
 \end{document}
 
