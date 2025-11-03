@@ -948,5 +948,157 @@ Now we will observe some properties of the determinant.
 \begin{proposition}
 	For all $ A,B\in M_{n\times n}(\F) $ we have that $ \det(AB)=\det(A)\det(B) $.
 \end{proposition}
-\pf Recall that $ \rk(AB)\le \min(\rk(A),\rk(b)) $, so if either $ A $ or $ B $ has rank less than $ n $ then so does $ AB $ so by the corollary above $ \det(AB)=0=\det(A)\det(B) $. If not, $ A $ and $ B $ are invertible and can be written as a product of elementary matrices, so $ A=E_1\cdots E_\ell $, $ B+E_1'\cdots E_k' $. So $ AB=E_1\cdots E_\ell E_1'\cdots E_k' $, hence $ \det(AB)=\det(E_1)\cdots \det(E_\ell)\det(E_1')\cdots \det(E_k')=\det(A)\det(B)$.\qed
+\pf Recall that $ \rk(AB)\le \min(\rk(A),\rk(b)) $, so if either $ A $ or $ B $ has rank less than $ n $ then so does $ AB $ so by the corollary above $ \det(AB)=0=\det(A)\det(B) $. If not, $ A $ and $ B $ are invertible and can be written as a product of elementary matrices, so $ A=E_1\cdots E_\ell $, $ B+E_1'\cdots E_k' $. So $ AB=E_1\cdots E_\ell E_1'\cdots E_k' $, hence $ \det(AB)=\det(E_1)\cdots \det(E_\ell)\det(E_1')\cdots \det(E_k')=\det(A)\det(B)$.\qed\par
+Missed a lecture - 31.11.25
+\begin{definition}
+	(Trace) For a $ A\in M_{m\times n}(\F) $ the \textit{trace} of $ A $ is given by
+	\[
+		\tr(A)=\sum_{i=1}^na_{i,i}
+	\]
+\end{definition}
+\begin{remark}
+	$ \tr \in \mathcal L(M_{m\times n}(\F),\F) $
+\end{remark}
+\begin{lemma}
+	For all $ A,B\in M_{m\times n}(\F) $ we have that
+	\[
+	  \tr(AB)=\tr(BA)
+	\]
+\end{lemma}
+\pf 
+\begin{align*}
+	\tr(AB)&=\sum_{i=1}^n (AB)_{i,i}\\
+	&= \sum_{i=1}^n\sum_{j=1}^na_{ij}b_{ji}\\
+	&= \sum_{j=1}^n\sum_{i=1}^nb_{ji}a_{ij}\\
+	&= \sum_{j=1}^n(BA)_{j,j}=\tr(BA)\qed
+\end{align*}
+But in general we don't have that $ \tr(AB)=\tr(A)\tr(B) $.
+\begin{corollary}
+  Similar matrices have the same trace.
+\end{corollary}
+\pf For $ P\in GL_n(\F) $,
+\[
+  \tr(PA\inv P)=\tr(\inv P(PA))=\tr(A)
+\]
+\begin{definition}
+	For $ V $ a finite dimensional vector space and $ \alpha\in\mathcal L(V,V) $ define the \textit{trace} of $ \alpha $ by
+	\[
+		\tr(\alpha)=\tr([\alpha]_B^B)
+	\]
+	for $ B $ a basis of $ V $.
+\end{definition}
+\begin{proposition}
+  This is independent of the basis $ B $.
+\end{proposition}
+\pf If $ B' $ is another basis of the vector space $ V $ then, $ [\alpha]_{B'}^{B'} $ and $ [\alpha]_B^B $ are similar matrices, so the result follows from the corollary.
+\section{Dual Spaces}
+\begin{definition}
+	(Dual space) If $ V $ is a $ \F $-vector space, then the \textit{dual space} of $ V $ is
+	\[
+		V^*=\mathcal L(V,\F)=\{\theta:V\to\F: \theta\text{ is linear }\}
+	\]
+\end{definition}
+For example we have that $ \theta:\R^3\to \R $ given by
+\[
+  \theta\left(\begin{pmatrix}
+    x \\ y \\ z
+  \end{pmatrix}\right) = x-2y+3z
+\]
+is an element in the dual space of $ \R^3 $.\par
+$ \tr\in M_{n\times n}(\F)^* $\par
+If $ V=C[0,1] $ then $ \theta:V\to R $ given by $ \theta(f)=\int_0^1f(t)e^{-t}\mathrm dt $ is in the dual space of $ V^* $.\par
+An element $ \theta\in V^* $ is called a \textit{linear functional} on $ V $.\par
+Suppose that $ B $ is a basis for $ V $. For $ b\in B $ define $ b^*\in V^* $ by
+\[
+	b^*\left(\sum_{c\in B}\lambda_cc\right)=\lambda_b
+\]
+i.e. $ b^*(c)=\delta_{bc} $. If we let $B^*=\{b^*:b\in B\} $ then:
+\begin{proposition}
+  For $ B^* $ defined above,
+  \begin{enumerate}
+	  \item $ B^* $ is linearly independent;
+	  \item If $ V $ is finite dimensional then $ B^* $ is a basis for $ V^* $.
+  \end{enumerate}
+\end{proposition}
+\begin{definition}
+	(Dual basis) If $ V $ is finite dimensional, call $ B^* $ the \textit{dual basis} to $ B $.
+\end{definition}
+\pf Suppose that
+\[
+	\sum_{b\in B}\lambda_bb^*=0\quad\text{in } V^*.
+\]
+Then for $ c\in B $,
+\[
+	0=\left(\sum_{b\in B}\lambda_bb^*\right)(c)=\sum_{b\in B}\lambda_bb^*(c)=\lambda_c
+\]
+so $ \lambda_c=0 $ hence all coefficients are zero, so the set $ B^* $ is linearly independent.\\
+For $ V,W $ finite dimensional we know that $ \dim(\mathcal L(V,W))=\dim(V)\dim(W) $ so for $ \dim(V^*)=\dim(\mathcal L(V,\F))=\dim V $. We know that $ B^* $ is a linearly independent subset of $ V $ of size $ \dim V $ hence it is a basis of $ V^* $.\qed\par
+We can also offer a constructive proof of (ii)\par
+Given $ \theta\in V^* $ and $ b\in B $ set $ \lambda_b=\theta(b)\in \F $ and let $ \theta=\sum_{b\in B}\lambda_bb^*\in V^* $. Then $ \bar\theta\in \langle B^*\rangle $ and for $ c\in B $ we have that
+\[
+  \bar\theta(c)=\lambda_c=\theta(c)
+\]
+so $ \theta=\bar\theta $ as they agree on a basis and hence we have that $ \theta\in\langle B^*\rangle $ so $ B^* $ spans $ V^* $.\par
+However there are vector spaces, not finite dimensional such as $ P(\R)^*=\R^{\N} $.
+\begin{corollary}
+  For $ V $ finite dimensional $ V\cong V^* $
+\end{corollary}
+\pf Same dimension hence isomorphic.
+Note that if $ V $ is finite dimensional, $ B=\{v_1,\dots, v_n\} $ is a basis of $ V $, for $ v\in V $ and $ \theta\in V^* $ we can write,
+\[
+	v=\sum_{i=1}^n\lambda_iv_i,\quad \theta=\sum_{j=1}^n\mu_jv_j^*.
+\]
+Then $ \theta(v) = \sum_{i,j}\lambda_i\mu_jv_j^*(v_i)=\sum_{i=1}^n\lambda_i\mu_i=([\theta]_{B*})^T\cdot [v]_B $
+\begin{definition}
+	(Annihilator) For $ V $ a finite dimensional $ \F $-vector space and $ S\subseteq V $, the \textit{annihilator} of $ S $ is
+	\[
+		S^0=\{\theta\in V^*:\forall s\in S,\theta(s)=0\}\subseteq V^*
+	\]
+\end{definition}
+\begin{lemma}
+  For and $ S,T\subseteq V $,
+  \begin{enumerate}
+	  \item $ S^0 \le V^* $;
+	  \item If $ S\subseteq T $ then $ T^0\le S^0 $;
+	  \item $ S^0=\langle S\rangle^0 $;
+	  \item $ V^0=\{\mathbf 0_{V^*}\} $ and $ \{\mathbf 0_V\}^0=V^* $.
+  \end{enumerate}
+\end{lemma}
+\pf A simple application of the subspace test proves (i). For (ii) is suffices to check that $ T^0\subseteq S^0 $. For $ \theta\in T^0 , s\in S	$ so $ s\in T $ hence $ \theta(s)=0 $. For (iii), $ S\subseteq \langle S\rangle $ so by (ii)
+\[
+  \langle S\rangle^0\le S^0.
+\]
+For the converse let $ \theta\in S^0 $ and $ v\in \langle S\rangle $. So we can write $ v=\sum_{s\in S}\lambda_s\cdot s $, so $ \theta(v)=\sum_{s\in S}\lamba_s\theta(s)=0 $, hence $ \theta\in\langle S\rangle^0 $ so $ S^0=\langle S\rangle^0 $. If $ \theta\in V^* $ and $ \forall v\in V $ we have that $ \theta(v)=0 $ then $ \theta $ must be the zero function, so $ V^0=\{\mathbf 0_{V^*}\} $. Secondly for $ \theta\in V^* $ we have that $ \theta(\mathbf 0_V)=0 $ so $ \{\mathbf 0_V\}^0=V^* $.\qed
+\begin{proposition}
+  For $ V $ finite dimensional with $ U\le V $, we have that
+  \[
+    \dim V=\dim U + \dim U^0
+  \]
+\end{proposition}
+\pf Suppose that $ \dim V=n $ and $ \dim U=k $ and let $ B_U=\{v_1,\dots, v_k\} $ be a basis for $ U $ and extend to a bassi $ B_V=\{v_1,\dots, v_n\} $ for $ V $. Then $ B_v^*=\{v_1^*,\dots, v_n^*\} $ is a basis for $ V^* $. Suffices to prove the following claim.
+\begin{claim}
+	$ \{v^*_{k+1},\dots, v_n^* \}$ forms a basis for $ U^0 $
+\end{claim} 
+First we show that it's a subset of $ U^0 $. For $ i\le k $ and $ j\ge k+1 $,
+\[
+  v_j^*(v_i)=0
+\]
+so
+\[
+  v_j^*\in (B_U)^0=\langle B_u\rangle^0 = U^0.
+\]
+Linear indepedence is obvious since it's a subspace of $ B_V^* $. Let's check it's spanning. Let $ \theta\in U^0 $, so write $ \theta=\sum_{j=1}^n\lambda_jv_j^* $. Then for $ i\le k $, $ v_i\in U $, so $ 0=\theta(v_i)=\sum_j\lambda_jv_j^*(v_i)=\lambda_i $. Hence $ \theta=\sum_{j=k+1}^n\lambda_jv_j^*\in\langle v_{k+1}^*,\dots, v_n^*\rangle $.\qed
+\begin{remark}
+  If $ U,W\le V $ which are such that $ V=U\oplus W $ hence $ U^0\cong W^* $ is really what's going on behind the scenes.
+\end{remark}
+
+
+
+
+
+
+
+
 \end{document}
+
+

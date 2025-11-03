@@ -1017,5 +1017,161 @@ Recall that $ \langle R_k,R_\ell\rangle_w=\int_0^1 J_0(j_{0k}r)J_0(j_{0\ell r})r
 	A_k&=\frac 2{J_0'(j_{0k})}^2\int_0^1f(r)J(j_{0k}r)r\mathrm dr\\
 		B_k&=\frac 2{J_0'(j_{0k})^2}\frac 1{cj_{0k}}\int_0^1g(r)J_0(j_{0k}r)r\mathrm dr
 \end{align*}
+\par
+Missed Lecture - 03.11.25
+\par
+\subsection{The Heat Equation}
+The temperature of a conductive material, $ \varphi(\mathbf x,t) $ satisfies the \textit{heat equation} which is
+\[
+	\frac{\partial \varphi}{\partial t}=\kappa\Delta\varphi
+\]
+where $ \kappa>0 $ is a constant. We are interested in the IBVP
+\[
+	(\dagger\dagger) \begin{cases}
+	  \varphi_t-\kappa\Delta\varphi=0 & \Omega\times (0,\infty) \\
+	  \varphi = 0 & \partial\Omega\times (0,\infty \\
+	  \varphi = f & \Omega \times \{t=0\}
+  \end{cases}.
+\]
+We'll try a solution in the form $ \varphi=T(t)\psi(\mathbf x) $. Plugging in, for some $ \mu \in \R $ we get that 
+\[
+  \dot T+\kappa\mu = 0
+\]
+and \[ -\Delta\psi = \mu \psi \].
+We get that $ T(t)=e^{-\kappa\mu t} $. We can see that $ T $ does not vanish on the boundary (unless $ T $ is trivial), hence we can impose the vanishing boundary condition onto $ \psi $. So we're now solving
+\[
+  \begin{cases}
+	  -\Delta\psi = \mu\psi & \mathbf x\in \Omega\\
+	  \psi = 0 & \mathbf x\in \partial \Omega
+  \end{cases}.
+\]
+Solutions to this depend on the geometry of $ \Omega $.
+\subsubsection{Heat conduction on a square sheet}
+Take $ \Omega=\{(x,y)\in (0,L)\times (0,L)\} $. Try a solution seperable in $ x $ and $ y $, $ \psi=X(x)Y(y) $. So we get that
+\[
+	\frac{X''}X+\frac{Y''}Y+\mu = 0.
+\]
+So there exists a $ \lambda\in \R $ such that $ X''+\lambda X=0 $ and $ Y''+(\mu-\lambda)Y=0 $. We also have the requirement that $ X(0)=X(L)=Y(0)=Y(L)=0 $. The $ X $-equation gives that
+\[
+	X_n(x)=\sin\left(\frac{n\pi x}L\right),\quad \lambda_n=\left(\frac{n\pi}L\right)^2
+\]
+and the $ Y $-equation gives that
+\[
+	Y=A\sin(y\sqrt{\mu-\lambda_n})+B\cos(y\sqrt{\mu-\lambda_n})
+\]
+So $ Y(0)=0\implies B=0 $ and $ Y(L)=0 $ gives that
+\[
+	\mu_{mn}-\lambda_n=\left(\frac{m\pi}L\right)^2
+\]
+so
+\[
+	Y_n(y)=\sin(\frac{m\pi y}L), \quad \mu_{mn}=\left(\frac{n\pi}L\right)^2+\left(\frac{m\pi}L\right)^2
+\]
+so by superposition we get that
+\[
+	\varphi(x,y,t)=\sum_{m,n=1}^\infty A_{mn}e^{-\kappa \mu_{mn}t}\sin(\frac{n\pi x}L)\sin(\frac{m\pi y}L)
+\]
+satisfies the heat equation and the boundary condition $ \varphi=0 $ on $ \partial \Omega $. Now to impose the initial condition,
+\[
+	f(x,y)=\sum_{n,m=1}^\infty A_{mn}\sin(\frac{n\pi x}L)\sin(\frac{m\pi y}L).
+\]
+So using $ \langle X_n,X_k\rangle =\frac 12 \delta_{nk} $ we get that
+\[
+	A_{mn}=\frac 4{L^2}\int_0^L\mathrm dx\int_0^L\mathrm dy f(x,y)\sin(\frac{n\pi x}L)\sin(\frac{m\pi y}L).
+\]
+\subsubsection{Heat flow down a pipe}
+In cylindrical polars,
+\[
+	\Omega=\{(\rho,\phi,z):0\le \rho < 1, 0\le \phi<2\pi, 0<z<L\}
+\]
+Want to solve
+\[
+	(\dagger\dagger) \begin{cases}
+	  \varphi_t-\kappa\Delta\varphi=0 & \Omega\times (0,\infty) \\
+	  \varphi = 0 & \partial\Omega\times (0,\infty \\
+	  \varphi = f & \Omega \times \{t=0\}
+  \end{cases}.
+\]
+For simplicity we'll assume that $ f=f(\rho, z) $. We'll look for solutions $ \varphi=T(t)\psi(\rho,z) $. So
+\begin{align*}
+  &-\Delta\psi = \mu \varphi \\
+	\implies &\frac 1\rho\frac{\partial}{\partial \rho}\left(\rho\frac{\partial \psi}{\partial \rho}\right)+\frac{\partial ^2 \psi}{\partial z^2}+\mu \psi=0
+\end{align*}
+We'll try $ \psi(\rho,z)=P(\rho)Z(z) $. So there exists a $ \lambda\in \R $ such that
+\[
+	-\frac 1{\rho P}[\rho P']'=\lambda,\quad Z''+(\mu-\lambda)Z=0.
+\]
+i.e.
+\[
+	-\frac{\mathrm d}{\mathrm d\rho}\left[\rho\frac{\mathrm dP}{\mathrm d\rho}\right]=\lambda\rho P\quad 0<p<1,\quad P(1)=0
+\]
+This is Bessel's problem with $ m=0 $.
+\begin{align*}
+	P_k(\rho)=J_0(j_{0k}\rho),\quad k=1,2,\dots\\
+	\lambda_k=j_{0k}^2.
+\end{align*}
+This $ Z $-equation becomes
+\begin{align*}
+  Z''+(\mu-\lambda_k)Z=0,\quad Z(0)=Z(L)=0
+\end{align*}
+Hence we get that
+\[
+	Z_n(t)=\sin(\frac{n\pi z}L)
+\]
+with $ \mu_{kn}-\lambda_k=\left(\frac{n\pi}L\right)^2 $ for $ n=1,2,\dots $. By superposition we get that
+\[
+	\varphi(\rho,z,t)=\sum_{n,k=1}^\infty B_{nk}e^{-\kappa \mu_{kn}t}J_0(j_{0k}\rho)\sin(\frac{n\pi z}L)
+\]
+is a solution to the heat equation, and the boundary condition $ \varphi=0 $ on $ \partial \Omega $. For the initial conditions we need,
+\[
+	f(\rho,t)=\sum_{n,k=1}^\infty B_{nk}J_0(j_{0k}\rho)\sin(\frac{n\pi z}L).
+\]
+Recall that
+\[
+	\int_0^1J_0(j_{0k}\rho)J_0(j_{0\ell}\rho)\rho\mathrm d\rho=\frac 12J_0'(j_{0k})^2\delta_{k\ell}
+\]
+We get that
+\[
+	B_{nk}=\frac 4{LJ_0'(j_{0k})^2}\int_0^L\mathrm d\rho \int_0^L\mathrm dz\rho f(\rho z)J_0(j_{0k}\rho)\sin(\frac{n\pi z}L)
+\]
+\subsubsection{Heat loss and uniqueness}
+Recall again our problem
+\[
+	(\dagger\dagger) \begin{cases}
+	  \varphi_t-\kappa\Delta\varphi=0 & \Omega\times (0,\infty) \\
+	  \varphi = 0 & \partial\Omega\times (0,\infty \\
+	  \varphi = f & \Omega \times \{t=0\}
+  \end{cases}.
+\]
+is the solution to $(\dagger\dagger) $ unique? Define the energy $ Q $ of the system as
+\[
+	Q(t)=\frac 12\int_\Omega \varphi(\mathbf x,t)^2\mathrm dV.
+\]
+Then
+\begin{align*}
+	Q'(t)&=\int_\Omega \varphi_t\varphi\mathrm dV\\
+	     &=\int_\Omega \kappa\varphi\Delta\varphi\mathrm dV\\
+	     &=\kappa\int_\Omega\left[\nabla\cdot(\varphi\nabla\varphi)-|\nabla\varphi|^2\right]\mathrm dV\\
+	     &= \kappa\int_{\partial \Omega}\varphi\frac{\partial \varphi}{\partial \mathbf n}\mathrm dS-\kappa\int_\Omega|\nabla \varphi|^2\mathrm dV
+\end{align*}
+The first integral is zero by the boundary condition, and the second integral is clearly non-negative, so $ Q'(t)\le 0 $. So $ Q(t)\le Q(0)=\frac 12 \int_\Omega f(\mathbf x)^2\mathrm dV $.
+\begin{proposition}
+  The solution to the problem in $ (\dagger\dagger) $ is unique.
+\end{proposition}
+\pf Suppose $ \varphi_1,\varphi_2 $ satisfy $ (\dagger\dagger) $ and set $ \varphi=\varphi_1-\varphi_2 $. Then $ \varphi $ satisfies $ (\dagger\dagger) $ with $ f=0 $. So
+\[
+  \int_\Omega\varphi(\mathbf x,t)^2\mathrm dV \le Q(0)=0
+\]
+hence $ \varphi(\mathbf x,t)=0 $ on $ \Omega\times(0,\infty) $ hence $ \varphi_1=\varphi_2 $.\qed
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
