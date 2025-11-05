@@ -1163,12 +1163,98 @@ The first integral is zero by the boundary condition, and the second integral is
   \int_\Omega\varphi(\mathbf x,t)^2\mathrm dV \le Q(0)=0
 \]
 hence $ \varphi(\mathbf x,t)=0 $ on $ \Omega\times(0,\infty) $ hence $ \varphi_1=\varphi_2 $.\qed
+\section{Inhomogeneous Problems and Green's Functions}
+\subsection{The Dirac Delta Function}
+We say this mysterious function $ \delta(x) $ in IA Differential Equations. It has the properties that
+\begin{align*}
+	\delta(x)=0 &\quad\text{for } x\ne 0\\
+	\forall \varepsilon>0 &\quad \int_{-\varepsilon}^\varepsilon\delta(x)\mathrm dx=1
+\end{align*}
+We can make this (slightly) rigorous by definiting a sequence of functions
+\[
+  \delta_n(x)=\begin{cases}
+	  \frac n\alpha\exp\left[-\frac 1{1-n^2x^2}\right]& |x|<\frac 1n\\
+	  0 & |x|\ge \frac 1n
+  \end{cases}
+\]
+where
+\[
+	\alpha=\int_{-1}^1\exp\left[-\frac 1{1-y^2}\right]\mathrm dy.
+\]
+Then we have that
+\begin{enumerate}
+	\item $ x\to \delta_n(x) $ is a smooth function for each $ n $.
+	\item $ \delta_n(x)=0 $ on $ |x|\ge \frac 1n $.
+	\item $\forall\varepsilon>0,\ \exists N>0, \ \forall n>N $ we have that
+		\[
+			\int_{-\varepsilon}^\varepsilon\delta_n(x)\mathrm dx=1
+		\]
+\end{enumerate}
+We'll prove (iii) since (i) and (ii) are obvious. Given some $ \varepsilon>0 $ take $ N=\frac 1\varepsilon $, so if $ n>N $ we have that $ \frac 1n<\varepsilon $, hence
+\begin{align*}
+	\int_{-\varepsilon}^\varepsilon\delta_n(x)\mathrm dx&=\int_{-\frac1n}^{\frac1n}\delta_n(x)\mathrm dx\\
+							    &= \frac1\alpha\int_{-1}^1\exp\left[-\frac1{1-y^2}\right]\mathrm dy=1
+\end{align*}
+We can see that
+\begin{align*}
+	\lim_{n\to\infty}\delta_n(x)=0\quad\text{if } x\ne 0.
+\end{align*}
+And for all $ \varepsilon>0 $,
+\[
+	\lim_{n\to\infty}\int_{-\varepsilon}^\varepsilon\delta_n(x)\mathrm dx=1
+\]
+So it almost looks like $ \delta(x)=\lim_{n\to\infty}\delta_n(x) $. But the problem is that the pointwise limit doesn't converge at $ 0 $. But the limit does exist in a weaker sense. Note that $ \delta(x) $ rarely appears in isolation (we usually see it inside an integral or as part of a forcing term in a differential equation). We can interpret these as a sequence of statements that we will eventually take the limit of once the limiting behaviour becomes well-defined using the surrounding terms which makes the limit behave nicely. For example if we have the differential equation
+\[
+  \ddot y + \omega^2y=\delta(t)
+\]
+we can solve for $ y_n $, the solution to
+$ \ddot y+\omega^2y=\delta_n(t) $, and then assert that $ y=\lim_{n\to\infty}y_n(t) $.\\
+We could even look at the derivative of $ \delta(x) $, via
+\begin{align*}
+	\int_{-\infty}^\infty\delta'(x)f(x)\mathrm dx&=\lim_{n\to\infty}\int_{-\infty}^\infty \delta_n'(x)f(x)\mathrm dx\\
 
-
-
-
-
-
+						     &=-\lim_{n\to\infty}\int_{-\infty}^\infty \delta_n(x)f'(x)\mathrm dx\\
+						     &=-\int_{-\infty}^\infty \delta(x)f'(x)\mathrm dx=-f'(0)
+\end{align*}
+\subsubsection{Periodic delta functions}
+Let $ \delta^L(x) $ denote the $ L $-periodic extension of $ \delta(x) $ outside $ [-\frac L2, \frac L2] $. It has Fourier coefficients given by
+\begin{align*}
+	\frac 1L\int_{-\frac L2}^{\frac L2}\delta(x)e^{-2\pi inx/L}\mathrm dx=\frac 1L
+\end{align*}
+So we have that
+\[
+	\delta^L(x)\sim \frac 1L\sum_n e^{2\pi inx/L}
+\]
+which also doesn't converge, which is good since now neither side makes sense. Let's try and chuck our Fourier series into where we would usually use a delta function.
+\begin{align*}
+	f(0)&=\int_{-\frac L2}^{\frac L2}\delta^L(x)f(x)\mathrm dx\\
+	    &=\sum_n\left[\frac 1L\int_{-\frac L2}^{\frac L2}e^{2\pi in x/L}f(x)\mathrm dx\right]\\
+	    &=\sum_n\hat f_{-n}=\sum_n\hat f_n=\sum_n \hat f_ne^{2\pi i n(0)/L}\\
+	    &=f(0)
+\end{align*}
+Note that the Fourier series for each $ \delta_n^L(x) $ each converge (rapidly) since $ \delta_n^L\in C^\infty(\R) $.
+\subsubsection{Eigenfucntion expansion of $ \delta(x) $}
+Let $ L $ be a Sturm-Liouville operator on
+\[
+  V=\mathhuge\{
+	  y\in C^2[a,b]: \text{ y satisfies real homogeneous B.Cs at each non-singular endpoint}
+  \mathhuge\}
+\]
+Let $ \{Y_k\}_{k=1}^\infty $ be normalised eigenfunctions and fix $ \xi\in(a,b) $ and consider functions $ x\to \delta_n(x-\xi) $. For $ n $ sufficiently large $ \delta_n(x-\xi)\in V $. By completeness of the space $ V $ we should have
+\begin{align*}
+	\delta_n(x-\xi)&=\sum_{k=1}^\infty \langle \delta_n(\cdot -\xi),Y_k\rangle_wY_k(x)\\
+		       &= \sum_{k=1}^\infty \left[\int_a^b\delta_n(t-\xi)Y_k(t)w(t)\mathrm dt\right]Y_k(x).
+\end{align*}
+Formally, letting $ n\to\infty $,
+\begin{align*}
+	\delta(x-\xi)=\sum_{k=1}^\infty w(\xi)Y_k(\xi)Y_k(x).
+\end{align*}
+Let's do a sanity check for this result. For $ f\in V $ we should have
+\begin{align*}
+	f(x)&=\int_a^b\delta(x-\xi)f(\xi)\mathrm d\xi\\
+	    &= \sum_{k=1}^\infty\left[\int_a^bf(\xi)Y_k(\xi)w(\xi)\mathrm d\xi\right]Y_k(x)\\
+	    &=\sum_{k=1}^\infty\hat f_kY_k(x),\quad \hat f_k=\langle f,Y_k\rangle_w
+\end{align*}
 
 
 

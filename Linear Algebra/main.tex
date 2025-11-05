@@ -8,6 +8,7 @@
 \newcommand{\Col}{\mathrm{Col}}
 \newcommand{\Row}{\mathrm{Row}}
 \newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\id}{\mathrm{id}}
 \begin{document}
   \maketitle
   \newpage
@@ -1091,6 +1092,191 @@ Linear indepedence is obvious since it's a subspace of $ B_V^* $. Let's check it
 \begin{remark}
   If $ U,W\le V $ which are such that $ V=U\oplus W $ hence $ U^0\cong W^* $ is really what's going on behind the scenes.
 \end{remark}
+\begin{proposition}
+  If $ V $ is a $ \F $-vector space  and $ U,W\le V $ then
+  \begin{enumerate}
+	  \item $ U^0\cap W^0=(U+W)^0 $;
+	  \item $ U^0+W^0\le (U\cap W)^0 $;
+	  \item If $ V $ is finite dimensional then we have equality in (ii).
+  \end{enumerate}
+\end{proposition}
+\pf First we prove (i). For $ \theta\in V^* $ we have that $ \theta\in(U+W)^0 \iff \forall u\in U, w\in W $ we have that $ \theta(u+w)=0 $. This is equivalent to $ \forall u,\forall w, \theta(u)=\theta(w)=0 $ so $ \theta\in U^0\cap W^0 $. So we have equality.\\
+Now for (ii) we have that
+\[
+  U\cap W\le U,W
+\]
+so by the previous lemma we have that
+\begin{align*}
+	U^0,W^0&\le (U\cap W)^0\\
+	U^0+W^0&\le (U\cap W)^0\\
+\end{align*}
+Now for the finial part if we let $ n =\dim V $ then we have that \[
+  \dim(U^0+W^0)=\dim(U^0)+\dim(W^0)-\dim(U^0\cap W^0)
+\]
+which using the fact that $ \dim(U^0\cap W^0)=\dim((U+W)^0) $ we get that
+\begin{align*}
+	&=(n-\dim U)+(n-\dim W)-(n-\dim(U+W))\\
+	&=n-\dim(U\cap W)\quad\text{(by the Sum-Intersection formula)}\\
+	&= \dim((U\cap W)^0) \quad\text{(by the proposition)}
+\end{align*}
+\begin{definition}
+	(Dual map) If $ \alpha\in\mathcal L(V,W) $ then the \textit{dual map} of $ \alpha $ is $ \alpha^*:W^*\to V^* $ given by
+	\[
+	  \alpha^*(\theta)=\theta\circ \alpha
+	\]
+\end{definition}
+\begin{lemma}
+  If $ \alpha,\beta\in \mathcal L(V,W) $ and $ \gamma\in\mathcal L(U,V) $ and $ \lambda \in \F $ then:
+  \begin{enumerate}
+	  \item $ \alpha^* $ is linear;
+	  \item $ (\alpha+\lambda\beta)^*=\alpha^*+\lambda\beta^* $;
+	  \item $ (\alpha\circ \gamma)^*=\gamma^*\alpha^* $;
+	  \item If $ \beta $ is an isomorphism then so is $ \beta^* $ and $\inv{(\beta^*)}=(\inv \beta)^* $.
+  \end{enumerate}
+\end{lemma}
+\pf Let $ \beta, \eta \in W^* $ and $ \mu \in \F $. Then for $ v\in V $ we have that
+\begin{align*}
+	\alpha^*(\theta+\mu\eta(v))&=(\theta+\mu\eta)(\alpha(v))\\
+				   &= \theta(\alpha(v))+\mu\eta(\alpha(v))\\
+				   &= \alpha^*(\theta)(v)+\mu\alpha^*(\eta)(v)\\
+				   &=(\alpha^*(\theta)+\mu\alpha^*(\eta))(v)
+\end{align*}
+Which holds for all $ v $ so we must have that
+\[
+  \alpha^*(\theta+\mu\eta)=\alpha^*(\theta)+\mu\alpha^*(\eta)
+\]
+For (ii) take $ \theta\in W^* $ and $ v\in V $ and consider,
+\begin{align*}
+	(\alpha+\lambda\beta)^*(\theta)(v)&=\theta((\alpha+\lambda\beta)(v))\\
+					  &=\theta(\alpha(v)+\lambda\beta(v))\\
+					  &=\theta(\alpha(v))+\lambda\theta(\beta(v))\\
+					  &=\alpha^*(\theta)(v)+\lambda\beta^*(\theta)(v)\\
+					  &=(\alpha^*(\theta)+\lambda\beta^*(\theta))(v).
+\end{align*}
+This is true for all $ v $ so we have that
+\[
+	(\alpha+\lambda\beta)^*(\theta)=\alpha^*(\theta)+\lambda\beta^*(\theta)=(\alpha^*+\lambda\beta^*)(\theta).
+\]
+Which now is true for $ \theta $ so that
+\[
+	(\alpha+\lambda\beta)^*=\alpha^*+\lambda\beta^*.
+\]
+For (iii) take $ \theta\in W^* $, so
+\begin{align*}
+	(\alpha\circ \gamma)^*(\theta)&=\theta\circ(\alpha\circ \gamma)\\
+				      &=\alpha^*(\theta)\circ\gamma\\
+				      &=\gamma^*(\alpha^*(\theta))\\
+				      &=(\gamma^*\circ \alpha^*)(\theta).
+\end{align*}
+And again these maps both agree at all values of $ \theta $, so they are the same map.
+\[
+	(\alpha\circ\gamma)^*=\gamma^*\circ\alpha^*
+\]
+Lastly for (iv), note that for all $ \theta\in V^* $ we have,
+\[
+	(\id_V)^*(\theta)=\theta\circ\id_V=\theta,
+\]
+so $ (\id_V)^*=\id_{V^*} $. Thus $ \id_{V^*}=(\inv \beta\circ\beta)^*=\beta^*\circ (\inv\beta)^* $ and symmetrically we have that $ \id_{W^*}=(\inv\beta)^*\circ\beta^* $. Hence $ \beta^* $ is an isomorphism with our required inverse.\qed
+
+\begin{proposition}
+  Let $ V,W $ be finite dimensional vector spaces and $ \alpha\in \mathcal L(V,W) $. Let $ B,C $ be basis for $ V,W $ Then
+  \[
+	  [\alpha^*]_{B^*}^{C^*}=\left([\alpha]^B_C\right)^T.
+  \]
+\end{proposition}
+\pf Let $ n=\dim V $ and $ m=\dim W $. Let $ B=\{b_1,\dots, b_n\} $ and $ C=\{c_1,\dots, c_m\} $. Let $ A=[\alpha]_C^B $ so
+\[
+	\alpha(b_i)=\sum_{k=1}^ma_{ki}c_k.
+\]
+Now let $ A'=[\alpha^*]_{B^*}^{C^*} $, so
+\[
+	\alpha^*(c_j^*)=\sum_{\ell =1}^na_{\ell i}'b_\ell^*.
+\]
+Then
+\begin{align*}
+	a_{i,j}'&=\alpha^*(c_j^*)(b_i) \\
+		&=c_j^*(\alpha(b_i)\\
+		&=c_j^*\left(\sum_ka_{kc}c_k\right)=a_{j,i}.\qed
+\end{align*}
+For an example let $ B,C $ be basis of $ V $ finite dimensional. The setting $ P[\id_V]_C^B $ and $ [\id_{V^*}]_{B^*}^{C^*}=P^T $ so we have that
+\[
+	[\id_{V^*}]^{B^*}_{C^*}=\inv{(P^T)}
+\]
+\begin{corollary}
+  Let $ V,W $ and $ \alpha$ be as in the previous proposition. Then
+  \[
+    \rk(\alpha^*)=\rk(\alpha)
+  \]
+\end{corollary}
+\pf Set $ A=[\alpha]_C^B $, and recall that the column rank of a matrix is the same as the rank of the corresponding linear transformation. Hence
+\begin{align*}
+	\text{c-rk}(A)&=\text{r-rk}(A)\\
+		      &=\text{c-rk}(A^T)\\
+		      &=\rk(\alpha^*)\qed
+\end{align*}
+\begin{proposition}
+  Let $ V,W $ be $ \F $-vector spaces. Then if $ \alpha\in\mathcal L(V,W) $,
+  \begin{enumerate}
+	  \item $ \ker(\alpha^*)=\ima(\alpha)^0 $;
+	  \item $ \ima(\alpha^*)\le (\ker(\alpha))^0 $;
+	  \item If $ V,W $ are finite dimensional, then we have equality in (ii).
+  \end{enumerate}
+\end{proposition}
+\pf For $ \theta\in W^* $, then
+\begin{align*}
+	\theta\in \ker(\alpha^*)&\iff \theta\circ\alpha=\mathbf 0 \text{ in } V^*\\
+				&\iff \forall v\in V,\ \theta(\alpha(v)) =0\\
+				&\iff \theta\in\ima(\alpha)^0.
+\end{align*}
+And for (ii), let $ \eta\in V^* $,
+\begin{align*}
+	\eta\in\ima(\alpha^*)&\implies\exists\theta\in W^*\st \eta=\theta\circ\alpha\\
+			     &\implies \forall v\in \ker(\alpha),\ \eta(v)=\theta(\alpha(v))=\theta(\mathbf 0)=0\\
+			     &\implies \eta\in(\ker(\alpha))^0.
+\end{align*}
+Now if we assume that $ V,W $ are finite dimensional, by the corollary we have that
+\begin{align*}
+	\rk(\alpha^*)=\rk(\alpha)&=\dim V-\dim(\ker\alpha)\\
+				 &=\dim(\ker(\alpha)^0)\qed
+\end{align*}
+\subsection{The double dual}
+We denote the \textit{double dual} as $ V^{**}=(V^*)^* $. If $ V $ is finite dimensional then $ V^{**}\cong V $ so they have the same dimension. But we can construct a much nicer isomorphism.
+\begin{theorem}
+	If $ V $ is a $ \F $-vector space then there is a linear map $ \mathcal E:V\to V^{**} $ given by
+	\[
+		\mathcal E(v)(\theta)=\theta(v)\quad\text{for }v\in V, \theta\in V^*
+	\]
+	where if $ V $ is finite dimensional then $ \varepsilon $ is an isomorphism.
+\end{theorem}
+\pf First we prove linearity. Take $ v,w\in V;\ \lambda\in \F;\ \theta\in V^*$. Then
+\begin{align*}
+	\mathcal E(v+\lambda w)(\theta)=\theta(v+\lambda w)&=\theta(v)+\lambda\theta(w)\\
+							    &= \mathcal E(v)(\theta)+\lambda\mathcal E(w)(\theta)\\
+							    &=(\mathcal E(v)+\lambda\mathcal E(w))(\theta)
+\end{align*}
+This is true for all $ \theta $ so $ \mathcal E(v+\lambda w)=\mathcal E(v)+\lambda \mathcal E(w) $.\par
+Now suppose that $ V $ is finite dimensional. Now we prove injectivity. Take $ \mathbf 0\ne v\in V $ with $ \mathcal E(v)=\mathbf 0 $. i.e. $ \forall \theta\in V^*,\ \mathcal E(v)(\theta)=0 $. Extend to a basis $ \{v_1=v,v_2,\dots, v_n\} $ for $ V $. Let $ B^* =\{ v_1^*,\dots, v_n^* $ be a dual basis. Set $ \theta=v_1^* $, then $ 0=\theta(v)=v_1^*(v_1)=1 $, which is a contradiction. Surjectivity follows from the linear pigeonhole principle.
+	\begin{definition}
+		We call $ \mathcal E:V\to V^{**} $ the \textit{evaluation map} or the \textit{natural isomorphism}.
+	\end{definition}
+	\begin{remark}
+	  For $ V $ finite dimensional we also have that $ V\cong V^* $, but any isomorphism requires a change of basis.
+	\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
