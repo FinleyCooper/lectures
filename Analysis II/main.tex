@@ -507,4 +507,295 @@ Now for the big theorem completely characterising Riemann integrable functions.
 	(Lebesgue's theorem on the Riemann integral) Let $ f:[a,b]\to\R $ bounded. Then $ f $ is Riemann integrable if and only if $ \mathcal D_f $ is a null set.
 \end{theorem}
 \pf See Part II Probability and Measure.
+\begin{remark}
+  Many results on Riemann integration are direct corollaries from Lebesgue's thereom. For example from IA Analysis I Example Sheet 3 we know that the set of discontinuities for a monotone function is countable. Hence for a monotone function $ \mathcal D $ is a null set and thus $ f $ is Riemann integrable.\\
+  Also if $ f:[a,b]\to [A,B] $ is integrable, and $ g:[A,B]\to \R $ is continuious, then $ g\circ f $ is integrable can be proved too. Clearly, $ g\circ f $ is bounded, since $ g $ is bounded. Since $ f $ is integrable, we know that $ \mathcal D_f $ is null. But $ \mathcal D_{g\circ f}\subseteq \mathcal D_{f} $ (since if $ f $ is continuous at $ x $ then $ g\circ x $ is continuous at $ x $ since $ g $ is continuous. Hence $ \mathcal D_{g\circ f} $ is null, so $ g\circ f $ is integrable by Lebesgue's theorem.\\
+  Finially if we have a sequence $ f_n:[a,b]\to \R $ integrable converging uniformly to $ f $, then $ f $ is integrable. We can also prove this using Lebesgue's theorem since $ \mathcal D_{f_n} $ is null by Lebesgue's theorem for all $ n\in \N $, so $ \bigcup_{n\in \N}\mathcal D_{f_n} $ is null too. But $ \mathcal D_f\subseteq \bigcup_{n\in \N}\mathcal D_{f_n} $ (Example Sheet 1), so it's also null, hence $ f $ is integrable.\par
+Here's a new result that can be deduced from Lebesgue's theorem.
+\end{remark}
+\begin{corollary}
+	If $ f :[a,b]\to \R $ is integrable, then $ |f| $ is integrable on $ [a,b] $. Moreover
+	\[
+		\int_a^b|f|=0\iff f=0\ \text{except on a null set}
+	\]
+	So there exists a null set $ N\subseteq [a,b] $ such that $ f(x)=0 $ for all $ x\in [a,b]\setminus N $. We say that $ f=0 $ \textit{almost everywhere} on $ [a,b] $.
+\end{corollary}
+\pf \textit{Exercise.}\qed
+\par
+This concludes our non-examinable interlude.
+\section{Metric and Normed Spaces}
+\begin{definition}
+(Metric Space) Let $ X $ be any set. A \textit{metric} (or distance function) on $ X $ is a function, $ d:X\times X\to \R $ satisfying the following for any $ x,y,z\in X $,
+\begin{enumerate}
+	\item $ d(x,y)\ge 0 $ and $ d(x,y)=0\iff x=y $;
+	\item $ d(x,y)=d(y,x) $;
+	\item $ d(x,y)\le d(x,z) + d(z,y) $.
+\end{enumerate}
+We call such a pair $ (X,d) $ a \textit{metric space}.
+\end{definition}
+\begin{definition}
+	(Normed Space) Let $ V $ be a real vector space. A \textit{norm} on $ V $ is a function $ ||\cdot ||: V\to \R $ satisfying for any $ x,y\in V $, and any $ \lambda \in\R $,
+	\begin{enumerate}
+		\item $ ||x||\ge 0 $ and $ ||x||=0\iff x=0 $;
+		\item $ ||\lambda x||=|\lambda|\cdot||x||$;
+		\item $ ||x+y||\le ||x||+||y|| $.
+	\end{enumerate}
+	We say that $ (V,||\cdot ||) $ is a \textit{normed space}.
+\end{definition}
+\begin{proposition}
+  If $ (V,||\cdot||) $ is a normed space, and if $ d:V\times V\to \R $ is defined by $ d(x,y)=||x-y|| $, then $ (V,d) $ is a metric space.
+\end{proposition}
+\pf \textit{Exercise.}\qed\par
+Let's go over a few examples.
+\begin{enumerate}
+\item (Finite dimensional normed spaces) The prototypical example of a normed space is the Euclidean space $ \R^n=\{(x_1,x_2,\dots \}: x_i\in \R\} $, with $ n\in \N $ fixed. We know that this defines a vector space and we can define various different norms on the vector space. Taking $ V=\R^n $ with its usual vector space structure, we can define several useful norms on $ V $:
+	\begin{enumerate}
+		\item The Euclidean norm (or the $ \ell_2 $-norm, defined by \[ ||x||_{\ell_2}=||x||_2=\left(\sum_{i=1}^n |x_i|^2\right)^{\frac 12}. \]
+			All the requirements are simple to prove apart from the triangle inequality.
+			\begin{align*}
+				||x-y||_2^2&=\sum_{i=1}^n(x_i+y_i)^2\\
+					   &=||x||^2_2+||y||_2^2+2\sum_{i=1}^nx_iy_i\\
+					   &\le ||x||^2_2+||y||^2_2+2||x||_2^2||y||_2^2 \quad\text{by Cauchy-Schwarz}\\
+					   &= ||x||^2_2+||y||^2_2
+			\end{align*}
+		\item The $ \ell_1 $-norm on $ \R^n $ defined as $ ||x||_1=\sum_{i=1}^n|x_i| $.
+		\item We can also define the $ \ell_\infty $-norm as $ ||x||_\infty=\sup\{|x_i|:1\le i\le n\} $.
+			\begin{remark}
+			  More generally, for $ x\in\R^n $ we can define the $ \ell_p $-norm as
+			  \[
+				  ||x||_p=\left(\sum_{i=1}^n|x_i|^p\right)
+			  \]
+			  and it turns out that for $ p\le 1 $ this is indeed a norm (however the triangle inequality is non-trivial to proof). Moreover if we let $ p\to\infty $ we recover $ ||x||_\infty $.
+			\end{remark}
+	\end{enumerate}
+\item ($ \R^\N $) Let's look at the infinite sequences of real numbers. We write $ \R^\N $ for the set of real sequences $ (x_k)_{k\in\N} $. This is vector space under addition defined by termwise addition and scalar multiplication.
+	\begin{enumerate}
+		\item We look at the space $ \ell_1 =\{ (x_k)\in\R^\N: \sum_{k=1}^\infty |x_i|<\infty\} $. This is a linear subspace of $ \R^\N $. We can turn this into a normed space by defining,
+			\[
+				||x||_{\ell_1}=||x||_1=\sum_{k=1}^\infty|x_k|.
+			\]
+		\item Likewise, $ \ell_2=\{(x_k)\in \R^\N: \sum_{i=1}^\infty x_i^2<\infty\} $ is a linear subspace of $ \R^\N $ and define the $ \ell_2 $ norm as
+			\[
+				||x||_{\ell_2}=||x||_2=\left(\sum_{i=1}^\infty |x_i|^2\right)^{\frac 12}.
+			\]
+		\item We can also define $ \ell_\infty=\{(x_k)\in\R^\N :\sup_{k\ge 1}|x_k|<\infty\} $ i.e. the space of bounded sequences. We can define define the $ \ell_\infty $ norm as
+			\[
+				||x||_{\ell_\infty}=||x||_\infty=\sup_{k\ge 1}|x_k|.
+			\]
+		\begin{remark}
+			More generally, let $ \ell_p=\{(x_k)\in\R^\N:\sum_{i=1}^\infty|x_i|^p\le \infty $. Then $ \ell_p $ is a subspace of $ \R^\N $, and the $ \ell_p $-norm is defined as
+				\[
+					||x||_p=\left(\sum_{i=1}^\infty |x_i|^p\right)^\frac1p.
+				\]
+			And again we can see that the $ \ell_\infty $ norm is the limit of the $ \ell_p $ norm as $ p\to \infty $.
+		\end{remark}
+	\end{enumerate}
+\item (The space of continuous functions in a bounded, closed interval) Define a vector space as
+	\[
+		V=C([a,b])=\{f:[a,b]\to\R:f\ \text{is continuous}\}.
+	\]
+	This forms a vector space under pointwise addition and scalar multiplication of functions.
+	\begin{enumerate}
+		\item The $ L^1 $-norm
+			\[
+				||f||_{L^1([a,b])}=||f||_{L^1}=||f||_1=\int_a^b|f(x)|\mathrm dx.
+		\]
+		\item The $ L^2 $-norm
+			\[
+				||f||_{L^2}=||f||_2=\left(\int_a^b|f(x)|^2\mathrm dx\right)^{\frac 12}.
+			\]
+		\item The $ L^\infty $-norm or the \textit{uniform norm}
+			\[
+				||f||_{L^\infty}=||f||_\infty=\sup_{x\in[a,b]}|f(x)|.
+			\]
+	\end{enumerate}
+	It is easy to check that these are norms, we just need to know the Cauchy-Schwarz theorem for integrals to prove the triangle inequality for $ L^2 $.
+	\[
+		\int_a^b|f\cdot g|\le \left(\int_a^b |f|^2\right)^{\frac 12}\left(\int_a^b |g|^2\right)^{\frac 12}.
+	\]
+	Which we can prove by considering,
+	\[
+	  \varphi(t)=\int_a^b(|f|-t|g|)^2\ge 0,
+	\]
+	which is a quadratic in $ t $, so using the fact that the discriminant is non-positive (with the $ g=0 $ case being trivial).
+\begin{remark}
+	By the previous proposition, all of these examples are naturally metric spaces. For example the \textit{Euclidean metric} is $ d_E(x,y)=||x-y||_2 $ on $ \R^n $ for $ x,y\in \R^n $ and the \textit{uniform metric} on $ C([a,b]) $, $ d(f,g)=||f-g||_\infty=\sup_{x\in[a,b]}|f(x)-g(x)| $.
+\end{remark}
+\begin{remark}
+	Integral norms such as $ L^1 $, are more naturally defined on the larger space of integrable functions, $ \mathcal R([a,b]) $ which is a vector space under pointwise addition and scalar multiplication, where we have that $ C([a,b])\subseteq \mathcal R([a,b]) $. However we have a problem since there are functions in $ \mathcal R([a,b]) $ which have norm of zero but aren't the zero function. But by a previous corollary of Lebesgue's theorem, we have that \[
+		\int_a^b|f|=0\implies f=0\ \text{almost everywhere on } [a,b].
+	\]
+	So we can turn $ \mathcal R([a,b]) $ into a normed space by defining an equivalence relation on the space by setting $ f\sim g $ if $ f=g $ almost everywhere. Then the space $ \mathcal R([a,b])/\sim $ is now a normed vector space. Everything is well-defined independent of equivalence class representatives by the corollary of Lebesgue's theorem.
+\end{remark}
+\item (Discrete metric) For any set $ X $ let
+	\[
+	  d(x,y)=\begin{cases}
+		  0 & x=y\\
+		  1 & x\ne y
+	  \end{cases}
+	\]
+\item (New metrices from given ones) Let $ (X,d) $ be a mretric space
+	\begin{enumerate}
+		\item Define $ g:X\times X\to \R $ by $ g(x,y)=\min\{1,d(x,y)\} $.
+		\item $ h:X\times X\to \R $ by $ h(x,y)=\frac{d(x,y)}{1+d(x,y)} $.
+		\item Take $ X=\R^2 $, then define
+			\[
+			  d(x,y)=\begin{cases}
+				  ||x-y||_2 & \text{if } x=ty\ \text{for some } t\in \R\\
+				  ||x||_2+||y||_2 & \text{otherwise}
+			  \end{cases}.
+			\]
+			This is the French railways metric or the SNCF metric.
+	\end{enumerate}
+\end{enumerate}
+\begin{definition}
+	(Metric subspaces) If $ (X,d) $ is a metric space, let $ Y\subseteq X $ be any subset. Then the restriction
+	\[
+		d\mid_{Y\times Y}:Y\times Y\to \R
+	\]
+	is a metric on $ Y $ called the \textit{induced metric} or the \textit{subset metric}.
+\end{definition}
+\subsection{Open and closed subsets}
+We will now look at the very important definitions of open and closed subsets in a metric space.
+\begin{definition}
+	(Open ball) Let $ (X,d) $ be a metric space. Then for any $ a\in X $ and any $ r>0 $. The \textit{open ball} with radius $ r $ and centre $ a $ is the set
+	\[
+		B_r(a)=\{x\in X:d(x,a)<r\}.
+	\]
+	This is our abstraction of $ \varepsilon $-neighbourhoods on $ \R $ for general metric spaces.
+\end{definition}
+\begin{definition}
+	(Open set) Let $ (X,d) $ be a metric space. Then a subset $ U\subseteq X $ is \textit{open} if for all $ a\in U $ there exists a radius $ r>0 $ such that $ B_r(a)\subseteq U $.
+\end{definition}
+\begin{definition}
+	(Closed set) Let $ (X,d) $ be a metric space. Then a subset $ E\subseteq X $ is \textit{closed} if $ X\setminus E $ is open.
+\end{definition}
+The property of being open or closed for a subset is relative to the containing ambient space. For example consider $ X=\R $ with the Euclidean metric. Then consider $ Y=[0,1)\cup \{2\} $ with the induced metric. We can see that $ [0,1) $ is neither open or closed in $ X $. Looking at $ Y $ however $ [0,1) $ is both open and closed in $ Y $.
+\begin{proposition}
+  Let $ (X,d) $ be a metric space. Then
+  \begin{enumerate}
+	  \item Any open ball $ B_r(a) $ is an open set;
+	  \item Any singleton $ \{x\} $, $ x\in X $ is closed.
+  \end{enumerate}
+\end{proposition}
+\pf Let $ y\in B_r(a) $, let $ r_1=r-d(y,a) $. Then $ r_1>0 $ since $ y\in B_r(a) $, so $ d(y,a)<r $. Take some $ z\in B_{r_1}(y) $. So
+\[
+  d(z,a)\le d(z,y)+d(y,a)<r_1+d(y,a)=r,
+\]
+hence $ z\in B_r(a) $, so $ B_{r_1}(y)\le B_r(a) $.\par
+For the second part, take a point $ z\in X\setminus \{x\} $, then $ r=d(x,z)>0 $. So $ x\notin B_r(z) $, therefore $ B_r(z)\subseteq X\setminus \{x\} $. Hence $ X\setminus \{x\} $ is open, so $ \{x\} $ is closed.\qed
+\begin{theorem}
+  Let $ (X,d) $ be a metric space. We have the following,
+  \begin{enumerate}
+	  \item The union of any (possibly uncountable) collection of open set is open.
+	  \item The intersection of any finite collection of open sets is open.
+	  \item The empty set, $ \emptyset $, and the whole set, $ X $, are both open.
+  \end{enumerate}
+\end{theorem}
+\pf \textit{Exericse.}\qed\par
+By taking complements of sets we get th
+By taking complements of sets we get the corresponding theorem.
+\begin{theorem}
+  Let $ (X,d) $ be a metric space. We have the following,
+  \begin{enumerate}
+	  \item The intersection of any (possibly uncountable) collection of closed sets is closed.
+	  \item The union of any finite collection of closed sets is closed.
+	  \item The empty set, $ \emptyset $, and the whole set, $ X $, are both closed.
+  \end{enumerate}
+\end{theorem}
+Note that the "finite" is important for part (ii) of both theorems. For example consider the metric space $ \R $ over the Euclidean metric, then
+\[
+	\bigcap_{n=1}^\infty\left(-\frac 1n,\frac 1n\right)=\{0\}
+\]
+which is not open. Similarly we have that
+\[
+	\bigcup_{n=1}^\infty \left(\R\setminus \left(-\frac1n,\frac 1n\right)\right)=\R\setminus \{0\}
+\]
+which is not closed.
+\begin{definition}
+	(Convergence of sequences in metric spaces) Let $ (X,d) $ be a metric space. A sequence $ (x_k) $ in $ X $ is said to converge to a point $ x\in X $ if $ d(x_k,x)\to 0 $ as $ k\to\infty $. So $ \forall \varepsilon>0 $, $ \exists N $ such that $ k>N\implies d(x_k,x)<\varepsilon \iff x_k\in B_\varepsilon(x) $.
+\end{definition}
+It's clear from the $ \varepsilon $ definition if $ x_k\to x$ we must have that $ x_{n_k}\to x $ for any subsequence $ x_{n_k} $. 
+\begin{proposition}
+	(Uniquness of the limits) Let $ (X,d) $ be a metric space, and $ (x_k) $ be a sequence in $ X $ with $ x_k\to x $ and $ x_k\to y $, then $ x=y $.
+\end{proposition}
+\pf We have that
+\[
+  d(x,y)\le d(x_k,y) + d(x_k,x)\to 0
+\]
+as $ k\to\infty $. Hence $ d(x,y)=0 $, so $ x=y $.\qed
+\begin{remark}
+  It is possible that the same sequence in $ X $ has different limits with respect to different metrices on $ X $. For example take $ X=\R $ and let $ f:\R\to\R $ with
+  \[
+    f(x)=\begin{cases}
+	    1 & x=0 \\
+	    0 & x = 1\\
+	    x & \text{otherwise}
+    \end{cases}.
+  \]
+Then if we take $ d_1(x,y)=|f(x)-f(y)| $. Then the sequence $ x_k=\frac 1k\to 0 $ in the Euclidean metric, but $ x_k\to 1 $ in the $ d_1 $ metric. This example seems a bit contrived, but this can happen with respect to two different norms (only if the normed space is infinite dimensional). This is because any two norms on a finite dimensional vector space are Lipschitz equivalent (more to come later).
+\end{remark}
+\begin{proposition}
+	(Convergence in $ \R^n $ with the $ \ell_2 $ norm) Convergence in $ \R^n $ with respect to the Euclidean norm is equivalent to the convergence of the coordinates (as real numbers). Formally, if $ x^{(k)}=\left(x^{(k)}_1,\dots, x^{(k)}_n\right) $ is a sequence in $ \R^n $ with $ k\in \N $, and $ x=(x_1,\dots, x_n)\in \R^n $, then
+	\[
+		x^{(k)}\to x\ \text{in}\ ||\cdot||_2\iff x^{(k)}_j\to x_j\ \forallj\in \{1,2,\dots, n\}.
+	\]
+\end{proposition}
+\pf Fix some $ \varepsilon >0 $ The there exists some $ N $ such that $ k\ge N\implies ||x^{(k)}-x||_2<\varepsilon $. So
+\[
+	\sum_{j=1}^n(x_j^{(k)}-x_k)^2<\varepsilon^2
+\]
+so $ \left|x_j^{(k)}-x_j|<\varepsilon $ for all $ j $ with $ k\ge N $.\par
+In the other direction, for any fixed $ j $, there is some $ N_j $ such that $ k\ge N_j $ implies that $ |x_k^{(k)}-x_j|<\frac \varepsilon{\sqrt n} $. So if $ k\ge\max\{N_j:j=1,\dots, n\} $, then
+\[
+	||x^{(k)}-x||_2=\left(\sum_{j=1}^n(x_j^{(k)}-x_j)^2\right)^\frac12<\varepsilon.
+\]
+So we're done.\qed
+\begin{remark}
+	The convergence in $ (C([a,b]), ||\cdot ||_\infty $ in just uniform convergence as we've seen earlier.
+\end{remark}
+\begin{definition}
+	(Bounded subset) Let $ (X,d) $ be a metric space. A subset $ E\subseteq X $ is \textit{bounded} if $ E\subseteq B_R(a) $ for some $ a\in X $ and some $ R>0 $.
+\end{definition}
+\begin{theorem}
+	(Bolzano-Weierstrass in $ \R^n $) Every bounded sequence in $ \R^n $ with respect to the Euclidean metric has a convergent subsequence.
+\end{theorem}
+\pf Proceed by induction on $ n $. We know the base case on $ \R $ holds by standard Bolzano-Weierstrass in IA Analaysis I. Let $ n\ge 2 $, and assume by induction that the theorem holds in $ \R^{n-1} $. Let $ (x^{(k)} $ be a bounded sequence in $ \R^n $, say $ ||x^{(k)}||^2_2\le R^2 $ for some $ R $ and all $ k $. Write $ x^{(k)}=(x_1^{(k)},\dots,x_{n-1}^{(k)},x_n^{(k)}) $ and let $ y^{(k)}=(x_1^{(k)},\dots, x_{n-1}^{(k)})\in \R^{n-1} $. So $ ||y^{(k)}||^2_2+|x_n^{(k)}|^2\le R^2 $. So $ y^{(k)} $ is a bounded sequence in $ \R^{n-1} $, hence by the induction hypothesis, there exists a subsequence $ (k_j) $ of $ (k) $ and a point $ y\in \R^{n-1} $ such that $ y^{(k_j)}\to y $. Also by Bolzano-Weierstrass in $ \R $, there is a further subsequence $ \left(x_n^{(k_{j_\ell})}\right) $ of $ (x_n^{k_j}) $ that converges to say $ y_n\in \R $. Then we know that
+\[
+	x^{(k_{j_\ell})}\to (y,y_n).
+\]
+Hence we're finished. \qed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
