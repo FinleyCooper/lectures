@@ -1255,6 +1255,161 @@ Let's do a sanity check for this result. For $ f\in V $ we should have
 	    &= \sum_{k=1}^\infty\left[\int_a^bf(\xi)Y_k(\xi)w(\xi)\mathrm d\xi\right]Y_k(x)\\
 	    &=\sum_{k=1}^\infty\hat f_kY_k(x),\quad \hat f_k=\langle f,Y_k\rangle_w
 \end{align*}
+\subsection{Green's Functions}
+We want to solve
+\[
+	(\dagger)\begin{cases}
+	  Ly=f(x) & a< x < b\\
+	  y(a) = 0\\
+	  y(b) = 0
+  \end{cases}.
+\]
+Where $ L=\alpha(x)\frac{\mathrm d^2}{\mathrm dx^2}+\beta(x)\frac{\mathrm d}{\mathrm dx}+\gamma(x) $, with $ \alpha(x)\ne 0 $ on $ (a,b) $.
+Fix $ \xi\in (a,b) $. Suppose we can find a function $ G=G(x,\xi) $ such that \[
+  \begin{cases}
+	  L_x[G(x,\xi)]=\delta(x-\xi) & a< x < b\\
+	  G(a,\xi ) = 0\\
+	  G(b,\xi ) = 0
+  \end{cases}.
+\]
+Consider
+\begin{align*}
+	y(x)=\int_a^b G(x,\xi)f(\xi)\mathrm d\xi.
+\end{align*}
+Clearly we have that $ y(a)=y(b)=0 $ and
+\begin{align*}
+	L_x[y(x)]&=\int_a^bL_x[G(x,\xi)]f(\xi)\mathrm d\xi\\
+		 &=\int_a^b\delta(x-\xi)f(\xi)\mathrm d\xi\\
+		 &=f(x).
+\end{align*}
+So $ y $ solves $ (\dagger) $. We call $ G $ the Green's function for $ L $ with Dirichlet boundary conditions.\par
+Let's look at some properties of $ G=G(x,\xi) $. Note on $ a<x<\xi $, $ \xi<x<b $, $ G $ satisfied $ L_x[G(x,\xi)]=0 $ which is a nice second order homogeneous ODE so we expect $ x\to G(x,\xi) $ to be well-behaved. In the neighbourhood of $ x=\xi $ the worst term on the LHS is
+\[
+	\alpha(x)\frac{\mathrm d^2 G}{\mathrm dx^2}
+\]
+and on the RHS the worst term is $ \delta(x-\xi) $. So we expect 
+\[
+	\alpha(x)\frac{\mathrm d}{\mathrm dx}\left[\frac{\mathrm d G}{\mathrm dx}\right]=\delta(x-\xi)+\text{(more regular terms)}
+\]
+What do we need for
+\[
+	\frac{\mathrm d}{\mathrm dx}\left[\cdots\right]\sim \delta(x-\xi)?
+\]
+Recall the sequence $ \{\delta_n\} $ were such that
+\[
+	\lim_{n\to \infty}\delta_n(x)=0\ x\ne 0,\quad \forall \varepsilon >0\ \lim_{n\to\infty}\int_{-\varepsilon}^\varepsilon \delta_n(x)\mathrm dx=1.
+\]
+So it's natural to look at
+\[
+	H_n(x)=\int_{-\infty}^x \delta_n(t)\mathrm dt,
+\]
+since $ H'_n(x)=\delta_n(x) $.\par
+If we fix $ x>0 $ then for $ n $ sufficiently large so $ \frac1n < x $, hence
+\[
+	H_n(x)=\int_{-\frac1n}^{-\frac1n}\delta_n(t)\mathrm dt=1
+\]
+Similarly if we have $ x<0 $ fixed, then for $ n $ sufficiently large we get that
+\[ H_n(x)=0. \]
+If we take
+\[
+	\lim_{n\to\infty} H_n(x)=H(x)=\begin{cases}
+		1 & x> 0\\
+		0 & x< 0
+	\end{cases}
+\]
+we get the Heaviside function. i.e. the unique function such that $ H'(x)=\delta(x) $ and $ H(x)=0 $ for $ x<0 $. We expect to need $ \frac{\mathrm dG}{\mathrm dx} $ to behave like $ H(x-\xi) $ near $ x=\xi $, i.e. we expect a jump discontinuity at $ x=\xi $. Since
+\begin{align*}
+	G(x,\xi)=\int_a^x\frac{\mathrm dG(t,\xi)}{\mathrm dt}\mathrm dt
+\end{align*}
+and
+\begin{align*}
+  \int_a^xH(t-\xi)\mathrm dt=\begin{cases}
+	  x-\xi & x\ge \xi \\
+	  0 & x < \xi
+  \end{cases}
+\end{align*}
+which is a continuious function. To conclude, expect
+\begin{itemize}
+	\item $ x\to G(x,\xi) $ to be continuous at $ x=\xi $;
+	\item $ x\to \frac{\mathrm dG(x,\xi)}{\mathrm dx} $ to have a jump disconuinuity at $ x=\xi $.
+\end{itemize}
+To fix the jump disconuinuity, integrate
+\begin{align*}
+	\frac{\mathrm d^2 G}{\mathrm dx^2}+\frac{\beta(x)}{\alpha(x)}\frac{\mathrm dG}{\mathrm dx}+\frac{\gamma(x)}{\alpha(x)}G=\frac{\delta(x-\xi)}{\alpha(x)}
+\end{align*}
+over $ (\xi-\varepsilon,\xi+\varepsilon $ with $ \varpesilon >0 $,
+\begin{align*}
+	\frac{\mathrm dG}{\mathrm dx}|_{x=\xi-\varepsilon}^{x=\xi+\varepsilon}+\int_{\xi-\varepsilon}^{\xi+\varepsilon}\left[\frac \beta\alpha\frac{\mathrm dG}{\mathrm dx}+\frac{\gamma}{\alpha}G\right]\mathrm dx=\int_{\xi-\varepsilon}^{\xi+\varepsilon}\frac{\delta(x-\xi)}{\alpha(x)}\mathrm dx=\frac1{\alpha(\xi)}.
+\end{align*}
+Taking $ \varepsilon\to 0 $ we get that
+\[
+	\left[\frac{\mathrm dG}{\mathrm dx}\right]_{x=\xi^-}^{x=\xi^+}=\frac1{\alpha(\xi)}.
+\]
+In summary, $ G $ satisfies
+\begin{enumerate}
+	\item $ G(\xi^+,\xi)=G(\xi^-,\xi) $;
+	\item $ \left[ \frac{\mathrm dG}{\mathrm dx}\right]_{x=\xi^-}^{x=\xi^+}=\frac1{\alpha(\xi)}$.
+\end{enumerate}
+Let's look at an example. Take,
+\[
+	L=\frac{\mathrm d^2}{\mathrm dx^2}+\omega^2,\quad (a,b)=(0,1).
+\]
+We want to solve
+\[
+  \begin{cases}
+	  \frac{\mathrm d^2G}{\mathrm dx^2}+\omega^2 G=\delta(x-\xi) & 0<x<1 \\
+	  G(0,\xi)=G(1,\xi)=0
+  \end{cases}.
+\]
+Solve the ODE on either side of $ x=\xi $.
+\[
+  G(x,\xi)=\begin{cases}
+	  A(\xi)\sin(\omega x)+B(\xi)\cos(\omega x), & 0<x< \xi \\
+	  C(\xi)\sin[\omega(x-1)]+D(\xi)\cos[\omega(x-1)] & \xi < x < 1
+  \end{cases}.
+\]
+By the boundary conditions, $ G(0,\xi)=G(1,\xi)=0 $, hence
+\[
+  \implies B(\xi)=0,\ D(\xi) = 0.
+\]
+From continuity at $ x=\xi $ we get that 
+\[
+	A(\xi)=C(\xi)\frac{\sin(\omega(\xi-1))}{\sin(\omega\xi)}.
+\]
+From jump of $ \frac{\mathrm dG}{\mathrm dx} $ at $ x=\xi $ we get that
+\[
+	\frac{C(\xi)}{\sin(\omega\xi)}\omega\left[\cos[\omega(\xi-1)]\sin(\omega\xi)-\cos(\omega \xi)\sin[\omega(\xi-1)\right]=1
+\]
+So the inside expression becomes $ \sin[\omega\xi-\omega(\xi-1]=\sin \omega $.
+Hence
+\[
+	C(\xi)=\frac{\sin(\omega\xi)}{\omega\sin(\omega)}
+\]
+and
+\[
+	A(\xi) = \frac{\sin(\omega(\xi-1))}{\omega\sin\omega}.
+\]
+Finially we get,
+\begin{align*}
+	G(x,\xi)&=\frac{1}{\omega\sin\omega}\times \begin{cases}
+		\sin(\omega x)\sin(\omega(\xi-1)) & 0< x < \xi \\
+		\sin(\omega\xi)\sin(\omega(x-1)) & \xi < x < 1
+	\end{cases}\\
+		&\equiv \text{const} \times \begin{cases}
+			y_1(x)y_2(\xi) & 0< x < \xi\\
+			y_1(\xi)y_1(x) & \xi < x < 1
+		\end{cases}
+\end{align*}
+Note that $ y_1,y_2 $ are L.I solutions to $ Ly=0 $ with $ y_1(0)=0 $ and $ y_2(1)=0 $.
+
+
+
+
+
+
+
+
+
 
 
 

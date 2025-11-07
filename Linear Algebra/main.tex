@@ -1255,17 +1255,103 @@ We denote the \textit{double dual} as $ V^{**}=(V^*)^* $. If $ V $ is finite dim
 							    &=(\mathcal E(v)+\lambda\mathcal E(w))(\theta)
 \end{align*}
 This is true for all $ \theta $ so $ \mathcal E(v+\lambda w)=\mathcal E(v)+\lambda \mathcal E(w) $.\par
-Now suppose that $ V $ is finite dimensional. Now we prove injectivity. Take $ \mathbf 0\ne v\in V $ with $ \mathcal E(v)=\mathbf 0 $. i.e. $ \forall \theta\in V^*,\ \mathcal E(v)(\theta)=0 $. Extend to a basis $ \{v_1=v,v_2,\dots, v_n\} $ for $ V $. Let $ B^* =\{ v_1^*,\dots, v_n^* $ be a dual basis. Set $ \theta=v_1^* $, then $ 0=\theta(v)=v_1^*(v_1)=1 $, which is a contradiction. Surjectivity follows from the linear pigeonhole principle.
+Now suppose that $ V $ is finite dimensional. Now we prove injectivity. Take $ \mathbf 0\ne v\in V $ with $ \mathcal E(v)=\mathbf 0 $. i.e. $ \forall \theta\in V^*,\ \mathcal E(v)(\theta)=0 $. Extend to a basis $ \{v_1=v,v_2,\dots, v_n\} $ for $ V $. Let $ B^* =\{ v_1^*,\dots, v_n^*\} $ be a dual basis. Set $ \theta=v_1^* $, then $ 0=\theta(v)=v_1^*(v_1)=1 $, which is a contradiction. Surjectivity follows from the linear pigeonhole principle.
 	\begin{definition}
 		We call $ \mathcal E:V\to V^{**} $ the \textit{evaluation map} or the \textit{natural isomorphism}.
 	\end{definition}
 	\begin{remark}
 	  For $ V $ finite dimensional we also have that $ V\cong V^* $, but any isomorphism requires a change of basis.
 	\end{remark}
-
-
-
-
+Note that if we let $ V,W $ be finite dimensional with basis $ B,C $ respectively, and let $ \alpha\in\mathcal L(V,W) $.
+\begin{align*}
+	\alpha^*(\theta)(v)&=\left([\alpha^*(\theta)]_{B^*}\right)^*\cdot[v]_B\\
+			   &=(A^T[\theta]_{C^*})^T\cdot[v]_B\quad \text{where } A=[\alpha]^B_C\\
+			   &= ([\theta]_{C*})^T(A[v]_B)\\
+			   &= ([\theta]_{C^*})^T[\alpha(v)]_C
+\end{align*}
+For the rest of the chapter we assume that $ V $ is a finite dimensional $ \F $-vector space
+\begin{proposition}
+  Every basis $ C $ for $ V^* $ is the dual basis to some basis of $ V $.
+\end{proposition}
+\pf Let $ C=\{\theta_1,\dots, \theta_n\} $ and let $ C^*=\{\theta_1^*,\dots, \theta_n^*\} \subseteq V^{**}$ be the dual basis. Let $ \mathcal E:V\to V^{**} $ be the natural isomorphism. Set $ v_i=\inv{\mathcal E}(\theta_i^*)\in V $. Then $ B=\{v_1,\dots, v_n\} $ is a basis of $ V $ since the image of the basis $ C^* $ is a basis under an isomorphism. Then for all $ i,j $
+\begin{align*}
+	\theta_i(v_j)=\mathcal E(v_j)(\theta_i)&=\theta_j^*(\theta_i)\\
+					       &=\delta_{ij}.
+\end{align*}
+Hence $ C $ is the dual basis to $ B $.\qed
+\begin{proposition}
+  For $ U\le V $,
+  \[
+	  \mathcal E(U)=(U^0)^0\le V^{**}
+  \]
+\end{proposition}
+\pf For $ u\in U $ and $ \theta\in U^0 $
+\begin{align*}
+	\mathcal E(u)(\theta) &= \theta(u)=0
+\end{align*}
+True for all such $ \theta $, hence $ \mathcal E(U)\le (U^0)^0 $. But $ \dim((U^0)^0)=\dim V^*-\dim U^0=\dim(V)-(\dim V-\dim U)=\dim(\mathcal E(U)) $ hence we have that $ \mathcal E(u)=(U^0)^0 $.\qed
+\begin{remark}
+	It is common to identify $ V $ with $ V^{**} $ under $ \mathcal E $. Under this identification for $ U\le V $, $ U=U^{00} $.\\
+	For $ X\subset V^* $, $ X^0\le V^{**} $ is identified with 
+	\[
+		X_0=\{v\in V:\theta(v)=0\ \forall \theta\in X\}=\bigcap_{\theta\in X}\ker\theta\le V
+	\]
+	Then $ \dim(X_0)=n-\dim(\langle X\rangle) $ and every $ U\le V $ is $ X_0 $ for some $ X\le V^* $, namely $ X=U^0 $.
+\end{remark}
+\section{Bilinear forms}
+\subsection{Polynomials}
+Let $ \F $ be a field.
+\begin{definition}
+	(Polynomial) A \textit{polynomial} $ f $ over $ \F $ is a formal expression:
+	\[
+		f(t)=\sum_{i=0}^na_it^i\quad n\in \Z_{\ge 0},\ a_i\in \F
+	\]
+\end{definition}
+Then we say that $ \F[t] $ is the $ \F $ vector space of all polynomials, with a basis $ \{1,t,t^2,\dots\} $.
+\begin{definition}
+	(Degree) The \textit{degree} of $ f $, written, $ \deg f $ is the largest $ i $ such that $ a_i\ne 0 $. We also say that $ \deg 0 = -\infty $.
+\end{definition}
+We say that $ a_i $ is the \textit{leading coefficent} of the polynomial and if $ a_i=1 $, we say that the polynomial is monic.\par
+We can perform addition and multiplication of polynomials in the usual sense. We have a multiplicative and additive identity ($ 1 $ and $ 0 $ respectively) and additive inverses. We can also distribute over these operations, which means that $ \F[t] $ forms a \textit{ring} (See IB Groups, Rings and Modules).\par
+Note that $ \deg(f+g)\le \max(\deg(f),\deg(g)) $ and $ \deg(fg)=\deg f + \deg g $. We can write $ f\mid g $ if $ \exists h\in \F[t] $ such that $ g=fh $.\par
+For $ \lambda\in \F $ write $ f(\lambda)=\sum_{i=0}^na_i\lambda^i \in \F $. We can see that evaluation resepctives addition and multiplication. We distinguish between $ \F[t] $ and the space of polynomial maps $ \F\to \F $ since if $ \F $ is finite, then $ \F[t] $ is not finite dimensional, but the space of polynomial maps is a subspace of $ \F^\F $ which is a finite dimensional vector space, so they're not even isomorphic spaces. For example if we're in the field $ \F^4 $ we can construct the polynomial
+\[
+	t(t-1)(t-2)(t-3)\in \F[t]
+\]
+which is not zero in $ \F[t] $, but when viewed as a function from $ \F^4\to\F^4 $, induces the zero map.
+\begin{proposition}                                                                  (Euclidean algorithm for polynomials in $ X $) Let $ K $ be a field and $ f,g\in K[X] $. Then there exists polynomials $ r,q\in K[X] $ such that $ f=gq+r $ with $ \mathrm{deg}(r)<\mathrm{deg}(g) $.                          \end{proposition}
+\textit{(From IB Groups, Rings and Modules)}\par
+\pf Let $ n $ be the degree of $ f $. So $ f=\sum_{i=0}^na_iX^i $ with $ a_i\in K,a_n\ne 0 $. Similarly $ g=\sum_{i=0}^mb_iX^i $ with $ b_i\in K $ and $ b_m\ne 0 $.\par                                                               If $ n< m $ set $ q=0 $ and $ r=f $ so we're finished.\par                   If instead $ n\ge m $, proceed by induction on the degree. Let $ f_1=f-a_n\inv b_mX^{n-m}g $. Observe that $ \mathrm{deg}(f_1)<n $. If $ n=m $ then $ \mathrm{deg}(f_1)<n=m $. So write $ f=(a_{\inv b_m}X^{n-m})g+f_1 $, so we're done. Otherwise if $ n>m $, then because $ \mathrm{deg}(f_1)<n $, by induction we can write $ f_1=gq_1+r_1 $ where $ \mathrm{deg}(r_1)<\mathrm{deg}(g)=m $. Then $ f=(a_n\inv b_m)X^{n-m}g+q_1g+r_1=(a_n\inv b_mX^{n-m}+q_1)g+r_1 $\qed
+\begin{corollary}
+	(Bezout's Lemma) If $ f_1,\dots, f_n\in \F[t] $ have no common divisor of degree $ \ge $ 1 (i.e the $ \gcd $ is a unit) then $ \exists g_1,\dots, g_n\in \F[t] $ such that
+	\[
+		\sum_{i=1}^nf_ig_i=1\quad\in \F[t].
+	\]
+\end{corollary}
+\pf Same as in $ \Z $.
+\begin{lemma}
+  For $ \lambda\in \F $,
+  \[
+    f(\lambda)=0\iff (t-\lambda)\mid f(t).
+  \]
+\end{lemma}
+\pf Apply the Euclidian algorithm to $ f(t) $ and $ g(t)=t-\lambda $.
+\begin{definition}
+	(Root) $ \lambda\in \F $ is a \textit{root} of $ f\in \F[t] $ of \textit{multiplicity} greater than $ e $ if
+	\[
+		(t-\lambda)^e\mid f(t).
+	\]
+\end{definition}
+\begin{corollary}
+  If $ \deg f = n\ge 0 $, then $ f $ has at most $ n $ roots counted with multiplicity.
+\end{corollary}
+\begin{corollary}
+  If $ \deg f,\deg g < n $, and there exists $ \lambda_1,\dots, \lambda_n\in \F $ distinct such that $ f(\lambda_i)=g(\lambda_i) $ for $ 1\le i\le n $, then $ f=g $.
+\end{corollary}
+\begin{theorem}
+	(Fundamental Theorem of Algebra) Every $ f\in \C[t] $ of $ \deg f\ge 1 $ has exactly $ n $ roots counting multiplicity. i.e. $ f $ is a product of polynomials of degree $ 1 $.
+\end{theorem}
+\pf IB Complex Analysis
 
 
 

@@ -517,7 +517,7 @@ This ring is quite weird. For example if we take $ X\in \C[X]/(X^2) $. Then $ 0\
 \end{proposition}
 \pf Let $ n $ be the degree of $ f $. So $ f=\sum_{i=0}^na_iX^i $ with $ a_i\in K,a_n\ne 0 $. Similarly $ g=\sum_{i=0}^mb_iX^i $ with $ b_i\in K $ and $ b_m\ne 0 $.\par
 If $ n< m $ set $ q=0 $ and $ r=f $ so we're finished.\par
-If instead $ n\ge m $, proceed by induction on the degree. Let $ f_1=f-a_n\inv b_mX^{n-m}g $. Observe that $ \mathrm{deg}(f_1)<n $. If $ n=m $ then $ \mathrm{deg}(f_1)<n=m $. So write $ f=(a_{\inv b_m}X^{n-m})g+f_1 $, so we're done. Otherwise if $ n>m $, then because $ \mathrm{deg}(f_1)<n $, by induction we cab wrute write $ f_1=gq_1+r_1 $ where $ \mathrm{deg}(r_1)<\mathrm{deg}(g)=m $. Then $ f=(a_n\inv b_m)X^{n-m}g+q_1g+r_1=(a_n\inv b_mX^{n-m}+q_1)g+r_1 $\qed
+If instead $ n\ge m $, proceed by induction on the degree. Let $ f_1=f-a_n\inv b_mX^{n-m}g $. Observe that $ \mathrm{deg}(f_1)<n $. If $ n=m $ then $ \mathrm{deg}(f_1)<n=m $. So write $ f=(a_{\inv b_m}X^{n-m})g+f_1 $, so we're done. Otherwise if $ n>m $, then because $ \mathrm{deg}(f_1)<n $, by induction we can write $ f_1=gq_1+r_1 $ where $ \mathrm{deg}(r_1)<\mathrm{deg}(g)=m $. Then $ f=(a_n\inv b_m)X^{n-m}g+q_1g+r_1=(a_n\inv b_mX^{n-m}+q_1)g+r_1 $\qed
 
 \begin{corollary}
 	If $ K $ is a field then $ K[X] $ every ideal is principle.
