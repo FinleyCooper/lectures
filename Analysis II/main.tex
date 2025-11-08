@@ -764,32 +764,104 @@ So we're done.\qed
 \[
 	x^{(k_{j_\ell})}\to (y,y_n).
 \]
-Hence we're finished. \qed
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Hence we're finished. \qed\par
+Let's show an example where Bolzano-Weierstrass doesn't hold in the infinite dimensional case. Let's look at the the metric space $ (\ell^\infty, ||\cdot ||_\infty). $ If we let $ e_j^{(k)}=\delta_{jk} $ be the sequence with a $ 1 $ in the $ k $th component and $ 0 $ all other components which is clearly bounded. We know that $ e_k^{(k)}\to 0 $ for all fixed $ j $, and hence $ e^{(k)} $ converges componentwise to the zero sequence. However $ e^{(k)} $ does not converge to the zero element since $ ||e^{(k)}-0||_\infty =1 $ for all $ k $. Hence this also doesn't have a convergent subsequence for the same reason.
+\begin{remark}
+  In fact for normed spaces $ (V,||\cdot ||) $, the Bolzano-Weierstrass property (every bounded sequence has a convergent subsequence) is equivalent to the space being finite dimensional.
+\end{remark}
+\begin{definition}
+	(Limit point) If $ (X,d) $ is a metric space and we have a subset $ E\subseteq X $ and a point $ x\in X $, then say that $ x $ is a \textit{limit point} of $ E $ if there is a sequence $ (x_k)\in E $ with $ x_k\ne x $ for all $ k $ and $ x_k\to x $.
+\end{definition}
+\begin{definition}
+	(Isolated point) If $ (X,d) $ is a metric space and we have a subset $ E\subseteq X $ then $ x\in E $ is a \textit{isolated point} of $ E $ if $ x\in E $ and $ x $ is not a limit point of $ E $. Equivalently there exists a $ r>0 $ such that $ E\cap B_r(x)=\{x\} $.
+\end{definition}
+\begin{definition}
+	(Closure) If $ (X,d) $ is a metric space and we have a subset $ E\subseteq X $ then the \textit{closure} of $ E $ denoted as $ \bar E $ is the union of $ E $ and all of its limit points. (i.e. it's all the points which are the limit of some sequence in $ E $.)
+\end{definition}
+\begin{definition}
+	(Interior point) If $ (X,d) $ is a metric space and we have a subset $ E\subseteq X $ then $ x\in X $ is a \textit{interior point} if there exists a $ r>0 $ such that
+	\[
+	  B_r(x)\subseteq E.
+	\]
+\end{definition}
+\begin{definition}
+(Interior) If $ (X,d) $ is a metric space and we have a subset $ E\subseteq X $ then the \textit{interior} of $ E $ denoted as $ \mathring E $ is the set of interior points of $ E $.
+\end{definition}
+Let's look at an example. Take $ \R $ with the Euclidean metric and take the set $ E=[0,1)\cup \{2\} $. We can see that the limit points are $ [0,1] $, the closure is $ \{1\} $, the interior points are $ (0,1) $, the isolated points are $ \{2\} $.\par
+What about $ E=\Q $? Then there are no isolated points, the closure is $ \R $, there are no interior points, and the limit points are $ \R $.
+\begin{proposition}
+  Let $ (X,d) $ be a metric space. For any $ E\subseteq X $, the $ \bar E $ is a closed set and in fact
+  \[
+	  \bar E=\bigcap_{\substack{E\subseteq F\\ F \text{closed}}}F
+  \]
+\end{proposition}
+\pf Example Sheet 2 \qed
+\begin{remark}
+ What this is really saying is that the closure $ \mathring E $ is the smallest set (by inclusion) which is closed and contains $ E $.
+\end{remark}
+\begin{proposition}
+  Let $ (X,d) $ be a metric space and let $ E\subseteq X $. Then the following statements are equivalent,
+  \begin{enumerate}
+	  \item If $ (x_k) $ is a sequence in $ E $ with $ (x_k)\to x \in X $, then $ x\in E $;
+	  \item $ E=\bar E $;
+	  \item $ E $ is closed in $ X $.
+  \end{enumerate}
+\end{proposition}
+\pf Follows directly from the definitions.\qed
+\subsection{Cauchy sequences and completeness}
+\begin{definition}
+	(Cauchy sequence) Let $ (X,d) $ be a metric space. A sequence $ (x_n) $ in $ X $ is a \textit{Cauchy sequence} if
+	\[
+		(\forall\varepsilon)(\exists N)(\forall n,m\ge N)\ d(x_n,x_m)<\varepsilon.
+	\]
+\end{definition}
+\begin{proposition}
+  Let $ (X,d) $ be a metric space. Then we have the following,
+  \begin{enumerate}
+	  \item Any convergent sequence is Cauchy;
+	  \item Any Cauchy sequence is bounded;
+	  \item If $ (x_k) $ is a Cauchy sequence that has a convergent subsequence, converging to $ x\in X $, then the whole sequence convergence to $ x $.
+  \end{enumerate}
+\end{proposition}
+\pf 
+\begin{enumerate}
+	\item If $ x_k\to x $, then we have that
+		\[
+		  d(x_m,x_n)\le d(x_m,x)+d(x_n,x)\to 0
+		\]
+		if $ m,n\to \infty $. Hence $ (x_k) $ is Cauchy.
+	\item If $ (x_k) $ is Cauchy, then there is some $ N $ such that for all $ n,m\ge N $ we have that
+		\[
+		  d(x_n,x_m)<1
+		\]
+		So if we take $ r=\max\{1, d(x_1,x_n), d(x_2,x_n), \dots, d(x_{n-1},x_n)\} $, then the sequence is contained in the ball centred at $ x_n $ with radius $ r+1 $.
+	\item Suppose we have a sequence $ x_{k_n}\to x $. We have that $ (x_k) $ is Cauchy, so given some $ \varepsilon>0 $ we can choose $ N $ with $ d(x_n,x_m)<\varepsilon $ for all $ n,m\ge N $. We can also choose $ n_0 $ such that $ k_{n_0}\ge n $ and $ d(x_{k_{n_0}},x)<\varepsilon $. Hence for any $ n\ge N $ we have that
+		\[
+			d(x_n,x)\le d(x_n,x_{k_{n_0}})+d(x,x_{k_{n_0}})<2\eps.\qed
+		\]
+\end{enumerate}
+\begin{definition}
+	(Complete metric space) Let $ (X,d) $ be a metric space. We say that $ X $ is a \textit{complete metric space} if every Cauchy sequence in $ X $ converges to some element in $ X $.
+\end{definition}
+\begin{definition}
+	(Complete normed space)	A normed space $ (V,||\cdot ||) $ is \textit{complete} if $ V $ with the metric defined by $ ||\cdot || $ is complete.
+\end{definition}
+\begin{theorem}
+  $ (\R^n, ||\cdot||_2) $ is complete.
+\end{theorem}
+\pf If $ (x^{(k)}) $ is a Cauchy sequence in $ \R^n $ then by directly applying the definition, each coordinate is itself a Cauchy sequence of real numbers. Hence by the completeness of $ \R $ (IA Analysis I), we know that $ (x_^{(k)}) $ converges componentwise some $ L\in \R^n $, hence since we have componentwise convergence, we also have convegence in the Euclidean norm. Hence $ (x^{(k)}) $ converges to $ \R^n $, so the metric space $ \R^n $ with the Euclidean metric is complete.\qed
+\begin{theorem}
+  Any finite dimensional normed space is complete.
+\end{theorem}
+\pf Follows from the previous theorem and the equivalence of norms.
+\begin{theorem}
+	The metric space $ (C[a,b],||\cdot ||_\infty) $ is complete.
+\end{theorem}
+We've proved that uniformly Cauchy implies uniform convergence. Since the uniform limit of continuous functions are continuous we have that all Cauchy sequences converge in $ C[a,b] $.\qed
+\begin{theorem}
+  The metric spaces $ (\ell_1, ||\cdot ||_1) $, $ (\ell_2, ||\cdot ||_2) $, and $ (\ell_\infty ||\cdot ||_\infty) $ are complete.
+\end{theorem}
+\pf We'll just prove the $ (\ell_\infty, ||\cdot ||_\infty) $ case. The rest is in Example Sheet 2.\par
 
 
 
