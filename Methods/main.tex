@@ -1401,8 +1401,165 @@ Finially we get,
 		\end{cases}
 \end{align*}
 Note that $ y_1,y_2 $ are L.I solutions to $ Ly=0 $ with $ y_1(0)=0 $ and $ y_2(1)=0 $.
-
-
+\subsection{A General Result}
+We want to solve
+\[
+	(\dagger)\begin{cases}
+	  Ly=f(x) & a< x < b\\
+	  y(a)=y(b)=0
+  \end{cases}
+\]
+where $ L=\alpha(x)\frac{\mathrm d^2}{\mathrm dx^2}+\beta(x)\frac{\mathrm d}{(\mathrm dx}+\gamma(x) $.
+\begin{proposition}
+  Let $ y_1,y_2 $ be solutions to $ Ly=0 $ with $ y_1(a)=0 $ and $ y_2(b)=0 $ linearly independent. Then,
+  \[
+	  G(x,\xi)=\frac1{\alpha(xi)W(y_1,y_2)(\xi)}\times \begin{cases}
+		    y_1(x)y_2(\xi) & a <x <\xi\\
+		    y_1(\xi)y_2(x) & \xi< x < b
+    \end{cases}
+  \]
+satisfies 
+\[
+	L_x[G(x,\xi)]=\delta(x-\xi),\quad G(a,\xi)=G(b,\xi)=0.
+\]
+\end{proposition}
+\pf We have that
+\begin{align*}
+	L_x[G(x,\xi)]=0
+\end{align*}
+for $ x\ne \xi $. Clearly $ G(\xi^+,\xi)=G(\xi^-,\xi) $ and
+\begin{align*}
+	\frac{\mathrm dG}{\mathrm dx}|^{x=\xi^+}-\frac{\mathrm dG}{\mathrm dx}|^{x=\xi^-}&=\frac1{\alpha(\xi)W(y_1,y_2)(\xi)}\left[y_1(\xi)y_2'(\xi)-y_1'(\xi)y_2(\xi)\right]\\
+											 &=\frac1{\alpha(\xi)}.
+\end{align*}
+So $ G(x,\xi) $ has all desired properties for the Dirichlet Green's function.\qed\par
+So the solution to $ (\dagger) $ is
+\begin{align*}
+	y(x)&=\int_a^b G(x,\xi)f(\xi)\mathrm d\xi\\
+	    &=\left[\int_a^x+\int_x^b\right]G(x,\xi)\mathrm d\xi\\
+	    &=y_2(x)\int_a^x\frac{y_1(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\athrm d\xi+y_1(x)\int_a^b\frac{y_2(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\mathrm d\xi
+\end{align*}
+\begin{remark}
+  Take care with the definition of $ G(x,\xi) $ on $ x>\xi $, $ x<\xi $.
+\end{remark}
+Take the example
+\[
+	L=\frac{\mathrm d^2}{\mathrm dx^2}+\omega^2,\quad (a,b)=(0,1).
+\]
+Use $ y_1(x)=\sin(\omega x) $ and $ y_2=\sin(\omega(x-1)) $, and $ \alpha(\xi)=1 $. We can compute
+\begin{align*}
+	W(y_1,y_2)(\xi)&=\omega\sin(\omega\xi)\cos(\omega(\xi-1))-\omega\cos(\omega \xi)\sin(\omega(\xi-1))\\
+		       &= \omega\sin(\omega \xi-\omega(\xi-1))\\
+		       &=\omega\sin(\omega).
+\end{align*}
+which gives
+\[
+	G(x,\xi)=\frac1{\omega\sin\omega}\times\begin{cases}
+		\sin(\omega x)\sin(\omega(\xi-1)) & 0< x < \xi \\
+		\sin(\omega\xi)\sin(\omega(x-1)) & \xi < x < 1
+	\end{cases}
+\]
+same as before.
+\subsection{Green's functions for Sturm-Liouville operators}
+Suppose $ L $ has form
+\[
+	L=\frac1{w(x)}\left[-\frac{\mathrm d}{\mathrm dx}\left(p(x)\frac{\mathrm d}{\mathrm dx}\right)+q(x)\right].
+\]
+Since we're interested in solutions to $ Ly=f $, we can take $ w=1 $ \textit{wlog.} (by just changing $ f $ to $ wf $). Note for Sturm-Liouville operators we have that $ \alpha(x)\equiv -p(x) $.
+\begin{proposition}
+  If $ L $ is a Sturm-Lioville operator and $ y_1,y_2 $ satisfy $ Ly_1=Ly_2=0 $, then
+  \[
+	  p(x)W(y_1,y_2)(x)
+  \]
+  is constant.
+\end{proposition}
+\pf We have that
+\begin{align*}
+	y_2Ly_1-y_1Ly_2 &= y_2(-(py_1')'+qy_1)-y_1(-(py_2')'+qy_2)\\
+			&= y_1(py_2')'-y_2(py_1')'\\
+			&= (p(x)[y_1y_2'-y_1'y_2])'
+\end{align*}
+So if $ Ly_1=Ly_2=0 $ we get that $ p(x)=W(y_1,y_2)(x) $ is constant.\qed\par
+So for $ L $, a Sturm Liouville operator, we get that 
+\[
+	G(x,\xi)=\text{const.} \times \begin{cases}
+		y_1(x)y_2(\xi) & a<x<\xi \\
+		y_1(\xi)y_2(x) & \xi< x < b
+	\end{cases}.
+\]
+And the solution to $ Ly=f $ with $ y(a)=y(b)=0 $ is
+\begin{align*}
+	y(x)=\left[-\frac{1}{p(c)W(y_1,y_2)(c)}\right]\times\left[y_2(x)\int_a^x y_1(\xi)f(\xi)\mathrm d\xi+y_1(x)\int_x^by_2(\xi)f(\xi)\mathrm d\xi\right]
+\end{align*}
+where $ c\in (a,b) $ is constant.
+\subsection{Eigenfunction Expansions Revisited}
+Recall that if $ L $ is a Sturm-Liouville operator on
+$ V=\{y\in C^2([a,b]): y(a)=y(b)=0\} $,
+then there exists \textit{normalised} eigenfunctions $ \{Y_k\}_{k=1}^\infty $ such that $ LY_k=\lambda_kY_k $ and $ \langle Y_k,Y_\ell\rangle =\delta_{k\ell} $. And for any $ f\in V $ with have that
+\[
+	f(x)=\sum_{k=1}^\infty \hat f_k Y_k(x), \quad \hat f_k=\langle f,  Y_k\rangle=\int_a^b f(x)Y_k(x)\mathrm dx.\tag{$ \star $}
+\]
+Note that we have that $ G(a,\xi)=G(b,\xi)=0 $, but $ G(x,\xi)\notin V $ since it has a jump discontinuity so it's not twice continuously differentiable. Instead, consder the sequence $ \{G_n(x,\xi)\}_{n=1}^\infty $ such that
+\begin{align*}
+	L_x[G_n(x,\xi)]=\delta_n(x-\xi)\\
+	G_n(a,\xi)= G_n(b,\xi)=0.
+\end{align*}
+Note that each $ G_n(\cdot, \xi)\xi V $ for any $ \xi\in (a,b) $ so $ \star $ holds for each $ G_n(x,\xi) $ with $ f(x)\equiv G_n(x,\xi) $. Then take the limit to get that
+\[
+	G(x,\xi)=\sum_{k=1}^\infty \hat G_k(x)Y_k(x).
+\]
+Instead pretend that $ G(x,\xi)\in V $.
+\begin{proposition}
+	If $ \{Y_k\} $ are as above then the Dirichlet Green's function for the Sturm Liouville operator $ L $ satisfies,
+	\[
+		G(x,\xi)=\sum_{k=1}^\infty \frac{Y_k(x)Y_K(\xi)}{\lambda_k}
+	\]
+	where $ LY_k=\lambda_k Y_k $.
+\end{proposition}
+By completeness of $ V $ we know that
+\[
+	G(x,\xi)=\sum_{k=1}^\infty \hat G_k(\xi)Y_k(x)
+\]
+with
+\begin{align*}
+	\hat G_k(\xi)&=\langle G(\cdot ,\xi),Y_k\rangle\\
+		     &= \frac 1{\lambda_k}\langle G(\cdot, \xi),LY_k\rangle\\
+		     &=\frac1{\lambda_k}\langle LG(\cdot, \xi), Y_k\rangle \quad\text{since}\ L\ \text{is self-adjoint}\\
+		     &= \frac1{\lambda_k}\langle\delta(\cdot-\xi),Y_k\rangle\\
+		     &=\frac1{\lambda_k}\int_a^b\delta(x-a)Y_k(x)\mathrm dx\\
+		     &=\frac{Y_k(\xi)}{\lambda_k}.
+\end{align*}
+i.e. we have that
+\[
+	G(x,\xi)=\sum_{k=1}^\infty \frac{Y_k(x)Y_k(\xi)}{\lambda_k}\qed
+\]
+\begin{remark}
+  If we have $ \lambda_k=0 $ for some $ k $, suppose $ \tilde y\in V $ with $ L\tilde y=0 $. We will have $ y=(\inv Ly)(x) $ so if $ y\in V $ satisfies $ Ly=f $ so does $ L(y+\tilde y)=f $ so $ L $ is not invertiable, hence we can't find a Green's function.
+\end{remark}
+Let's look an example now. Take $ L=-\frac{\mathrm d^2}{\mathrm dx^2} $ with $ (a,b)=(0,1) $. So $ V=\{y\in C^2([0,1]): y(0)=y(1)=0\} $. We have that
+\[
+  Y_k(x)=\sqrt 2\sin(k\pi x),\quad \lambda_k=(k\pi)^2.
+\]
+So
+\begin{align*}
+	G(x,\xi)=\sum_{k=1}^\infty \frac{2\sin(k\pi x)\sin(k\pi \xi)}{(k\pi)^2}
+\end{align*}
+and we can check all properties.\par
+We have
+\[
+	G(x,\xi)=\sum_{k=1}^\infty \frac{Y_k(x)Y_k(\xi)}{\lambda_k}
+\]
+and we apply $ L $ to both sides, we get that
+\begin{align*}
+	\delta(x-\xi)&=L[G(x,\xi)]\\
+		     &=\sum_{k=1}^\infty \frac{Y_k(\xi)L_x[Y_k(x)]}{\lambda_k}\\
+		     &= \sum_{k=1}^\infty Y_k(\xi)Y_k(x)\\
+\end{align*}
+so
+\[
+	\delta(x-\xi)=\sum_{k=1}^\infty Y_k(x)Y_k(\xi).
+\]
+This is a similar form to the Kronecker delta expansion as the outer product of two vectors.
 
 
 

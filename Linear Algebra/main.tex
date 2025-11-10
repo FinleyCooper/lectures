@@ -1353,6 +1353,182 @@ which is not zero in $ \F[t] $, but when viewed as a function from $ \F^4\to\F^4
 \end{theorem}
 \pf IB Complex Analysis
 
+\section{Eigenspaces}
+\begin{definition}
+	(Diagonalisable) Let $ V $ be a finite dimensional vector space, and $ \alpha\in\mathcal L(V,V) $. Then $ \alpha $ is \textit{diagonalisable} if there exists a basis $ B $ of $ V $ such that $ [\alpha]^B_B $ is a diagonal matrix.
+\end{definition}
+\begin{definition}
+	(Triangularisable) Let $ V $ be a finite dimensional vector space, and $ \alpha\in\mathcal L(V,V) $. Then $ \alpha $ is \textit{triangularisable} if there exists a basis $ B $ of $ V $ such that $ [\alpha]^B_B $ is an upper-triangular matrix.
+\end{definition}
+A matrix $ A\in M_{n\times n}(\F) $ is diagonalisable or triangularisable if $ A $ is similar to a diagonal or upper triangular matrix respectively.
+\begin{remark}
+	By change of basis, $ \alpha $ is diagonalisable or triangularisable if and only if for any basis $ B $ of $ V $, $ [\alpha]^B_B $ is a diagonalisable or respectively triangularisable matrix.
+\end{remark}
+\begin{enumerate}
+	\item A triangularisable matrix has a very easy to compute determinate; we can just take the product of the entries in the leading diagonal.
+	\item A diagonalisable matrix makes it easier to understand its similarity class.
+\end{enumerate}
+\begin{remark}
+	If $ B=\{v_1,v_2,\dots, v_n\} $ is such that
+	\[
+		[\alpha]_B^B=\begin{pmatrix}
+			\lambda_1 & & \\
+				  & \ddots & \\
+				  & & \lambda_n
+		\end{pmatrix}
+	\]
+	then $ \alpha(v_i)=\lambda_iv_i $ for all $ 1\le i\le n $.
+\end{remark}
+\begin{definition}
+	(Eigenvalues, Eigenvectors, and Eigensapces) Let $ V $ be a $ \F $-vector space and $ \alpha\in\mathcal L(v,v) $. An element $ \lambda\in \F $ is an \textit{eigenvalue} of $ \alpha $ if there exists some $ v\in\V $ non-zero such that $ \alpha(v)=\lambda v $. Such a vector is a $ \lambda $-\textit{eigenvector} of $ \alpha $.
+	\[
+		V_\lambda=\{v\in V:\alpha(v)=\lambda (v)\}
+	\]
+	is the $ \lambda $-\textit{eigenspace} of $ \alpha $.
+\end{definition}
+\begin{remark}
+	We can make some remarks from this definition.
+  \begin{enumerate}
+	  \item $ V_\lambda=\ker(\alpha-v\id_V)\le V $;
+	  \item For $ V $ finite dimensional, $ \alpha $ is diagonalisable if and only if $ V $ has a basis of eigenvectors of $ \alpha $.
+	  \item If $ v\in V_\mu $ for some $ \lambda\ne\mu $,
+		  \[
+			  (\alpha-\lambda\id_V)(v)=(\mu-\lambda)(v).
+		  \]
+		  Thus $ (\alpha-\lambda\id_V) $ preserves $ V_\mu $ and $ (\alpha-\lambda\id_V)|_{V\mu} $ is invertiable with inverse $ v\to \inv{(\mu-\lambda)}v $.
+  \end{enumerate}
+\end{remark}
+\begin{lemma}
+	If $ \lambda_1,\dots, \lambda_k\in\F $ are distinct and $ \mathbf 0 \ne v_i\in V_{\lambda_i} $ then $ \{v_1,\dots, v_k\} $ is linearly independent.
+\end{lemma}
+\pf Suppose that $ \{v_1,\dots, v_k\} $ is linearly dependent. Let
+\[
+	\sum_{i=0}^k\mu_iv_i=\mathbf 0\quad\text{in } V
+\]
+and \textit{wlog} we have that $ \mu_1\ne 0 $. Let
+\[
+	\beta=\prod_{i=2}^k(\alpha-\mu_i\id_V).
+\]
+Then by remark (iii) we have that
+\[
+	\beta(v_j)=\left(\prod_{i=2}^k(\lambda_j-\lambda_i)\right)\cdot v_j\ne \mathbf 0
+\]
+if and only if $ j=1 $. Thus,
+\[
+	\mathbf 0 = \beta\left(\sum_{i=1}^n\mu_iv_i\right)=\left(\mu_1\prod_{i=2}^k(\lambda_1-\lambda_i)\right)v_1
+\]
+so $ \mu_1=0 $, which is a contradiction.\qed
+\begin{corollary}
+  If $ V $ is a finite dimensional vector space, then every $ \alpha\in\mathcal L(V,V) $ has only finitely many eigenvalues.
+\end{corollary}
+\begin{proposition}
+  Let $ V $ be a finite dimensional $ \F $-vector space, and let $ \alpha\in\mathcal L(V,V) $. Let $ \lambda_1,\dots, \lambda_k\in\F $ be all the eigenvalues of $ \alpha $. Then,
+  \begin{enumerate}
+	  \item $ \langle V_{\lambda_1}\cup \cdots \cup V_{\lambda_k}\rangle= V_{\lambda_1}\oplus \cdots \oplus V_{\lambda_k} $;
+	  \item $ \alpha $ is diagonalisable if and only if $ V=V_{\lambda_1}\oplus \cdots \oplus V_{\lambda_k} $.
+  \end{enumerate}
+\end{proposition}
+\pf 
+\begin{enumerate}
+	\item If not, then $ \exists v_j\in V_{\lambda_j} $ not all zero such that
+		\[
+		  \sum_jv_j=\mathbf 0
+		\]
+		which is a contradiction from the lemma.
+	\item Suppose that $ \alpha $ is diagonalisable. By the remark $ V $ has a basis of eigenvectors, so the $ V_{\lambda_i} $ spans $ V $. Conversely, suppose that $ V=V_{\lambda_1}\oplus \cdots \oplus V_{\lambda_k} $. Let $ B_i $ be a basis of $ V_{\lambda_i} $. Then by Example Sheet 1 we have that
+		\[
+			\bigcup_{i=1}^k B_i=B
+		\]
+		is a basis for $ V $, hence $ V $ has a basis of eigenvectors, so $ \alpha $ is diagonalisable by the remark.\qed
+\end{enumerate}
+Recall that if $ V $ is a finite dimensional vector space, then any $ \beta\in\mathcal L(V,V) $ we have that
+\[
+	\det(B)=0\iff \ker(B)\ne \{\mathbf 0_V\}.
+\]
+Thus $ \lambda\in \F $ is an eigenvalue of $ \alpha\in\mathcal L(v,v) $ if and only if
+\[
+  \det(\alpha-\lambda\id_V)=0.
+\]
+\begin{definition}
+	(Characteristic polynomial) For $ A\in M_{n\times n}(\F) $, the \textit{characteristic polynomial} of $ A $ is
+	\[
+		\chi_A(t)=\det(tI_n-A)\in \F[t].
+	\]
+\end{definition}
+Similarly for $ \alpha\in\mathcal L(V,V) $ with $ V $ finite dimensional we can define
+\[
+  \chi_\alpha(t)=\det(t\cdot\id_V-\alpha)
+\]
+as the characteristic polynomial of $ \alpha $.
+\begin{lemma}
+  For $ V $ a finite dimensional vector space, and $ \alpha\in\mathcal L(,V) $, we have that the set of roots of $ \chi_A(t) $ are exactly the set eigenvalues of $ \alpha $.
+\end{lemma}
+\begin{remark}
+  We can make some remarks about the characteristic polynomial.
+  \begin{enumerate}
+	  \item $ \chi_\alpha $ is monic of degree $ \dim V $.
+	  \item Similar matrices have the same characteristic polynomial.
+	  \item  By the Leibniz formula, if $ \chi_\alpha(t)=t^n+C_{n-1}t^{n-1}+\cdots + C_1t+C_0 $ we have that
+		  \begin{enumerate}
+			  \item $ C_{n-1}=\tr(\alpha) $,
+				  $ C_0=(-1)^n\det \alpha=\chi_\alpha(0) $.
+		  \end{enumerate}
+  \end{enumerate}
+\end{remark}
+\begin{proposition}
+  If $ \alpha $ is triangularisable then $ \chi_\alpha(t) $ can be written as aproduct of linear factors.
+\end{proposition}
+\pf Let $ B $ be a basis for $ V $ such that
+\[
+	A=[\alpha]^B_B=\begin{pmatrix}
+		a_{11} & a_{12} & \cdots & a_{1n} \\
+		0 & a_{22} & \cdots & a_{2n} \\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & \cdots & 0 & a_{nn}
+	\end{pmatrix}.
+\]
+Then
+\begin{align*}
+	\chi_\alpha(t) = \prod_{i=1}^n(t-a_i).
+\end{align*}
+For example the matrix,
+\[
+  A=\begin{pmatrix}
+	  \cos\theta & -\sin\theta \\
+	  \sin\theta & \cos\theta
+  \end{pmatrix}.
+\]
+Then $ \chi_A(t)=t^2-(2\cos\theta)t+1 $ is irreducible for $ \theta\in(0,\pi) $, hence $ A $ is not triangularisable in $ M_{2\times 2}(\R) $.
+	\begin{theorem}
+		Every $ A\in M_{n\times n}(\C) $ is triangularisable.`
+	\end{theorem}
+	\pf By the fundamental theorem of algebra, $ \chi_A(t) $ has a root $ \lambda\in \C $, so there exists a $ v_1 $, non-zero in $ \C^n $ such that $ Av_1=\lambda v_1 $. Extend to a basis $ B=\{v_1,\dots, v_n\} $ of $ \C^n $. So up to a change of basis, we can assume that
+	\[
+	  A=\begin{pmatrix}
+		  \lambda_1 & a_{12} & \cdots & a_{1n} \\
+		  0 &  & & \\
+		  \vdots &  & C\\
+		  0 & & & 
+	  \end{pmatrix}
+	\]
+	where $ C $ is a $ (n-1)\times (n-1) $ matrix. By induction there exists a $ \bar P\in GL_{n-1}(\C) $ such that $ \bar PC\inv{\bar P} $ is upper triangular. So set
+	\[
+	  P=\begin{pmatrix}
+		  \lambda_1 & 0 & \cdots & 0 \\
+		  0 &  & & \\
+		  \vdots &  & \bar P & \\
+		  0 & & & 
+	  \end{pmatrix}.
+	\]
+Then $ PA\inv P $ is upper-triangular.
+	\begin{corollary}
+	  Let $ V $ be a finite dimensional $ \C $-vector space. Then every $ \alpha\in \mathcal L(V,V) $ is triangularisable.
+	\end{corollary}
+\begin{remark}
+	The same proof yields the result for any field $ \F$, $ A\in M_{n\times n}(\F) $ is triangularisable if and only if $ \chi_A(t) $ is a product of linear factors.
+\end{remark}
+
+
 
 
 
