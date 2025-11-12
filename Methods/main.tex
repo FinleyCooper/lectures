@@ -9,16 +9,17 @@
 \newpage
 \section{Fourier Series}
 \subsection{Motivation}
-In 1807 J. Fourier was studying head conduction along a metal rod. This lead him to study $ 2\pi $-periodic functions i.e. functions $ f:\R\to \R $ was such that $ f(\theta+2\pi)=f(\theta) $ for all $ \theta\in \R $ then he found that if \[
+In 1807 J. Fourier was studying head conduction along a metal rod. This lead him to study $ 2\pi $-periodic functions i.e. functions $ f:\R\to \R $ was such that $ f(\theta+2\pi)=f(\theta) $ for all $ \theta\in \R $ then he found that if
+\[
 	f(\theta)=\sum_{n\in\Z}\hat{f_n}e^{in\theta}
 \]
-then you can write down the coefficients $ \{\hat{f_n}\} $ via the formula
-\[
-	\hat{f_n}=\frac 1{2\pi}\int_{0}^{2\pi}f(\theta)e^{-in\theta}\mathrm d\theta,\quad n\in \Z.
-\]
-And Fourier believed that this worked for any $ 2\pi $-periodic function $ f $. So computing each $ \{\hat{f}_n\} $ and construcuted the sum as above, then it would return the original function. He was wrong.
-\subsection{Modern Treatment}
-Introduce a vector space $ V $ of $ L $-periodic functions. Hence
+\begin{align*}
+	\frac{1}{2\pi}\int_{-n}^n e^{i\lambda x}\hat f(\lambda)\,\mathrm d\lambda - f(x)
+	&= \allint \sin(ny)\frac{f(x+y)-f(x)}{\pi y}\,\mathrm dy\\
+	&= \allint \sin(ny)F(y;x)\,\mathrm dy\\
+	&= \frac{1}{n}\allint \cos(ny)F_y(y;x)\,\mathrm dy \to 0.
+\end{align*}
+\qed
 \[
 	V=\{f:\R\to\C:\text{ with } f \text{ a "nice" function},\text { } f(\theta+L)=f(\theta), \forall \theta\in\R\}.
 \]
@@ -804,10 +805,10 @@ So our final solution is
 	\varphi(x,y)=\sum_{n=1}^\infty A_n\sin(n\pi x)\sinh(n\pi y)
 \]
 where
-\[
+\begin{align*}
 	A_n &=\frac 2{\sinh(n\pi)}\langle f,X_n\rangle\\
 	    &= \frac2{\sinh(n\pi)}\int_0^1f(x)\sin(n\pi x)\mathrm dx
-\]
+\end{align*}
 \subsubsection{Seperation of variables in a disc/annulus}
 We want to solve Laplace's equation in the region $ r_1<|\mathbf x|<r_2 $ in the $ (x,y) $ plane. Use plane polar coordinates $ (r,\theta) $ so that Laplace's equation becomes
 \[
@@ -975,12 +976,12 @@ Solving the IBVP on a drum,
 	\Omega=\{(r,\theta): 0\le r < 1, 0\le \theta < 2\pi\}
 \]
 \[
-  \begin{align}
+  \begin{cases}
 	  \varphi_{tt}-c^2\Delta \varphi=0 & \Omega\times (0,\infty)\\
 	  \varphi=0 & \partial\Omega\times(0,\infty)\\
 	  \varphi=f & \Omega\times{t=0}\\
 	  \varphi_t=g & \Omega\times {t=0}
-  \end{align}
+  \end{cases}
 \]
 For simplicity assume that $ f=f(r) $, $ g=g(r) $. So that $ \varphi=\varphi(r,t) $. Wave equation becomes
 \begin{align*}
@@ -1209,12 +1210,11 @@ So it almost looks like $ \delta(x)=\lim_{n\to\infty}\delta_n(x) $. But the prob
 \]
 we can solve for $ y_n $, the solution to
 $ \ddot y+\omega^2y=\delta_n(t) $, and then assert that $ y=\lim_{n\to\infty}y_n(t) $.\\
-We could even look at the derivative of $ \delta(x) $, via
+We could even look at the derivative of $ \delta(x) $ via
 \begin{align*}
-	\int_{-\infty}^\infty\delta'(x)f(x)\mathrm dx&=\lim_{n\to\infty}\int_{-\infty}^\infty \delta_n'(x)f(x)\mathrm dx\\
-
-						     &=-\lim_{n\to\infty}\int_{-\infty}^\infty \delta_n(x)f'(x)\mathrm dx\\
-						     &=-\int_{-\infty}^\infty \delta(x)f'(x)\mathrm dx=-f'(0)
+	\int_{-\infty}^\infty\delta'(x)f(x)\,\mathrm dx &= \lim_{n\to\infty}\int_{-\infty}^\infty \delta_n'(x)f(x)\,\mathrm dx\\
+																											 &= -\lim_{n\to\infty}\int_{-\infty}^\infty \delta_n(x)f'(x)\,\mathrm dx\\
+																											 &= -\int_{-\infty}^\infty \delta(x)f'(x)\,\mathrm dx = -f'(0)
 \end{align*}
 \subsubsection{Periodic delta functions}
 Let $ \delta^L(x) $ denote the $ L $-periodic extension of $ \delta(x) $ outside $ [-\frac L2, \frac L2] $. It has Fourier coefficients given by
@@ -1337,7 +1337,7 @@ To fix the jump disconuinuity, integrate
 \begin{align*}
 	\frac{\mathrm d^2 G}{\mathrm dx^2}+\frac{\beta(x)}{\alpha(x)}\frac{\mathrm dG}{\mathrm dx}+\frac{\gamma(x)}{\alpha(x)}G=\frac{\delta(x-\xi)}{\alpha(x)}
 \end{align*}
-over $ (\xi-\varepsilon,\xi+\varepsilon $ with $ \varpesilon >0 $,
+over $ (\xi-\varepsilon,\xi+\varepsilon $ with $ \varepsilon >0 $,
 \begin{align*}
 	\frac{\mathrm dG}{\mathrm dx}|_{x=\xi-\varepsilon}^{x=\xi+\varepsilon}+\int_{\xi-\varepsilon}^{\xi+\varepsilon}\left[\frac \beta\alpha\frac{\mathrm dG}{\mathrm dx}+\frac{\gamma}{\alpha}G\right]\mathrm dx=\int_{\xi-\varepsilon}^{\xi+\varepsilon}\frac{\delta(x-\xi)}{\alpha(x)}\mathrm dx=\frac1{\alpha(\xi)}.
 \end{align*}
@@ -1437,7 +1437,7 @@ So the solution to $ (\dagger) $ is
 \begin{align*}
 	y(x)&=\int_a^b G(x,\xi)f(\xi)\mathrm d\xi\\
 	    &=\left[\int_a^x+\int_x^b\right]G(x,\xi)\mathrm d\xi\\
-	    &=y_2(x)\int_a^x\frac{y_1(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\athrm d\xi+y_1(x)\int_a^b\frac{y_2(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\mathrm d\xi
+	    &=y_2(x)\int_a^x\frac{y_1(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\mathrm d\xi+y_1(x)\int_a^b\frac{y_2(\xi)f(\xi)}{\alpha(\xi)W(y_1,y_2)(\xi)}\mathrm d\xi
 \end{align*}
 \begin{remark}
   Take care with the definition of $ G(x,\xi) $ on $ x>\xi $, $ x<\xi $.
@@ -1479,7 +1479,8 @@ Since we're interested in solutions to $ Ly=f $, we can take $ w=1 $ \textit{wlo
 			&= y_1(py_2')'-y_2(py_1')'\\
 			&= (p(x)[y_1y_2'-y_1'y_2])'
 \end{align*}
-So if $ Ly_1=Ly_2=0 $ we get that $ p(x)=W(y_1,y_2)(x) $ is constant.\qed\par
+So if $ Ly_1=Ly_2=0 $ we get that $ p(x)=W(y_1,y_2)(x) $ is constant.\qed
+\par
 So for $ L $, a Sturm Liouville operator, we get that 
 \[
 	G(x,\xi)=\text{const.} \times \begin{cases}
@@ -1560,10 +1561,175 @@ so
 	\delta(x-\xi)=\sum_{k=1}^\infty Y_k(x)Y_k(\xi).
 \]
 This is a similar form to the Kronecker delta expansion as the outer product of two vectors.
+\subsection{Initial Value Problems}
+We want to solve
+\[
+	(\dagger)\begin{cases}
+		Ly=f(t) & t>0 \\
+		y(0)=\dot y(0)=0
+	\end{cases}.
+\]
+where $ L =\alpha(t)\frac{\mathrm d^2}{\mathrm dx^2}+\beta(t)\frac{\mathrm d}{\mathrm dx}+\gamma(t) $, with $ \alpha(t)\ne 0 $.\par
+For each $ \tau\in (0,\infty) $, suppose we can find $ G=G(t,\tau) $ such that
+\[
+	L_t[G(t,\tau)]=\delta(t-\tau)\quad t>0
+\]
+and also that
+\[
+	G(0,\tau)=\frac{\mathrm dG}{\mathrm dt}(0,\tau)=0.
+\]
+Then if we set
+\[
+  y(t)=\int_0^\infty G(t,\tau)f(\tau)\mathrm d\tau,
+\]
+we get the solution to $ (\dagger) $.
+\begin{proposition}
+  The Green's function for $ (\dagger) $ is characterised by
+  \begin{enumerate}
+	  \item $ G(t,\tau)=0 $ on $ t< \tau $;
+	  \item $ L_t[G(t,\tau)]=0 $ on $ t>\tau $ with $ G(t^+,\tau)=0 $ and $ \frac{\mathrm dG}{\mathrm dt}(\tau^+,\tau)=\frac1{\alpha(\tau)} $.
+  \end{enumerate}
+\end{proposition}
+\pf We know that (i) guarantees that $ L_t[G(t,\tau)]=0 $ for $ t<\tau $, and $ G(0,\tau) =\frac{\mathrm dG}{\mathrm dt}(0,\tau)=0 $. Part (ii) guarantees that $ L_t[G(t,\tau)]=\delta(t-\tau) $, since $ G(\tau^+,\tau)=G(\tau^-,\tau)=0 $ and
+\[
+	\frac{\mathrm dG}{\mathrm dt}(\tau^+,\tau)-\frac{\mathrm dG}{\mathrm dt}(\tau^-,\tau)=\frac1{\alpha(\tau)}\qed
+\]
+Note that since $ G(t,\tau)=0 $ on $ \tau>t $,
+\begin{align*}
+	y(t) &= \int_0^\infty G(t,\tau)f(\tau)\mathrm d\tau)=\int_0^\tau G(t,\tau)f(\tau)\mathrm d\tau.
+\end{align*}
+i.e. causality is intact.\par
+Let's see an example. Take $ L=\frac{\mathrm d^2}{\mathrm dt^2} $. Then $ G(t,\tau)=0 $ when $ t<\tau $ and for $ t>\tau $, we have
+\[
+\frac{\mathrm d^2 G}{\mathrm dt^2}(t,\tau)=0,\quad G(\tau^+,\tau)=0,\quad \frac{\mathrm dG}{\mathrm dt}(\tau^+,\tau)=1.
+\]
+We get that $ G(t,\tau)=A(\tau)(t-\tau)+B(\tau) $. This gives that $ B=0 $ and differentiating with resepct to $ t $ gives that $ A=1 $. So our solution to $ (\dagger) $ gives that
+\[
+  y(t)=\int_0^\tau (t-\tau)f(\tau)\mathrm d\tau.
+\]
+Note that this is consistant with Taylor's theroem.
+\section{The Fourier Transform}
+\subsection{Definitions and simple properties}
+The Fourier transform is the $ L\to \infty $ limit of the theory of Fourier series.
+\begin{definition}
+	(Fourier Transform) For $ f:\to \R\to \C $ define its \textit{Fourier Transform} by
+	\[
+		\hat f(\lambda)=\allint e^{-i\lambda x}f(x)\mathrm dx,\quad \lambda\in \R.
+	\]
+\end{definition}
+We will use $ \mathcal F $ to denote the relevant linear map, i.e. $ \hat f=\mathcal F[f] $. We will occasionally write that $ \mathcal F_{x\to \lambda}[f(x)]=\hat f(\lambda) $.\par
+Also if $ g $ is integrable on $ \R $ then
+\[
+	\allint  e^{-i\lambda x}g(x)\mathrm dx\to0
+\]
+as $ |\lambda|\to\infty $, by the Riemann Lebsegue lemma.
+\begin{proposition}
+	We'll make some statements about the arthimetic of Fourier transformations.
+	\begin{enumerate}
+		\item 
+			\[
+				\mathcal F_{x\to \lambda}\left[\left(\frac{\mathrm d}{\mathrm dx}\right)^kf(x)\right]=(i\lambda)^k\hat f(\lambda)
+			\]
+			\[
+				\mathcal F_{x\to \lambda}\left[x^kf(x)\right]=\left(i\frac{\mathrm d}{\mathrm d\lambda}\right)^k\hat f(\lambda)
+			\]
+		\item 
+			\[
+				\mathcal F_{x\to \infty}[f(x-a)]=e^{-i\lambda a}\hat f(\lambda)
+			\]
+			\[
+				\mathcal F_{x\to\infty}[e^{-iax}f(x)]=\hat f(\lambda +a)
+			\]
+	\end{enumerate}
+\end{proposition}
+\pf We'll just prove part (i) and leave (ii) as an exercise.
+\begin{align*}
+	\allint f^{(k)}(x)e^{-i\lambda x}\mathrm dx&=\allint f(x)\left(-\frac{\mathrm d}{\mathrm dx}\right)^ke^{-i\lambda x}\mathrm dx\\
+	&=(i\lambda)^k\hat f(\lambda).\\\\
+	\left(i\frac{\mathrm d}{\mathrm d\lambda}\right)^k\allint e^{-i\lambda x}f(x)\mathrm dx
+	&= \allint e^{-i\lambda x}x^kf(x)\mathrm dx\\
+	&= \mathcal F_{x\to\lambda}[x^kf(x)].
+\end{align*}
+Property (i) is important in solving ODEs.
+\[
+	P\left(\frac{\mathrm d}{\mathrm dx}\right)y=F(x),\quad x\in \R,
+\]
+where $ P $ is a polynomial. Take the Fourier transform, so
+\[
+  P(i\lambda)\hat y(\lambda)=\hat F(\lambda),
+\]
+i.e. $ \hat y(\lambda)=\frac{\hat F(\lambda)}{P(i\lambda)} $.
+\par
+But can we get $ y $ back from $ \hat y $?
+\begin{proposition}
+  We can reconstruct $ f $ from $ \hat f $, using the inversion formula for the Fourier transformation,
+  \[
+	  f(x)=\frac1{2\pi}\allint e^{i\lambda x}\hat f(\lambda)\mathrm d\lambda.
+  \]
+\end{proposition}
+\pf Write
+\[
+	\allint e^{i\lambda x}\hat f(\lambda)\mathrm d\lambda=\lim_{n\to\infty} \int_{-n}^n  e^{i\lambda x}\hat f(\lambda)\mathrm d\lambda.
+\]
+So the integral is the limit of
+\begin{align*}
+	\frac1{2\pi}\int_{-n}^ne^{i\lambda x}\left[\allint e^{-i\lambda y }f(y)\mathrm dy\right]\mathrm d\lambda&= \allint f(y)\left[\frac1{2\pi}\int_{-n}^ne^{i\lambda(x-y)}\mathrm d\lambda\right]\mathrm dy\\
+													       &=\allint f(y)\frac{\sin[n(x-y)]}{\pi(x-y)}\mathrm dy\\
+													       &= \allint f(x+y)\frac{\sin(ny)}{\pi y}\mathrm dy.
+\end{align*}
+Recall from IA Differential Equations Example Sheet 1 Question 13. We get that for all $ n $
+\[
+	\allint \frac{\sin(ny)}{\pi y}\mathrm dy=1.
+\]
+So
+\begin{align*}
+	\frac1{2\pi}\int_{-n}^ne^{i\lambda x}\hat f(\lambda)\mathrm dy-f(x)&= \allint \sin(ny)\frac{f(x+y)-f(x)}{\pi y}\mathrm dy\\
+									   &= \allint \sin(ny)F(y;x)\mathrm dy\\
+									   &=\frac1n\allint \cos(ny)F_y(y;x)\mathrm dy\to 0\qed
 
-
-
-
+\end{align*}
+From previous removing limits we get that
+\[
+	f(x)=\allint f(y)\left[\frac1{2\pi}\allint e^{i\lambda(x-y)}\mathrm d\lambda\right]\mathrm dy
+\]
+i.e
+\[
+	\delta(x-y)=\frac1{2\pi}\allint e^{i\lambda(x-y)}\mathrm d\lambda.
+\]
+We can use this to prove a proposition.
+\begin{proposition}
+	For $ f,g:\R\to \C $,
+	\[
+		\allint f(x)\overline{g(x)}\mathrm dx=\frac1{2\pi}\allint \hat f(\lambda)\overline{\hat g(\lambda)}\mathrm d\lambda
+	\]
+	hence
+	\[
+		\allint|f(x)|^2\mathrm dx=\frac1{2\pi}\allint|\hat f(\lambda)|^2\mathrm d\lambda.
+	\]
+\end{proposition}
+\pf 
+\begin{align*}
+	\frac {1}{2\pi}\allint\left[\allint e^{-i\lambda y}f(y)\mathrm dy\right]\left[e^{i\lambda x\overline{g(x)}}\mathrm dx\right]\mathrm d\lambda&=\allint\allint f(y)\overline{g(x)}\left[\frac1{2\pi}\allint e^{i\lambda(x-y)}\mathrm dy\right]\mathrm dx\mathrm dy\\
+	&=\allint f(x)\overline{g(x)}\mathrm dx\qed
+\end{align*}
+\begin{definition}
+	(Convolution) For $ f,g:\R\to\C $ define the \textit{convolution} by,
+	\[
+	  f*g(x)=\allint f(x-y)g(y)\mathrm dy.
+	\]
+\end{definition}
+\begin{proposition}
+  \[
+	  \mathcal F_{x\to \lambda}[f*g(x)]=\hat f(\lambda)\hat g(\lambda).
+  \]
+\end{proposition}
+\pf 
+\begin{align*}
+	\text{LHS} &=\allint e^{-i\lambda x}\left[\allint f(x-y)f(y)\mathrm dy\right]\mathrm dx\\
+	   &=\allint\allint e^{-i\lambda x}f(x-y)g(y)\mathrm dx\mathrm dy\\
+	   &=\allint\allint e^{-i\lambda(X+Y)}f(X)g(Y)\mathrm dX\mathrm dY\quad\text{where}\  X=x-y,\ Y=y\\
+	   &= \hat f(\lambda)\hat g(\lambda).
+\end{align*}
 
 
 

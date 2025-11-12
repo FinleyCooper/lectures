@@ -1527,6 +1527,174 @@ Then $ PA\inv P $ is upper-triangular.
 \begin{remark}
 	The same proof yields the result for any field $ \F$, $ A\in M_{n\times n}(\F) $ is triangularisable if and only if $ \chi_A(t) $ is a product of linear factors.
 \end{remark}
+From now on we'll assume all vector spaces are finite dimensional and $ \alpha\in \mathcal L(V,V) $.\par
+Let's introduce some notation. For a polynomial
+\[
+	p(t)=\sum_{k=0}^n\mu_it^i
+\]
+we can introduce the linear map
+\[
+	p(\alpha)=\sum_{i=0}^n\mu_i\alpha^i\in\mathcal L(V,V).
+\]
+Similarly for $ A\in M_{k\times k}(\F) $ we have that $ p(A)=\sum_{i=0}^n\mu_iA^i $.
+\begin{remark}
+  We have some remarks about these new linear maps.
+  \begin{enumerate}
+	  \item If $ B $ is a basis for $ V $ then
+		  \[
+			  [p(\alpha)]^B_B=p([\alpha]^B_B).
+		  \]
+	  \item If $ \dim V=n $ then since we know that $ \dim(\mathcal L(V,V))=n^2 $, so $ \{\id_V,\alpha^1,\alpha^2,\dots, \alpha^{n^2}\} $ is linearly dependent. So there exists $ \mu_i\in\F $ such that,
+		  \[
+			  \sum_{i=0}^{n^2}\mu_i\alpha^i=0=p(\alpha)
+		  \]
+		  where $ p(t)=\sum_{i=0}^{n^2}\mu_it^i\ne 0 $ in $ \F[t] $.
+  \end{enumerate}
+\end{remark}
+Let
+\[
+I_\alpha=\{p(t)\in \F[t]: p(\alpha)=0 \}\triangleleft \F[t]. 
+\]
+So by the remark we know that $ I_\alpha\ne \{0\} $. Let $ m_\alpha\in I_\alpha $ be a non-zero element of minimal degree. Rescaling we can assume that $ m_\alpha $ is monic.
+\begin{definition}
+(Minimal polynomial) We call $ m_\alpha $ the \textit{minimial polynomial}.
+\end{definition}
+\begin{proposition}
+  The minimial polynomial is unique.
+\end{proposition}
+First we have to prove a lemma.
+\begin{lemma}
+  For any $ f\in I_\alpha $, we have that $ m\alpha\mid f $.
+\end{lemma}
+\pf Apply the Euclidean algorithm to $ \F[t] $. So there exists $ r,q\in \F[t] $ such that $ \deg r<\deg m_\alpha $, and $ f=qm_\alpha+r $. Then $ r(\alpha)+f(\alpha)-q(\alpha)m_\alpha(\alpha)=0 $. Hence $ r\in I_\alpha $, so since it has a degree less than $ m_\alpha $ we must have that $ r=0 $. Or we could prove the statement since $ \F[t] $ is a principal ideal domain hence we can show that $ I=(m_\alpha) $.\qed
+\par
+Now we can prove the proposition\par
+\pf Let $ \bar m_\alpha $ be another non-zero element of minimial degree in $ I_\alpha $, monic. By the lemma we have that $ m_\alpha\mid \bar m_\alpha $, but $ \deg(m_\alpha)=\deg(\bar m_\alpha) $ so there exists a $ \lambda\in \F $ such that $ \bar m_\alpha=\lambda m_\alpha $. Hence $ \lambda=1 $, so they are the same polynomial.\qed
+\begin{theorem}
+	(Cayley-Hamilton Theorem) For $ \alpha\in \mathcal L(V,V) $ we have that
+	\[
+	  \chi_\alpha(\alpha)=0.
+	\]
+\end{theorem}
+Let's give a proof valid for $ \F=\C $. The general proof for an arbitrary proof is a bonus exercise on Example Sheet 3.\par
+\pf We know that there is a basis $ B $ for $ V $ such that when $ \alpha $ is written as a matrix in $ B $ it is upper-triangular. So we have that
+\[
+	\chi_\alpha(t)=\prod_{i=1}^n(t-\lambda_i)
+\]
+where $ \lambda_i $ is the element in the $ i $th row of the leading diagonal. Set $ U_j=\langle v_1,\dots, v_j\rangle $, so we have that $ U_0=\{\mathbf 0_V\} $, and $ U_n=V $.\\
+Then for $ 1\le j\le n $ we have that $ (\alpha_\lambda_j\id_V)(U_j)\le U_{j-1} $ thus
+\begin{align*}
+	\chi_\alpha(\alpha)(V)&=(\alpha-\lambda_i\id_V)\circ \dots \circ (\alpha_\lambda_n\id_V)(U_n)\\&
+	=U_0=\{\mathbf 0_V\}.
+\end{align*}
+so $ \chi_\alpha(\alpha) $.\qed
+\par
+Our proof is valid for $ \alpha $ triangularisable over every field.
+\begin{corollary}
+  $ m_\alpha\mid \chi_\alpha $.
+\end{corollary}
+\begin{definition}
+	(Algebraic multiplicity) Let $ \lambda\in \F $ be an eigenvalue of $ \alpha $. The \textit{algebraic multiplicity} $ a_\lambda $ of $ \alpha $ is the multiplicity of $ \lambda $ as a root of $ \chi_\alpha(t) $.
+\end{definition}
+\begin{definition}
+	(Geometric multiplicity) Let $ \lambda\in \F $ be an eigenvalue of $ \alpha $. The \textit{geometric multiplicity} $ g_\lambda $ of $ \lambda $ is $ \dim(V_\lambda) $.
+\end{definition}
+\begin{proposition}
+	Let $ \lambda\in\F $ be an eigenvalue of $ \alpha $ then we have that 
+	\[
+	  g_\lambda\le a_\lambda.
+	\]
+\end{proposition}
+\pf Let $ \{v_1,\dots, v_k\} $ be a basis for $ V_\lambda $. Extend to a basis $ B=\{v_1,\dots, v_n\} $ for $ V $. Then,
+\[
+	[\alpha]_B^B=\begin{pmatrix}
+		\lambda I_k & B \\
+		0 & C
+	\end{pmatrix}
+\]
+is a block triangular matrix, so $ \chi_\alpha(t)=(t-\lambda)^k\chi_t(t) $. Hence we have that $ a_\lambda \ge k=g_\lambda $.\qed
+\begin{lemma}
+  Let the eigenvalues of $ \alpha $ be $ \lambda_1,\dots, \lambda_k\in \F $.
+  \begin{enumerate}
+	  \item \[
+			  \sum_{i=1}^k g_{\lambda_i}\le \dim V
+	  \]
+	  with equality if and only if $ \alpha $ is diagonalisable.
+  \item
+	  \[
+		  \sum_{i=1}^ka_{\lambda_i}\le \dim V
+	  \]
+	  with equality if and only if $ \alpha $ is triangularisable.
+  \end{enumerate}
+\end{lemma}
+\pf 
+\begin{enumerate}
+	\item We have that $ V_{\lambda_1}\oplus \cdots \oplus V_{\lambda_k}\le V $ with equality if and only if $ \alpha $ is diagonalisable. hence the result is clear.
+	\item We write $ \chi_\alpha(t)=f(t) \prod_{i=1}^k(t-\lambda_i)^{a_{\lambda_i}} $. Then $ f(t) $ has no linear factors, since a root of $ \chi_\alpha $ is an eigenvalue. Moreover 
+		\begin{align*}
+			\dim(V)&=\dim(\chi_\alpha)\\
+			       &=\deg(f)+\sum_{i=1}^ka_{\lambda_i}\\
+			       &\le \sum_{i=1}^ka_{\lambda_i}.
+		\end{align*}
+		with equality if and only if $ \chi_\alpha $ is a product of linear factors if and only if $ \alpha $ is triangularisable.\qed
+\end{enumerate}
+\begin{proposition}
+  For $ \F=\C $, $ \alpha $ is diagonalisable if and only if $ a_\lambda=g_\lambda $ for every eigenvalue $ \lambda $ of $ \alpha $.
+\end{proposition}
+\pf Since we're working over $ \C $ we know that $ \alpha $ is triangularisable. Hence
+\[
+	\sum_{i=1}^ka_{\lambda_i}=\dim V.
+\]
+By the above proposition we have that
+\[
+	\sum_{i=1}^k g_{\lambda_i}\le \sum_{i=1}^k a_{\lambda_i}=\dim V.
+\]
+with equality if and only if $ a_{\lambda_i}=g_{\lambda_i} $ for all $ i $. But this occurs if and only if $ \alpha $ is diagonalisable.\qed
+\begin{remark}
+	For $ p(t)=\sum_{i=1}^n\mu_it^i $, with $ v\in V_{\lambda} $.
+	\[
+		p(\alpha)(v)=\sum_{i=1}^n\mu_i\alpha^i(v)=\sum_{i=1}^n\mu_i\lambda^iv=p(\lambda)v.
+	\]
+\end{remark}
+\begin{lemma}
+  For any $ \lambda \in \F $, $ \lambda $ is a root of $ m_\alpha $ is and only if it is a root of $ \chi_\alpha $.
+\end{lemma}
+\pf For the forward direction if $ \lambda $ is a root of $ m_\alpha(t) $, by Cayley-Hamilton,
+\begin{align*}
+	(t-\lambda)\mid m_\alpha(t)\mid \chi_\alpha(t).
+\end{align*}
+Conversely if $ \chi_\alpha(\lambda)=0 $ then $ \lambda $ is an eigenvalue of $ \alpha $, so let $ \mathbf 0 \ne v\in V_\lambda $. Then $ m_\alpha(\alpha)(v)=m_\alpha(\lambda)\cdot v $. But $ m_\alpha(\alpha)=0 $, so since $ v\ne \mathbf 0 $, we must have that $ m_\alpha(\lambda)=0 $.\qed
+\par
+We will introduce the notation that $ C_\lambda $ is the multiplicity of $ \lambda $ as a root of $ m_\alpha(t) $.
+\begin{remark}
+  By Cayley-Hamilton, if $ \lambda $ is an eigenvalue, then $ 1\le C_\lambda \le a_\lambda $.
+\end{remark}
+However there is no useful relationship between $ C_\lambda $ and $ g_\lambda $. Let's see this in two examples.
+\begin{enumerate}
+	\item Let $ A=\lambda I_n $. Then $ \chi_A(t)=(t-\lambda)^n $, $ V_k=\F^n $, so $ m_\alpha(t)=t-\lambda $. Hence $ C_\lambda=1 $, $ g_\lambda=n $, $ a_\lambda =n$.
+	\item Let
+		\[
+		  A=\begin{pmatrix}
+			  \lambda & 1 & 0 & \cdots & 0\\
+			  0 & \lambda & 1 & \cdots & 0\\
+			  \vdots & \vdots & \ddots & \ddots & \vdots\\
+			  \vdots &\vdots & \vdots & \ddots & 1 \\
+			  0 & \cdots & \cdots & 0 & \lambda
+		  \end{pmatrix}.
+		\]
+		Then $ \chi_A(t)=(t-\lambda)^n $, so
+		\[
+		  V_\lambda=\langle \mathbf e_1\rangle,
+		\]
+		so 
+		\[
+			(A-\lambda I_n)^{n-1}\ne 0
+		\]
+		hence $ a_\lambda=n $, $ g_\lambda=1 $, $ C_\lambda =n $, as $ m_\alpha=\chi_\alpha $.
+\end{enumerate}
+
+
+
 
 
 
