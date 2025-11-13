@@ -743,7 +743,7 @@ Then if we take $ d_1(x,y)=|f(x)-f(y)| $. Then the sequence $ x_k=\frac 1k\to 0 
 \end{proposition}
 \pf Fix some $ \varepsilon >0 $ The there exists some $ N $ such that $ k\ge N\implies ||x^{(k)}-x||_2<\varepsilon $. So
 \[
-	\sum_{j=1}^n(x_j^{(k)}-x_k)^2<\varepsilon^2
+	\sum_{j=1}^n(x_j^{(k)}-x_j)^2<\varepsilon^2
 \]
 so $ \left|x_j^{(k)}-x_j|<\varepsilon $ for all $ j $ with $ k\ge N $.\par
 In the other direction, for any fixed $ j $, there is some $ N_j $ such that $ k\ge N_j $ implies that $ |x_k^{(k)}-x_j|<\frac \varepsilon{\sqrt n} $. So if $ k\ge\max\{N_j:j=1,\dots, n\} $, then
@@ -862,6 +862,162 @@ We've proved that uniformly Cauchy implies uniform convergence. Since the unifor
   The metric spaces $ (\ell_1, ||\cdot ||_1) $, $ (\ell_2, ||\cdot ||_2) $, and $ (\ell_\infty ||\cdot ||_\infty) $ are complete.
 \end{theorem}
 \pf We'll just prove the $ (\ell_\infty, ||\cdot ||_\infty) $ case. The rest is in Example Sheet 2.\par
+When does a subset of a metric space remain complete as a subspace with the induced metric.
+\begin{theorem}
+  Let $ (X,d) $ be a complete metric space, and $ Y\subseteq X $ any subset. Then $ (Y,d|_Y) $ is complete if and only if $ Y $ is closed.
+\end{theorem}
+\pf Suppose $ (Y,d|_Y ) $ closed, then let $ (X_k) $ be a sequence in $ Y $, with $ (x_k) $ Cauchy. Then $ x_k\to x\in X $ by completeness in $ X $. By the closure of $ Y $, we have that $ x\in \bar Y=Y $. Conversely suppose that $ (Y,d|_Y) $ is complete then let $ (x_k) $ be a sequence in $ Y $ with $ x_k\to x\in X $. Now $ (x_k) $ is Cauchy in $ X $ hence in $ Y $ as well. By completeness $ x_k\to z\in Y $. By uniqueness of the limit, $ x\in Y $, so $ Y $ is closed.\qed
+\par
+We can see an example of this, we'll show the that $ L^1 $ is complete with respect to Riemann integration.
+\begin{enumerate}
+	\item $ (C([a,b]),L^1) $ is complete (proof on Example Sheet 2).
+	\item Define $ \tilde{\mathcal R}([a,b])=\mathcal R([a,b])/\sim $, where $ f\sim g $ if $ f=g $ except for a null set. So we have all addition and scalar multiplication defined still, and the $ L^1 $ limit is still well-defined by Lebesgue's theorem.
+\end{enumerate}
+\begin{theorem}
+	If $ V $ is a finite dimensional real vector space and if $ ||\cdot || $, $ ||\cdot ||' $ are two norms on $ V $ then $ ||\cdot ||,||\cdot ||' $ are \textit{Lipchitz-equivalent} (i.e there are constants $ C_1,C_2 >0$ such that
+	\[
+	  C||x||'\le ||x||\le C||x||'
+	\]
+	for all $ x\in V$.
+\end{theorem} 
+\begin{definition}
+	(Sequential Compactness) A metric space $ (X,d) $ is \textit{sequentially compact} if every sequence $ (x_n) $ is the space has a convergent subsequence, $ x_{k_j}\to x $. A subset $ K\subseteq X $ is sequentially compact if $(K,d) $ is sequentially compact.
+\end{definition}
+\begin{remark}
+  Another notion of compactness exists which applies more generally to topological spaces. Metric spaces are examples of topological spaces, and a metric space is sequentially compact if and only if the induced topology is compact. In this cases we just write compact to mean sequentially compact. 
+\end{remark}
+\begin{theorem}
+  A subset $ S\subseteq \R^n $ is compact if and only if it is closed and bounded.
+\end{theorem}
+\pf If the subset is closed and bounded then by Bolzano-Weiestrass and the definition of closed we can prove the space is compact. Conversely let $ S $ be comapct. Then for each $ x_k\to x \in \R^n $, $ x_j\to x\in S $ by uniqueness of the limit and the subsequence goes to the some limit $ z,x\in S $. Suppose $ S $ unbounded. Then pick $ x_n $ such that $ d(x_n,a)>n $. Then $ (x_n) $ has no covergent subsequence.
+\begin{theorem}
+  If $ (X,d) $ is compact, then $ (X,d) $ is bounded and complete.
+\end{theorem}
+\pf Any Cauchy sequence has a convergent subsequence, hence converges, so the metric space is complete. Suppose that the metric space is not bounded. Then take the sequence $ x_n $ such that $ d(x_n,x_0)\ge n $. This clearly has no convergent subsequence, contradiction, hence $ (X,d) $ is bounded.
+\begin{theorem}
+  If $ K\subseteq X $ is a compact subset of a metric space $ X $, then $ K $ is closed and bounded.
+\end{theorem}
+The converse of this theorem is actually false. Let $ D_r=\overline {B_r} $. Consider $ D_r $ in $ \ell_\infty $ by looking at $ e^{(k)}=(0,0,\dots, 1,\dots ) $. We can see that $ e^{(k)} $ has no convergent subsequence. But $ D_r $ is complete, closed, bounded, but not compact.
+\begin{theorem}
+  $ K\subseteq \R^n $ with the Euclidean metric is compact if and only if $ K $ is closed and bounded.
+\end{theorem}
+\pf Suppose that $ K $ is closed and bounded. Let $ (x_k) $ be a sequence in $ K $. Then since $ K $ is bounded, we can apply Bolzano-Weiestrass to get some subsequence $ (x_{k_j}) $ and $ x\in \R^n $ with $ x_{k_j}\to x $. Since $ K $ is closed, we know that $ x\in K $, so $ K $ is compact. We're already proven the converse for general metric space, so it applies here. \qed
+\begin{definition}
+	(Totally bounded) Let $ (X,d) $ be a metric space. We say that $ (X,d) $ is \textit{totally bounded} if for every $ \eps>0 $ there is a finite set $ \{x_1,\dots, x_n\}\in X $ such that
+	\[
+		X\subseteq \bigcup_{j=1}^B_\eps(x_j).
+	\]
+\end{definition}
+\begin{theorem}
+	$ (X,d) $ is compact if and only if $ (X,d) $ is complete and totally bounded.
+\end{theorem}
+\subsection{Continuous mappings between metric spaces}
+\begin{definition}
+	(Continuous) Let $ (X,d) $, $ (X',d') $ be metric spaces, and suppose we have a function $ f:X\to X' $. We say that $ f $ is \textit{conmtinuous} at $ x\in X $ if $ \forall\eps>0 $ there exists a $ \delta>0 $ such that 
+	\[
+	  d(y,x)<\delta \implies d'(f(y),f(x))<\eps.
+	\]
+	Equivalently we have that $ \forall\eps>0,\ \exists \delta>0 $ such that $ f(B_\delta(x))\subseteq B_\eps(f(x)) $.
+\end{definition}
+\begin{theorem}
+	(Sequential definition of continuity) Let $ f:X\to X' $. Then $ f $ is continuous at $ x $ if and only if for every sequence $ x_n\to x $ we have that $ f(x_n)\to f(x) $.
+\end{theorem}
+\pf Suppose that $ f $ is continuous at $ x $. Let $ x_n\to x$ be a sequence in $ X $. Then for a given $ \eps>0 $ we have some $ \delta>0 $ and $ N>0 $ such that $ n\ge N\implies d(x_n,x)< \delta\implies d'(f(x_n),f(x))<\eps $. Conversely if $ f $ is not continuous at $ x $. Then there exists $ \eps>0 $ such that $ \forall n\ge 1 $, there $ \exists x_n $ such that $ d(x_n,x)<\frac 1n $, but $ d'(f(x_n),f(x))\ge \eps $. And so $ x_n\to x $ but $ f(x_n)\to f(x) $ which is a contradiction, hence $ f $ continuous at $ x $.\qed
+\begin{theorem}
+	Let $ (X,d) $ and $ (X',d') $ be metric spaces. Then the following are equivalent.
+	\begin{enumerate}
+		\item $ f $ is continuous;
+		\item For every sequence $ x_n\to x $, $ f(x_n)\to f(x) $;
+		\item $ \inv f(v)=\{x\in X:f(x)\in V\} $ is open in $ X $ for every open $ V\subseteq X' $.
+	\end{enumerate}
+\end{theorem}
+\pf \textit{Exercise.}
+\begin{definition}
+	(Uniformly continuous) Let $ f:X\to X' $. We say that $ f $ is \textit{uniformly continuous} if there exists some $ \eps>0 $ such that there exists $ \delta>0 $ with $ \forall x,y\in X $
+	\[
+	  d(x,y)<\delta\implies d'(f(x),f(y))<\eps.
+	\]
+	Equivalently $ B_\delta(x)\subseteq \inv f(B_\eps(f(x))) $.
+\end{definition}
+\begin{definition}
+  We say that $ f:X\to X' $ is Lipschitz if there exists an $ L $ such that $ \forall x,y\in X $,
+  \[
+    d'(f(x),f(y))\le Ld(x,y).
+  \]
+\end{definition}
+\begin{theorem}
+  If $ f:X\to X' $ is continuous, and $ (X,d) $ is compact and $ (X',d') $ is any metric space then,
+  \begin{enumerate}
+	  \item $ f $ is uniformly continuous;
+	  \item $ f(X) $ is a compact subspace of $ X' $;
+	  \item $ f(X) $ is closed and bounded;
+	  \item If $ X'=\R $, and $ d' $ is the Euclidean metric, then $ f $ attains its supremum and infimum.
+  \end{enumerate}
+\end{theorem}
+\pf We'll prove the statement part by part.
+\begin{enumerate}
+\item Argue exactly as we did in the proof for $ \R $, replacing the closed interval $ [a,b] $ for a general compact metric space.
+\item Let $ (y_k) $ be a sequence in $ f(X) $. So $ y_k=f(x_k) $ for some sequence $ x_k $ in $ X $. By compactness of $ X $ there exists a subsequence $ x_{k_j} $ in $ X $ such that $ x_{k_j} \to x\in X$ as $ j\to\infty $. By the continuity of $ f $ we know that $ y_{k_j}=f(x_{k_j})\to f(x)\in f(X) $ as $ j\to \infty $.
+\item Done by $ f(X) $ compact.
+\item By the extreme value of theorem, $ f $ continuous implies that $ f(X) $ is bounded and closed, hence $ f $ attains its supremum and infimu.\qed
+\end{enumerate} 
+\subsection{Equivalence of metrics and norms}
+\begin{definition}
+	(Topology) Let $ (X,d) $ be a metric space. The \textit{topology} on $ X $ induced by $ d $ is the collection of open subsets of $ X $.
+\end{definition}
+\begin{definition}
+	(Topologically equivalent) Two metrics $ d,d' $ on $ X $ are \textit{topologically equivalent} if they induce the same topology. So $ U\subseteq X $ is open with resepct to $ d $ if and only if $ U $ is open with resepct to $ d' $.
+\end{definition}
+\begin{definition}
+	(Lipschitz equivalent) Two metrices $ d,d' $ on $ X $ are \textit{lipschitz equivalent} if there exists fixed $ a,b>0 $ such that
+	\[
+	  ad(x,y)\le d'(x,y)\le bd(x,y)
+	\]
+	for all $ x,y\in X $.
+\end{definition}
+
+
+\begin{remark}
+  We can make some remarks about these definitions.
+  \begin{enumerate}
+	  \item Topological equivalence and Lipschitz equivalence parition the metrics, hence they form a equivalence relation.
+	  \item $ d,d' $ being Lipschitz equivalent $ \implies $ $ d,d' $ are topologically equivalent. But the converse is not true. Lipschitz equivalence is a stronger property than topological equivalence.
+  \end{enumerate}
+\end{remark}
+Let's look at an example to show this. Take $ X=\R $ and $ d(x,y)=|x-y| $, $ d'(x,y)=\min\{1, |x-y|\} $. These are topologically equivalent metrices but $ d(n,0)=n $ and $ d'(n,0)\le 1 $ hence they're not Lipschitz equivalent.\par
+A notion or property concerning a metric space $ X $ is a topological property if it depends on the topology on $ X $ and not the specific metric inducing the topology. For example the convergence of sequences is a topological property but the boundedness of a set is not a topological property. However compactness if a topological property. Completeness is not a topological property.
+\begin{definition}
+  The norms $ ||\cdot ||' $ on a vector space $ V $ are Lipschitz equivalent if there are $ a,b>0 $ such that
+  \[
+    a||x||\le ||x||'\le b||x||\quad\forall x\in V
+  \]
+\end{definition}
+We write $ B^{||\cdot ||}_R(0)=\{x\in V:||x||<R\} $.
+\begin{proposition}
+  $ ||\cdot|| $ and $ ||\cdot ||' $ are Lipschitz equiavelnt if and only if there exists $ r,R>0 $ such that
+  \[
+	  B^{||\cdot ||}_r(0)\subseteq B_1^{||\cdot||'}(0)\subseteq B_R^{||\cdot ||}(0)
+  \]
+\end{proposition}
+\pf \textit{Exercise.}
+
+\begin{theorem}
+  Any two norms on a finite dimensional real vector space $ V $ are Lipschitz equivalent.
+\end{theorem}
+\pf Let $ \dim V=n $. For $ \{e_1,\dots, e_n\} $ a basis for $ V $, define the Euclidean norm $ ||\cdot ||_2 $ on $ V $ by $ ||x||_2=\left(\sum_{j=1}^n a_j^2\right)^{\frac 12} $. Fix $ ||\cdot || $ some other norm on $ V $. For $ x=\sum_{j=1}^n x_je_j $, 
+\begin{align*}
+	||x||\le \sum_{j=1}^n||x_j\cdot e_j|| &= \sum_{j=1}^n |x_j|||e_j||\\
+					      &= \left(\sum_{j=1}^n |x_j|^2\right)^{\frac 12}\left(\sum_{j=1}^n||e_j||^2\right)^{\frac 12}
+\end{align*}
+So $ ||x||<b||x||_2 $ for all $ x\in V $ where $ b=\left(\sum_{j=1}^n||e_j||^2\right)^{\frac 12} $. To prove the other side, let
+\[
+	a\le \frac{||x||}{||x||_2}=\left|\left|\frac{x}{||x||_2}\right|\right|.
+\]
+So need to show that $ a\le ||\hat x|| $ for all $ ||\hat x||_2=1 $. By $ S=\{x\in V: ||x||_2=1\} $ compact we need to show that $ x\to ||x|| $ is continuous which can be shown to complete the proof.\qed
+
+
+
+
 
 
 
@@ -871,3 +1027,4 @@ We've proved that uniformly Cauchy implies uniform convergence. Since the unifor
 
 
 \end{document}
+
