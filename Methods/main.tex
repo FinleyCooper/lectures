@@ -1683,10 +1683,9 @@ Recall from IA Differential Equations Example Sheet 1 Question 13. We get that f
 \]
 So
 \begin{align*}
-	\frac1{2\pi}\int_{-n}^ne^{i\lambda x}\hat f(\lambda)\mathrm dy-f(x)&= \allint \sin(ny)\frac{f(x+y)-f(x)}{\pi y}\mathrm dy\\
-									   &= \allint \sin(ny)F(y;x)\mathrm dy\\
-									   &=\frac1n\allint \cos(ny)F_y(y;x)\mathrm dy\to 0\qed
-
+	\frac{1}{2\pi}\int_{-n}^{n}e^{i\lambda x}\hat{f}(\lambda)\mathrm dy-f(x)&= \allint \sin(ny)\frac{f(x+y)-f(x)}{\pi y}\mathrm dy\\
+									   &= \allint \sin(ny)F(y,x)\mathrm dy\\
+									   &=\frac{1}{n}\allint \cos(ny)F_y(y,x)\mathrm dy\to 0\qed
 \end{align*}
 From previous removing limits we get that
 \[
@@ -1730,6 +1729,153 @@ We can use this to prove a proposition.
 	   &=\allint\allint e^{-i\lambda(X+Y)}f(X)g(Y)\mathrm dX\mathrm dY\quad\text{where}\  X=x-y,\ Y=y\\
 	   &= \hat f(\lambda)\hat g(\lambda).
 \end{align*}
+\subsection{Important Examples}
+We'll first look at exponentials.\par
+Let $ \sigma\in \C $ with $ \Re(\sigma)>0 $. Let \[
+	f(x)=H(x)e^{-\sigma x} = \begin{cases}
+		e^{-\sigma x} & x \ge 0\\
+		0 & x < 0
+	\end{cases}.
+\].
+Then
+\[
+	\hat f(x)=\allint f(x)e^{-i\lambda x}\mathrm dx=\int_0^\infty e^{-(\sigma +i\lambda)x}\mathrm dx=\frac 1{\sigma+i\lambda}.
+\]
+Note that $ |\hat f(\lambda)|\to 0 $ as $ |\lambda|\to \infty $.\par
+From the inversion formula, we have that
+\begin{align*}
+	H(x)e^{-\sigma x}&=\frac {1}{2\pi}\allint \frac{e^{i\lambda x}}{\sigma +i\lambda}\mathrm{d}\lambda\\
+			 &=\frac {1}{2\pi i}\allint \frac{e^{i\lambda x}}{\lambda-i\sigma}\mathrm{d}\lambda
+\end{align*}
+Differentaion with respect to $ \sigma $ gives that
+\[
+	H(x)x^ke^{-\sigma x}=\left(-\frac{\partial}{\partial \sigma}\right)^k\frac {1}{2\pi}\allint \frac{e^{i\lambda x}}{i\lambda +\sigma} \mathrm{d}\lambda=\frac{k!}{2\po}\allint \frac{e^{i\lambda x}}{(\sigma+i\lambda)^{k+1}}\mathrm {d}\lambda.
+\]
+Let's now consider $ f(x)=\frac 1{\sqrt{2\pi}}e^{-x^2/2} $. So
+\begin{align*}
+	\hat {f}(\lambda)=\frac {1}{\sqrt{2\pi}}\allint e^{-i\lambda x-x^2/2}\mathrm {d}\lambda.
+\end{align*}
+This is tough without IB Complex Analysis/Methods.\\
+Instead we'll notice the following,
+\begin{align*}
+	\left(\frac{\mathrm d}{\mathrm dx}\right) f=-xf\\
+	\implies (i\lambda)\hat f=-\left(i\frac{\mathrm d}{\mathrm dx}\right)\hat f.
+\end{align*}
+i.e. we have that
+\[
+	\left(\frac{\mathrm d}{\mathrm dx}\right)\hat f=-\lambda \hat f.
+\]
+Hence
+\[
+	\hat f(\lambda)=\hat f(0)e^{-\lambda^2/2},
+\]
+so from the definition,
+\[
+  \hat f(0)=\allint f(x)\mathrm dx=1
+\]
+i.e.
+\[
+	\hat f(\lambda)=e^{-\lambda^2/2}.
+\]
+So Gaussians are eigenfunctions of the operator $ \mathcal F $ (with eigenvalue $ \sqrt{2\pi} $ in this case). We also have that
+\[
+	e^{-\lambda^2/2}=\frac 1{\sqrt{2\pi}}\allint e^{-i\lambda x-x^2/2}\mathrm dx.
+\]
+\par
+Now we look at the Dirac delta function. From the definition of $ \delta(x) $ we have that
+\begin{align*}
+	\hat \delta(\lambda)=\allint e^{-i\lambda x}\delta(x)\mathrm dx=1
+\end{align*}
+From the inversion formula we get that
+\[
+	\delta(x)=\frac 1{2\pi}\allint e^{i\lambda x}\mathrm d\lambda.
+\]
+\subsection{Initial Value Problems revisited}
+Recall from Section 4.6 we have the initial value problem
+\[
+	(\dagger)\begin{cases}
+		Ly=f(t) & t>0 \\
+		y(0)=\dot y(0)=0
+	\end{cases}.
+\]
+Now assume that $ L $ has constant coefficients, so $ L=\alpha\frac{\mathrm d^2}{\mathrm dx^2}+\beta\frac{\mathrm d}{\mathrm dx}+\gamma $. Without loss of generality we can assume that $ \alpha=1 $. Extend definition of $ t\to y(t) $ to all of $ \R $ by setting $ y(t)=0 $ on $ t<0 $. We'll do the same for $ f $. It is customary to write \[ \mathcal F_{t\to\omega}[y(t)]=\hat y(\omega) \] when dealing without time-like variables.\par
+Taking the Fourier transformation we get that
+\[
+	[(i\omega)^2+\beta(i\omega)+\gamma]\hat y(\omega)=\hat f(\omega).
+\]
+i.e. we have that
+\[
+	\hat y(\omega)=\frac{\hat f(\omega)}{P(\omega)},\quad P(\omega)=(i\omega)^2+\beta(\omega)+\gamma.
+\]
+Write $ P(\omega) $ as
+\[
+	P(\omega)=(i\omega+\sigma_1)(i\omega+\sigma_2).
+\]
+Assume that $ \beta $ and $ \gamma $ are such that $ \Re(\sigma_i)>0 $ for $ i=1,2 $, and additionally that $ \sigma_1\ne \sigma_2 $. Note that
+\[
+	\frac 1{P(\omega)}=\frac1{\sigma_2-\sigma_1}\left[\frac{1}{i\omega+\sigma_1}-\frac 1{i\omega+\sigma_2}\right]
+\]
+and by Section 5.2 we get that the right hand side of the equation is
+\[
+	=\frac{1}{\sigma_2-\sigma_1}\left[\mathcal F_{t\to \omega}[H(t)e^{-\sigma_1t}]-\mathcal{F}_{t\to \omega}[H(t)e^{-\sigma_2t}]\right].
+\]
+If we define
+\[
+	R(t)=H(t)\left[\frac{e^{-\sigma_1t}-e^{-\sigma_2t}}{\sigma_2-\sigma_1}\right],
+\]
+then
+\begin{align*}
+	\hat R(\omega)=\frac 1{P(\omega)},
+	\hat y(\omega)=\hat R(\omega)\hat f(\omega).
+\end{align*}
+We call $ R=R(t) $ the response function for $ L $. If $ \sigma_1=\sigma_2 $, set $ \sigma_1=\sigma $, and $ \sigma_2=\sigma+\varepsilon $, and take the limit as $ \varepsilon\to 0 $, to get
+\[
+	R(t)=H(t)te^{-\sigma t}.
+\]
+In the other case, by the convolution theorem we get that
+\begin{align*}
+	y(t) &= R*f(t) \\
+	     &= \allint R(t-\tau)f(\tau)\mathrm d\tau\\
+	     &= \int_0^\tau R(t-\tau)f(\tau)\mathrm d\tau.
+\end{align*}
+So $ R(t-\tau)=G(t,\tau) $. If $ f=\delta(\tau) $, then $ y(t)=R(t) $.\par
+However it's not clear where we used the initial conditions of the problem to get our solution. We actually used them implicitly to ensure that the boundary terms vansih when we integrated the differential equation when we first took the Fourier transformation, to ensure the function is continuous at $ 0 $ and the first derivative is continuous at $ 0 $.\par
+Let's see an example. Consider the damped simple harmonic oscillator.
+\[
+  \begin{cases}
+	  \ddot y + 2\gamma \dot y+y=f(t) & t>0\\
+	  y(0) = \dot y(0)=0
+  \end{cases}
+\]
+with $ \gamma>0 $. By the Fourier transformation we ge that
+\[
+	\hat y(\omega)=\frac{\hat f(\omega)}{P(\omega)},\quad P(\omega)=[i\omega+\gamma+\sqrt{\gamma^2-1}][i\omega+\gamma-\sqrt{\gamma^2-1}].
+\]
+Note that
+\[
+	\Re[\gamma\pm \sqrt{\gamma^2-1}]\equiv \Re[\omega_\pm(\gamma)]>0.
+\]
+So in the case $ \gamma>1 $,
+\[
+	R(t)=H(t)\left[\frac{e^{-\sigma_-(t)}-e^{-\sigma_+t}}{\sigma_+-\sigma_-}\right]=H(t)e^{-\gamma t}\frac{\sinh[t\sqrt{\gamma^2-1}]}{\sqrt{\gamma^2-1}}
+\]
+This is \textit{overdamping}. In the case that $ 0<\gamma<1 $, we get that
+\[
+	R(t)=H(t)e^{-\gamma t }\frac{\sin[t\sqrt{1-\gamma^2}]}{\sqrt{1-\gamma^2}}
+\]
+This is \textit{underdamping}. When $ \gamma=1 $, take $ \gamma=1+\varepsilon $ and send $ \varepsilon\to 0 $, to get
+\[
+	R(t)=H(t)te^{-t}.
+\]
+This is \textit{critical damping}.
+
+
+
+
+
+
+
+
 
 
 

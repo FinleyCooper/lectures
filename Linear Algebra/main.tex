@@ -1677,7 +1677,7 @@ However there is no useful relationship between $ C_\lambda $ and $ g_\lambda $.
 		  A=\begin{pmatrix}
 			  \lambda & 1 & 0 & \cdots & 0\\
 			  0 & \lambda & 1 & \cdots & 0\\
-			  \vdots & \vdots & \ddots & \ddots & \vdots\\
+			  0 & 0 & \lambda & \ddots & \vdots\\
 			  \vdots &\vdots & \vdots & \ddots & 1 \\
 			  0 & \cdots & \cdots & 0 & \lambda
 		  \end{pmatrix}.
@@ -1692,23 +1692,143 @@ However there is no useful relationship between $ C_\lambda $ and $ g_\lambda $.
 		\]
 		hence $ a_\lambda=n $, $ g_\lambda=1 $, $ C_\lambda =n $, as $ m_\alpha=\chi_\alpha $.
 \end{enumerate}
+\begin{theorem}
+	If there exists a $ p(t)\in \F[t] $ non-zero such that $ p $ is a product of \textit{distinct} linear factors, such that $ p(\alpha)=0 $ then $ \alpha $ is diagonalisable.
+\end{theorem}
+\pf 
+We can assume that $ p $ is monic. Write
+\[
+	p(t)=\prod_{i=1}^k(t-\mu_i).
+\]
+Set
+\[
+p_i(t)=\prod_{j\ne i}(t-\mu_j)
+\]
+Then by Bezout, there exists $ q_i(t)\in\F[t] $ such that
+\[
+	1=\sum_{i=1}^kp_i(t)q_i(t)\quad\text{in}\ \F[t].
+\]
+Set $ \pi_i=p_i(\alpha)\circ q_i(\alpha)\in \mathcal L(V,V) $. Then
+\[
+	\id_V=\sum_{i=1}^k\pi_i
+\]
+So $ v=\id_V(v)=\sum_{i=1}^k\pi_i(v) $. Hence $ V=\ima(\pi_1)+\cdots+\ima(\pi_k) $. Moreover $ (t-\mu_i)p_i(t)=p(t) $, so $ (\alpha-\mu_i\id_V)\circ p_i(\alpha)=p(\alpha)=0 $. Hence $ (\alpha-\mu_i\id_V)\circ\pi_i=0 $. So $ \ima(\pi_i)\le V_{\mu_i} $. Hence
+\[
+	V=\sum_{i=1}^k\ima(\pi_i)\le\bigoplus_{i=1}^kV_{\mu_i}\le V.
+\]
+So we have
+\[
+	V=\bigoplus_{i=1}^kV_{\mu_i}
+\]
+so $ \alpha $ is diagonalisable.\qed\par
+Let's look an example\\
+Take $ A\in GL_n(\C) $ with finite order. Then $ A $ is diagonalisable. Why? let $ m $ be the order of $ A $. So $ A^m=I_n $, so $ A $ satisfies the polynomial $ p(t)=t^m-1=\prod_{i=1}^m(t-\omega^i) $ where $ \omega=\exp\left(\frac {2\pi i }m\right) $. Hence by the theorem $ A $ is diagonalisable.
+\par
+We'll summarise some of the theorems about diagonalibility in one theorem.
+\begin{theorem}
+  The following statements are equivalent.
+  \begin{enumerate}
+	  \item $ \alpha $ is diagonalisable;
+	  \item $ V $ has a basis consisting of the eigenvectors of $ \alpha $;
+	  \item There exists a $ p(t)\in\F[t] $ non-zero which is a product of distinct linear factors such that $ p(\alpha)=0 $;
+	  \item $ m_\alpha(t) $ is a product of distinct linear factors.
+  \end{enumerate}
+  Moreover if $ \F=\C $ these are also equivalent to
+  \[
+    a_\lambda=g_\lambda
+  \]
+  for all $ \lambda\in \C $.
+\end{theorem}
+\pf (i) $ \iff $ (ii), (i) $ \iff $ (v) already proved. (iii) $ \implies $ (iv)	follows from $ m_\alpha\mid p $. (iv) $ \implies $ (iii) by setting $ p=m_\alpha $. (iii) $ \implies $ (i) was the previous theorem. Hence we are only left to show that (i) $ \implies $ (iii). Let $ B $ be a basis for $ V $ such that $ [\alpha]_B^B $ is diagonal. Rearranging $ B $, we can assume that
+\[
+	[\alpha]^B_B=\begin{pmatrix}
+		\lambda_1I_{n_1} & \cdots & 0 \\
+		\vdots & \ddots & \vdots\\
+		0 & \cdots & \lambda_kI_{n_k}
+	\end{pmatrix}.
+\]
+Set $ p(t)=\prod_{i=1}^k(t-\lambda_i) $. Then $ [p(\alpha)]^B_B=p([\alpha]^B_B)=0 $. Hence $ p(\alpha)=0 $.\qed
+\begin{definition}
+	(Simultaneously diagonalisable) Let $ \alpha,\beta\in\mathcal L(V,V) $. We say that $ \alpha $ and $ \beta $ are \textit{simultaneously diagonalisable} if there exists a basis $ B $ for $ V $ such that $ [\alpha]^B_B $ and $ [\beta]^B_B $ are both diagonal.
+\end{definition}
+\begin{theorem}
+  Suppose that $ \alpha $ and $ \beta $ are diagonal. Then they are simultaneously diagonalisable if and only if they commute.
+\end{theorem}
+\pf Suppose that $ \alpha $ and $ \beta $ are simultaneously diagonalisable. Given some $ B $ in the definition, we know that
+\begin{align*}
+	[\alpha\circ\beta]^B_B &=[\alpha]^B_B[\beta]^B_B\\
+			       &= [\beta]^B_B[\alpha]^B_B=[\beta\circ\alpha]^B_B
+\end{align*}
+since diagonal matrices commute. Hence $ \alpha\circ\beta=\beta\circ\alpha $.\par
+For the converse we need a lemma first.
+\begin{lemma}
+  If $ \alpha $ and $ \beta $ commute and $ V_\lambda $ is the $ \lambda $-eigenspace of $ \alpha $, then $ \beta(V_\lambda)\le V_\lambda $.
+\end{lemma}
+\pf For $ v\in V_\lambda $,
+\begin{align*}
+  \alpha(\beta(V))=\beta(\alpha(v))=\beta(\lambda v)=\lambda\beta(v).
+\end{align*}
+Hence $ \beta(v)\in V_\lambda $.\qed\par
+Now we assume that we have $ \alpha $ and $ \beta $ both diagonalisable which commute. Let $ V=V_{\lambda_1}\oplus \cdots \oplus V_{\lambda_k} $. Let $ p(t) $ be a non-zero polynomial which is a product of distinct linear factors such that $ p(\beta)=0 $. By the lemma we can define $ \beta|_{V_{\lambda_i}}: V_{\lambda_i}\to V_{\lambda_i} $. Then $ p(\beta|_{V_{\lambda_i}})=p(\beta)|_{V_{\lambda_i}}=0 $. Hence $ \beta|_{V_{\lambda_i}} $ is diagonalisable. Let $ B_i $ be a basis of $ V_{\lambda_i} $, consisting of the eigenvectors of $ \beta $. Then by Example Sheet 1,
+\[
+	B=\bigcup_{i=1}^k B_i
+\]
+is a basis for $ V $, and consists of vectors which are eigenvectors for both $ \alpha $ and $ \beta $. Thus $ \alpha $ and $ \beta $ are both diagonal when written in this basis.\qed
+\par
+From now on we'll focus on $ \F=\C $.
+\begin{definition}
+	(Jordan matrix) For $ \lambda\in \C $, the $ (n\times n) $-\textit{Jordan matrix} is
+	\[
+	  J_n(\lambda) = \begin{pmatrix}
+			  \lambda & 1 & 0 & \cdots & 0\\
+			  0 & \lambda & 1 & \cdots & 0\\
+			  0 & 0 & \lambda & \ddots & \vdots\\
+			  \vdots &\vdots & \vdots & \ddots & 1 \\
+			  0 & \cdots & \cdots & 0 & \lambda
+		  \end{pmatrix}\in M_{n\times n}(\C). 
+	\]
+\end{definition}
+\begin{remark}
+	We found that the characteristic polynomial for $ J_n(\lambda) $ is $\chi_{J_n(\lambda)}(t)= (t-\lambda)^n= m_{J_n(\lambda)(t)}$. 
+\end{remark}
+\begin{definition}
+	(Jordan normal form) A matrix $ A \in M_{n\times n}(\C) $ is in \textit{Jordan normal form} if
+	\[
+	  A=\begin{pmatrix}
+		J_{n_1}(\lambda_1) & \cdots & 0 \\
+		\vdots & \ddots & \vdots\\
+		0 & \cdots & J_{n_k}(\lambda_k)
+	\end{pmatrix},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	\]
+	for some $ n_i\in \N $ such that $ \sum_{i=1}^k n_i=n $ and some $ \lambda_i\in \C $ not necessarily distinct.
+\end{definition}
+\begin{theorem}
+	Every $ A \in M_{n\times n}(\C)$ can be written in Jordan normal form uniquely up to a reordering of the Jordan blocks.
+\end{theorem}
+\pf See IB Groups, Rings and Modules for existance. We will prove uniqueness later.\par
+Let's look an example with $ \lambda_i \in \C $ distinct.\\
+For $ n=2 $ the possible Jordan normal forms are
+\[
+  \begin{pmatrix}
+	  \lambda_1 & 1 \\
+	  0 & \lambda_1
+  \end{pmatrix},
+  \begin{pmatrix}
+	  \lambda_1 & 0 \\
+	  0 & \lambda_2
+  \end{pmatrix},
+  \begin{pmatrix}
+	  \lambda_1 & 0 \\
+	  0 & \lambda_1
+  \end{pmatrix}.
+\]
+These have minimial polynomials $ (t-\lambda_1)^2,\ (t-\lambda_1)(t-\lambda_2),\ (t-\lambda_1) $ respectively.\par
+For $ n=3 $ the possible Jordan normal forms are the three diagonal matrices (one all same, one two same, one all different), the matrix with a single Jordan normal block, and the two matrices with a two Jordan blocks, one with the two eigenvalues matching, the other with the two eigenvalues of the block different.
+\begin{remark}
+  For $ n\le 3 $, the Jordan normal form of $ A $ is uniquely determinated by the minimial polynomial and the characteristic polynomial.
+\end{remark}
+However this is not true for $ n>3 $ which we can see on Example Sheet 3.
 
 
 
