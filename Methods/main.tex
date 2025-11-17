@@ -1868,6 +1868,151 @@ This is \textit{underdamping}. When $ \gamma=1 $, take $ \gamma=1+\varepsilon $ 
 	R(t)=H(t)te^{-t}.
 \]
 This is \textit{critical damping}.
+\subsection{Some Neat Examples}
+\subsubsection{Poisson Summation Formula}
+\begin{proposition}
+	(Poisson summation formula) For a "nice" function $ f $ we have that
+  \[
+	  \sum_nf(x+n)=\sum_n\hat f(2\pi n)e^{2\pi in x}
+  \]
+\end{proposition}
+\pf Notice that the LHS and RHS functions are periodic with period $ 1 $. So they have a Fourier series. Say that the LHS is $ F(x) $ and the RHS is $ G(x) $, so $ \hat G_n=\hat f(2\pi n) $. $ F $ has Fourer coefficients given by
+\begin{align*}
+	\hat F_n&=\int_0^1e^{-2\pi in x}F(x)\mathrm dx \\
+		&=\sum_m\int_0^1 e^{-2\pi inx}f(x+m)\mathrm dx\\
+		&= \sum_m\int_m^{m+1}e^{-2\pi i nx}f(x)\mathrm dx\\
+		&=\allint e^{-2\pi inx}f(x)\mathrm dx\\
+		&= \hat f(2\pi n).
+\end{align*}
+So $ \hat F_n=\hat G_n $, so $ F(x)=G(x) $.\qed
+\par
+Let's see an example of this in action. Try $ f(x)=H(x)e^{-\sigma(x)} $ with $ \Re(\sigma)>0 $. Then $ \hat f(\lambda)=(\sigma+i\lambda)^{-2} $ using the Poisson summation formula with $ x=0 $ we get that
+\begin{align*}
+	\sum_n\frac1{(2\pi in +\sigma)^2}=\sum_{n=1}^\infty n^{-\sigma n}=\frac{e^\sigma}{(1-e^{\sigma})^2}=\frac 4{\sinh^2(\sigma/2)}.
+\end{align*}
+Let's take
+\[
+	f(x)=\frac1{\sqrt{2\pi}}e^{-x^2/2},\quad \hat f(\lambda)=e^{-\lambda^2/2}
+\]
+which gives that
+\[
+	\frac 1{\sqrt{2\pi}}\sum_ne^{-(x+n)^2/2}=\sum_ne^{-(2\pi n)^2/2}e^{2\pi inx}
+\]
+\subsubsection{Heisenberg's Uncertainty Principle}
+If $ \allint |\psi(x)|^2\mathrm dx=1 $ then we claim that
+\[
+	\left(\allint x^2|\psi(x)|^2\mathrm dx\right)\left(\allint \lambda^2|\hat \psi(\lambda)|^2\mathrm d\lambda\right)\ge \frac \pi 2
+\]
+Integrate by parts to get that
+\begin{align*}
+	I &= -\allint x\frac{\mathrm d}{\mathrm dx}[\psi\bar\psi]\mathrm dx\\
+	  &= -\allint \left(x\psi\bar\psi'+x\psi'\bar\psi\right)\mathrm dx.\\
+\end{align*}
+Then by the triangle inequality we get that
+\begin{align*}
+	1&\le 2\allint x|\psi||\psi'|\mathrm dx\\
+	 &=2\left(\allint x^2|\psi|^2\mathrm dx\right)^{\frac 12}\left(\allint |\psi'|^2\mathrm dx\right)^{\frac 12}.
+\end{align*}
+Recall that $ \mathcal F_{x\to \lambda}[f'(x)]=(i\lambda)\hat f(\lambda) $, and $ \allint |f(x)|^2\mathrm dx=\frac 1{2\pi}\allint |\hat f(\lambda)|^2\mathrm d\lambda $. So
+\[
+	\allint |f'(x)|^2\mathrm dx=\frac1{2\pi}\allint \lambda^2|\hat f(\lambda)|^2\mathrm d\lambda.
+\]
+Hence
+\begin{align*}
+	1\le \left(\allint x^2|\psi|^2\mathrm dx)^{\frac 12}\right)\left(\frac 1{2\pi}\allint \lambda^2 |\hat \psi(\lambda)|^2\mathrm d\lambda)^{\frac 12}\right)
+\end{align*}
+which gives the result after moving constants and squaring.
+\par
+Replacing $ \psi(x) $ with $ e^{-i\lambda_0 x}\psi(x+x_0) $ we get the new Fourier transform as $ e^{i\lambda x_0}\hat \psi(\lambda+\lambda_0) $. So 
+\begin{align*}
+  \left(\allint x^2|\psi(x+x_0)|^2\mathrm dx\right)\cdot\left(\allint \lambda^2|\hat\psi(\lambda+\lambda_0)|^2\mathrm d\lambda\right)\ge \frac \pi 2,
+\end{align*}
+so we get that 
+\begin{align*}
+    \left(\allint x^2|\psi(x)|^2\mathrm dx\right)\cdot\left(\allint \lambda^2|\hat\psi(\lambda)|^2\mathrm d\lambda\right)\ge \frac \pi 2.
+\end{align*}
+In quantum mechanics the probability that a particle's momentum is in $ (A,B) $ is (up to a constant) $ \int_A^B |\hat \psi(\lambda)|^2\mathrm d\lambda $. If we choose
+\begin{align*}
+	x_0&=\allint x|\psi(x)|^2\mathrm dx\\
+	\lambda_0&=\allint \lambda|\hat \psi(\lambda)|^2\mathrm \lambda,
+\end{align*}
+then our equation becomes a statement about variance i.e the variance of position multiplied by the variance of momentum must be greater than some constant.
+\subsubsection{From Fourier Series to Fourier Transforms}
+Consider the smooth function $ f:\R\to \C $, and assume that $ f(x) $ has compact support i.e. that $ f(x)=0 $ for all $ |x|> L $. On our interval $ (-L,L) $ we have that
+\[
+	f(x)=\sum_n\hat f_ne^{i\pi nx/L},
+\]
+so
+\begin{align*}
+	\hat f_n&=\frac1{2L}\int_{-L}^Le^{-i\pi nx/L}f(x)\mathrm dx\\
+		&= \frac1{2L}\allint e^{-\pi n x/L}f(x)\mathrm dx
+\end{align*}
+since $ f(x)=0 $ on $ |x|>L $. Write $ \lambda_n=\frac{n\pi}L $ and $ \delta \lambda_n=\lambda_{n+1}-\lambda_n=\frac \pi L $. Then
+\begin{align*}
+	\hat f_n=\frac 1{2\pi}\delta \lambda_n\hat f(\lambda_n).
+\end{align*}
+So for $ x\in (-L,L) $ we have that
+\[
+	f(x)=\frac 1{2\pi} \sum_ne^{i\lambda_n x}\hat f(\lambda_n)\delta \lambda_n.
+\]
+Take $ L\to \infty $ i.e. $ \delta\lambda_n\to 0 $, we get that 
+\[
+	f(x)=\frac 1{2\pi}e^{i\lambda x}\hat f(\lambda)\mathrm d\lambda.
+\]
+This is the Fourier inversion formula we saw before!\par
+Also from Parseval's theorem we have that 
+\begin{align*}
+	\int_{-L}^L |f(x)|^2\mathrm dx &=2L\sum_n|\hat f_n|^2\\
+				       &= \frac 1{2\pi}\sum_n|\hat f(\lambda_n)|^2\delta \lambda_n
+\end{align*}
+So as $ L\to\infty $ get the that
+\begin{align*}
+	\allint|f(x)|^2\mathrm dx=\frac 1{2\pi}\allint |\hat f(\lambda)|^2\mathrm d \lambda.
+\end{align*}
+This is Parseval's theorem for the Fourier transform from the equivalent theorem from the Fourier series theorem.
+\subsubsection{Central Limit Theorem}
+Let $ X_1,\dots, X_n $ be i.i.d random variables with $ \mathbb E(X_1)=\mu=0 $ and $ \Var{X_1}=\sigma^2 $. Define
+\[
+	S_n=\frac 1{\sqrt n}(X_1+\cdots + X_n)
+\]
+and denote the pdf of $ S_n $ by $ f_n(x) $. The characteristic function of $ S_n $ is
+\begin{align*}
+	\hat f_n(\lambda)&=\mathbb E[e^{-i\lambda S_n}]\\
+			 &= \mathbb E[e^{-i\lambda(X_1+\cdots X_n)/\sqrt n}]\\
+			 &= \mathbb E[e^{-i\lambda X_1/\sqrt n}]\cdots \mathbb E[e^{-i\lambda X_n/\sqrt n}]\\
+			 &=\mathbb E[e^{-i\lambda X_1/\sqrt n}]^n\\
+			 &=\varphi_{X_1}(\frac \lambda{\sqrt n})^n
+\end{align*}
+Notice
+\begin{align*}
+	\varphi_{X_1}(0)&=1\\
+	\varphi_{X_1}'(0)&=-i\mu=0\\
+	\varphi_{X_2}''(0)&=-\sigma^2.
+\end{align*}
+Take $ \sigma^2 = 1 $, so
+\begin{align*}
+	\hat f_n(\lambda)&=\left(1-\frac 12\frac{\lambda^2}n+o\left(\frac 1nright)\right)^n\\
+			 &= e^{-\lambda^2/2}+o(1)\quad\text{as}\ n \to\infty.
+\end{align*}
+Recall that
+\[
+	\mathcal F_{x\to \lambda}\left[\frac 1{\sqrt{2\pi}}e^{-x^2/2}\right]=e^{-\lambda^2/2}.
+\]
+So by  the inverse Fourier transform we get that 
+\begin{align*}
+	\lim_{n\to \infty} f_n(x)&=\lim_{n\to \infty}\frac 1{2\pi}\allint e^{i\lambda x}\hat f_n(\lambda)\mathrm d\lambda \\
+				 &= \frac 1{\sqrt{2\pi}}e^{-x^2/2}
+\end{align*}
+i.e.
+\[
+	\frac{X_1+\cdots + X_n}{\sqrt n}\to \mathcal N(0,1).
+\]
+
+
+
+
+
+
 
 
 

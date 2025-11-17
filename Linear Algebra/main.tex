@@ -1829,6 +1829,197 @@ For $ n=3 $ the possible Jordan normal forms are the three diagonal matrices (on
   For $ n\le 3 $, the Jordan normal form of $ A $ is uniquely determinated by the minimial polynomial and the characteristic polynomial.
 \end{remark}
 However this is not true for $ n>3 $ which we can see on Example Sheet 3.
+\begin{remark}
+If we have that
+  \[
+    A=\begin{pmatrix}
+ 	A_1 & \cdots & 0 \\
+		\vdots & \ddots & \vdots\\
+		0 & \cdots & A_k
+	\end{pmatrix}\in M_{m\times m}(\C),
+  \]
+  with $ A_i\in M_{n_i\times n_i}(\C) $. Then for $ p(t)\in \C[t] $,
+  \[
+    p(A)=\begin{pmatrix}
+ 	p(A_1) & \cdots & 0 \\
+		\vdots & \ddots & \vdots\\
+		0 & \cdots & p(A_k)
+	\end{pmatrix},
+
+  \]
+  so $ m_a(t)=\lcm(m_{A_1}(t),\dots, m_{A_k}(t)) $, hence $ C_\lambda(A)=\max_i(C_\lambda(A_i)) $.\par
+  We also have that
+  \[
+	  \chi(A)(t)=\prod_{i=1}^k\chi_{A_i}(t)
+  \]
+  hence $ a_\lambda(A)=\sum_{i=1}^ka_\lambda(A_i) $.\par
+  Furthermore
+  \[
+	  \rk(A)=\sum_{i=1}^k\rk(A_i),
+  \]
+  and
+  \[
+    A-\lambda I_n=\begin{pmatrix}
+	    (A_1-\lambda I_n) & \cdots & 0 \\
+	    \vdots & \ddots & \vdots \\
+	    0 & \cdots & (A_k-\lambda I_n
+    \end{pmatrix}
+  \]
+  hence
+\begin{align*}
+	g_\lambda(A) &= n -\rk(A-\lambda I_n)\\
+		     &= \sum_{i=1}^k (n_i-\rk(A_i-\lambda I_{n_i}))\\
+		     &= \sum_{i=1}^k g_\lambda(A_i).
+\end{align*}
+\end{remark}
+
+\begin{proposition}
+	For $ A\in M_{n\times n}(\C) $ in Jordan normal form,
+	\begin{enumerate}
+		\item $ a_\lambda(A) $ is the sum of the sizes of $ \lambda $-Jordan blocks in $ A $;
+		\item $ g_\lambda(A) $ is the number of $ \lambda $-Jordan blocks;
+		\item $ C_\lambda(A) $ is the size of the largest $ \lambda $-Jordan block.
+	\end{enumerate}
+\end{proposition}
+\pf Immediate from above calculations and $ a_\lambda $, $ C_\lambda $, $ g_\lambda $ for $ J_n(\lambda) $ from the above remark.\qed
+\par
+Let's see an example of putting a matrix in Jordan normal form.
+\[
+  A=\begin{pmatrix}
+3 & -2 & 0 \\
+1 & 0 & 0 \\
+1 & 0 & 1
+  \end{pmatrix}
+\]
+so we see a matrix $ P\in GL_3(\C) $ such that $ PA\inv P $ is in Jordan normal form. We see that $ \chi_A(t)=(t-1)^2(t-2) $ so the JNF is either
+  \begin{enumerate}
+	  \item \[\begin{pmatrix}
+			  1 & 0 & 0 \\
+			  0 & 1 & 0 \\
+			  0 & 0 & 2
+		  \end{pmatrix}\]
+  \item \[\begin{pmatrix}
+		  1 & 1 & 0 \\
+		  0 & 1 & 0 \\
+		  0 & 0 & 2
+	  \end{pmatrix}\].
+  \end{enumerate}
+But 
+\[
+  A-I_3=\begin{pmatrix}
+	  2 & -2 & 0 \\
+	  1 & -1 & 0 \\
+	  1 & 0 & 0
+  \end{pmatrix}
+\]
+which has rank $ 2 $, namely $ \ker(A-I_3)=\langle \begin{pmatrix}
+  0\\ 0 \\ 1\rangle
+\end{pmatrix} $, so we're in case (ii). Set $ v_1=\begin{pmatrix}
+  0 \\ 0 \\ 1
+\end{pmatrix} $. Similarly 
+\begin{align*}
+  \ker(A_2I_3)=\langle v_1\rangle =\langle \begin{pmatrix}
+	  3 \\ 1 \\ 2
+  \end{pmatrix}\rangle.
+\end{align*}
+Finially solve $ Av_2=v_1+v_2 $, solving for $ v_2 $ gives that $ v_2=\begin{pmatrix}
+  1 \\ 1\\ 0
+\end{pmatrix}. $\\
+So we can set $ P=[v_1 \ \mid \ v_2 \ \mid\  v_3 ]$.
+\par
+Now we will prove uniqueness of Jordan normal form (up to rearrangment of the blocks).\par
+\pf For $ A,\overline A\in M_{n\times n}(\C) $ with $ A\sim \overline A $ anf $ \overline A $ in JNF, define
+\begin{align*}
+	R_{\lambda,r}(\overline A)= \mathhuge(\text{Number of }\lambda\text{-J-blocks in } \overline A\text { of size } \ge r\mathhuge).
+\end{align*}
+Then the $ R_{\lambda_r}(\overline A) $ determine $ \overline A $ uniquely up to rearranging of the blocks. Hence uniquness follows from the lemma, only dependent on $ A $.
+\begin{lemma}
+  \[
+	  R_{\lambda,r}(\overline A)=\rk((A_\lambda -I_n)^{r-1})-\rk((A-\lambda I_n)^r)
+  \]
+\end{lemma}
+\pf For $ P\in GL_n(\C) $,
+\begin{align*}
+	P(A-\lambda I_n)^k\inv P &= (P(A-\lambda I_n)\inv P)^k\\
+				 &= (PA\inv P-\lambda I_n)^k
+\end{align*}
+Thus $ rk((\overline A-\lambda I_n)^k)=\rk((A-\lambda I_n)^k) $, hence we can assume that $ A=\overline A $ is in JNF.
+\[
+  J_\ell(\lambda)-\lambda I_\ell=\begin{pmatrix}
+	  0 & 1 & \cdots & 0\\
+	  0 &  0 & \cdots  & 0 \\
+\vdots & \ddots & \ddots & \vdots \\
+0 & 0 & \cdots &  0
+  \end{pmatrix}
+\]
+and raising to the power $ n $ moves the diagonal of ones to the right. Thus
+\[
+  \rk((J_\ell(\lambda)-\lambda I_\ell)^k)=\begin{cases}
+	  \ell - k & k\le \ell \\
+	  0 & k\ge \ell
+  \end{cases}.
+\]
+For $ \mu \ne \lambda $, $ J_\ell(\mu)-\lambda I_\ell $ is invertible hence 
+\begin{align*}
+	\rk((A-\lambda I_n)^k) & = R-k\cdot (\text{Number of }\lambda\text{-J-blocks in } \overline A\text { of size } \ge r)\\ &- \sum (\text{Number of }\lambda\text{-J-blocks in } \overline A\text { of size } < r)
+\end{align*}
+which we then can use to get the required lemma.\par
+Hence the JNF is unique.\qed
+\begin{definition}
+	(Generalised eigenspace) Let $ V $ be a finite dimensional $ \C $-vector space and $ \alpha\in \mathcal L(V,V) $. Write
+  \[
+	  m_\alpha(t)=(t-\lambda_1)^{C_1}\cdots (t-\lambda_k)^{C_k}
+  \]
+  with $ \lambda_i\in \C $ all distinct and $ C_i\ge 1 $. The \textit{generalised} $ \lambda_i $-\textit{eigenspace} of $ \alpha $ is 
+  \[
+	  V_i=\ker((\alpha-\lambda_i\id_V)^{C_i})\le V.
+  \]
+\end{definition}
+\begin{theorem}
+	(Generalised eigenspace decomposition) Let $ V $ be as in the above definition, then
+	\[
+	  V=V_1\oplus \cdots \oplus V_k.
+	\]
+\end{theorem}
+\pf {Example Sheet 3.} \qed
+\begin{lemma}
+	If $ \mathbf 0\ne v_i\in V_i $, then $ \{v_1,\dots, v_k\} $ are linearly independent.
+\end{lemma}
+\pf Let $ 0\le d_i < C_i $ be such that $ \mathbf 0 \ne w_i=(\alpha-\lambda_i \id_V)^{d_i}(v_i) $. But $ (\alpha-\lambda_i\id_V)^{d_i+1}(v_i)=\mathbf 0 $. So $ w_i $ is a $ \lambda_i $-eigenvector of $ \alpha $, so $ \{w_1,\dots, w_k\} $ is linearly independent. Set
+\[
+	\beta=\prod_{j=1}^k(\alpha-\lambda_j\id V)^{d_j}\in \mathcal L(V,V).
+\]
+As the $ (\alpha-\lambda_j\id V) $ commute, we get,
+\begin{align*}
+	\beta(v_i)&=\left(\prod_{j\ne i}(\alpha-\lambda_j\id_V)^{d_j}\right)(w_i)\\
+		  &\left(\prod_{i\ne j}(\lambda_i-\lambda_j)^{d_j}\right)w_i\\
+		  &=\mu_iw_i,
+\end{align*}
+with $ \mu_i\ne0 $. Suppose
+\begin{align*}
+	\mathbf 0=\sum_{i=1}^k\nu_iv_i
+\end{align*}
+for $ \nu_i\in \C $. Then
+\begin{align*}
+	\mathbf 0 &= \left(\sum_{i=1}^k\nu_i v_i\right) \\
+		  &= \sum_{i=1}^k \mu_i\nu_i w_i
+\end{align*}
+so $ \nu_i=0 $.\qed
+\par
+We can give a sketch proof of the existance of Jordan normal form.\par
+$ A $ commutes with $ A-\lambda_i I_n $ so $ A $ preserves $ V_i $. Thus we can write $ A $ in block diagonal form with each block acting on each generalised eigenspace. Each block has minimial polynomial $ (t-\lambda_i)^{c_i} $ so it suffices to show each block has Jordan normal form i.e. we only have to show existance of JNF for matrices with a single eigenvalue. We can also replace our matrix $ A_i $ with $ A_i-\lambda_i I $, so we can assume this eigenvalue is zero. So $ A^m=0 $ i.e. that $ A $ is nilpotent.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
