@@ -2007,6 +2007,125 @@ i.e.
 \[
 	\frac{X_1+\cdots + X_n}{\sqrt n}\to \mathcal N(0,1).
 \]
+\subsection{Discrete Fourier Transform}
+Given a sequence $ \{X_n\}_{n=0}^{N-1} $, define a new sequence $ \{\hat X_{k}\}_{k=0}^{N-1} $ by the discrete Fourier Transform (DFT)
+\[
+	\hat X_k=\sum_{n=0}^{N-1}X_ne^{-i(2\pi n/N)k}.
+\]
+Let $ f:[0,2\pi)\to \C $ be given and suppose that $ X_n=f(x_n) $, where $ x_n=\frac{2\pi n}N \in [0,2\pi) $. Set $ \delta x_n=x_{n-1}-x_n=\frac {2\pi}N $.
+\begin{align*}
+	\hat X_k=\frac N{2\pi}\sum_{n=0}^{N-1}f(x_n)e^{-ikx_n}\delta x_n.
+\end{align*}
+If we extend $ f(x)=0 $ when $ x\notin [0,2\pi) $, we get that
+\[
+	\hat X_K\approx \frac {N}{2\pi} \allint e^{-ikx}f(x)\mathrm dx=\frac N{2\pi}\hat f(k)\quad \text{for}\ k=0,1,\cdots,N-1.
+\]
+i.e. we have that for $ N $ large,
+\[
+	\hat f(k)\approx \frac{2\pi}N\hat X_k.
+\]
+\begin{proposition}
+	Given $ \{\hat X_k\}_{k=0}^{N-1} $ we can recover $ \{X_n\}_{n=0}^{N-1} $ via 
+	\[
+		X_n=\frac 1N\sum_{k=0}^{N-1}\hat X_ke^{i(2\pi k/N)n}.
+	\]
+\end{proposition}
+\pf By direct computation,
+\begin{align*}
+	\sum_{k=0}^{N-1}\hat X_ke^{i(2\pi n/N)k} &= \sum_{k=0}^{N-1}\sum_{m=0}^{N-1} X_me^{2\pi i(n-m)k/N}.
+\end{align*}
+Write $ \omega_N=e^{2\pi i/N} $, we get that
+\begin{align*}
+  &=\sum_{m=0}^{N-1}X_m\sum_{k=0}^{N-1}\omega_N^{(n-m)k}.
+\end{align*}
+Note that
+\[
+	\sum_{k=0}^{N-1}\omega_N^{(n-m)k}=\begin{cases}
+		N & n=m \\
+		\frac{1-\omega_N^{(n-m)N}}{1-\omega_N^{(n-m)}}=0 & n\ne m
+	\end{cases}.
+\]
+So our sum becomes
+\[
+	=\sum_{m=0}^{N-1}X_m(N\delta_{nm})=NX_n.\qed
+\]
+Instead with vectors, if we have $ \mathbf x\in \C^N $ we have
+\[
+  \mathbf x=\begin{pmatrix}
+	  X_0 \\ \vdots \\ X_{N-1}
+  \end{pmatrix},\ \text{so}\quad \hat {\mathbf X}=\begin{pmatrix}
+  \hat X_0 \\ \vdots \\ \hat X_{N-1}
+  \end{pmatrix} = \mathcal F\mathbf X
+\]
+where $ \mathcal F $ is an $ N\times N $ matrix, where $ \mathcal F_{kn}=e^{-i(2\pi n/N)k} $. From previous,
+\[
+  \mathcal F\mathcal F^\dagger = \mathcal F^\dagger \mathcal F =N I_N,
+\]
+hence if we define $ U=\frac 1{\sqrt N}\mathcal F $ we have that $ U U^\dagger = U^\dagger U $ so $ U $ is unitary. i.e $ (U\mathbf x)\cdot (U\mathbf y)=\mathbf x \cdot \mathbf y $.\par
+For an example take $ X_n=\begin{pmatrix}
+  N-1 \\ n
+\end{pmatrix} $ for $ n=0,\cdots, N-1 $. Then we have that
+\begin{align*}
+\hat X_k=\sum_{n=0}^{N_1} \binom{N-1}{n} e^{-i(2\pi n/N)k}=\left(1+e^{-2\pi ik/N}\right)^{N-1}.
+\end{align*}
+
+\begin{proposition}
+	(Parseval's theorem) We have that,
+	\[
+		\sum_{n=0}^{N-1}X_n\overline Y_n=\frac 1N\sum_{k=0}^{N-1} \hat X_k\overline{\hat Y}_k.
+	\]
+	This also means that
+	\[
+		\sum_{n=0}^{N-1}|X_n|^2=\frac 1N\sum_{k=0}^{N-1}|\hat X_k|^2.
+	\]
+\end{proposition}
+\pf
+\begin{align*}
+	\text{RHS} &= \frac 1N(\mathcal F\mathbf x)\cdot(\mathcal F\mathbf y)\\
+		   &= (U\mathbf x)\cdot(U\mathbf y)\\
+		   &=\mathbf x\cdot \mathbf y\\
+		   &= \text{LHS}.
+\end{align*}
+And we can take $ \mathbf x=\mathbf y $ to get latter part.\qed
+\par
+Let's see an example. Take $ X_n=\begin{pmatrix}
+  N-1 \\ n
+\end{pmatrix} $ as before. So
+\begin{align*}
+	\sum_{n=0}^{N-1}\binom{N-1}{n}^2 &=\frac 1N=\sum_{k=0}^{N-1}(1+e^{-2\pi ik/N})^{N-1}(1+e^{2\pi ik/N})^{N-1}\\
+					 &=\frac 1N\sum_{k=0}^{N-1}(e^{i\pi k/N}+e^{-i\pi k/N})^{2N-2}\\
+					 &=\frac 1N \sum_{k=0}^{N-1}\left(2\cos\left(\frac{\pi k}N\right)\right)^{2N-2}
+\end{align*}
+From IA Numbers and Sets we get that
+\[
+	\sum_{n=0}^{N-1}\binom{N-1}n\binom{N-1}n=\sum_{n=0}^{N-1}\binom{N-1}n\binom{N-1}{N-1-n}=\binom{2N-2}{N-1}.
+\]
+This gives the result
+\[
+\frac 1{2^{2M}}\binom{2M}M=\frac 1{M+1}\sum_{k=0}^M\cos^{2M}\left(\frac{\pi k}{M+1}\right)=\mathbb P(\text{getting } M \text{ heads tossing a coin } 2M \text{ times}).
+\]
+Just like with the usual Fourier transformation, we can define a conovuolution of sequences $ \{X_n\}_{n=0}^{N-1} $, $ \{Y_n\}_{n=0}^{N-1} $, defined as
+\[
+	(X*Y)_n=\sum_{m=0}^{N-1}X_{(n-m)\text{ mod } N}Y_m.
+\]
+\begin{proposition}
+  \[
+	  [\mathcal F(X*Y)]=\hat X_k\hat Y_k.
+  \]
+\end{proposition}
+\pf
+\begin{align*}
+	\text{LHS} &= \sum_{n=0}^{N-1}\left(\sum_{m=0}^{N-1}X_{(n-m)\text{ mod } N} Y_m\right)e^{-i\left(\frac{2\pi n}N\right)k}\\
+		   &= \sum_{m=0}^{N-1}Y_me^{-i(2\pi m/N)k}\sum_{n=0}^{N-1}X_{(n-m)\text{ mod } N}e^{-i(2\pi(n-m)/N)k}\\
+		   &=\sum_{m=0}^{N-1} Y_me^{-i(2\pi m/N)k} \hat X_k\\
+		   &=\hat X_k\hat Y_k.\qed
+\end{align*}
+Let's look at the computation complexity of the discrete Fourier transformation. From the sum, the time complexity of the discrete Fourier transformation computed naively is $ O(n^2) $. The Fast Fourier Transform (FFT) can be used to speed up if $ N=2^M $, then we can compute the Fourier transform in time complexity $ O(N\log N) $.
+
+
+
+
+
 
 
 
