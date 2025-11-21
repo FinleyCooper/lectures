@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Analysis II - Example Sheet 2}
+\author{Solutions by Finley Cooper}
+\begin{document}
+\maketitle
+\newpage
+\section*{Question 1}
+\subsection*{Part (a)}
+Suppose the norms $ ||\cdot || $ and $ ||\cdot ||' $ are Lipschitz equivalent. Then there exists real numbers $ A,B $ positive such that
+\[
+	A||x ||\le ||x ||' \le B||x|| \quad \text{for all} \ x\in V.\tag{\dagger}
+\]
+Let $ r=\frac 1A $ and $ R=\frac 1B $. Supose that $ x \in B_1'$. Hence we have that $ ||x||'< 1 $, so by $ (\dagger) $ we get $ A||x||< 1$ Hence it follows that $ ||x||< r $ so $ x\in B_r $. This gives $ B_r\subseteq B_1' $. Now take some $ x\in B_R $. Hence $ ||x||< R=\frac 1B $. So again by $ (\dagger) $ $ ||x||'< 1 $ so $ x\in B_1' $. So $ B_r\subseteq B_1'\subseteq B_R $.\par
+Conversely suppose that there exists real numbers $ r,R $ such that
+\[
+  B_r\subseteq B_1'\subseteq B_R.
+\]
+Fix a $ x\in V $. We have that
+\begin{align*}
+	\frac {x}{||x||'}\in B_1' &\implies \frac{x}{||x||'}\in B_r\\
+				  &\implies \left|\left|\frac{x}{||x||'}\right|\right|< r\\
+				  &\implies \frac 1r ||x||< ||x||'.
+\end{align*}
+Similarly,
+\begin{align*}
+	\frac{Rx}{||x||}\in B_R & \implies \frac{Rx}{||x||}\in B_1' \\
+				& \implies \left|\left|\frac{Rx}{||x||}\right|\right|'< 1\\
+				& \implies ||x||'< \frac 1R ||x||.
+\end{align*}
+Hence $ ||\cdot || $ and $ ||\cdot ||' $ are Lipschitz equivalent.
+\subsection*{Part (b)}
+Suppose the norms $ ||\cdot || $ and $ ||\cdot ||' $ are Lipschitz equivalent. \[
+	A||x ||\le ||x ||' \le B||x|| \quad \text{for all} \ x\in V.\]
+
+Suppose now $ (x_n) $ is a sequence in $ V $ converging to $ x $ with respect to $ ||\cdot || $. Then we have that
+\[
+  ||x_n-x||'\le B||x_n-x||\to B\cdot 0 = 0
+\]
+as $ n\to \infty $. Symmetrically we have the converse statement.\par
+Now suppose that $ x_n\to x $ with respect to $ ||\cdot || \iff x_n\to x$ with respect to $ ||\cdot ||' $. Take $ \alpha $ as the identity map from $ (V,||\cdot ||) $ to $ (V, ||\cdot ||') $. By the hypothesis it is continuous, hence there is some $ \delta>0 $ such that
+\[
+  ||x||<\delta \implies ||x||'<1
+\]
+and taking the inverse map there is some $ \varepsilon $ such that
+\[
+  ||x||'<1\implies ||x||<\varepsilon.
+\]
+Hence by part (a) the norms are Lipschitz equivalent.
+\subsection*{Part (c)}
+Let's show that $ ||\cdot || + |\varphi(\cdot )| $ defines a norm on $ V $. Firstly,
+\[
+  ||0||+|\varphi(0)|=0+0=0
+\]
+since $ \varphi $ is linear. The norm is clearly positive definite since $ ||x||=0 \iff x=0 $. $ \varphi $ is linear, so the norm has linearity in scalar multiplication. We're just left to prove the triangle inequality.
+\begin{align*}
+	||x+y||+|\varphi(x+y)| &\le ||x||+||y||+|\varphi(x)+\varphi(y)|\\
+			       &\le ||x||+|\varphi(x)|+||y||+|\varphi(y)|.
+\end{align*}
+So this does define a norm on $ V $.\par
+Suppose that $ \varphi $ is not continuous. So there exists a point $ x\in V $ and a sequence such that $ x_n\to x $ and $ \varphi(x_n)\to y $ with $ y\ne \varphi(x) $ (with the first limit being taken with respect to the $ ||\cdot || $ norm). We'll show the norms are not Lipschitz equivalent using (c). Call our newly define norm $ ||\cdot ||' $. Then
+\begin{align*}
+	||x_n-x||' &= ||x_n-x||+|\varphi(x_n-x)|.
+		   &= ||x_n-x||+|\varphi(x_n)-\varphi(x)|
+\end{align*}
+But as $ n\to \infty $ the first term vanishes and the second term doesn't go to zero since $ \varphi(x)\ne \varphi(y) $ as limits are unique. Hence $ x_n $ doesn't converge to $ x $ in this new norm, so by (c) the norms are not Lipschitz equivalent.
+\subsection*{Part (d)}
+For this part we'll assume the Axiom of Choice so we can construct a basis for any vector space through Zorn's lemma. Let $ V $ be an infinite dimensional vector space. Let $ B $ be a basis for $ V $, take $ (e_n) $ to be some countable subset of the basis vectors and define a $ \varphi: V\to \R $ on this vector space by
+\[
+	\varphi(e_n)=n, \quad \varphi = 0 \ \text{ on other basis}
+\]
+so we can then extend $ \varphi $ to make it linear. $ \varphi $ is not bounded on the unit ball so not continuous. Then by (c) we have at least two non-Lipschitz equivalent norms, hence if we have a vector space with exactly one norm up to Lipschitz equivalence, $ V $ \textit{must} be finite-dimensional.
+\section*{Question 2}
+Suppose that $ f:X\to X' $ is continuous. Let $ V $ be some open set in $ X' $ and let's show that $ X\setminus \inv f(V) $ is closed instead. Take some sequence $ (x_n) $ in $ X\setminus \inv f(V) $ with $ x_n\to x $. So it is sufficient to show that $ x\notin \inv f(V) $.
+\par
+$ x_n\notin \inv f(V) $, so $ f(x_n)\in X' \setminus V $. Since $ f $ is continuous, $ f(x_n)\to f(x) $ and since $ V $ is open, $ X'\setminus V $ is closed, therefore $ f(x)\in X'\setminus V $. So $ f(x)\notin V $ so $ x\notin \inv f(V) $, hence $ \inv f(V) $ is open.
+\section*{Question 3}
+Since we're working over the vector space $ \R^n $ it is enough to show that $ X $ is closed and bounded. If we let $ f $ be the function describing the Euclidean metric (which is continuous), then it has a bounded image, so $ X $ is bounded. Now we're left to show $ X $ is closed. Suppose not. Then there is a point $ x $ which is a limit point of $ X $ but not in $ X $, so we can make $ ||y-x||_2 $ as small as we like for $ y\in X $. Hence the function
+\begin{align*}
+	f:&X\to \R\\
+	 &y \to \frac{1}{||y-x||_2}
+\end{align*}
+is clearly continuous but unbounded. So $ X $ must be closed, so it is compact.\par
+For a general metric space, $ (X,d) $.
+
+\section*{Question 4}
+\subsection*{Part (a)}
+Let $ (x_k) $ be a sequence in $ X $, then since the open balls cover $ X $ and there are finitely many of then, there must be a ball centred at $ x_i $ that contains infinitely many terms of the sequence. 
+
+
+
+\section*{Question 5}
+\begin{enumerate}
+	\item Not topological. We can relate the open sets $ (0,1) $ and $ (1,\infty) $ by a the transformation $ \frac 1x $, which preserves the topology, but not the bo undedness.
+	\item Topological. A set is closed $ \iff $ it's complement is open, so the closed-ness of a set is completely determined by not being in the collection of open sets. Cons
+	\item
+\end{enumerate}
+
+
+
+
+
+
+
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}.

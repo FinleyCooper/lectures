@@ -2154,12 +2154,162 @@ Write $ A=[\varphi]_{B,C} $. Then $ a_{i,j}'=\varphi_L(b_i)[c_j]=\varphi(b_i,c_j
 	For $ U,V $ finite dimensional and $ B,C $ basis for $ U,V $ then $ \varphi $ is non-degenerate if and only if $ \dim U=\dim V $ and $ [\varphi]_{B,C} $ is invertible.
 \end{proposition}
 \pf Non-degeneracy $ \iff $ $ \ker(\varphi_L),\ker(\varphi_R) $ trivial. So this is equivalent to $ \dim U=\rk(\varphi_L)=\rk(\varphi_R)=\rk(\varphi)=\dim V $ which occurs if and only if $ [\varphi]_{B,C} $ is square of full rank.
+\par
+Henceforth we'll consider bilinear forms with $ U=V $. If $ V $ is finite dimensional, write $ [\varphi]_B $ for $ [\varphi]_{B,B} $.
+
+\begin{definition}
+	(Symmetric bilinear form) A bilinear form $ \varphi:V\times V\to \F $ is \textit{symmetric} if $ \forall u,v\in V $,
+	\[
+	  \varphi(u,v)=\varphi(v,u).
+	\]
+\end{definition}
+\begin{remark}
+  Some consequences,
+  \begin{enumerate}
+	  \item Recall that $ A\in M_{n\times n}(\F) $ is symmetric if $ A^T=A $. Fir $ V $ finite dimensional, $ \varphi $ is symmetric if and only if for some (or equivalently any) basis $ B $ for $ V $ we have that $ [\varphi]_B $ is symmetric.
+	  \item If $ \varphi $ is symmetric, then for any $ S\subseteq V $, $ \ ^\per S=S^\perp $.
+	  \item In particular, the left kernel is the same as the right kernel which will just call the kernel of $ \varphi $.
+  \end{enumerate}
+\end{remark}
+\begin{definition}
+	(Quadratic form) A \textit{quadratic form} on $ V $ is a function $ Q:V\to \F $ such that there exists a bilinear form $ \varphi: V\times V\to \F $ such that for all $ v\in V $, $ Q(v)=\varphi(v,v) $.
+\end{definition}
+Let's see an example. Set $ V=\R^2 $. For $ A\in M_{2\times 2}(\F) $, define $ Q_A(\mathbf x)=\mathbf x^TA\mathbf x = a_{11}x^2+(a_{12}+a_{21})xy+a_{22}y^2 $. So the corresponding bilinear form is $ \varphi(\mathbf x,\mathbf y)=\mathbf x^TA\mathbf y $.\\
+Note that $ Q_A=Q_{\frac 12(A+A^T)} $.
+\begin{proposition}
+	(Polarisation Identity). Suppose that $ \F $ is a field of characteristic greater than 2. Let $ Q:V\to \F $ be quadratic form. Then there is unique symmetric bilinear form $ \psi:V\times V\to \F $ such that,
+	\[
+		Q(v)=\psi(v,v)\quad \forall v\in V.\tag{\star}
+	\]
+And $ \psi $ is given by
+\[
+	\psi(u,v)=\frac 12(Q(u+v)-Q(u)-Q(v)).\tag{\dagger}
+\]
+\end{proposition}
+\pf First we'll prove existance . Let $ \varphi $ be bilinear as in the definition of a quadratic form. Set $ \psi(u,v)=\frac 12(\varphi(u,v)+\varphi(v,u)) $, so $ \psi $ is bilinear and symmetric by definition.\par
+For uniqueness, suppose $ \psi $ is a symmetric bilinear form satisfying $ (\star) $. Then 
+\begin{align*}
+	Q(u+v)&=\psi(u+v,u+v)\\
+	      &=\psi(u,u)+\psi(u,v)+\psi(v,u)+\psi(v,v) \\
+	      &= Q(u)+Q(v)+2\psi(u,v),
+\end{align*}
+so $ \psi $ satisfies $ (\dagger) $.\qed
+\begin{theorem}
+	Suppose $ \F $ is a field of characteristic greater than 2 and $ V $ is a finite dimensional $ \F $-vector space. Let $ \varphi:V\times V\to \F $ be a symmetric bilinear form. Then there is a basis $ B $ for $ V $ such that $ [\varphi]_B $ is diagonal.
+\end{theorem}
+\pf Induct on the dimension, $ n = \dim V $. If $ \forall v\in V $, $ \varphi(v,v)=0 $, then by polarisation, $ \varphi=0 $ which is diagonal so we're done. Otherwise there exists some $ \mathbf 0 \ne v \in V $ such that $ Q(v_1,v_1)\ne 0 $. Set $ U=\langle v_1\rangle^\perp=\ker(\varphi_L(v_1):V\to \F) $.
+Then $ v_1\notin U $, so by rank-nullity, $ \dim U=n-1 $ and $ V=\langle v_1\rangle\oplus U $. Define $ \varphi\mid_U:U\times U\to \F $ from $ \varphi $, so it is symmetric and bilinear, so by induction there exists a basis $ B_U=\{v_2,\dots, v_n\} $ such that $ [\varphi\mid_U]_{B_U} $ is diagonal. Then $ B=\{v_1,\dots, v_n\} $ is a basis for $ V $ and
+\[
+	[\varphi]_B=\begin{pmatrix}
+		\varphi(v_1,v_1) & \cdots & 0 \\
+		\vdots & \ddots & \vdots \\
+		0 & \cdots & \varphi(v_n,v_n)
+	\end{pmatrix}.
+\]
+Hence we're done. \qed
 
 
+\begin{remark}
+  The assumption that $ \varphi $ is symmetric is necessary in the theorem. If $ P^TAP=D $ is diagonal, since $ D=D^T $ we have that $ (P^TAP)^T=P^TA^TP $, so $ A=A^T $, since $ P $ is invertible.
+\end{remark}
+In practice, shortcuts are available.
+\begin{corollary}
+  Suppose $ \F $ is a field of characteristic greater than 2. Then every symmetric matrix is congruent to a diagonal matrix.
+\end{corollary}
+\begin{corollary}
+  Suppose
+  \begin{enumerate}
+	  \item $ V $ is a finite dimensional $ \C $-vector space, and $ \varphi $ is as in the theorem. Let $ Q(v)=\varphi(v,v) $. Then there is a basis $ B=\{v_1,\dots, v_n\} $ for $ V $ such that
+			  \[
+			    [\varphi]_B=\begin{pmatrix}
+				    I_r & 0 \\
+				    0 & 0
+			    \end{pmatrix}, \quad r=r\rk (\varphi).
+		    \]
+	    \item If instead $ V $ is a $ \R $-vector space, 
+		    \[
+			    [\varphi]_B=\begin{pmatrix}
+				    I_p & 0 & 0 \\
+				    0 & I_q & 0 \\
+				    0 & 0 & 0
+			    \end{pmatrix}, \quad p+q=\rk(\varphi).
+		    \]
+\end{enumerate}
+\end{corollary}
 
-
-
-
+\pf Pick basis $ C=\{c_1,\dots, c_n\} $ such that,
+\[
+	[\varphi]_C=\begin{pmatrix}
+		a_1 & \cdots & 0 \\
+		\vdots & \ddots & \vdots \\
+		0 & \cdots & a_n
+	\end{pmatrix}.
+\]
+Reorder indices such that
+\begin{itemize}
+	\item $ a_i\ne 0 $ if and only if $ i\le r=\rk(\varphi) $.
+	\item If $ \F=\R $, $ r=p+q $ and $ a_i>0 $ for $ i\le p $, and $ a_i<0 $ for $ p+1\le i \le p+q $.
+\end{itemize}
+Then,
+\begin{enumerate}
+	\item If $ \F=\C $, set
+		\[
+		  v_i=\begin{cases}
+			  \frac{1}{\sqrt{a_i}}c_i & i \le r \\
+				  c_i & i\ge r+1.
+		  \end{cases}
+		\]
+	\item If $ \F=\R $, set
+		\[
+		  v_i=\begin{cases}
+			  \frac{1}{\sqrt{a_i}}c_i & i \le p \\
+			  \frac 1{\sqrt{-a_i}}c_i & p+1 \le i \le p+q\\
+			  c_i & i\ge p+q+1
+		  \end{cases}
+		\]
+\end{enumerate}
+Henceforth $ \F=\R $.
+\begin{definition}
+	(Positive definite) Let $ \varphi:V\times V\to \R $ be a symmetrical bilinear form. $ \varphi $ is said to be \textit{positive definite} if $ \varphi(v,v)>0 $ for all $ \mathbf 0 \ne v\in V $. If we replace the $ > $ with a $ \ge $ and $ \varphi $ satisfies the inequality for all $ v $ we say that $ \varphi $ is \textit{positive semi-definite}.
+\end{definition}
+\begin{definition}
+	(Negative definite) Let $ \varphi:V\times V\to \R $ be a symmetrical bilinear form. $ \varphi $ is said to be \textit{negative definite} if $ \varphi(v,v)<0 $ for all $ \mathbf 0 \ne v\in V $. If we replace the $ < $ with a $ \le $, and $ \varphi $ satisfies the inequality for all $ v $ we say that $ \varphi $ is \textit{negative semi-definite}.
+\end{definition}
+\begin{definition}
+	(Indefinite) If $ \varphi:V\times V\to \R $ symmetrical is not positive semi-definite or negative semi-definite, we say that $ \varphi $ is \textit{indefinite}.
+\end{definition}
+\begin{remark}
+  Similar definitions exist for quadratic forms.
+\end{remark}
+Let's see an example. Let $ V $ be finite dimensional and $ B $ be a basis such that 
+\[
+	[\varphi]_B=\begin{pmatrix}
+		I_p  & 0 \\
+		0 & 0
+	\end{pmatrix}.
+\]
+Then $ \varphi $ is positive semidefinite and positive definite if and only if $ p=\dim V $.
+\begin{theorem}
+(Sylvester's Law of Inertia) Let $ V $ be finite dimensional and $ \varphi $ be a symmetric bilinear form on $ V $. If $ B,B' $ are basis for $ V $ such that
+\[
+	[\varphi]_B=\begin{pmatrix}
+		I_p & 0 & 0 \\
+		0 & I_q & 0 \\
+		0 & 0 & 0
+	\end{pmatrix}\quad \text{and}\quad [\varphi]_{B'}=\begin{pmatrix}
+	I_{p'} & 0 & 0 \\
+	0 & I_{q'} & 0 \\
+	0 & 0 & 0
+	\end{pmatrix},
+\]
+then $ p=p' $ and $ q=q' $.
+\end{theorem}
+\begin{definition}
+	(Signature) We say that $ \sigma(\varphi)=p-q $ is the \textit{signature} of $ \varphi $.
+\end{definition}
+\begin{corollary}
+  $ \sigma(\varphi) $ is well-defined.
+\end{corollary}
 
 
 

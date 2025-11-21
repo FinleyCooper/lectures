@@ -2121,23 +2121,132 @@ Just like with the usual Fourier transformation, we can define a conovuolution o
 		   &=\hat X_k\hat Y_k.\qed
 \end{align*}
 Let's look at the computation complexity of the discrete Fourier transformation. From the sum, the time complexity of the discrete Fourier transformation computed naively is $ O(n^2) $. The Fast Fourier Transform (FFT) can be used to speed up if $ N=2^M $, then we can compute the Fourier transform in time complexity $ O(N\log N) $.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\section{PDEs on unbounded domains}
+\subsection{Well-posedness}
+Hadamard declared that a problem is well-posed if
+\begin{enumerate}
+	\item A solution exists;
+	\item The solution is unique;
+	\item The solution depends continuously on the given initial conditions and boundary data.
+\end{enumerate}
+(i) and (ii) are obvious, but (iii) is subtle. to maintain continuity we implicity mean we have certain norms or metrics inducing a topology we have to keep in mind. For example if we have some initial boundary value problem (IBVP) whose initial data and boundary data lie in $ X $ and time $ t>0 $ the solution $ u(\cdot, t) $ belongs to some $ Y $. For each $ t>0 $ we get some abstract map, $ S_t:X\to Y $. Continuity depends on the metrics $ d_X $ and $ d_Y $. Intuitively if we start close, we stay close.\par
+For an example consider the IVP
+\[
+	\frac{\mathrm dx}{\mathrm dt}=-x,\quad x(0)=x_0.
+\]
+Clearly (i) and (ii) are satisfied, we have a solution
+\[
+  X_0(t)=x_0e^{-t}.
+\]
+Solution with initial data $ x(0)=x_1 $ is $ X_1(t)=x_1e^{-t} $. So
+\begin{align*}
+	|X_1(t)-X_0(t)|&=e^{-t}|x_1-x_0|\\
+		       &\le |x_1-x_0|.
+\end{align*}
+So problem is well-posed for the usual metric on $ \R $. Let's look an ill-posed example. Consider the backwards heat equation IBVP on $ \Omega=(0,\pi) $.
+\[
+  \begin{cases}
+	  \varphi_t+\varphi_{xx}=0 & \Omega\times (0,\infty) \\
+	  \varphi = 0 & \partial\Omega\times (0,\infty)\\
+	  \varphi = f & \Omega\times \{t=0\}
+  \end{cases}.
+\]
+If $ f(x)=0 $ we get $ \varphi(x,t)=0 $.\\
+If $ f(x)=f_n(x)=\frac 1n\sin(nx) $.\\
+Then $ \varphi_n(x,t)=\frac 1ne^{n^2t}sin(nx) $, so
+\[
+	||f-f_n||_\infty=\sup_{(0,\infty)}|f(x)-f_n(x)|=\frac 1n\to 0.
+\]
+However
+\[
+	||\varphi-\varphi_n||_\infty=\frac 1ne^{n^2t}\to \infty.
+\]
+So the problem is ill-posed even locally in time.
+\subsection{The Method of Characteristics}
+We want to solve 
+\[
+	a(x,y)\frac{\partial u}{\partial x}+b(x,y)\frac{\partial u}{\partial y}=c(x,y,u).
+\]
+This equation is quasi-linear, since the complicated part (the left-hand side) is linear. We also have that $ u $ satisfies some initial data on some curve $ C $ in $ \R^2 $, i.e we want $ u(x,y)=\phi(x,y) $ where $ (x,y)\in C $.
+\par
+Consider curves $ (x,y)=(x(t),y(t)) $ defined by
+\begin{align*}
+	\frac{\mathrm dy}{\mathrm dx}=a(x,y), \quad \frac{\mathrm dy}{\mathrm dx}=b(x,y)
+\end{align*}
+and $ (x(0),y(0))\in C $. We call these the \textit{characteristic curves} for the PDE. We get a whole family of solutions determined by starting point $ (x(0),y(0)) $. Consider evolution of $ u(x,y) $ along a given characteristic, i.e set 
+\[
+  z(t)=u(x(t),y(t)).
+\]
+By the chain rule, we get that (writing $ x=x(t) $ and $ y=y(t) $),
+\begin{align*}
+	\frac{\mathrm dz}{\mathrm dt}&=\frac{\mathrm dx}{\mathrm dt}\frac{\partial y}{\partial x}+\frac{\mathrm dy}{\mathrm dt}\frac{\partial u}{\partial y}\\
+				     &= a(x,y)\frac{\partial u}{\partial x}+b(x,y)\frac{\partial u}{\partial y}\\
+				     &=c(x,y,z).
+\end{align*}
+Since $ u(x,y)=z $ on $ x=x(t) $ and $ y=y(t) $. Note that $ z(0)=u(x(0),y(0))=\phi(x(0),y(0)) $ since $ (x(0),y(0))\in C $. So
+\[
+	\frac{\mathrm dz}{\mathrm dt}=c(x,y,z)
+\]
+and $ z(0)=\phi(x(0),y(0)) $. We need to invert the relationship between $ (x,y) $ and $ (s,t) $ where $ s $ is the arc along $ C $ to the characteristic curve we need. Let's see an example
+\[
+	\frac{\partial u}{\partial x}+\frac{\partial u}{\partial y}=u,\quad u(x,0)=f(x), C=\{(s,0), s\in \R\}.
+\]
+The characteristic curves are
+\[
+	\frac{\mathrm dx}{\mathrm dt}=1,\quad \frac{\mathrm dy}{\mathrm dt}=1.
+\]
+hence we get solutions,
+\[
+  \begin{cases}
+    x=t+x_0 \\
+    y=t+y_0
+  \end{cases}.
+\]
+We want $ (x_0,y_0)\in C $, so take $ (x_0,y_0)=(s,0) $ for $ s\in \R $, hence our characteristic curves are $ x=t+s $ and $ y=t $.
+\[
+	\frac{\mathrm dz}{\mathrm dt}=c(x,y,z)=z.
+\]
+This has a solution $ z(t)=z_0e^t $. Where $ z_0=z(0)=u(x_0,y_0)=u(s,0)=f(s) $. Therefore $ z(t,s)=f(s)e^t $.\par
+We invert using the characteristic curves to get that
+\[
+  \begin{cases}
+    t=y\\
+    s=x-y
+  \end{cases}.
+\]
+Hence finially, $ u(x,y)=z(t(x,y),s(x,y))=f(x-y)e^y $.\par
+Now let's see an harder example. Take
+\[
+	(1+x^2)\frac{\partial u}{\partial x}+\frac{\partial u}{\partial y}=u+1,\quad u(0,y)=f(y), \quad C=\{(0,s): s\in \R\}.
+\]
+The characteristic curves are
+\[
+	\frac{\mathrm dx}{\mathrm dt}=1+x^2,\quad \frac{\mathrm dy}{\mathrm dt}=1.
+\]
+Solving gives $ x(t)=\tan(t+\arctan x_0) $ and $ y(t)=t+y_0 $. We want $ (x_0,y_0)\in C $ so $ (x_0,y_0)=(0,s) $. Therefore
+\[
+  \begin{cases}
+    x=\tan t \\
+    y=t+s=\arctan x + s
+  \end{cases}
+\]
+To find $ z $, solve
+\[
+	\frac{\mathrm dz}{\mathrm dt}=z+1
+\],
+which has solution $ z(t)=-1+[z_0+1]e^t $. Recall that $ z_0=u(x_0,y_0)=u(0,s)=f(s) $, hence
+\[
+  z(t,s)=-1+(f(s)+1)e^t.
+\]
+Inverting this \textit{flow map} we get that
+\begin{align*}
+  t=\arctan x\\
+  s=y-\arctan x.
+\end{align*}
+So 
+\[
+	u(x,y)=-1+[f(y-\arctan x)+1]e^{\arctan x}.
+\]
 
 
 
