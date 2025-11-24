@@ -85,24 +85,49 @@ For a general metric space, $ (X,d) $.
 
 \section*{Question 4}
 \subsection*{Part (a)}
-Let $ (x_k) $ be a sequence in $ X $, then since the open balls cover $ X $ and there are finitely many of then, there must be a ball centred at $ x_i $ that contains infinitely many terms of the sequence. 
-
-
-
+Let $ (x_k) $ be a sequence in $ X $. Given some $ \varepsilon>0 $ let \[
+	X=\bigcup_{j=1}^NB_\varepsilon(x_j).
+\]
+So since we have finitely many balls, some ball must contain infintely many terms. So we have a subsequence $ (x_{n_i}) $ fully contained in some ball, say the ball centred at $ x_0 $. Hence for all $ p,q $ we have that
+\[
+  d(x_p,x_0)<\varepsilon,\quad d(x_q,x_0)<\varepsilon
+\]
+which implies that
+\[
+  d(x_p,x_q)\le d(x_p,x_0) + d(x_q,x_0) < 2\varepsilon.
+\]
+Hence $ (x_{n_i}) $ is Cauchy.
+\subsection*{Part (b)}
+Suppose $ (X,d) $ is complete and totally bounded. Let $ (x_n) $ be a sequence in the space. Then by (a) we have a Cauchy subsequence $ (x_{n_i}) $. By completeness this subsequence converges, so the space is compact.
+\par
+Conversely suppose the space is compact. Then from lectures we have that it is complete. Suppose that $ (X,d) $ is not totally bounded. We want to find some sequence with no convergent subsequence. Given some $ \varepsilon>0 $, define the sequence $ (x_n) $ inductively as follows.
+\begin{itemize}
+	\item Pick $ x_0\in X $ arbitrarily.
+	\item Given we have defined $ x_0,x_1,\dots, x_i $ define
+		\[
+		A=\bigcup_{j=0}^iB_\varepsilon(x_j).
+		\]
+		We've supposed that $ X $ is not totally bounded, so $ A $ does not cover $ X $, hence pick $ x_{i+1}\in X\setminus A $, so $ x $ is at least $ \varepsilon $ away from all other elements. Hence all subsequences don't converge since not Cauchy, since we're always $ \varepsilon $ away from all other elements.
+\end{itemize}
+This is a contradicts compactness, hence $ (X,d) $ must be totally bounded and complete.
 \section*{Question 5}
 \begin{enumerate}
-	\item Not topological. We can relate the open sets $ (0,1) $ and $ (1,\infty) $ by a the transformation $ \frac 1x $, which preserves the topology, but not the bo undedness.
-	\item Topological. A set is closed $ \iff $ it's complement is open, so the closed-ness of a set is completely determined by not being in the collection of open sets. Cons
-	\item
+	\item Not topological. We can relate the open sets $ (0,1) $ and $ (1,\infty) $ by a the transformation $ \frac 1x $, which preserves the topology, but not the boundedness.
+	\item Topological. A set is closed $ \iff $ it's complement is open, so the closed-ness of a set is completely determined by not being in the collection of open sets.
+	\item Not topological. If we have $ \R $ under the Euclidean metric, we can define a new metric as
+		\[
+			d(x,y)=\frac{|x-y|}{1+|x+y|}
+		\]
+		which is bounded. The set $ A=[0,\infty) $ is closed in both metric spaces, but bounded in our new metric, but unbounded in the Euclidean metric, hence the property is dependent on our metric, so not a topological property. (The new metric generates the same open sets since the identity map between our metric spaces preserves open sets in both directions since it has an inverse which is also continuous; this is given by the continuity of the bounded metric.)
+	\item Not topological. Use the same example as above. $ \R $ is not totally bounded under the Euclidean metric, but is under our new bounded metric.
+	\item Not topological. Use the same example as above. We know that $ \R $ is complete under the Euclidean metric, but $ \R $ under our new metric isn't complete. For example consider the sequence $ x_n=n $, it's clearly Cauchy from looking at the metric, but there is no $ \infty $ for the sequence to tend to.
+	\item Topological. Take $ X $ under some metric. Then $ X $ is sequentially compact by Question 4. Sequential compactness is a topological property so it's also sequentially compact under a new metric. So from the other direction of Question 4, $ X $ is totally bounded and complete under the new metric.
 \end{enumerate}
+\section*{Question 6}
 
 
 
 
-
-
-
-\
 
 
 

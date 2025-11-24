@@ -2247,7 +2247,138 @@ So
 \[
 	u(x,y)=-1+[f(y-\arctan x)+1]e^{\arctan x}.
 \]
-
+\subsection{Classification of second order linear PDEs in 2 variables}
+Consider the generic problem $ Lu=y $ where
+\[Lu=a(x,y)\frac{\partial^2 u}{\partial x^2}+2b(x,y)\frac{\partial^2 u}{\partial x\partial y}+c(x,y)\frac{\partial^2u}{\partial y^2}+d(x,y)\frac{\partial u}{\parital x}+e(x,y)\frac{\partial u}{\partial y}+f(x,y)u \].
+We want to introduce $ \xi=\xi(x,y) $ and $ \eta=\eta(x,y) $ such that the PDE simplifies. Write $ (x,y)=(x_1,x_2) $ and $ (\xi,\eta)=(\xi_1,\xi_2) $. Then
+\[
+	Lu=\sum_{i,j=1}^2a_{ij}(x,y)\frac{\partial^2u}{\partial x\partial y}+[\text{lower order stuff}],
+\]
+where
+\[
+	\{a_{ij}\}=\begin{pmatrix}
+		a(x,y) & b(x,y) \\
+		b(x,y) & c(x,y)
+	\end{pmatrix}.
+\]
+\begin{proposition}
+  If $ (x,y)\to (\xi,\eta) $ and $ U(\xi,\eta)=u(x,y) $ then $ Lu $ becomes
+  \[
+	  \tilde LU=\sum_{p,q=1}^2 A_{pq}\frac{\partial^2 U}{\partial \xi_p\partial \xi_q}+[\text{lower order terms}]
+  \]
+  where 
+  \[
+	  A_{pq}=\sum_{i,j=1}^2a_{ij}\frac{\partial \xi_p}{\partial x_i}\frac{\partial \xi_q}{\partial x_j}.
+  \]
+\end{proposition}
+\pf By the chain rule and using summation convention, we get
+\[
+	\frac{\partial y}{\partial x_i}=\frac{\partial \xi_p}{\partial x_i}\frac{\partial U}{\partial \xi_p}.
+\]
+Hence
+\[
+	\frac{\partial^2 u}{\partial x_i\partial x_j}=\frac{\partial \xi_p}{\partial x_i}\frac{\partial \xi_q}{\partial x_j}\frac{\partial^2 U}{\partial \xi_p\partial \xi_q} + \frac{\partial^2 \xi_p}{\partial x_i\partial x_j}\frac{\partial U}{\partial \xi_p}.
+\]
+This means that
+\[
+	a_{ij}\frac{\partial^2u}{\partial x_i\partial x_j}=A_{pq}\frac{\partial^2U}{\partial \xi_p\partial \xi_q}+[\text{lower order terms}].\qed
+\]
+We can read of that
+\begin{align*}
+	A_{11}&=a\xi_x^2+2b\xi_x\xi_y+c\xi_y^2\\
+	A_{12}&=a\xi_x\eta_x+b(\xi_x\eta_y+\xi_y\eta_x)+c\xi_y\eta_y\\
+	A_{22}&=a\eta^2_x+2b\eta_x\eta_y+c\eta^2_y. 
+\end{align*}
+We can make $ A_{11}=0 $ and $ A_{22}=0 $ if $ M=\frac{\xi_x}{\xi_y} $ and $ N=\frac{\eta_x}{\eta_y} $ satifying $ az^2+2bz+c=0 $. This has roots
+\[
+	z=\left[\frac{-b\pm \sqrt{b^2-ac}}a\right].
+\]
+If $ M $ and $ N $ are chosen to satisfy this quadratic, we call the curves $ \xi(x,y)=\text{const.} $ and $ \eta(x,y)=\text{const.} $ the \textit{characteristic curves} of the PDE. On the characteristic curves
+\[
+	\frac{\mathrm d}{\mathrm dx}[\xi(x,y(x))]=\xi_x+\frac{\mathrm dy}{\mathrm dx}\xi_y=0.
+\]
+Similarly we have that
+\[
+	\eta_x+\frac{\mathrm dy}{\mathrm dx}\eta_y=0.
+\]
+This gives that
+\[
+	\frac{\mathrm dy}{\mathrm dx}=-\frac{\xi_x}{\xi_y}=-M,\quad \frac{\mathrm dy}{\mathrm dx}=-\frac{\eta_x}{\eta_y}=-N.
+\]
+So on characteristic curves,
+\[
+	\frac{\mathrm dy}{\mathrm dx}=-\left[\frac{-b\pm \sqrt{b^2-ac}}a\right].\tag{\star}
+\]
+This leads to a classification.
+\begin{itemize}
+	\item If $ b^2-ac<0 $ we say the PDE is \textit{elliptic} and has no real characteristic curves.
+	\item If $ b^2-ac=0 $ we say the PDE is \textit{parabolic} and has a single family of characteristic curves.
+	\item If $ b^2-ac>0 $ we say the PDE is \textit{hyperbolic} and has two families of characteristic curves.	
+\end{itemize}
+In hyperbolic regions, we can integrate up equation $ (\star) $ to get coordinates $ \xi=\xi(x,y) $, $ \eta=\eta(x,y) $ for which $ A_{11}=A_{22}=0 $. Our partial differential operator becomes
+\[
+	2A_{12}\frac{\partial^2 U}{\partial \xi \partial \eta}+[\text{lower order terms}].
+\]
+We call this the \textit{canonical form} of the PDE>.\par
+Let's see an example of this on the wave equation with $ c=1 $.
+\[
+	\frac{\partial^2 u}{\partial x^2}-\frac{\partial ^2 u}{\partial y^2}=0.
+\]
+Thus, $ a=1, b=0, c=-1 $, so $ b^2-ac = 1 > 0 $, so the PDE is \textit{globally hyperbolic}. To get characteristic curves, we set
+\[
+	\frac{\mathrm dy}{\mathrm dx}=\mp 1.
+\]
+So integrating we get curves $ x\pm y=\text{const.} $ i.e we can take
+\begin{align*}
+  \xi(x,y)=x+y \\
+  \eta(x,y)= x- y.
+\end{align*}
+In these coordinates we get that
+\[
+	4\frac{\partial^2 U}{\partial\xi\partial \eta}=0.
+\]
+Hence $ U(\xi,\eta)=A(\xi)+B(\eta) $. This gives solution
+\[
+  u(x,y)=A(x+y)+B(x-y).
+\]
+We can solve
+\[
+  \begin{cases}
+	  u_{tt}-u_{xx}=0 & \R\times (0,\infty) \\
+	  u=f & \R\times \{t=0\} \\
+	  u_t=g & \R\times \{t=0\}
+  \end{cases}.
+\]
+Set $ A(x)+B(x)=f(x) $ and $ A'(x)-B'(x)=g(x) $. So we get the solution to the IVP as
+\[
+	u(x,t)=\frac 12[f(x+t)+f(x-t)]+\frac 12 \int_{x-t}^{x+t}g(s)\mathrm ds.
+\]
+Let's see the example
+\[
+	xy\frac{\partial^2 u}{\partial^2x^2}-\frac{\partial^2 u}{\partial y^2}=0
+\]
+so $ a=xy, b=0, c=-1 $. Hence $ b^2-ac=xy $, so the hyperbolic region is the region $ \{x,y>0\} \cup \{x,y<0\} $. On the characteristic curves we have that
+\[
+	\frac{\mathrm dy}{\mathrm dx}=\mp\frac1{\sqrt{xy}}.
+\]
+Solving this in $ \{x,y>0\} $ region we get that
+\[
+	\frac 13 y^{3/2}\pm x^{1/2}=\text{const.}
+\]
+So this gives
+\begin{align*}
+	\xi(x,y)&=\frac 13 y^{3/2} + x^{1/2}\\
+	\eta(x,y)&=\frac 13 y^{3/2} - x^{1/2}.
+\end{align*}
+So the PDE becomes
+\[
+	-\frac 12 y\frac{\partial^2 U}{\partial \xi\partial \eta}+[\text{lower order terms}]=0.
+\]
+Note that
+\[
+	y=\left[\frac 32(\xi+\eta)\right]^{2/3},
+\]
+so we can write our PDE in canonical form.
 
 
 

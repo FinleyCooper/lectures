@@ -2310,6 +2310,154 @@ then $ p=p' $ and $ q=q' $.
 \begin{corollary}
   $ \sigma(\varphi) $ is well-defined.
 \end{corollary}
+\begin{lemma}
+  If $ V $ is finite dimensional and $ U,W\le V $ then if $ \varphi\mid_U $ is positive definite and $ \varphi\mid_W $ is negative semi-definite then $ U\cap W=\{\mathbf 0\} $.
+\end{lemma}
+\pf Let $ v\in U\cup W $. Then $ v\in U $ so $ \varphi(v,v)>0 $. But $ v\in W $ so $ \varphi(v,v)\le 0 $ hence $ v=\mathbf 0 $.\qed
+\begin{remark}
+  We have a similar result if $ \varphi\mid_U $ is positive semi-definite and $ \varphi\mid_W $ is negative definite.
+\end{remark}
+We now can prove Sylevester's Law.\\
+\pf We'll show that $ p $ is the maximal dimension of a subspace on which $ \varphi $ is positive definite and $ q $ is the maximal dimension of a subspace on which $ \varphi $ is negative definite.\par
+Let $ B=\{v_1,\dots, v_n\} $ such that
+\[
+	[\varphi]_B=\begin{pmatrix}
+		I_p & 0 & 0 \\
+		0 & I_q & 0 \\
+		0 & 0 & 0
+	\end{pmatrix}.
+\]
+Set $ U=\langle v_1,\dots v_p\rangle $ and $ W=\langle v_{p+1},\dots, v_n\rangle $ so $ \varphi\mid_U $ is positive definite and $ \varphi\mid_W $ is negative semi-definite. If there exists a $ U'\le V $ such that $ \varphi\mid_{U'} $ is positive definite and $ \dim(U')>p $ then by the sum intersection formula we have that $ \dim(U'\cap W)\ge 1 $ which is a contradiction by the lemma. Similarly we have the same for $ W $.\qed
+\begin{definition}
+	(Totally isotropic) A subspace $ T\le V $ is called \textit{totally isotropic} for $ \varphi $ if for all $ t,u\in T $ we have that $ \varphi(t,u)=0 $.
+\end{definition}
+\begin{remark}
+	If $ T,U \le V $ with $ T $ totally isotropic and $ U $ positive or negative definite, then $ T\cap U = \{\mathbf 0\} $.
+\end{remark}
+\begin{proposition}
+  Let $ V $ be finite dimensional. The maximial dimension of a totally isotropic subspace of $ V $ for $ \varphi $ is $ \dim V-\max(p,q) $.
+\end{proposition}
+\pf Let $ \dim V=n $ and $ B=\{v_1,\dots, v_n\} $ is a basis for $ \varphi $ such that 
+\[
+	[\varphi]_B=\begin{pmatrix}
+		I_p & 0 & 0 \\
+		0 & I_q & 0 \\
+		0 & 0 & 0
+	\end{pmatrix}.
+\]
+\textit{wlog} $ p\ge q $. Let $ T\langle v_1+v_{p+1}, v_2+v_{p+2},\dots, v_q+v_{p+q}, v_{p+q+1},\dots, v_n\rangle $. Then $ T $ is a totally isotropic subspace of dimension $ \dim V-p $. Suppose $ T' $ is a totally isotropic subspace of $ \dim(T')>n-p $. Set $ U=\langle v_1,\dots, v_p \rangle$. Then $ \varphi\mid_U $ is positive definite and by the sum intersection formula $ U\cap T'\ne \{\mathbf 0\} $. So $ T $ has maximial dimension.
+\subsection{Sesquilinear Forms}
+An example of a sesquilinear form is the standard dot product on $ \C^n $ defined as
+\[
+	\mathbf x\cdot \mathbf y = \sum_{i=1}^nx_i\cdot \overline y_i.
+\]
+This is not bilinear, but it has useful properties in $ \C $ so we better give functions like this a name.
+\begin{definition}
+	(Sesquilinear form) Let $ V,W $ be $ \C $-vector spaces. A \textit{sesquilinear form} is a function $ \varphi:V\times W\to \C $ such that
+	\begin{enumerate}
+		\item $ \varphi(\lambda v_1+v_2,w_1)=\lambda\varphi(v_1,w_1)+\varphi(v_2,w_1) $
+		\item $ \varphi(v_1,\mu w_1+w_2)=\overline \mu \varphi(v_1,w_1)+\varphi(v_1,w_2) $
+	\end{enumerate}
+	for all $ \lambda,\mu \in \C $, $ v_1,v_2\in V $, $ w_1,w_2\in W $.
+\end{definition}
+\begin{definition}
+	(Matrix) Let $ V,W $ be a finite dimensional and let $ \varphi:V\times W\to \C $ be a sesquilinear form. Let $ B=\{b_1,\dots, b_m\} $ and $ C=\{c_1,\dots, c_n\} $ be basis for $ V,W $ respectively. Then
+	\[
+		[\varphi]_{B,C}=(\varphi(b_i,c_j))_{i,j}\in M_{m\times n}(\C)
+	\]
+	is the \textit{matrix} of $ \varphi $ with respect to $ B,C $.
+\end{definition}
+\begin{proposition}
+	$ [\varphi]_{B,C} $ is the unique matrix satisfying
+	\[
+		([v]_B)^T[\varphi]_{B,C}\overline{[w]_C}
+	\]
+	for all $ v\in V $ and $ w\in W $.
+\end{proposition}
+\pf Same for bilinear forms.
+\begin{corollary}
+  Let $ B,B' $ be basis for $ V $ and $ C,C' $ be basis for $ W $. Then
+  \[
+	  [\varphi]_{B',C'}=P^T[\varphi]_{B,C}\overline Q
+  \]
+  where $ P=[\id_V]^{B'}_B $, $ Q=[\id_W]^{C'}_C $.
+\end{corollary}
+\pf Same as for bilinear forms.
+\begin{definition}
+	(Hermitian) A sesquilinear form $ \varphi:V\times V\to \C $ is \textit{Hermitian} if $ \forall u,v\in V $,
+	\[
+		\varphi(u,v)=\overline{\varphi(v,u)}.
+	\]
+\end{definition}
+\begin{remark}
+  These are similar to symmetric forms, so we can make some similar remarks.
+  \begin{enumerate}
+	  \item We write $ [\varphi]_B $ for $ [\varphi]_{B,B} $.
+	  \item For all $ v\in V $ we have that $ \varphi(v,v)\in \R $.
+	  \item For all $ \lambda\in \C $ we have
+		  \[
+		    \varphi(\lambda v, \lambda v)=|\lambda|^2\cdot\varphi(v,v).
+		  \]
+		  Thus we can define positive/negative (semi)-definite Hermitian forms.
+	  \item $ \varphi(u,v)=0 $ if and only if $ \varphi(v,u)=0 $. Thus for any $ S\subseteq V $, $ \ ^\perp S=S^\perp $.
+  \end{enumerate}
+\end{remark}
+\begin{definition}
+	(Hermitian matrix) A square matrix $ A\in M_{n\times n}(\C) $ is \textit{Hermitian} if
+	\[
+	  A=\overline A^T.
+	\]
+\end{definition}
+\begin{lemma}
+	Let $ V $ be finite dimensional. Then a sesquilinear form $ \varphi:V\times V\to \C $ is Hermitian if and only if for some (equivalently any) basis $ B $ for $ V $ , $ [\varphi]_B $ is a Hermitian matrix.
+\end{lemma}
+\pf Let $ B=\{b_1,\dots, b_n\} $ be a basis for $ V $. Let $ A=[\varphi]_B $. Then
+\begin{align*}
+	a_{ij}=\varphi(b_i,b_j)=\overline{\varphi(b_j,b_i)}=\overline{a_{ji}}.
+\end{align*}
+Conversely for $ v,w\in V $,
+\begin{align*}
+	\varphi(u,w)&=[v]^T_BA\overline{[w]}_B\\
+		    &=\overline{[w]}_B^TA^T[v]_B\\
+		    &=\overline{[w]}_B^T\overline{A^T}[v]_B\\
+		    &=\overline{\varphi(w,u)}.\qed
+\end{align*}
+\begin{proposition}
+	(Polarisation Identity) Let $ V $ be any $ \C $-vector space. A Hermitian form $ \varphi $ on $ V $ is uniquely determined by
+	\begin{align*}
+		Q &: V\to \R\\
+		  &v\to \varphi(v,v)
+	\end{align*}
+	where $ \varphi(u,v)=\frac 14(Q(u+v)-Q(u-v)+iQ(u+iv)-iQ(u-iv)) $.
+\end{proposition}
+\pf Example Sheet 4.
+\begin{theorem}
+  Let $ V $ be a finite dimensional $ \C $-vector space and $ \varphi $ a Hermitian form on $ V $. Then we have the following,
+  \begin{enumerate}
+	  \item There is a basis $ B $ for $ V $ such that
+		  \[
+			  [\varphi]_B=\begin{pmatrix}
+				  I_p & 0 & 0 \\
+				  0 & -I_q & 0 \\
+				  0 & 0 & 0
+			  \end{pmatrix}.
+		  \]
+	  \item (Hermitian Sylvester's law) $ p,q $ are uniquely determined by
+		  $ \varphi $.
+  \end{enumerate}
+\end{theorem}
+\pf Same as the proof for the bilinear form.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
