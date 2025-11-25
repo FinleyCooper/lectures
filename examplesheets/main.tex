@@ -124,15 +124,49 @@ This is a contradicts compactness, hence $ (X,d) $ must be totally bounded and c
 	\item Topological. Take $ X $ under some metric. Then $ X $ is sequentially compact by Question 4. Sequential compactness is a topological property so it's also sequentially compact under a new metric. So from the other direction of Question 4, $ X $ is totally bounded and complete under the new metric.
 \end{enumerate}
 \section*{Question 6}
+No, let
+\[
+	f(x,y)=\begin{cases}
+		\frac{xy^2}{x^4+y^2} & (x,y)\ne (0,0) \\
+		0 & (x,y)=(0,0)
+	\end{cases}.
+\]
 
-
-
-
-
-
-
-
-
+Then we can write a general $ \gamma $ as
+\begin{align*}
+	\gamma :(-1,1)&\to \R^2 \\
+	t&\to (x(t),y(t)),
+\end{align*}
+So we have that $ f\circ \gamma $ is a function from $ (-1,1) $ to $ \R $ defined as
+\[
+	f\circ\gamma=\frac{x^2(t)y(t)}{(x^4(t)+y^2(t))}.
+\]
+Take $ a=0 $. Let's prove that $ f\circ\gamma $ is differentiable at $ 0 $. If $ (x(t),y(t))\ne 0 $ then clearly by the quotient rule $ f\circ\gamma $ is differentiable at 0. Otherwise $ (x(t),y(t))=(0,0) $. $ \gamma $ is differentiable at $ 0 $ so $ \gamma(t)=\gamma(0)+\gamma'(0)\cdot t + o(t)=\gamma'(0)t+o(t) $. So
+\begin{align*}
+	x(t) &= at + o(t)\\
+	y(t) &= bt + o(t).
+\end{align*}
+So
+\begin{align*}
+	\lim_{t\to 0} \frac{f(\gamma(t))}t &=\frac{x(t)^2y(t)}{t(x(t)^4+y(t)^2)}\\
+					   &=\frac{(at+o(t))^2(bt+o(t))}{t((at+o(t))^4+(bt+o(t))^2)}\\
+					   &=\frac{a^2bt^3 + o(t^3)}{t^3(a^4t^2+b^2+o(1))}\\
+					   &=\frac{a^2b+o(1)}{a^4t^2+b^2+o(1)}.
+\end{align*}
+So this approaches $ \frac {a^2}b $ if $ b $ isn't zero, otherwise the limit goes to zero. So $ (f\circ \gamma)'(0) $ exists for all continuous curves $ \gamma $.\par
+Now we need to show that $ f $ is not differentiable at $ 0 $. Suppose that $ f $ was differentiable at $ 0 $, then since both partial derivatives are zero at the origin, we must have that
+\[
+	\lim_{(x,y)\to (0,0)}\frac{f(x,y)}{||x-y||_2}=0.
+\]
+Hence
+\[
+	\lim_{x\to 0}\frac{f(x,x^2)}{||x-x^2||_2}=0.
+\]
+So
+\begin{align*}
+	\lim_{x\to 0}\frac{x^2x^2}{x^4+x^4}\frac 1{\sqrt{x^2+x^4}} = \lim_{x\to 0}\frac 12\frac 1{x\sqrt{1+x^2}}\to\infty.
+\end{align*}
+Hence the function is not differentiable at zero.
 
 
 

@@ -1014,6 +1014,73 @@ So $ ||x||<b||x||_2 $ for all $ x\in V $ where $ b=\left(\sum_{j=1}^n||e_j||^2\r
 	a\le \frac{||x||}{||x||_2}=\left|\left|\frac{x}{||x||_2}\right|\right|.
 \]
 So need to show that $ a\le ||\hat x|| $ for all $ ||\hat x||_2=1 $. By $ S=\{x\in V: ||x||_2=1\} $ compact we need to show that $ x\to ||x|| $ is continuous which can be shown to complete the proof.\qed
+\begin{remark}
+  Lipschitz equivalence of two norms, $ ||\cdot || $ and $ ||\cdot||' $ on $ V $ is the statement that the identity map
+  \[
+    \id_V:(V,||\cdot ||)\to (V,||\cdot||')
+  \]
+  is Lipschitz (recall that a function is Lipschitz if $ ||f(x)-f(y)||\le L||x-y|| $ for some $ L\in \R $).
+\end{remark}
+\begin{remark}
+  In infinite dimensional vector spaces, inequivalent norms exist. For example see that $ \ell_1\subseteq \ell_\infty $ since absolutely convergent sequences are bounded. So the restriction of $ \ell_\infty $ on the $ \ell_1 $ space is not Lipschitz equivalent to $ \ell_1 $ (take the sequence $ x^(k)=(1,1,\dots,1,0,0,\dots ) $). In fact equivalence of all norms on a $ \R $ vector space characterises finite dimensionality.
+\end{remark}
+
+\section{Differentiation in $ \R^n $}
+In this secxtion we'll always take the norm $ ||\cdot|| $ on $ \R^n $ to be the Euclidean norm.\par
+First we need the following (slightly different definition of the limit).
+\begin{definition}
+	(Limit) Let $ E\subseteq \R^n $, let $ a\in \R^n $ be a limit point of $ E $. If $ f:E\to \R^m $ and $ b\in \R^m $. Then
+	\[
+		\lim_{x\to a}f(x)=b
+	\]
+	means that $ \forall \eps>0 $ there exists $ \delta>0 $ such that $ x\in E $ with $ 0<||x-a||<\delta \implies ||f(x)-b||<\eps$.
+\end{definition}
+We do not ask that $ f $ be defined at $ x=a $.\par
+Given some function $ f:U\to \R^m $, with $ U\subseteq \R^n $ and a point $ a\in U $, how can we define the derivative of $ f $ at $ a $. If $ n=m=1 $ then say $ f:(b,c)\to \R $ and $ a\in(b,c) $ we know that
+\[
+	f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}h.
+\]
+If $ n\ge 2 $ we might try to define the derivative as
+\[
+	\lim_{h\to 0}\frac{f(a+h)-f(a)}{||h||}.\tag{\star}
+\]
+However, if we take $ n=1 $ in $ \tag{\star} $ we would have $ \lim_{h\to 0}\frac{f(a+h)-f(a)}{|h|} $ which is very different to the definition of the derivative we've been using for years. It also sucks since this definition says that $ y=x $ isn't differentiable at $ 0 $ and $ y=|x| $ is sifferentiable at $ 0 $. This are not properties we want and so $ (\star) $ is not the correct notion we're looking for.\par
+Let's look at the 1 dimensional situation a bit closer.
+\begin{align*}
+	f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}h &\iff \lim_{h\to 0}\frac{f(a+h)-f(a)-f'(a)h}h=0\\
+					       &\iff \lim_{h\to 0}\frac{f(a+h)-f(a)-f'(a)h}{|h|}=0\\
+					       &\iff \lim_{h\to 0}\frac{f(a+h)-f(a)-Ah}{|h|}=0\quad\text{for some}\ A\in \R.
+\end{align*}
+This is the correct notion we're looking for.
+\begin{definition}
+	(Differentiable) Let $ U\subseteq \R^n $ be open and let $ f:U\to \R^m $ and let $ a\in U $. Then we say that $ f $ is \textit{differentiable} at $ a $ if there is a linear map $ A:\R^n\to\R^m $ such that
+	\[
+		\lim_{h\to 0}\frac{f(a+h)-f(a)-Ah}{||h||}=0.
+	\]
+	We say that $ A $ is the derivative of $ f $ at $ a $ and write $ A=Df(a) $.
+\end{definition}
+\begin{remark}
+  Since we assume that $ U $ is open, there is aball $ B_r(a)\subseteq U $, hence $ a+h\in U $ for any $ h $ with $ ||h|| $ sufficiently small.
+\end{remark}
+\begin{proposition}
+  Let $ U\subseteq \R^n $ be open and $ f:U\to \R^m $.
+  \begin{enumerate}
+	  \item If $ f $ is differentiable at $ a\in U $, then $ Df(a) $ is unique.
+	  \item If $ f $ is differentiable at $ a\in U $, then $ f $ is continuous at $ a $.
+	  \item Write $ f = (f_1,f_2,\dots, f_m) $, where $ f_j:U\to \R $, then $ f $ is differentiable at $ a\in U $ if and only if $ f_j $ is differentiable at $ a $ and
+		  \[
+		    Df(a)=\begin{pmatrix}
+		      Df_1(a) \\
+		      \vdots \\
+		      Df_m(a)
+		    \end{pmatrix}
+		  \].
+  \end{enumerate} 
+\end{proposition}
+\pf If $ A,A'\in \mathcal L(\R^n,\R^m) $ are both derivatives of $ f $ at $ a $, then
+\[
+	\lim_{h\to 0}\frac{f(a+h)-f(a)-Ah}{||h||}=0,\quad \lim_{h\to 0}\frac{f(a+h)-f(a)-A'h}{||h||}=0
+\]
 
 
 
