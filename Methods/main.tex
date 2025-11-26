@@ -2379,12 +2379,171 @@ Note that
 	y=\left[\frac 32(\xi+\eta)\right]^{2/3},
 \]
 so we can write our PDE in canonical form.
-
-
-
-
-
-
+\subsection{Fourier Transform in higher dimensions}
+For $ f:\R^n\to \C $ define the Fourier transform pair 
+\begin{align*}
+	\hat f(\boldsymbol \lambda)&=\int_{\R^n} e^{-i\boldsymbol \lambda \cdot \mathbf x}f(\mathbf x)\mathrm d^n\mathbf x\\
+	f(\mathbf x)=\frac 1{(2\pi)^n}\int_{\R^n}e^{-i\boldsmybol\lambda\cdot\mathbf x}\hat f(\boldsymbol \lambda )\mathrm d^n\boldsymbol \lambda,
+\end{align*}
+where $ \mathbf x,\boldsymbol \lambda\in\R^n $, and $ \mathrm d^n\mathbf x=\mathrm dx_1\cdots \mathrm d x_n. $\par
+From now on we'll use use $ \int $ to mean $ \int_{\R^n} $. For $ f,g:\R^n\to \C $ define the convolution as
+\[
+  f*g(\mathbf x)=\intf(\mathbf x- \mathbf y)g(\mathbf y)\mathrm d^n\mathbf y.
+\]
+Hence the convolution theorem is
+\[
+	\mathcal F_{\mathbf x\to \boldsymbol \lambda}[f*g(\mathbf x)]=\hat f(\boldsymbol \lambda)\hat g(\boldsymbol \lambda)
+\]
+and
+\[
+	\mathcal F_{\mathbf x\to \boldsymbol\lambda}\left[\left(\frac{\partial }{\partial x_1}\right)^{\alpha_1}\cdots \left(\frac{\partial}{\partial x_n}\right)^{\alpha_n}f(\mathbf x)\right]=(i\lambda_1)^{\alpha_1}\cdots (i\lambda_n)^{\alpha_n}\hat f(\boldsymbol \lambda).
+\]
+Let's seen an example with $ \Delta $.
+\begin{align*}
+	\mathcal F_{\mathbf x\to\boldsymbol\lambda}[\Delta f(\mathbf x)] &=(-\lambda_1^2-\lambda_2^2-\dots-\lambda_n^2)\hat f(\boldsymbol \lambda) \\
+									 &= -|\boldsymbol \lambda|^2\hat f(\bolfsymbol \lambda).
+\end{align*}
+We have a higher dimensional version of the Dirac delta function, $ \delta(\mathbf x) $ defined by properties,
+\begin{itemize}
+	\item $ \delta(\mathbf x)=0 $ for $ \mathbf x\ne \mathbf 0 $.
+	\item For all $ \varepsilon>0 $ we have
+		\[
+			\int_{|x|<\varepsilon}\delta(\mathbf x)\mathrm d^n\mathbf x=1.
+		\]
+\end{itemize}
+So $ \int\delta(\mathbf x-\mathbf y)f(\mathbf y)\mathrm d^n\mathbf y=f(\mathbf x) $.\par
+We can take the Fourier transform of the delta function, giving
+\[
+	\hat \delta(\boldsymbol\lambda)=\int e^{-i\boldsymbol\lambda\cdot\mathbf x}\delta(\mathbf x)\mathrm d^n\mathbf x=1.
+\]
+By the Fourier inversion formula, we find that
+\begin{align*}
+	\delta(\mathbf x)=\frac 1{(2\pi)^n}\int e^{i\boldsymbol \lambda\cdot \mathbf x}\mathrm d^n\boldsymbol \lambda.
+\end{align*}
+Recall that if
+\[
+	g(x)=\frac 1{\sqrt{2\pi}}e^{-x^2/2},
+\]
+then $ \hat g(\lambda)=e^{-\lambda^2/2} $. We want an $ n $-dimensional analogue of this, so take
+\[
+	g(\mathbf x)=\frac 1{(2\pi)^{n/2}}e^{-|\mathbf x|^2/2},
+\]
+giving
+\begin{align*}
+	\hat g(\boldsymbol \lambda )&=\frac{1}{(2\pi)^{n/2}}\int e^{-i\boldsymbol \lambda \cdot x}e^{-|\mathbf x|^2/2}\mathrm d^n\mathbf x\\
+				    &=\int\mathrm dx_1\cdots \int\mathrm dx_n\left[\frac{1}{\sqrt{2\pi}}e^{-i\lambda_1x_i-x_1^2/2}\right]\cdots \left[\frac1{\sqrt{2\pi}}e^{-i\lambda_nx_n-x_n^2/2}\right]\\
+				    &=e^{-\lambda_1^2/2}\cdots e^{-\lambda_n^2/2}\\
+				    &=e^{-|\boldsymbol \lambda|^2/2}.
+\end{align*}
+Which is what we expect.
+\subsection{Green's Function for the Heat equation}
+We want solve
+\[
+	(\dagger)\begin{cases}
+		u_t-\kappa\Delta u =F(\mathbf x,t) & (x,t)\in \R^n\times (0,\infty)\\
+		u(\mathbf x,0)=f(\mathbf x) & \mathbf x\in \R^n
+	\end{cases}
+\]
+Split $ (\dagger) $ into 
+\begin{enumerate}
+	\item Zero forcing $ (F=0) $ with arbitrary initial data.
+	\item Zero inital data $ (f=0) $ with arbitrary forcing.
+\end{enumerate}
+Then we can use superposition to get our solution to $ (\dagger) $.\par
+To solve, we will use the \textit{heat kernel},
+\[
+	K_t(\mathbf x)=\frac{1}{(4\pi\kappa t)^{n/2}}\exp\left[-\frac{|\mathbf x|^2}{4\kappa t}\right],\quad t>0.
+\]
+\begin{proposition}
+	We have that for all $ t >0 $,
+  \[
+	  \hat K_t(\boldsymbol \lambda)=\mathcal F_{\mathbf x\to\boldsymbol \lambda}[K_t(\mathbf x)]=e^{-\kappa t|\boldsymbol \lambda|^2}.
+  \]
+\end{proposition}
+\pf \begin{align*}
+	\hat K_t(\boldsymbol \lambda)&=\int e^{-i\boldsymbol \lambda\cdot\mathbf x}K_t(\mathbf x)\mathrm d^n\mathbf x \\
+				     &= \frac 1{(4\pi \kappa t)^{n/2}}\int e^{-i\boldsymbol\lambda\cdot\mathbf x}e^{-\frac{|\mathbf x|^2}{4\kappa t}}\mathrm d^n\mathbf x.
+\end{align*}
+Use the substitution
+\[
+	\mathbf x=\sqrt{2\kappa t}\mathbf x'.
+\]
+This implies that $ \mathbf d^n\mathbf x = (2\kappa t)^{n/2} \mathbf d^n\mathbf x' $, so
+\begin{align*}
+	\hat K_t(\boldsymbol \lambda)&=\frac{(2\kappa t)^{n/2}}{(4\pi \kappa t)^{n/2}}\int e^{-i\boldsymbol \lambda \cdot [\sqrt{2\kappa t} \mathbf x']}e^{-|\mathbf x'|^2/2}\mathrm d^n\mathbf x'\\
+				     &=\frac 1{(2\pi)^{n/2}}\int e^{-i(\sqrt{2\kappa t}\boldsymbol \lambda)\cdot \mathbf x}e^{-|\mathbf x|^2/2}\mathrm d^n\mathbf x\\
+				     &=\int e^{-i(\sqrt{2\kappa t}\boldsymbol\lambda)\cdot \mathbf x}g(\mathbf x)\mathrm d^n\mathbf x\\
+				     &=\hat g(\boldsymbol \lambda\sqrt{2\kappa t})=e^{-\kappa t |\boldsymbol \lambda|^2}.\qed
+\end{align*}
+We can see that $ \hat K_t(\boldsymbol \lambda)\to 1 $ as $ t\to 0 $ so it looks like $ K_t(\boldsymbol\lambda)\to \delta(\mathbf x) $.\par
+We can now solve problems (i) and (ii) using the Fourier transform.
+\begin{proposition}
+  The solution to (i) is
+  \[
+    u(\mathbf x,t)=K_t*f(\mathbf x).
+  \]
+\end{proposition}
+\pf Take Fourier transforms of $ u_t-\kappa\Delta u=0 $ and $ u(\mathbf x,0)=f(\mathbf x) $. This gives that
+\begin{align*}
+	\frac{\partial \hat u}{\partial t}+\kappa |\boldsymbol \lambda|^2\hat u=0,\quad \hat u(\boldsymbol\lambda,0)=\hat f(\boldsymbol \lambda)
+\end{align*}
+where $ \hat u=\hat u(\boldsymbol \lambda,t)=\mathcal F_{\mathbf x\to\boldsymbol\lambda}[u(\mathbf x,t)] $. Solving this ODE gives
+\[
+	\hat u(\boldsymbol \lambda,t)&=\hat u(\boldsymbol \lambda,0)e^{-\kappa|\boldsymbol\lambda|^2t}\\
+				     &=\hat f(\boldsymbol \lambda)\hat K_t(\boldsymbol \lambda).
+\]
+By the convolution theorem we get that
+\[
+  u(\mathbf x,t)=(K_t*f)(\mathbf x).\qed
+\]
+\begin{proposition}
+  The solution to (ii) is
+  \[
+	  u(\mathbf x,t)=\int_0^t\left[\int K_{t-s}(\mathbf x-\mathbf y)F(\mathbf y,s)\mathrm d^n \mathbf y\right]\mathrm ds.
+  \]
+\end{proposition}
+\pf Taking Fourier transforms again, we get that
+\[
+	\frac{\partial \hat u}{\partial t}+\kappa |\boldsymbol\lambda|^2\hat u=\hat F(\boldsymbol\lambda,t),\quad \hat u(\boldsymbol\lambda,0)=0.
+\]
+Let's solve the ODE by using the integrating factor $ e^{\kappa|\boldsymbol\lambda|^2 t} $, which gives,
+\begin{align*}
+	\frac{\partial}{\partial t}\left[\hat ue^{\kappa|\boldsymbol\lambda|^2 t}\right]=\hat F(\boldsymbol\lambda,t)e^{\kappa|\boldsymbol\lambda|^2 t},
+\end{align*}
+so after integrating we get
+\[
+	\hat u(\boldsymbol \lambda ,t)e^{\kappa |\boldsymbol\lambda |^2t}=\int_0^t\hat F(\boldsymbol\lambda,s)e^{\kappa|\boldsymbol\lambda|^2 s}\mathrm ds.
+\]
+So
+\begin{align*}
+	\hat u(\boldsymbol\lambda,t)&=\int_0^te^{-\kappa |\boldsymbol \lambda|^2(t-s)}\hat F(\boldsymbol\lambda, s)\mathrm ds\\
+				    &=\int_0^t \hat K_{t-s}(\boldsymbol\lambda)\hat F(\boldsymbol\lambda,s)\mathrm ds.
+\end{align*}
+Hence by the convolution theorem, we get that
+\[
+u(\mathbf x,t)=\int_0^t\left[\int K_{t-s}(\mathbf x-\mathbf y)F(\mathbf y,s)\mathrm d^n \mathbf y\right]\mathrm ds.\qed
+\]
+So the solution to $ (\dagger) $ is
+\[
+  u(\mathbf x,t)=(K_t*f)(\mathbf x)+\int_0^t\left[\int K_{t-s}(\mathbf x-\mathbf y)F(\mathbf y,s)\mathrm d^n \mathbf y\right]\mathrm ds.
+\]
+Let's focus on (ii), and define the function
+\[
+	G(\mathbf x,t;\mathbf y,s)=H(t-s)K_{t-s}(\mathbf x-\mathbf y).
+\]
+If we set $ F(\mathbf x,t)=0 $ in $ t<0 $, then the solution to (ii) is
+\[
+	u(\mathbf x,t)=\allint\left[\int G(\mathbf x,t;\mathbf y,s)F(\mathbf y,s)\mathrm d^n\mathbf y\right]\mathrm ds.
+\]
+So $ G $ is a Green's function for the heat equation with zero initial data. We can show that
+\[
+	\frac{\partial G}{\partial t}-\kappa\Delta G=\delta(t-s)\delta(\mathbf x-\mathbf y)
+\]
+or equivalently,
+\[
+	\frac{\partial \hat G}{\partial t}+\kappa |\boldsymbol\lambda|^2 \hat G= e^{-i\boldsymbol\lambda\cdot y}\delta(t-s),
+\]
+so $ \hat G(\boldsymbol\lambda,t;\mathbf y,s)=H(t-s)e^{-i\boldsymbol\lambda\cdot y}\hat K_{t-s}(\boldsymbol \lambda) $.
 
 
 \end{document}

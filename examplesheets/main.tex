@@ -58,12 +58,12 @@ since $ \varphi $ is linear. The norm is clearly positive definite since $ ||x||
 			       &\le ||x||+|\varphi(x)|+||y||+|\varphi(y)|.
 \end{align*}
 So this does define a norm on $ V $.\par
-Suppose that $ \varphi $ is not continuous. So there exists a point $ x\in V $ and a sequence such that $ x_n\to x $ and $ \varphi(x_n)\to y $ with $ y\ne \varphi(x) $ (with the first limit being taken with respect to the $ ||\cdot || $ norm). We'll show the norms are not Lipschitz equivalent using (c). Call our newly define norm $ ||\cdot ||' $. Then
+Suppose that $ \varphi $ is not continuous. So there exists a point $ x\in V $ and a sequence such that $ x_n\to x $ and $ \varphi(x_n)\to y $ with $ y\ne \varphi(x) $ (with the first limit being taken with respect to the $ ||\cdot || $ norm). We'll show the norms are not Lipschitz equivalent using (b). Call our newly define norm $ ||\cdot ||' $. Then
 \begin{align*}
-	||x_n-x||' &= ||x_n-x||+|\varphi(x_n-x)|.
+	||x_n-x||' &= ||x_n-x||+|\varphi(x_n-x)|\\
 		   &= ||x_n-x||+|\varphi(x_n)-\varphi(x)|
 \end{align*}
-But as $ n\to \infty $ the first term vanishes and the second term doesn't go to zero since $ \varphi(x)\ne \varphi(y) $ as limits are unique. Hence $ x_n $ doesn't converge to $ x $ in this new norm, so by (c) the norms are not Lipschitz equivalent.
+But as $ n\to \infty $ the first term vanishes and the second term doesn't go to zero since $ \varphi(x)\ne \varphi(y) $ as limits are unique. Hence $ x_n $ doesn't converge to $ x $ in this new norm, so by (b) the norms are not Lipschitz equivalent.
 \subsection*{Part (d)}
 For this part we'll assume the Axiom of Choice so we can construct a basis for any vector space through Zorn's lemma. Let $ V $ be an infinite dimensional vector space. Let $ B $ be a basis for $ V $, take $ (e_n) $ to be some countable subset of the basis vectors and define a $ \varphi: V\to \R $ on this vector space by
 \[
@@ -81,7 +81,6 @@ Since we're working over the vector space $ \R^n $ it is enough to show that $ X
 	 &y \to \frac{1}{||y-x||_2}
 \end{align*}
 is clearly continuous but unbounded. So $ X $ must be closed, so it is compact.\par
-For a general metric space, $ (X,d) $.
 
 \section*{Question 4}
 \subsection*{Part (a)}
@@ -167,6 +166,154 @@ So
 	\lim_{x\to 0}\frac{x^2x^2}{x^4+x^4}\frac 1{\sqrt{x^2+x^4}} = \lim_{x\to 0}\frac 12\frac 1{x\sqrt{1+x^2}}\to\infty.
 \end{align*}
 Hence the function is not differentiable at zero.
+\section*{Question 7}
+We have the function, $ f:\R^3\to \R^2 $ defined as
+\[
+	f(x,y,z)=(e^{x+y+z},\cos x^2y)=(f_1,f_2)
+\]
+where $ f_1,f_2:\R^3\to \R $. First to find the derivative map of $ f_1 $ change basis $ (x,y,z)\to (X,Y,Z) $ where $ X=x+y+z, Y=x+y, Z=x+z $. Hence in this basis $ f_1: (X,Y,Z)\to e^X $. We'll conjecture that the derivative map is \[
+  A=\begin{pmatrix}
+	  e^X & 0 & 0
+  \end{pmatrix}.
+\]
+So calculating the limit,
+\begin{align*}
+	\lim_{h\to 0} \frac{e^{X+h_1}-e^X-h_1e^X}{\sqrt{h_1^2+h_2^2+h_3^2}}&=e^X\lim_{h\to 0}\frac{e^{h_1}-1-h_1}{\sqrt{h_1^2+h_2^2+h_3^3}}\\								   &=e^X\lim_{h\to 0}\frac{O(h_1^2)}{\sqrt{h_1^2+h_2^2+h_3^3}}\quad\text{using the Taylor series of } e^{h_1}.
+\end{align*}
+Now for $ ||h|| $ sufficiently small, this goes to zero. Hence the derivative of $ f_1 $ in the standard basis is
+\[
+  \begin{pmatrix}
+	  e^X & 0 & 0
+  \end{pmatrix}
+  \begin{pmatrix}
+	  1 & 1 & 1 \\
+	  0 & 1 & 0 \\
+	  0 & 0 & 1
+	  \end{pmatrix} = e^{x+y+z}\begin{pmatrix}
+	  1 & 1 & 1
+  \end{pmatrix},
+\]
+where $ a\in \R^n $ and $ a=(x,y,z) $.\par
+Now for $ f_2 $ we'll propose the derivative
+\[
+  A=\begin{pmatrix}
+	  -2xy\sin(x^2y) & -y^2\sin(x^2y) & 0
+  \end{pmatrix}
+\]
+(no idea how do evaluate the limit without it getting very very messy)
+\par
+Instead we can calculate the partial derviatives of $ f $.
+\[
+  J = \begin{pmatrix}
+	  \frac{\partial f_1}{\partial x} &  \frac{\partial f_1}{\partial y } &  \frac{\partial f_1}{\partial z} \\
+	  \frac{\partial f_2}{\partial x } &  \frac{\partial f_2}{\partial y} &  \frac{\partial f_2}{\partial z}
+  \end{pmatrix}=\begin{pmatrix}
+	  e^{x+y+z} & e^{x+y+z} & e^{x+y+z} \\
+	  -2xy\sin(x^2y) & -y^2\sin(x^2y) & 0
+  \end{pmatrix}.
+\]
+Since the every partial exists everywhere and is continuous at every poiny, the function is the differentiable everywhere, and $ Df(a)=Ja $.  
+\section*{Question 8}
+Let $ A $ be the matrix of partials, so it has entries $ A_{ij} $ where,
+\begin{align*}
+	A_{ij}&=\frac{\partial f_i}{\partial x_j}\\
+		&=\frac{\partial}{\partial x_j}\left\frac{x_i}{\sqrt{x_1^2+x_2^2+x_3^2}}\\
+		&=\frac{\frac{\partial x_i}{\partial x_j}||x||-\frac{\partial}{\partial x_j}(||x||)x_i}{||x||^2}\\
+		&=\frac{||x||\delta_{ij}-\frac1{\sqrt{x^2_1+x^2_2+x^2_3}}x_jx_i}{||x||^2}\\
+		&=\frac{\delta_{ij}}{||x||}-\frac{x_ix_j}{||x||^3}.
+\end{align*}
+So all partials are continuous at all points not zero and defined in some open balls about every point, so the function is differentiable everywhere apart from zero. Note that the partials are not continuous at zero, hence the function is not differentiable at zero too. Hence
+\begin{align*}
+	(Df(x)(h))_i=A_{ij}h_j &=\left(\frac{\delta_{ij}}{||x||}-\frac{x_ix_j}{||x||^3}\right)h_j\\
+			       &=\frac {h_i}{||x||}-\frac{x_i(x\cdot h)}{||x||^3}.
+\end{align*}
+So finially we have that
+\[
+	Df(x)(h)=\frac h{||x||}-\frac {x(x\cdot h)}{||x||^3},
+\]
+everywhere non-zero.\par
+Note that
+\[
+	Df(x)(h)\cdot x = \frac{h\cdot x}{||x||}-\frac{(x\cdot x)(x\cdot h)}{||x||^3} = \frac{h\cdot x}{||x||}-\frac{||x||^2(x\cdot h)}{||x||^3}=0
+\]
+so $ Df(x)(h) $ is orthogonal to $ x $, which we expect since $ f $ is the vector field of unit vector pointing outwards from the origin, so the derivative should be 'tangent' to the unit vectors i.e. on a sphere centred at the origin which is orthogonal to $ x $. 
+\section*{Question 9}
+Let $ f(x,y)=|xy| $. Then if $ x\ne 0 $ and $ y\ne 0 $ we can see that $ f $ has continuous, partial derivatives defined in some ball about every point given by the linear map $ \begin{pmatrix}
+	(|y| & |x|)
+\end{pmatrix} $. Hence $ f $ is differentiable for all $ x\ne 0 $ and $ y\ne 0 $. Otherwise if $ (x,y) $ on one of the coordinate axis, then the limit along taking the limit perp. to the coordinate axis, then since $ x\to |x| $ isn't differentiable at $ x=0 $, we're get that the directional derivative in this direction doesn't exist, hence the $ f $ is not differentiable on the coordinate axis, and is everywhere else.\par
+Now taking $ g(x,y)=\frac{xy}{\sqrt{x^2+y^2}} $, the function is differentiable everywhere outside of the origin since partials are continuous and defined in some open ball about every point. However at the origin we must prove the function is not differentiable. Suppose it is differentiable. Then since approaching from $ x=0 $ and $ y=0 $ both give zero, we must have that $ Dg(x)(0)=0 $. Approach now from the parabola $ (x,x^2) $, so
+\begin{align*}
+	\lim_{(x,y)\to (0,0)}\frac{g(x,y)}{||x-y||_2}=0 &\implies \lim_{(x,x^2)\to (0,0)}\frac{g(x,x^2)}{||x-x^2||_2}=0\\
+							&\implies \lim_{x\to 0}\frac{x^3}{2x^2}\cdot \frac{1}{\sqrt{x^2-x^4}}=0\\
+							&\implies \lim_{x\to 0}\frac 12\frac{1}{\sqrt{1-x^2}}=\frac 12\ne0.
+\end{align*}
+This is contradiction, so the function is not differentiable at $ 0 $.
+\section*{Question 10}
+Take $ g $ from Question 9. Then $ g $ not continuous on $ U $ since it's not continuous at $ 0 $. But if we fix one parameter in $ g $ it is continuous on $ \R $.\par
+
+Take a sequence $ ((x_n,y_n))_{n=0}^\infty $ in $ U $ converging to $ (x,y) $ also in $ U $. Now fix some $ y' \in U $ so $ f(x,y'): \R \to \R $ is Lipschitz, so there exists some real $ L $ such that
+\[
+	|f(x_1,y')-f(x_2,y')|\le L|x_1-x_2|.
+\]
+Also we know that if we fix some $ x'\in U $ then $ f(x',y):\R\to \R $ is continuous. So,
+\begin{align*}
+  |f(x_n,y_n)-f(x,y)|\le |f(x_n,y_n)-f(x,y_n)|+|f(x,y_n)-f(x,y)|.
+\end{align*}
+So it is enough to show that both of these moduli go to zero as $ n \to \infty $. For the right term, we've fixed $ x $ as the first parameter, so since this new function is continuous, so the sequence $ f(x,y_n)\to f(x,y) $ by sequential continuity (applying $ f(x,\cdot) $ to $ (y_n)_{n=0}^\infty $). Now let's look at the second term.
+\pa
+Now $ y' $ is independent of $ L $ so even though $ y_n $ changes we can still bound it's variation by
+\[
+  |f(x_n,y_n)-f(x,y_n)|\le L|x_n-x|
+\]
+which goes to zero since if $ (x_n,y_n)\to (x,y) $ we also have component-wise convergence. So $ f(x_n,y_n)\to f(x,y) $, hence $ f $ is continuous on $ U $.\par
+Let $ g(x)=f(x,y) $ for fixed y. Then $ D_1f(x)=g'(x) $. Apply the mean value theorem, so for all $ x,y\in \{u: \exists v\in \R \st (u,v)\in U\} $ we have that $ g(x)-g(y)=g'(c)(x-y) $ for some $ c $. Taking absolute values we get that
+\[
+  |g(x)-g(y)|=|g'(c)||x-y|\le L|x-y|
+\]
+where $ L $ is some bound for $ D_1f(x) $. Hence $ g $ is Lipschitz so by the previous part $ f $ is continuous on $ U $.
+\section*{Question 11}
+We'll take $ A=\begin{pmatrix}
+	D_1f & D_2f
+\end{pmatrix} $ as our linear map and show the limit goes to zero. Let $ a=(x,y) $ be a point in $ \R^2 $.
+\begin{align*}
+	&\lim_{h\to 0}\frac{f(x+h_1,y+h_2)-f(x,y)-D_1f(h_1)-D_2f(a)(h_2)}{\sqrt{h_1^2+h_2^2}}\\
+	&=\lim_{h\to 0}\frac{(f(x+h_1,y+h_2)-f(x,y+h_2)-D_1f(a)(h_1))+(f(x,y+h_2)-f(x,y)-D_2f(a)(h_2))}{||h||}\\
+\end{align*}
+We want to show each bracketed part will go to zero in the limit (i.e. they are $ o(||h||) $ as $ h\to 0 $).\par
+The right bracket is easier. Since $ x $ is fixed, we can think $ f $ is a function from $ \R\to \R $ with the first variable held constant. So since $ f(x,\cdot) $ is differentiable (since $ D_2f(a) $ exists, we have that
+\[
+  f(x,y+h_2)=f(x,y)+D_2f(a)(h_2)+o(h_2)
+\]
+hence the right bracket is $ o(h_2) $. But $ h_2\le ||h| $, so it is also $ o(||h||) $.\par
+Now for the left bracket. If $ y+h_2 $ is fixed, the function $ f $ defined now from $ \R\to\R $ is differentiable so we can apply the mean value theorem. Hence there exists some $ c\in (x,x+h_1) $ such that
+\[
+  f(x+h_1,y+h_2)-f(x,y+h_2)=D_1f(c,y+h_2)(h_1).
+\]
+So our bracketed expression becomes
+\[
+	(D_1f(c,y+h_2)-D_1f(a))(h_1).
+\]
+But as $ h_1 \to 0$, we have that $ c\to x $. Hence by continuity we get that $ D_1f(c,y+h_2)\to D_1f(a)) $ as $ h_2\to 0 $. So the expression is $ o(h_1) $ hence $ o(||h||) $ and hence goes to zero, so the limit is zero and the function is differentiable at $ a $.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

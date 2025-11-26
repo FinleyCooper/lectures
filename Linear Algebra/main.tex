@@ -2370,7 +2370,7 @@ This is not bilinear, but it has useful properties in $ \C $ so we better give f
 \begin{proposition}
 	$ [\varphi]_{B,C} $ is the unique matrix satisfying
 	\[
-		([v]_B)^T[\varphi]_{B,C}\overline{[w]_C}
+	\varphi(v,w)=	([v]_B)^T[\varphi]_{B,C}\overline{[w]}_C
 	\]
 	for all $ v\in V $ and $ w\in W $.
 \end{proposition}
@@ -2447,18 +2447,189 @@ Conversely for $ v,w\in V $,
   \end{enumerate}
 \end{theorem}
 \pf Same as the proof for the bilinear form.
-
-
-
-
-
-
-
-
-
-
-
-
+\section{Inner Product Spaces}
+\begin{definition}
+	(Inner product) Let $ V $ be a real or complex vector space. An \textit{inner product} on $ V $ is a positive definite symmetric bilinear (respectively Hermitian) form $ \varphi $ on $ V $.
+\end{definition}
+\begin{definition}
+	(Inner product space) The pair $ (V,\varphi) $ where $ V $ is a real or complex vector space and $ \varphi $ is an inner product is called an \textit{inner product space}. We write $ \langle v,w\rangle $ for $ \varphi(v,w) $.
+\end{definition}
+Let's see some examples.
+\begin{enumerate}
+	\item Dot product on $ \R^n $.
+	\item If $ V=C([0,1]) $, a real vector space, then we can define
+		\[
+		  \langle f,g\rangle=\int_0^1f(t)g(t)\mathrm dt.
+		\]
+		More generally, given $ w:[0,1]\to (0,\infty) $ continuous, we can define
+		\[
+		  \langle f,g\rangle=\int_0^1f(t)g(t)w(t)\mathrm dt.
+		\]
+		(We can extend this to complex functions by adding a conjugate over $ g(t) $ in the integral.)
+\end{enumerate}
+\begin{definition}
+	(Length) Let $ (V,\langle\cdot,\cdot\rangle $ be an inner product space. The \textit{length} of $ v\in V $ is
+	\[
+		||v||=\sqrt{\langle v,v\rangle}.
+	\]
+	The \textit{distance} between two vectors $ v,w\in V $ is just $ ||v-w|| $.
+\end{definition}
+\begin{remark}
+	We can see $ \mathbf 0 $ is the only vector of length $ 0 $. The function $ ||\cdot ||:V\to \R^_{\ge 0} $ determines $ \langle \cdot,\cdot\rangle:V\times V\to \F $ uniquely using the polarisation identity.
+\end{remark}
+\begin{lemma}
+	(Cauchy-Schwarz Inequality) For all $ v,w\in V $, we have that
+	\[
+		|\langle v,w\rangle |\le ||v||||w||.\tag{\star}
+	\]
+\end{lemma}
+\pf If $ v=\mathbf 0 $ we're done. If not, for $ t\in \F $, consider
+\begin{align*}
+	0\le ||tv+w||^2 &=\langle tv+w,tv+w\rangle\\
+			&=|t|^2\langle v,v\rangle+t\langle v,w\rangle+\overline t\langle w,v\rangle + \langle w,w\rangle\\
+			&=|t|^2||v||^2+t\langle v,w\rangle+\bar t\overline{\langle v,w\rangle}+||w||^2
+\end{align*}
+Set 
+\[
+t=-\frac{\overline{\langle v,w\rangle}}{||v||^2}.
+\]
+Then we get that
+\[
+	0\le -\frac{|\langle v,w\rangle|^2}{||v||^2}+||w||^2
+\]
+which gives the result after rearranging.\qed
+\begin{remark}
+  The proof also tells us that we get equality in $ (\star) $ if and only if $ \dim(\langle v,w\rangle)\le 1 $, i.e $ v,w $ are linearly dependent.
+\end{remark}
+\begin{remark}
+  For $ \F=\R $ we can define the angle from $ v $ to $ w $ by
+  \[
+	  \cos\theta=\frac{\langle v,w\rangle}{||v||\cdot||w||}\in [-1,1].
+  \]
+\end{remark}
+\begin{corollary}
+	(Triangle Inequality) For all $ v,w\in V $, we have that
+	\[
+	  ||v+w||\le ||v||+||w||.
+	\]
+\end{corollary}
+\pf \begin{align*}
+	||v+w||^2 &=\langle v+w,v+w\rangle\\
+		  &\le ||v||^2+||w||^2+\langle v,w\rangle +\overline{\langle v,w\rangle}\\
+		  &=||v||^2+||w||^2+2||v||\cdot||w||\\
+		  &=(||v||+||w||)^2.
+\end{align*}
+So taking square roots gives the result.\qed
+\par
+Hence $ d(v,w)=||v-w|| $ defines a metric on $ V $ (IB Analysis II).
+\begin{definition}
+	(Orthogonal) A set $ E\subseteq V $ is \textit{orthogonal} if for all $ d,e\in E $ with $ d\ne e $ we have that $ \langle d,e\rangle=0 $.
+\end{definition}
+\begin{definition}
+	(Orthonormal) A set $ E\subseteq V $ is \textit{orthonormal} if it is orthogonal and all elements have length $ 1 $.
+\end{definition}
+\begin{remark}
+  Let $ V $ be finite dimensional, and $ B $ be a basis such that
+  \[
+	  [\langle\cdot,\cdot\rangle]_B=I_n.
+  \]
+  Then $ B $ is an orthonormal basis for $ V $.
+\end{remark}
+\begin{lemma}
+  If $ E\subseteq V $ is an orthonormal set and $ \mathbf 0\notin E $, then
+  \begin{enumerate}
+	  \item $ E $ is linearly independent.
+	  \item For $ v\in \langle E\rangle $,
+		  \[
+			  v=\sum_{e\in E}\frac{\langle v,e\rangle}{\langle e,e\rangle}e
+		  \]
+		  with a finite sum.
+  \end{enumerate}
+\end{lemma}
+\pf For $ v\in \langle E\rangle $, write
+\[ v\sum_{e\in E}\lambda_e e. \]
+Then for $ d\in E $,
+\begin{align*}
+	\langle v,d\rangle=\sum_{e\in E}\langle e,d\rangle\cdot \lambda_d=\langle d,d\rangle\lambda_d,
+\end{align*}
+so
+\[
+	\lambda_d=\frac{\langle v,d\rangle}{\langle d,d\rangle}.
+\]
+In particular, if $ v=\mathbf 0 $, we get that $ \lambda_d=0 $ for all $ d $, hence $ E $ is also linearly independent.\qed
+\begin{corollary}
+	(Parseval's Identity) If $ E $ is an orthonormal basis for $ V $, then for all $ v,w\in V $
+	\[
+		\langle v,w\rangle=\sum_{e\in E}\langle v,e\rangle\overline{\langle w,e\rangle}.
+	\]
+\end{corollary}
+\pf Apply the lemma, using the fact that $ \langle e,e\rangle $.
+\begin{align*}
+	\langle v,w\rangle &=\left\langle\sum_{e\in E}\langle v,e\rangle e,\sum_{d\in E}\langle w,d\rangle d\right\rangle\\
+			   &=\sum_{e,d\in E}\langle v,e\rangle\overline{\langle w,d\rangle}\langle e,d\rangle\\
+			   &=\sum_{e\in E}\langle v,e\rangle\overline{\langle w,e\rangle}.\qed
+\end{align*}
+\begin{theorem}
+	(Gram-Schmidt Process) Let $ V $ be an inner product space with $ v_1,\dots, v_n\in V $ linearly independent. Then there is an orthonormal set $ \{e_1,\dots, e_n\} \subseteq V $ such that
+	\[
+	  \langle e_1,\dots, e_k\rangle=\langle v_1,\dots ,v_k\rangle
+	\]
+	for all $ 1\le k\le n $.
+\end{theorem}
+\pf Induct on $ k $. For $ k=1 $, we know that $ v_1\ne \mathbf 0 $, so set $ e_1=\frac 1{||v_1||}v_1 $.\par
+Suppose we've got $ e_1,\dots, e_k $ for $ k\le n-1 $. Set
+\[
+	\tilde e_{k+1}=v_{k+1}-\sum_{i=1}^k\langle v_{k+1},e_i\rangle e_i
+\]
+so we have that $ \tilde e_{k+1}\ne 0 $ as
+\[
+	v_{k+1}\notin \langle v_1,\dots, v_k\rangle=\langle e_1, \dots, e_k\rangle.
+\]
+Also we have that $ \tilde e_{k+1} $ is orthogonal to $ e_i $ for all $ e_i\le k $ and by construction we have that
+\[
+	\langle e_1,\dots, e_k,\tilde e_{k+1}\rangle = \langle v_1,\dots, v_{k+1}\rangle.
+\]
+Hence set
+\[
+	e_{k+1}=\frac 1{||\tilde e_{k+1}||}\tilde e_{k+1}\qed
+\]
+\begin{remark}
+	If $ \{v_1,\dots, v_k\} $ is already orthonormal, then the Gram-Schmidt process doesn't change these vectors, i.e $ v_i=e_i $ for all $ i\le k $.
+\end{remark}
+\begin{corollary}
+  Let $ V $ be a finite dimensional inner product space. For any orthonormal set $ E $ in $ V $, there is a orthonormal basis, containing $ E $.
+\end{corollary}
+\pf As $ E $ is orthonormal it is linearly independent. Extend to a basis $ B $ for $ V $. Apply Gram-Schmidt to $ B $, so by the remark $ E $ is unchanged by the Gram-Schmidt process. 
+\subsection{Orthogonal Complements}
+\begin{definition}
+	(Orthogonal direct sum) Let $ V $ be an inner product space and $ U,W\le V $. Then $ V $ is the \textit{orthogonal direct sum} of $ U $ and $ W $ if
+	\begin{enumerate}
+		\item $ V=U+W $,
+		\item $ \forall u\in U,\ w\in W $, $ \langle u,w\rangle=0 $.
+	\end{enumerate}
+	We write that $ V=U\obot W $.
+\end{definition}
+\begin{remark}
+	The second remark implies that $ U\cap W=\{\mathbf 0\} $, hence
+	\[
+	  V=U\obot W\implies V=U\oplus W.
+	\]
+\end{remark}
+\begin{lemma}
+  Let $ V $ be finite dimensional with $ W\le V $. Then $ V=W\obot W^\perp $.
+\end{lemma}
+\pf Since $ W,W^\perp $ satisfy (ii), it suffices to check that $ V=W+W^\perp $.\par
+Let $ E_W $ be an orthonormal basis for $ W $. Extend to an orthonormal basis for $ V $, $ E_V $. Then
+\[
+	V=\langle E_W\cup [E_V\setminus E_W]\rangle=W+\langle E_V\setminus E_W\rangle
+\]
+and $ E_V\setminus E_W\subseteq W^\perp $.\qed
+\begin{corollary}
+  \[
+    \dim W^\perp = \dim V-\dim W.
+  \]
+\end{corollary}
+\pf $ V=W\oplus W^\perp $.
 
 
 
