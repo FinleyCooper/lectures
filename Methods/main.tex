@@ -2544,6 +2544,144 @@ or equivalently,
 	\frac{\partial \hat G}{\partial t}+\kappa |\boldsymbol\lambda|^2 \hat G= e^{-i\boldsymbol\lambda\cdot y}\delta(t-s),
 \]
 so $ \hat G(\boldsymbol\lambda,t;\mathbf y,s)=H(t-s)e^{-i\boldsymbol\lambda\cdot y}\hat K_{t-s}(\boldsymbol \lambda) $.
+\subsection{Green's Function for Laplace's Equation}
+We want to find a $ G=G(\mathbf x,\mathbf y) $ such that for each fixed $ \mathbf y\in\R^n $ we have that
+\[
+  \DeltaG(\mathbf x,\mathbf y)=\delta(\mathbf x-\mathbf y),\quad G(\mathbf x,\mathbf y)\to 0
+\]
+as $ |\mathbf x|\to \infty $. We call this the Free Space Green's function for Laplace's equation. It is helpful to think of $ G(\mathbf x,\mathbf y) $ as the electric potential at $ \mathbf x $ due to point charge at $ \mathbf y $. By taking the Fourier transform, we get that
+\begin{align*}
+\hat G(\boldsymbol\lambda \mathbf y)=\frac{e^{-i\boldsymbol\lambda\cdot\mathbf y)}}{|\boldsymbol\lambda|^2}
+\end{align*}
+\begin{proposition}
+	For $ \alpha>0 $, $ \mathbf x\in \R^n $, 
+\[
+\mathcal F_{\mathbf x\to\boldsymbol\lambda}[|\mathbf x|^{-\alpha}]=C_{n,\alpha}|\boldsymbol\lambda|^{\alpha-n}
+\]
+\end{proposition}
+\pf Write that $ f_\alpha(\mathbf x)=|\mathbf x|^{-\alpha} $.
+\begin{align*}
+	\hat f_\alpha(\boldsymbol \lambda) &=\int e^{-i\boldsymbol\lambda\cdot \mathbf x}|\mathbf x|^{-\alpha}\mathrm d^n\mathbf x\\
+					   &=\int e^{-i\boldsymbol \lambda\cdot R^T\mathbf x'}|R^T\mathbf x'|^{-\alpha}\mathrm d^n\mathbf x'\\
+					   &=\int e^{-i(R\boldsymbol\lambda)\cdot\mathbf x}|\mathbf x|^{-\alpha}\mathrm d^n\mathbf x\\
+					   &= \hat f_\alpha(R\boldsymbol\lambda)
+\end{align*}
+Where $ R\in SO(n) $ such that $ \mathbf x = R^T\mathbf x' $. So $ \hat f_\alpha $ is rotation invariant, i.e if $ \boldsymbol\lambda=|\boldsymbol\lambda|\mathbf m $, then $ \hat f_\alpha(\boldsymbol\lambda) $ is independent of $ \mathbf m $. If we make the substitution, $ |\boldsymbol \lambda|\mathbf x=\mathbf x' $, then get that
+\begin{align*}
+	\hat f_\alpha(\boldsymbol \lambda)&=\int e^{-i|\boldsymbol\lambda|\mathbf m\cdot\mathbf x}|\mathbf x|^{-\alpha}\mathrm d^n\mathbf x\\
+					  &= \left(\int e^{-i\mathbf m\cdot\mathbf x'}|\mathbf x'|^{-\alpha}\mathrm d^n\mathbf x'\right)|\boldsymbol\lambda |^{\alpha-n}\\
+					  &= C_{n,\alpha}|\boldsymbol\lambda|^{\alpha-n}.\qed
+\end{align*}
+For $ n>2 $ let $ \alpha=n-2>0 $.
+\[
+	\mathcal F_{\mathbf x\to\boldsymbol\lambda}[|\mathbf x|^{2-n}]=C_{n,n-2}|\boldsymbol\lambda|^{-2}
+\]
+i.e. 
+\[
+	\frac 1{|\boldsymbol \lambda|^2}=\mathcal F_{\mathbf x\to\boldsymbol\lambda}[c_n|\mathbf x|^{2-n}].
+\]
+\begin{proposition}
+  For $ n>2 $ we have that
+  \[
+	  G(\mathbf x,\mathbf y)=-\frac 1{(n-2)|S^{n-1}|}\cdot\frac 1{|\mathbf x-\mathbf y|^{n-2}}
+  \]
+  where $ |S^{n-1}| $ is the area of $ S^{n-1} $. If $ n=3 $ we get that
+  \[
+	  G(\mathbf x,\mathbf y)=-\frac 1{4\pi}\frac 1{|\mathbf x-\mathbf y|}.
+  \]
+\end{proposition}
+\pf Set $ F(\mathbf x)=c_n|\mathbf x|^{2-n} $, so
+\[
+	\hat G(\boldsymbol\lambda,\mathbf y)=-e^{-i\boldsymbol\lambda\cdot y}\hat F(\boldsymbol\lambda)=-\mathcal F_{\mathbf x\to \boldsymbol\lambda}(F(\mathbf x-\mathbf y))
+\]
+This implies that
+\[
+	G(\mathbf x,\mathbf y)=-\frac {c_n}{|\mathbf x-\mathbf y|^{n-2}}.
+\]
+Since $ \Delta G(\mathbf x,0)=\delta(\mathbf x) $, we have that
+\[
+	\frac 1{c_n}\delta(\mathbf x)=-\Delta[|\mathbf x|^{2-n}].
+\]
+Integrate over $ |\mathbf x|\le 1 $, and use the divergence theorem to get that
+\begin{align*}
+	\frac 1{c_n}&=-\int_{|\mathbf x|\le 1}\Delta[|\mathbf x|^{2-n}]\mathrm d^n\mathbf x\\
+		    &=-\int_{|\mathbf x|=1}\nabla[|\mathbf x|^{2-n}|]\cdot \mathrm d\mathbf S\\
+		    &= (n-2)\int_{|\mathbf x|=1}\mathrm dS=(n-2)|S^{n-1}|.\qed
+\end{align*}
+\begin{proposition}
+  If $ n=2 $, a Free Space Green's function for Laplace's equation is
+  \[
+	  G(\mathbf x,\mathbf y)=\frac{1}{2\pi}\log|\mathbf x-\mathbf y|.
+  \]
+\end{proposition}
+\pf Take $ \mathbf y=0 $ \textit{wlog}. Note on $ r=|\mathbf x|\ne 0 $, then $ \Delta[\log r]=0 $, since 
+\[
+	\Delta[\log r]=\frac 1r\frac{\partial}{\partial r}\left[r\frac{\partial }{\partial r}\log r\right]=\frac 1r\frac{\partial}{\partial r}[1]=0.
+\]
+Fix $ \varepsilon>0 $, and use the divergence theorem.
+\begin{align*}
+	\int_{|\mathbf x|< \varepsilon}\Delta[\log r]\mathrm d^2\mathbf x &=\int_{|\mathbf x|=\varepsilon}\nabla(\log r)\cdot \mathrm d\mathbf S \\
+									    &=\int_0^{2\pi} \frac{\mathbf e_r}{\varepsilon}\cdot \mathbf e_r\varepsilon\mathrm d\theta=2\pi.
+\end{align*}
+So
+\[
+	\Delta\left[\frac 1{2\pi}\log |\mathbf x|\right]=0\quad \text{for}\ \mathbf x\ne 0.
+\]
+and 
+\[
+	\int_{|\mathbf x|<\varepsilon}\Delta\left[\frac1{2\pi}\log|\mathbf x|\right]\mathrm d^2\mathbf x=1\quad \text{for all}\ \varepsilon>0.
+\]
+Hence
+\[
+	\Delta\left[\frac 1{2\pi}\log|\mathbf x|\right]=\delta(\mathbf x).\qed
+\]
+We want to solve
+\[
+	(\dagger)\begin{cases}
+		\Delta u=F & \mathbf x\in \Omega\\
+		u=0 & \mathbf x\in\partial\Omega
+	\end{cases}
+\]
+To do this, find the \textit{Dirichlet} Green's function, defined for each $ \mathbf y\in \Omega $, by
+\[
+  \begin{cases}
+	  \Delta\mathcal G(\mathbf x,\mathbf y)=\delta(\mathbf x-\mathbf y) & \mathbf x\in \Omega \\
+	 \mathcal G(\mathbf x,\mathbf y)=0 & \mathbf x\in \partial\Omega
+  \end{cases}
+\]
+which is such that
+\[
+  u(\mathbf x)=\int_\Omega \mathcal G(\mathbf x,\mathbf y )F(\mathbf y)\mathrm d^n\mathbf y 
+\]
+solves $ (\dagger) $.\par
+To find $ \mathcal G(\mathbf x,\mathbf y) $, we need to add some harmonic function to the free space Green's function so that $ \mathcal G(\mathbf x,\mathbf y)=0 $ when $ \mathbf x\in \partial\Omega $. We do this by using the method of images. This is done by adding a series of charges in $ \Omega^c $, $ \mathbf y_0,\mathbf y_1,\dots $ so that the total potential due to $ \mathbf y $ and the point charges vanishes on $ \partial\Omega $. For an example, take
+\[
+	\Omega=\{\mathbf x\in \R^3:x_3>0\}.
+\]
+We guess that
+\[
+	\mathcal G(\mathbf x,\mathbf y)=G(\mathbf x,\mathbf y)+[-G(\mathbf x,\mathbf y_0)].
+\]
+For each $ \mathbf x\in \Omega $,
+\begin{align*}
+	\Delta\mathcal G(\mathbf x,\mathbf y)&=\delta(\mathbf x-\mathbf y)-\delta(\mathbf x-\mathbf y_0)\\
+					     &=\delta(\mathbf x-\mathbf y)\quad\text{since}\ \mathbf x\ne \mathbf y_0.
+\end{align*}
+So for $ \mathbf x\in \partial\Omega $,
+\begin{align*}
+	\mathcal(\mathbf x,\mathbf y)=-\frac1{4\pi}\left[\cdots\right]=0
+\end{align*}
+So the solution to
+\[
+  \begin{cases}
+\Delta u=F & \text{in}\ \Omega\\
+u=0 & \text{on}\ \partial\Omega
+  \end{cases}
+\]
+is
+\[
+	u(\mathbf x)=\int_\Omega[G(\mathbf x,\mathbf y)-G(\mathbf x,\mathbf y_0)]F(\mathbf y)\mathrm d^n\mathbf y.
+\]
 
 
 \end{document}

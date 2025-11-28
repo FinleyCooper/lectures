@@ -21,7 +21,7 @@
 	  (Vector Space) A $ \F $\textit{-vector space} (or a vector space over $ \F $) is an abelian group $ (V,+,\boldsymbol 0) $ equipped with a function
 	  \begin{align*}
 	    \F\times V\to V \\
-	    (\lambda, v)\to \lamda v
+	    (\lambda, v)\to \lambda v
 	  \end{align*}
 	  which we call scalar multiplication such that $ \forall v,w\in V, \forall \lambda,\mu\in\F $
 	  \begin{enumerate} 
@@ -2550,7 +2550,7 @@ Hence $ d(v,w)=||v-w|| $ defines a metric on $ V $ (IB Analysis II).
 \[ v\sum_{e\in E}\lambda_e e. \]
 Then for $ d\in E $,
 \begin{align*}
-	\langle v,d\rangle=\sum_{e\in E}\langle e,d\rangle\cdot \lambda_d=\langle d,d\rangle\lambda_d,
+	\langle v,d\rangle=\sum_{e\in E}\langle e,d\rangle\cdot \lambda_e=\langle d,d\rangle\lambda_d,
 \end{align*}
 so
 \[
@@ -2630,14 +2630,131 @@ and $ E_V\setminus E_W\subseteq W^\perp $.\qed
   \]
 \end{corollary}
 \pf $ V=W\oplus W^\perp $.
-
-
-
-
-
-
-
-
+\begin{definition}
+	(Orthogonal projection) The \textit{orthogonal projection} $ \pi_W:V\to V $ of $ V $ onto $ W $ is given by $ \pi_W(v)=w $, where $ v=w+u $ where $ w\in W $ and $ u\in W^\perp $ unique.
+\end{definition}
+\begin{remark}
+  \ 
+  \begin{enumerate}
+	  \item $ \pi_W $ is linear; $ \ima(\pi_W)=W $, $ \ker(\pi_W)=W^\perp $.
+	  \item $ \pi_W|_W=\id_W $; $ \pi^2_W=\pi_W $.
+	  \item $ \id_V-\pi_W =\pi_{W^\perp} $.
+  \end{enumerate}
+\end{remark}
+\begin{proposition}
+  For all $ v\in V $, $ v\in W $,
+  \[
+    ||v-\pi_W(v)||\le ||v-w||
+  \]
+  with equality if and only if $ w=\pi_W(v) $.
+\end{proposition}
+\pf \begin{align*}
+	||v-w||^2&=||(v-\pi_W(v))+(\pi_W(v)-w)||^2\\
+		 &=||(v-\pi_W(v)||^2+||\pi_W(v)-w||^2\\
+		 \le ||v-\pi_W(v)||
+\end{align*}
+where equality holds if and only if $ ||\pi_W(v)-w||=0 $.\qed
+\begin{definition}
+	(External Orthogonal Direct Set) Let $ (V_1,\langle \cdot,\cdot\rangle)_1 $ and $ (V_2,\langle\cdot,\cdot\rangl_2) $ be inner product spaces. We can define an inner product $ \langle\cdot,\cdot\rangle $ on $ V_1\times V_2 $ by,
+	\[
+	  \langle(v_1,v_2,(v_1',v_2')\rangle=\langle v_1,v_1'\rangle_1+\langle v_2,v_2'\rangle_2.
+	\]
+	Then $ \langle \cdot,\cdot\rangle $ is an inner product on $ V_1\oplus V_2 $.
+\end{definition}
+\subsection{Adjoint Maps}
+Take $ \F=\R $ or $ \C $, $ v\in \F^n $ and $ w\in \F^m $, and $ A\in M_{m\times n}(\F) $. Then
+\begin{align*}
+	(Av)\cdot w=(Av)^T\overline &= v^TA^T\overline w\\
+				    &=v^T\overline{(\overline A^Tw)}\\
+				    &=v\cdot (\overline A^Tw).
+\end{align*}
+Henceforth, we assume that $ V,W $ are finite dimensional inner product spaces over the space field.
+\begin{theorem}
+  For $ \alpha\in\mathcal L(V,W) $,
+  \begin{enumerate}
+	  \item There exists a unique linear map $ \alpha^*:W\to V $ satisfying
+		  \[
+			  \langle \alpha(v),w\rangle_W=\langle v,\alpha^*(w)\rangle_V\tag{\star}
+		  \]
+		  for all $ v\in V $ and $ w\in W $.
+	  \item For any orthonormal basis $ B,C $ for $ V,W $, we have that
+		  \[
+			  [\alpha^*]^C_B=\overline{([\alpha]_C^B)}^T
+		  \]
+  \end{enumerate}
+\end{theorem}
+\begin{definition}
+	(Adjoint map) $ \alpha^* $ is the \textit{adjoint map} of $ \alpha $.
+\end{definition}
+\textit{Warning.} The adjoint map and the dual map have the same notation. There is a reason for this; the maps are closely related.\par
+\pf Recall that if $ \dim V=n $ and $ B $ is an orthonormal basis for $ V $, then
+\[
+	[\langle\cdot,\cdot\rangle]_B=I_n.
+\]
+Let $ B=\{b_1,\dots, b_n\} $ and $ C=\{c_1,\dots, c_m\} $, and $ A=[\alpha]^B_C $. Define $ \alpha^*: W\to V $, linear, by
+\[
+	\alpha^*(c_j)=\sum_{i=1}^n\overline{a}_{ji}b_i
+\]
+so that $ [\alpha^*]_B^A=\overline A^T $. Then
+\begin{align*}
+	\langle \langle(v),w)\rangle_W&=[\alpha(v)]_C^T\cdot \overline{[w]}_C\\
+				      &=(A[v]_B)^T\overline{[w]}_C\\
+				      &=[v]^T_BA^T\overline{[w]}_C\\
+				      &=[v]^T_B\overline{(\overline A^T[w]_C)}\\
+				      &=[v]_B^T\overline{([\alpha^*]_B^C[w]_C)}\\
+				      &=[v]^T_B\overline{[\alpha^*(w)]}_B\\
+				      &=\langle v,\alpha^*(w)\rangle_V.
+\end{align*}
+So the adjoint map exists. Now we're left to show uniqueness. Suppose $ \alpha':W\to V $ satisfies $ (\star) $. Let $ A'=[\alpha']^C_B $. Then as above,
+\begin{align*}
+	\langle \alpha(b_i),c_j\rangle_W=(A\mathbf e_i)^T\overline{\mathbf e}_j=a_{ji}.
+\end{align*}
+Similarly,
+\[
+\langle \alpha(b_i),c_j)_W=\langle b_i,\alpha'(c_j)\rangle_V=\overline e^T_i\overline{(A'\mathbf e_j)}=\overline{a}_{ij}'.
+\]
+So $ A'=\overline A^T=[\alpha^*]_B^C $, hence $ \alpha'=\alpha^* $.\qed
+\par
+If $ V $ is any real inner product space, then for $ v\in V $, we have that $ \varphi_R(v)\in V^* $  given by $ \varphi_R(v)[u]=\langle u,v\rangle $. Moreover $ \varphi_R:V\to V^* $ is linear.
+\begin{theorem}
+	(Riesz Representation) For $ V $ a finite dimensional real inner product space, $ \varphi_R:V\to V^* $ is a linear isomorphism.
+\end{theorem}
+\pf Linearity uses the fac tthat $ V $ is a \textit{real} inner product space. Suppose $ v\in \ker(\varphi_R) $, then $ \varphi_R(v)=\mathbf 0 $ in $ V^* $, so $ \varphi_R(v)[v]=\langle v,v\rangle $ hence $ v=0 $ by positive definite, hence $ V $ is injective, so we get that $ \varphi_R $ is an isomorphism instantly since $ \dim V=\dim V^* $.\qed
+\begin{remark}
+	Another persepective on adjoint maps. The adjoint map of $ \alpha $ maps $ W\to V $,then $ \varphi_{R,V} $ maps $ V $ to $ V^* $. But we can also go from $ W $ to $ W^* $ by $ \varphi_{R,W} $, and then the dual map of $ \alpha $ goes from $ W^* $ to $ V^* $. This is best seen in a commutative diagram. Since all of our maps are isomorphisms, we can go backwards, hence we can define the adjoint map this way (or define the dual map this way). However this only works in the real case.
+\end{remark}
+\subsection{Self-adjoint and isometry maps}
+\begin{definition}
+	(Self-adjoint) Let $ \alpha\in \mathcal L(V,V)$. We say that $ \alpha $ is \textit{self-adjoint} if $ \alpha^*=\alpha $.
+\end{definition}
+\begin{lemma}
+	If $ \F=\R $ or $ \C $, the map $ \alpha $ is self-adjoint if for some (or equivalently any) orthonormal basis $ B $ for $ V $ if $ [\alpha]^B_B $ is symmetric in the real case, and Hermitian in the complex case.
+\end{lemma}
+\pf Fix $ B $ an orthonormal basis. Then $ \alpha $ is self-adjoint if and only if $ [\alpha^*]^B_B=[\alpha]^B_B\iff \overline{([\alpha]_B^B)}^T=[\alpha]^B_B $.
+\begin{definition}
+	(Isometry) Let $ \alpha\in\mathcal (V,W) $. We say that $ \alpha $ is an \textit{isometry} if $ \forall u,v\in V $,
+	\[
+	  \langle \alpha(u),\alpha(v)\rangle_W=\langle u,v\rangle_V.
+	\]
+\end{definition}
+\begin{remark}
+  By polarisation, $ \alpha\in\mathcal L(V,W) $ is an isometry if and only if
+  \[
+    ||\alpha(v)||=||v||_V.
+  \]
+  Thus every isometry has a trivial kernal, so all isometries are injective. If $ \alpha $ is an isometry, and $ B\subseteq V $ is orthonormal then $ \alpha(B)\subseteq V $ is orthonormal.
+\end{remark}
+\begin{proposition}
+  Let $ \alpha\in \mathcal(V,W) $ be invertible. Then $ \alpha $ is an isometry if and only if $ \inv\alpha=\alpha^* $.
+\end{proposition}
+\pf \begin{align*}
+	\langle\alpha(u),\alpha(v)\rangle&=\langle u,\alpha^*\alpha(v))\rangle
+\end{align*}
+If $ \alpha^*=\inv\alpha $, then $ \langle\alpha(u),\alpha(v)\rangle =\langle u,v\rangle $ for all $ u,v $. Conversely if $ \langle \alpha(u),\alpha(v)\rangle=\langle u,v\rangle $ then
+\[
+	\langle u,\alpha^*(\alpha(v))-v\rangle=0,
+\]
+so set $ u=\alpha^*(\alpha(v)) $, hence we get that $ \alpha^*(\alpha(v))=v $ for all $ v $, so if we set $ v=\inv\alpha(w) $ for some $ w\in W $, then we get that $ \alpha^*(w)=\inv \alpha(w) $ for all $ w\in W $.\qed
 
 
 
