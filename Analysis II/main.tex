@@ -1077,10 +1077,141 @@ This is the correct notion we're looking for.
 		  \].
   \end{enumerate} 
 \end{proposition}
-\pf If $ A,A'\in \mathcal L(\R^n,\R^m) $ are both derivatives of $ f $ at $ a $, then
+\pf Exercise.
+\begin{remark}
+  Differentiability of $ f $ of a point $ a $ means that the affine function $ x\to f(x)+Df(a)(x-a) $ is a good approximation to $ f(x) $ near $ f(a) $. In fact if we look at the definition of $ Df(a) $ this is exactly what it's saying (replacing $ h $ with $ x-a $). The deviation of $ f(x) $ from $ f(a)+Df(a)(x-a) $ tends to zero faster than $ x $ tends to $ a $.
+\end{remark} 
+Let's introduce the little $ o $ notation formally now.\par
+We write $ o(x) $ for $ x\in \R^n $ to denote any function with the property that 
 \[
-	\lim_{h\to 0}\frac{f(a+h)-f(a)-Ah}{||h||}=0,\quad \lim_{h\to 0}\frac{f(a+h)-f(a)-A'h}{||h||}=0
+	\frac{o(x)}{||x||}\to 0
 \]
+as $ x\to 0 $. So in this notation differentiability of $ f $ at $ a $ is the statement that $ f(a+h)=f(a)+Df(a)h+o(h) $.
+\subsection{Directional Derivatives}
+\begin{definition}
+	(Directional derivative) Let $ f:U\to \R^m $ with $ U\subseteq \R^n $ open. Let $ a\in U$. The \textit{directional derivative} of $ f $ at $ a $ in the direction of $ u $ (where $ u\in \R^n $ is fixed), is
+	\[
+		D_uf(a)=\lim_{t\to 0}\frac{f(a+tu)-f(a)}t
+	\]
+	if the limit exists.
+\end{definition}
+\begin{proposition}
+  If $ f $ is differentiable at $ a\in U $, then for any $ u\in \R^n $, the directional derivative $ D_uf(a) $ exists and is equal to $ Df(a)u $. In particular the map $ u\to D_uf(a) $ is linear.
+\end{proposition}
+\pf We know that
+\begin{align*}
+	\lim_{h\to 0}\frac{f(a+h)-f(a)-Df(x)h}{||h||}=0.
+\end{align*}
+So that $ h=tu $ with $ t\to 0 $ hence we have that
+\begin{align*}
+\lim_{t\to 0}\frac{f(a+tu)-f(a)-t(Df(a)u)}{t||u||}=0
+\end{align*} 
+so we recover that $ Df(a)u=D_uf(a) $.\qed
+\par
+A special case of this is partial derivatives (usually in the case with $ m = 1$. Let $ \{e_i\} $ be the standard basis for $ \R^n $. Take $ u=e_j $. Then 
+\begin{align*}
+	D_{e_j}f(a)=\lim_{t\to 0}\frac{f(a+te_j)-f(a)}{t}
+\end{align*}
+is the $ j $th partial derivative of $ f $ (given the limit exists). We notate this by $ \frac{\partial f}{\partial x_j} $ or $ D_jf(a) $.\par
+So if $ f\to U\to \R $ is differentiable at $ a\in U $, then the partial derivatives $ D_jf(a) $ all exist and $ Df(a)=(D_1f(a), \cdots, D_nf(a) )$. More generally,
+\begin{proposition}
+  If $ U\subseteq \R^n $ is open and $ f:U\to \R^m $, is differentiable at $ a\in U $ then the partial derivatives $ D_jf_i(a) $ all exist and the matrix for $ Df(a) $ is given by $ A=(D_jf_i(a)) $.
+\end{proposition}
+\pf By the previous discussion and proposition.
+\begin{remark}
+  In the case where $ m=1 $, $ Df(a) $ is often called the gradient of $ f $ at $ a $.
+\end{remark}
+We saw that differentiability of $ a $ implies existance of all directoinal derivatives and hence existance of all partials. Let's see an example to show that existance of all partials doesn't imply differentiability. Take the function
+\[
+  f(x,y)=\begin{cases}
+	  0 & xy=0 \\
+	  1 & \text{otherwise}
+  \end{cases}.
+\]
+So both partials are zero, but the derivative in the $ (1,1) $ direction does not exist. Hence the function is not differentiable.\par
+Even if all directional derivatives exist, we \textit{still} may not have differentiability. Take $ f:\R^2\to\R $ defined by
+\[
+  f(x,y)=\begin{cases}
+	  \frac{x^3}y & y\ne 0\\
+	  0 & y =0
+  \end{cases}.
+\]
+Calculating the directional derivatives take $ u=(u_1,u_2) $ and $ t\ne 0 $. Then
+\[
+	\frac{f(0+tu)-f(0)}t=\begin{cases}
+		\frac{tu_1^3}{u_2} & u_2\ne 0\\
+		0 & u_2 = 0
+	\end{cases}.
+\]
+So $ D_uf(0) $ exists and is zero for all directions $ u $. But the function is not continuous at the origin hence not differentiable.\par
+Let's see a third example. Let $ f:\R^2\to \R $ defined by
+\[
+  f(x,y)=\begin{cases}
+	  \frac{x^3}{x^2+y^2}& (x,y)\ne (0,0) \\
+	  0 & (x,y) = (0,0)
+  \end{cases}.
+\]
+We have that $ |f(x,y)|\le |x| $ so $ f $ is continuous everywhere. In fact through direct calculation we can see that all the partials exist at the origin. In fact for any $ u=(u_1,u_2) $ we have that 
+\[
+	\frac{f(0+tu)-f(0)}t = \frac{u_1^3}{u_1^2+u_2^2}.
+\]
+So all directional derivatives exist, but the map from $ u\to D_uf(0,0) $ is not linear in $ u $ hence $ f $ can't be differentiable at the origin (we don't have that $ D_uf(0,0)=Df(0,0)u $. Alternatively if $ f $ were differentiable at the origin, then the derivative $ Df(0,0)h=\begin{pmatrix}
+	1 & 0 
+\end{pmatrix}\begin{pmatrix}
+  h_1 \\ h_2
+\end{pmatrix}=h_1 $. Hence
+\begin{align*}
+	\frac{f(0+h)-f(0)-Df(0)h}{||h||}=-\frac{h_1h_2^2}{(h_1^2+h_2^2)^{3/2}}
+\end{align*}
+which does not tend to zero as $ ||h||\to 0 $. So $ f $ is not differentiable at the origin.
+\begin{theorem}
+	(Continuity of partial derivatives guarantees differentiability) Let $ f: U \to \R^m $ with $ U\subseteq \R^n $ open. Let $ a\in U $ and suppose that for some $ B_r(a)\in U $ the partial derivatives $ D_jf_i(x) $ exist for every $ x\in B_r(a) $. Suppose also that $ D_jf_i $ is continuous at $ a $ for every $ 1\le i \le n $ and $ 1\le j \le n $. Then $ f $ is differentiable at $ a $.
+\end{theorem}
+\pf Assume \textit{wlog} that $ m=1 $ by taking coordinatewise functions. Let $ h=(h_1,h_2,\dots, h_n)\in \R^n $. Then we have that 
+\begin{align*}
+	f(a+h)-f(a)&=\\
+		   &\sum_{j=2}^n (f(a+h_1e_1+h_2e_2+\cdots + h_{j-1}e_{j-1}+h_je_j)-f(a+h_1e_1+\cdots +h_{j-1}e_{j-1}))\\
+		   &+f(a+h_1e_1)-f(a).
+\end{align*}
+We can then apply the mean value theorem to the function $ g(t)=f(a+h_1e_1+\dots +h_{j-1}e_{j-1}+te_j) $ for $ t\in [0,h_j] $. Then we get $ f(a+h)-f(a)=\sum_{j=1}^m h_jD_jf(a+h_1e_1+\cdots h_{j-1}e_{j-1}+\theta_jh_je_j) $ for some $ \theta_j\in (0,1) $.
+\begin{align*}
+	f(a+h)-f(a)-\sum_{j=1}^n h_jD_jf(a)&= \sum_{j=1}^n h_j(D_jf(a+h_1e_1+\cdots \theta_jh_je_j)-D_jf(a))\\
+					   &= o(h)
+\end{align*}
+since the bracketed expression goes to zero. So $ f $ is differentiable at $ a $ with $ Df(a) $ as we've show.\qed
+\par
+For some of the next results we need a convenient norm on the vector space $ \mathcal L(\R^n,\R^m) $. First we note that any map $ A\in \mathcal L(\R^n,\R^m) $ is Lipschitz hence continuous. Let $ S=\{ x\in \R^n: ||x||=1\} $, $ S $ is compact (closed and bounded), so a map $ A $ is bounded and attains its supremum on the sphere.
+\begin{definition}
+	(Operator norm on $ \mathcal L(\R^n,\R^m) $) For $ A\in \mathcal L(\R^n,\R^m) $ and define
+	\[
+		||A||_{\text{op}}=\sup_{|x|=1}||A(x)||=\sup_{x\in \R^n, x\ne 0}\frac{||A(x)||}{||x||}.
+	\]
+\end{definition}
+\begin{remark}
+  We can make some remarks about this norm.
+  \begin{enumerate}
+	  \item $ ||A||_{\text{op}} $ is a norm on $ \mathcal L(\R^n,\R^m) $.
+	  \item $ \forall x\in \R^n $, $ ||A(x)||\le ||A||_{\text{op}}||x|| $.
+	  \item If $ A\in\mathcal L(\R^n,\R^m) $ and $ B\in \mathcal L(\R^m,\R^p) $ then $ B\circ A\in \mathcal L(\R^n,\R^p) $ and $ ||BA||_{\text{op}}=||B||_{\text{op}}||A||_{\text{op}} $.
+	  \item Since $ \dim \mathcal L(\R^n,\R^m)=nm<\infty $ any norm on $ \mathcal L(\R^n, \R^m) $ is equivalent to the operator norm. We will use the operator norm instead because of properties (ii) and (iii). 
+  \end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
