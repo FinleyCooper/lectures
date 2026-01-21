@@ -1196,25 +1196,184 @@ For some of the next results we need a convenient norm on the vector space $ \ma
 	  \item Since $ \dim \mathcal L(\R^n,\R^m)=nm<\infty $ any norm on $ \mathcal L(\R^n, \R^m) $ is equivalent to the operator norm. We will use the operator norm instead because of properties (ii) and (iii). 
   \end{enumerate}
 \end{remark}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{proposition}
+ For the operator norm,
+ \begin{enumerate}
+	 \item If $ A\in \mathcal L(\R,\R^m) $ then $ A(x)=xa $ for some fixed $ a\in\R^m $. In this case $ ||A||_{\text{op}}=||a||_2 $.
+	 \item If $ A\in \mathcal L(\R^n,\R) $ then $ A(x)= x\cdot a $ for some fixed $ a\in\R^n $ and $ ||A||_{\text{op}}=||a||_2 $.
+	 \item If $(A_{ij})  $ is the matrix of $ A\in\mathcal L(\R^n,\R^m) $ with respect to the standard basis for $ \R^n $ and $ \R^m $ then we have that
+		 \[
+			 \frac1{\sqrt n}\left(\sum A^2_{ij}\right)\le ||A||_{\text{op}}\le \left(\sum A^2_{ij}\right)^{1/2}.
+		 \]
+ \end{enumerate}
+\end{proposition}
+\pf Example Sheet 4.
+\begin{theorem}
+	Let $ U\subseteq \R^n $ be open and $ f:U\to \R^m $ and $ a\in U $. Assume that $ f $ is differentiable at $ a $. Let $ V\subseteq \R^m $ be open, with $ f(U)\subseteq V $, $ g:V\to \R^p $ and suppose that $ g $ is differentiable at $ f(a) $. Then $ g\circ f: U\to \R^p $ is differentiable at $ a $ and moreover,
+	\[
+	  D(g\circ f)(a)=Dg(f(a))\circ Df(a).
+	\]
+\end{theorem}
+\pf Let $ A=Df(a) $ and $ B=Dg(f(a)) $. We know that $ f(a+h)=f(a)+Ah+o(h) $, and $ g(f(a)+k)=g\circ f(a)+Bk+o(k) $.
+\begin{align*}
+	(g\circ f)(a+h)=g(f(a+h)) &= g(f(a)+Ah+o(h))\\
+				  &= g\circ f(a)+B(Ah+o(h))+o(Ah + o(h))\\
+				  &= g\circ f(a) +B\circ Ah+B(o(h))+ o(Ah+o(h)).
+\end{align*}
+Now we have that 
+\begin{align*}
+	||B(o(h))||\le ||B||_{\text{op}}||o(h)||
+\end{align*}
+so $ B(o(h)) = o(h) $. Similarly,
+\begin{align*}
+	||Ah+o(h)|| &\le ||A||_{\text{op}}||h||+||o(h)||\\
+		    &\le (||A||_{\text{op}}+1)||h||
+\end{align*}
+for small $ ||h|| $. So $ o(Ah+o(h))=\varepsilon(||h||)||Ah+o(h)) $ where $ \varepsilon(t)\to 0  $ as $ t\to 0^+ $. So $ o(Ah+o(h))=o(h) $. Hence $ g\circ f(a+h)=f(a)+B\circ Ah+o(h) $, so $ g\circ f $ is differentiable at $ a $ with $ D(g\cric f)(a)=BA $.\qed
+\par
+We want a generalised mean value theorem for functions from $ \R^n $ to $ \R^m $. We have that for $ f:[a,b]\to \R $ the MVT gives that if $ f $ is continuous and differentiable on $ (a,b) $ then $ f(b)-f(a)=f'(c)(b-a) $ for some $ c\in (a,b) $. This does not hold directly for higher dimensions instead we get an inequality.
+\begin{theorem}
+	(Mean value inequality) Let $ f:[a,b]\to \R^m $ be continuous and assume that $ f $ is differentiable on $ (a,b) $. Suppose that $ ||Df(a)||_{\text{op}} \le M$ for some constant $ M $ and all $ t\in (a,b) $. Then
+	\[
+	  ||f(b)-f(a)||\le M(b-a).
+	\]
+\end{theorem}
+\pf Let $ v=f(b)-f(a) $ and $ v=(v_1,\dots, v_m) $. Let $ g(t)=v\cdot f(t) $. So $ g:[a,b]\to \R $ so apply the mean value theorem it to. Hence we get that $ g(b)-g(a)=g'(t)(b-a) $ for some $ t\in (a,b) $. $ g(b)-g(a)=v\cdot (f(b)-f(a))=||v||^2 $ and $ g'(t)=\sum_{i=1}^m v_if_i'(t)\le ||v||||f'(t)||=||v||||Df(t)||_{\text{op}}\le M||v|| $.\par
+If $ ||v||=0 $ then $ f(b)=f(a) $ so nothing else to prove. Otherwise $ ||v||^2=g(b)-g(a)\le |g'(t)|(b-a)\le M||v||(b-a) $ which gives the result once dividing through by $ ||v|| $.\qed
+\begin{theorem}
+	Let $ B_r(a)\subseteq \R^n $, $ f:B_r(a)\to \R^m $ and suppoes that $ f $ is differentiable at $ x $ for each $ x\in B_r(a) $. Suppose further that $ ||Df(x)||_{\text{op}}\le M $. Then for any $ b_1,b_2\in B_r(a) $ we have that 
+	\[
+	  ||f(b_2)-f(b_1)||\le M||b_2-b_1||.
+	\]
+\end{theorem}
+\pf Let $ g(t)=f(tb_1+(1-t)b_2) $ for $ t\in [0,1] $. Then $ g:[0,1]\to \R^m $ is continuous and differentiable on $ (0,1) $. Then by the chain rule $ Dg(t) = Df(tb_1+(1-t)b_2)(b_1-b_2) $. So we get that 
+\begin{align*}
+	||Dg(t)||_{\text{op}}&\le ||Df(tb_1+(1-t)b_2)||||b_1-b_2||\\
+			     &\le M||b_1-b_2||
+\end{align*}
+Now we can apply the previous theorem to get that
+\[
+  ||f(b_1)-f(b_2)||=||g(1)-g(0)||\le M||b_1-b_2||.\qed
+\]
+\begin{remark}
+  This proof also follows more generally for convex sets not just balls.
+\end{remark}
+\begin{corollary}
+  If a function as in the theorem has derivative zero on the ball then it is constant on the ball.
+\end{corollary}
+For general open sets $ U\in \R^n $ and maps $ f:U\to \R^m $, $ Df=0 $ in $ U $ doesn't imply that $ f $ is constant. As a counterexample we could have the open set $ U=(0,1) \cup (2, 3) $. We need $ U $ to be additionally path connected to extend the corollary.
+\begin{definition}
+	(Path connected) A subset $ E\subseteq \R^n $ is \textit{path connected} if for any two points $ a,b\in E $ then there is a continuous function $ \gamma:[0,1]\to E $ such that $ \gamma(0)=a $ and $ \gamma(1)=b $.
+\end{definition}
+\begin{theorem}
+  Let $ U\subseteq R^n $ be open and path connected. If $ f:U\to \R^m $ is differentiable with $ Df(x)=0 $ for all $ x\in U $, then $ f $ is constant.
+\end{theorem}
+\pf \textit{wlog} $ m=1 $. Let $ a,b\in U $ be any to points so we have a continuous path $ \gamma $ connecting them. Let $ g(t)=f(\gamma(t)) $. For $ s\in (0,1) $, $ \gamma(s)\in U $. We know that $ U $ is open, so there exists a $ \varepsilon>0 $ such that $ B_\varepsilon(\gamma(s))\subseteq U $. Since $ \gamma $ is continuous, there exists a $ \delta $ such that $ \gamma(s-\delta,s+\delta)\in B_\varepsilon(\gamma(s)) $. Since $ Df=0 $, by the corollary, we have that $ f $ is constant on the ball, hence $ g $ is constant in $ (s-\delta,s+\delta) $. So $ g $ is differentiable in $ (s-\delta, s+\delta) $ with $ g'(t)=0 $ for all $ t\in (s-\delta, s+\delta) $. In particular, $ g'(s)=0 $. Since $ s $ is arbitrary, we have that $ g'(t) =0 $ for all $ t\in [0,1] $. Apply the MVT to get that $ f(b)-f(a)=0 $.\qed
+\subsection{The second derivative}
+\begin{definition}
+	($ C^1 $ function) A function $ f:U\to \R $, $ U\subseteq \R^n $ is said to be $ C^1 $ on $ U $ if all partial derivatives $ D_jf=\frac{\partial f}{\partial x_j} $ exist and are continuous on $ U $.
+\end{definition}
+Similarly $ f $ is $ C^2 $ on $ U $ if $ D_jf:U\to \R $ is $ C^1 $ for all $ j $. The second partial derivatives $ D_iD_jf=D_{ij}f=\frac{\partial^2 f}{\partial x_i\partial x_j} $ all exist for all $ i,j $ and are continuous.\par
+It turns out that if $ f $ is $ C^1 $ then $ D_iD_jf(x)=D_jD_if(x) $ for all $ i,j,x $. In fact we have the following.
+\begin{theorem}
+	Let $ f:U\to \R $, $ U\subseteq \R^n $ open and $ a\in U $ and $ B_r(a)\subseteq U $. Fix $ i,j $ and assume that the partial derivatives $ D_iD_jf(x), D_jD_if(x)$ exist for all $ x\in B_r(a) $ and are continuous at $ x=a $. Then we have that
+	\[
+	  D_iD_jf(a)=D_jD_if(a).
+	\]
+\end{theorem}
+\begin{remark}
+  By applying repeatedly this we get that if $ f $ is $ C^k $ on $ U $ for some $ k\in \N $ (meaning that all partial derivatives of order $ k $ exist and are continuous) then the order of differentiation in the partials does not matter. 
+\end{remark} 
+\pf If $ i=j $ then there is nothi gelse to prove, so assume that $ i\ne j $. Let $ g_{ij}(t)=f(a+te_i+te_j)-f(a+te_i)-f(a+te_j)+f(a) $ for $ t $ sufficiently small. Then $ g_{ij}(t)=\varphi(1)-\varphi(0) $ where $ \varphi(s)=f(a+ste_i+te_j)-f(a+ste_i) $. So by MVT $ g_{ij}(t)= \varphi'(\theta)$ for some $ \theta\in(0,1) $. We notice that $ \varphi'(\theta)=tD_if(a+\theta te_i+te_j)-tD_if(a+\theta te_i) $. Applying MVT again to the function $ s\to D_if(a+\theta te_i+ste_j), $ for $ s\in[0,1] $, then
+\[
+	g_{ij}(t)=t^2D_jD_if(a+\theta te_i+\eta te_j)
+\]
+for some $ \theta,\eta\in(0,1) $. Repeat the same swapping $ i $ with $ j $ so $ g_{ji}(t)=t^2D_iD_jf(a+\tilde\theta te_j+\tilde\eta t e_i)  $ for some $ \tilde\theta\in (0,1) $ and $ \tilde\eta\in(0,1) $. But notice from the definition that $ g_{ij}(t)=g_{ji}(t) $, so we get that
+\[
+  D_jD_i(a+\theta te_i+\eta t e_j)=D_iD_jf(a+\tilde \theta t e_j+\tilde\eta t e_i).
+\]
+So we can take $ t\to 0 $ and since $ f $ has continuous partials about $ a $ we get that $ D_jD_if(a)=D_iD_jf(a) $.\qed
+\par
+What is the derivative of the derviative? We want to connect this to what we know about the second partials. If $ f:U\to \R^m $ with $ U\subseteq \R^n $ open is differentiable on $ U $ then $ Df $ is a map from $ U\to \mathcal L(\R^n,\R^m) $. We know that $ \mathcal L(\R^n,\R^m)\cong \R^{nm} $. So then we can talk about the differentiability of $ Df $. $ Df $ has components $ D_jf_k $ so $ Df $ is differentiable at $ a\in U $ if and only if $ D_jf_k $ are all differentiable at $ a $.\par
+$ D(Df)(a) $ is the unique linear transformation 
+\begin{align*}
+	D(Df)(a) &: \R^n \to \mathcal L(\R^n, \R^m) \\
+\end{align*}
+satisfying $ \lim_{h\to 0}\frac{Df(a+h)-Df(a)-D(Df)(a)}{||h||}=0 $. Since we have that $ \mathcal L(\R^n,\R^m)\cong\R^{nm} $ we can use all of our previous theorems. Here $ h $ is a linear map and $ ||h|| $ is really $ ||h||_{\text{op}} $. On the otherside we write that the limit is zero, which is actually the zero map.\par
+From linear algebra, suppose that $ \varphi:\R^\ell \to \mathcal L(\R^n,\R^m) $ is a linear transformation then we can define $ \Phi:\R^\ell \times \R^n\to \R^m $ by $ \Phi(u,v)=\varphi(u)(v) $. Then $ \Phi $ is the bilinear map represented by $ \varphi $. Conversely if $ \Phi:\R^\ell \times \R^n\to \R^m $ is bilinear, then the map $ \varphi:\R^\ell \to \mathcal L(\R^n,\R^m) $ defined by $ \varphi(u)=(v\to \varphi(u,v) $. If $ m=1 $ we say that $ \Phi $ is a bilinear form. Let's apply this to the derivatives.
+\begin{definition}
+  Suppose that $ Df $ is differentiable at $ a $. Define $ D^2f(a):\R^n\times \R^n\to \R^m $ by $ D^2f(a)(u,v)=D(Df)(a)(u)(v) $.
+\end{definition}
+\begin{remark}
+	We can of course extend this generally to \textit{multilinear maps} as discuss $ n $th derivatives, but the second derivatives are important for our classification of critical points.
+\end{remark}
+\begin{theorem}
+	Suppose $ f $ is $ C^2 $ on $ U $. Then $ D^2f(a) $ exists and is a symmetric bilinear map. Moreover for $ u= \sum_{i=1}^n u_ie_i, v=\sum_{i=1}^n v_ie_i $, where $ \{e_i\}_{i=1}^n $ is the standard basis for $ \R^n $, we have that
+	\[
+		D^2f(a)(u,v)=\left(\sum_{j=1}^n\sum_{i=1}^n D_{ij}f_k(a)u_iv_j\right)_{1\le k \le m}\in \R^m.
+	\]
+\end{theorem}
+\pf Since $ f $ is $ C^2 $, the components of $ D_jf_k $ of $ Df $ have continuous partial derivatives. So $ D_jf_k $ are each differentiable hence $ Df $ is differentiable. So $ D^2f(a) $ exists. Using bilinearity,
+\begin{align*}
+	D^2f(a)(u,v)=\sum_{j=1}^n\sum_{i=1}^nD^2f(a)(e_i,e_j)u_iv_j.
+\end{align*}
+By the definition of $ D(Df)(a) $, 
+\[
+	\lim_{h\to 0}\frac{Df(a+h)-Df(a)-D(Df)(a)h}{||h||}=0.
+\]
+Take $ h=te_i $, so
+\[
+	\lim_{t\to 0}\frac{Df(a+te_i)-Df(a)-tD(Df)(a)e_i}{t}=0.
+\]
+Let both sides act on $ e_j $, so we get that
+\[
+	\lim_{t\to 0}\frac{Df(a+te_i)(e_j)-Df(a)(e_j)-tD(Df)(a)(e_i)(e_j)}t = 0.
+\]
+Hence we get that
+\[
+	D(Df)(a)(e_i)(e_j)=\lim_{t\to 0}\frac{D_jf(a+te_i)-D_jf(a)}t=D_iD_jf(a).
+\]
+So $ D^2f(a)(e_i,e_j)=D_{ij}f(a) $ and the result follows (symmetric since $ C^2 $ and applying the previous theorem of mixed partials).\qed
+\par
+In the case where $ m=1 $ take $ f:U\to \R $ we use the bilinear for $ D^2f(a) $ the analyse the critical points of $ f $ (points where $ Df(a)=0) $. From linear algebra, if we have a function $ B:\R^n\times\R^n\to \R $ be a symmetric bilinear form, so $ B(u,v)=B(v,u)=\sum_{i,j=1}^n a_{ij}u_iv_j $ for a symmetric matrix $ (a_{ij}) $. We can associate this to a quadratic form, namely the function $ q(u)=B(u,u)=\sum_{i,j=1}^na_{ij}u_iu_j $. Using the polarisation identity from linear algebra, we know can we can go backwards and there is a bijections between bilinear forms and quadratic forms.
+\begin{definition}
+	(Positive definite) A quadratic map is said to be \textit{positive definite} if $ Q(u)>0 $ for all $ u\in \R^n\setminus \{0\} $. If $ Q(u)\ge 0 $ for all $ u\in \R^n $ we say that $ Q $ is positive semi-definite. Similarly we can define negative definite and negative semi-definite.
+\end{definition}
+In the case where $ B=D^2f(a) $ for a $ C^2 $ function $ f:U\to \R $ and $ a\in U $ the associated quadratic form $ Q $ is the Hessian form.
+\begin{definition}
+  Let $ f:U\to \R $ be $ C^2 $ and let $ a\in U $,
+  \begin{enumerate}
+	  \item The point $ a $ is a \textit{critical point} of $ f $ is $ Df(a)=0 $.
+	  \item $ f $ has a \textit{local minimum} at $ x=a $ if $ \exists r>0 $ such that $ f(x)\ge f(a) $ for all $ x\in B_r(a) $.
+	  \item $ f $ has a \textit{strict local minimum} at $ x=a $ if $ \exists r>0 $ such that $ f(x)>f(a) $ for all $ x\in B_r(a)\setminus \{a\} $.
+	  \item Similarly we define \textit{local maximum} and \textit{strict local maximum}.
+  \end{enumerate}
+\end{definition}
+\begin{theorem}
+  Let $ f:U\to \R $ with $ U\subseteq \R^n $ open be a $ C^2 $ function. Let $ a\in U $. THen
+  \begin{enumerate}
+	  \item $ f(a+h)=f(a)=Df(a)h+\frac 12D^2f(a)(h,h)  +E(h)$, with $ E(h)=o(||h||^2) $.
+	  \item \begin{enumerate}
+			  \item If $ x=a $ is a critical point of $ f $ and $ H_{f,a}(h)=D^2f(a)(h,h) $ is positive definite, then $ f $ has a strict local minimum at $ a $.
+\item If $ x=a $ is a critical point of $ f $ and $ H_{f,a}(h)=D^2f(a)(h,h) $ is negative definite, then $ f $ has a strict local maximum at $ a $.
+\item If $ f $ has a local minimum (respectively local maximum), then $ Df(a)=0 $ and $ H_{f,a}(h) $ is positive (respectively negative) semi-definite.
+	  \end{enumerate}
+  \end{enumerate}
+\end{theorem}
+\pf Let $ g(t)=f(a+th) $. We know that $ g $ is twice differentiable. Apply Taylor's theorem for one dimension, so we get that
+\[
+  g(1)=g(0)+g'(0)+\frac 12 g''(s)
+\]
+for some $ s\in [0,1] $. Hence plugging in and using the chain rule we get that 
+\begin{align*}
+	f(a+h) &= f(a)+Df(a)h+\frac 12 D^2f(a+sh)(h,h)\\
+	       &= f(a)+Df(a)h+\frac 12 D^2f(a)(h,h)+E(h)
+\end{align*}
+where $ E(h)=\frac 12(D^2f(a+sh)(h,h)-D^2f(a)(h,h)) $, so applying the operator norm we get that 
+\[
+  |E(h)|\le \frac 12 ||D^2f(a+sh)-D^2f(a)||||h||^2.
+\]
+Hence taking $ h\to 0 $ by continuity of $ D^2f $, we get that the first term goes to zero, hence $ E(h)=o(||h||^2) $.\qed
 
 
 
