@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Statistics}
+\author{Notes by Finley Cooper}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  \section{Parametric Estimation}
+  We observe some data $ X_1,\dots, X_n $ iid random variables taking values in a sample space $ \mathcal X $. Let $ X=(X_1,\dots, X_n) $. We assume that $ X_1 $ belongs to a \textit{statistical model} $ \{p(x; \theta):\theta \in \Theta\} $ with $ \theta $ unknown. For example $ p(x;\theta) $ could be a pdf.\par
+  Let's see some examples
+  \begin{enumerate}
+    
+	  \item Suppose that $ X_1\sim \text{Poisson}(\lambda) $ where $ \theta=\lambda\in\Theta=(0,\infty) $.
+
+  \item Suppose that $ X_1\sim\mathcal N(\mu,\sigma^2) $, where $ \theta=(\mu,\sigma^2)\in\Theta=\R\times(0,\infty) $.
+\end{enumerate}
+We have some common questions about these statistical models.
+\begin{enumerate}
+	\item We want to give an estimate $ \hat{\theta}:\mathcal X^n\to \Theta $ of the true value of $ \theta $.
+	\item We also want to give an interval estimator $ (\hat\theta_1(X),\hat\theta_2(X)) $ of $ \theta $.
+	\item Further we want to test of hypothesis about $ \theta $. For example we might make the hypothesis that $ H_0:\theta=0 $.
+\end{enumerate}
+Let's do a quick reivew of IA Probability. Let $ X:\Omega\to \R $ be a random variable defined on the probability space $ (\Omega,\mathcal F, \mathbb P) $. So $ \Omega $ is the sample space, $ \mathcal F $ is the set of events, and $ \mathbb P: \mathcal F\to [0,1] $ is the probability measure.\par
+The cumulative distribution function (cdf) of $ X $ is $ F_X(s)=\prob{X\le x} $. A discrete random variable takes values in a countable set $ \mathcal X $ and has probability mass function (pmf) given by $ p_X(x)=\prob{X=x} $. A continuous random variable has probability density function (pdf) $ f_X $ satisfying $ P(X\in A)=\int_A f_X(x)\mathrm dx $ (for measurable sets $ A $). We say that $ X_1,\dots, X_n $ are independent if $ \prob{X_1\le x_1,\dots, X_n\le x_n}=\prod_{i=1}^n \prob{X_i\le x_i} $ for all choices $ x_1,\dots, x_n $. If $ X_1,\dots, X_n $ have pdfs (or pmfs) $ f_{X_1},\dots, f_{X_n} $, then this is equivalent to $ f_X(x)=\prod_{i=1}^nf_{X_i}(x_i) $ for all $ x_i $. The expectation of $ X $ is,
+\[
+  \mathbb E(x)=\begin{cases}
+	  \sum_{x\in \mathcal X}xp_X(x) & \text{if } X\text{ is discrete}\\
+	  \int_{-\infty}^\infty xf_X(x) & \text{if } X\text{ is continuous}
+  \end{cases}.
+\]
+The variance of $ X $ is $ \Var{X}=\mathbb E[(X-\mathbb E(X))^2]$. The moment generating function of $ X $ is $ M(t)=\mathbb E[e^{tX}] $ and can be used to generate the momentum of a random varaible by taking derivatives. If two random variables have the same moment generating functions, then they have the same distribution.\par
+The expectation operator is linear and
+\[
+	\Var{a_1X_1+\dots+a_nX_n}=\sum_{i,j=1}^n a_ia_j\Cov{X_i,X_j},
+\]
+where $ \Cov{X_i,X_j}=\mathbb E[(X_i-\mathbb E(X_i)(X_j-\mathbb E(X_j))] $. In vector notation writing $ X $ as the column vector of $ X_i $ and $ a $ as the column vector for $ a_i $ we get that 
+\[
+	\mathbb E[a^T X]=a^T E[X].
+\]
+Similar for the variance we get that
+\[
+	\Var{a^TX}=a^T\Var X a
+\]
+where $ \Var X $ is the covariance matrix for $ X $ with entries $ \Cov{X_i,X_j} $.\par
+If $ X $ is a discrete random variable with pmf $ P_{X,Y}(x,y)=\prob{X=x, Y=y} $ and marginal pmf $ P_Y(y)=\sum_{x\in X}P_{X,Y}(x,y) $, then the conditional pmf is
+\[
+	P_{X\mid Y}(x\mid y)=\prob{X=x\mid Y=y}=\frac{P_{X,Y}(x,y)}{P_Y(y)}.
+\]
+We also have the law of total expectation,
+\[
+	\mathbb E[X]=\mathbb E[\mathbb E[X\mid Y]].
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

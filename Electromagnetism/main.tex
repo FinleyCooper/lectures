@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage{../header}
+\title{Electromagnetism}
+\author{Notes by Finley Cooper}
+\newcommand{\x}{\mathbf x}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  \section{Introduction}
+  \subsection{Charges and currents}
+  \textit{Electric charge} is a physical property of elementary particles. It is:
+  \begin{enumerate}
+	  \item A signed quantity, it can either be positive, negative, or zero.
+	  \item It is quantised to integer multiplies of the elementary charge.
+	  \item It is a conserved quantity even if particles are created or destroyed.
+  \end{enumerate}
+  By convention the electron has charge $ -e $, the proton has charge $ +e $ and the neutron has no charge. On macroscopic scales, the number of particles is so large that charge can be considered to have a continuous electric charge density $ \rho(\mathbf x,t) $. The total charge in a volume $ V $ is then
+  \[
+    Q=\int_V \rho\mathrm dV.
+  \]
+  The \textit{electric current density} $ \mathbf J(\mathbf x,t) $ is the flux of electric charge per unit area. The current folowing through a surface $ S $ is
+  \[
+    I=\int_S\mathbf J\cdot \mathrm d\mathbf S.
+  \]
+  Consider a time-independent volume $ V $ with boundary $ S $. Since charge is conserved, we have that
+\begin{align*}
+	\frac{dQ}{dt} &=-I\\
+	\frac{d}{dt}\int_V\rho\mathrm dV+\int_S\mathbf J\cdot \mathrm d\mathbf S&=0\\
+	\int_V\left(\frac{\partial \rho}{\partial t}+\nabla \cdot \mathbf J\right)\mathrm dV&=0
+\end{align*}
+Since this is true for any $ V $, we have that
+\[
+	\frac{\partial \rho}{\partial t}+\nabla\cdot \mathbf J=0.
+\]
+This \textit{equation of charge conservation} has the typical form of a conservation law.\par
+The discrete charge distribution of a single particle of charge $ q_i $; and position vector $ \x_i(t) $, is
+\begin{align*}
+	\rho&=q_i\delta(\x-\x_i(t)),\\
+	\mathbf J &= q_i\dot \x_i\delta(\x-\x_i(t)).
+\end{align*}
+For $ N $ particles, it is 
+\begin{align*}
+	\rho &= \sum_{i=1}^N q_i\delta(\x-\x_i(t))\\
+	\mathbf J &= \sum_{i=1}^N q_i\dot\x_i\delta(\x-\x_i(t)).
+\end{align*}
+As an exercise we can see that these satisfy the equation of charge conservation.
+\subsection{Fields and forces}
+Electromagnetism is a \textit{field theory}.\par
+Charged particles don't interact directly, but rather by generating fields around them, which are then experienced by other charged particles. In general we have two time-dependent vector fields, the electric field $ \mathbf E(\x,t) $, and the magnetic field $ \mathbf B(\x,t) $.\par
+The \textit{Lorentz force} on a particle of charge $ q $ and velocity $ v $ is
+\[
+  \mathbf F=q(\mathbf E+\mathbf v\times \mathbf B).
+\]
+\subsection{Maxwell's equations}
+In this course we will explore some consequences of Maxwell's equations.\begin{definition}
+	(Maxwell's equations)
+	\begin{align*}
+		\nabla \cdot \mathbf E&=\frac{\rho}{\varepsilon_0}\\
+		\nabla\cdot \mathbf B &= 0 \\
+		\nabla\times \mathbf E &= -\frac{\partial \mathbf B}{\partial t} \\
+		\nabla \times  \mathbf B &= \mu_0\left(\mathbf J + \varepsilon_0\frac{\partial \mathbf E}{\partial t}\right).
+	\end{align*}
+\end{definition}
+\begin{remark}
+  We have some properties about these equations.
+  \begin{itemize}
+	  \item Coupled linear PDEs in space and time,
+	  \item Involve two positive constants:
+		  \begin{enumerate}
+			  \item $ \varepsilon_0 $ (vacuum permittivity)
+			  \item $ \mu_0 $ (vacuum permeability)
+		  \end{enumerate}
+	  \item Charges $ (\rho) $ and currents $ (\mathbf J) $ are the sources of electromagnetic fields.
+	  \item Each equation is an equivalent integral form (see later) related via the divergece or Stokes' theorem.
+	  \item These are the \textit{vacuum} equations that apply on microscopic scales or in a vacuum. A related macroscopic version applies in media (Part II Electrodynamics).
+	  \item The equations of consistent with each other and with charge conservation. We will show this now.
+		  \begin{enumerate}
+			  \item Taking the divergence of the third equation, this agrees with the time derivative of the second equation.
+			  \item For charge conversation, we have that
+				  \begin{align*}
+					  \frac{\partial\rho}{\partial t}+\nabla\cdot\mathbf J &= \frac{\partial }{\partial t}\left(\varepsilon_0\nabla\cdot \mathbf E\right) + \nabla\cdot \left(-\varepsilon_0\frac{\partial \mathbf E}{\partial t}+\frac1{\mu_0}\nabla\times \mathbf B\right)\\
+					  &= 0.
+			  \end{align*}
+		  \end{enumerate}
+  \end{itemize}
+\end{remark}
+\subsection{Units}
+The SI unit of electric charge is the coulomb $ (C) $. The elementary charge is exactly
+\[
+	e=1.602\ 176\ 634\times 10^{-19}\ \text{C}.
+\]
+The SI unit of electric current is the ampere or amp (A) which is equal to $ 1\ \text{C}\ \text{s}^{-1} $.\par
+The SI base units needed in electromagnetism and then the second, metre, kilogram, and ampere. From the Lorentz force law we see that the units of $ \mathbf E $ and $ \mathbf B $ must be
+\[
+	\text{kg}\ \text{m}\ \text{s}^{-3}\text{A}^{-1}\quad \text{and}\quad \text{kg}\ \text{s}^{-2}\text{A}^{-1}.
+\]
+We sometimes refer to the units of $ \mathbf B $ as the \textit{Telsa} (T).\par
+From Maxwell's equations we can work out the units of $ \varepsilon_0 $ and $ \mu_0 $. The values of these constants can be calculated via experimentation as
+\begin{align*}
+	\varepsilon_0 &= 8.854\dots\times 10^{-12}\ \text{kg}^{-1}\text{m}^{-3}\text{s}^4\ \text{A}^2\\
+	\mu_0 &= 1.256\dots\times 10^{-6}\ \text{kg}\ \text{m}\ \text{s}^{-2}\text{A}^{-2}
+\end{align*}
+The speed of light the exactly
+\[
+	c=\frac{1}{\sqrt{\mu_0\varepsilon_0}}=299\ 792\ 458\ \text{m}\ \text{s}^{-1}.
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
