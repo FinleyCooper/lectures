@@ -1360,7 +1360,9 @@ In the case where $ B=D^2f(a) $ for a $ C^2 $ function $ f:U\to \R $ and $ a\in 
 	  \end{enumerate}
   \end{enumerate}
 \end{theorem}
-\pf Let $ g(t)=f(a+th) $. We know that $ g $ is twice differentiable. Apply Taylor's theorem for one dimension, so we get that
+\pf
+\begin{enumerate}
+	\item Let $ g(t)=f(a+th) $. We know that $ g $ is twice differentiable. Apply Taylor's theorem for one dimension, so we get that
 \[
   g(1)=g(0)+g'(0)+\frac 12 g''(s)
 \]
@@ -1373,15 +1375,117 @@ where $ E(h)=\frac 12(D^2f(a+sh)(h,h)-D^2f(a)(h,h)) $, so applying the operator 
 \[
   |E(h)|\le \frac 12 ||D^2f(a+sh)-D^2f(a)||||h||^2.
 \]
-Hence taking $ h\to 0 $ by continuity of $ D^2f $, we get that the first term goes to zero, hence $ E(h)=o(||h||^2) $.\qed
-
-
-
-
-
-
-
-
-
+Hence taking $ h\to 0 $ by continuity of $ D^2f $, we get that the first term goes to zero, hence $ E(h)=o(||h||^2) $.
+\item
+	\begin{enumerate}
+		\item We have $ Df(a)=0 $ and $ H_{f,a}(h,h)>0 $ for all $ h\in \R^n\setminus \{0\} $. Let $ \varepsilon_0 = \inf_{h\in S}H_{f,a}(h,h) $, since $ h\to H_{f,a}(h,h) $ is continuous since it is a polynomial in $ h $. $ S $ is compact so the infimum is attained, so $ \varepsilon_0>0 $. So for $ h\in \R^n $, we have that $ H_{f,a}(h,h)\ge \varepsilon_0||h||^2$. 
+	Hence
+	\begin{align*}
+		f(a+h) &\ge f(a)+\frac{\varepsilon_0}2 ||h||^2 + o(||h||^2)\\
+		       &\ge f(a) + \frac{\varepsilon_0}4 ||h||^2 \quad\text{for all }h\in B_\delta(0)\ \text{for some } \delta>0\\
+		       &> f(a)+\frac{\varepsilon_0}4||h||^2\\
+		       &> f(a)
+	\end{align*}
+	So $ f $ has a strict local minimum at $ x=a $.
+\item The argument for strict local maximum can be seen from applying the previous proof to $ -f $.
+\item Example Sheet 4.
+	\end{enumerate}
+\end{enumerate}
+\qed
+\begin{remark}
+	By linear algebra $ H_{f,a}=\sum_{i,j=1}^n D_{ij}f(a)h_ih_j $ is positive definite (respectively negative definite) if and only if the real symmetric matrix representing $ H_{f,a} $ has only positive (respectively negative) eigenvalues by the spectral theorem. 
+\end{remark}
+\section{The contraction mapping theorem}
+\begin{definition}
+	(Contraction mapping) Let $ (X,d) $ be a metric space. A \textit{contraction mapping} is a function $ f:X\to X $ such that there exists a $ \lambda $ with $ 0\le \lambda < 1 $ such that $ d(f(x),f(y))\le \lambda d(x,y) $, for all $ x,y\in X $.
+\end{definition}
+\begin{remark}
+  If $ f $ is a contraction mapping then it is Lipschitz and hence uniformly continuous.
+\end{remark}
+\begin{theorem}
+	(Contraction mapping theorem) If $ (X,d) $ is a non-empty, complete metric space and if $ f $ is a contractionm mapping, then $ f $ has a unique fixed point $ x\in X $.
+\end{theorem}
+\pf First we'll prove uniqueness. Suppose $ x,y $ are fixed points of $ f $. Hence $ d(x,y)=d(f(x),f(y))\le \lambda d(x,y) $ where $ \lambda \in [0,1) $ is the contraction constant. Hence $ (1-\lambda)d(x,y)\le 0 $, but $ 1-\lambda>0 $ so we get that $ d(x,y)=0 $ so $ x=y $.\par
+Now we'll show existance. Pick any point $ x_0\in X $ (since $ X $ is non-empty). Define a sequence $ (x_n) $ by $ x_{n+1}=f(x_n) $. So $ x_n=f^{(n)}(x_0) $. Then
+\begin{align*}
+	d(x_{n+1},x_n)&=d(f(x_n),f(x_{n-1}))\\
+		      &\le \lambda d(x_n,x_{n-1}\\
+		      &\le \lambda^n d(x_1,x_0).
+\end{align*}
+For any $ m>n $, 
+\begin{align*}
+	d(x_m,x_n)&\le \sum_{j=n}^{m-1} d(x_{j+1},x_j)\\
+		  &\le \sum_{j=n}^{m-1}\lambda^j d(x_1,x_0)\\
+		  &\le \frac{\lambda^n}{1-\lambda}d(x_1,x_0).
+\end{align*}
+Hence $ (x_n) $ is Cauchy since $ X $ and since $ (X,d) $ is complete, there exists a limit $ x_n\to x\in X $. By continuity of $ f $, $ f(x_n)\to f(x) $, hence $ x_{n+1}\to f(x) $, so $ f(x)=x $, so $ x $ is a fixed point of $ f $.\qed
+\begin{remark}
+  Let's make some remarks about this theorem
+  \begin{enumerate}
+	  \item Completeness is necessary. Consider $ f: (0,1] \to (0,1] $ defined by $ f(x)=\frac x2 $, this has no fixed point.
+	  \item The above proof is constructive. In particular it provides the bound (by letting $ m\to\infty $), $ d(x,f^{(n)}(x))\le \frac{\lambda^n}{1-\lambda}d(f(x_0),x_0) $. This bound can be used to determine the number of steps $ n $ needed to approximate the fixed point to a given degree of accuracy without knowing it's value.
+\end{enumerate}
+\end{remark}
+We can apply this to prove the inverse function theorem.
+\begin{definition}
+	(Diffeomorphism) A function $ f $ is a \textit{diffeomorphism} if it is a bijection which is $ C^1 $ with a $ C^1 $ inverse.
+\end{definition}
+\begin{theorem}
+	(Inverse function theorem) Let $ U\subseteq \R^n $ be open and let $ f:U\to \R^n $ be a $ C^1 $ map. Let $ a\in U $ and suppose that $ Df(a)\in \mathcal L(\R^n,\R^n) $ is invertible. Then there exists an open set $ V \subseteq U $ with $ a\in V $, and an open set $ W\subseteq \R^n $ such that $ f|_V:V\to W $ is a diffeomorphism.
+\end{theorem}
+\pf By considering $ \inv{Df(a)}f $ in place of $ f $ we can assume \textit{wlog} that $ Df(a)=I $. Since $ f $ is $ C^1 $, there exists a $ r>0 $ such that $ ||Df(x)-I||_{\text{op}}<\frac 12 $ for all $ x\in B_r(x) $. We will complete the proof with $ W=B_{r/2}(f(a)) $ and $ V=\inv f(W)\cap B_r(a) $. $ W $ is open with $ f(a)\in W $, and $ \inv f(W) $ is open since $ f $ is continuous and $ W $ is open. $ B_r(a) $ is open, hence $ V $ is open. Clearly $ a\in V $.
+\begin{claim}
+  $ f|_V:V\to W $ is a bijection.
+\end{claim}
+\pf The claim is equivalent to the statement: $ \forall y\in W $ there exists a unique $ x\in V $ such that $ f(x)=y $ or we can write as $ y+x-f(x)=x $. This is then equivalent to the statement that $ \forall y\in W $ the map $ T:U\to \R^n $ has a unique fixed point in $ V $ where $ T(x) $ is the map $ T(x)=y+x-f(x) $. Let $ h(x)=x-f(x) $. Then we have that
+\[
+  Dh(x)=I-DF(x).
+\]
+By our choice of $ r $ we have that for all $ x\in \overline{ B_r(a)} $ we must have that $ ||Dh(x)||\le \frac 12 $. So for any $ x_1,x_2\in \overline{B_r(a)} $ we can use the mean value inequality to get that
+\[
+  ||h(x_1)-h(x_2)||\le \frac 12 ||x_1-x_2||.
+\]
+So
+\[
+  ||T(x_1)-T(x_2)||\le \frac12 ||x_1-x_2||.
+\]
+Now restrict $ B $ to $ \overline{B_r(a)} $ since $ \overline{B_r(a)} $ is complete. For any $ x\in \overline{B_r(a)} $ we have that
+\begin{align*}
+	||T(x)-a|| &= ||x-f(x)+y-a||\\
+		   &= ||x-f(x)-(a-f(a))+y-f(a)||\\
+		   &\le ||h(x)-h(a)||+||y-f(a)||\\
+		   &\le \frac 12 ||x-a|| + ||y-f(a)||\\
+		   &<\frac r2 +\frac r2\\
+		   &= r.
+\end{align*}
+Hence we have that $ T:\overline{B_r(a)}\to B_r(a) $, so $ T $ is a contradiction mapping, so it has a unique fixed point $ x\in \overline{B_r(a)} $. Now $ T(x)\in B_r(a) $, so $ x\in B_r(a) $ unique, so clearly since $ f(x)=y $, $ x\in \inv f(W) $. This gives $ x\in V $, so the claim is proved.
+\begin{claim}
+  Let $ g:W\to V $ be the inverse of $ f $. Then $ g $ is Lipschitz with Lipschitz constant $ 2 $.
+\end{claim}
+\pf Pick $ y_1,y_2\in W $. Let $ x_i = g(y_i) $. We know that 
+\[
+  ||x_1-f(x_1)-(x_2-f(x_2))||\le \frac 12 ||x_1-x_2||,
+\]
+which we can bound by the triangle inequality to get that
+\[
+  ||x_1-x_2||\le 2||f(x_1)-f(x_2)|| = 2||y_1-y_2||.
+\]
+So using the fact that $ f(g(y_i))=y_i $ we get that $ g $ is Lipschitz and hence continuous.
+\begin{claim}
+  $ g $ is $ C^1 $ and
+  \[
+	  Dg(y)=Df(g(y))^{-1}.
+  \]
+\end{claim}
+We know that $ Dg $ is continuous if it were to exist since it's the composition of continuous functions using the Lebniz formula for inverting a matrix. Firstly we check that $ Df(x) $ is invertible for every $ x\in \overline{B_r(a)} $. If $ Df(x)v=0 $ then we have that
+\[
+  ||v||=||Df(x)v-v||\le ||Df(x)-I||||v||\le \frac 12 ||v||
+\]
+so $ v=0 $. Hence $ \ker Df(x)= \{0\} $ so since $ Df $ is linear, $ g $ is invertible. Let $ x\in V $ be fixed and $ y\in f(x) $. For $ k $ small take
+\[
+  h=g(y+k)-g(y)
+\],
+so $ f(x+h)-f(x)=k $. Since $ g $ invertible $ k\ne 0\iff h\ne 0 $. Since $ g $ is continuous take $ k\to 0 $ so $ h\to 0 $ too. Evaluating the derivative limits we ge that $ Df(g(y))^{-1} $ is the derivative map of $ g $.\par
+Hence we're done.\qed
 \end{document}
 
