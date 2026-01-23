@@ -1,11 +1,75 @@
 \documentclass{article}
 \usepackage{../header}
-\title{Statistics}
+\title{Topological Spaces}
 \author{Notes by Finley Cooper}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
-  \section{}
+  \section{Topologies}
+  \subsection{Definitions}
+  We denote $ \mathcal P(X) $ as the power set of $ X $.
+  \begin{definition}
+	  (Topology) Let $ X $ be a set. A \textit{topology} on $ X $ is a collection of sets $ T\subseteq \mathcal P(X) $ such that
+	  \begin{enumerate}
+		  \item $\emptyset, X\in T $,
+		  \item $ T $ is closed under (possibly uncountable) unions.
+		  \item $ T $ is closed under finite intersections.
+	  \end{enumerate}
+  \end{definition}
+
+
+  A set $ X $ with a topology $ T $ is called a \textit{topological space} of $ X $. An element of $ X $ is called a \textit{point} and elements of $ T $ are called \textit{open sets}. If $ x\in U\in T $ we say $ U $ is an open neighbourhood of $ x $. Strictly we should always denote $ (X,T) $ for a topological space, but when $ T $ is clear, we just write $ X $ for the topological space.
+\begin{definition}
+	(Continuity) If $ (X,T_X) $ and $ (Y,T_Y) $ are topological spaces then a function $ f:X\to Y $ is called \textit{continuous} if for $ U\in T_Y $, $ \inv f(U)\in T_X $.
+\end{definition}
+\begin{definition}
+	(Homeomorphism) A function $ f:(X,T_X)\to (Y,T_Y) $ is a \textit{homeomorphism} if it is continuous and has a continuous inverse.
+\end{definition}
+\begin{definition}
+	If $ T\subseteq T' $ are topologies on $ X $ then we say that $ T $ is \textit{coarser} and $ T' $ is \textit{finer}. The identity function $ d: (X,T)\to (X,T') $ is continuous.
+\end{definition}
+\subsection{Topologies from metrics}
+If $ (X,d) $ is a metric space, recall that a subset $ U\subseteq X $ is called \textit{open} if for every point $ x\in U $ there exists a $ \varepsilon>0 $ such that $ B_\varepsilon(x)\subseteq U $.
+\begin{proposition}
+  If $ T_d $ is the subset of $ X $ which are open under the metric $ d $, then $ (X,T_d) $ is a topological space. We will call this the topology on $ X $ induced by the metric $ d $.
+\end{proposition}
+\pf Tautologically we have that $ \emptyset \in T_d $. Clearly we have that $ X\in T_d $ too. Let $ \{U_\alpha\}_{\alpha\in I} $ be a collection of open sets in $ T_d $ with a (possibly uncountable) index set $ I $. Let
+\[
+	x\in\bigcup_{\alpha\in I}U_\alpha.
+\]
+Then $ x\in U_\beta $ for some $ \beta\in I $, so $ U_\beta $ is open hence there exists a $ \varepsilon>0 $ such that $ B_\varepsilon\subseteq U_\beta\subseteq \bigcup_{\alpha\in I}U_\alpha $, hence $ \bigcup_{\alpha\in I}U_\alpha $ is open.\par
+Now suppoes that $ I $ is finite, and $ x\in \bigcap_{\alpha\in I}U_\alpha $. For each $ \alpha $ there exists a $ \varepsilon_\alpha>0 $ such that $ B_{\varepsilon_\alpha}(x)\subseteq U_\alpha $. Take $ \varepsilon=\inf_{\alpha\in I}\varepsilon_\alpha $, so $ B_\varepsilon(x)\subseteq B_{\varepsilon_\alpha}(x)\subseteq U_\alpha $ for all $ \alpha $, hence we have that $ B_\varepsilon(x) \subseteq \bigcap_{\alpha\in I}U_\alpha$ so it's open. Hence $ T $ is a topology.\qed
+\par
+Now we have lots of examples we can use for topological spaces. For example we have that topology induced by the Euclidean metric on $ \R^d $ which we will call the Euclidean topology. For any $ X\subseteq \R^d $ we can have a topology induced by the Euclidean metric too, like $ \Q $, $ [0,1], (0,1) $.
+\begin{proposition}
+  If we have two metric spaces $ (X,d_X), (Y,d_Y) $ and we have $ f:X\to Y $, the $ f $ is continuous in the metric space sense if and only if it is continuous in the topological space sense (with the topologies induced by the metric $ d_X $ and $ d_Y $ respectively).
+\end{proposition}
+\pf Let $ f:X\to Y $ be continuous in the metric space sense. Let $ U $ be an open set in $ T_{d_Y} $ so we need to show that $ \inv f(U) $ is open. Let $ x\in \inv f(U) $, so $ f(x)\in U $. Hence there exists an $ \varepsilon>0 $ such that $ B_\varepsilon(f(x))\subseteq U $. So since $ f $ is continuous there exists a $ \delta>0 $ such that if $ d_X(x,x')<\delta $, then $ d_Y(f(x),f(x'))<\varepsilon $. Hence $ f(B_\delta(x))\subseteq B_\varepsilon(f(x)) $. So $ B_\delta(x)\in \inv f(U) $, hence $ \inv f(U) $ is open.\par
+Now let's do the converse and suppose that $ f:X\to Y $ is continuous in the topological sense. Fix some $ x\in X $ and $ \varepsilon>0 $. Consider $ B_\varepsilon(f(x)) $ which is open in $ Y $. Then $ \inv f(B_\varepsilon(f(x))) $ is in $ T_{d_X} $. It contains $ x $ so there exists a $ \delta>0 $ such that $ x\in B_\delta(x) $, so
+\[
+  d_X(x,x')<\delta \implies d_Y(f(x),f(x'))<\varepsilon.
+\]
+So $ f $ is continuous in the metric sense.\qed
+\begin{definition}
+  Let $ (X,T) $ be a topological space and $ x_1,x_2,\dots \in X $ say. We say that $ x_n $ convergences to $ x $ if for every open neighbourhood $ U $ of $ x $ there exists a $ N $ such that $ x_n\in U $ for all $ n\ge N $.
+\end{definition}
+\begin{definition}
+  If $ (X,d) $ is a metric space with topology $ T_d $ then a sequence $ (x_n) $ converges in the metric sense if and only if it converges in the topological sense.
+\end{definition}
+\pf Suppose it convergens in the metric sense to $ x $. Then for all $ \varepsilon>0 $ there exists a $ N $ such that for all $ n\ge N $ we have that $ x_n\in B_\varepsilon(x) $. If $ U $ is a neighourhood of $ x $ then there there is some $ \varepsilon $ such that the ball of radius $ \varepsilon $ centred at $ x $ is contained in $ U $. Conversely if $ (x_n) $ converges in the topological sense to $ x $, let $ \varepsilon>0 $ so take the...
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

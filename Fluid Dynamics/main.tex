@@ -1,11 +1,80 @@
 \documentclass{article}
 \usepackage{../header}
-\title{Statistics}
+\title{Fluid Dynamics}
 \author{Notes by Finley Cooper}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
-  \section{}
+  \section{Kinematics}
+  \subsection{Streamlines and pathlines}
+  There are two natural ways to think of flow.
+  \begin{enumerate}
+	  \item A stationary observer watching flow go past. This is the Eulerian perspective. This is the approach used through this course. We define a velocity field (continuum field) $ \mathbf u(\x, t) $.
+	  \item A moving observing, travelling along with the flow. This is the Lagrangian perspective.   
+  \end{enumerate}
+  \begin{definition}
+	  (Streamlines) These are curves that are everywhere parallel to the flow at a given instant.
+  \end{definition}
+  \begin{remark}
+    The streamline that goes through $ \mathbf x_0 $ at time $ t_0 $ is given parametrically as $ \x = \x(s, \x_0,t_0) $ and
+    \[
+	    \frac{d\x}{ds}=\mathbf u(\x, t_0)
+    \]
+    (with $ \x=\x_0 $ at $ s=0 $).
+  \end{remark}
+  The set of streamlines shows the direction of flow a \textit{given} instant a time (all fluid particle at one given time).
+  Take the example $ \mathbf u = (1,t) $. So at $ t=0 $ we have $ \mathbf u=(1,) $ so the streamlines are horizontal lines. At $ t=1 $ we have $ \mathbf u = (1,1) $, so the streamlines are diagonal.
+  \begin{definition}
+	  (Pathlines) A \textit{pathline} is the trajectory of a fluid particle (a very small bit of fluid). The pathline $ \x=\x(t,\x_0) $ of a fluid which is at $ \x_0 $ at $ t=0 $ is such that
+	  \[
+		  \frac{d\x}{dt}=\mathbf u(\x,t)
+	  \]
+	  with $ \x(0,\x_0)=\x_0 $.
+  \end{definition}
+  Again if we take $ \mathbf u = (1,t) $ we get
+  \[
+    \begin{cases}
+	    \frac{dx}{dt}=1 \\
+	    \frac{dy}{dt}=t
+    \end{cases}\rightarrow \begin{cases}
+      x=x_0+t\\
+      y=y_0 +\frac{t^2}2
+    \end{cases}
+  \]
+  which describes the path $ y-y_0=\frac12(x-x_0)^2 $.
+\begin{remark}
+  Pathlines are often called "Lagrangian trajectories". The applications are very useful to characterise transport (infecious diseases and pollution simulations).
+\end{remark}
+	If the flow is \textit{steady} (so $ \mathbf u $ does not depend on time). Then pathlines and streamlines are the same.
+\subsection{The material derivative}
+We will characterise the rate of change of "stuff" moving with a fluid. Consider a quantity $ F(\x,t) $ in a fluid flow (intution is $ F $ is temperature). We want to measure how the temperature chnages as we move through the field $ F $ along the flow. Let compute the rate of change of $ \F $ (in time) seen by a moving observer. We will call this $ \frac{DF}{Dt} $. Take a small time interval $ \delta t $. Then
+\begin{align*}
+	\delta F &= F(\x+\delta\x,t+\delta t)-F(\x,t)\\
+		 &= \delta t\frac{\partial F}{\partial t}+(\delta\x\cdot \nabla)F + \text{(higher order terms)}.
+\end{align*}
+We have that $ \delta\x=\mathbf u\delta t $, so
+\[
+	\frac{\delta F}{\delta t}=\frac{DF}{Dt}=\frac{\partial F}{\partial t}+(\mathbf u \cdot \nabla)F.
+\]
+We have the derivative and the convected derivative. This should be thought of as moving along gradients of a field.
+\subsection{Conservation of mass}
+Consider the flow through a straight rigid pipe with constant cross section. Suppose we have a $ \mathbf u_{\text{in}} $ and a $ \mathbf u_{\text{out}} $. Can we have $ \mathbf u_{\text{in}}\ne \mathbf u_{\text{out}} $? For a gas, yes we can since they can be compressed. For a fluid, we cannot, since they are incompressible.\par
+Define $ \rho(\x,t) $ as the mass density with $ [\rho]=\frac{\text{M}}{ \text{L}^3 }$. We want a relation between $ \rho $ and $ \mathbf u $. Consider a fixed volume $ V $ and compute the rate of change of its mass, $ M $.
+\begin{align*}
+	M &=\int_V\rho\mathrm dV
+\end{align*}
+Assume that mass can only change due to the flow of mass across the boundary surface $ \partial V $. Take a small surface element $ \delta A $ with normal $ \mathbf n $. The volume out of $ V $ during $ \delta t $ is $ (\mathbf u \cdot \mathbf n)\delta A\delta t $. Hence the mass out is $ \rho(\mathbf u\cdot\mathbf n)\delta A\delta t $, so we get that
+\[
+	\frac{dM}{dt}=-\int_{\partial V}\rho(\mathbf u\cdot \mathbf n)\mathrm dA.
+\]
+
+
+
+
+
+
+
+
 \end{document}
