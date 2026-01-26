@@ -69,6 +69,79 @@ Assume that mass can only change due to the flow of mass across the boundary sur
 \[
 	\frac{dM}{dt}=-\int_{\partial V}\rho(\mathbf u\cdot \mathbf n)\mathrm dA.
 \]
+The divergence theorem will allow us to rewrite this as
+\begin{align*}
+	\frac{\partial \rho}{\partial t}+\nabla\cdot(\rho \mathbf u) = 0.
+\end{align*}
+We know from IA Vector Calculus that $ \nabla\cdot(\rho\mathbf u) = \rho\nabla\cdot \mathbf u +\mathbf u \cdot\nabla\rho $, so we can write that
+\[
+	\frac{D\rho}{Dt}=-\rho\nabla\cdot \mathbf u.
+\]
+\begin{definition}
+	(Incompressible) A fluid flow is \textit{incompressible} if $ \frac{D\rho}{Dt}=0 $.
+\end{definition}
+This is then equivalent to $ \nabla\cdot\mathbf u =0 $ which is the equivalent condition we'll use for the course.\par
+For this course we will assume that $ \rho $ is constant. This means as a consequence that $ \nabla\cdot\mathbf u =0 $.
+\subsection{Kinematic boundary condition}
+Consider the material boundary, with unit norm $ \mathbf n $, of a body of fluid has a given velocity $ \mathbf U(\x,t) $. At a point $ \x $ on the boundary, the fluid velocity relative to the surface is $ \mathbf u -\mathbf U $. Applying mass conversation on the interface over a small surface element $ \delta A $ in time $ \delta t $. So
+\begin{align*}
+  \rho(\mathbf u-\mathbf U)\cdot\mathbf n \delta A\delta t = 0.
+\end{align*}
+Hence we require $ \mathbf u \cdot n = \mathbf U \cdot \mathbf n $ at the interface. This is the kinematic boundary condition.
+\begin{remark}
+  $ \mathbf n $ occurs on both sides, hence we don't need $ \mathbf n $ to be a unit vector.
+\end{remark}
+We have some consequences of this condition.
+\begin{enumerate}
+	\item If the boundary is fixed, $ \mathbf U=0 $ implies that $ \mathbf u \cdot \mathbf n = 0 $. This is called the no penetration condition.
+	\item Consider an air/water interface (free surface). Suppose the surface is defined by $ z=\xi(x,y,t) $. Then can think of the free space as $ F(x,y,z,t)=0 $ where $ F(x,y,z,t) = z-\deta(x,y,t) $. So $ \mathbf n $ is perp to $ \nabla F = (-\xi_x,-\xi_y,1) $. Then if $ \mathbf u = (u,v,w) $ so $ \mathbf U = (0,0,\xi_t) $. Then the kinematic boundary condition becomes $ -u\xi_x-c\xi_y+w=\xi_t $, so $ w=\xi_t+u\xi_x+v\xi_y=\frac{D\xi}{Dt} $. This is equivalent to $ \frac{DF}{Dt}=0 $.
+\end{enumerate}
+\subsection{Streamfunction for 2D incompressible flow}
+We know that $ \nabla\cdot \mathbf u = 0 $ which is equivalent to there existing a vector potential $ \mathbf A $ such that $ \mathbf u = \nabla\times \mathbf A $. In 2D if $ \mathbf u = (u,v,0) $ then $ \mathbf A = (0,0,\psi(x,y)) $. So
+\[
+	u=\frac{\partial \psi}{\partial y},\quad v = -\frac{\partial \psi}{\partial x}.
+\]
+We call $ \psi $ a \textit{streamfunction}. Looking at dimensions we have that $ [\psi]=\mathrm{L}^2 \ \mathrm{T}^{-1} $. Now we'll see an example.\par
+Let $ \mathbf u = (y,x) $ (which we can see is incompressible) so 
+\[
+	\frac{\partial\psi}{\partial y} = u = y
+\],
+hence $ \psi = \frac 12 y^2 + f(x) $. We also have that $ -\frac{\partial \psi}{\partial x}=-f'(x)=x $, so $ \psi = \frac 12(y^2-x^2)+C $.\par
+We have some properties about the streamfunction,
+\begin{enumerate}
+	\item Streamlines are given by $ \psi=\text{constant} $.
+	\item $ |\mathbf u| = |\nabla\psi| $, so the flow is faster if the streamlines are closer together.
+	\item If we take two points $ \mathbf x_0,\mathbf x_1 $, then then the volume flux crossing the line between $ \mathbf x_0 $ and $ \mathbf x_1 $ is
+		\[
+			\int_{\mathbf x_0}^{\mathbf x_1} \mathbf u \cdot \mathbf n \mathrm d\ell = \psi(\mathbf x_1)-\psi(\mathbf x_0).
+		\]
+	\item $ \psi $ is constant at rigid boundaries.
+\end{enumerate}
+We can do the same in polar coordinates. So $ \mathbf u = (u_r(r,\theta), u_\theta(r,\theta),0) $. We have that
+\[
+	\mathbf u = \nabla\times \mathbf A =\left(\frac 1r\frac{\partial \psi}{\partial\theta}, -\frac{\partial \psi}{\partial r},0\right),
+\]
+so we can check that $ \nabla\cdot\mathbf u = \frac 1r\frac{\partial}{\partial r}(ru_r)+\frac1r \frac{\partial}{\partial \theta}=0 $
+\section{Dynamics of inviscid flow}
+\subsection{Surface and volume forces}
+There a two types of forces exerted on a fluid.
+\begin{enumerate}
+	\item Forces proportional to the volume (gravity);
+	\item Forces proportional to the surface area (pressure, viscous stresses).
+\end{enumerate}
+We'll first look at the first type, called volume forces. We'll denote $ F(\x,t)\delta V $ as the force acting on a small volume element $ \partial V $. Let's take gravity as an example, so $ \mathbf F=\rho \mathbf g $. Often we have that $ \mathbf F $ is conservative, so $ \mathbf F=-\nabla\chi $ for some function $ \chi $ (we know gravity is $ \chi=\rho gz $).
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
