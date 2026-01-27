@@ -55,15 +55,96 @@ So $ f $ is continuous in the metric sense.\qed
 \begin{definition}
   Let $ (X,T) $ be a topological space and $ x_1,x_2,\dots \in X $ say. We say that $ x_n $ convergences to $ x $ if for every open neighbourhood $ U $ of $ x $ there exists a $ N $ such that $ x_n\in U $ for all $ n\ge N $.
 \end{definition}
-\begin{definition}
+\begin{proposition}
   If $ (X,d) $ is a metric space with topology $ T_d $ then a sequence $ (x_n) $ converges in the metric sense if and only if it converges in the topological sense.
+\end{proposition}
+\pf Suppose it convergens in the metric sense to $ x $. Then for all $ \varepsilon>0 $ there exists a $ N $ such that for all $ n\ge N $ we have that $ x_n\in B_\varepsilon(x) $. If $ U $ is a neighourhood of $ x $ then there there is some $ \varepsilon $ such that the ball of radius $ \varepsilon $ centred at $ x $ is contained in $ U $. Conversely if $ (x_n) $ converges in the topological sense to $ x $, let $ \varepsilon>0 $ and consider the open ball centred at $ x $ with radius $ \varepsilon $. Now $ B_\varepsilon(x) $ is an open neighbourhood of $ x $ so there exists an integer $ N $ such that $ x_n\in B_\varepsilon(x) $ for all $ n> N $. Hence $ (x_n) $ converges to $ x $ in the metric sense.\qed
+\par
+Consider $ \R $ and $ (0,1) $ with the Euclidean metric and topology. Then the two spaces are related, by the function $ (0,1)\to \R $ by $ \tan^{-1}x $ which is invertible. Hence we say the two spaces are homeomorphic, and $ \R\cong (0,1) $. However the two spaces are not isometric since $ \R $ is not complete under the Euclidean metric and $ (0,1) $ is not. Hence the property of completeness is not a topological property: it is a property induced by the metric.
+\par
+\begin{definition}
+	(Discrete topology) Let $ X $ be a set. The \textit{discrete} topology is the topology $ T_{\text{discrete}} = \mathcal P(X) $ (so every set is open).
 \end{definition}
-\pf Suppose it convergens in the metric sense to $ x $. Then for all $ \varepsilon>0 $ there exists a $ N $ such that for all $ n\ge N $ we have that $ x_n\in B_\varepsilon(x) $. If $ U $ is a neighourhood of $ x $ then there there is some $ \varepsilon $ such that the ball of radius $ \varepsilon $ centred at $ x $ is contained in $ U $. Conversely if $ (x_n) $ converges in the topological sense to $ x $, let $ \varepsilon>0 $ so take the...
-
-
-
-
-
+\begin{remark}
+	Any function from $ (X,T_{\text{discrete}}) $ to any space si continuous. This toplogy can be induced by the discrete metric, where $ d(x,y) = \begin{cases}
+		1 & x\ne y \\
+		0 & x = y
+	\end{cases} $. So $ B_{\frac 12}(x) = \{x\} $ so $ \{x\} $ is open, hence all the sets are open. 
+\end{remark}
+\begin{definition}
+	(Indiscrete topology) Let $ X $ be a set. The \textit{indiscrete} topology $ T_{\text{indiscrete}} = \{\emptyset, X\} $ (as little as possible sets are open).
+\end{definition}
+\begin{remark}
+	A function from any space to $ (X,T_{\text{indiscrete}}) $ is continuous. This topology does not come from a metric unless $ X $ is a singleton set. This is because if $ x\ne y $ then $ d(x,y)=\varepsilon > 0 $, so $ y\notin B_\varepsilon(x) $ and since $ y $ is arbitrary, then $ B_\varepsilon(x) = \{x\}=X $.
+\end{remark}
+Let $ X = \{o,c\} $. Then let $ T = \{ \emptyset, \{o,c\}, \{o\}\} $ be a topology of $ X $. This is called the Sierpinski space. It as the property that every sequence converges to $ c $. A continuous function $ f:T\to (X,T_{\text{Sierpinski}}) $ is exactly an open subset of $ Y $.\par
+Let $ X = \R $ we'll define the right order topology on $ X $ as
+\[
+	T_{\text{ord}} = \{(a,\infty) \mid -\infty \le a \le \infty\}.
+\]
+Let $ \{(a,\infty)\}_{a\in I} $ be a collect of elements of $ T_{\text{ord}} $. Then
+\begin{align*}
+	\bigcup_{a\in I} (a,\infty) = (\inf_{a\in I}a,\infty)\in T_{\text{ord}}.
+\end{align*}
+Similarly for finite $ I $,
+\begin{align*}
+	\bigcap_{a\in I}(a,\infty) = (\max_{a\in I}a,\infty) \in T_{\text{ord}}
+\end{align*}
+\subsection{Bases and subbases}
+\begin{definition}
+(Basis) Let $ T $ be a topology of $ X $. A \textit{basis}, $ B\subseteq T $ for $ T $ is a subcollection such that every element of $ T $ is a union of elements in $ B $.
+\end{definition}
+\begin{definition}
+	(Subbasis) Let $ T $ be a topology of $ X $. A \textit{subbasis}, $ S\subseteq T $ for $ T $ is a subcollection such that every element of $ T $ is a union of sets which are finite intersections of elements of $ S $.
+\end{definition}
+\begin{lemma}
+  Let $ f:(X,T_X)\to (Y,T_Y) $ and $ S\subseteq T_Y $ is a subbasis. If $ \inv f(U) $ is open for all $ U\in S $ then $ f $ is continuous.
+\end{lemma}
+\pf If $ V\subseteq T_Y $, then $ V=\bigcup_{a\in I}V_a $ where $ V_a\in \bigcap_{b\in J_a}U_{a,b} $ with $U_{a,b}\in S $ and $ J_a $ finite. Then
+\begin{align*}
+	\inv f(V) = \bigcup_{a\in I}V_a &= \bigcup_{a\in I}\left(\bigcap_{b\in J_a}\inv f(U_{a,b})\right)\in T_X,
+\end{align*}
+by the axioms of the topology.\qed
+\par
+Consider the Euclidean topology on $ \R^n $. The collection $ B= \{B_r(x)\mid x\in \R^n, r>0\} $ is a basis. Likewise the collection of $ n $-cubes everywhere are also a basis. Interestingly the set $ QB \subseteq B $ with balls at rational points with rational radii is also a basis. This is interesting since $ QB $ is countable while $ B $ is uncountable and $ \mathcal P(\R^n) $ is $ \aleph_2 $.
+\begin{definition}
+	(Closed set) Let $ (X,T) $ be a topological space. A subset $ C\subseteq X $ is \textit{closed} if $ X\setminus C\in T $.
+\end{definition}
+\begin{proposition}
+	Let $ (X,T) $ be a topological space and $ \mathcal F = \{ C\subseteq X \mid C \ \text{closed} \} $. Then
+	\begin{enumerate}
+		\item $ \emptyset, X\in \mathcal F $;
+		\item $ \mathcal F $ is closed under (possibly uncountable) intersections;
+		\item $ \mathcal F $ is closed under finite unions.
+	\end{enumerate}
+\end{proposition}
+\begin{proposition}
+  A function $ f:X\to Y $ between topological spaces is continuous if and only if the preimage of every closed set is closed.
+\end{proposition}
+\begin{definition}
+  Let $ (X,T) $ be a topological space. Let $ A\subseteq X $ be a subset of $ X $. Then
+  \begin{enumerate}
+	  \item The closure $ \bar A $ is the smallest (by inclusion) closed set containing $ A $ so
+		  \[
+			  \bar A = \bigcap_{S\ \text{closed}, A\subseteq S} S.
+		  \]
+	  \item We say that $ A $ is dense in $ X $ if $ A=\bar A $.
+	  \item The interior $ \mathring{A} $ is the largest open set contained in $ A $ so
+		  \[
+			  \mathring{A} = \bigcup_{S\ \text{open}, S\subseteq A} S.
+		  \]
+  \end{enumerate}
+\end{definition}
+\begin{definition}
+	(Limit point) Let $ X $ be a topological space and $ A\subseteq X $. A \textit{limit point} of $ A $ is a point in $ X $ which is a limit of a sequence in $ A $.
+\end{definition}
+\begin{proposition}
+  If $ C $ is a closed subset of $ (X,T) $, then the limit points of $ C $ lie in $ C $.
+\end{proposition}
+\pf Let $ \{x_n\} $ be a sequence in $ C $ with limit $ x_\infty $. If $ x_\infty\notin C $, then $ x_\infty \in X\setminus C $ which is open. Then if $ x_n\to x_\infty $ then we should have that $ x_n\in X\setminus C $ for $ n\ge N $ but $ x_n\in C $ so $ x_n\notin X\setminus C $ which is a contradiction.\qed
+\begin{corollary}
+  A limit point of a $ A $ lies in $ \bar A $.
+\end{corollary}
 
 
 

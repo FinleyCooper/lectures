@@ -8,6 +8,8 @@
   \tableofcontents
   \newpage
   \section{Parametric Estimation}
+  \subsection{Review of IA Probability}
+  \subsubsection{Starting axioms}
   We observe some data $ X_1,\dots, X_n $ iid random variables taking values in a sample space $ \mathcal X $. Let $ X=(X_1,\dots, X_n) $. We assume that $ X_1 $ belongs to a \textit{statistical model} $ \{p(x; \theta):\theta \in \Theta\} $ with $ \theta $ unknown. For example $ p(x;\theta) $ could be a pdf.\par
   Let's see some examples
   \begin{enumerate}
@@ -43,19 +45,129 @@ Similar for the variance we get that
 \[
 	\Var{a^TX}=a^T\Var X a
 \]
-where $ \Var X $ is the covariance matrix for $ X $ with entries $ \Cov{X_i,X_j} $.\par
+where $ \Var X $ is the covariance matrix for $ X $ with entries $ \Cov{X_i,X_j} $.
+\subsubsection{Joint random variables}
 If $ X $ is a discrete random variable with pmf $ P_{X,Y}(x,y)=\prob{X=x, Y=y} $ and marginal pmf $ P_Y(y)=\sum_{x\in X}P_{X,Y}(x,y) $, then the conditional pmf is
 \[
 	P_{X\mid Y}(x\mid y)=\prob{X=x\mid Y=y}=\frac{P_{X,Y}(x,y)}{P_Y(y)}.
 \]
+If $ X,Y $ are continuous then the join pdf $ f_{X,Y} $ satifies
+\[
+	\prob{X=x,Y=y} = \int_{-\infty}^x\int_{-\infty}^y f_{X,Y}\mathrm dx\mathrm dy
+\]
+and the marginal pdf of $ Y $ is
+\[
+	f_Y(y)=\int_{-\infty}^\infty f_{X,Y}(x,y)\mathrm dx.
+\]
+The \textit{conditional pdf} of $ X $ given $ Y $ is $ f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)} $.\par
+The conditional expectation of $ X $ given $ Y $ is
+\[
+E(X\mid Y) = \begin{cases}
+	\sum_{x\in X} x\mathbb P_{X|Y}(x\mid Y) & \text{if } X \text{ is discrete} \\
+	\int_{-\infty}^\infty xf_{X\mid Y}(x\mid Y)\mathrm dy & \text{if } Y \text{ is continuous}
+\end{cases}.
+\]
+\begin{remark}
+$ \mathbb E(X\mid Y) $ is a function of $ Y $ so $ \mathbb E(X\mid Y) $ is a random variable.
+\end{remark}
 We also have the law of total expectation,
 \[
 	\mathbb E[X]=\mathbb E[\mathbb E[X\mid Y]].
 \]
-
-
-
-
+This is a consequence of the law of total probability which is
+\[
+	p_X(x)=\sum_y p_{X\mid Y}(x\mid y)p_Y(y).
+\]
+Now we have a new (but less useful) theorem similar to the tower property of expectation.
+\begin{theorem}
+	(Law of total variance)
+	\[
+		\Var{X}=\mathbb E[\Var{X\mid Y}] +\Var{\mathbb E[X\mid Y]}.
+	\]
+\end{theorem}
+\pf Write $ \Var{X} = \mathbb E[X^2]-(\mathbb E[X])^2 $, so
+\begin{align*}
+	\Var{X} &= \mathbb E(\mathbb E(X^2\mid Y) - (\mathbb E(\mathbb E(X\mid Y)))^2 \\
+		&= \mathbb E[\mathbb E(X^2\mid Y)-(\mathbb E(X\mid Y))^2] + \mathbb E((\mathbb E(X\mid Y))^2) - (\mathbb E(\mathbb E(X\mid Y)))^2\\
+		&= \mathbb E[\Var{X\mid Y}] +\Var{\mathbb E[X\mid Y]}.\qed
+\end{align*}
+We also have the change of variables formula. If we have a mapping $ (x,y)\to (u,v) $, a bijection from $ \R^2\to \R^2 $, then
+\[
+	f_{U,V}(u,v) = f_{X,Y}(x(u,v),y(u,v))|\det J|,
+\]
+where $ J $ is the Jacobian matrix.
+\subsubsection{Limit theorems}
+Suppose $ X_1,\dots, X_n $ are iid random variables with mean $ \mu $ and variance $ \sigma^2 $. Define the sum $ S=\sum_{i=1}^n X_i $ and the sample mean $ \bar X_n = \frac{S_n}n $. We have the following theorems.
+\begin{theorem}
+	(Weak Law of Large Numbers)
+	\[
+	  \bar X_n\to \mu
+	\]
+	where $ \to $ means that $ \prob{|\bar X_n-\mu|>\varepsilon}\to 0 $ as $ n\to \infty $ for all $ \varepsilon>0 $.
+\end{theorem}
+\begin{theorem}
+	(Strong Law of Large Numbers)
+	\[ \bar X_n\to \mu \]
+	almost surely. So $ \prob{\lim_{n\to\infty}\bar X_n=\mu}=1 $.
+\end{theorem}
+\begin{theorem}
+	(Central Limit Theorem)
+	The random variables
+	\[
+		Z_n = \frac{S_n-n\mu}{\sigma\sqrt n}
+	\]
+	is approximately $ \mathcal N(0,1) $ for large $ n $. Or we can write this as
+	\[
+	  S_n\approx \mathcal N(n\mu, n\sigma^2).
+	\]
+	Formally this means that $ \prob{Z_n\le z}\to \Phi(z) $ for all $ z\in \R $ where $ \Phi(z) $ is the cdf of $ \mathcal N(0,1) $.
+\end{theorem}
+\subsection{Estimators}
+Suppose that $ X_1,\dots, X_n $ are iid with pdf $ f_X(x\mid \theta) $ and parameter $ \theta $ unknown.
+\begin{definition}
+	(Estimator) A function of the data $ T(X)\to\hat\theta $ which is used to approximate the true parameter $ \theta $ is called an \textit{estimator} (or sometimes a \textit{statistic}). The distribution of $ T(X) $ is the \textit{sampling distribution}
+\end{definition}
+For an example suppose that $ X_1,\dots, X_n\sim\mathcal N(\mu,1) $ and let $ \hat \mu = T(x) = \frac 1n \sum_{i=1}^n X_i $. The sampling distribution of $ \hat \mu $ is $ T(X)\sim \mathcal N(\mu, \frac 1{n}) $.
+\begin{definition}
+	(Bias) The \textit{bias} of a random variable $ \hat\theta=T(X) $ is 
+	\[
+		\mathrm{bias}(\hat\theta) = \mathbb E_\theta(\hat\theta)-\theta,
+	\]
+	where the expectation is taken over the model $ X_1\sim f_X(\cdot \mid \theta) $.
+\end{definition}
+\begin{remark}
+ In general the bias might be a function of $ \theta $ which is not explicit in the notation.
+\end{remark}
+\begin{definition}
+	(Unbiased estimator) We say that an estimator is \textit{unbiased} if $ \mathrm{bias}(\hat\theta)=0 $ for all $ \theta\in\Theta $.
+\end{definition}
+So for our estimator from before, $ \hat\mu $, is unbiased since
+\[
+	\mathbb E_\mu(\hat \mu) = \frac 1n\sum_{i=1}^n \mathbb E_\mu(X_i) = \mu.
+\]
+\subsubsection{Bias-variance decomposition}
+\begin{definition}
+	(Mean squared error) The \textit{mean squared error} of an estimator $ \hat\theta $ is
+	\[
+		\mathrm{mse}(\hat\theta) = \mathbb E_\theta[(\hat\theta-\theta)^2].
+	\]
+\end{definition}
+\begin{remark}
+  Note that the MSE is generally a function of $ \theta $ like the bias. Again this is not clear from the notation.
+\end{remark}
+\begin{proposition}
+	(Bias-variance decomposition) For an estimator $ \hat\theta $ of a parameter $ \theta $, we have that
+	\[
+		\mathrm{mse}(\hat\theta)=\left(\mathrm{bias}(\hat\theta)\right)^2 + \mathrm{Var}_\theta(\hat\theta).
+	\]
+\end{proposition}
+\pf 
+\begin{align*}
+	\mathrm{mse}(\hat\theta) &= \mathbb E_\theta[(\hat\theta-\theta)^2] \\
+				 &= \mathbb E_\theta\left[\left(\hat\theta-\mathbb E_\theta(\hat\theta)+\mathbb E_\theta(\hat\theta)-\theta\right)^2\right]\\
+				 &= \mathbb E_\theta[(\hat\theta -\mathbb E_\theta(\hat\theta))^2]+(\mathbb E_\theta(\hat\theta)-\theta)^2 + 2(\mathbb E_\theta(\hat\theta) - \theta) \cdot \mathbb E_\theta[\hat\theta - \mathbb E_\theta(\hat\theta)]\\
+				 &= \left(\mathrm{bias}(\hat\theta)\right)^2 + \mathrm{Var}_\theta(\hat\theta).\qed
+\end{align*}
 
 
 
