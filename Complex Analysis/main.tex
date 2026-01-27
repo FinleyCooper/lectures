@@ -1,11 +1,131 @@
 \documentclass{article}
 \usepackage{../header}
-\title{Statistics}
+\title{Complex Analysis}
 \author{Notes by Finley Cooper}
+\newcommand{\Arg}{\mathrm{Arg}}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
-  \section{}
+  \section{Complex Differentiation}
+  The goal of this course is to develop the surprisingly rich theory of complex valued functions of one complex variable and the theory of integrating such functions along complex paths. The motivations for investigating such topics are complex polynomials of interest in geometry and number theory.\par
+  We will also look at functions defined by power series such as the map from $ s\to \sum_{n\in N}\frac 1{n^s} = \zeta(s) $ will define a complex differentiable function for $ \Re(s)>1 $. There is also a connection to harmonic functions which is developed further in Analysis of Functions. We can also use complex methods to solve classical integrals or and differential equations which is developed more in IB Complex Methods.\par
+  For this course we will use $ z\in \C $ and $ x=\Re(z), y=\Im(z) $. We will also use $ \theta $ for the argument of $ z $, $ \arg(z) $ which is well-defined up to adding $ 2\pi \Z $. We will use the principal argument $ \Arg(z)\in(-\pi,\pi] $.
+  \begin{definition}
+	  (Open disc) An \textit{open disc} or \textit{open ball} centred at $ a $ with radius $ r $ in $ \C $ is the set $ \{z\in \C\mid |z-a|<r\}  = B(a,r)= D(a,r)$.
+  \end{definition}
+  \begin{remark}
+	  We will use $ \mathbb D = B(0,1) $ and $ \bar B(a,r) = \{ z\in \C\mid |z-a|\le r\} $.
+  \end{remark}
+  We use $ \C^* $ to denote $ \C\setminus \{0\} $.\par
+  Recall that a set $ U\subseteq \C $ is open if it contains an open disc about each of its points.
+  \begin{definition}
+	  (Path) A \textit{path} in $ U\subseteq \C $ is a continuous map $ \gamma:[a,b]\to U $.
+  \end{definition}
+  \begin{definition}
+	  (Path-connected) We say that $ U\subseteq \C $ is \textit{path-connected} if for all $ x,y\in U $ there exists a path $ \gamma:[0,1]\to U $ such that $ \gamma(0) = x $ and $ \gamma(1) = y $.
+  \end{definition}
+\begin{definition}
+	(Domain) A \textit{domain} in $ \C $ is a non-empty path-connected subset of $ \C $.
+\end{definition}
+\begin{definition}
+	(Closed path) If $ \gamma $ is a path and $ \gamma(a)=\gamma(b) $ then we say that $ \gamma $ is a \textit{closed path}.
+\end{definition}
+\begin{definition}
+	($ C^1 $ path) We say a path is $ C^1 $ if it is continuously differentiable. We say a path is \textit{piecewise} $ C^1 $ if it has finitely many non-differentiable points but still globally continuous.
+\end{definition}
+\begin{definition}
+	(Simple path) A path is \textit{simple} if it is injective except perhaps at the endpoints.
+\end{definition}
+\begin{definition}
+  Let $ U\subseteq \C $ be open.
+  \begin{enumerate}
+	  \item We say that $ f:U\to \C $ is \textit{differentiable} at $ w\in U $ if
+		  \[
+			  f'(w)=\lim_{z\to w}\frac{f(z)-f(w)}{z-w}
+		  \]
+		  exists.
+	  \item We say that $ f $ is \textit{holomorphic} at $ w\in U $ if $ \exists \varepsilon>0 $ such that $ f $ is differentiable on $ B(w,\varepsilon)\subseteq U $.
+	  \item If $ f $ is holomorphic everywhere, we say $ f $ is \textit{entire}.
+  \end{enumerate}
+\end{definition}
+\begin{remark}
+  Some authors use analytic for holomorphic.
+\end{remark}
+\begin{remark}
+  The usual rules for differenting sums and products and the inverse of a function (when it exists) apply exactly like we say in IA Analysis I with exactly the same proof.
+\end{remark}
+Any $ f:U\to \C $ can be written as $ f(z)=f(x+iy) = u(x,y)+iv(x,y) $ where $ u,v:U\to \R $ are the real and imaginary parts of $ f $.\par
+Recall that $ u:U\to \R $ is differentiable at $ (c,d)\in U $ with derivative $ Du\mid_{(c,d)}= (\lambda,\mu) $ if and only if
+\[
+	\frac{u(x,y)-u(c,d) - (\lambda(x-c) + \mu(y-d))}{\sqrt{(x-c)^2+(y-d)^2}}\to 0
+\]
+as $ (x,y)\to (c,d) $.
+\begin{proposition}
+	(Cauchy-Riemann equations) Let $ f:U\to \C $ be defined on an open set $ U $ and write $ f=u+iv $, then $ f $ is differentiable t $ w= c+id\in U $ with $ f'(w)=p+iq $ if and only if $ u $ and $ w $ are both differentiable at $ (c,d) $ and $ u_x=v_y = p $ and $ -u_y = v_x=q $ at $ (c,d) $. Then $ f'(w) = u_x(c,d)+iv_x(c,d) $. 
+\end{proposition}
+\pf $ f $ is differentiable at $ w $ with derivative $ p+iq $ if and only if
+\begin{align*}
+	\lim_{z\to w}\frac{f(z)-f(w) -(z-w)(p+iq)}{z-w} = 0
+\end{align*}
+One can check that $ \lim_{z\to a}\frac{f(z)}{g)z)}=0 $ if and only if $ \lim_{z\to a}\frac{f(z)}{|g(z)|} = 0 $ and $ (p+iq)(z-w) = p(x-c)-q(y-d)+i(q(x-c)+p(y-d)) $ so using these and taking real and imaginary parts we get that
+\begin{align*}
+	\lim_{(x,y)\to (c,d)} \frac{u(x,y)-u(c,d)-(p(x-c)-q(y-d))}{\sqrt{(x-c)^2+(y-c)^2}} = 0
+\end{align*}
+for the real part. And
+\begin{align*}
+	\lim_{(x,y)\to (c,d)}\frac{v(x,y)-v(c,d) - (q(x-c)+p(y-d))}{\sqrt{(x-c)^2+(y-c)^2}}=0
+\end{align*}
+for the imaginary part. This is equivalent to saying that $ u $ is differentiable with $ Du\mid_{(c,d)} = (p,-q) $ and $ v $ is differentiable with $ Dv\mid_{(c,d)} = (q,p) $.\qed
+\begin{remark}
+  Let's make some remarks about the Cauchy-Riemann equations.
+  \begin{enumerate}
+	  \item If $ f=u +iv $ and $ u_x=v_u $ and $ u_y = -v_x $ at a point $ w $ we \textit{cannot} conclude that $ f $ is differentiable at $ w $ (Example Sheet 1).
+	  \item If the partial derivatives $ u_x,u_y,v_x,v_y $ exist and are continuous in an open neighbourhood of $ w $ then the Cauchy-Riemann equations holding does imply complex differentiability.
+  \end{enumerate}
+\end{remark}
+Let's see some examples.
+\begin{enumerate}
+	\item Polynomials are sums and products of the identity function, hence they are entire.
+	\item If $ P $ and $ Q $ are polynomials, and $ U\subseteq \C\setminus \{x\mid Q(x)= 0\} $ then $ \frac PQ $ is differentiable on $ U $. These are called \textit{rational functions}.
+	\item If $ f(x)=|x| $, this is not differentiable anywhere in $ \C $. $ f=u+iv $ with $ u=\sqrt{x^2 +y^2} $ and $ v=0 $. If $ (x,y)\ne (0,0) $ then
+		\[
+			u_x=\frac{x}{\sqrt{x^2+y^2}}, \qquad u_y = \frac{y}{\sqrt{x^2+y^2}}.
+		\]
+		So the Cauchy-Riemann equations do not hold, and if $ (x,y)= (0,0) $ we know that this isn't even differentiable in the real case, hence it's also not differentiable in the complex case. So $ f $ isn't differentiable anywhere.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
