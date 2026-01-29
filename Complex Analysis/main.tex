@@ -95,25 +95,34 @@ Let's see some examples.
 		\]
 		So the Cauchy-Riemann equations do not hold, and if $ (x,y)= (0,0) $ we know that this isn't even differentiable in the real case, hence it's also not differentiable in the complex case. So $ f $ isn't differentiable anywhere.
 \end{enumerate}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{remark}
+  Later we'll see that if $ f $ is holomorphic on $ U $, then $ f' $ is also holomorphic on $ U $. Then from the Cauchy-Riemann equations, we can see that $ f $ is harmonic. Conversely we can later see that every harmonic function on an open set in $ \R^2 $ is locally $ \Re(f) $ for some holomorphic function $ f $.
+\end{remark}
+\subsection{Conformal maps}
+\begin{proposition}
+  Let $ U\subseteq \C $ be a domain and suppose that $ f:U\to\C $ is holomorphic and $ f'(z)=0 $ on $ U $. Then $ f $ is constant.
+\end{proposition}
+\pf We will without proof the following elementary topological fact.
+\begin{lemma}
+	If $ U $ is a domain and $ \gamma:[0,1]\to U $ is a path with $ \gamma(0)=a $ and $ \gamma(1)=b $. Then there is another path $ \bar\gamma:[0,1]\to U $ with $ \bar\gamma(0)=a $ and $ \bar\gamma(1)=b $ where $ \bar\gamma $ is composed of finitely many segments, each parallel to the $ x $ or $ y $ axis, so $ \bar\gamma $ is piecewise-$ C^1 $.
+\end{lemma}
+Given this we know that $ u_x = v_y $ and $ u_y=-v_x $ hold. Since $ f' $ is zero, all these partials vanish on $ U $. Now the usual mean value theorem shows that $ u,v $ are constant along the segments of $ \bar\gamma $. So $ f(a)=f(b) $.\qed
+\begin{definition}
+	(Conformal) If $ f $ is holomorphc at a point $ w $ and $ f'(w)\ne 0 $ we say that $ f $ is \textit{conformal} at $ w $.
+\end{definition}
+This is a geometric property of $ f $.
+\par
+Suppose that $ U $ is a domain and $ f: U\to \C $ is conformal at $ w $. Let's take $ \gamma_i:(-\varepsilon,\varepsilon)\to U $ such that $ \gamma_i(0)=w, $ and $ \gamma_i'(0)\ne 0 $. So $ \gamma_i $ have non-zero tangent vectors through $ w $. The angle between these vectors is $ \arg(\gamma_1'(0)-\arg(\gamma_2'(0)) $. But then
+\[
+	\frac{(f\gamma_1)'(0)}{(f\gamma_2)'(0)} = \frac{f'(w)}{f'(w)}=\frac{\gamma_1'(0)}{\gamma_2'(0)}=1
+\]
+and so the angle between $ f\gamma_1 $ and $ f\gamma_2 $ at $ f(w) $ the same as for $ \gamma_1 $ and $ \gamma_2 $. So conformal means that $ f $ \textit{preserves} angles.
+\begin{definition}
+	(Conformal equivalence) If $ U,V $ are open in $ \C $ and $ f:U\to V $ is a holomorphic bijection which is everywhere conformal on $ U $ we say that $ f $ is a \textit{conformal equivalence} and $ U $ and $ V $ are conformally equivalent.
+\end{definition}
+\begin{remark}
+  In this setting, if $ f $ is conformal, the inverse function theorem says that $ f $ is locally invertible and that local inverse is complex differentiable. If $ f $ is a bijection is it globally invertible, and hence the chain rule shows that $ \inv f $ is conformal.
+\end{remark}
 
 
 

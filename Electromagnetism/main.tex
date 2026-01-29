@@ -209,7 +209,156 @@ where $ \sigma $ is the surface charge density and
 \[
 	[X] = X_2-X_1
 \]
-denotes a discontinuity between regions 1 and 2.
+denotes a discontinuity between regions 1 and 2.\par
+The tangential components are continuous:
+\[
+	[\mathbf n\times \mathbf E]= 0.
+\]
+And these two equations apply to any surface surface even if it's curved and non-uniform.
+\subsection{The electrostatic potential}
+For a general $ \rho(\x) $ we cannot determine $ \mathbf E(\x) $ using Gauss' law alone.  We'll need to use the Maxwell equation $ \nabla\times \mathbf E = 0 $. This implies that $ E $ is irrotational so it has an \textit{electrostatic} potential $ \Phi(\x) $, such that
+\[
+  \mathbf E = - \nabla \Phi.
+\]
+\begin{definition}
+	(Potential difference) The \textit{potential difference} or \text{voltage} between two points $ \x_1 $ and $ \x_2 $ is
+	\[
+		\Phi(\x_2)-\Phi(\x_1) &= \int\mathrm d\Phi \\
+				      &= - \int_{\x_1}^{\x_2} \mathbf E\cdot\mathrm d\x
+	\]
+	and is path independent since $ \nabla\times \mathbf E = 0 $ is zero and the region is simply connected, so the field is conservative .
+\end{definition}
+\begin{definition}
+	(Electric force) The \textit{electric force} on a particle of charge $ q $ is
+	\[
+	  \mathbf F = q\mathbf E = -q\nabla\Phi.
+	\]
+\end{definition}
+\begin{remark}
+  This is a conservative force associated with the potential energy
+  \[
+    U(\x) = q\Phi(\x).
+  \]
+\end{remark}
+Recall that the first Maxwell equation implies that $ \Phi $ satisfies Poisson's equation, so
+\[
+	-\nabla^2 \Phi =\frac\rho{\varepsilon_0}.
+\]
+So we have the solution (from IB Methods) as (over all space with boundary conditions that $ \Phi \to 0$ as $ |\x|\to\infty $).
+\[
+	\Phi(\x)=\frac1{4\pi\varepsilon}\int\frac{\rho(\x')}{|\x-\x'|}\mathrm d^3\x'.
+\]
+This is the convolution of $ \rho(\x) $ with the potential of a unit point charge (which relates to our Green's function from IB Methods) $ \frac{1}{4\pi\varepsilon |\x|}$. Namely it is the solution to
+\[
+	-\nabla^2\Phi = \frac{\delta(\x)}{\varepsilon_0}
+\]
+satisfying $ \Phi\to 0 $ as $ |\x|\to \infty $. Note that $ \E $ is unaffected if we add an arbitrary constant to $ \Phi $ (this makes sense since $ \Phi $ measures a potential difference between two points so increasing the charge uniformly doesn't change $ \E $). We usually choose this such that $ \Phi \to 0 $ as $ |\x|\to \infty $. If $ \rho(\x) $ does not decay sufficiently rapidly this may not be possible. For example if we have a line charge $ E_r\propto \frac 1r $, so we have that $ \Phi\propto \log r $ which doesn't go to zero as $ r\to \infty $.
+\subsubsection{Point charge}
+The potential due to a point charge $ q $ at the origin is
+\[
+	\Phi(\x) = \frac q{4\pi\varepsilon_0|\x|} = \frac q{4\pi\varepsilon_0 r}.
+\]
+\subsubsection{Electric dipole}
+Two equal and opposite charges at different positions. Without loss of generality consider charges $ -q $ t $ \x= 0 $ and $ +q $ at $ \x = \mathbf d $. The potential due to the dipole is
+\[
+	\Phi(\x) = \frac q{4\pi \varepsilon_0}\left(-\frac 1{|\x|} + \frac 1{|\x-\mathbf d|}\right)
+\]
+Apply Taylor's theorem for a scalar field,
+\[
+  f(\x+\mathbf h) = f(\x) + (\mathbf h \cdot\nabla)f(\x) + \frac 12 (\mathbf h \cdot \nabla)^2 f(\x) + O(||\mathbf h ||^2).
+\]
+So we get that
+\[
+	\Phi(\x) = \frac q{4\pi \varepsilon_0} \left(-\frac 1r + \frac 1r -(\mathbf d \cdot \nabla)\frac 1r + O(|\mathbf d |^2)\right) = \frac{q\mathbf d\cdot\mathbf x}{4\pi\varepsilon_0 |\x|^3}+O(|\mathbf d|^2).
+\]
+In the limit as $ |\mathbf d| \to 0 $ with $ q\mathbf d $ finite, we obtain a \textit{point dipole} with \textit{electric dipole moment}
+\[
+  \mathbf p =q\mathbf d.
+\]
+which has potential
+\[
+	\Phi(\x) = \frac{\p \cdot \x}{4\pi \varepsilon_0 |\x|^3}
+\]
+and electric field
+\begin{align*}
+	\mathbf E = -\nabla\Phi &= \frac {3(\mathbf p \cdot \x)\x-|\x|^2 \mathbf p}{4\pi\varepsilon_0 |\x|^5}.
+\end{align*}
+In spherical polar coordinates aligned with $ \mathbf p  = p\mathbf e_z $. So
+\[
+	\Phi = \frac {p\cos\theta}{4\pi\varepsilon_0 r^2}.
+\]
+Then we get that
+\[
+	E_r = -\frac{\partial \Phi}{\partial r} = \frac  {2p\cos(\theta)}{4\pi\varepsilon_0 r^3}
+\]
+and
+\[
+	E_\theta = -\frac 1r \frac{\partial \Phi}{\partial \theta} = \frac{p\sin\theta}{4\pi\varepsilon_0 r^3}.
+\]
+From our alignment we have that $ E_\phi = 0 $.
+\begin{remark}
+  Note that
+  \begin{enumerate}
+	  \item $ \Phi $ and $ \mathbf E $ are not spherically symmetric.
+	  \item They decrease more rapidly with $ r $ than a point charge since the dipole are nearly cancelling eachother out.
+  \end{enumerate}
+\end{remark}
+A point dipole $ \mathbf p  $ at the origin corresponds to
+\[
+  \rho(\x) = -\mathbf p \cdot \nabla \delta(\x),
+\]
+So we can find the associated potential $ \Phi $ as
+\[
+	\Phi(\x) = \mathbf p \cdot\nabla\left(\frac1{4\pi\varepsilon_0 |\x|}\right).
+\]
+\subsubsection{Field lines and equipotentials}
+\textit{Electric field lines} are the integral curves of $ \mathbf E $ being tangent to $ \mathbf E $ everywhere. Since we have that $ \nabla\cdot \mathbf E = \frac \rho{\varepsilon_0} $, field lines begin on positive charges and end on negative charges. In electrostatics, $ \mathbf E = -\nabla\Phi $, so field lines are perpendicular to the equipotential surfaces of which $ \Phi $ are constant.
+\subsubsection{Dipole in an external field}
+Consider a dipole $ \mathbf p $ in an external field $ \mathbf E_{\text{external}} = - \nabla\Phi $ generated by distinct charges. With $ -q $ at $ \x $ and $ +q $ and $ \x+\mathbf d $, the potential energy at the dipole due to the external field is
+\begin{align*}
+	U &= -q\Phi(\x) +Q \Phi(\x+\mathbf d)\\
+	  &= q(\mathbf d\cdot\nabla)\Phi(\x) + O(|\mathbf d|^2) \\
+\end{align*}
+In the limit at the point dipole, 
+\[
+	U=\mathbf p \cdot\nabla\Phi = -\mathbf p \cdot \mathbf E_{\text{external}}
+\]
+and is minimised when $ \mathbf p  $ is aligned with $ \mathbf E_{\text{external}} $.
+\subsubsection{Multipole expansion}
+For a general charge distribution $ \rho(\x) $ confined to a ball $ \{V:|\x|<R\} $,
+\[
+	\Phi(\x) = \frac 1{4\pi\varepsilon_0}\int_V \frac{\rho(\x')}{|\x-\x'|}\mathrm d^3\x'.
+\]
+We'll look at the external potential at $ \x $ with $ \x\notin V $. Expand 
+\[
+	\frac 1{|\x-\x'|}= \frac 1r - (\x'\cdot \nabla)\frac 1r + \frac 12(\x'\cdot \nabla)^2\frac 1r + O(|\x'|^3).
+\]
+Which is
+\[
+	=\frac 1r \left[1+\frac {\x'\cdot \x}{r^2} + \frac{3(\x'\cdot\x)^2 - |\x'|^2|\x|^2}{2r^4} + O\left(\frac {R^3}{r^3}\right)\right]
+\]
+This leads to the \textit{multipole expansion} of the potential,
+\[
+	\Phi(\x) = \frac 1{4\pi \varepsilon_0} \left(\frac Qr + \frac{\mathbf p\cdot\x}{r^2} + \frac 12 \frac{Q_{ij}x_ix_j}{r^5}+\cdots\right).
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

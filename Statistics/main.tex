@@ -168,6 +168,99 @@ So for our estimator from before, $ \hat\mu $, is unbiased since
 				 &= \mathbb E_\theta[(\hat\theta -\mathbb E_\theta(\hat\theta))^2]+(\mathbb E_\theta(\hat\theta)-\theta)^2 + 2(\mathbb E_\theta(\hat\theta) - \theta) \cdot \mathbb E_\theta[\hat\theta - \mathbb E_\theta(\hat\theta)]\\
 				 &= \left(\mathrm{bias}(\hat\theta)\right)^2 + \mathrm{Var}_\theta(\hat\theta).\qed
 \end{align*}
+Let's see an example. Suppose that $ X\sim \text{Binomial}(n,\theta) $ where is $ n $ is known and we want to estimate $ \theta\in[0,1] $. Let $ T_u=\frac{X}n $ be an estimator, so $ \mathbb E_\theta(T_u)=\frac{\mathbb E(X)}n = \frac{n\theta}n = \theta $, hence this estimator is unbiased. And $ \mathrm{mse}(T_u) = \Var{T_u} +\mathrm{bias}(T_u) = \frac{\theta(1-\theta)}n $.\par
+Instead if we used the estimator $ T_b = \frac{X+1}{n+2}  = \omega\frac Xn + (1-\omega)\frac 12 $ where $ \omega = \frac n{n+2} $. We get that
+\begin{align*}
+	\mathrm{bias}(T_b) &= (1-\omega)(\frac 12 - \theta)\\
+	\Var{T_b} &= \omega^2\frac{\theta(1-\theta)}n.
+\end{align*}
+Giving that
+\[
+	\mathrm {mse}(T_b) &= \omega^2 \zfrac{\theta(1-\theta)n} + (1-\omega)^2(\frac 12 - \theta)^2
+\]
+\subsection{Sufficient statistics}
+Suppose $ X_1,\dots, X_n $ are iid random variables taking values in $ \chi $ with pdf $ f_{X_1}(\cdot\mid \theta) $. Consider $ \theta $ as fixed. Denote $ X=(X_1,\dots, X_n) $.
+\begin{definition}
+(Sufficient statistics) A statistics $ T $ is \textit{sufficient} for $ \theta $ if the conditional distribution of $ X$ given $ T(X) $ does not depend on $ \theta $.
+\end{definition}
+\begin{remark}
+  The parameter $ \theta $ may be a vector, and $ T(X) $ may be a vector.
+\end{remark}
+Suppose $ X_1,\dots, X_n \sim \mathrm{Binomial}(1,\theta) $ iid for some $ \theta\in [0,1] $. Then 
+\begin{align*}
+	f_X(x\mid \theta)&=\prod_{i=1}^n \theta^{x_i}(1-\theta)^{1-x_i}\\
+			 &= \theta^{\sum x_i}(1-\theta)^{n-\sum x_i}
+\end{align*}
+Define $ T(X)=\sum_{i=1}^n x_i $. Now 
+\begin{align*}
+	f_{X\mid T =t}(x\mid T(x)=t)&=\frac{\mathbb P_\theta(X=x,T(X)=t)}{\mathbb P_\theta(T(X) =t)}\\
+				    &= \frac{\mathbb P_\theta(X=x)}{\mathbb P_\theta(T(X)=t)} = \frac{\theta^{\sum x_i}(1-\theta)^{n-\sum x_i}}{\binom nt \theta^t (1-\theta)^{n-t}} = \frac 1{\binom nt}.
+\end{align*}
+\begin{theorem}
+	(Factorisation criterion) The statistics $ T $ is sufficient for $ \theta $ if and only if $ f_X(x\mid \theta)= g(T(x),\theta)h(x) $ for some suitable $ g $ and $ h $.
+\end{theorem}
+\pf Suppose that $ f_X(x\mid \theta) = g(T(x),\theta)h(x) $. We can compute
+\begin{align*}
+	f_{X\mid T=t}(x\mid T=t) &= \frac{\mathbb P_\theta(X=x,T(x) =t)}{\mathbb P_\theta(T(x)=t)}\\
+				 &= \frac{g(T(x),\theta)h(x)}{\sum_{x';T(x')=t}g(t,\theta)h(x')}\\
+				 &= \frac{h(x)}{\sum_{x';T(x')=t}h(x')}
+\end{align*}
+which doesn't depend on $ \theta $, so $ T(X) $ is sufficient.\par
+Conversely, suppose $ T(X) $ is sufficient. We can write
+\begin{align*}
+\mathbb P_\theta(X=x) &= \mathbb P_\theta(X=x,T(X)=T(x))\\
+		      &= \mathbb P_\theta(X=x\mid T(X)=T(x))\prob_\theta(T(X)=T(x))\\
+		      &= h(x)g(T(X),\theta).
+\end{align*}
+So we're done.\qed
+\begin{remark}
+	For our example before we can define $ T(x) = \sum x_i $ and $ g(t,\theta)  = \theta^t (1-\theta)^{n-t} $ and $ h(x) = 1 $.
+\end{remark}
+Let's see another example. Let $ X_1,\dots,X_n $ be iid uniform on $ [0,\theta] $ for some $ \theta\in (0,\infty) $. So
+\begin{align*}
+	f_X(x=\theta)&=\prod_{i=1}^n \frac 1\theta \mathbf 1\{x_i\in [0,\infty]\}\\
+		     &=\frac 1{\theta^n} \mathbf 1\{\max x_i\le \theta\}\mathbf 1\{\min x_i\ge 0 \}\\
+		     &= g(T(x),\theta)h(x).
+\end{align*}
+\subsection{Minimal sufficiency} 
+\begin{definition}
+	(Minimal sufficient) A sufficient statistics $ T(X) $ is \textit{minimal sufficient} if it is a function of every other sufficient statistic. So if $ T'(X) $ is also sufficient, then $ T'(x)=T'(y)\implies T(x)=T(y) $ for all $ x,y\in \chi $.
+\end{definition}
+\begin{remark}
+  Minimal sufficient statistics are unique up to bijection. 
+\end{remark}
+\begin{theorem}
+	SUppose $ T(X) $ is a statistics such that $ \frac{f_X(x\mid \theta)}{f_X(y\mid \theta)} $ is constnat a function of $ \theta $ if and only if $ T(x)=T(y) $. Then $ T $ is minimal statistics.
+\end{theorem}
+Let's see an example before we prove this. Suppose that $ X_1,\dots, X_n\sim\mathcal N(\mu,\sigma^2) $. Then
+\begin{align*}
+	\frac{f_X(x\mid \mu,\sigma^2)}{f_X(y\mid \mu,\sigma^2)} &=\frac{(2\pi \sigma^2)^{-n/2}\exp\left(-\frac 1{2\sigma^2}\sum(x_i-\mu)^2\right)}{(2\pi \sigma^2)^{-n/2}\exp\left(-\frac 1{2\sigma^2}\sum(y_i-\mu)^2\right)}\\
+								&=\exp\left(-\frac{1}{2\sigma^2}\left(\sum_i x_i^2 - \sum_i y_i^2\right)+\frac \mu{\sigma^2}\left(\sum_i x_i-\sum_i y_i\right)\right)
+\end{align*}
+This is constant in $ (\mu,\sigma^2) $ if and only if $ \sum_i x_i=\sum_i y_i $ and $ \sum_i x_i^2 = \sum_i y_i^2 $ therefore $ T(X)=\left(\sum_{i=1}^n X_i,\sum_{i=1}^n X_i^2\right) $ is minimal sufficient.
+\pf Need to show that such a statistics is sufficient and minimal. First we'll show sufficciency. For each $ t $ pick a $ x_t $ such that $ T(x_t) = t $. Now let $ x\in \chi_^N $ and let $ T(x)=t $. So $ T(x) = T(x_t) $, so by the hypothesis $ \frac{f_X(x,\theta)}{f_X(x_t,\theta)} $ does not depend on $ \theta $. Let this be $ h(x) $ and let $ g(t,\theta) = f_X(x,\theta) $ then we have that $ f_X(x,\theta)=g(t,\theta)h(x) $ so sufficient.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
