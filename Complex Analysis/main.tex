@@ -123,12 +123,24 @@ and so the angle between $ f\gamma_1 $ and $ f\gamma_2 $ at $ f(w) $ the same as
 \begin{remark}
   In this setting, if $ f $ is conformal, the inverse function theorem says that $ f $ is locally invertible and that local inverse is complex differentiable. If $ f $ is a bijection is it globally invertible, and hence the chain rule shows that $ \inv f $ is conformal.
 \end{remark}
-
-
-
-
-
-
+Let's see some examples.
+\begin{enumerate}
+	\item A linear map $ f(z) = az+b $ with $ a\ne 0 $ is a conformal equivalence $ \C\to \C $.
+	\item $ f(z)=z^n  $ takes $ \{ z\mid 0\le \Arg(z) \le \frac \pi n\} \to \{ z\in \C \mid \Im(z) > 0 \} = \mathcal H$. This fails at the origin, but if we consider the open sector and open upper half plane.
+	\item The exponential map, $ z\to \exp z =e^x e^{iy} $ sends verticle lines to circles with radius $ e^{\Re z} $. 
+	\item $ z\in \mathcal H\iff z $ is closer to $ i $ than to $ -i$ $ \iff \left|\frac{z-i}{z+1} \right| < 1 $. The Mobius map $ z\to \frac{z-i}{z+i} $ takes $ \mathcal H \to \mathbb D$. Moreover $ f'(z) = \frac{2i}{(z+i)^2} $ is non-zero for $ z\in \mathcal H $, so $ f $ is an conformal equivalence.
+\end{enumerate}
+Recall that the Mobius group, $ \mathcal M $, is the group of mappings $ z\to \frac{az+b}{cz+d} $ with $ ad-bc\ne 0 $. $ A\in \mathcal M $ defines a conformal equivalence from $ \C\setminus \{-\frac dc\}\to \C\setminus \{\frac ac\} $, but it's much better to think of it as a conformal equivalence to the extended complex plane $ \C_\infty $. Recall that Mobius maps are triply transitive, so
+\[
+	z\to \frac{(z-z_1)(z_2-z_3)}{(z-z_3)(z_2-z_1)}
+\]
+sends the triple $ (z_1,z_2,z_3) $ to $ (0,1,\infty) $.
+\par
+Recall further that Mobius maps send circlines to circlines (where a circline is a circle or a line plus the point at infinity).
+\par
+Suppose we have a sector bounded between lines $ L_1, L_2 $. What are the images of a sector under a Mobius map? This depends on if our Mobius map $ T $ is such that $ \inv T(\infty) \in L_1 $ or $ \inv T(\infty) \in L_2 $. Any region formed by two non-pallel lines, a circle and a line, or two circles could be image under a Mobius map.
+\par
+The \textit{Joukowsky transform} is the map sending $ z\to \frac 12\left(z+\frac 1z\right) =\frac{z^2+ 1}{2z}$. We can compute that $ f'(z) = \frac 12-\frac 1{2z^2} $ and $ f $ is holomorphic except at $ 0 $ and is conformal except at $ 0 $ and $ \pm 1 $. Take the circle passing through $ -1 $ and $ -i $ not centred at the origin. Under the map $ f $, creates a kink at $ -1 $ since it's not conformal, but the curve is nice everywhere else since it's conformal on the rest of the circle. The transformed curve resembles an aerofoil. The incompressible fluid equations, $ \nabla\times v = 0, v=\nabla \phi $ implies that $ \nabla^2 \phi $ vanishes, so $ \phi $ is harmonic. So $ \phi $ is locally $ \Re(f) $, with $ f $ holomorphic. This is used to transfer questions about fluid flow about complicated shapes to the much simplier circle.
 
 
 
