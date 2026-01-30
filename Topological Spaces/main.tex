@@ -145,6 +145,74 @@ Consider the Euclidean topology on $ \R^n $. The collection $ B= \{B_r(x)\mid x\
 \begin{corollary}
   A limit point of a $ A $ lies in $ \bar A $.
 \end{corollary}
+For an example $ \overline\Q = \R $ since any real number is a limit of a sequence of rational numbers. We have that $ \overline{(0,1)} = [0,1] $ too. The cocountable topology on $ \R $ is the topology $ T_{\text{countable}} = \{\emptyset\} \cup \{\R \setminus C \mid C \ \text{countable}\} $ Let $ \{x_n\} $ be a sequence in $ \R $, for $ x \in \R $ consider $ \{x\} \cup\{\R - \{x_n\}\} $ is open and contains $ x $. If $ x_n\to x $, then $ x_n $ must be in a $ U $ for all $ n\ge \N $ so $ x_n=x $ for all $ n\ge N $. Hence the convergent sequences are exactly the eventually constant sequences with the limits being the value they are eventually constant to. So the limit points of a set $ A $ are $ A $ under this topology. However almost all $ A $ is not closed. For example $ (0,1) $ is not closed since $ \R\setminus (0,1) $ is not countable. But the closure of $ (0,1) $ must be closed, so it must be $ \R $ hence the sense of limit points and closure are actually two very different properties in topology instead of metric spaces.
+\subsection{Hausdorff spaces}
+\begin{definition}
+	(Hausdorff) A space $ (X,T) $ is \textit{Hausdorff} if for $ x\ne y \in X $ there are open neighbourhoods $ x\in U $, $ y\in V $ with $ U\cap V=\emptyset $.
+\end{definition}
+\begin{remark}
+  This is the notion that points are seperated by open sets.
+\end{remark}
+\begin{lemma}
+  If the topology $ T $ is induced by a metric then it is Hausdorff.
+\end{lemma}
+\pf If $ x\ne y $ then $ d(x,y) = s>0 $. So consider $ U=B_{s/2}(x) $ and $ V= B_{s/2}(y) $. The triangle inequality shows that $ U\cap V = \emptyset $ and we know all balls are open.\qed
+\begin{proposition}
+  If a space is Hausdorff then a sequence in $ X $ has at most $ 1 $ limit.
+\end{proposition}
+\pf Let $ (x_n) $ be a sequence in $ X $. Suppose it has limits $ y\ne z\in X $. Let $ U $ and $ V $ be disjoint local neighbourhoods sfor $ y $ and $ z $ respectively. Then $ x_n\in U $ for all $ n\ge N_1 $ and $ x_n\in V $ for all $ n\ge N_2 $. So if we take that $ N=\max\{N_1,N_2\} $ then for all $ n\ge N $, we have that $ x_n\in U\cap V $ which is empty, hence we have a contradiction.\qed
+\begin{proposition}
+  If $ (X,T) $ is Hausorff then points are closed.
+\end{proposition}
+\pf Let $ x\in X $. We want to show that $ \{x\}=\overline{\{x\}} $. Let $ y\ne x $. Let $ U,V $ be disjoint neighbourhoods of $ x $ and $ y $ respectively. We know that $ x\in X\setminus V $ which is closed. Hence $ \overline{\{x\}}\subseteq X\setminus V $. But $ y\notin V $, so $ y $ is not in the closure of $ \{x\} $ hence the closure of $ \{x\} $ is just $ \{x\} $, so $ \{x\} $ is closed.\qed
+\par
+Let's see an example. Let $ X $ be an infinite set and consider the cofinite topology on $ X $. Take two non-empty open sets, so
+\[
+	(X\setminus F) \cap (X\setminus F') = X\setminus (F\cup F')
+\]
+which is non-empty since $ F\cup F' $ is finite and $ X $ is infinite so the set on the RHS is non-empty hence the space is not Hausdorff.
+\subsection{Defining new topologies on existing ones}
+We have three main ways to define new topologies when given a topology already.
+\subsubsection{The subspace topology}
+\begin{definition}
+	(Subset topology) Let $ (X,T_X) $ be a topological space. Let $ Y\subseteq X $ a subset. The \textit{subset topology} on $ Y $ is 
+	\[
+		T\mid_Y = \{Y\cap U \mid U\in T\}.
+	\]
+\end{definition}
+\begin{definition}
+	(Subspace) A subspace of $ (X,T) $ is a subset equipped with the subspace topology.
+\end{definition}
+\begin{proposition}
+  The subset topology is a topology.
+\end{proposition}
+\pf Simple exercise of the axioms.\qed
+\begin{proposition}
+  The inclusion map $ \iota: (Y,T\mid_Y)\to (X,T) $ is continuous. In fact $ T\mid_Y $ is the constant topology on $ Y $ such that the inclusion map is continuous.
+\end{proposition}
+\pf Let $ U\in T $ then $ \inv\iota (U) = U\cap Y\in T\mid_Y $ by definition. So it is continuous. Suppose $ \iota : (Y,T')\to (X,T)$ is continuous. For $ U\in T $, $ \inv\iota(U)\in T' $ so $ T\mid_Y\subseteq T' $.\qed
+\par
+A further point of view, a function $ f:(z,T_z)\to (Y,T\mid_Y) $ is continuous if and only if $ \iota \circ f$ is continuous. 
+\begin{lemma}
+	(Gluing Lemma) Let $ f:X\to Y $ be a function between topological spaces.
+	\begin{enumerate}
+		\item If $ \{U_\alpha\}_{\alpha\in I} $ are open subsets which cover $ X $ and each $ f\mid_{U_\alpha}:U_\alpha\to Y $ are continuous (where $ U_\alpha $ is given the subspace topology) then $ f $ is continuous.
+	\item If $ \{C_\alpha\}_{\alpha\in I} $ is a finite collection of closed sets containing $ X $ and $ f\mid_{C_\alpha}:C_\alpha\to Y $ is continuous for each $ a\in I $ then $ f $ is continuous.
+	\end{enumerate}
+\end{lemma}
+\pf Let $ V\subseteq Y $ be open. We want to show that $ \inv f(V) $ is open. We know that
+\begin{align*}
+	\inv f(V) = \inv(V) \cap X &= \inv f(V)\cap\left(\bigcup_{\alpha\in I}U_\alpha\right)\\
+				   &= \bigcup_{\alpha\in I}\inv f(V)\cap U_\alpha
+\end{align*}
+Since $ f\mid_{U_\alpha} $ are continuous, we have that $ \inv f\mid_{U_\alpha} $ is open in $ U_\alpha $ in the subspace topology. So there exists a $ W $ open in $ X $ such that $ \inv f\mid_{U_\alpha}(V) = U_\alpha \cap W $ hence this is the intersection on open subsets of $ X $ so is open in $ X $, hence since the union of open subsets is open $ \inv f(V) $ is open, so $ f $ continuous.\par
+The second part can be proved the same using the closed set definition of continuity.\qed
+\par
+If $ (X,d) $ is a metric space with topology $ T_d $ and $ Y\subseteq X $ then $ T_d\mid_Y $ is the topology induced by $ d\mid_Y $.\par
+
+
+
+
 
 
 

@@ -129,7 +129,67 @@ There a two types of forces exerted on a fluid.
 	\item Forces proportional to the volume (gravity);
 	\item Forces proportional to the surface area (pressure, viscous stresses).
 \end{enumerate}
-We'll first look at the first type, called volume forces. We'll denote $ F(\x,t)\delta V $ as the force acting on a small volume element $ \partial V $. Let's take gravity as an example, so $ \mathbf F=\rho \mathbf g $. Often we have that $ \mathbf F $ is conservative, so $ \mathbf F=-\nabla\chi $ for some function $ \chi $ (we know gravity is $ \chi=\rho gz $).
+We'll first look at the first type, called volume forces. We'll denote $ F(\x,t)\delta V $ as the force acting on a small volume element $ \partial V $. Let's take gravity as an example, so $ \mathbf F=\rho \mathbf g $. Often we have that $ \mathbf F $ is conservative, so $ \mathbf F=-\nabla\chi $ for some function $ \chi $ (we know gravity is $ \chi=\rho gz $).\par
+Now for surface forces. Consider a small element of area of $ \mathbf n \delta A $. Denote the surface force exerted by the positive side on the negative side by $ \boldsymbol \tau(\x,t,\mathbf n) \delta A $. We say that $ \boldsymbol\tau $ is "stress" acting on a surface element. Note that $ \boldsymbol \tau $ depends on orientation. By Newton's third law, we have that $ \boldsymbol \tau(\x,t,-\mathbf n) = -\boldsymbol \tau(\x,t,\mathbf n) $.\par
+There are many phenomona where friction inside a fluid (viscous stress) is negligible. For example a 10cm box of water, it takes hours for viscosity to bring the fluid to rest once disturbed.
+\begin{definition}
+	(Inviscid) A fluid is said to be \textit{inviscid} if we can neglect viscosity.
+\end{definition}
+For inviscid flow, $ \boldsymbol\tau $ has no tangential component and its magnitude is independent of orientation. So $ \boldsymbol \tau(\x,t,\mathbf n) =-p(\x,t)\mathbf n $, where $ p $ is the pressure. Note we have the minus sign because the positive side pushes with pressure $ p $ 	towards the negative side when $ p>0 $. 
+\subsection{The Euler Momentum equation}
+The idea here is that we do a similar calculation for mass conservation, but now for momentum instead. Consider an arbitrary fixed volume, $ V $ with boundary $ \partial V $. Hence the momentum inside $ V $ is
+\[
+  \int_V \rho \mathbf u\ \mathrm dV.
+\]
+The momentum inside $ V $ can change due to
+\begin{enumerate}
+	\item Flux of momentum across $ \partial V $;
+	\item Force acting on $ V $ or $ \partial V $.
+\end{enumerate}
+The volume out of $ \delta A $ in $ \delta t $ is $ (\mathbf u\cdot\mathbf n )\delta A\ \delta t $. So the momentum out of $ \delta A $ in time $ \delta t $ is $ \rho \mathbf u (\mathbf u \cdot\mathbf n)\delta A\ \delta t $. Hence we get the following.
+\begin{theorem}
+	(Euler momentum integral equation)
+\begin{align*}
+	\frac d{dt} \int_V\rho \mathbf u\  \mathrm dV &= -\int_{\partial V}\rho \mathbf u (\mathbf u \cdot \mathbf n)\ \mathrm d A + \underbrace{\int_V \mathbf f\mathrm dV}_{\text{volume force}} + \underbrace{\int_{\partial V} - p\mathbf n \ \mathrm dA}_{\text{surface force}}.
+\end{align*}
+\end{theorem}
+In components,
+\begin{align*}
+	\int_V\frac\partial{\partial t}(\rho u_i)\ \mathrm dV = -\int_{\partial V} \rho u_iu_jn_j\ \mathrm dA + \int_{\partial V} - pn_i\ \mathrm dA + \int_V f_i \ \mathrm dV.
+\end{align*}
+Sometimes books call $ \rho u_i u_j $ the momentum flux tensor. We can apply the divergence theorem to the first two integrals which gives that those two integrals become
+\[
+	\int_V\left[-\frac{\partial}{\partial x_j}(\rho u_iu_j)-\frac{\partial p}{\partial x_i}\right]\mathrm dV.
+\]
+Given that this true for any fixed volume $ V $, the integrand must be zero, hence we have that
+\[
+	\frac\partial{\partial t}(\rho u_i)+\frac{\partial}{\partial x_j}(\rho u_iu_j)=-\frac{\partial p}{\partial x_i}+f_i.
+\]
+This becomes
+\[
+	u_i\left[\frac{\partial \rho}{\partial t}+\frac{\partial}{\partial x_j}(\rho u_j)\right]+\rho\left[\frac{\partial u_i}{\partial t} + u_j\frac{\partial}{\partial x_j} u_i\right]=-\frac{\partial p}{\partial x_i} + f_i
+\]
+So using mass conservation on the first part we get some simplification, so going back to vector form we have the Euler momentum equation,
+\[
+	\rho\frac{D\mathbf u}{D t} = -\nabla p+ \mathbf f.
+\]
+This is the equation of motion for inviscid fluid flow.\par
+Fluid particles accelerate under differences in pressure and volume (body) forces (inviscid flows only).
+\begin{remark}
+  Note that at the surface, the stress exerted by the fluid at the surface is $ p\mathbf n $.
+\end{remark}
+Let's see an application of the momentum equation. Consider a $ 90^{\text o} $ bent pipe with a flow $ U $. What is the force exerted by flow on the pipe for a steady flow without gravity? 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
