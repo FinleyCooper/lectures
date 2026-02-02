@@ -341,6 +341,120 @@ This leads to the \textit{multipole expansion} of the potential,
 \[
 	\Phi(\x) = \frac 1{4\pi \varepsilon_0} \left(\frac Qr + \frac{\mathbf p\cdot\x}{r^2} + \frac 12 \frac{Q_{ij}x_ix_j}{r^5}+\cdots\right).
 \]
+The first three multipole moments:
+\begin{enumerate}
+	\item The total charge, $ Q=\int_V \rho(\mathbf x)\  \mathrm d^3 \x $.
+	\item The electric dipole moment $ \mathbf p =\int_V \x \rho(\x)\ \mathrm d^3 \x $.
+	\item The electric quadrupole moment. This is a second order tensor which is traceless and symmetric,
+		\[
+			Q_{ij} = \int_V (3x_ix_j - |\x|^2 \delta_{ij})\rho (\x)\ \mathrm d^3 \x.
+		\]
+\end{enumerate}
+For $ \gg R $, $ \Phi $ and $ \mathbf E $ look increasingly like those of a point charge $ Q $, unless $ Q=0 $, in which case they look like those of a point dipole, unless $ \mathbf p = 0 $, etc.
+\subsection{Electrostatic energy}
+The work done against the electric force, $ \mathbf F = q\mathbf E $, in bringing in a particle of charge q from infinity (where we assume that $ \Phi=0 $ at infinity) to $ \x $ is 
+\[
+	-\int_{\infty}^{\x} \mathbf F \cdot\mathrm d\x = +q\int_\infty^{\x} \nabla\Phi\cdot\mathrm d\x = q\Phi(\x).
+\]
+Consider assembling a confriguration of $ N $ point charges one by one. Particle $ i $ of charge $ q_i $ is brought from $ \infty $ to $ \x_i $ while the previous particles remain fixed. For the first particle no work is involved, $ W_1 = 0 $. For the second particle
+\[
+	W_2 = q_2\left(\frac{q_1}{4\pi\varepsilon_0 |\x_2-\x_1|}\right)
+\]
+and for the third particle
+\[
+	W_3 = q_3\left(\frac{q_1}{4\pi\varepsilon_0 |\x_3-\x_1|} + \frac{q_2}{4\pi\varepsilon_0 |\x_3-\x_2|}\right)
+\]
+So the total work done is
+\[
+	U= \sum_{i=1}^N W_i = \sum_{i=2}^N\sum_{j=1}^{i-1} \frac{q_i q_j}{4\pi\varepsilon_0 |\x_i-\x_j|}.
+\]
+This can be rewritten as
+\[
+U=	\frac 12 \sum_{i=1}^N\sum_{j\ne i} \frac{q_iq_j}{4\pi \varepsilon_0|\x_i-\x_j|}.
+\]
+or
+\[
+	U = \frac 12 \sum_{i=1}^N q_i\Phi(\x_i).
+\]
+We can generalise to a continuous charge distribution $ \rho(\x) $ occupying a finite volume $ V $.
+\[
+  U= \frac 12 \int_V\rho(\x)\Phi(\x)\mathrm d^3 \x.
+\]
+Using the first Maxwell equation we ge that
+\begin{align*}
+	U &= \frac 12 \int_V(\varepsilon_0 \grad\cdot \mathbf E)\Phi\mathrm dV \\
+	  &= \frac{\varepsilon_0}2 \int_V\left(\nabla\cdot(\Phi\mathbf E) - \mathbf E \cdot \nabla \Phi\right)\mathrm dV\\
+	  &= \frac{\varepsilon_0}2 \int_S \Phi \mathbf E \cdot\mathrm d\mathbf S + \int_V \frac{\varepsilon_0 |\mathbf E|^2}2 \mathrm dV.
+\end{align*}
+Let $ S=\partial V $ be a sphere of radius $ R\to\infty $. Then $ \Phi= O(\inv R) $ and $ \mathbf E = O(R^{-2}) $ on $ S $ while the area of $ S $ is $ O(R^2) $, so $ \int_S $ is $ O(\inv R) $ and $ \to 0 $ as $ R\to\infty $. Then
+\[
+	U = \int\frac{\varepsilon_0 |\mathbf E|^2}2 \mathrm dV
+\]
+where the integral is taken over all space, not just the volume where the charges are contained.
+\begin{remark}
+  This implies that energy is stored is the electric field, even in a vacuum.
+\end{remark}
+Any of expression for $ U $ suggests that the self-energy of a point charge is infinite, hence for $ U $ to be useful, we discard all self-energies since it is unchanging and causes no force.
+\subsection{Conductors} 
+In a \textit{conductor} such as a metal, some charges can move freely. In electrostatics we require
+\[
+	\mathbf E = 0, \qquad \Phi=\text{constant}
+\]
+inside a conductor, hence $ \rho = 0 $. Otherwise free charges would move in a response to the electric force and a current would flow.\par
+However a surface charge density $ \sigma $ can exist on the surface of a conductor, which is an equipotential.\par
+Taking $ \mathbf n $ to point out of the conductor, the condition,
+\[
+	\mathbf n \cdot\mathbf E = \frac\sigma{\varepsilon_0}
+\]
+becomes
+\[
+	\mathbf n \cdot\mathbf E = \frac{\sigma}{\varepsilon_0}\quad\text{ immediately outside the conductor}.
+\]
+The constant potential of a conductor can be set by connecting it to a battery or another conductor.
+\begin{definition}
+	(Earthed/Grounded conductor) An \textit{earthed} or \textit{grounded} conductor is connected to the ground, usually taken as $ \Phi = 0 $.
+\end{definition}
+To find $ \Phi(\x) $ and $ \mathbf E(\x) $ due to the charge distribution $ \rho(\x) $ in the presence of conductors with surface $ S_i $ and potentials $ \Phi_i $ we solve Poisson's equation
+\[
+	-\nabla^2 \Phi = \frac\rho{\varepsilon_0}
+\]
+with Dirichlet boundary conditions
+\[
+	\Phi = \Phi_i\quad\text{on } S_i.
+\]
+The solution depends linearly on $ \rho $ and $ \{\Phi_i\} $.\par
+Let's see an example. Take a point charge $ q $ at position $ (0,0,h) $ in a half space $ (z>0) $ bounded by an earthed conducting wall. Hence we have the boundary condition $ \Phi = 0 $ on $ z=0 $. By the method of images, the solution in $ z>0 $ is identical to that of a dipole, with image charge $ -q $ placed at $ (0,0,-h) $. The wall coincides with an equipotential of the dipole, namely the line with $ \Phi = 0 $ which is the same as our boundary condition. The induced surface charge density on the wall can be worked out from
+\[
+	\frac\sigma{\varepsilon_0} = \mathbf n\cdot\mathbf E = E_z= -\frac{2qh}{4\pi\varepsilon_0(r^2+h^2)^{3/2}}.
+\]
+The total induced surface charge is
+\begin{align*}
+	\int_0^\infty \sigma\ 2\pi r \ \mathrm dr &= -qh \int_0^\infty \frac{r\ \mathrm dr}{(r^2+h^2)^{3/2}}\\
+	&= -q
+\end{align*}
+which is equal to the image charge.
+\begin{definition}
+	(Capacitor) A simple \textit{capacitor} constants of two seperated conductors carrying charges $ \pm Q $. If the potential difference between them is $ V $, then the capacitance is defined by
+	\[
+	  C = \frac QV
+	\]
+	and depends only on the geometry, because $ \Phi $ depends linearly on $ Q $.
+\end{definition}
+For example, consider two infinite parallel plates seperated by some distance $ d $. Let the plate surfaces at $ z=0, z=d $ have surface charge densities $ \pm \sigma $. Then $ \mathbf E = E \mathbf e_z $ with $ E= \sigma/\varepsilon_0  = \text{const.}$ for $ 0<z<d $, with $ \mathbf E = 0 $ elsewhere. So
+\[
+	\Phi = -Ez + \text{const},\quad\text{and}\quad V = Ed.
+\]
+The same solution holds approximately for parallel plates of $ A\gg d^2 $ if end effects are neglected.
+
+
+
+
+
+
+
+
+
+
 
 
 

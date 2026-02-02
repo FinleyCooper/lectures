@@ -167,7 +167,7 @@ Given that this true for any fixed volume $ V $, the integrand must be zero, hen
 \]
 This becomes
 \[
-	u_i\left[\frac{\partial \rho}{\partial t}+\frac{\partial}{\partial x_j}(\rho u_j)\right]+\rho\left[\frac{\partial u_i}{\partial t} + u_j\frac{\partial}{\partial x_j} u_i\right]=-\frac{\partial p}{\partial x_i} + f_i
+	u_i\left[\frac{\partial \rho}{\partial t}+\frac{\partial}{\partial x_j}(\rho u_j)\right]+\rho\left[\frac{\partial u_i}{\partial t} + u_j\frac{\partial}{\partial x_j} u_i\right]=-\frac{\partial p}{\partial x_i} + f_i.
 \]
 So using mass conservation on the first part we get some simplification, so going back to vector form we have the Euler momentum equation,
 \[
@@ -178,30 +178,84 @@ Fluid particles accelerate under differences in pressure and volume (body) force
 \begin{remark}
   Note that at the surface, the stress exerted by the fluid at the surface is $ p\mathbf n $.
 \end{remark}
-Let's see an application of the momentum equation. Consider a $ 90^{\text o} $ bent pipe with a flow $ U $. What is the force exerted by flow on the pipe for a steady flow without gravity? 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Let's see an application of the momentum equation. Consider a $ 90^{\text o} $ bent pipe with a flow $ U $. What is the force exerted by flow on the pipe for a steady flow without gravity? We will use the Euler momentum integral equation. Since the flow is steady, the LHS term is  zero and since there is no gravity, the volume force term is zero. Hence we have that
+\[
+	\int_{\text{walls}} + \int_{\text{end}}[\rho \mathbf u (\mathbf u\cdot n ) p\mathbf n]\mathrm dA = 0
+\]
+and because of our kinetmatic boundary condition, $ \mathbf u\cdot\mathbf n = 0	$, so our integral across the walls becomes
+\begin{align*}
+	\int_{\text{walls}} p\mathbf n\ \mathrm d A =\mathbf F = \text{Force exerted by fluid flow on the pipe}.
+\end{align*}
+Across the ends,
+\[
+	\int_{\text{in} +\text{ out}} [\rho\mathbf u(\mathbf u\cdot\mathbf n)+p\mathbf ][\mathrm dA  = \rho(-U)(-U\mathbf n_1)A_1+p_1\mathbf n_1+\rho U(U\mathbf n_2) A_2 + p_2\mathbf n_2 A_2.
+\]
+W ehave that $ p=p_1=p_2 $ and $ A_1=A_2=A $ so the integral becomes
+\[
+	=A[(p+\rho U^2)(\mathbf n_1+\mathbf n_2)],
+\]
+hence
+\[
+  \mathbf F = -A(p+\rho U^2)(\mathbf n_1+\mathbf n_2).
+\]
+\subsection{Bernoulli equation for steady flow with potential forces}
+There are \textit{two} Bernoullli equations in the course. We'll look at the first one for steady flow here\par
+Recall from the Euler equation that
+\[
+	\rho\left(\frac{\partial\mathbf u}{\partial t} + (\mathbf u \cdot\nabla)\mathbf u\right) = -\nabla p+ \mathbf F.
+\]
+We will assume that
+\begin{enumerate}
+	\item We have steady flow so $ \frac{\partial}{\partial t}= 0 $.
+	\item $ \rho $ is constant (as always in IB Fluid Dynamics).
+	\item $ \mathbf F = - \nabla \chi $ (conservative force).
+\end{enumerate}
+So the Euler equation gives that
+\[
+  \rho(\mathbf u \cdot \nabla \mathbf u) = -\nabla(p+\chi).
+\]
+Now we have the identity
+\[
+	(\mathbf u\cdot \nabla)\mathbf u = \nabla\left(\frac 12 u^2\right) -\mathbf u \times(\nabla\times \mathbf u),
+\]
+which gives that 
+\begin{align*}
+	\rho\left[\nabla\left(\frac 12 u^2\right)-\mathbf u\times(\nabla\times \mathbf u)\right] = -\nabla(p+\chi).
+\end{align*}
+Now since $ \rho $ is constant we can move it inside the $ \nabla $. We'll now define $ \boldsymbol\omega = \nabla\times \mathbf u $, the \textit{vorticity} of the fluid, giving,
+\[
+	\nabla\left[\frac 12 \rho u^2+p+\chi\right]= \rho\mathbf u\times \boldsymbol\omega.
+\]
+We like to dot this with $ \mathbf u $ to get the Steady Bernoulli equation,
+\[
+\mathbf u \cdot\nabla\left[\frac 12 \rho u^2 + p+\chi\right]=0.
+\]
+So this value $ H = \frac 12 \rho u^2 + p +\chi $ is constant on streamlines for steady flow. The physical consequence of this is that when $ u $ increases, $ p $ decreases (ignoring gravity). Let's now see a simple application.
+\subsubsection{Tank of fluid with small drain}
+Take a tank full of fluid with a small hole at the bottom. The water height has height $ h $ and the fluid exists the tank with speed $ u $. We assume that the size of the hole is small enough so the flow is steady. At the top of the tank, the pressure is atmospherical pressure and the exist it is the same. Taking a streamline from the top on the tank to the exist we'll use the steady flow Bernoulli equation. We have gravity so $ \chi = - \rho gh $. At the top we have $ H_1 $ and at the bottom we have $ H_2 $, from Bernoulli, $ H_1=H_2 $,
+\[
+  \frac 12 \rho u^2 = \rho gh,
+\]
+so 
+\[
+	u=\sqrt{2gh}.
+\]
+\begin{remark}
+  We take the hole very small, so $ u=0 $ (approximately) at the top of the tank.
+\end{remark}
+\subsubsection{Venturi meter}
+This is a device to measure flow rates with no moving parts. We ignore gravity and assume the flow is steady and uniform across any cross section (gentle variations in the cross section $ A $). The device is a pipe which is pinched in the middle to a much smaller cross section area. Before the pinch we have $ A_1,u_1,p_1 $ and in the pinched area we have $ A_2,u_2,p_2 $. By conservation of mass, $ A_1u_1=A_2u_2 $. Now we attach two linked tubes of fluid which have a difference in height of fluid $ h $ one at the first point, and the other at the second point. From the Steady Bernoulli equation, $ \frac 12 \rho u_1^2 + p_1 = \frac \rho u_2^2 + p_2 $. So using our mass conservation,
+\[
+	p_1-p_2 = \frac 12 \rho u_1^2\left(\frac{A_1^2}{A_2^2} -1\right).
+\]
+If we measure $ h $ using hydrostatic balance,
+\[
+	\rho gh = \frac 12 \rho u_1^2 \left(\frac{A_1^2}{A_2^2} - 1\right)
+\]
+hence
+\[
+	A_1u_1 = \sqrt{2gh}\frac{A_1A_2}{\sqrt{A_1^2 -A_2^2}}.
+\]
 
 
 
