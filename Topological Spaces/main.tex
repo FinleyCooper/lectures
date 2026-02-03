@@ -209,6 +209,81 @@ Since $ f\mid_{U_\alpha} $ are continuous, we have that $ \inv f\mid_{U_\alpha} 
 The second part can be proved the same using the closed set definition of continuity.\qed
 \par
 If $ (X,d) $ is a metric space with topology $ T_d $ and $ Y\subseteq X $ then $ T_d\mid_Y $ is the topology induced by $ d\mid_Y $.\par
+\subsubsection{The quotient topology}
+\begin{definition}
+	(Quotient topology) Let $ (X,T_X) $ be a topological space, $ \sim $ an equivalence relation on $ X $ and $ X/\sim $ is the set of equivalence classes, and $ \pi:X\to X/\sim $ the equivalence map. The \textit{quotient toplogy} on $ X/\sim $ is
+	\[
+		T_{X/\sim} = \{U\subset X/\sim \mid \inv\pi (U)\in T_X\}.
+	\]
+\end{definition}
+\begin{proposition}
+	$ T_{X/\sim} $ is indeed a topology.
+\end{proposition}
+\pf $ \emptyset = \inv\pi(\emptyset)\in T_X $ so $ \emptyset \in T_{X/\sim} $. $ X=\inv\pi(X/\sim)\in T_X $ so $ X/\sim \in T_{X/\sim} $. Let $ \{U_\alpha\} $ be a collection of sets of $ T_{X/\sim} $, then
+\[
+	\inv\pi\left(\bigcup_{\alpha\in I}U_\alpha\right) = \bigcup_{\alpha\in I}\inv \pi (U_\alpha),
+\]
+and $ \inv\pi(U_\alpha)\in T_X $, so the union is too. Hence $ \bigcup_{\alpha\in I}U_\alpha\in T_{X/\sim} $. We have a similar proof for finite intersections. \qed
+\begin{proposition}
+	The quotient map $ \pi:(X,T_X)\to (X/\sim, T_{X/\sim}) $ is continuous and $ T_{X/\sim} $ is the finest topology for which this is true.
+\end{proposition}
+\pf This is a tautology.\qed
+\par
+An alternative characterisation of the quotient topology is that $ f:X/\sim \to Y $ is continuous if and only if $ f\circ \pi:X\to Y $ is continuous.
+\begin{definition}
+	For a continuous function $ g:(X,T_X)\to (Y,T_Y) $ is a \textit{quotient map} if it surjective and $ U\in T_Y \iff \inv g(Y)\in T_X$.\par
+	Given, this construct $ \sim $ on $ X $ by $ x\sim x' \iff g(x)=g(x')$. There is an induced function $ G:X/\sim \to Y $ sending $ G([x]) = g(x) $. 
+\end{definition}
+\begin{remark}
+  This function $ G $ is a bijection and continuous with a continuous inverse. This means that $ G $ is a homeomorphism, so $ X/\sim\ \cong Y $.
+\end{remark}
+Let's see an example on $ \R $. Consider $ x\sim y\iff x-y\in \Z $. What is $ \R/\sim $? Consider $ f:\R\to \R^2 $ defined by $ x\to(\sin(2\pi x), \cos(2\pi x)) $. This is a continuous map so $ f:\R\to S^1\subseteq \R^2 $ is also continuous and surjective. By periodicity $ x\sim y\iff f(x)=f(y) $, so we get $ F:\R/\sim \to S^1 $ which we can check is a homeomorphism.
+\par
+Now take the example $ X=\R\times \{0,1\}\subseteq \R^2 $ with the standard subspace topology. Let $ (x,i)\sim (y,j)\iff (x,i)=(y,j) $ or $ x=y\ne 0 $. We can then think of $ X/\sim $ is a line with two origins. We cannot draw $ X/\sim $ since it is not Hausdorff. Any neighbourhood of $ [(0,0)]_\sim $ intersects any neighbourhood of $ [(1,0)]_\sim $ so not Hausdorff. Hence it is not subspace of any Euclidean space.
+\subsubspace{The product topology}
+For sets $ X,Y $ the projections functions are
+\begin{align*}
+	\pi_X : &X\times Y \to X\\
+	      &(x,y) \to x
+\end{align*}
+and
+\begin{align*}
+	\pi_Y : &X\times Y \to Y\\
+	      &(x,y) \to y
+\end{align*}
+\begin{definition}
+	(Product topology) Let $ (X,T_X) $ and $ (Y,T_Y) $ be topological spaces. Then \textit{product topology} on $ X\times Y $ consists of open sets $ U\subseteq X\times Y $ such that for $ (x,y)\in U $ there is a $ V\in T_X $ and $ W\in T_Y $ such that $ (x,y)\in V\times W\in U $.
+\end{definition}
+\begin{proposition}
+	This indeed is a topology and the sets $ V\times W $ are a basis for $ T_{X\times Y} $.
+\end{proposition}
+\pf Tautologically, we have that $ \emptyset \in T_{X\times Y} $. Taking $ V=X,W=Y $ we have that $ X\times Y\in T_{X\times Y} $. For a collection $ \{U_\alpha\}_{\alpha\in I} $ of elements of $ T_{X\times Y} $, let $ (x,y)\in \bigcup_{\alpha\in I}U_\alpha $. Then $ (x,y)\in U_\beta $ for \some $ \beta\in I $ so there exists neighbourhoods of $ x,y $ with their product a subset of $ U_\beta\subseteq \bigcup_{\alpha\in I} U_\alpha \in T_{X\times Y}$.  If $ I $ is finite and $ (x,y)\in \bigcap_{\alpha\in I}U_\alpha $. Then $ (x,y)\in V_\alpha\times W_\alpha \subseteq U_\alpha $ for each $ \alpha\in I $. So $ (x,y)\in \left(\bigcap_\alpha V_\alpha\right)\times\left(\bigcap_\alpha W_\alpha\right)\in \bigcap_\alpha U_\alpha $ and since these intersections are finite, these intersections are open.\qed
+\begin{proposition}
+  The projection maps 
+  \[
+	  \pi_X:(X\times Y, T_{X\times Y})\to (X,T_{X})\qquad \pi_Y:(X\times Y,T_{X\times Y})\to (Y,T_Y)
+  \]
+  are continuous and $ T_{X\times Y} $ is the coarsest topology for which this is true.
+\end{proposition}
+\pf Let $ V\in T_X $. Then $ \inv \pi_X(V) = V\times Y $, so this is open. Hence $ \pi_X,\pi_Y $ are continuous.\par
+Suppose that $ T' $ is a topology on $ X\times Y $ such that $ \pi_X $ and $ \pi_Y $ are continuous, then $ \inv \pi_X(V)=V\times Y $ is open and $ \inv \pi_Y(W)=X\times W $ is open. So $ V\times W $ is open in $ T' $, so $ T_{X\times Y}\subseteq T' $.\qed 
+\par
+The universal property of the product topology is that the function
+\[
+	f:(Z,T_Z)\to (X\times Y,T_{X\times Y})
+\]
+is continuous if and only if $ \pi_X\circ f:(Z,T_Z)\to (X,T_X) $ and $ \pi_Y\circ f:(Z,T_Z)\to (Y,T_Y) $ are continuous. Equivalently, if $ f $ is componentwise continuous.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

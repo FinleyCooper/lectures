@@ -230,7 +230,7 @@ Let's see another example. Let $ X_1,\dots,X_n $ be iid uniform on $ [0,\theta] 
   Minimal sufficient statistics are unique up to bijection. 
 \end{remark}
 \begin{theorem}
-	SUppose $ T(X) $ is a statistics such that $ \frac{f_X(x\mid \theta)}{f_X(y\mid \theta)} $ is constnat a function of $ \theta $ if and only if $ T(x)=T(y) $. Then $ T $ is minimal statistics.
+	Suppose $ T(X) $ is a statistics such that $ \frac{f_X(x\mid \theta)}{f_X(y\mid \theta)} $ is constant a function of $ \theta $ if and only if $ T(x)=T(y) $. Then $ T $ is minimal sufficient.
 \end{theorem}
 Let's see an example before we prove this. Suppose that $ X_1,\dots, X_n\sim\mathcal N(\mu,\sigma^2) $. Then
 \begin{align*}
@@ -238,19 +238,74 @@ Let's see an example before we prove this. Suppose that $ X_1,\dots, X_n\sim\mat
 								&=\exp\left(-\frac{1}{2\sigma^2}\left(\sum_i x_i^2 - \sum_i y_i^2\right)+\frac \mu{\sigma^2}\left(\sum_i x_i-\sum_i y_i\right)\right)
 \end{align*}
 This is constant in $ (\mu,\sigma^2) $ if and only if $ \sum_i x_i=\sum_i y_i $ and $ \sum_i x_i^2 = \sum_i y_i^2 $ therefore $ T(X)=\left(\sum_{i=1}^n X_i,\sum_{i=1}^n X_i^2\right) $ is minimal sufficient.
-\pf Need to show that such a statistics is sufficient and minimal. First we'll show sufficciency. For each $ t $ pick a $ x_t $ such that $ T(x_t) = t $. Now let $ x\in \chi_^N $ and let $ T(x)=t $. So $ T(x) = T(x_t) $, so by the hypothesis $ \frac{f_X(x,\theta)}{f_X(x_t,\theta)} $ does not depend on $ \theta $. Let this be $ h(x) $ and let $ g(t,\theta) = f_X(x,\theta) $ then we have that $ f_X(x,\theta)=g(t,\theta)h(x) $ so sufficient.
-
-
-
-
-
-
-
-
-
-
-
-
+\par
+\pf Need to show that such a statistics is sufficient and minimal. First we'll show sufficiency. For each $ t $ pick a $ x_t $ such that $ T(x_t) = t $. Now let $ x\in \chi_^N $ and let $ T(x)=t $. So $ T(x) = T(x_t) $, so by the hypothesis $ \frac{f_X(x,\theta)}{f_X(x_t,\theta)} $ does not depend on $ \theta $. Let this be $ h(x) $ and let $ g(t,\theta) = f_X(x,\theta) $ then we have that $ f_X(x,\theta)=g(t,\theta)h(x) $ so sufficient.\par
+Now let $ S $ be any other sufficient statistic. By the factorisation criterion, there exists $ g_S, h_S $ such that $ f_X(x\mid\theta)=G_S(S(x),\theta)h_S(x) $. Suppose $ S(x)=S(y) $. Then
+\begin{align*}
+	\frac{f_X(x\mid \theta)}{f_X(y\mid\theta)} = \frac{g_S(S(x),\theta)h_S(x)}{g_S(S(y),\theta)h_S(y)} = \frac{h_S(x)}{h_S(y)}
+\end{align*}
+which does not depend on $ \theta $ so $ T(x)=T(y) $ so $ T $ is minimal sufficient.\qed
+\par
+We know that bijections of minimal sufficient statistics are still minial sufficient statistics, so we can write our minimal sufficient statistic for $ X_1,\dots, X_n\sim\mathcal N(\mu,\sigma^2) $ as
+\[
+	S(X)=(\overline X,S_{XX})
+\]
+where $ \overline X = \frac 1n \sum_i X_i $ and $ S_{XX} = \sum_i(X_i-\overline X)^2 $, since there is a bijection between them.\par
+Until now we used $ \mathbb E_\theta $ and $ \mathbb P_\theta $ to denote expectation and probability when $ X_1,\dots, X_n $ are iid from a distribution with pdf $ f_X(x\mid \theta) $. From now on we drop the subscript $ \theta $ to simplify notation.
+\begin{theorem}
+	(Rao-Blackwell Theorem) Let $ T $ be a sufficient statistic for $ \theta $ and let $ \tilde\theta $ be an estimator for $ \theta $ with $ \mathbb E(\tilde\theta^2)<\infty,\ \forall\theta $. Define a new estimator $ \hat\theta = \mathbb E[\tilde\theta\mid T(X)] $. Then for all $\theta $,
+	\[
+		\mathbb E[(\hat\theta-\theta)^2] \le \mathbb E[(\tilde\theta-\theta)^2].
+	\]
+	This inequality is strict unless $ \tilde\theta $ is a function of $ T $.
+\end{theorem}
+\begin{remark}
+	We have that $ \hat\theta(T)=\int \tilde\theta(x)f_{X\mid T}(x\mid T)\mathrm dx $. By sufficiency of $ T $, the conditional pdf does \textit{not} depend on $ \theta $ so $ \hat \theta $ does not depend on $ \theta $, and is valid estimator.
+\end{remark}
+\pf By the tower property of expectation,
+\[
+	\mathbb E[\hat\theta] = \mathbb E[ \mathbb E(\tilde\theta\mid T)] = \mathbb E[\tilde \theta].
+\]
+So $ \mathrm{bias}(\hat\theta) = \mathrm{bias}(\tilde\theta) $ for all $ \theta $. By the conditional variance formula,
+\begin{align*}
+	\Var{\tilde \theta} &= \mathbb E\left[\Var{\tilde\theta\mid T}\right] + \Var{\mathbb E\left(\tilde \theta\mid T\right)}\\
+			    &= \mathbb E\left[\Var{\tilde\theta\mid T}\right] + \Var{\hat\theta}\\
+			    &\ge \Var{\hat\theta}.
+\end{align*}
+So
+\[
+	\mathrm{mse}(\tilde\theta)\ge \mathrm{mse}(\hat\theta).
+\]
+Equality is achieved only when $ \Var{\tilde\theta\mid T} = 0 $ with probability $ 1 $ which requiers $ \tilde \theta $ to be a function of $ T $.\qed
+\par Let's see an example of this. Suppose that $ X_1,\dots, X_n\sim \text{Poisson}(\lambda) $ iid. Let $ \theta = \prob{X_1=0}=e^{-\lambda} $. Then
+\[
+	f_X(x\mid\theta) = \frac{e^{-n\lambda}\lambda^{\sum x_i}}{\prod_i x_i!} = \frac{\theta^n (-\log \theta)^{\sum x_i}}{\prod_i x_i!}.
+\]
+By the factorisation criterion, $ T(X) = \sum_i x_i $ is sufficient. Recall that $ \sum x_i \sim \text{Poisson}(n\lambda) $. Let $ \tilde\theta = \mathbf 1\{X_1 = 0\} $. Then
+\begin{align*}
+	\hat \theta = \mathbb E[\tilde\theta\mid T=t] &= \prob{X_1 = 0\mid \sum_{i=1}^n X_i = t}\\
+						      &= \frac{\prob{X_1  =0, \sum_{i=2}^n X_i = t}}{\prob{\sum_{i=1}^n X_i = t}}\\
+						      &= \frac{\prob{X_1 = 0}\prob{\sum_{i=2}^n X_i = t}}{\prob{\sum_{i=1}^n X_i =t}}\\
+						      &= \frac{e^{-\lambda }e^{-(n-1)\lambda}\frac{((n-1)\lambda)^t}{t!}}{e^{-n\lambda} \frac{(n\lambda)^t}{t!}} = \left(\frac{n-1}n\right)^t
+\end{align*}
+Hence $ \hat\theta= \left(1-\frac1n\right)^{\sum x_i} $ has $ \mathrm{mse}(\hat\theta)< \mathrm{mse}(\tilde\theta) $ for all $ \theta $.  We can see that as $ n\to \infty $, $ \hat\theta\to e^{-\overline X} = e^{-\lambda} =\theta$.
+\par
+Let $ X_1,\dots, X_n\sim \mathrm{Uniform}([0,\theta]) $ and suppose we want to estimate $ \theta\ge 0 $. Last time we saw that $ T = \max{X_i} $ is sufficient for $ \theta $. Let $ \tilde\theta = 2X_1 $ be an estimator (unbias). Then
+\begin{align*}
+	\hat \theta = \mathbb E[\tilde\theta\mid T=t] &= 2\mathbb E[X_1\mid \max X_i =t]\\
+						      &= 2\mathbb E[X_1\mid \max X_i = t, X_1 = \max X_i]\prob{X_1 = \max X_i\mid \max X_i = t}\\
+						      &\qquad+ 2\mathbb E[X_1\mid \max X_i =t, X_1\ne \max X_i] \prob{X_1\ne \max X_i \mid \max X_i t}\\
+						      &= 2t\frac 1n + 2\mathbb E\left[X_1\mid X_1<t, \max_{i>1} X_i =t\right]\left(\frac{n-1}n\right)\\
+						      &=\left(\frac{n+1}n\right)t.
+\end{align*}
+Hence $ \hat\theta = \frac{n+1}n \max_i X_i $ is an estimator with $\text{mse}(\hat\theta)<\text{mse}(\tilde\theta) $.
+\begin{definition}
+	(Likelihood) Let $ X=(X_1,\dots X_n) $ have a joint pdf $ f_X(x\mid \theta) $. The \textit{likelihood} of $ \theta $ is the function
+	\[
+	  L:\theta \to f_X(x\mid\theta).
+	\]
+	The max likelihood estimator (MLE) is the value of $ \theta $ maximizing $ L $.
+\end{definition}
 
 
 
