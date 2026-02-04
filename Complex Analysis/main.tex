@@ -3,12 +3,14 @@
 \title{Complex Analysis}
 \author{Notes by Finley Cooper}
 \newcommand{\Arg}{\mathrm{Arg}}
+\newcommand{\Log}{\mathrm{Log}}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
   \section{Complex Differentiation}
+  \subsection{Definitions}
   The goal of this course is to develop the surprisingly rich theory of complex valued functions of one complex variable and the theory of integrating such functions along complex paths. The motivations for investigating such topics are complex polynomials of interest in geometry and number theory.\par
   We will also look at functions defined by power series such as the map from $ s\to \sum_{n\in N}\frac 1{n^s} = \zeta(s) $ will define a complex differentiable function for $ \Re(s)>1 $. There is also a connection to harmonic functions which is developed further in Analysis of Functions. We can also use complex methods to solve classical integrals or and differential equations which is developed more in IB Complex Methods.\par
   For this course we will use $ z\in \C $ and $ x=\Re(z), y=\Im(z) $. We will also use $ \theta $ for the argument of $ z $, $ \arg(z) $ which is well-defined up to adding $ 2\pi \Z $. We will use the principal argument $ \Arg(z)\in(-\pi,\pi] $.
@@ -141,6 +143,138 @@ Recall further that Mobius maps send circlines to circlines (where a circline is
 Suppose we have a sector bounded between lines $ L_1, L_2 $. What are the images of a sector under a Mobius map? This depends on if our Mobius map $ T $ is such that $ \inv T(\infty) \in L_1 $ or $ \inv T(\infty) \in L_2 $. Any region formed by two non-pallel lines, a circle and a line, or two circles could be image under a Mobius map.
 \par
 The \textit{Joukowsky transform} is the map sending $ z\to \frac 12\left(z+\frac 1z\right) =\frac{z^2+ 1}{2z}$. We can compute that $ f'(z) = \frac 12-\frac 1{2z^2} $ and $ f $ is holomorphic except at $ 0 $ and is conformal except at $ 0 $ and $ \pm 1 $. Take the circle passing through $ -1 $ and $ -i $ not centred at the origin. Under the map $ f $, creates a kink at $ -1 $ since it's not conformal, but the curve is nice everywhere else since it's conformal on the rest of the circle. The transformed curve resembles an aerofoil. The incompressible fluid equations, $ \nabla\times v = 0, v=\nabla \phi $ implies that $ \nabla^2 \phi $ vanishes, so $ \phi $ is harmonic. So $ \phi $ is locally $ \Re(f) $, with $ f $ holomorphic. This is used to transfer questions about fluid flow about complicated shapes to the much simplier circle.
+\par
+Let $ S^1 =\partial \mathbb D = \{x\in \C: |x|=1\} $
+\begin{definition}
+	(Simply connceted) Let $ U\in \C $ be a domain. We say that $ U $ is \textit{simply connected} if every continuous map $ \gamma: S^1 \to U $ extends to a map  $ \hat\gamma:\overline{\mathbb{D}}\to U $ such that $ \hat\gamma\mid_{\partial \mathbb{D}} = \gamma $.
+\end{definition}
+\begin{remark}
+  This is the notion that any loop can be continuously shrunk to a point.
+\end{remark}
+For example for the annulus, if we take $ \gamma $ to be the closed path going all the way around the annulus, we will later prove that no such $ \hat\gamma $ can exist.
+\begin{theorem}
+	(Riemann mapping theorem) If $ U\subset \C $ is a proper subdomain and $ U $ is simply connected, then $ U $ is conformally equivalent to the disc, $ \mathbb D = \{z:|z|<1\} $.
+\end{theorem}
+\begin{remark}
+  The notation of being simply connected is invariant under conformal equivalences. Being simply connected is a topological property and is invariant under any homeomorphism (since conformal maps are homeomorphism).
+\end{remark}
+\begin{remark}
+  The condition that $ U\ne \C $ is essential. If $ \C $ was conformally equivalent to the open disc then there would exist a function $ f: \C\to \mathbb D $ conformal, hence a homeomorphism, but from IB Topological Spaces, homeomorphisms are closed maps, hence since $ \C $ is closed, $ \mathbb D $ should be closed, but it isn't hence $ f $ cannot exist. We will see a non-topological proof later in the course.
+\end{remark}
+A useful construction of holomorphic functions (and we'll see later the universal construction) is convergent power series.
+\subsection{Power series}
+Let's see some reminders from IB Analysis II.
+\begin{enumerate}
+	\item A sequence $ f_n $ of functions on a set $ T $ converges uniformly to a function $ f $ on $ T $ if that $ \forall \varepsilon>0\ \exists N\ \st \ \forall \ n\ge N\in \N,\ |f_n(x)-f(x)|<\varepsilon $.
+	\item The uniform limit of continuous functions is continuous.
+	\item The Weiestress M-test says that if we have values $ M_n\in \R_{>0} $ such that $ |f_n(x)|\le M_n $ for all $ x\in T $, then if $ \sum_{n=1}^\infty M_n $ converges, then the series $ \sum_{n=1}^\infty f_n(x) $ converges absolutely and uniformly on $ T $.
+	\item Suppose we have a sequence $ \{a_n\} $ then there is a unique $ R\in [0,\infty] $ such that the series $ \sum_{n=0}^\infty a_n (z-a)^n $ converges absolutely if $ |z-a|<R $ and diverges if $ |z-a|>R $. Moreover if $ 0<r<R $ then the series converges uniformly on $ \{z:|z-a|<r\} $. This is called the radius of convergence. The root test says that
+		\[
+			R = \frac1{\limsup_{n\to\infty} \sqrt[n]{|a_n|}}.
+		\]
+\end{enumerate}
+\begin{theorem}
+  Suppose that
+  \[
+	  f(z) = \sum_{n=0}^\infty c_n(z-a)^n
+  \]
+  is a complex power series with radius of convergence $ R>0 $. Then
+  \begin{enumerate}
+	  \item $ f $ is holomorphic on $ B(a,R) = \{z:|z-a|<R\} $;
+	  \item $ f'(z) = \sum nc_n(z-a)^{n-1} $ which also has radius of convergence $ R $;
+	  \item $ f $ is infinitely complex differentiable on $ B(a,R) $ with
+		  \[
+			  f^{(n)}(a)= n!c_n.
+		  \]
+  \end{enumerate}
+\end{theorem}
+\pf We can see (iii) follows from (ii) so enoughto prove (i) and (ii). Take $ a=0 $ \textit{wlog}. Since $ n|c_n|> |c_n| $ the radius of convergence of $ \sum_{n>= 1} nc_n(x_a)^{n-1} $ is at most $ R $. But if $ |z|< R_1 < R $ then we can see that
+\[
+	\frac{|nc_n z^{n-1}|}{|c_n R_1^{n-1}|} = n\left|\frac z{R_1}\right|^{n-1}\to 0
+\]
+which is true for all $ R_1<R $, hence the radius of convergence must be $ R $.\par
+Now to show $ f $ is differentiable with that derivative. Pick $ z,w $ with $ |z|,|w|\le R_1< R $. Define
+\[
+	\varphi(z,w) = \sum_{n=1}^\infty c_n\sum_{j=0}^{n-1} z^j w^{n-1-j}.
+\]
+We can see that
+\[
+	\left|c_n\sum_{j=0}^{n-1} z^j w^{n-1-j}\right|\le n|c_n|R_1^n
+\]
+so this convergences uniformly with $ |z|\le R_1 $ and $ |w|<R_1 $ so the limit is continuous. If $ z\ne w $ we can sum as a geometric series, so
+\[
+	\varphi(z,w) = \sum_{n=1}^\infty c_n\left(\frac{z^n - w^n}{z-w}\right) = \frac{f(z)-f(w)}{z-w}.
+\]
+Taking the limit as $ w\to z $ we get that
+\begin{align*}
+\lim_{w\to z} \frac{f(z)-f(w)}{z-w} &= \varphi(z,z)\\
+				    &= \sum_{n=1}^\infty c_n n z^{n-1} = f'(z).
+\end{align*}
+Hence we're done. \qed
+\begin{corollary}
+  Suppose we have a power series
+  \[
+	  f(z) = \sum_{n=-0}^\infty c_n(z-a)^n
+  \]
+  with $ R>0 $ and suppose that $ f $ vanishes on $ B(a,\varepsilon) $ with $ \varepsilon\in (0,R) $. Then $ f $ vanishes identically.
+\end{corollary}
+\pf All derivatives are zero at $ x=a $, hence $ f(z)=0 $\qed.
+\par
+Now we can define some familiar functions
+\subsection{Exponentials, logarithms, and branch cuts}
+\begin{definition}
+	(Exponential function) We define the function
+	\[
+		e^z = \exp(z) = \sum_{n=0}^\infty \frac{z^n}{n!},
+	\]
+	which has the properties
+	\begin{enumerate}
+		\item Radius of convergence is $ \infty $;
+		\item $ \frac d{dz} e^z = e^z $;
+		\item $ e^0 =1 $. If we fix $ w $ and let $ F(z) = e^{z+w}e^{-z} $ then $ F'(z) $ vanishes, hence $ F $ is constant, and $ F(0) = e^w $, so $ e^{z+w} = e^ze^w $ holds for all $ z,w\in \C $.
+		\item $ e^z $ never vanishes on $ \C $.
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+  We define the trigonometic functions again as we did in $ \R $. The exponential function, $ \sin $ and $ \cos $ are entire.
+\end{remark}
+This function is invertible over $ \R $, but in $ \C $ it is not invertible. In fact for every $ z\in \C $ there exists infinitely many $ w\in \C $ distinct such that $ e^w = z $. This can be seen since $ \exp $ is $ 2\pi i $ peroidic.
+\begin{definition}
+	(Branch of the logarithm) Let $ U\subseteq \C^* = \C \setminus \{0\} $ open. A continuous function $ \lambda: U\to \C $ is \textit{branch of the logarithm} on $ U $ if $ e^{\lambda(z)} = z $ for all $ z\in U $.
+\end{definition}
+The classical example is $ U = \C \setminus \R_{\le 0} $, the slit plane. Let $ \Log: U \to \C $ be the defined by $ \Log(z) = \log(z) + i\theta $ where $ \theta= \Arg(z) $. This is called the principal branch of the logarithm.
+\begin{proposition}
+	$ \Log $ is holomorphic on $ \C\setminus \R_{\le 0} $ with
+	\begin{enumerate}
+		\item  $ \frac{d}{dz}\Log(z) = \frac 1z $;
+		\item If $ |z|<1 $ then
+			\[
+				\Log(1+z) = \sum_{n=1}^\infty (-1)^{n-1}\frac {z^n}n.
+			\]
+	\end{enumerate}
+\end{proposition}
+\pf $ \Log $ is continuous on $ U $ and $ \exp $ is continuous on $ \C $. If $ z= e^x $ and $ w=e^y $, then
+\begin{align*}
+	\frac{\Log(z)-\Log(w)}{z-w} &= \frac{x-y}{e^x-e^y}
+\end{align*}
+which as $ x\to y $ converges to $ \frac 1{e^y} = \frac 1w $.\par
+By the ratio test, $ \Log(1+z) $ has a radius of convergence $ 1 $. We know that $ \Log(1+z) $ has derivative
+\[
+	1-z+z^2-\cdot = \frac 1{1+z}
+\]
+so since the claimed power series and $ \Log(1+z) $ have the same derivative, they differ by a constant, and since they are both zero at $ z=0 $, that constant is zero, so $ \Log(1+z) $ has the power series as claimed.\qed
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
