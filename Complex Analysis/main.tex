@@ -263,9 +263,121 @@ By the ratio test, $ \Log(1+z) $ has a radius of convergence $ 1 $. We know that
 	1-z+z^2-\cdot = \frac 1{1+z}
 \]
 so since the claimed power series and $ \Log(1+z) $ have the same derivative, they differ by a constant, and since they are both zero at $ z=0 $, that constant is zero, so $ \Log(1+z) $ has the power series as claimed.\qed
-
-
-
+\begin{remark}
+  \
+  \begin{enumerate}
+	  \item Later we'll see that there is no branch of the logarithm defined on $ \C^* $.
+	  \item You can define a continuous branch of $ \log $ on any simply connected domain not containing zero.
+  \end{enumerate}
+\end{remark}
+\begin{definition}
+	(Multivalued power function) For a value $ \alpha\in \C $, the multivalued function $ z^\alpha $ is by definition $ \exp(\alpha\log(z)). $.
+\end{definition}
+\begin{remark}
+	If for $ U\subseteq \C^* $ we have a branch of $ \log $ specified on $ U $, then $ z^\alpha $ becomes single-valued on $ U $.
+\end{remark}
+\begin{remark}
+	If $ \alpha\in \Z $, then this is single-valued and if $ \alpha\in \Q $ then it is finitely many valued, for example $ z^{1/2} $ has two values. Note we cannot define a square root function globally on $ \C $.
+\end{remark}
+The function $ f(z) = z(z-1) $ admits a single valued square root on each of the domains $ \C\setminus [0,1] $ and $ \C\setminus (\R_{\ge 0} \cup \R_{\ge 1}) $. Hence
+\begin{align*}
+	(z(z_1))^{\frac 12} = \exp(\frac 12 (\log(z) - \log(z-1))).
+\end{align*}
+So taking a path around the removed interval in the complex plane is fine since both $\log$ terms jump, giving a total jump $ 2\pi i$ which doesn't change the value since $ \exp $ is $ 2\pi i $ periodic.
+\begin{definition}
+	(Branch point) A point $ p\in \C $ is a \textit{branch point} of a multivalued function $ \phi $ if there is no continuous single-value definition of $ \phi $ in $ B(0,\varepsilon) $ for any $ \varepsilon > 0 $.
+\end{definition}
+For example $ 0 $ is a branch of $ \log $. $ \{0,1\} $ are branch points of $ (z(z-1))^{1/2} $.
+\section{Contour Integration}
+\subsection{Basic properties}
+\begin{definition}
+	(Riemann integrablility in $ \C $) A function $ f:[a,b]\to\C $ is \textit{Riemann integrable} if it's real and imaginary parts are both Riemann integrable and
+	\[
+		\int_a^b f(t)\mathrm dt = \int_a^b \Re(f(t)) \mathrm dt + i\int_a^b \Im(f(t)) \mathrm dt.
+	\]
+\end{definition}
+Note that we have
+\[
+	\left|\int_a^b f(t)\mathrm dt\right| \le \int_a^b |f(t)|\mathrm dt.
+\]
+From now on $ f $ will always be continuous and hence Riemann integrable.
+\begin{proposition}
+	For $ f:[a,b]\to \C $ we have that
+	\[
+		\left|\int_a^b f(t)\mathrm dt\right| \le \sup_{t\in[a,b]}|f(t)|(b-a)
+	\]
+	with equality if and only if $ f $ is constant.
+\end{proposition}
+\pf Let $ \theta = \Arg\int_a^b f(t)\mathrm dt $ and $ M =\sup_t |f(t)| $. Hence
+\begin{align*}
+	\left|\int_a^b f(t)\mathrm dt\right| &= e^{-i\theta} \int_a^b f(t)\mathrm dt\\
+					     &= \int_a^b \Re(e^{-i\theta} f(t))\mathrm dt\\
+					     &\le \int_a^b |e^{-i\theta} f(t)|\mathrm dt \\
+					     &\le M(b-a)
+\end{align*}
+and equality is equivalent to $ \Arg(\theta) $ being constant and $ |f| = M $ everywhere, hence equality occurs if and only if $ f $ is constant.\qed
+\par
+\begin{definition}
+	(Contour) A \textit{contour} is a simple, closed path.
+\end{definition}
+\begin{definition}
+	(Contour integral) If $ U $ is a domain, $ f:U\to \C $ is continuous and $ \gamma:[a,b]\to U $ is a $ C^1 $-smooth curve then
+	\[
+		\int_\gamma f(z) \mathrm dz = \int_a^b f(\gamma(t))\gamma'(t)\mathrm dt.
+	\]
+\end{definition}
+This definition extends in the obvious way to paths. We have some properties about contour integrals.
+\begin{enumerate}
+	\item They are linear;
+	\item They are additive along paths;
+	\item They are independent of parameterisation.
+\end{enumerate}
+\begin{remark}
+  If we set the length of $ \gamma $ as
+  \[
+    |\gamma| = \int_a^b |\gamma'(t)|\mathrm dt
+  \]
+  this is \textit{not} independent of parameterisation.
+\end{remark}
+If $ (-\gamma)(t) = \gamma(-t) $ so $ -\gamma: [-b,-a]\to U $, $ \int_{-\gamma} f = -\int_\gamma f $.
+\par
+Let $ U=C^* $ and $ f(z) = z^n $, $ n\in \Z $. Let $ \phi:[0,2\pi]\to U $ sending $ t\to e^{it} $ then
+\[
+  \int_\phi f(z)\mathrm dz = \begin{cases}
+     2\pi i & n = -1 \\
+     0 & \text{otherwise}
+  \end{cases}
+\]
+Let's prove this.
+\begin{align*}
+	\int_\phi f(z)\mathrm dz &= \int_0^{2\pi} e^{nit}(ie^{it})\mathrm dt \\
+				 &= i\int_0^{2\pi} e^{i(n+1)t} \mathrm dt\\
+				 &= \begin{cases}
+					 2\pi i & n+1 = 0\\
+					 0 & \text{otherwise}
+				 \end{cases}.
+\end{align*}
+\begin{theorem}
+	(Fundamental Theorem of Calculus) Suppose that $ U $ is a domain $ F:U\to \C $ is holomorphic and $ F'(z) $ is continuous on $ U $. Then for a path $ \gamma:[a,b]\to U $
+	\[
+	  \int_\gamma F'(z)\mathrm dz = F(\gamma(b)) - F(\gamma(a)).
+	\]
+	In particular if $ \gamma $ is closed then we get zero.
+\end{theorem}
+\pf 
+\begin{align*}
+	\int_\gamma F'(z)\mathrm dz &= \int_a^b F'(\gamma(t))\gamma'(t)\mathrm dt \\
+				    &= \int_a^b (F\circ \gamma)'(t)\mathrm dt\\
+				    &= (F\circ \gamma)(b) - (F\circ\gamma)(a)\qed
+\end{align*}
+If $ n\ne -1 $ then $ z^n =\frac {d}{dt}\left(\frac{z^{n+1}}{n+1}\right) $ so the integral of $ z^n $ around a closed path around the origin, is zero.
+\begin{definition}
+	(Antiderivative) If $ U $ is a domain and $ f:U\to \C $ is continuous and $ F:U\to \C $ is holomorphic with $ F'(z)=f(z) $ then we say that $ F $ is an \textit{antiderivative} for $ f $ on $ U $.
+\end{definition}
+So $ f(z) = \frac 1z $ has no antiderivative on $ \C^* $.
+\begin{remark}
+  Later we'll show (without being circular) that the hypothesis saying $ F'(z) $ is continuous actuallyh always holds (which we already know if our holomorphic function came from a power series).
+\end{remark}
 
 
 
