@@ -299,6 +299,7 @@ Let $ X_1,\dots, X_n\sim \mathrm{Uniform}([0,\theta]) $ and suppose we want to e
 						      &=\left(\frac{n+1}n\right)t.
 \end{align*}
 Hence $ \hat\theta = \frac{n+1}n \max_i X_i $ is an estimator with $\text{mse}(\hat\theta)<\text{mse}(\tilde\theta) $.
+\subsection{Likelihood}
 \begin{definition}
 	(Likelihood) Let $ X=(X_1,\dots X_n) $ have a joint pdf $ f_X(x\mid \theta) $. The \textit{likelihood} of $ \theta $ is the function
 	\[
@@ -306,23 +307,91 @@ Hence $ \hat\theta = \frac{n+1}n \max_i X_i $ is an estimator with $\text{mse}(\
 	\]
 	The max likelihood estimator (MLE) is the value of $ \theta $ maximizing $ L $.
 \end{definition}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	If $ X_1,\dots, X_n\sim f_X(\cdot\mid\theta) $ iid, then $ L(\theta) = \prod_{i=1}^n f_X(x_i\mid \theta) $. \par
+It's usually easier to work with the log-likelihood, since this reduces to a sum. So in the iid case,
+\begin{align*}
+	\ell(\theta)= \log(L(\theta)) = \sum_{i=1}^n \log f_X(x_i\mid \theta).
+\end{align*}
+For example let $ X_1,\dots, X_n \sim \text{Bernoulli}(p)$ iid. Then we get that
+\[
+	\ell(p) = \left(\sum_{i=1}^n X_i\right)\log p + \left(n-\sum_{i=1}^n X_i\right) \log(1-p).
+\]
+Taking the derivative with respect to $ p $,
+\begin{align*}
+	\frac{\partial \ell}{\partial p} = \frac{\sum_i X_i} p - \frac{n-\sum_i X_i}{1-p}.
+\end{align*}
+So setting the derivative to zero we get that
+\[
+	p = \frac{\sum X_i} n.
+\]
+Hence the MLE is
+\[
+	\hat p = \frac{\sum_i X_i}n,
+\]
+and since $ \mathbb E[\hat p] = p $, this is unbiased.\par
+Now suppose $ X_1,\dots, X_n\sim\mathcal N(\mu,\sigma^2) $.
+\begin{align*}
+	\ell(\mu,\sigma^2) &= -\frac n2 \log(2\pi) -\frac n2 \log(\sigma^2) -\frac 1{2\sigma^2} \sum_{i=1}^n (X_i-\mu)^2.
+\end{align*}
+So
+\begin{align*}
+	\frac{\partial \ell}{\partial \mu} = -\frac 1{\sigma^2} \sum_{i=1}^n (X_i - \mu) 
+\end{align*}
+which is zero when $ \mu = \frac{\sum_i X_i}n $ regardless of $ \sigma $. Also
+\begin{align*}
+	\frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac 1{2\sigma^4} \sum_{i=1}^n (X_i-\mu)^2.
+\end{align*}
+If we set $ \mu = \frac{\sum_i X_i}n $ then we get $ \frac{\partial\ell}{\partial\sigma^2}=0 $ if $ \sigma^2 = \frac 1n \sum(X_i-\bar X)^2 = \frac {S_{xx}}n $. Hence the MLE is
+\[
+	(\hat \mu , \hat{\sigma}^2 = (\bar X, \frac{S_{xx}}n).
+\]
+Notte that $ \mu $ is unbiased, but we will see later that
+\[
+	\frac{S_{xx}}{\sigma^2} = \frac{n\hat\sigma^2}{\sigma^2} \sim \chi_{n-1}^2.
+\]
+So $ \mathbb E[\hat\sigma^2] = \mathbb E\left(\frac{S_{xx}}n\right) = \frac {n-1}n \sigma^2 $. So $ \hat\sigma^2 $ is not unbiased, but is asymptotically unbiased as $ n\to\infty $.\par
+Suppose now that $ X_1,\dots, X_n\sim \text{Uniform}([0,\theta]) $ iid. Then
+\[
+	\ell(\theta) = \frac 1{\theta^n} \mathbf 1\{\max_i X_i\le \theta\}.
+\]
+Hence the MLE is $ \hat\theta_{\text{MLE}} = \max_i X_i $. Recall that last time, we had an aunbiased estimator $ \tilde\theta $ and by the Rao-Blackwell Theorem we found the estimator $ \hat\theta = \mathbb E[ \tilde\theta\mid T] = \frac{n+1}n \max_i X_i $. Note that $ \hat\theta_{\text{MLE}} =\frac{n}{n+1} \hat \theta	$, so $ \mathbb E[\hat \theta_{\text{MLE}}] = \frac{n}{n+1} \mathbb E[\hat\theta] = \frac{n}{n+1} \theta $. Again this not unbiased, but is asymptotically unbiased.
+\par 
+Let's see some properties of the MLE.
+\begin{enumerate}
+	\item If $ T $ is a sufficient statistic, the MLE is a function of $ T $. We can factorise $ L(\theta) = g(T(x),\theta)h(x) $. 
+	\item If $ \phi = h(\theta) $ where $ h $ is a bijection, the MLE of $ \phi $ is $ \hat\phi = h(\hat\theta) $ where $ \hat\theta $ is the MLE of $ \theta $.
+	\item Asymptotic normality: $ \sqrt n (\hat\theta_{\text{MLE}} -\theta) $ is approximately normal with mean $ 0 $ for large $ n $. The covariance matrix is the "smallest attainable" (see II Principles of Statistics).
+\end{enumerate}
+\subsection{Confidence intervals}
+\begin{definition}
+	(Confidence intervals) A $ (100\gamma)\%$ confidience interval for a paramter $ \theta $ is a random interval $ (A(X),B(X)) $ such that $ \prob{A(X)\le \theta\le B(X)}= \gamma $ for some $ \gamma\in (0,1)  $ and all values of the true parameter $ \theta $. 
+\end{definition}
+\begin{remark}
+  The incorrect interperatation: Having observed $ X=x $, there is a $ 1-\gamma $ probability that $ \theta $ is in $ (A(X),B(X)) $. This is wrong.
+\end{remark}
+Suppose that $ X_1,\dots, X_n\sim \mathcal N(\theta,1) $ iid. We want to find a $ 95\% $ confidence interval for $ \theta $. We know that $ \overline X = \frac 1n \sum_{i=1}^n X_i\sim \mathcal N(\theta,\frac 1n) $. If we define $ Z = \sqrt n (\overline X - \theta) $ Then $ Z\sim \mathcal N(0,1) $ no matter the value of $ \theta $. Let $ z_1,z_2 $ be numbers with $ \Phi(z_1)-\Phi(z_2) = 0.95 $ where $ \Phi $ is the cdf of the standard normal. $ \prob{z_1\le \sqrt n(\overline X-\theta)\le z_2} = 0.95 $ rearranging we get that
+\begin{align*}
+	\prob{\overline X - \frac{z_2}{\sqrt n} \le \theta\le \overline X - \frac{z_1}{\sqrt n}} = 0.95
+\end{align*}
+hence 
+\[
+	\left(\overline X - \frac{z_2}{\sqrt n}, \overline X - \frac{z_1}{\sqrt n}\right)
+\]
+is a $ 95\% $ confidence interval.\par
+This is the recipe for confidence intervals.
+\begin{enumerate}
+	\item Find a quantity $ R(X,\theta) $ such that this $ \mathbb P_\theta $ distribution of $ R(X,\theta) $ does not depend on $ \theta $. This is called a \textit{pivot} for example $ R(X,\theta) = \sqrt n(\overline X-\theta) $.
+	\item Write down the statement
+		\[
+			\prob{c_1\le R(X,\theta)\le c_2}=\gamma
+		\]
+		where $ (c_1,c_2) $ are quantiles of the distribution of $ R(X,\theta) $. 
+	\item Rearranging the above to leave $ \theta $ in the middle of the inequality, so we get something in the form
+		\[
+			\prob{A(X)\le \theta \le B(X)}.
+		\]
+\end{enumerate}
+\begin{remark}
+	When $ \theta $ is a vector, we talk about \textit{confidence sets} rather than intervals.
+\end{remark}
 \end{document}
