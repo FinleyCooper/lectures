@@ -256,6 +256,82 @@ hence
 \[
 	A_1u_1 = \sqrt{2gh}\frac{A_1A_2}{\sqrt{A_1^2 -A_2^2}}.
 \]
+Now for the final example, let's see a water jet on a 2D oblique plane. Let the angle under the jet and the angled plane be $ \beta $. We will ignore gravity. We let the incoming fluid flow rate be $ U $ and the flow going up be $ a_2 $ and the flow going down be $ a_1 $. We also want to know what the force exerted on the plane.\par
+First we apply Bernoulli on the surface streamline. So since $ p $ is atmospherical everywhere  hence $ u = U $ everywhere. By mass conservation, $ aU = a_1 U + a_2 U $, hence
+\[
+  a = a_1 + a_2.
+\]
+Now for more information, we apply the integral form of the Euler momentum equation. We'll take the volume $ V $ to be the entire volume of fluid.
+\[
+	\frac d{dt} \int_V\rho \mathbf u \mathrm dt = \int_{\partial V} -\rho \mathbf u (\mathbf u \cdot\mathbf n )\mathrm dA + \int_{\partial V} -p \mathbf n\mathrm dA.
+\]
+We've assumed the flow is steady, so the LHS is zero. $ p $ is atmospherical pressure everywhere except from the surface. On the surface streamlines due to the kinematic boundary condition, $ \mathbf u \cdot\mathbf u = 0 $. Components the Euler momentum equation on the surface gives
+\[
+	\rho a U^2\cos\beta = \rho a_2 U^2 - \rho a_1 U^2
+\]
+hence
+\[a_2 = a_1 + a\cos\beta \]
+so solving gives that
+\begin{align*}
+  a_1 = \frac a2(1-\cos\beta) \qquad a_2 = \frac a2(1+\cos\beta).
+\end{align*}
+Now instead if we calculate the component perpendicular to the surface,
+\[
+  F = \int p\mathbf n \mathrm dA = \rho a U^2\sin\beta.
+\]
+\subsection{Hydrostatic pressure and Archimedes}
+What if we set $ \mathbf u = 0 $ in the Euler equation? Then $ 0 = -\nabla p + \mathbf f $. However there is a non-trivial distribution of pressure in the fluid. For example if we take gravity, so $\mathbf f = \rho \mathbf g $, hence 
+\[
+  0 = -\nabla p + \rho \mathbf g = -\nabla(p+\chi).
+\]
+So $ p+\chi $ is constant, so $ p = p_0 - \rho g z $. If we take $ z=0 $ to the top of the water, then we have $ p_0 $ as atmospherical pressure. This is called hydrostatic pressure. We can use this to mathematically derive Archimedes principle.\par
+We want to calculate the total pressure force on a body exerted due to a fluid with no flow. Let $ \mathbf n $ be a normal to the body surface $ \partial V $. $ \mathbf F $ is the force exerted by the hydrostatic pressure field on the body. Hence
+\begin{align*}
+	\mathbf F &= \int_{\partial V} -p\mathbf n \mathrm dS\\
+		  &= \int_{\partial V} -(p_0 - \rho g z)\mathbf n \mathrm dS\\
+		  &= -\int_V \nabla (p_0 - \rho g z) \mathrm dV\\
+		  &= \int_V \rho g \hat z \mathrm dV\\
+		  &= \rho g V\hat z.
+\end{align*}
+Where we've extended the fluid pressure field into the body. $ \rho g V $ is the weight of the displaced fluid which is the buoyancy force.
+\begin{remark}
+  Suppose we have the Euler equation
+  \[
+	  \rho \frac{D\mathbf u }{Dt} = - \nabla p + \rho \mathbf g.
+  \]
+  We will write $ p = p_{\text{static}}+p' $, where $ p' $ is called the dynamic pressure, so our Euler equation becomes
+  \[
+	  \rho \frac{D\mathbf u}{Dt} = -\nabla p'
+  \]
+  hence $ p' $ denotes the pressure in fluid to motion only. 
+\end{remark}
+\subsection{Vorticity}
+Recall we defined $ \boldsymbol \omega = \nabla\times \mathbf u $ as the \textit{vorticity} of the flow. Let's see some examples of vorticity.
+\begin{itemize}
+	\item Let $ \mathbf u = \boldsymbol \Omega \times \z $ (solid body rotation). Then using IA Vector Calculus identities, we have that $ \boldsymbol \omega = 2\boldsymbol\Omega $.
+	\item Let $ \mathbf u$ be the \textit{shear flow} $ \mathbf u = (0,\gamma x,0) $, so $ \boldsymbol \omega = (0,0\gamma) $.
+	\item Let $ \mathbf u = \frac{k}{2\pi r} \mathbf e_\phi $ in cylindrical coordinates, representing a line singular vortex. Then $ \boldsymbol \omega = 0 $ everywhere except at $ r = 0 $, where
+		\[
+		  \oint_r \mathbf u \cdot d\boldsymbol \rho = k =\iint \boldsymbol\omega \cdot\mathbf n \mathrm d\mathbf S
+		\]
+		by Stokes' theorem, giving that $ \boldsymbol\omega = (0,0,k\delta(r)) $
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

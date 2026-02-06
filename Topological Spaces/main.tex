@@ -272,8 +272,69 @@ The universal property of the product topology is that the function
 \[
 	f:(Z,T_Z)\to (X\times Y,T_{X\times Y})
 \]
-is continuous if and only if $ \pi_X\circ f:(Z,T_Z)\to (X,T_X) $ and $ \pi_Y\circ f:(Z,T_Z)\to (Y,T_Y) $ are continuous. Equivalently, if $ f $ is componentwise continuous.
-
+is continuous if and only if $ \pi_X\circ f:(Z,T_Z)\to (X,T_X) $ and $ \pi_Y\circ f:(Z,T_Z)\to (Y,T_Y) $ are continuous. Equivalently $ f $ is componentwise continuous if and only if it is componentwise continuous.\par
+We know from IA Analysis I, if $ f:[0,1]\to \R $ is continuous, $ f(0)<0<f(1) $ then $ f(t) = 0 $ for some $ t\in [0,1] $. This is a statement about continuous functions, but also about the interval $ [0,1] $. For example if we change the interval to $ [0,\frac 12) \cup(\frac 12, 1] $ then this does not satisfy the intermediate value theorem. The property of the interval we're using is connectedness.
+\begin{definition}
+	(Disconnected) A topological space $ X $ is \textit{disconnected} if $ X = U \cup V $ for $ U,V $ disjoint nonempty open sets.
+\end{definition}
+\begin{definition}
+	(Connected) A topological space is \textit{connected} if it is not disconnected.
+\end{definition}
+If $ X = U\cup V $ is disconnected, then $ U $ and $ V $ are both open and also both closed.\par
+Any set with the coarse topology is connected, due to the lack of non-trivial open sets. A set with the discrete topology is disconnected, if it has more than $ 1 $ point, since every set is open, so the result is trivial.\par
+The set $ X = [0,\frac 12) \cup (\frac 12 ,1] \subseteq \R $ is disconnected since $ [0,\frac 12) $ is open in $ X $ and $ (\frac 12, 1] $ is open in $ X $ too. They are disjoint, hence $ X $ is disconnected.
+\begin{proposition}
+	A space $ X $ is disconnected if and only if, there is a continuous surjection $ f:X\to \{0,1\} $ where $ \{0,1\} $ is equipped with the discrete topology.
+\end{proposition}
+\pf Suppose that $ X $ is disconnected. So $ X = U\cup V $ disjoint. The define $ f$ such that
+\[
+  f(x) = \begin{cases}
+	  0 & x\in U \\
+	  1 & x\in V
+  \end{cases}.
+\]
+This is well-defined since $ U $ and $ V $ are disjoint. Since $ U $ and $ V $ are non-empty, the function is surjective. The preimage of $ \{0\} $ and $ \{1\} $ are $ U $ and $ V $ respectively which we know is open. And the preimage of $ \{0,1\} $ and $ \emptyset $ are clearly open, so $ f $ is continuous.\par
+Conversely suppose that $ f $ is continuous. Then define $ U = \inv f(\{0\}) $ and $ V = \int f(\{1\}) $. So since $ f $ is continuous, $ U $ and $ V $ are open. Clearly $ U $ and $ V $ is disjoint and non-empty since $ f $ is surjective. We have that $ X = U\cup V $ since $ X = \inv f(\{0,1\})= \inv f(0) \cup \inv f(1) = U \cup V $.\qed
+\begin{theorem}
+	The spaces $ [0,1] $, $ [0,1) $, $ (0,1) $ are all connected.
+\end{theorem}
+\pf Let's just consider $ [0,1] $, the rest of the proves are similar. If it was disconnected, then there is a continuous surjection
+\[
+	f:[0,1]\to \{0,1\}\subseteq \R.
+\]
+Then
+\[
+	f(\cdot)-\frac 12: [0,1]\to \R
+\]
+is continuous and takes the values $ \pm\frac 12 $ only. By the intermediate value theorem, we should have that $ f $ takes the value $ 0 $ which is a contradiction hence $ [0,1] $ is connected.\qed
+\begin{theorem}
+	(Generalised intermediate value theorem) Let $ X $ be a connected topological space and $ f:X\to \R $ continuous. If there exists $ x_0,x_1\in X $ such that $ f(x_0)< 0 < f(x_1) $ then there exists a $ x_2\in X $ such that $ f(x_2) = 0 $. 
+\end{theorem}
+\pf Consider the open sets $ U = \inv f((-\infty, 0)), V=\inv f((0,\infty)) $. $ f $ is continuous, so $ U,V $ are open. We know that $ x_0,x_1 $ exist hence $ U,V $ are non-empty. If $ f(x) $ is never zero, then $ X=U\cup V $ disjoint and open so $ X $ is disconnected. But $ X $ is connected hence $ \inv f(0) $ is non-empty, so pick $ x_2\in \inv f(0) $, so $ f(x_2) =0  $.\qed
+\begin{proposition}
+  Let $ f:X\to Y $ be a continuous surjection. Then $ X	$ connected implies that $ Y $ is connected.
+\end{proposition}
+\pf Let's show the contrapositive. Suppose that $ Y $ is disconnected. Then we have some $ h:Y\to \{0,1\} $ continuous and surjective. So
+\[
+	h\circ f:X\to \{0,1\}
+\]
+is also continuous and surjective, hence $ X $ is disconnceted.\qed
+\begin{corollary}
+  If $ X $ is connected and $ f: X\to Y $ is continuous then $ \ima(f) $ is connected.
+\end{corollary}
+\pf Apply the proposition to $ f:X\to\ima f $.
+\par
+For example if $ X $ is a connected space and $ \sim $ is an equivalence relation then $ \pi :X\to X/\sim $ is a continuous surjection so $ X/\sim $ is connected.
+\begin{lemma}
+  If $ f:X\to Y $ is a homeomorphism and $ Z\subseteq X $, then $ f\mid_Z:Z\to \ima(f\mid_Z) $ is a homeomorphism.
+\end{lemma}
+\pf Obvious.\qed
+Let's use this to show that $ [0,1] $ is not homeomorphic to $ (0,1) $. Suppose they are. So we have a homeomorphism $ f:[0,1]\to (0,1) $. Let's now restrict $ f $ to $ (0,1] $. Then by the lemma we know that $ f\mid_{(0,1]} $ is a homeomorphism with
+\[
+	f\mid_{(0,1]}: (0,1]\to (0,1)\setminus \{f(0)\}
+\]
+for some $ 0<f(0)<1 $. But $ (0,1] $ is connected and $ (0,1)\setminus \{f(0)\}=(0,f(0))\cup (f(0),1) $ so $ (0,1)\setminus\{f(0)\} $ is disconnected which is a contradiction.\par
+We can do a similar process to show that $ S^1 $ is not homeomorphic to $ \R $. We know that $ S^1 $ is connected since it is a quotient space of $ \R $ and $ \R $ is connected since $ \R\cong (0,1) $. Suppose that $ S^1 $ is homeomorphic to $ \R $. Then remove the point $ (1,0)\in S^1 $ and consider the restricted homeomorphism between the new spaces. $ \R $ is no longer connected since $ \R\setminus \{f(1,0)\} = (-\infty, f(1,0))\cup (f(1,0),\infty) $, but $ S^1\setminus \{f(1,0)\} $ is connected since it's homeomorphic to $ (0,1) $.
 
 
 
