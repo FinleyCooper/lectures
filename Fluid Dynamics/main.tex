@@ -315,12 +315,71 @@ Recall we defined $ \boldsymbol \omega = \nabla\times \mathbf u $ as the \textit
 		  \oint_r \mathbf u \cdot d\boldsymbol \rho = k =\iint \boldsymbol\omega \cdot\mathbf n \mathrm d\mathbf S
 		\]
 		by Stokes' theorem, giving that $ \boldsymbol\omega = (0,0,k\delta(r)) $
-
-
-
-
-
-
+\end{itemize}
+\subsubsection{Interpretation of $ \boldsymbol\omega $}
+Here we will show $ \boldsymbol\omega $ is equivalent to twice the local rotation rate of fluid particles.\par
+Consider a material line $ \delta\boldsymbol \ell $. How does $ \delt\boldsymbol\ell $ change from $ t $ to $ t+\delta t $.
+\[
+  \x + \delta\boldsymbol \ell \to \x+\delta\boldsymbol\ell + \mathbf u(\x+\delta\boldsymbol\ell,t) \delta t
+\]
+and
+\[
+  \x\to \x + \mathbf u(\x,t)\delta t.
+\]
+Hence our difference $ \delta\boldsymbol\ell $ goes to
+\begin{align*}
+	\delta\boldsymbol\ell &\to \x+\delta\boldsymbol\ell + \mathbf u(\x,\delta\boldsymbol\ell,t)\delta t-[\x+\mathbf u(\x,t)\delta t]\\
+			      &= \delta\boldsymbol\ell + (\delta\boldsymbol \ell\cdot\nabla)\mathbf u\delta t.
+\end{align*}
+Hence
+\[
+	\frac{D}{Dt}\delta\boldsymbol\ell = (\delta \boldsymbol\ell \cdot\nabla)\mathbf u.
+\]
+Hence the tensor $ \frac{\partial u_i}{\partial x_j} $ determines changes in material lines (local rate of deformation). Write
+\begin{align*}
+	\frac{\partial u_i}{\partial x_j} &= \frac 12\left(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i}\right) +\frac 12 \left(\frac{\partial u_i}{\partial x_j}-\frac{\partial u_j}{\partial x_i}\right)\\
+					  &= e_{ij} +\frac 12\varepsilon_{ijk}w_k,
+\end{align*}
+where $ \boldsymbol\omega = \nabla\times \mathbf u $ by the standard decomposition of the antisymmetric tensor as a vector. The contribution of the second term to $ \frac D{Dt}\partial \ell_i $ is
+\begin{align*}
+	\frac 12 \varepsilon_{jik}w_k \delta \ell_j &= \frac 12 \varepsilon_{ikj}w_k\delta\ell_j\\
+						    &=\frac 12(\boldsymbol\omega\times \delta\boldsymbol\ell)_i.
+\end{align*}
+This is the rigid body rotation with angular velocity $ \boldsymbol\Omega = \frac 12 \boldsymbol\omega $. So $ \frac 12\boldsymbol\omega(\x,t) $ represents the average rotation rate of fluid particles. This is \textit{not} the same as having flow with circular streamline.
+\subsubsection{Vorticity equation}
+Let's start with the Euler momentum equation,
+\[
+	\rho\left(\frac{\partial \mathbf u}{dt} +(\mathbf u \cdot \nabla)\mathbf u \right) = -\nabla p+\mathbf f.
+\]
+Assume that $ \rho $ is constant and $ \mathbf f = -\nabla\chi $. We know that $ \mathbf u \cdot\nabla)\mathbf u = \nabla(\frac 12 u^2) - \mathbf u\times\boldsymbol\omega $, so taking the curl of the Euler equation we get that
+\[
+	\frac{\partial\boldsymbol\omega}{\partial t} -\nabla\times[\mathbf u \times \boldsymbol\omega]=0.
+\]
+Evaluating the $ i $th component of this equation,
+\begin{align*}
+	[\nabla\times(\mathbf u\times\boldsymbol\omega)]_i &= \varepsilon_{ijk} \frac{\partial}{\partial x_j} [\varepsilon_{kmn}u_m\omega_n]\\
+	&= (\delta_{im}\delta_{jn}-\delta_{in}\delta_{jm})\left(\frac{\partial u_m}{\partial x_j}\omega_n + u_m\frac{\partial \omega_n}{\partial x_j}\right)\\
+	&= \omega_j \frac{\partial u_i}{\partial x_j} - \omega_i \frac{\partial u_j}{\partial x_j}+u_i\frac{\partial\omega_j}{\partial x_j}-u_j\frac{\partial \omega_i}{\partial x_j}.
+\end{align*}
+Mass is conserved and the divergence of the curl is zero, so the second and third terms are zero, hence this is equal to
+\[
+	(\boldsymbol\omega\cdot \nabla)u_i-(\mathbf u \cdot\nabla)\omega_i.
+\]
+So the vorticity equation is
+\[
+	\frac{\partial \boldsymbol\omega}{\partial t} + (\mathbf u \cdot \nabla)\boldsymbol\omega = (\boldsymbol\cdot\nabla)\mathbf u.
+\]
+This is equivalent to
+\[
+	\frac{D}{Dt}\boldsymbol\omega = (\boldsymbol\omega \cdot\nabla)\mathbf u.
+\]
+The material derivative recall is the rate of change of the field while moving with the flow. 
+\subsubsection{Vortex stretching}
+Let's compare the two equations
+\[
+	\frac{D}{Dt}\delta\boldsymbol\ell = (\delta\boldsymbol\ell\cdot\nabla)\mathbf u\qquad \frac D{Dt}\boldsymbol\omega = (\boldsymbol\omega\cdot\nabla)\mathbf u.
+\]
+We can see these are the same equation. So moving with the fluid, $ \boldsymbol\omega $ changes just like a material line element initially parallel to $ \boldsymbol\omega $. In particular, if $ \delta\boldsymbol\ell $ gets longer (stretching) then $ \boldsymbol\omega $ gets larger. This is conservation of angular momentum. When the fluid is stretched in the direction of $ \boldsymbol\omega $, we get an increase in vorticity.
 
 
 

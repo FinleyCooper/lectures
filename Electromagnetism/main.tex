@@ -574,11 +574,126 @@ and assuming Coulomb gauge with $ \nabla\cdot\mathbf A =0 $, we obtain Poisson' 
 \[
   -\nabla^2 \mathbf A = \mu_0 \mathbf J
 \]
-\subsection{The Biot-Sarat law}
+\subsection{The Biot-Savart law}
 The solution of Poisson's equation is
 \[
-	\mathbf A(\x) = \frac{\mu_0}{4\pi} \int\frac{\mathbf J(\x')}{|\x - \x'|} \mathrm d^3 \x'
+	\mathbf A(\x) = \frac{\mu_0}{4\pi} \int\frac{\mathbf J(\x')}{|\x - \x'|} \mathrm d^3 \x'.
 \]
+We should check that the solution satisfies the assumed Coluomb gauge condition
+\begin{align*}
+	\nabla\cdot\mathbf A(\x)&=\frac{\mu_0}{4\pi}\int_V\nabla\cdot\left\frac{\mathbf J(\x')}{|\x-\x'|}\mathrm d^3\x'\\
+				&=\frac{\mu_0}{4\pi}\int_V\mathbf J(\x')\cdot\nabla\left(\frac 1{|\x-\x'|}\right)\mathrm d^3\x'\\
+				&=-\frac{\mu_0}{4\pi}\int_V\mathbf J(\x')\cdot\nabla'\left(\frac 1{|\x-\x'|}\right)\mathrm d^3\x'\\
+				&=-\frac{\mu_0}{4\pi}\int_V\nabla'\cdot\left(\frac {\mathbf J(\x')}{|\x-\x'|}\right)\mathrm d^3\x'\\
+				&=-\frac{\mu_0}{4\pi}\int_{\partial V}\frac{\mathrm J(\x')\cdot\mathrm d\mathbf S'}{|\x-\x'|}.
+\end{align*}
+Thus $ \nabla\cdot\mathbf A=0 $, as assumed. if the current is contained in some finite volume and we take $ V $ to be at least as alarge, or if $ \mathbf J $ decays sufficiently as $ |\x|\to \infty $.\par
+To find the magnetic field, derive $ \mathbf B = \nabla\times \mathbf A $. This gives the following law.
+\begin{theorem}
+	(Biot-Savart law)
+\begin{align*}
+	\mathbf B(\x)=\frac{\mu_0}{4\pi}\int\frac{\mathbf J(\x')\times (\x-\x')}{|\x-\x'|^3}\mathrm d^3\x'
+\end{align*}
+\end{theorem}
+A special case is when the current is restricted to a thin wire in the form of a curve $ C $. Then the current element $ \mathbf J \mathrm d^3 \x $ can be replaced by $ I\mathrm d\x $. By charge conservation, we get that $ I $ is constant along the wire, hence we can take it outside of the integral, so the Biot-Savart law for a current carrying wire is
+\[
+	\mathbf B(\x) = \frac{\mu_0 I}{4\pi} \int_C\frac{\mathrm d\x'\times (\x-\x')}{|\x-\x'|^3}.
+\]
+Alternatively, the thin wire current density can be represented as
+\[
+  \mathbf J(\x) = I\int_C\delta(\x-\x')\mathrm d^3\x',
+\]
+which gives the same equation if substituted in. Charge conservation takes the form
+\begin{align*}
+	\nabla\cdot\mathbf J(\x) &= I\int_C \nabla\delta(\x-\x')\cdot\mathrm d\x'\\
+				 &= -I\int-C\nabla \delta(\x-\x')\cdot\mathrm d\x'\\
+				 &= -I[\delta(\x-\x_2)-\delta(\x-\x_1)]
+\end{align*}
+where $ C $ runs from $ \x_1 $ to $ \x_2 $. If $ C $ is closed then $ \x_2=\x_1 $ and $ \nabla\cdot\mathrm J-9 $ as expected. If $ C $ is infinite then $ \nabla\cdot\mathrm J =0  $ for any finite $ \x $. Let's check the thin-wire version of Biot-Savart's law gives the same result as Ampere's law for a long straight thin wire along the $ z $ azis of cylindrical polars. We have that $ \x = r\mathbf e_r $ (taking $ z=0 $ \textit{wlog}) and $ \x'=z'\mathbf e_z $. So $ \x-\x'=r\mathbf e_r-z'\mathbf e_z $. We also have that $ \mathrm d\x'=\mathrm z'\mathbf e_z $. This gives that 
+\[
+	\mathbf B(\x) = \frac{\mu_0 I}{4\pi}\mathbf e_\phi\int_{-\infty}^\infty\frac{r\mathrm dz'}{(r^2+z^2')^{3/2}}=\frac{\mu_0 I}{2\pi r}\mathbf e_\phi
+\]
+as expected.
+\subsection{Magnetic dipoles}
+For a general current distribution $ \mathbf J(\x) $ confined to a ball $ \{V:|\x|<R\} $,
+\[
+	\mathbf A(\x) = \frac{\mu_0}{4\pi} \int_V\frac{\mathbf J(\x')}{|\x-\x'|}\mathrm d^3\x'.
+\]
+The external field for $ |\x|=r>R $ can be evaluated by expanding
+\[
+	\frac 1{|\x-\x'|}=\frac 1r\left(1+\frac{\x'\cdot\x}{r^2} + O\left(\frac{R^2}{r^2}\right)\right),
+\]
+leading to a multipole expansion as before. We need to calculate the moments of the current distribution.
+\par
+Since $ \mathbf J = 0 $, on $ \partial V $ and $ \nabla\cdot\mathbf J = 0 $ the divergence theorem implies that
+\begin{align*}
+	0 = \int_{\partial V} x_iJ_j dS_j &= \int_V \partial_j (x_iJ_j)\mathrm d^3\x\\
+						  &= \int_V(\delta_{ij} J_j +x_i \partial_j J_j)\mathrm d^2\x\\
+						  &=\int_V J_i\mathrm d^3\x
+\end{align*}
+so the zeroth moment vanishes. Similarly,
+\begin{align*}
+	0 = \int_{\partial V} x_ix_jJ_k\mathrm dS_k &= \int_V\partial_k(x_ix_jJ_k)\mathrm d^3 \x\\
+						    &=\int_V(\delta_{ik}x_jJ_k+x_i\delta_{jk}J_k+x_ix_j\partial_kJ_k)\mathrm d^3\x\\
+						    &= \int_V x_jJ_i\mathrm d^3\x+\int_V x_iJ_i\mathrm d^3\x.
+\end{align*}
+So the first moment is an antisymmetric tensor. Like the electric dipole moment we define:
+\begin{definition}
+	(Magnetic dipole moment)
+	\[
+	  \mathbf m = \frac 12\int_V \x\times \mathbf J \mathrm d^3 \x
+	\]
+	or in component form
+	\[
+		m_i = \frac 12\varepsilon_{ijk}\int_V x_jJ_k\mathrm d^3 \x.
+	\]
+\end{definition}
+This is a vector related  to the antisymmetric matrix by
+\[
+	\int_V x_iJ_j\mathrm d^3 \x = \varepsilon_{ijk} m_k.
+\]
+Returning to the multipole expansion for $ \mathbf A $, we have
+\[
+	A_i(\x)=\frac{\mu_0}{4\pi |\x|}\left(\int_V J_i(\x')\mathrm d^3\x'+\dots \right)
+\]
+we know the first term is zero so
+\[
+\mathbf A(\x) \approx \mathbf A_{\text{dipole}} (\x) = \frac{\mu_0}{4\pi}\frac{\mathbf m \times \x}{|\x^3|}
+\]
+which is the vector potential due to a point dipole $ \mathbf m $ at the origin. The corresponding magnetic field is
+\[\mathbf B_{\text{dipole}} = \nabla\times\mathbf A_{\text{dipole}} = \frac{\mu_0}{4\pi}\left(\frac{3(\mathbf m\cdot\x)\x-|\x|^2\mathbf m}{|\x|^5}\right). \]
+A point dipole $ \mathbf m $ at the origin corresponds to the current density and vector potential
+\[
+	\mathbf J = \nabla\times(\mathbf m\delta(\x)),\qquad \mathbf A = \nabla\times\left(\frac{\mu_0 \mathbf m}{4\pi |\x|}\right).
+\]
+The magnetic dipole moment of a thin wire carrying current $ I $ around a closed curve $ C $ is
+\[
+	\mathbf m = \frac{I}2 \int_C \x\times \mathrm d\x.
+\]
+To evaulated this, let $ \mathbf a $ be any constant vector. Then by Stokes' theorem,
+\begin{align*}
+	\mathbf a \cdot\mathrm m &= \frac I2\int_C\mathbf a\cdot(\x\times \mathrm d\x)\\
+  &= \frac I2\int_C(\mathrm a \times \x)\cdot\mathrm d\x\\
+  &= \frac I2 \int_S(\nabla\times (\mathrm a \time \x))\cdot\mathrm d\mathbf S\\
+  &= I\int_S \mathbf a\cdot\mathrm d\mathbf S
+\end{align*}
+where $ S $ is an open surface with boundary $ C $ and we use
+\[
+  \nabla\times(\mathbf a \times \x) = \x\cdot \nabla\mathbf a - \mathbf a \cdot\nabla \x + (\nabla\cdot\x)\mathbf a - (\nabla\cdot\mathbf a)\x = 2\mathbf a.
+\]
+Since $ \mathbf a $ is arbitrary we conclude that
+\[
+  \mathbf m = I\mathbf S
+\]
+where
+\[
+  \mathbf S = \int_S\mathrm d\mathbf S
+\]
+is the vector area of the surface $ S $ which depends only on $ C $.
+
+
+
+
 
 
 
