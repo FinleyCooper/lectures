@@ -272,7 +272,9 @@ The universal property of the product topology is that the function
 \[
 	f:(Z,T_Z)\to (X\times Y,T_{X\times Y})
 \]
-is continuous if and only if $ \pi_X\circ f:(Z,T_Z)\to (X,T_X) $ and $ \pi_Y\circ f:(Z,T_Z)\to (Y,T_Y) $ are continuous. Equivalently $ f $ is componentwise continuous if and only if it is componentwise continuous.\par
+is continuous if and only if $ \pi_X\circ f:(Z,T_Z)\to (X,T_X) $ and $ \pi_Y\circ f:(Z,T_Z)\to (Y,T_Y) $ are continuous. Equivalently $ f $ is componentwise continuous if and only if it is componentwise continuous.
+\section{Connectivity}
+\subsection{Connected and disconnected}
 We know from IA Analysis I, if $ f:[0,1]\to \R $ is continuous, $ f(0)<0<f(1) $ then $ f(t) = 0 $ for some $ t\in [0,1] $. This is a statement about continuous functions, but also about the interval $ [0,1] $. For example if we change the interval to $ [0,\frac 12) \cup(\frac 12, 1] $ then this does not satisfy the intermediate value theorem. The property of the interval we're using is connectedness.
 \begin{definition}
 	(Disconnected) A topological space $ X $ is \textit{disconnected} if $ X = U \cup V $ for $ U,V $ disjoint nonempty open sets.
@@ -336,8 +338,88 @@ Let's use this to show that $ [0,1] $ is not homeomorphic to $ (0,1) $. Suppose 
 \]
 for some $ 0<f(0)<1 $. But $ (0,1] $ is connected and $ (0,1)\setminus \{f(0)\}=(0,f(0))\cup (f(0),1) $ so $ (0,1)\setminus\{f(0)\} $ is disconnected which is a contradiction.\par
 We can do a similar process to show that $ S^1 $ is not homeomorphic to $ \R $. We know that $ S^1 $ is connected since it is a quotient space of $ \R $ and $ \R $ is connected since $ \R\cong (0,1) $. Suppose that $ S^1 $ is homeomorphic to $ \R $. Then remove the point $ (1,0)\in S^1 $ and consider the restricted homeomorphism between the new spaces. $ \R $ is no longer connected since $ \R\setminus \{f(1,0)\} = (-\infty, f(1,0))\cup (f(1,0),\infty) $, but $ S^1\setminus \{f(1,0)\} $ is connected since it's homeomorphic to $ (0,1) $.
-
-
+\begin{proposition}
+	Let $ \{ X_\alpha\}_{\alpha \in I} $ be a collection of subspaces of $ X $. Suppose that each $ X_\alpha $ is connected and $ \bigcap_{\alpha\in I} X_\alpha\ne\emptyset $. Then $ \bigcup_{\alpha \in I} X_\alpha $ is connected.
+\end{proposition}
+\pf Let $ X $ be the union of all the sets. If it were disconnected then $ X = U \cup V $ with $ U,V $ open, so $ U\cap X_\alpha, V\cap X_\alpha $ are disjoint open subsets covering $ X_\alpha $. Since $ X_\alpha $ is connected one of them must be zero so $ X_\alpha\subseteq U $ or $ X_\alpha\subseteq V $. This holds for each $ X_\alpha $ but as $ \bigcap_{\alpha\in I} X_\alpha \ne\emptyset $ they are all in $ U $ or all in $ V $ hence $ X $ is $ U $ or $ X $ is $ V $ so one of them is empty.\qed
+\begin{corollary}
+  If $ X $ and $ Y $ are connected then so is $ X\times Y $.
+\end{corollary}
+\pf Suppose $ X,Y $ both non-empty (since the empty set is connected). Choose $ x\in X $. Consider
+\[
+	C_y = \{ x\} \times Y \cup X\times \{y\}.
+\]
+The sets $ \{x\}\times Y $ and $ X\times \{y\} $ intersect in $ (x,y) $ and pieces are connected by assumption so $ C_y $ is connected. Now observe that
+\[
+	X\times Y = \bigcup_{y\in Y} C_y
+\]
+the intersection of all of $ C_y $ is $ \{x\}\times Y $ which is non-empty hence the proposition applies and $ X\times Y $ is connected.
+\subsection{Path-connectedness}
+\begin{definition}
+	(Path) If $ X $ is a topological space and $ x_0,x_1\in X $ a \textit{path} between them is a continuous $ \gamma:[0,1]\to X $ such that $ \gamma(0)=x_0 $ and $ \gamma(1)= x_1 $.
+\end{definition}
+\begin{definition}
+	(Path connected) A topological space is \textit{path connected} if for any two points in the space, there is a path between them.
+\end{definition}
+The spaces $ (0,1), [0,1], (0,1] $ are all path-connected just by taking the line $ \gamma(t) = (1-t)x_0 + tx_1 $. For the same reason $ \R^n $ is path-connected and any \textit{convex} subset $ X\subseteq \R^n $ is too.\par
+Now let's let $ X = \R^2 \setminus \{0\} $ be the punctured plane. We do the same again if our linear path doesn't go through the (missing) origin. If it does, just take a circular path instead.
+\begin{proposition}
+  A path-connected space is connected.
+\end{proposition}
+We'll prove the contrapositive. If $ X $ is not connected, we have a continuous surjective function $ f:X\to \{0,1\} $ Let $ x_0,x_1 $ be such that $ f(x_0)=0, f(x_1)=1 $ and suppose that $ X $ is path connected so there is a path connecting $ x_0,x_1 $. So $ f\circ \gamma $ is a surjective and continuous map from $ [0,1]\to \{0,1\} $ hence $ [0,1] $ is disconnected which is a contradiciton.\qed
+\par
+We can now show that $ \R^n\ncong \R $ for $ n>1 $. If it were then $ \R^n\setminus \{0\}\cong \R\setminus \{0\} $. But the RHS is disconnected and the LHS is path-connected, contradiction.
+\begin{proposition}
+  If $ X $ and $ Y $ are path-connected then $ X\times Y $ is path-connected.
+\end{proposition}
+\pf Omitted.
+\subsubsection{Path components}
+Let $ X $  be a space. Define an equivalence relation on $ X $, $ \sim $, defined by
+\[
+	x\sim y\iff \text{there exists a path from}\ x \text{ to } y.
+\]
+\begin{lemma}
+  $ \sim $ is indeed an equivalence relation.
+\end{lemma}
+\pf
+\begin{enumerate}
+	\item $ x\sim x $ since we can take the path $ \gamma(t) =x $.
+	\item If $ x\sim y $ then we have a path $ \gamma(t) $ connecting $ x $ and $ y $. Then we can take the path $ \gamma'(t) = \gamma(1-t) $ which goes from $ y $ to $ x $. Hence $ y\sim x $.
+	\item If $ x\sim y $ and $ y\sim z $, there there is a path $ \gamma' $ connecting $ x $ to $ y $ and $ \gamma' $ connecting $ y $ to $ z $. Define
+		\[
+			(\gamma'\cdot\gamma)(t) = \begin{cases}
+				\gamma(2t) & 0\le t\le \frac 12 \\
+				\gamma'(2t-1) & \frac 12 \le t \le 1
+			\end{cases}.
+		\]
+		This is a well defined function since $ \gamma(1) = \gamma'(0) $. It is continuous by the gluing lemma applied to $ [0,\frac 12] $ and $ [\frac 12,1] $ so it is a path between $ x $ and $ z $, so $ x\sim z $. 
+\end{enumerate}
+Hence $ \sim $ is an equivalence relation.\qed
+\begin{definition}
+	(Path components) The \textit{path components} of $ X $ are the equivalence classes of $ \sim $.
+\end{definition}
+\begin{claim}
+  Each component is path-connected.
+\end{claim}
+\pf Suppose that $ x,y $ are in the same path component, so there exists a path $ \gamma $ connecting $ x $ and $ y $. Since $ \gamma\mid_{[0,t]}:[0,t]\to X $ is a path from $ \gamma(0) $ to $ \gamma(t $ every point on the path is in the path component, hence the path lies in the equivalence class.\qed
+\subsubsection{Connected components}
+For a space $ X $, define $ \approx  $ by $ x\approx y $ if and only if there exists a subset $ C\subseteq X $ connected with $ x,y\in C $.
+\begin{lemma}
+  $ \approx $ is an equivalence relation.
+\end{lemma}
+\pf \begin{enumerate}
+	\item $ \{x\} $ is connected, so $ x\approx x $.
+	\item Definition is symmetric so $ x\approx y \iff y \approx x $.
+	\item If $ x\approx y $ and $ y\approx z $ then there are connected subsets $ C_1 $ containing $ x,y $ and $ C_2 $ containing $ y,z $. Then let $ C=C_1\cup C_2 $ which is connected since the intersection contains $ y $ so non-empty and contains $ x,z $ so $ x\approx z $.
+\end{enumerate} 
+Hence $ \approx $ is an equivalence relation.\qed
+\begin{definition}
+	(Connected components) Let the \textit{connected components} of $ X $ are the equivalence classes of $ \approx $.
+\end{definition}
+\begin{proposition}
+  The connected components are connected.
+\end{proposition}
+\pf Let $ C\subseteq X $ be a connected component. Suppose that $ f:C\to \{0,1\} $ is a surjective continuous function. Let $ f(x_0)= 0 $ and $ f(x_1) = 1 $. As $ x_0\approx x_1 $, there exists a connected space $ D\subseteq X $ with $ x_0,x_1\in D $. If $ d\in D $, then $ d\approx x_0 $, hence $ D\subseteq C $. But then $ f\mid_D:D\to \{0,1\} $ is a continuous surjective function so $ D $ is disconnected, contradiction, hence $ C $ is connected.
 
 
 

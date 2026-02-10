@@ -394,4 +394,95 @@ This is the recipe for confidence intervals.
 \begin{remark}
 	When $ \theta $ is a vector, we talk about \textit{confidence sets} rather than intervals.
 \end{remark}
+Suppose that $ X_1,\dots, X_n\sim \mathcal N(0,\sigma^2) $ iid. We want a $ 95\% $ confidence interval for $ \sigma^2 $. Note that
+\[
+	\frac{X_i} \sigma \sim \mathcal N(0,1),
+\]
+so $ \sum_{i=1}^n \frac{X_i^2}{\sigma^2}\sim \chi^2_n $. Hence \[
+	R(X,\sigma^2) = \sum_{i=1}^n \frac{X_i^2}{\sigma^2}
+\]
+is a \textit{pivot}. Let $ \inv F_{\chi^2_n}(0.025) $ and $ \inv F_{\chi^2_n}(0.975) $. Then
+\begin{align*}
+	\prob{c_1\le \sum_{i=1}^n \frac{X_i^2}{\sigma^2} \le c_2} = 0.95,
+\end{align*}
+so rearranging we get that
+\[
+	\prob{\frac{\sum X_i^2}{c_2} \le \sigma^2 \le \frac{\sum X_i^2}{c_1}}=0.95
+\]
+gives our confidence interval.
+\par
+Now suppose that $ X_1,\dots, X_n\sim \mathrm{Bernoulli}(p) $ for large $ n $. We will find an approximate 95\% confidence interval for $ p $. The maximium likelihood estimator of $ p $ is $ \hat p = \frac 1n \sum_{i=1}^n X_i $. By the central limit theorem $ \hat p \sim \mathcal N\left(p,\frac{p(1-p)}n\right) $ approximately. Thus
+\[
+	\frac{\sqrt n (\hat p - p)}{\sqrt{p(1-p)}}\sim \mathcal N(0,1)
+\]
+for large $ n $. So we have our pivot, which gives
+\[
+	\prob{-z_{0.025} \le \frac{\sqrt n(\hat p -p)}{\sqrt{p(1-p)}} \le z_{0.025}} \approx 0.95
+\]
+Instead of inverting directly, if $ n $ is large $ \hat p \approx p $, so switching $ p $ with $ \hat p $ on the denominator we get that
+\[
+	\prob{\hat p - z_{0.025}\sqrt{\frac{\hat p(1-\hat p)}n}\le p\le \hat p + z_{0.025}\sqrt{\frac{\hat p(1-\hat p)}n}}\approx 0.95
+\]
+which gives our confidence interval. Since for all $ \hat p \in [0,1] $ we have $ \hat p(1-\hat p)\le \frac 14 $ we would also report a conservative confidence interval of $ \hat p \pm z_{0.025}\sqrt{\frac 1{4n}} $.
+\subsection{Bayesian estimation}
+So far we've been using frequentist methods treating $ \theta\in\Theta $ as fixeed. For Bayesian methods, we treat $ \theta $ as random with a prior distribution $ \pi(\theta) $. Conditional on $ \theta $ the data $ X $ has pdf $ f_X(\cdot\mid \theta) $. Having observed that $ X=x $, we combine with the prior to form a posterior distribution $ \pi(\theta\mid X) $. By Bayes' rule,
+\begin{align*}
+	\pi(\theta\mid x) = \frac{\pi(\theta)f_X(x\mid \theta)}{f_X(x)}
+\end{align*}
+where $ f_X(x) $ is the marginal distribution of $ X $, so
+\[
+  f_X(x) = \begin{cases}
+	  \int_\Theta f_X(x\mid \theta)\pi(\theta) \mathrm d\theta & \text{if }\theta \ \text{is continuous}\\
+	  \sum_{\theta\in \Theta} f_X(x\mid \theta)\pi(\theta) & \text{if}\ \theta\ \text{is discrete}
+  \end{cases}.
+\]
+More simply,
+\[
+  \pi(\theta \mid x)\propto \pi(\theta)f_X(x\mid \theta).
+\]
+Often is it easier to reconginise the RHS as propotional to a known distribution. 
+\begin{remark}
+  By the factorisation criterion, the posterior only depends on $ X $ through a sufficient statistic.
+  \begin{align*}
+	  \pi(\theta\mid x)&\propto \pi(\theta) \cdot f_X(x\mid \theta) = \pi(\theta)\cdot g(T(x),\theta)h(x)\\
+			   &\propto \pi(\theta)g(T(x),\theta).
+  \end{align*}
+\end{remark}
+Suppose $ \theta\in [0,1] $ is the mortality rate for some procedure at Addenbrooks. In the first 10 operations there are no deaths. In other hospitals across the country the mortality rate is between $ 3-20\% $, with average of $ 10\% $. Consider the prior distribution $ \pi(\theta)\sim \text{Beta}(a,b) $ we can choose $ (a,b) = (3,27) $ so $ \pi(\theta) $ as mean $ 0.1 $ and $ \pi(0.03 <\theta<0.2) = 0.9 $.
+\par
+Let $ X_i\sim \text{Bernoulli}(\theta) $ be indicator for whether $ i $th patient at Addenbrookes dies.
+\[
+	f_X(x\mid \theta) = \theta^{\sim x_i}(1-\theta)^{n-\sum x_i}.
+\]
+The posterior is
+\begin{align*}
+	\pi(\theta\mid X) &\propto \pi(\theta)f_X(x\mid \theta) \\
+			  &\propto \theta^{a-1}(1-\theta)^{b-1} \theta^{\sum x_i}(1-\theta)^{n-\sum x_i}\\
+			  &= \theta^{\sum x_i+a-1}(1-\theta)^{b+n-\sum x_i-1}.
+\end{align*}
+Hence
+\[
+	\pi(\theta\mid X) \sim \text{Beta}(a+\sum x_i, b+n-\sum x_i)
+\]
+so pluggin in $ a=3,b=27,n=10,\sum X_i = 0 $, so the posterior is $ \text{Beta}(3,37) $.
+\begin{remark}
+	In the example the prior and posterior were from the same family of distributions known as \text{conjugacy}.
+\end{remark}
+Supposewe put a $ \text{Beta}(a,b) $ prior on the parameter $ \theta $ of kidney cancer death rates in each county. We can estimate $ (a,b)=(27, 58000) $ with $ \frac a{a+b}\approx 4.65\times 10^{-9} $ being the kidney cancer death rate in the United States. The previous example shows that if we observe $ \sum_{i=1}^n X_i$ deaths in a county, the posterior mean estimate is $ \frac{a+\sum X_i}{a+b-n} $. This is equal to
+\begin{align*}
+	\frac n{a+b+n}\cdot\frac{\sum X_i}n + \frac{a+b}{a+b+n}\cdot \frac a{a+b}.
+\end{align*}
+For large $ n $, we use $ \approx \frac{\sum X_i}n $ as our estimate, for small $ n $ we use $ \frac a{a+b} $ and in between we shrink our estimate between them.\par
+What is the use of the posterior distribution? This opens us to decision theory.
+\begin{enumerate}
+	\item We must pick a decision $ \delta \in D $;
+	\item We have a loss function $ L(\theta,\delta) $e which gives loss incurred in making decision $ \delta $ when the true paramter value is $ \theta $.
+	\item Von-Neumann-Morgenstern Theorem. Under axioms of rational behaviour, pick $ \delta $ that minimises expected lsos under posterior.
+\end{enumerate}
+
+
+
+
+
+
 \end{document}
