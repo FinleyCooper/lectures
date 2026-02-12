@@ -376,8 +376,119 @@ If $ n\ne -1 $ then $ z^n =\frac {d}{dt}\left(\frac{z^{n+1}}{n+1}\right) $ so th
 \end{definition}
 So $ f(z) = \frac 1z $ has no antiderivative on $ \C^* $.
 \begin{remark}
-  Later we'll show (without being circular) that the hypothesis saying $ F'(z) $ is continuous actuallyh always holds (which we already know if our holomorphic function came from a power series).
+  Later we'll show (without being circular) that the hypothesis saying $ F'(z) $ is continuous actually always holds (which we already know if our holomorphic function came from a power series).
 \end{remark}
+\subsection{Cauchy's theorem}
+\begin{lemma}
+  If $ \gamma $ is a $ C^1 $ path and $ f $ is continuous then
+  \[
+	  \left|\int_\gamma f(z)\mathrm dz\right|\le \mathrm{length}(\gamma)\sup_\gamma|f|.
+  \]
+\end{lemma}
+\pf
+\begin{align*}
+	\left|\int_\gamma f(z)\mathrm dz\right| &= \left|\int_a^b f(\gamma(t))\gamma'(t)\mathrm dt\right|\\
+						&\le \int_a^b |f(\gamma(t))||\gamma'(t)|\mathrm dt\\
+						&\le \sup_{a\in [a,b]} |f(\gamma(t))|\mathrm{length}(\gamma).\qed
+\end{align*}
+We can think of the following theorem as a converse to FTC.
+\begin{theorem}
+  Let $ U $ be a domain and $ f:U\to \C $ be continuous. Assume that
+  \[
+    \int_\gamma f(z)\mathrm dz = 0
+  \]
+  for all piecewise-$ C_1 $ closed curves $ \gamma $ in $ U $. Then $ f $ has an antiderivative $ F(z) $ on $ U $.
+\end{theorem}
+\pf Pick $ a_0\in U $. $ U $ is a domain so path-connected. So for $ w\in U $ pick a piecwise-$ C^1 $ path $ \gamma_w $ from $ a_0 $ to $ w $. Set
+\[
+	F(w)=\int_{\gamma_w}f(z)\mathrm dz.
+\]
+Our hypothesis that the integral over a closed path of $ f $ is zero implies that $ F(w) $ does not depend on the choice of path hence $ F $ is well-defined. $ U $ is open so for some $ \varepsilon>0 $, $ B(w,\varepsilon)\subseteq U $. If $ |h|<\varepsilon $ let $ \delta_h $ be the radial path inside this ball from $ w $ to $ w+h $. Then
+\begin{align*}
+	F(w+h) &= \int_{\gamma_w + \delta_h} f(z)\mathrm dz\\
+	       &= \int { \gamma_w} f(z)\mathrm dz + \int_{\delta_h}f(z)\mathrm dz\\
+	       &= F(w) + hf(w) - \int_{\delta_h}f(z)-f(w)\mathrm dz
+\end{align*}
+So
+\begin{align*}
+	\left|\frac{F(w+h)-F(w)}h -f(w)\right| &= \left|\frac 1h \int_{\delta_h} f(z)-f(w)\mathrm dz\right|\\
+					       &\le \frac 1{|h|}\mathrm{length}(\delta_h)\sup_{z\in \delta_h}|f(z)-f(w)|
+\end{align*}
+As $ h\to 0 $ the right hand side goes to zero by continuity of $ f $. So $ F $ is complex differentiable at $ w $ and $ F'(w)=f(w) $ for all $ w\in U $. So $ f $ has an antideriviative.\qed
+\begin{definition}
+	(Convex) A domain $ U $ is \textit{convex} if $ \forall p,q\in U $, the straight line segment connecting $ p $ and $ q $ lies in $ U $. i.e.
+	\[
+		pt+(1-t)q \in U,\quad\forall t\in[0,1].
+	\]
+\end{definition}
+\begin{definition}
+	(Star-shaped) A domain $ U $ is \textit{star-shaped} if there exists a $ p_0 $ such that for all $ q\in U $, the line segment $ p_0, q$ lies in $ U $.
+\end{definition}
+We have the implications
+\[
+	\text{disc} \implies \text{convex}\implies \text{star-shaped}\implies \text{simply connected} \implies \text{path-connected}
+\]
+\begin{remark}
+	All the theorem's we will prove for star-shaped sets related to Cauchy's theorem will extend to further sets. Simply connected is the property for Cauchy's theorem to hold for all curves in a domain, but we'll just prove the theorems for star-shaped sets for now.
+\end{remark}
+\begin{lemma}
+  Let $ U $ be star-shaped and $ f:U\to \C $ be continuous and suppose that
+  \[
+    \int_\gamma f = 0
+  \]
+  where $ \gamma $ is a \textit{triangle} in $ U $ where a \textit{triangle} is a piecewise-$ C_1 $ path formed by $ 3 $ edges of a Euclidean triangle and the whole triangle including its interior is contained in $ U $. Then $ f $ has an antiderivative on $ U $.
+\end{lemma}
+\pf Suppose that $ U $ is star-like with respect to some point $ p_0 $ and for $ w\in U $ let $ \gamma_w $ be the path connecting $ p_0 $ to $ w $ in $ U $. Taking $ h $ as before, the paths $ \gamma_w $, $ \gamma_h $, $ \gamma_{w+h} $ form a triangle in $ U $ so we can use our previous proof.
+\begin{theorem}
+	(Cauchy's theorem for triangles) Let $ U $ be a domain and $ T\in U $ be a triangle in $ U $. If $ f: U \to \C $ is holomorphic then
+	\[
+		\int_{\partial T} f = 0
+	\]
+	where $ \partial T $ is the piecewise-$ C_1 $ closed path given by the boundary of $ T $.
+\end{theorem}
+\pf Let $ L = \mathrm {length} (\partial T) $ and $ I = \left|\int_{\partial T} f\right| $. By bisecting edges we can $ T $ into $ 4 $ smaller triangles creating all 4 $ \Delta $ anticlockwise, note that
+\[
+  \partial T = \partial \triangle_0 \cup \partial \triangle_1 \cup \partial\triangle_2 \cup \partial \triangle_3
+\]
+so there exists an $ i $ such that $ \left| \int_{\partial \triangle_i} f\right| \ge \frac I4 $. Label by $ T_1 $ such a triangle $ \triangle_i $. Now iterate constructing a sequence of triangles $ T\supseteq T_1\supseteq T_2\supseteq \dots $ hence
+\begin{enumerate}
+	\item $ \left| \int_{\partial T_n} f\right| \ge \frac I{4^n} $;
+	\item $ \mathrm{length}(\partial T_n) = 2^{-n} L $.
+\end{enumerate}
+\begin{claim}
+  We have that:
+  \[
+	  \bigcap_{n \ge 1} T_n = \{w\}.
+  \]
+\end{claim}
+\pf We have that the length of the triangle goes to zero hence the diameter goes to zero, so by uniqueness of limits there can be at most one point in the intersection. The intersection being non-empty is a consequence of compactness and follows from applying Bolzano-Weiestrass to each coordinate. So the claim is true.\par
+Define
+\[
+g(z) = \frac{f(z)-f(w)}{z-w}-f'(w)
+\]
+which vanishes at $ w $ since $ f $ is holomorphic.
+\begin{align*}
+	\frac I{4^n} \le \left|\int_{\partial T_n} f\right| &= \left| \int_{\partial T_n} f(z)-f(w)-(z-w)f'(w)\ \mathrm dz\right|\\
+							    &\le\left|\frac L{2^n}\sup_{z\in\partial T_n}|(z-w)g(z)|\\
+							    &\le \frac {L^2}{4^n}\sup_{z\in\partial T_n}|g(z)|\\
+	I &\le L^2 \sup_{z\in\partial T_n}|g(z)|\to0
+\end{align*}
+as $ n\to\infty $.\qed
+\begin{corollary}
+	(Convex Cauchy) Let $ f $ be a holomorphic on a star-shaped domain $ U $. Then $ \int_\gamma f =0 $ for any piecewise-$ C_1 $ closed curve $ \gamma $.
+\end{corollary}
+\pf The previous argument implies that $ \int_{\partial T} f =0	$ where $ T $ is a triangle on $ U $. Thus $ f $ has an antiderivative $ F $ on $ U $. So $ F'(z) = f(z) $. So then
+\[
+  \int_\gamma f(z)\mathrm dz = \int_\gamma F'(z)\mathrm dz=0
+\]
+by FTC.\qed
+
+
+
+
+
+
+
 
 
 
