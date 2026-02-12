@@ -2,6 +2,7 @@
 \usepackage{../header}
 \title{Statistics}
 \author{Notes by Finley Cooper}
+\newcommand{\iid}{\overset{\text{idd}}{\sim}}
 \begin{document}
   \maketitle
   \newpage
@@ -476,11 +477,135 @@ For large $ n $, we use $ \approx \frac{\sum X_i}n $ as our estimate, for small 
 What is the use of the posterior distribution? This opens us to decision theory.
 \begin{enumerate}
 	\item We must pick a decision $ \delta \in D $;
-	\item We have a loss function $ L(\theta,\delta) $e which gives loss incurred in making decision $ \delta $ when the true paramter value is $ \theta $.
-	\item Von-Neumann-Morgenstern Theorem. Under axioms of rational behaviour, pick $ \delta $ that minimises expected lsos under posterior.
+	\item We have a loss function $ L(\theta,\delta) $ which gives loss incurred in making decision $ \delta $ when the true paramter value is $ \theta $.
+	\item Von-Neumann-Morgenstern Theorem: Under axioms of rational behaviour, pick $ \delta $ that minimises expected loss under posterior.
 \end{enumerate}
+\begin{definition}
+	(Bayes estimator) The \textit{Bayes estimator} $ \hat\theta^{(b)} $ is defined by
+	\[
+	  h(\delta) = \int_\Theta L(\theta,\delta)\pi(\theta\mid X)\mathrm d\theta
+	\]
+and
+\[
+	\hat \theta^{(b)}= \mathrm{arg}\ \mathrm{min} h(\delta)
+\]
+\end{definition}
+Consider the case where we have quadartic loss, so $ L(\theta,\delta) = (\theta-\delta)^2 $. Then we have that
+\[
+  h(\delta) =\int_\Theta (\theta-\delta)^2\pi(\theta\mid X)\mathrm d\theta.
+\]
+Differentiating with resepct to $ \delta $ we get that $ h'(\delta)=0 $ if
+\[
+  \int_\Theta (\theta-\delta)\pi(\theta\mid X)\mathrm d\theta = 0
+\]
+so
+\[
+  \delta = \int_\Theta \theta \pi(\theta\mid x)\mathrm d\theta
+\]
+is the posterior mean. Now suppose we have absolute loss, so $ L(\theta,\delta) = |\theta- \delta| $. So
+\begin{align*}
+	h(\delta) &= \int_\Theta |\theta-\delta|\pi(\theta\mid X)\mathrm d\theta\\
+		  &= \int_{-\infty}^\delta -(\theta-\delta)\pi(\theta\mid X\mathrm d\theta + \int_\delta^\infty (\theta-\delta)\pi(\theta\mid X)\mathrm d\theta\\
+		  &= -\int_\infty^\delta \theta\pi(\theta\mid X)\mathrm d\theta + \int_\delta^\infty \theta\pi(\theta \mid X)\mathrm d\theta + \delta\int_{-\infty}^\delta \pi(\theta\mid X)\mathrm d\theta - \delta\int_\delta^\infty \pi(\theta\mid X)\mathrm d\theta
+\end{align*}
+Taking derivatives and applying FTC we get that
+\[
+	h'(\delta) = \int_{-\infty}^\delta \pi(\theta\mid X)\mathrm d\theta - \int_{\delta}^\infty \pi(\theta\mid X)\mathrm d\theta.
+\]
+Hence $ h'(\delta) = 0 $ if and only if 
+\[
+	\int_{-\infty}^\delta \pi(\theta\mid X)\mathrm d\theta = \int_{\delta}^\infty \pi(\theta\mid X)\mathrm d\theta
+\]
+so $ \hat \theta^{(b)} $ is the posterior median.
+\par
+Supose we have $ X_1,\dots , X_n\iid \mathcal N(\mu, 1) $ and prior $ \pi(\mu) $ that is $ \mathcal N(0,\frac 1{\tau^2}) $ for some known $ \tau>0 $. Then
+\begin{align*}
+	\pi(\mu \mid X) &\propto f_X(x\mid \mu)\pi(\mu)\\
+			&\propto \exp\left(-\frac 12 \sum_{i=1}^n (X_i-\mu)^2\right)\exp\left(-\frac{-\mu^2 \tau^2}{2}\right)\\
+			&\propto \exp\left(-\frac 12 (n+\tau^2)\left(\mu - \frac{\sum X_i}{n+\tau^2}\right)^2\right)
+\end{align*}
+This is the pdf of a $\mathcal N\left(\frac{\sum X_I}{n+\tau^2}, \frac 1{n+\tau^2}\right) $ distribution. The posterior mean and median are both $ \frac{\sum X_i}{n+\tau^2} $.
+\begin{definition}
+	(Credible interval) A $ 100\gamma\% $ \textit{credible interval} satifies that
+	\[
+	  \pi(A(X)\le \theta\le B(X)\mid X=x) = \gamma.
+	\]
+\end{definition}
+\section{Hypothesis Testing}
+\begin{definition}
+	(Hypothesis) A \textit{hypothesis} is an assumption about a distribution of data $ X $ taking values in $ \chi $.
+\end{definition}
+\begin{definition}
+	(Null/Alternative hypothesis) The \textit{null hypothesis} $ H_0 $ is the base case. The \textit{alternative hypothesis} is the positive or negative effect the interesting case, denoted by $ H_1 $.
+\end{definition}
+For example let $ X_1,\dots, X_n\iid \mathrm{Bernoulli}(\theta) $. We may have the null hypothesis $ H_0:\theta=\frac 12 $ and then make alternative hypothesis $ H_1: \theta = \frac 34 $ or $ H_1:\theta \ne \frac 12 $ for example.\par
+Suppose that $ X_1,\dots, X_n $ are iid. Then we have the hypotheses:
+\begin{align*}
+	H_0 &: X_i \ \text{has pdf}\ f_0 \\
+	H_1 &: X_i \ \text{has pdf}\ f_1
+\end{align*}
+This is called a goodness of fit test.\par
+Now suppose that $ X $ has pdf $ f(\cdot\mid \theta) $ for some $ \theta\in \Theta $. 
+\begin{align*}
+	H_0 &: \theta\in\Theta_0\nsubseteq \Theta\\
+	H_1 &: \theta\notin \Theta_0
+\end{align*}
+\begin{definition}
+	(Simple/composite hypothesis) A \textit{simple hypothesis} fully specifies the distribution of $ X $. Otherwise we say the hypothesis is \textit{composite}.
+\end{definition}
+\begin{definition}
+	(Test and critical regions) A \textit{test} of $ H_0 $ is defined by a \textit{critical region}, C. When $ X\in C $, we reject $ H_0 $, otherwise we do not reject $ H_1 $.
+\end{definition}
+\begin{definition}
+	(Type I Error) A \textit{Type I Error} occurs when we reject $ H_0 $ when $ H_0 $ is true.
+\end{definition}
+\begin{definition}
+	(Type II Error) A \textit{Type II Error} occurs when we fail to reject $ H_0 $ when $ H_1 $ is true.
+\end{definition}
+When $ H_0 $ and $ H_1 $ are simple hypotheses we have the following.
+\begin{definition}
+	(Size) We define $ \alpha $ as the \textit{size} of the test, defined as
+	\[
+		\alpha = \mathbb P_{H_0}(H_0\ \text{rejected}) = \mathbb P_{H_0}(X\in C).
+	\]
+\end{definition}
+\begin{definition}
+	(Power) We define the \textit{power} of the test as $ 1-\beta $ where
+	\[
+		\beta = \mathbb P_{H_1}(H_0\text{ not rejected}) = \mathbb P_{H_1}(X\notin C).
+	\]
+\end{definition}
+\begin{remark}
+  Note that $ \alpha $ is the probability of a Type I error and $ \beta $ is the probability of a Type II error.
+\end{remark}
+\begin{remark}
+  Type I and Type II errors correspond to a false positive and a false negative respectively.
+\end{remark}
+Usually we set $ \alpha $ at an acceptable level for example $ 1\% $, and choose a test that minimises $ \beta $ subject to $ \alpha\le 1\% $.
+\begin{definition}
+	(Likelihood ratio statistic) Let $ H_0 $ and $ H_1 $ be simple hypotheses with $ X $ having pdf $ f_i $ under $ H_i $. The \textit{likelihood ratio statistic} is
+	\[
+		\Lambda_X(H_0,H_1) = \frac{f_1(X)}{f_0(X)}.
+	\]
 
-
+\end{definition}
+\begin{definition}
+	(Likelihood ratio test) A \textit{Likelihood ratio test} (LRT) rejects $ H_0 $ when $ X\in C=\{x\in \Lambda_X(H_0,H_1)>k\} $ for some $ k>0$ .
+\end{definition}
+\begin{theorem}
+	(Neyman-Pearson Lemma) Suppose that $ f_0 $ and $ f_1 $ are nonzero on the same sets and $ \exists k$ such that the LRT with critical region $ C=\{x: \frac{f_1(x)}{f_0(x)}>k\} $ has size $ \alpha $. Out of all tests with size $ \le\alpha $ the LRT is the test with smallest $ \beta $.
+\end{theorem}
+\pf Let $ \overline C $ be the complement of $ C $. Then
+\begin{align*}
+	\alpha &= \mathbb P_{H_0}(X\in C) = \int_C f_0(x)\mathrm dx\\
+	\beta &= \mathbb P_{H_1}(X\in \overlien C) = \int_{\overline C}f_1(x)\mathrm dx
+\end{align*}
+Let $ C^* $ be the critical region of another test of size $ \alpha^*\le \alpha $. We want to show that $ \beta\le\beta^* $.
+\begin{align*}
+	\beta-\beta^*&=\int_{\overline C} f_1(x)\mathrm dx-\int_{\overline C^*}f_1(x)\mathrm dx\\
+		     &= \int_{\overline C\cap \overline C^*} f_1(x)\mathrm dx-\int_{\overline C^*\cap C} f_1(x)\mathrm dx\\
+		     &= \int_{\overline C \cap C^*}\frac{f_1(x)}{f_0(x)}f_0(x)\mathrm dx-\int_{\overline C^*\cap C}\frac{f_1(x)}{f_0(x)}f_0(x)\mathrm dx
+\end{align*}
 
 
 

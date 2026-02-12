@@ -690,6 +690,111 @@ where
   \mathbf S = \int_S\mathrm d\mathbf S
 \]
 is the vector area of the surface $ S $ which depends only on $ C $.
+\par
+The simplest example is a circular loop, for example $ x^2+y^2 = a^2 $ for which $ \mathbf m = I \pi a^2 \mathbf e_z $. On the $ z $-axis the dipole approximation gives that
+\[
+	B_z = \frac{\mu_0}{4\pi}\left(\frac{3m_zz^2 - z^2m_z}{|z|^5}\right) = \frac{\mu_0 Ia^2}{2|z|^3}
+\]
+while the exact solution is
+\[
+	B_z = \frac{\mu_0 Ia^2}{2(z^2+a^2)^{3/2}}.
+\]
+Magnetic field lines are the integral curves of $ \mathbf B $. Since $ \nabla\cdot\mathbf B = 0 $, they are continuous.
+\begin{definition}
+	(Permanent magnets) A bar magnet has north and south poles and a dipole moment. This comes from the superposition of aligned dipoles on the atomic scale. Atoms contain electrons whihc are spinning charges particles with a magnetic dipole moment.
+\end{definition}
+A classical model of a particle is a spinning charged sphere which is a current loop with a magnetic dipole moment proportional to its charge and spin. As far as we know, there is no magnetic charges (monopoles).\par
+The liquid iron outer core of the Earth is a conducting fluid in convective motion and supports electric currents that generate a magnetic field. At the Earth's surface this resembles a dipole field.
+\subsection{Magnetic forces}
+Recall that the Lorentz force on a particle of charge $ q_i $ at position $ \x_i(t) $ is
+\[
+  \mathbf F = q_i(\mathbf E+\dot\x_i\times \mathbf B)
+\]
+where both $ \mathbf E $ and $ \mathbf B $ are evaluated at $ \x_i(t) $.\par
+In the limit of continuous charge and current densities, the Lorentz force per unit volume is then
+\[
+  \rho\mathbf E  + \mathbf J\times \mathbf B.
+\]
+We can recover the discrete version of the Lorentz force by substituting
+\begin{align*}
+	\rho &= \sum_i q_i\delta(\x-\x_i(t))\\
+	\mathbf J &= \sum_i q_i\dot\x_i(t)\delta(\x-\x_i(t)).
+\end{align*}
+Let's look at the force between thin wires. Consider two or more thin wires with current $ I_i $ along a curve $ C_i $. The total magnetic field is $ \mathbf B = \sum_i \mathbf B_i $, where
+\[
+	\mathbf B_i(\x)= \frac{\mu_0 I_i}{4\pi} \int_{C_i} \frac{\mathrm d\x_i \times (\x-\x_i)}{|\x-\x_i|^3}
+\]
+is the magnetic field due to wire $ i $. The current density if $ \mathbf J = \sum_i \mathbf J_i $, where
+\[
+	\mathbf J_i(\x) = I_i\int_{C_i} \delta(\x-\x_i)\mathrm d\x_i.
+\]
+The total magnetic field acting on a volume $ V $ is
+\[
+  \mathbf F = \int_V \mathbf J\times \mathbf B \mathrm dV.
+\]
+The force acting on wire $ i $ is
+\begin{align*}
+	\mathbf F_i &= \int \mathbf J_i(\x)\times\mathbf B(\x)\mathrm d^3\x\\
+		    &= I_i\int_{C_i}\mathrm d\x_i\times \mathbf B(\x_i).
+\end{align*}
+Since $ \mathbf B = \sum_i \mathbf B_i $, we have that
+\[
+	\mathbf F_i =\sum_j \mathbf F_{ij}
+\]
+where
+\[
+	\mathbf F_{ij} = I_i\int_{C_i} \mathrm d\x_i \times \mathbf B_j(\x_i)
+\]
+is the force on wire $ i $ due to wire $ j $. Using the Biot-Savart law,
+\[
+	\mathbf F_{ij} = \frac{\mu_0 I_iI_j}{4\pi} \int_{C_i}\int_{C_j}\mathrm d\x_i \times\left(\frac{\mathrm d\x_j\times(\x_i-\x_j)}{|\x_i-\x_j|^3}\right).
+\]
+This can be rewritten (Example Sheet 3) in a manifestly antisymmetric way that shows that
+\[
+	\mathbf F_{ji} = -\mathbf F_{ij}
+\]
+as excepected from Newton's third law. The self force $ \mathbf F_{ii} $ vanishes, although the thin-wire integral is singular when $ i=j $ and it is better treat the case of thick wires.
+\par
+Let's consider two infinitely long parallel thin wires seperated by a distance $ r $. Use cylindrical polars centred on the second wire. We have that $ \mathbf B_2 = \frac{\mu_0 I_2}{2\pi r}\mathbf e_\phi $.
+\[
+	\mathbf F_{12} = I_1\int_{-\infty}^\infty \mathrm dz \mathbf e_z \times\mathbf B_2.
+\]
+The total force is infinite. The force per unit length is
+\[
+	I_1\mathbf e_z\times\mathbf B_2 = -\frac{\mu_0 I_1I_2}{2\pi r}\mathbf e_r.
+\]
+This is directed towards wire 2 is $ I_1I_2>0 $ so the force is attractive if the currents are aligned and repulsive otherwise.
+\par
+Let's consider the force and torque on a magnetic dipole. Consider a localised current distribution confined to a ball $ \{V:|\x|<R\} $. Place this in an external magnetic field $ \mathbf B(\x) $ that varies slowly over the length scale $ R $. the magnetic torque about the origin on the current loop is
+\begin{align*}
+	\boldsymbol\tau &= \int_V\x \times(\mathbf J(\x) \times \mathbf B(\x)\mathrm d^3\x\\
+			&= \int_V ((\x\cdot \mathbf B(\x))\mathbf J(\x)-(\x\cdot \J(\x))\mathbf B(\x))\mathrm d^3\x.
+\end{align*}
+within $ V $, $ \mathbf B(\x) $ can be expanded as a Taylor series,
+\begin{align*}
+  \mathbf B_i(\x) = \mathbf B_i(0) +x_j \partial_jB_i(0) + \cdots 
+\end{align*}
+retaining only the zero order term (uniform field), we have that
+\[
+  \tau_i \approx B_j(0)\int_V x_j J_i\mathrm d^3\x - B_i(0)\int_V x_jJ_j\mathrm d^3\x.
+\]
+Recall the first moments of the current distribution:
+\begin{align*}
+	\int_V x_i J_j\mathrm d^3 \x = \varepsilon_{ijk} m_k.
+\end{align*}
+Thus
+\[
+	\tau_i \approx B_j(0)\varepsilon_{jik}m_k.
+\]
+In general,
+\[
+  \boldsymbol \tau \approx \mathbf m \times \mathbf B,
+\]
+where $ \mathbf B $ is evaulated at the dipole's location and $ \boldsymbol \tau $ is measured about this point.
+
+
+
+
 
 
 
