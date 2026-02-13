@@ -482,6 +482,116 @@ as $ n\to\infty $.\qed
   \int_\gamma f(z)\mathrm dz = \int_\gamma F'(z)\mathrm dz=0
 \]
 by FTC.\qed
+\begin{proposition}
+  Let $ U $ be a domain and $ f:U \to \C $ be continuous. Suppose that there exists a finite set $ S\subset U $ such that $ f $ is holomorphic on $ U\setminus S $. THen if $ T \subseteq U $ is a triangle, then
+  \[
+	  \int_{\partial T}f = 0.
+  \]
+\end{proposition}
+\pf Without loss of generality suppose that $ S $ is singleton, subdividing $ T $ if necessary. If $ T $ contains no points of $ S $ we can use Cauchy for triangles. If it contains more than one point of $ S $ divide into smaller triangles each containing one or no points and adding. Now suppose that $ a\in S $ and $ a\in T'\subseteq T $, a smaller triangle. Through a geometric argument we can subdivide $ T $ into smaller triangles one of which is $ T' $ containing $ a $. Orienting all of these triangles anticlockwise we see that
+\[
+	\int_{\partial T} f = \pm \int_{\partial T'} f
+\]
+due to Cauchy's theorem, the integral around all of the other triangles is zero. Now
+\begin{align*}
+	\left|\int_{\partial T'} f\right| &= \mathrm{length}(\partial T') \sup_{z\in \partial T'}|f(z)| \\
+					  &= \mathrm{length}(\partial T') \sup_{z\in T} |f(z)|.
+\end{align*}
+Now since $ \sup_{z\in T}|f(z)| $ is bounded, we can send $ \mathrm{length}(\partial T') \to 0 $ by choosing $ T' $ to be as small as we like. Hence the integral vanishes. \qed
+\begin{corollary}
+  If $ U $ is star-shaped and $ S\subset U $ is finite and $ f:U\to \C $ is continuous and holomorphic on $ U\setminus S $ then
+  \[
+    \int_\gamma f =0
+  \]
+  for all closed curves $ \gamma\in U $.
+\end{corollary}
+\pf Using the antiderivative theorem, just as we used before to deduce convex Cauchy from Cauchy for triangles.\qed
+\subsection{The Cauchy integral formula}
+\begin{theorem}
+	Let $ U\in \C $ be a domain, $ f:U\to \C $ be holomorphic on $ U $ and $ \overline{B(a,r)}\subseteq U $. For all $ z\in B(a,r) $ and $ 0<\rho \le r $, $ |z-a|<\rho $, we have that
+	\[
+		f(z) = \frac 1{2\pi i}\int_{|w-a|=\rho} \frac{f(w)}{w-z}\mathrm dw.
+	\]
+\end{theorem}
+\pf Let
+\[
+	g(w) = \begin{cases}
+		\frac{f(w)-f(z)}{w-z} & w\ne z\\
+		f'(z) & w = z
+	\end{cases}.
+\]
+This is continuous on $ \overline{B(a,r)} $ and holomorphic except perhaps at $ z $. So by Cauchy,
+\[
+	\int_{\partial B(a,r) = |w-a|=\rho}g(w)\ \mathrm dw = 0,
+\]
+hence
+\[
+	\int_{|w-a|=\rho} \frac{f(w)}{w-z}\mathrm dw = \int_{|w-a|=\rho} \frac{f(z)}{w-z}\ \mathrm dw.
+\]
+We'll use that
+\[
+	\frac1{w-z} =\frac1{w-a}\frac 1{1-\left(\frac{z-a}{w-a}\right)} = \frac 1{w-a}\sum_{n=0}^\infty \left(\frac {z-a}{w-a}\right)^n
+\]
+which converges uniformly on $ |w-a|=\rho $. So
+\begin{align*}
+	\int_{|w-a|=\rho}\frac{f(w)}{w-z}\ \mathrm dw &= f(z) \int_{|w-a|=\rho} \sum_{n=0}^\infty \frac{(z-a)^n}{(w-a)^{n+1}}\ \mathrm dw\\
+						      &= f(z)\sum_{n=0}^\infty \int_{|w-a|=\rho}\frac{(z-a)^n}{(w-a)^{n+1}}\ \mathrm dw
+\end{align*}
+swapping the summation and the integral using uniform convergence. Recall that we showed that
+\[
+	\int_{|z|=1} z^n \ \mathrm dz
+\]
+gave us something nontrivial only when $ n=-1 $. So by a change of variables from $ w-a\to w $ we see only the $ n=0 $ term contributes and gives $ 2\pi i $. Hence we have that
+\[
+	\int_{|w-a|=\rho} \frac{f(w)}{w-z}\ \mathrm dw = 2\pi i f(z)
+\]
+which gives the result.\qed
+\begin{corollary}
+	(Mean value property) If $ f:U\to \C $ is holomorphic on a domain $ U $ and $ \overline{B(a,r)}\subseteq U $, then
+	\[
+		f(a) = \int_0^1 f(a+re^{2\pi i t}) \ \mathrm dt.
+	\]
+	So the value of $ f $ at $ a $ is the average of its values over a small linking circle.
+\end{corollary}
+\pf Parameterise the circle in the Cauchy integral formula, so
+\begin{align*}
+	f(a) = \frac 1{2\pi i} \int_{|w-a|= r} \frac {f(w)}{w-a}\ \mathrm dw &= \frac 1{2\pi i} \int_\gamma \frac f(\gamma(t)){\gamma(t)-a}\gamma'(t)\ \mathrm dt
+\end{align*}
+and the result follows simply by substituing $ \gamma $ in.
+\begin{corollary}
+	(Local maximum principle) If $ f: B(a,r)\to \C $ is holomorphic and $ |f(z)|\le |f(a)| $ for all $ z\in B(a,r) $ then $ f $ is constant.
+\end{corollary}
+\pf For $ 0<\rho<r $,
+\begin{align*}
+	|f(a)| &= \left|\int_0^1 f(a+\rho e^{2\pi it})\ \mathrm dt\right|\\
+	       &\le \sup_{|z-a|=\rho}|f(z)|\\
+	       &\le |f(a)|
+\end{align*}
+So the inequalities are equalties, hence $ |f(z)| = |f(a)| $ for all $ z $ such that $ |z-a|=\rho $, and $ \rho \in (0,r) $ is arbitrary hence $ |f| $ is constant so by Example Sheet 1 since $ f $ is holomorphic, $ f $ is constant.\qed
+\begin{theorem}
+	(Liouville's Theorem) Let $ f:\C\to\C $ be entire. Then if $ f $ is bounded it is constant.
+\end{theorem}
+\pf Let $ z_1,z_2\in C $ and pick $ R>\max\{2|z_1|,2|z_2|\} $. So
+\begin{align*}
+	f(z_1)-f(z_2) =\frac 1{2\pi i} \int_{\partial B(0,R)}\left(\frac{f(w)}{w-z_2}-\frac{f(w)}{w-z_2}\right)\ \mathrm dw. 
+\end{align*}
+Taking the absolute value of both sides,
+\begin{align*}
+	|f(z_1)-f(z_2)| &= \frac 1{2\pi}\left|\int_{\partial B(0,R)}\frac{f(w)(z_1-z_2)}{(w-z_1)(w-z_2)}\ \mathrm dw\right|\\
+			&\le \frac 1{2\pi} 2\pi RM\frac{|z_1-z_2|}{(R/2)^2}\to 0
+\end{align*}
+as $ R\to\infty $. Hence $ f $ is constant.\qed
+\begin{corollary}
+	(Fundamental theorem of algebra) Every non-constant complex polynomial has a root in $ \C $.
+\end{corollary}
+\begin{remark}
+  This is equivalent to saying all non-constant complex polynomials factors as a product of linear factors.
+\end{remark}
+
+
+
+
+
 
 
 
