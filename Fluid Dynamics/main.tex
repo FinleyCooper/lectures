@@ -380,6 +380,78 @@ Let's compare the two equations
 	\frac{D}{Dt}\delta\boldsymbol\ell = (\delta\boldsymbol\ell\cdot\nabla)\mathbf u\qquad \frac D{Dt}\boldsymbol\omega = (\boldsymbol\omega\cdot\nabla)\mathbf u.
 \]
 We can see these are the same equation. So moving with the fluid, $ \boldsymbol\omega $ changes just like a material line element initially parallel to $ \boldsymbol\omega $. In particular, if $ \delta\boldsymbol\ell $ gets longer (stretching) then $ \boldsymbol\omega $ gets larger. This is conservation of angular momentum. When the fluid is stretched in the direction of $ \boldsymbol\omega $, we get an increase in vorticity.
+\begin{definition}
+	(Circulation) Given a closed curve $ \Gamma $, the \textit{circulation} around $ \Gamma $ is defined as
+	\[
+	  C(t)=\int_\Gamma \mathbf u \cdot\mathrm d\boldsymbol\ell.
+	\]
+\end{definition}
+By Stokes' theorem we have that
+\[
+  C(t) = \iint_S \boldsymbol \omega \cdot\mathrm \mathbf S
+\]
+where $ S $ is an open surface with $ \partial S = \Gamma $.
+\begin{theorem}
+	\textit{Non-examinable}	(Kelvine circulation theorem) For an inviscid fluid with constant density and conservative body forces then if we take $ \Gamma $ to be a material line then
+	\[
+		\frac{d}{dt}C = 0
+	\]
+\end{theorem}
+\begin{remark}
+	If the flow is irrotatoinal at $ t=0 $ then it is irrotional at all times.
+\end{remark}
+\section{Viscosity}
+The previous chapter only covered flows which were inviscid and we neglected any friction in fluid flow. We had that
+\begin{enumerate}
+	\item $ \boldsymbol\tau = -p\mathbf n $
+	\item In our momentum balance equation (Euler) we had $ \rho\frac{D\mathbf u}{Dt}\sim (\nabla p;\ \mathbf F) $.
+\end{enumerate}
+Now we will include viscosity; we will find
+\begin{enumerate}
+	\item New \textit{tangential} stress between fluid layers or between fluid and the boundary.
+	\item New term in the momentum balance equation.
+\end{enumerate}
+Here in IB Fluid Dynamics we will only focus on 2D parallel viscious flows. So we will have that
+\[
+  \mathbf u = (u(y,t),0,0).
+\]
+We instantly get that $ \nabla\cdot\mathbf u = 0 $.
+\subsection{Plane Couette flow}
+Consider a a steady flow between two parallel plates, driven only by the motion of the top plate parallel to the bottom one with speed $ U $. Experiments report that for the wide variety of fluids (Newtonian fluids) the find that
+\begin{enumerate}
+	\item The fluid velocity at the top is $ U $ and at the bottom it is zero.
+	\item The fluid flow velocity varies linearly between $ 0 $ and $ V $, so $ u(y)=U\frac yh $.
+	\item The tangential force $ \tau $ required to move the top plane is linear in $ U $ and inversely proportional to $ h $.
+\end{enumerate}
+So we have that
+\[
+  \tau \propto \frac Uh
+\]
+\begin{definition}
+	(Dynamic viscosity) The \textit{dynamic viscosity}, $ \mu $, of a fluid is the proportionality constant from above, so
+	\[
+	  \tau = \mu \frac Uh.
+	\]
+	We usually write this as
+	\[
+		\tau = \mu \frac{\partial u}{\partial n},
+	\]
+	the viscous tangential stress exerted by the positive side to the negative side, where the normal is pointing from the interface to the positive side.
+\end{definition}
+\begin{remark}
+  The viscosity is a material property of the fluid.
+\end{remark}
+We call $ \frac Uh $ the shear rate of the fluid.
+\subsection{2D parallel viscous flow}
+\subsubsection{Steady case with $ \mathbf F = 0 $}
+Consider an infinitesimal volume of fluid $ \delta x \delta y $. Consider a flow $ u(y,t) $ moving left to right in the volume. On the left and right side we only have the pressure force and no tangential forces. On the top and bottom we have the tangnetial frictional forces equal to
+\[
+	\pm\mu \frac{\partial u}{\partial y}.
+\]
+
+
+
+
 
 
 

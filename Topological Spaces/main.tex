@@ -419,20 +419,52 @@ Hence $ \approx $ is an equivalence relation.\qed
 \begin{proposition}
   The connected components are connected.
 \end{proposition}
-\pf Let $ C\subseteq X $ be a connected component. Suppose that $ f:C\to \{0,1\} $ is a surjective continuous function. Let $ f(x_0)= 0 $ and $ f(x_1) = 1 $. As $ x_0\approx x_1 $, there exists a connected space $ D\subseteq X $ with $ x_0,x_1\in D $. If $ d\in D $, then $ d\approx x_0 $, hence $ D\subseteq C $. But then $ f\mid_D:D\to \{0,1\} $ is a continuous surjective function so $ D $ is disconnected, contradiction, hence $ C $ is connected.
-
-
-
-
-
-
-
-
-
-
-
-
-
+\pf Let $ C\subseteq X $ be a connected component. Suppose that $ f:C\to \{0,1\} $ is a surjective continuous function. Let $ f(x_0)= 0 $ and $ f(x_1) = 1 $. As $ x_0\approx x_1 $, there exists a connected space $ D\subseteq X $ with $ x_0,x_1\in D $. If $ d\in D $, then $ d\approx x_0 $, hence $ D\subseteq C $. But then $ f\mid_D:D\to \{0,1\} $ is a continuous surjective function so $ D $ is disconnected, contradiction, hence $ C $ is connected.\qed
+\par
+For example $ X= (-\infty, 0) \cup (-,\infty) $ has connected components $ (-\infty, 0), (0,\infty) $ which are also the path-components.\par
+For $ \Q\subset \R $ the connected compoments are the singletons, so are the path-components.\par
+Let's look at the \textit{Topologist's sine curve}, which is defined as
+\[
+	S = \left\{\left(x,\sin\left(\frac 1x\right)\right)\in \R \mid 0<x\le 1\right\}.
+\]
+This is not closed and it's closure is
+\[
+\overline S = S\cup (\{0\} \times [-1,1]).
+\]
+We want to show that $ \overline S $ is connected but \textit{not} path connected. Since $ S $ is the image of $ (0,1] $ under $ x\to \left(x,\sin\left(\frac 1x\right)\right) $ hence $ S $ is connected.
+\begin{lemma}
+  The closure of a connected subspace is connected.
+\end{lemma}
+\pf Let $ C\subset X $ be a connected subspace and suppose that $ \overline C = U\cup V $ is disconnected, so $ U,V $ are non-empty, disjoint open sets of $ \overline C $. Thus $ U,V $ are also closed in $ \overline C $. Hence they are closed in $ X $ too. Consider $ C\cap U $ and $ C\cap V $. This is a cover of $ C $ by disjoint open subsets. So one of them is empty, so $ C\subset U $ without loss of generality. But since $ U $ is closed in $ X $, $ \overline C\subset U $ too, so $ \overline C \cap V = \emptyset $. This contradicts the fact that $ U\cup V $ was a disconnection.\qed
+\par
+Hence we have that $ \overline S $ is connected. Note that $ \{0\}\times [-1,1] $ and $ S $ are both path connected, so to show that $ \overline S $ is not path connected we need to show that there is no $ \gamma:[0,1]\to \overline S $ with $ \gamma(0) \in \{0\}\times [-1,1] $ and $ \gamma(1)\in S $. Suppose that $ \gamma $ is such a path. As $ \{0\}\times [-1,1] $ is closed, $ \inv \gamma(\{0\}\times [-1,1]) $ is closed, so it contains its supremum $ t $. Then $ \gamma\mid_{[t,1]} $ is a new path with $ \gamma(t)\in \{0\} \times [-1,1] $ and $ \gamma(s<t)\in S $. SO we replace $ \gamma $ by $ \gamma\mid_{[t,1]} $. So we can write $ \gamma(s) = (x(s),y(s)) $ for $ x,y:[0,1]\to \R $ continuous. For $ s>0 $ we have that $ y(s) = \sin\left(\frac 1 {x(s)}\right) $. Our goal is to find a sequence $ s_n\to 0 $ in $ [0,1] $ such that $ y(s_n) = (-1)^n $. Then this is a contradiction since it should converge to $ y(0) $ since $ y $ is continuous. For each $ n $ choose a $ 0=x(0)<a<x\left(\frac 1n\right) $ such that $ \sin\left(\frac 1u\right)=(-1)^n $. By the intermediate value theorem we have that $ u=x(s_n) $ for some $ 0<s_n<\frac 1n $. So $ y(s_n) = (-1)^n $ as required.\qed
+\subsection{Compactness}
+\begin{definition}
+	(Cover) A collection $ \mathcal X\subset P(X) $ is a \textit{cover of} $ X $ if for each $ x\in X $ there is a $ S\in \mathcal X $ with $ x\in S $.
+\end{definition}
+\begin{definition}
+	(Open cover) An \textit{open cover} of $ X $ is a cover consisting of open sets.
+\end{definition}
+\begin{definition}
+	(Subcover) A \textit{subcover} of $ \mathcal X $ is a $ \mathcal X'\subseteq \mathcal X $ which is also a cover.
+\end{definition}
+Let's give a definition now which generalised the idea of being closed and bounded without need of a metric.
+\begin{definition}
+	(Compact) A topological space $ X $ is \textit{compact} if every open cover has a finite subcover.
+\end{definition}
+$ \R $ is not compact by considering the open sets $ \{(n-1,n+1) \subset \R \mid n\in \Z \} $ which clearly is an open cover but has no finite subcover since there isn't even a subcover, since each $ n\in \Z $ is only contained in exactly one open interval in the cover.\par
+If $ X $ is a topological space with finitely many points then it is compact.
+\par
+If $ X = \{0\}\cup \{\frac 1n\} $ for $ n=1,2,\dots $. Then $ X $ is compact. Let $ \mathcal U $ be an open cover of $ X $. The point $ 0\in X $ lies in some $ U_0\in \mathcal U $. As this is open, there exists an $ \varepsilon>0 $ such that $ 0\in B_{\varepsilon}(0)=(-\varepsilon,\varepsilon)\subset U_0 $. Thus $ \frac 1n \in U_0 $ for $ 0<\frac 1n <\varepsilon $ for $ n>\frac 1\varepsilon $. The finitely many points $ 1,\frac 12, \frac 13,\dots, \frac 1m $ that do not satisfy this, lie in open sets $ 1\in U_1, \frac 12 \in U_2, \dots, \frac 1m \in U_m $. Hence $ \{U_i\}_{i=0}^m $ is a finite subcover.\par
+The space $ Y = \{\frac 1n \mid n=1,2,\dots \}\subseteq \R$ is \textit{not} compact. This is because it is an infinite set and the topology is discrete since $ \left\{\frac 1n\right\} = Y\cap \left(\frac 1{n+1}, \frac 1{n+1}\right) $. Hence the cover by each of the points has no subcover at all.
+\begin{theorem}
+	$ [0,1] $ is compact.
+\end{theorem}
+\pf Let $ \mathcal U $ be an open cover of $ [0,1] $. Consider
+\[
+	A = \{a\in [0,1] \mid \text{there is a finite } \mathcal U' \subset \mathcal U \text{ whose union contains } [0,a]\}.
+\]
+If $ 0\le a \le b $ then $ [0,a]\subseteq [0,b] $. So if $ b\in A $ then $ a\in A $. $ A $ is not non-empty since $ 0\in A $ since $ [0,0]=\{0\} $ has some $ U\in \mathcal U $ containing $ 0 $. Hence by completeness $ A $ has a supremum, so set $ \alpha =\sup A \in [0,1] $. We want to show that $ \alpha = 1 $. Let $ \alpha \in U_\alpha \in \mathcal U $. If $ \alpha<1 $ then there is an $ \varepsilon >0 $ such that $ (a-\varepsillon, a+\varepsilon)\subset [0,1] \subset U_\alpha$. So as $ \alpha-\varepsilon< \alpha $, there must be a $ \alpha-\varepsilon\le a <\varepsilon $ with $ a\in A $. Hence $ \alpha-\varepsilon \in A $ too. But then $ [0,\alpha-\varepsilon] $ has a finite cover by elements of $ \mathcal U $. Adding $ U_\alpha $ we have a finite subcover of $ [0,\alpha+\varepsilon/2] $ hence this contradicts the fact that $ \alpha $ is a supremum, so $ \alpha=1 $ and $ [0,1] $ is compact.\qed
 
 
 
