@@ -444,24 +444,101 @@ So we have that
 We call $ \frac Uh $ the shear rate of the fluid.
 \subsection{2D parallel viscous flow}
 \subsubsection{Steady case with $ \mathbf F = 0 $}
-Consider an infinitesimal volume of fluid $ \delta x \delta y $. Consider a flow $ u(y,t) $ moving left to right in the volume. On the left and right side we only have the pressure force and no tangential forces. On the top and bottom we have the tangnetial frictional forces equal to
+Consider an infinitesimal volume of fluid $ \delta x \delta y $. Consider a flow $ u(y,t) $ moving left to right in the volume. On the left and right side we only have the pressure force and no tangential forces. On the top and bottom we have the tangetial frictional forces equal to
 \[
 	\pm\mu \frac{\partial u}{\partial y}.
 \]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Using the balance of forces in the $ x $-direction we have that
+\[
+	p(x)\delta y - p(x+\delta x) \delta y + \left( \mu \frac{\partial y}{\partial y}(y+\delta y) - \mu \frac{\partial u}{\partial y}(y)\right)\delta x = 0.
+\]
+Expanding the $ \delta x\delta y $ terms we get that
+\[
+	\delta x \delta y\left(- \frac{\partial p }{\partial x} + \mu \frac{\partial ^2 u}{\partial y^2}\right) = 0
+\]
+which gives that
+\[
+	-\frac{\partial p}{\partial x} + \mu \frac{\partial^2 u}{\partial y^2} = 0.
+\]
+In the $ y $-direction we get that
+\[
+	\frac{\partial p}{\partial y}  =0
+\]
+\subsubsection{General case with $ u(y,t) $ and $ \mathbf F $}
+On Example Sheet 2 we will see that the general case solution is
+\begin{align*}
+	\rho \frac{\partial u}{\partial t} &= -\frac{\partial p }{\partial x} + \mu\frac{\partial ^2 u}{\partial y^2} + F_x\\
+	0 &= -\frac{\partial p}{\partial y} + F_y.
+\end{align*}
+\begin{remark}
+  For flows of the form $ \mathbf u = (u(y,t), 0,0) $ we have that $ (\mathbf u \cdot \nabla) \mathbf u = 0 $ so this explains why this result is much simplier than it seems it would be.
+\end{remark}
+\subsubsection{The no-slip boundary condition}
+Notice that we've now increased the order of our differential equations. This means that we now need another boundary condition to solve our equations. \par
+Experiements tell us that for viscious flow at a rigid boundary $ \mathbf u = \mathbf U $, so the tagnetial components of the flow match the velocity of the rigid boundary. This is called the no-slip boundary condition and is \textit{only} applicable to viscious flows.\par
+Recall we still have our other boundary condition: the no penetration boundary condition
+\[
+  \mathbf u \cdot\mathbf n = \mathbf U \cdot\mathbf n.
+\]
+\subsubsection{Examples} 
+Poiseuille flow in a channel: This is steady flow in a (2D) cannel driven by a pressure gradient. Say the channel has a length $ L $ and height $ h $, with pressure $ p_0 $ at the input of the channel and $ p_1 $ outwards. We have steady flow, so $ \frac \partial{\partial t} = 0 $ and our no-slip boundary conditions gives that $ u(0) = 0 $ and $ u(h) = 0 $. We have that $ \frac{\partial p}{\partial y} = 0 $ so $ p=p(x) $. Further we have that
+\[
+	\frac{\partial p}{\partial x} = \mu \frac{\partial^2 u}{\partial y^2}
+\]
+hence both are constant functions. Solving gives that 
+\[
+	u(y) = \frac G{2\mu} y(h-y)
+\]
+where we define
+\[
+	G = -\left(\frac{p_1-p_0}2\right).
+\]
+So our flow is a parabola, with zero flow at the boundaries of the channel walls. We can calculate the flow rate, $ q $, as
+\[
+  q = \int_0^h u\ \mathrm dy = \frac{(p_1-p_0)h^3}{12\mu L}.
+\]
+\begin{remark}
+  We can see if we balance forces that we have that
+  \[
+	  p_1 h - p_0 h + \tau_{\text{top}} L - \tau_{\text{bottom}} L = 0
+  \]
+  which we can calculate and expand out to see using the fact that
+  \[
+	  \tau_{\text{top}} = \mu \frac{\partial u}{\partial \mathbf n} = \mu \frac{\partial u}{\partial y}\mid_{y=h}.
+  \]
+\end{remark}
+Now let's look at a viscous flow driven down an inclined plane by gravity (body force). Suppose the plane is inclined by an angle $ \alpha $ and let the $ x $ direction be parallel to the plane and the $ y $ direction be perpendicular to the plane. Let the fluid thickness be $ h $.
+\[
+  \mathbf F = \rho \mathbf g = (\rho g \sin\alpha, -\rho g \cos\alpha).
+\]
+In the $ y $ direction we have that
+\[
+	0 = -\frac{\partial p}{\partial y} - \rho g \cos\alpha
+\]
+with boundary conditions
+\[
+	p(h) = p_a
+\]
+so we get that
+\[
+  p = p_a +\rho g (h-y)\cos\alpha
+\]
+which resembles the hydrostatic balance equation (but now tilted). In the $ x $ direction we have that
+\[
+   0 = -\frac{\partial p}{\partial x} + \mu \frac{\partial^2 u}{\partial y^2} + \rho g \sin \alpha.
+\]
+Since $ h $ is constant the first term is zero. We assume there is no shear stress exerted by the fluid on the air hence we can see that
+\[
+	\mu \frac{\partial u}{\partial y}\mid_{y=h} = 0.
+\]
+So solving
+\[
+	\frac{\partial^2 u}{\partial y^2} = -\frac{\rho g}\mu \sin\alpha
+\]
+gives that
+\[
+	u(y) = \frac{\rho g \sin\alpha}{2\mu } y(2h-y).
+\]
 
 
 
