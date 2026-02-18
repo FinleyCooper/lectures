@@ -587,16 +587,148 @@ as $ R\to\infty $. Hence $ f $ is constant.\qed
 \begin{remark}
   This is equivalent to saying all non-constant complex polynomials factors as a product of linear factors.
 \end{remark}
-
-
-
-
-
-
-
-
-
-
+\pf Let $ p(z) = a_0 + a_1z+ \dots + a_d z^d $, $ a_d\ne 0 $ and $ d>0 $. Note that
+\[
+	\left|\frac{p(z)}{z^d}\right| \to |a_d|
+\]
+as $ z\to\infty $. So $ |p(z)|\to\infty $ as $ |z| = \infty $. Let $ f(x) = \frac 1{p(z)} $. If $ p $ never vanishes, then $ f $ is entire. Note that $ |f(z)|\to 0 $ as $ |z|\to\infty $, so there exists a $ R>0 $ such that $ |f(z)|\le 1 $ for $ |z|>R $. But $ f $ is continuous, so $ f $ is bounded on $ |z|\le R $. Hence $ f $ is bounded on $ \C $, and entire, so we must have that $ f $ is constant by Liouville's theorem, which implies that $ p(z) $ is constant, which is a contradiction, so $ p $ must have a root in $ \C $.\qed
+\subsection{Taylor and Morera's theorem}
+\begin{theorem}
+	(Taylor's Theorem) Let $ f:B(a,r) \to \C $ be holomorphic. Then $ f $ has a convergent power series representation
+	\[
+		f(z) = \sum_{n=0}^\infty c_n(z-a)^n
+	\]
+	with
+	\[
+		c_n = \frac{f^{(n)}(a)}{n!} = \frac 1{2\pi i} \int_{\partial B(a,\rho)} \frac {f(w)}{(w-a)^{n+1}}\ \mathrm dw
+	\]
+	for any $ 0<\rho <r $.
+\end{theorem}
+\pf For $ 0<\rho <r $, and $ z $ such that $ |z-a|<\rho $, the Cauchy integral formula gives that
+\[
+	f(z) = \frac 1{2\pi i} \int_{\partial B(a,\rho)}\frac{f(w)}{w-z}\mathrm dw.
+\]
+We'll expand
+\[
+	\frac 1{w-z} = \frac 1{(w-a)\left(1-\frac{(z-a)}{w-a}\right)}
+\]
+as a power series, so we get that
+\begin{align*}
+	f(z) &= \frac 1{2\pi i} \int_{\partial B(a,\rho)}f(w)\sum_{n=0}^\infty \frac{(z-a)^n}{(w-a)^{n+1}}\ \mathrm dw\\
+	     &= \sum_{n=0}^\infty \left(\frac 1{2\pi i} \int_{\partial B(a,\rho)} \frac{f(w)}{(w-a)^{n+1}}\ \mathrm dw\right)(z-a)^n.
+\end{align*}
+And Taylor's theorem follows from here.\qed
+\begin{remark}
+  If $ f:U\to \C $ is holomorphic on a domain $ U $, at $ z\in U $, there exists a $ r>0 $ such that $ B(a,r)\subseteq U $, and Taylor's theorem gives us a power series representation on $ B(a,r) $, but this may not converge everywhere on $ U $.
+\end{remark}
+\begin{corollary}
+  If $ f $ is holomorphic on a domain $ U $, then $ f $ is infinitely differentiable on $ U $. 
+\end{corollary}
+\pf For each $ a\in U $, apply Taylor's theorem for a ball around $ a $. Then since all power series are infinitely differentiable, we have that $ f $ is infinitely differentiable at $ a $, hence $ f $ is infinitely differentiable on $ U $. \qed
+\begin{theorem}
+	(Morera's theorem) Let $ U $ be a domain and $ f:U\to\C $ be continuous. If
+	\[
+	  \int_\gamma f = 0
+	\]
+	for all piecewise-$ C^1 $ closed paths in $ U $, the $ f $ is holomorphic on $ U $.
+\end{theorem}
+\pf By the hypothesis, we know that $ f $ has an antiderivative, $ F $ for some $ F $ holomorphic. And now we know that the derivative of a holomorphic function is holomorphic, so $ f $ is holomorphic.\qed 
+\begin{corollary}
+  Let $ f_n:U\to \C $ be a sequence of holomorphic functions and suppose $ f_n\to f $ uniformly. Then $ f $ is holomorphic on $ U $ and
+  \[
+	  f'(z) = \lim_{n\to \infty} f_n'(z)
+  \]
+  for $ z\in U $.
+\end{corollary}
+\pf We can say $ \textit{wlog} $ $ U=B(z,r) $ is a disc. If $ \gamma $ is a closed curve in this disc, then
+\[
+  \int_\gamma f_n = 0
+\]
+by convex Cauchy and
+\[
+  \int_\gamma f_n \to \int_\gamma f
+\]
+by uniform convergence in IB Analysis. So
+\[
+  \int_\gamma f = 0
+\]
+hence since $ f $ is continuous (it's the uniform limit of continuous functions) by Morera's theorem it is holomorphic. Then for $ 0<\rho <r $, we have that
+\begin{align*}
+	f'(z) = \frac 1{2\pi i} \int_{\partial B(z,\rho)} \frac{f(w)}{(w-z)^2}  \ \mathrm dw
+\end{align*}
+by Taylor's theorem. And for each $ f_n'(z) $ we have similar. Hence
+\begin{align*}
+	|f'(z) - f_n'(z)| &= \frac 1{2\pi} \left|\int_{\partial B(z,\rho)} \frac{f(w) - f_n(w)}{(w-z)^2}\ \mathrm dw\right|\\
+			  &\le \frac 1{2\pi} 2\pi \rho \frac 1{\rho^2}\sup_{|w-z|= \rho} |f_1(w)-f_n(w)|
+\end{align*}
+and $ \rho $ is fixed so as $ n\to \infty $ we get that the difference tends to zero by uniform convergence. \qed
+\begin{corollary}
+  If $ U $ is a domain, $ f:U\to \C $ is continuous and for some finite set $ S\subseteq U $, $ f $ is holomorphic on $ U\setminus S $, then $ f $ is holomorphic on $ U $.
+\end{corollary}
+\pf If $ a\in S $ then there exists an $ \varepsilon>0 $ such that $ B(a,\varepsilon)\subseteq U $ and $ B(a,\varepsilon)\cap S = \{a\} $. Cauchy on a disc gives that
+\[
+  \int_\gamma f = 0
+\]
+for all closed piecewise-$ C^1 $ paths inside $ B(a,\varepsilon) $ and $ f $ is continuous so by Morera's theorem, $ f $ is holomorphic on $ B(a,\varepsilon) $.
+Let's recap some properties of holomorphic functions:
+\begin{enumerate}
+	\item We have the fundemental theorem of calculus,
+		\[
+		  \int_\gamma F' = F(\gamma(b)) - F(\gamma(a)).
+		\]
+	\item Cauchy's theorem for triangles,
+		\[
+			\int_{\partial T} f = 0
+		\]
+		if $ T\subseteq U $ is a triangle.
+	\item Star-shaped Cauchy, 
+		\[
+		  \int_\gamma f = 0
+		\]
+		for all closed $ \gamma $ in a starlike domain.
+	\item Taylor's theorem gives that $ f $ is differentiable and has a local power series expansion.
+\end{enumerate}
+And some criteria for holomorphicity:
+\begin{enumerate}
+	\item We have the converse fundemental theorem of calculus. If
+		\[
+		  \int_\gamma f = 0
+		\]
+		for all closed $ \gamma $, then $ f=F' $ for $ F $ holomorphic.
+	\item If $ U $ is star-shaped, then FTC converse holds if
+		\[
+			\int_{\partial T} f = 0
+		\]
+		for all $ T\subseteq U $.
+	\item Morera's theorem, if
+		\[
+		  \int_\gamma f = 0
+		\]
+		for all closed $ \gamma $, then $ f $ is holomorphic.
+\end{enumerate}
+We should note that Cauchy's theorem holds on a much larger set of domains.
+\begin{theorem}
+	(Cauchy for simply connected domains) If $ U\subseteq \C $ is a simply connected sdomain and $ f:U\to \C $ is holomorphic then
+	\[
+	  \int_\gamma =0
+	\]
+	for all closed piecewise-$ C^1 $ curves $ \gamma $ in $ U $.
+\end{theorem}
+First let's prove a definition.
+\begin{definition}
+	(Homotopic) Let $ \phi,\psi $ be closed paths in a domain $ U $, say $ \phi,\psi: [a,b] \to U $. We say that $ \phi,\psi $ are \textit{homotopic} if there exists a $ \Phi:[a,b]\times [0,1] \to U $ continuous such that $ \Phi\mid_{[a,b] \times \{0\}} = \phi $ and $ \Phi\mid_{[a,b]\times \{1\}} = \psi $ and for all $ t $ $ \Phi\mid_{[a,b]\times \{t\}} $ is a closed path.
+\end{definition}
+By definition $ U $ is simply connected is every loop is homotopic to a constant loop. We will assume the following claim.
+\begin{claim}
+	$ U $ is simply connected if whenever $ \phi $ is a piecewise-$ C^1 $ closed path, there exists a homotopy $ \Phi $ to the constant path such that for all $ t $, $ \Phi\mid_{[a,b]\times \{t\}} $ is a piecewise-$ C^1 $ closed path.
+\end{claim}
+We will assume this without proof.
+\begin{proposition}
+  If $ U $ is a domain amkd $ \psi,\phi $ are homotopic piecewise-$ C^1 $ paths and if $ f:U\to \C $ is holomorphic, then
+  \[
+    \int_\phi f = \int_\psi.
+  \]
+\end{proposition}
 
 
 

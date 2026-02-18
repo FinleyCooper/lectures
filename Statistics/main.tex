@@ -587,7 +587,7 @@ Usually we set $ \alpha $ at an acceptable level for example $ 1\% $, and choose
 	\[
 		\Lambda_X(H_0,H_1) = \frac{f_1(X)}{f_0(X)}.
 	\]
-
+\ll
 \end{definition}
 \begin{definition}
 	(Likelihood ratio test) A \textit{Likelihood ratio test} (LRT) rejects $ H_0 $ when $ X\in C=\{x\in \Lambda_X(H_0,H_1)>k\} $ for some $ k>0$ .
@@ -606,6 +606,88 @@ Let $ C^* $ be the critical region of another test of size $ \alpha^*\le \alpha 
 		     &= \int_{\overline C\cap \overline C^*} f_1(x)\mathrm dx-\int_{\overline C^*\cap C} f_1(x)\mathrm dx\\
 		     &= \int_{\overline C \cap C^*}\frac{f_1(x)}{f_0(x)}f_0(x)\mathrm dx-\int_{\overline C^*\cap C}\frac{f_1(x)}{f_0(x)}f_0(x)\mathrm dx
 \end{align*}
+and the result follows from algebra manipulation.\qed
+\begin{remark}
+  A LRT with size $ \alpha $ for any given $ \alpha $ doesn't always exist. However we can always define a "randomised" test with exact level $ \alpha $.
+\end{remark}
+Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu , \sigma^2_0$ where $ \sigma^2_0 $ is known. We want to find the best size $ \alpha $ test for
+\[
+	H_0 &: \mu = \mu_0 \\
+	H_1 &: \mu = \mu_1
+\]
+for some fixed $ \mu_1 > \mu_0 $. We have that
+\begin{align*}
+	\Lambda_X(H_0;H_1) &= \frac{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_1)^2\right)}{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_0)^2\right)}\\
+			   &= \exp\left(\frac{\mu_1 - \mu_0}{\sigma^2_0} n\overline X + \frac{n(\mu_0^2 - \mu_1^2)}{2\sigma_0^2}.
+\end{align*}
+Since $ \Lambda_X(H_0;H_1) $ is monotone in $ \overline X $. We can depend our critical region for the LRT on $ \overline X $ equivalently. If we define
+\[
+	z = \frac{\sqrt n (\overline X - \mu_0)}{\sigma_0}
+\]
+the rejection region is now $ \{ z>c'\} $ for some $ c' $. Under $ H_0 $ we have that $ Z\sim \mathcal N(0,1) $ so the test that rejects $ H_0 $ when $ \{x:z>\inv \Phi(1-\alpha)\} $ has size $ \alpha $. This is called a $ z $-test.
+\par
+\begin{definition}
+	($ p $-value) For any test with critical region of the form $ \{x: T(x) > k\} $ where $ T $ is some statistic, we usually report the $ p $-\textit{value} 
+	\[
+	p = \mathbb P_{H_0}(T(X)>T(X^*))
+	\]
+	where $ x^* $ is the observed data.
+\end{definition}
+This is the probability  of observing "more extreme" data under $ H_0 $.
+\begin{proposition}
+	Uner $ H_0 $ the $ p $-value is $ \mathrm{Uniform}[0,1]$.
+\end{proposition}
+\pf Let $ F $ be the distribution funciton of $ T $. Then
+\begin{align*}
+	\mathbb P_{H_0}(p<u) &= \mathbb P_{H_0}(1-F(T)<u)\\
+			     &= \mathbb P_{H_0}(F(T) > 1 - u)\\
+			     &= \mathbb P_{H_0}(T> F(1-t))\\
+			     &=1 - F(\inv F(1 - u)) = u\qed
+\end{align*}
+\subsubsection{Duality between tests and confidence intervals}
+\begin{definition}
+	(Acceptance region) The \textit{acceptance region} of a test is the complement of the critical region.
+\end{definition}
+Let $ X\sim f_X(\cdot \mid \theta) $ for some $ \theta\in \Theta $.
+\begin{theorem}
+	\begin{enumerate}
+		\item Suppose that for each $ \theta_0\in \Theta $ there exists a test of $ H_0:\theta = \theta_0 $ of size $ \alpha $ with acceptance region $ A(\theta_0) $. Then the set $ I(X) = \{ \theta: X\in A(\theta)\} $ is a $ 100(1-\alpha)\% $ confidence set.
+		\item Suppose that $ I(X) $ is a $ 100(1-\alpha)\% $ confidence set for $ \theta $. Then 
+			\[
+				A(\theta_0) = \{x:\theta_0\in I(X)\}
+			\]
+			is the acceptance region of a size $ \alpha $ test for
+			$ H_0:\theta = \theta_0 $ for each $ \theta \in \Theta $.
+	\end{enumerate}
+\end{theorem}
+\pf In both cases $ \theta_0\in I(X)\iff X\in A(\theta_0) $.
+\begin{enumerate}
+\item We want to show that $ \mathbb P_{\theta_0}(\theta_0 \in I(X)) = 1-\alpha $.
+	\begin{align*}
+		\mathbb P_{\theta_0}(X\in A(\theta_0)) &= \mathbb P_{\theta_0}(\text{do not reject } H_0) = 1-\alpha
+	\end{align*}
+\item We want to show that $ \mathbb P_{\theta_0}(X\notin A(\theta_0)) = \alpha $.
+	\begin{align*}
+		\mathbb P_{\theta_0} (X\notin A(\theta_0)) &= \mathbb P_{\theta_0}(\theta_0 \notin I(X)) =\alpha.
+	\end{align*}
+\end{enumerate}
+Hence we're done. \qed
+\par
+Suppose that $ X=(X_1,\dots, X_n)\iid \mathcal N(\mu ,\sigma_0^2) $ where $ \sigma_0 $ is known. We foudn a $ 100(1-\alpha)\% $ confidence interval for $ \mu $, namely, $ I(X)=\overline X \pm \frac{\sigma_0}{\sqrt n} $. Using the second part of the theorem, we can find a size $ \alpha $ test for $ H_0: \mu = \mu_0 $, by defining the acceptance region as
+\begin{align*}
+	A(\mu\mu_0 \in I(x)_0) = \{x: \mu_0\in \left[\overline X - \frac{z_{\alpha/2} \sigma_0}{\sqrt n}, \overline X + \frac{z_{\alpha/2} \sigma_0}{\sqrt n}\right]\}.
+\end{align*}
+Equivalently we reject $ H_0 $ when
+\[
+	z_{\alpha/2} < \frac{\sqrt n |\mu_0 - \overline X|}{\sigma_0}.
+\]
+This is a two sided LRT. We could also equivalently go in the opposite direction.
+
+
+
+
+
+
 
 
 

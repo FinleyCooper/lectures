@@ -791,6 +791,120 @@ In general,
   \boldsymbol \tau \approx \mathbf m \times \mathbf B,
 \]
 where $ \mathbf B $ is evaulated at the dipole's location and $ \boldsymbol \tau $ is measured about this point.
+\par
+For the force, we need to go to the first order of the Taylor expansion of $ \mathbf B $.
+\[
+  \mathbf F = \int_V \mathbf J(\x) \times\mathbf B(\x)\mathrm d^3 \x
+\]
+and in components
+\begin{align*}
+	F_i &\approx \int_V \varepsilon_{ijk} J_j(\x)(B_k(0) + x_\ell \partial_\ell B_k(0))\mathrm d^3 \x\\
+	    &= 0 + \varepsilon_{ijk} \partial_\ell B_k(0)\varepsilon_{\ell jn}m_n\\
+	    &= \partial_i B_k(0) m_k - \partial_k B_k(0)m_i\\
+	    &= \partial_i(m_kB_k)(0)\qquad\qquad \text{since } \nabla\cdot\mathbf B = 0\\
+\end{align*}
+In general, $ \mathbf F \approx \nabla(\mathbf m \cdot\mathbf B) $. Which can be written as $ \mathbf F = - \nabla U $, where
+\[
+  U = -\mathbf m \cdot\mathbf B
+\]
+is the potential energy of a magnetic dipole in an external field. As in the electric case this is minimised when $ \mathbf m $ is aligned with $ \mathbf B $.
+\section{Electrodynamics}
+\subsection{Faraday's law of induction}
+We're interested in the third Maxwell equation,
+\[
+	\nabla\times\mathbf E = - \frac{\partial \mathbf B}{\partial t}
+\]
+which implies that a time-dependent magnetic field, must be accompanied by an electric field. This can induce a current to flow in a conductor. This is called \textit{electromagnetic induction}.
+\par
+First let's look at a static circuit. Consider a closed curve $ C $ that is the boundary of a time-independent open surface $ S $. Integrate the third Maxwell equation over $ S $ and use Stokes' theorem.
+\begin{align*}
+	\int_C \mathbf E\cdot\mathrm d\x &= -\int_S \frac{\partial \mathbf B}{\partial t}\cdot\mathrm d \mathbf S \\
+					 &= \frac d{dt} \int_S \mathbf B\cdot\mathrm d\mathbf S
+\end{align*}
+
+This is Faraday's law of induction for a static circuit.
+\[
+	\mathcal E = - \frac{d\mathcal F}{dt}.
+\]
+where
+\[
+  \mathcal E = \int_C \mathbf E\cdot\mathrm d\x
+\]
+is the \textit{electromotive force} (emf) around $ C $ and
+\[
+  \mathcal F = \int_S \mathbf B\cdot\mathrm d\mathbf S
+\]
+is the \textit{magnetic flux} through $ S $.\par
+Since $ \naabla\cdot\mathbf B = 0 $, the flux $ \mathcal F $ is the same through any surface $ S $ such that $ \partial S=C $, so it can be regarded as the magnetic flux through $ C $.
+\par
+Using $ \mathbf B = \nabla\times \mathbf A $ and Stokes' theorem we can write $ \mathcal F = \int_C\mathbf A\cdot\mathrm d \x $, which is invariant under a gauge transformation. The emf is not actually a force. it is the line integral of the Lorentz force on a particle of unit charge confined to $ C $.
+\[
+	\mathcal E = \frac 1q \int_C\mathbf F \cdot\mathrm \x = \int_C(\mathbf E + \dot{\x} \times \mathbf B) \cdot\mathrm d\x = \int_C \mathbf E \cdot\mathrm d\x
+\]
+since $ \dot{\x} $ is tangent to $ C $ for a particle confied to a time-independent curve $ C $. We will see later that if $ C $ coincides with a thin wire of resistance $ R $, then the current induced in the wire is $ I = \mathcal E /R $.
+\par
+There are several ways in which the magnetic through $ C $ could change with time.
+\begin{itemize}
+	\item A magnet is moved near $ C $;
+	\item A current-carrying circuit is moved near $ C $;
+	\item The current in a nearby circuit is changed.
+\end{itemize}
+All these will induce an emf around $ C $ and cause a current to flow.
+\par
+Now let's look at Faraday's law for a moving circuit. let $ C(t) $ be time-dependent closed curve that is the boundary of an open surface $ S(t) $. How does the magnetic flux through $ S $,
+\[
+  \mathcal F = \int_S \mathbf B \cdot\mathrm d\mathbf S
+\]
+change in time? We have 
+\begin{align*}
+	\mathcal F(t+\delta t) - \mathcal F(t) &= \int_{S(t+\delta t)} \mathbf B(\x,t+\delta t) \cdot\mathrm d\mathbf S - \int_{S(t)} \mathbf B(\x,t)\cdot\mathrm d\mathbf S\\
+					       &= \int_{S(t+\delta t)}\left(\mathbf B(\x,t)+\frac{\partial \mathbf B}{\partial t}\delta t +O(\delta t^2)\right)\cdot\mathrm d\mathbf S - \int_{S(t)}\mathbf B(\x,t)\cdot\mathrm d\mathbf S\\
+					       &= \int_{S(t+\delta t)-S(t)}\mathbf B(\x,t)\cdot\mathrm d\mathbf S + \int_{S(t)} \frac{\partial \mathbf B}{\partial t}\cdot\mathrm d\mathbf S \delta t + O(\delta t^2)
+\end{align*}
+Let $ \delta V $ be the volume swept out by $ S(t) $ in the time interval $ \delta t $. Its boundary is the closed surface $ S(t+\delta t) - S(t) + \Sigma $, where $ \Sigma $ is the surface swept out by $ C(t) $ in the time $ \delta t $.
+\par
+Looking at a line element $ \mathrm d \x $ on $ C(t) $ which sweeps out a surface of height $ \mathbf v \delta t $ with normal $ \mathrm d\mathbf S $. By the second Maxwell equation and the divergence theorem,
+\begin{align*}
+   0 &= \int_{\delta V} (\nabla\cdot\mathbf B)\mathrm dV \\
+     &= \int_{S(t+\delta t)-S(t)} \mathbf B\cdot\mathrm d\mathbf S + \int_\Sigma \mathbf B \cdot\mathrm d \mathbf S.
+\end{align*}
+To evaluate the last term, parammetrise $ C $ as $ \x = \x(\lambda,t) $, where $ \lambda $ is a parameter around $ C $. An element of $ C $ is
+\begin{align*}
+	\mathrm d\x = \frac{\partial \x} {\partial \lambda}\mathrm d\lambda
+\end{align*}
+and has velocity
+\[
+	\mathbf v = \frac{\partial \x}{\partial t}.
+\]
+In time $ \delta t $ it sweeps out the vector area element
+\[
+  \mathrm d \mathbf S = \mathrm d \x \times (\mathbf v \delta t)
+\]
+which points out of $ \delta V $ as we require. Thus 
+\[
+  \int_\sigma \mathbf B\cdot\mathrm d\mathbf S = \int_C \mathbf B \cdot (\mathrm d\x \times \mathbf v)\ \delta t +O(\delta t^2). 
+\]
+We then have
+\[
+	\mathcal F(t+\delta t) - \mathcal F(t) = -\int_C (\mathbf v \times \mathbf B)\cdot\mathrm d\x \ \delta t +\int_S \frac{\partial \mathbf B}{\partial t} \cdot\mathrm d \mathbf S \ \delta t + O(\delta t^2)
+\]
+from which
+\begin{align*}
+	\frac{d\mathcal F}{dt} &= -\int_C (\mathbf v \times \mathbf B)\cdot\mathrm d \x + \int_S \frac{\partial \mathbf B}{\partial t}\cdot\mathrm d \mathbf S\\
+			       &= -\int_C(\mathbf v\times \mathbf B)\cdot\mathrm d\x - \int_S (\nabla\times \mathbf E) \cdot\mathrm d \mathbf S\\
+			       &= -\int (\mathbf E +\mathbf v \times \mathbf B)\cdot\mathrm d\x.
+\end{align*}
+We recover Faraday's law,
+\[
+	\mathcal E = -\frac{d\mathcal F}{dt}
+\]
+with the redefined emf
+\[
+  \mathcal E = \int_C (\mathbf E +\mathbf v` \times \mathcal B)\cdot \mathrm d \x.
+\]
+This is again the line integral around $ C $ of the Lorentz force on a particle of unit charge confined to $ C $. (For which the perpendicular components of $ \dot{\x} $ must agree with those of the curve velocity $ \mathbf v $.)
+
+
 
 
 
