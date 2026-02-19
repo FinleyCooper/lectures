@@ -903,7 +903,84 @@ with the redefined emf
   \mathcal E = \int_C (\mathbf E +\mathbf v` \times \mathcal B)\cdot \mathrm d \x.
 \]
 This is again the line integral around $ C $ of the Lorentz force on a particle of unit charge confined to $ C $. (For which the perpendicular components of $ \dot{\x} $ must agree with those of the curve velocity $ \mathbf v $.)
+\begin{law}
+	(Lenz's law) The direction of the induced current is always such as to produce a magnetic field that opposes the change in flux that causes the emf.
+\end{law}
+\begin{example}
+  A circular wire in the $ x-y $-plane. If $ B_z $ inside the loop increases in time, then
+  \[
+	  \mathcal E = - \frac{d\mathcal F}{dt} < 0.
+  \]
+  This induces a clockwise current $ (I<0) $ that generates a magnetic field $ B_z< 0 $ inside the loop. Hence the minus sign in Faraday's lwa. This avoids an unstable situtation in which the flux grows indefinitely.
+\end{example}
+\begin{definition}
+	(Inductance) If a current $ I $ around a circuit $ C $ generates a magnetic field with flux $ \mathcal F $ then the \textit{inductance} of the circuit is defined by
+	\[
+		L = \frac {\mathcal F}I
+	\]
+	and depends only on the geometry.
+\end{definition}
+\begin{example}
+	An ideal solenoid with cross-sectional area $ A $ and $ N $ turns per unit length. The uniform fluid $ B= \mu_0 NI $ inside the solenoid produces a flux $ BA $ per turn, so the inductance per unit length of the solenoid is $ \mu_0 N^2 A $.
+\end{example}
+\begin{exercise}
+	Show that the magnetic flux through a thin wire $ C_i $ due to a current $ I_j $ around another thin wire $ C_j $ is $ \mathcal F_{ij} = L_{ij}I_j $ where the \textit{mutual inductance} is
+	\[
+		L_{ij} = \frac{\mu_0}{4\pi} \int_{C_i}\int_{C_j}\frac{\mathrm d\x_i \cdot\mathrm \x_j}{|\x_i-\x_j|} = L_{ji}.
+	\]
+\end{exercise}
+When the current $ I $ around a circuit $ C $ is varies, an emf
+\[
+	\mathcal E = - \frac{d\mathcal F}{dt} = -L\frac{dI}{dt}
+\]
+is induced. In a small time interval $ \delta t $, a charge $ \delta Q  = I\ \delta t $ flows around $ C $ and the work done on it by the Lorentz force is 
+\[
+	\delta W = \mathcal E \ \delta Q = -LI \frac{dI}{dt} \ \delta t.
+\]
+So the rate at which work is done by the current on the EM field is
+\[
+	-\frac{dW}{dt} = LI \frac{dI}{dt} = \frac d{dt} \left(\frac 12 LI^2\right).
+\]
+Consider reaching a magnetostatic state by building up the current from $ 0 $ to $ I $ The energy stored is
+\begin{align*}
+	U &= \frac 12 LI^2 \\
+	  &= \frac 12 I\mathcal F \\
+	  &= \frac 12 I\int_C \mathbf A \cdot\mathrm d \x \\
+	  &= \frac 12 \int_V \mathbf J\cdot\mathbf A \ \mathrm dV.
+\end{align*}
+This is analogous to $ U = \frac 12 \int \rho \Phi \ \mathrm dV $ in electrostatics. Now using the third Maxwell equation we have
+\[
+	U = \frac1{2\mu_0} \int (\nabla\times\mathbf B) \cdot\mathbf A \ \mathrm dV
+\]
+and $ (\nabla\times\mathbf B)\cdot\mathbf A = \nabla\cdot(\mathbf B\times\mathbf A) +\mathbf B \cdot(\nabla\times\mathbf A) $. If we take the integral over all space then the first term gives zero by the divergence theorem, since $ |\mathbf B| = O\left(\frac 1{|\x|^3}\right) $ and $ |\mathbf A| = O\left(\frac 1{|\x|^2}\right) $ as $ |\x|\to\infty $ for a finite current distribution, leaving
+\[
+	U = \int\frac{|\mathbf B|^2}{2\mu_0}\ \mathrm dV
+\]
+as the energy stored in the magnetic field.
+\subsection{Ohm's law}
+In a stationary conductor
+\[
+  \mathbf J = \sigma\mathbf E
+\]
+where $ \sigma $ is the electrical conductivity. This is not a fundemental physical law but a constitutive relation, a macroscopic property of a material. 
+The inverse relation
+\[
+  \mathbf E = \inv \sigma \mathbf J
+\]
+where $ \inv \sigma $ is the \textit{resitivity} (usually denoted by $ \rho $ which are both in conflict with the notation for charge densities). In some materials $ \sigma $ is not a scalar, but instead is a tensor, hence we denote the resitivity by $ \inv \sigma $ to show that sometimes we need to invert a tensor if the material is not isotropic.
+\begin{definition}
+	(Perfect conductor) A \textit{perfect conductor} corresponds to $ \sigma\to\infty $ so $ \mathbf E = 0 $.
+\end{definition}
+\begin{definition}
+	(Perfect insulator) A \textit{perfect insulator} corresponds to $ \sigma\to 0 $ so $ \mathbf J = 0 $.
+\end{definition}
 
+Consider a straight wire of length $ L $ in the direction of the unit vector $ \mathbf n $ and with uniform cross-sectional area $ A $ and conductivity $ \sigma $. If the electric field is $ \mathbf E = E\mathbf n  $ where $ E $ is constant then $ \mathbf J = \sigma E \mathbf n $ and the total current is $ I = \sigma EA $. The potential difference (voltage) along the wire is
+\[
+	V = \int \mathbf E \cdot\mathrm d \x = EL = \frac{IL}{\sigma A}.
+\]
+So $ V = IR $  where $ R = \frac L{\sigma A} $ is the \textit{resistance} of the wire.\par
+Accompanying the resistance of a wire is \textit{Joule heating} which is the conversion of EM energy into heat at rate $ I^2R $. If the voltage $ V $ is maintained by a battery then $ VI = I^2 R $ is the rate at which the emf of the battery $ (\mathcal E = V) $ does work to maintain the current $ I $. 
 
 
 

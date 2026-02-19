@@ -49,6 +49,8 @@
 \tcolorboxenvironment{corollary}{colback=lightpurple, colframe=white, breakable}
 \tcolorboxenvironment{proposition}{colback=lightpink, colframe=white, breakable}
 \tcolorboxenvironment{claim}{colback=lightpurple, colframe=white, breakable}
+\tcolorboxenvironment{law}{colback=lightpink, colframe=white, breakable}
+
 
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linktoc=all, linkcolor=black}
@@ -64,9 +66,11 @@
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{corollary}{Corollary}
+\newtheorem*{law}{Law}
 \theoremstyle{remark}
 \newtheorem*{note}{Note}
 \newtheorem*{remark}{Remark}
+\newtheorem*{exercise}{Exercise}
 \frenchspacing
 
 % Math macros
@@ -88,6 +92,7 @@
 \newcommand{\inv}[1]{{#1}^{-1}}
 \newcommand{\pf}{\textit{Proof. }}
 \newcommand{\id}{\mathrm{id}}
+\newcommand{\ep}{\varepsilon}
 
 \DeclareMathOperator{\ima}{im}
 \newcommand{\ddempty}{\mathrm{d}}

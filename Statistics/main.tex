@@ -550,6 +550,7 @@ Now suppose that $ X $ has pdf $ f(\cdot\mid \theta) $ for some $ \theta\in \The
 	H_0 &: \theta\in\Theta_0\nsubseteq \Theta\\
 	H_1 &: \theta\notin \Theta_0
 \end{align*}
+\subsection{Simple hypotheses}
 \begin{definition}
 	(Simple/composite hypothesis) A \textit{simple hypothesis} fully specifies the distribution of $ X $. Otherwise we say the hypothesis is \textit{composite}.
 \end{definition}
@@ -644,7 +645,6 @@ This is the probability  of observing "more extreme" data under $ H_0 $.
 			     &= \mathbb P_{H_0}(T> F(1-t))\\
 			     &=1 - F(\inv F(1 - u)) = u\qed
 \end{align*}
-\subsubsection{Duality between tests and confidence intervals}
 \begin{definition}
 	(Acceptance region) The \textit{acceptance region} of a test is the complement of the critical region.
 \end{definition}
@@ -681,12 +681,88 @@ Equivalently we reject $ H_0 $ when
 \[
 	z_{\alpha/2} < \frac{\sqrt n |\mu_0 - \overline X|}{\sigma_0}.
 \]
-This is a two sided LRT. We could also equivalently go in the opposite direction.
-
-
-
-
-
+This is a two sided LRT. We could also equivalently go in the opposite direction.\par
+\subsection{Composite hypotheses}
+Previously we considered $ H_0 $ and $ H_1 $ as \textit{simple} hypotheses with error porbabilities
+\[
+\alpha = \mathbb P_{H_0}(X\in C), \qquad \beta = \prob_{H_1}(X\notin C).
+\]
+Now we consider $ X\sim f_X(\cdot \mid \theta) $, with $ \theta\in\Theta $ and
+\begin{align*}
+	H_0 &: \theta\in\Theta_0 \subseteq \Theta\\
+	H_1 &: \theta\in\THeta_1 \subseteq \Theta
+\end{align*}
+\begin{definition}
+	(Power function) The \textit{power function} is $ W(\theta)= \mathbb P_\theta(X\in C) $.
+\end{definition}
+\begin{definition}
+	(Size) The \textit{size} of a test with composite null $ H_0 $ is the worst-case Type I error probability, so
+	\[
+		\alpha = \sup_{\theta\in \Theta_0} W(\theta).
+	\]
+\end{definition}
+\begin{definition}
+	(Uniformly most powerful) We say that a test of $ H_0 $ against $ H_1 $ is \textit{uniformly most powerful} (UMP) of size $ \alpha $ if
+	\begin{enumerate}
+		\item $ \sup_{\theta\in\Theta_0} W(\theta)\le \alpha $;
+		\item For any other test of size $ \alpha $, with power function $ W^* $ we have that
+			\[
+			  W(\theta) \ge W^*(\theta)\quad \forall\theta\in \Theta_1.
+			\]
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+  A UMP test might not exist. However many LRTs are UMP.
+\end{remark}
+Let's see an example for a one-sided test for a normal location. Suppose that $ X_1,\dots,X_n\iid \mathcal N(\mu,\sigma_0^2) $ with $ \sigma_0^2 $ known. We wish to test that
+\begin{align*}
+	H_0&: \mu \le \mu_0 \\
+	H_1&: \mu > \mu_0.
+\end{align*}
+Recall that for the simple hypotheses,
+\begin{align*}
+	H_0'&: \mu = \mu_0 \\
+	H_1'&: \mu = \mu_1,
+\end{align*}
+the LRT had critical region $ C : \left\{x: z = \frac{\sqrt n(\overline X - \mu_0)}{\sigma_0} > z_\alpha\right\} $. We will show that the same test is UMP for $ H_0 $ against $ H_1 $. The power function is
+\begin{align*}
+	W(\mu) &= \mathbb P_\mu(\text{reject} \ H_0)\\
+	       &= \mathbb P_\mu\left(\frac{\sqrt n (\overline X - \mu_0)}{\sigma_0} < z_\alpha\right)\\
+	       &= \mathbb P_\mu\left(\frac{\sqrt n(\overline X - \mu)}{\sigma_0} > z_\alpha + \frac{\sqrt n(\mu_0-\mu)}{\sigma_0}\right) \\
+	       &= 1- \Phi\left(z_\alpha + \frac{\sqrt n (\mu_0-\mu)}{\sigma_0}\right)
+\end{align*}
+Thus $ \sup_{\mu\in \Theta_0}W(\mu) =\alpha $, so the test has size $ \alpha $. Now consider any other size $ \le \alpha $ with power function $ W^* $. We want to show that $ W(\mu_1) \ge W^*(\mu_1) $ for all $ \mu_1\in \Theta_1 $. Any other test of size $ \le \alpha $ also has size $ \le \alpha $ for $ H_0' $ against $ H_1 $ since 
+\[
+	W^*(\mu_0)\le \sup_{\mu \in\Theta_0} W^*(\mu) \le \alpha.
+\]
+Thus by Neyman-Pearson, $ W(\mu_1) \ge W^*(\mu_1) $. Since this argument works for any $ \mu_1>\mu_0 $ we are done.
+\subsubsection{Generalised likelihood ratio tests}
+The generalised likelihood ratio (GLR) statistic for
+\begin{align*}
+	H_0 &: \theta \in \Theta_0 \subseteq \Theta\\
+	H_1 &: \theta \in \Theta_1 \subseteq \Theta
+\end{align*}
+as
+\[
+	\Lambda_X(H_0;H_1) = \frac{\sup_{\theta\in\Theta_1} f_X(\cdot \mid \theta)}{\sup_{\theta\in \Theta_0}f_X(\cdot\mid \theta)}.
+\]
+We reject $ H_0 $ when $ \Lambda_X $ is large.\par
+Suppose that $ X_1,\dots, X_n\idd \mathcal N(\mu,\sigma^2_0) $ with $ \sigma_0^2 $ known. We wish to test
+\begin{align*}
+	H_0&: \mu = \mu_0\\
+	H_1&: \mu \ne \mu_0.
+\end{align*}
+Thus, $ \Theta_0 = \{\mu_0\} $ and $ \Theta_1 = \mathbb R \setminus \{\mu_0\} $, and the GLR statistic is
+\begin{align*}
+	\Lambda_X(H_0;H_1) = \frac{(2\pi \sigma_0^2)^{-n/2}\exp\left(-\frac 1{2\sigma_0^2} \sum(X_i - \overline X)^2\right)}{(2\pi \sigma_0^2)^{-n/2} \exp\left(-\frac 1{2\sigma_0^2}\sum(X_i - \mu_0)^2\right)}
+\end{align*}
+and after simplication we get that
+\[
+	2\log \Lambda_X(H_0;H_1) = \frac 1{\sigma_0^2} \left(\sum(X_i-\mu_0)^2 - \sum(X_i-\overline X)^2\right) = \frac n {\sigma^2_0} (\overline X - \mu_0)^2.
+\]
+Thus GLRT rejects $ H_0 $ if $ \frac{\sqrt n |\overline X - \mu_0|}{\sigma_0} $ is large. Under $ H_0 $, $ \frac{\sqrt n(\overline X - \mu_0)}{\sigma_0} \sim\mathcal N(0,1) $ so a test of size $ \alpha $ rejects $ H_0 $ if $ \frac{\sqrt n|\overline X - \mu|}{\sigma_0}>z_{\alpha/2} $.
+\par
+Note that in this example $ 2\log \Lambda_X(H_0;H_1) = \frac{n(\overline X-\mu_0)^2}{\sigma^2_0}\sim \chi^2_1 $. Thus the critical region of t he GLRT can also be written as $ \left\{x:\frac{\sqrt n(\overline X - \mu_0)^2}{\sigma_0^2} > \chi_1^2(\alpha)\right\} $. In a fact a more general result says that $ 2\log\Lambda_X(H_0;H_1) \approx \chi^2 $ when $ n $ is large.
 
 
 

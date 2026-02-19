@@ -465,6 +465,28 @@ The space $ Y = \{\frac 1n \mid n=1,2,\dots \}\subseteq \R$ is \textit{not} comp
 	A = \{a\in [0,1] \mid \text{there is a finite } \mathcal U' \subset \mathcal U \text{ whose union contains } [0,a]\}.
 \]
 If $ 0\le a \le b $ then $ [0,a]\subseteq [0,b] $. So if $ b\in A $ then $ a\in A $. $ A $ is not non-empty since $ 0\in A $ since $ [0,0]=\{0\} $ has some $ U\in \mathcal U $ containing $ 0 $. Hence by completeness $ A $ has a supremum, so set $ \alpha =\sup A \in [0,1] $. We want to show that $ \alpha = 1 $. Let $ \alpha \in U_\alpha \in \mathcal U $. If $ \alpha<1 $ then there is an $ \varepsilon >0 $ such that $ (a-\varepsillon, a+\varepsilon)\subset [0,1] \subset U_\alpha$. So as $ \alpha-\varepsilon< \alpha $, there must be a $ \alpha-\varepsilon\le a <\varepsilon $ with $ a\in A $. Hence $ \alpha-\varepsilon \in A $ too. But then $ [0,\alpha-\varepsilon] $ has a finite cover by elements of $ \mathcal U $. Adding $ U_\alpha $ we have a finite subcover of $ [0,\alpha+\varepsilon/2] $ hence this contradicts the fact that $ \alpha $ is a supremum, so $ \alpha=1 $ and $ [0,1] $ is compact.\qed
+\par
+Let's look at some consequences of compactness.
+\begin{proposition}
+  If $ X $ is compact and $ C\subseteq X $ is closed, then $ C $ is compact.
+\end{proposition}
+\pf Open sets in $ C $ are of the form $ C\cap U_\alpha $ for $ U_\alpha $ open in $ X $. Suppose we have $ \{C\cap T_\alpha \mid \alpha \in I\} $ which is an open cover of $ C $. Then $ \{X\setminus C\} \cup \{U_\alpha \mid \alpha \in I\} $ is an open cover $ X $. So as $ X $ is compact, this has a finite subcover. It can be taken to have the form $ \{X\setminus C\} \cap \{U_\alpha \mid \alpha\in I'\} $ for $ I'\subseteq I $ finite. As these cover $ X $, their intersections with $ C $ cover $ C $, so $ \{C\cap U_\alpha\mid \alpha\in I'\} $ is a finite subcover of $ C $, hence $ C $ is compact.\qed
+\begin{proposition}
+  If $ X $ is Hausdorff and $ C \subseteq X $ is compact, then $ C $ is closed.
+\end{proposition} 
+\pf We will show that $ U=X\setminus C $ is open. So for $ x\in U $, we have to find an open $ x\in U_\alpha\subseteq U $.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
