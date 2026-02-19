@@ -474,10 +474,48 @@ Let's look at some consequences of compactness.
 \begin{proposition}
   If $ X $ is Hausdorff and $ C \subseteq X $ is compact, then $ C $ is closed.
 \end{proposition} 
-\pf We will show that $ U=X\setminus C $ is open. So for $ x\in U $, we have to find an open $ x\in U_\alpha\subseteq U $.
-
-
-
+\pf We will show that $ U=X\setminus C $ is open. So for $ x\in U $, we have to find an open $ x\in U_\alpha\subseteq U $. For each $ y\in C $ use Hausdorffness to find disjoint open sets $ y\in V_y $ and $ x\in W_y $. Then $ \{C\cap V_y\mid y \in C\} $ is an open cover of $ C $. As $ C $ is copmact, we can find $ y_1,\dots, y_n\in C $ such that $ \{ C\cap V_y\mid  i=1,\dots, n\}$ cover $ C $. Let
+\[
+	U_x = \bigcap_{i=1}^n W_{y_j}.
+\]
+This contains $ x $ and is a finite intersection of open sets, so it is open. As $ W_{y_i} $ is disjoint from $ V_{j_i} $, $ \bigcap_{i=1}^n W_{y_i} $ is disjoint from $ \bigcap_{i=1}^n V_{y_i}\supseteq C $, so $ U_\alpha $ is also disjoint fro $ C $. So $ \alpha\in U_\alpha \subseteq U =X\setminus C $. Doing this for each $ x\in U $ shows that $ U $ is open.\qed
+\begin{proposition}
+  If $ X $ is compact and $ f:X\to Y $ is continuous, then $ f(X) $ is a compact subspace of $ Y $.
+\end{proposition}
+\pf We can suppose that $ f $ is surjective by replacing $ Y $ with $ f(X) $. If $ \mathcal U $ is an open cover of $ Y $ consider $ \inv f(\mathcal U) = \{\inv f(U) \mid U\in \mathcal U\} $. This is an open cover of $ X $, so by compactness it has a finite subcover $ \inv f (U_1),\dots, \inv f(U_n) $. We claim that $ U_1,\dots, U_n $ covers $ Y $. This is because we can write
+\begin{align*}
+	X = \bigcup_{i=1}^n \inv f(U_i)
+\end{align*}
+so
+\[
+	f(X) \subseteq \bigcup_{i=1}^n U_i \subseteq Y,
+\]
+hence we have
+\[
+	\bigcup_{i=1}^n f(U_i) = Y
+\]
+so $ Y $ is compact.\qed
+\begin{corollary}
+  If $ f:X\to Y $ is a continuous bijection from a compact space $ X $ to a Hausdorff space $ Y $, then it is a homeomorphism.
+\end{corollary}
+\pf We only need to show that $ \inv f:Y\to X $ is continuous. We will use the closed set characterisation of continuity. Let $ C\subseteq X $ be closed. We want $ \inv{(\inv f)}(C) = f(C) $ closed. We know that $ C $ is closed and $ X $ is compact hence $ C $ is compact. Hence $ f(C) $ is compact and by Hausdorffness, $ f(C) $ is closed, so $ f $ is a homeomorphism.\qed
+\begin{definition}
+	(Sequentially compact) A metric space $ (X,d) $ is \textit{sequientially compact} if every sequence in $ X $ has a convergent subsequence.
+\end{definition}
+The metric $ d $ gives a topology $ T_d $ on $ X $.
+\begin{lemma}
+	(Lebesgue's number lemma) Let $ (X,d) $ be sequentially compact and $ \mathcal U \subset T_d $ be an open cover.  Then there is a $ \delta>0 $ such that each $ B_\delta (X) $ lies inside some element of $ \mathcal U $.
+\end{lemma}
+\pf Suppose not. Then for each $ n=1,2,\dots $, there exists a point $ xx_n \in X$ such that $ B_{\frac 1n}(x_n) $ is \textit{not} contained in any element of $ \mathcal U $. By sequentially compactness there is a convergent subsequence $ x_{n_i}\to x_\infty $. Let $ x_\infty\in U\in \mathcal U $ and $ \ep>0 $ be such that $ B_\ep (x_\infty)\subseteq U $. For all $ i\gg 0 $ we have that $ x_{n_i}\in B_{\ep/2}(x_\infty) $ and $ \frac 1{n_i} < \frac \ep 2 $. The triangle inequality gives a contradiction from here. So there is such a $ \delta $ called the Lebesgue number for the cover $ \mathcal U $.\qed
+\begin{theorem}
+	The metric space $ (X,d) $ is sequentially comapct if and only if $ (X,T_d) $ is compact.
+\end{theorem}
+\pf Suppose that $ (X,d) $ is not sequentially compact. Then there is a sequence $ t_n $ in $ X $ with no convergent subsequence. i.e. for each $ x\in X $ there is an open $ U_x\ni x $ which contains only finitely many $ (t_i) $. Then $ \mathcal U =\{U_x \mid x\in X\} $ is an open cover of $ (X,T_d) $. If $ \mathcal U $ had a finite subcover, then as each $ U_x $ contains only finitely many values that the sequence $ (t_i) $ takes. But this is a contradiction since $ (t_i) $ does not have a convergent subsequence. Hence $ \mathcal U $ doesn't have a finite subcover, so $ (X,T_d) $ is not compact.\par
+Suppose now that $ (X,d) $ is sequentially comapct and $ \mathcal U $ is an open cover of $ (X,T_d) $. Let $ \delta $ be a Lebesgue number for this cover by the lemma.	We want to show that there is a finite set of points $ A\subseteq X $ such that
+\[
+	X = \bigcup_{a\in A} B_\delta (a).
+\]
+Suppose not. Then for every finite set $ A $, there is a point $ x\in X $ which lies at least $ \delta $ away for all $ a\in A $. So we can find a sequence $ x_1,x_2,\dots $ such that $ d(x_i,x_j) \ge \delta $ for all $ i\ne j $. This property means it has no convergent subsequence which is a contradiction since $ (X,d) $ is sequentially compact. Hence $ A $ does exist. Now each $ B_\delta(a) $ lies in some $ U_a \in \mathcal U $ since $ \delta $ is a Lebesgue number, hence $ \{U_a\mid a\in A\} $ is a finite subcover of $ \mathcal U $.\qed
 
 
 
