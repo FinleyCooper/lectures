@@ -516,7 +516,70 @@ Suppose now that $ (X,d) $ is sequentially comapct and $ \mathcal U $ is an open
 	X = \bigcup_{a\in A} B_\delta (a).
 \]
 Suppose not. Then for every finite set $ A $, there is a point $ x\in X $ which lies at least $ \delta $ away for all $ a\in A $. So we can find a sequence $ x_1,x_2,\dots $ such that $ d(x_i,x_j) \ge \delta $ for all $ i\ne j $. This property means it has no convergent subsequence which is a contradiction since $ (X,d) $ is sequentially compact. Hence $ A $ does exist. Now each $ B_\delta(a) $ lies in some $ U_a \in \mathcal U $ since $ \delta $ is a Lebesgue number, hence $ \{U_a\mid a\in A\} $ is a finite subcover of $ \mathcal U $.\qed
-
+\begin{corollary}
+	(Heine-Borel Theorem) A subspcae $ X\subseteq \R^n $ is compact if and only if it is closed and bounded.
+\end{corollary}
+\pf From IB Analysis II a subspace of $ \R^n $ is sequentially compact if and only if it is closed and bounded. Hence the result follows.\qed
+\begin{corollary}
+	(Extreme value theorem) If $ X $ is a compact topological space and $ f:X\to\R $ is continuous then there are $ a,b\in x $ such that
+	\[
+	  f(a)\le f(x) \le f(b)\qquad \forall x\in X.
+	\]
+\end{corollary}
+\pf the set $ f(X0\subseteq\R $ is compact so by Heine-Borel it is closed and bounded. So it contains its supremum, $ A = f(a) $ and it's infimum $ B=f(b) $. So $ f(X)\subseteq [A,B] $ so we're done.\qed
+\begin{theorem}
+  If $ X $ and $ Y $ are compact, then the product space $ X\times Y $ is compact.
+\end{theorem}
+\pf We first prove the following lemma which only uses the fact that $ Y $ is compact.
+\begin{lemma}
+	(Tube lemma) If $ Y $ is compact, $ x_0\in X $ and $ \{x_0\}\times Y\subseteq W $ is an open neighbourhood then there is an open neighbourhood $ U_{x_0}\ni x_0 $ such that $ U_{x_0}\times Y\subseteq W $.
+\end{lemma}
+\pf We can cover $ \{x_0\} \times Y $ by its intersection with open sets of the form $ U\times V $ with $ U\times V\subseteq W $. We can do this as $ W $ is open and the sets of the form $ U\times B $ are a basis for the product topology. As this slice $ \{x_0\} \times Y $ is compact, this cover has a finite subcover, so there are open sets
+\begin{align*}
+  U_1\times V_1,\dots, U_n\times V_n\subseteq W
+\end{align*}
+whose intersection with $ \{x_0\} \times Y $ cover it. Let
+\[
+	U_{x_0} = \bigcap_{i=1}^n U_i
+\]
+which is an open neighbourhood of $ x_0 $. To see that $ U_{x_0}\times Y\subseteq W $, consider a point $ (x,y)\in U_{x_0}\times Y $. Note $ (x_0,y) $ lies on the slice, so lies in some $ U_i\times V_i $. So $ y\in V_i $. But $ x\in U_{x_0}\subseteq U_i $ so $ (x,y)\in U_i\times V_i\subseteq W $.\qed
+\par
+Now back to the theorem. To show $ X\times Y $ is compact let $ W $ be an open cover of $ X\times Y $. For each $ x_0\in X $, $ \{x_0\}\times Y $ can be covered by (its intersection with) finitely many $ W_1,\dots, W_n\in W $. So $ \{x_0\} \times Y \subseteq \bigcup_{i=1}^n W_i $. By the tube lemma there is a neighbourhood $ U_{x_0} \ni x_0 $ such that $ U_{x_0} \times Y \subseteq \bigcup_{i=1}^n W_i $, so $ U_{x_0}\times Y $ can be covered by finitely many elements of $ W $. Now $ \{U_{x_0}\mid x_0\in X\} $ is an open cover of $ X $, so has a finite subcover since $ X $ is comapct. Say $ U_{x_1},\dots, U_{x_n} $ is a finite subcover. So $ X\times Y $ is covered by $ U_{x_1}\times Y,\dots, U_{x_n}\times Y $. As each of these can be covered by finitely-many elements of $ W $, so can the whole of $ X\times Y $.\qed
+\begin{corollary}
+	$ [0,1]^n $ is compact.
+\end{corollary}
+\pf $ [0,1] $ is compact, so the result follows by induction, using the theorem.\qed
+\par
+We can also prove Heine-Borel without using any analysis: it is a purely topological consequence.
+\begin{corollary}
+	(Heine-Borel) A subspace $ X\subseteq R^n $ is compact if and only if it is closed and bounded.
+\end{corollary}
+First let $ X $ be closed and bounded. Then $ X\subseteq [-N,N]^n$ for some $ N>0 $. By the corollary $ [-N,N]^n $ is compact and $ X $ is a closed subspace, hence $ X $ is compact.\par
+Conversely suppose that $ X $ is a compact then using Hausdorffness we have that it is closed. To see its bounded, consider the open cover $ \{X\cap (-N,N)^N \mid N\in \N\} $. So by compactness this must have a finite subcover, and in fact looking at the cover it can be covered by a singular set, say $ X\subseteq (-N,N)^n $ for some $ N\in \N $. Hence $ X $ is bounded. So it's closed and bounded.\qed
+\subsubsection{The finite intersection property}
+We say a collection $ \{S_\alpha\mid \alpha \in I\} $ of subsets of a fixed set $ S $ has the \textit{finite intersection property} if every finite intersection of $ S_\alpha $ is non-empty.
+\begin{theorem}
+	A space $ X $ is compact if every collection of closed subsets $ \{C_\alpha\mid \alpha \in I\} $ having the finite intersection property has
+	\[
+		\bigcap_{\alpha \in I} C_\alpha \ne \emptyset.
+	\]
+\end{theorem}
+\pf We translate the definition of compactness to closed sets from open sets using the complement. This takes unions to intersections and covers to empty intersections. And if we then take the contrapositive i.e.
+\[
+	\bigcap_{\alpha \in I} C_\alpha  = \emptyset \implies \text{some finite intersection is empty}.
+\]
+This can be expanded on for a full proof, but it's just linguistical.\qed
+\subsubsection{The Cantor space}
+Define a subspace $ C\subset [0,1] $ inductively. First set $ C_0 = [0,1] $.
+We define $ C_1 = [0,1] - \left(\frac 13,\frac 23\right) $, removing the open middle third. We contine this inductively, removing the middle third from each closed interval, so
+\[
+	C_n = C_{n-1}\setminus \bigcup_{k=0}^\infty \left(\frac {1+3k}{3^n}, \frac{2+3k}{3^n}\right).
+\]
+We then define the \textit{Cantor space} as
+\[
+	C = \bigcap_{k=0}^\infty C_n \subset [0,1].
+\]
+We know that $ C_n $ is closed for all $ n\in \N $, hence $ C $ is closed. Clearly bounded hence $ C $ is compact. It contains the end points of the intervals in $ C_n $ for all $ n $.
 
 
 

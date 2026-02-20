@@ -539,10 +539,66 @@ gives that
 \[
 	u(y) = \frac{\rho g \sin\alpha}{2\mu } y(2h-y).
 \]
-
-
-
-
+\subsubsection{Boundary condition at an interface}
+Suppose we have two fluids. Fluid 1 has viscosity $ \mu_1 $ and fluid 2 has viscosity has viscosity $ \mu_2 $. What are the boundary conditions at the interface of the fluid?
+\begin{enumerate}
+	\item No slip: $ u_1=u_2 $ at the interface\\
+	\item Continuity of stress: In the normal direction $ p_1=p_2 $ and in the tangential direction \[ \mu_1\frac{\partial u_1}{\partial y} = \mu_2 \frac{\partial u_2}{\partial y} \].
+\end{enumerate}
+\subsection{Unsteady parallel viscous flows and viscous diffusion}
+\begin{example}
+  Fundamental example: Rayleigh's problem (Stokes' 1st problem). This is the impulsively started plate. Consider a semi-infinite viscous fluid in $ y>0 $ that is initially at rest with no applied pressure gradient, $ \mathbf f = 0 $. At $ t=0^+ $ the plate starts to move at constant velocity $ (U,0) $. What are the equations of motion? We have that
+  \[
+	  \frac{\partial p }{\partial y} = 0
+  \]
+  so $ p = p_0 $. In the $ x $-direction,
+  \[
+	  \rho\frac{\partial u }{\partial t} = -\frac{\partial p}{\partial x} + \mu\frac{\partial ^2 u }{\partial y^2} + f_x
+  \]
+  which reduces to the diffusion equation
+  \[
+	  \frac{\partial u}{\partial t} = \frac\mu\rho \frac{\partial^2 u}{\partial y^2}.
+  \]
+  The initial condition is $ u(y,t) = 0 $ at $ t=0 $. And the boundary conditions are 
+  \begin{align*}
+	  u(0,t) &= U\\
+	  u(\infty, t ) = 0
+  \end{align*}
+  with the first equation coming from the no-slip condition. We define $ \frac \mu \rho=\nu $ as the kinematic viscosity. If $ \mu = 0 $ nothing happens. We see that $ \nu $ is the diffusivity for momentum (and vorticity: see later). So all we have to do is solve the differential equation using a Fourier series or seperation of variables (IB Methods). Here we use dimensional analysis so $ u(y,t) = Uf(t,y,\nu) $ so $ f(t,y,\nu) $ is dimensionless. Hence
+  \[
+	  \frac uU = f\left(\frac y{\sqrt{\nu t}}\right)
+  \]
+  so $ y\sim \sqrt{\nu t} $. Define our \textit{similarity variable} as
+  \[
+	  \eta = \frac{y}{\sqrt{vt}}
+  \]
+  so putting this into our diffusion equation we get that
+  \[
+	  -\frac 12 \frac \eta t f' U = \frac{\nu}{\nu t}Uf''
+  \]
+  and solving using $ f(0) = 1 $ and $ f(\infty) = 0 $ gives that
+  \[
+	  u(y,t) = U \mathrm{erfc}\left(\frac y{2\sqrt {\nu t}}\right)
+  \]
+  where
+  \[
+	  \mathrm{erfc}(x) = \frac 2{\sqrt \pi} \int^\infty_x e^{-t^2} \mathrm dt.
+  \]
+  So the force required to move the plate at $ y=0 $ is
+  \[
+	  \tau = \mu\frac{\partial u}{\partial y}\mid_{y=0} = -\frac{\mu U}{\sqrt{\nu t}} f'(0) = -\frac{\mu U}{\sqrt{\pi \nu t}}.
+  \]
+  We have that $ \mathbf u = (u,0,0) $, so $ \boldsymbol\omega = (0,0,-\frac{\partial u}{\partial y} $ hence the vorticity also diffuses.
+\end{example}
+Let's see some more examples
+\begin{example}
+  Now add a boudary at $ y=h $. Now our similarity dimensionless solution is no longer possible.
+  \begin{enumerate}
+	  \item At small times $ (\nu t)^{\frac 12} \ll h $ this is approximately like the previous example.
+	  \item At long times eventually we have Couette flow.
+  \end{enumerate}
+  The characteristic time-scale is $ t\sim \frac {h^2}\nu $ for diffusion of momentum.
+\end{example}
 
 
 
