@@ -706,15 +706,16 @@ And some criteria for holomorphicity:
 		\]
 		for all closed $ \gamma $, then $ f $ is holomorphic.
 \end{enumerate}
+\subsection{Homotopy}
 We should note that Cauchy's theorem holds on a much larger set of domains.
 \begin{theorem}
-	(Cauchy for simply connected domains) If $ U\subseteq \C $ is a simply connected sdomain and $ f:U\to \C $ is holomorphic then
+	(Cauchy for simply connected domains) If $ U\subseteq \C $ is a simply connected domain and $ f:U\to \C $ is holomorphic then
 	\[
 	  \int_\gamma =0
 	\]
 	for all closed piecewise-$ C^1 $ curves $ \gamma $ in $ U $.
 \end{theorem}
-First let's prove a definition.
+First let's see a definition.
 \begin{definition}
 	(Homotopic) Let $ \phi,\psi $ be closed paths in a domain $ U $, say $ \phi,\psi: [a,b] \to U $. We say that $ \phi,\psi $ are \textit{homotopic} if there exists a $ \Phi:[a,b]\times [0,1] \to U $ continuous such that $ \Phi\mid_{[a,b] \times \{0\}} = \phi $ and $ \Phi\mid_{[a,b]\times \{1\}} = \psi $ and for all $ t $ $ \Phi\mid_{[a,b]\times \{t\}} $ is a closed path.
 \end{definition}
@@ -724,19 +725,64 @@ By definition $ U $ is simply connected is every loop is homotopic to a constant
 \end{claim}
 We will assume this without proof.
 \begin{proposition}
-  If $ U $ is a domain amkd $ \psi,\phi $ are homotopic piecewise-$ C^1 $ paths and if $ f:U\to \C $ is holomorphic, then
+  If $ U $ is a domain, $ \psi,\phi $ are homotopic piecewise-$ C^1 $ closed paths and if $ f:U\to \C $ is holomorphic, then
   \[
-    \int_\phi f = \int_\psi.
+    \int_\phi f = \int_\psi f.
   \]
 \end{proposition}
-
-
-
-
-
-
-
-
+\pf Let $ \phi,\psi:[a,b] \to U $ be close (piecewise-$ C^1 $) paths. We say $ \phi $ and $ \psi $ are \textit{elementary deformations} of one another if there exists $ a = x_0<x_1<\cdots< x_n = b $ and convex open sets $ C_i\subseteq U $ for $ 1\le i \le n $ such that $\underbrace{\phi\mid_{[x_{i-1},x_i]}}_{\phi_i} $ and $ \underbrace{\psi\mid_{[x_{i-1},x_i]}}_{\psi_i} $ have images inside $ C_i $. Let $ \gamma_i \in C_i$ be the straight path connecting $ \phi(x_i) $ to $ \psi(x_i) $ which is contained in $ C_i $ due to convexity.
+\par
+Let $ \Gamma_i = \phi_i + \gamma_i - \psi_i - \gamma_{i-1} $ which is a closed piecewise-$ C^1 $ loop inside $ C_i $. Apply convex Cauchy so
+\[
+	\int_{\Gamma_i} f = 0,
+\]
+hence
+\begin{align*}
+	\sum_{i=1]^n \int_{\Gamma_i} f = 0.
+\end{align*}
+The $ \gamma_i $ all appear twice with opposite orientation, so $ \int_\phi f + \int_{-\psi} f = 0 $ so
+\[
+  \int_\phi f = \int_\psi f
+\]
+if $ \psi $ and $ \psi $ are elementary deformations of each other.\par
+Now it is enough to prove that if $ \phi\cong\psi $ then there exists $ \phi  = \phi_0,\phi_1,\dots, \phi_N = \psi $ such that $ \psi_{i+1} $ is an elementary deformation of $ \phi_i $. Let $ \Phi:[a,b]\times [0,1]\to U $ be the homotopy function from $ \phi = \Phi_0 $ to $ \psi = \Phi_1 $. The domain of $ \Phi $ is closed and bounded, hence $ \Phi([a,b]\times [0,1]) $ is closed and bounded. Hence there exists an $ \ep $ such that $ \mathrm{dist}(\Phi([a,b]\times[0,1]),\C\setminus U) = 2\ep>0 $. So for all $(s,t) \in [a,b]\times [0,1] $, $ B(\Phi(s,t),\ep) \subset U $. Now $ \Phi $ is uniformly continuous so $ \exists\delta >0 $ such that 
+\begin{align*}
+  |(s,t)-(s',t')|<\delta \implies |\Phi(s,t)-\Phi(s',t')|<\ep.
+\end{align*}
+Pick $ n $ such that $ \frac {1+(b-a)}n < \delta $ and set $ x_j = a+ \frac{(b-a)j}n $ for $ j=1,\dots, n $. Set $ \phi_o = \Phi\mid_{[a,b]\times i/n}  = \Phi_{i/n} $ so $ \phi = \phi_0, \phi_1,\dots, \phi_n =  \psi $ and let $ C_{ij}= B(\Phi(x_j,i/n),\ep) $ which is convex and contained in $ U $. Now if $ s\in [x_{j-1}, x_j] $ and $ t\in \left[\frac {i-1}n , \frac in\right] $ then $ \Phi(s,t)\in C_i $ then this shows that $ \phi_{i+1} $ is an elementary deformation of $ \phi_i $.\qed
+\subsection{Zeros}
+Suppose that $ f:B(a,r)\to \C $ is holomorphic. By Taylor's theorem we know that
+\[
+	f(z) = \sum_{n=0}^\infty c_n(z-a)^n
+\]
+and if $ f\ne 0 $ there is a least $ m $ such that $ c_m \ne 0 $. if $ m>0 $ then $ f(a) = 0 $ we can write that $ f(z) = (z-a)^mg(z) $ where $ g $ is holomorphic on $ B(a,r) $ such that $ g(a) \ne 0 $. We say that $ f $ has a zero of order $ m $ at $ a $.
+\begin{proposition}
+	(Principle of isolated zeros) If $ f:B(a,r)\to \C $ is holomorphic and $ f\not\equiv =0 $ then there exists $ 0<\rho <r $ such that
+	\[
+		f(z) \ne 0 \quad\forall z\in B(a,\rho)\setminus \{a\} = B(a,\rho)^*.
+	\]
+\end{proposition}
+\pf If $ f(a) \ne 0 $ the result is immediate by continuity of $ f $. If $ f(a) = 0 $ we said that $ f(z) = (z-a)^m g(z) $ where $ g(a)\ne 0 $. By continuity of $ g $, there exists a $ \rho $ such that $ g $ doesn't vanish on $ B(a,\rho) $. Hence $ f $ doesn't vanish on $ B(a,\rho)^* $.\qed
+\par
+Recall an Analysis definition
+\begin{definition}
+	(Accumulation point) We say that a set $ X\subseteq \C $ has an accumulation point at $ a\in \C $ if for all $ \ep>0 $ we have that $ B(a,\ep)^* \cap X \ne \emptyset $.
+\end{definition}
+\begin{theorem}
+	(Identity theorem) Let $ U\subseteq \C $ be a domain and $ f,g:U\to\C $ be holomorphic functions on $ U $. Let $ S = \{z\in U: f(z) = g(z)\} $. If $ S $ has an accumulation point in $ U $ then $ f(z) =g (z) $ for all $ z\in U $.
+\end{theorem}
+\pf Let $ h(z) = f(z) -g(z) $. Then $ h $ is holomorphic on $ U $ and vanishes on $ S $. Suppose that $ w $ is an accumulation point of $ S $. So it's a non-isolated zero of $ h $. Hence there exists a $ \ep >0 $ such that $ B(w,\ep)\subseteq U $ and $ h\equiv 0 $ on the ball by the principle of isolated zeros. Let $ z\in U $, so there is a path $ \gamma:[0,1] \to U $ such that $ \gamma(0) = w $ and $ \gamma(1) =z $. Let \begin{align*}
+	I &= \{t\in [0,1]\mid h^{(n)}(\gamma(t))= 0 \ \forall n\ge 0 \}\\ 
+	  &= \{ t\in [0,1] \mid h \text{ vanishes on a small open neighbourhood of } \gamma(t)\}
+\end{align*}
+by Taylor's theorem. We know that $ I $ is non-empty since $ 0\in I $. But the first line shows that $ I $ is open and the second line shows that $ I $ is closed. Hence $ I $ is clopen and non-empty, so $ I = [0,1] $ and $ h(z) = 0 $ so $ h\equiv 0 $ on $ U $.\qed
+\begin{remark}
+Let's see some remarks from this theorem.
+  \begin{enumerate}
+	  \item If $ f\not\equiv 0 $ where $ f $ is holomorphic on $ U $, then the zeros of $ f $ cannot accumulate in $ U $. However they can accumulate at a point not in $ U $. For example consider $ U = \C^* $ and $ f(z) =\sin\left(\frac 1z\right) $. Then $ f(z) = 0 $ for $ z= \frac 1{k\pi} $ for $ k\in \N $ so zeros do accumulate at $ 0 $.
+	  \item Identity between entire functions holding on $ \R $ also hold on $ \C $, since we can rearrange them to zero and hence the function vanishes on the real axis so must vanish everywhere.
+  \end{enumerate}
+\end{remark}
 
 
 
