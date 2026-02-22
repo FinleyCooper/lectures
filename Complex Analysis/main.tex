@@ -783,6 +783,99 @@ Let's see some remarks from this theorem.
 	  \item Identity between entire functions holding on $ \R $ also hold on $ \C $, since we can rearrange them to zero and hence the function vanishes on the real axis so must vanish everywhere.
   \end{enumerate}
 \end{remark}
+If $ U $ is a domain, we let $ \overline U $ denote the closure of $ U $. This is the smallest closed set containg $ U $ and the set of limit points of $ U $. We write that $ \partial U = \overline U \setminus U = \{z\in \C \mid \forall \ep > 0, B(z,\ep) \cap U \ne \emptyset\} \setminus U $.
+\begin{corollary}
+	(Global maximum principle) Let $ U\subseteq \C $ be a bounded d omain. Let $ f:\overline U \to \C $ be continuous and holomorphic on $ U $. Then $ |f| $ achieves its maximum on $ \partial U $.
+\end{corollary}
+\pf If $ U \subseteq B(0,N) $ then $ \overline U \subseteq \overline{B(0,N)} $ so $ \overline U $ is closed and bounded, so $ |f|:\overline U \to \R $ does achieve it's maximum $ M $ on $ \overline U $. Suppose that $ |f(a)| = M $ with $ a\in U $. Pick $ \ep> 0 $ such that $ B(a,\ep) \subseteq U $. The local maximum principle implies that $ f $ is constant on $ B(a,\ep) $. Now $ f $ and a constant function agree on $ B(a,\ep) \subseteq U $ hence they agree everywhere on $ U $. So $ f $ is constant on $ U $ hence $ f $ is constant on $ \overline U $ by continuity, hence the maximum of $ |f| $ also occurs on $ \partial U $.\qed
+\begin{definition}
+	(Analytic continuation) Let $ U\subseteq U'\subseteq \C $ be domains and $ f:U\to \C $ holomorphic. We say that a holomorphic function $ h: U'\to \C $ such that $ h\mid_U = f $ is an \textit{analytic continuation} of $ f $ (to $ U' $).
+\end{definition}
+\begin{corollary}
+  Analytic continuations are unique.
+\end{corollary}
+\pf $ h $ and $ f $ agree on an open set hence by the identity theorem they agree on $ U' $.\qed
+\begin{definition}
+	(Natural boundary) If $ f:U\to \C $ is holomorphic and admits no analytic continuation to any domain $ U'\not\supseteq U $ we say that $ \partial U $ is the \textit{natural boundary} of $ f $.
+\end{definition}
+\begin{example}
+  Let's see some functions and their natural boudaries.
+  \begin{enumerate}
+	  \item Let $ f(z) =\sum_{n=0}^\infty z^n $ with radius of convergence $ 1 $ and define a holomorphic function on $ \mathbb D = B(0,1) $. This has analytic continuation $ \frac 1{1-z} $ defined on $ \C\setminus \{1\}. $
+	  \item Let $ f(z) = \sum_{n=0}^\infty z^{2^n} $ defines a holomorphic function on $ \mathbb D $ with natural boundary $ \partial \mathbb D = S^1 $.
+  \end{enumerate}
+\end{example}
+Recall that if $ U $ is a domain $ S\subseteq U $ dinite and $ f:U\to\C $ continuous and holomorphic on $ U\setminus S $, then $ f $ is holomorphic on $ U $ by Morera's theorem. But what happens if $ f $ is not continuous at $ S $?
+\begin{proposition}
+	(Removal of singularities) Let $ U $ be a domain and $ z_0 \in U $, $ f:U\setminus \{z_0\} \to \C $ is holomorphic and $ f $ is bounded near $ z_0 $. Then there exists a $ a\in \C $ such that $ f(z) \to a $ as $ z\to z_0 $ and set 
+	\[
+	  g(z) = \begin{cases}
+		  f(z) & z\in U\setminus \{z_0\}\\
+		  a & z=z_0
+	  \end{cases}
+	\]
+	then $ g $ is holomorphic on $ U $.
+\end{proposition}
+By hypothesis there exists a $ \delta >0 $ and $ M>0 $ such that $ |f(z)|< M $ if $ z\in B(z_0,S)^* $. Define $ h:U\to\C $ by
+\[
+  h(z) =\begin{cases}
+	  (z-z_0)^2f(z) & z \ne z_0 \\
+	  0 & z= z_0
+  \end{cases}
+\]
+Then $ h $ is complex differentiable on $ U $ clearly for $ z\ne z_0 $. Near $ z_0 $ we have that
+\[
+	\left|\frac {h(z) - h(z_0)}{z-z_0}\right| \le M|z-z_0|
+\]
+so as $ z\to z_0 $
+\[
+\lim_{z\to z_0} \frac{h(z)-h(z_0)}{z-z_0}
+\]
+exists and is zero. Hence $ h $ is holomorpic so has a Taylor series convergent near $ z_0 $, hence $ h(z) = \sum_{n=0}^\infty a_n(z-z_0)^n $. Now $ h(z_0)= 0 $ and $ h'(z_0) = 0 $ so $ a_0=a_1=0 $. Let 
+\[
+	g(z) = \sum_{n=0}^\infty a_{n+2}(z-z_0)^n
+\]
+which is also convergent on $ B(z_0,\ep) $. By construction $ g $ agrees with $ f $ on $ B(z_0,\ep)^* $, so extends to $ U $ by analytic continuation (as $ f $). So indeed
+\[
+	\lim_{z\to z_0} f(z) = a_2
+\]
+and we're done.\qed
+\begin{proposition}
+	Let $ U $ be a domain with $ z_0\in U $ and $ f:U\setminus \{z_0\}\to \C $ be holomorphic. Suppose that $ |f(z)|\to \infty $ as $ z\to z_0 $. Then there is a holomorphic function $ g:U\to \C $ with $ g(z_0)\ne 0 $ and a $ k\ge 1 $ such that
+	\[
+		f(z) = \frac{g(z)}{(z-z_0)^k}
+	\]
+	for all $ z\ne z_0 $ with both $ g $ and $ k $ unique.
+\end{proposition}
+\pf Pick $ \delta>0 $ such that $ |f(z)|\ge 1 $ for all $ z\in B(z_0,S06* $. Now let 
+\[
+  h(z) = \begin{cases}
+	  \frac 1{f(z)} & z\in B(z_0, \delta)^*\\
+	  0 & z=z_0
+  \end{cases}
+\]
+so the previous removal of singularities proposition says that $ h $ is holomorphic on $ B(z_0,\delta) $. From our discussion of zeros of holomorphic functions, there exsits a unique $ k \ge 1$ such that $ h $ has a zero of order $ k $ at $ z_0 $. Then using the Taylor series for $ h $ we have that
+\[
+  h(z) = (z-z_0)^k \ell(z)
+\] 
+where $ \ell: B(z_0,\delta)\to \C $ is holomorphic with $ \ell(z_0)\ne 0 $. $ \ell $ is continuous so there exists some $ 0<\ep < \delta $ such that $ \ell(z) \ne 0 $ for all $ \ep $ in $ B(z_0),\ep) $. Now let
+\[
+	g(z) = \frac 1{\ell(z)}.
+\]
+Then $ g $ is holomorphic in $ B(z_0,\ep) $ and $ g(z) = (z-z_0)^k f(z) $ for all $ z\in B(z_0,\ep)^* $. Then the final expressions shows that $ g $ has an analytic continuation to $ U $.\qed 
+
+\begin{definition}
+	Let $ U $ be a domain with $ z_0\in U $ and $ f:U\setminus \{z_0\} \to \C $ be holomorphic. We say that $ f $ has a \textit{isolated signularity} at $ z_0 $ and that this singularity is
+	\begin{enumerate}
+		\item \textit{removable} if $ |f| $ is bounded near $ z_0 $;
+		\item a \textit{pole} if $ |f| \to \infty $ near $ z_0 $ of order $ k $ if $ f(z) = \frac{g(z)}{(z-z_0)^k} $ with $ g $ holomorphic and $ g(z_0)\ne 0 $;
+		\item \textit{essential} otherwise.
+	\end{enumerate}
+\end{definition}
+
+
+
+
 
 
 
