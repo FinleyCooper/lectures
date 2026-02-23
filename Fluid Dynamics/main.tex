@@ -599,6 +599,90 @@ Let's see some more examples
   \end{enumerate}
   The characteristic time-scale is $ t\sim \frac {h^2}\nu $ for diffusion of momentum.
 \end{example}
+\begin{example}
+	Now let's look a Stokes' 2nd problem. Here we have the same set up as in Stokes' 1st problem, but now the boudary is oscilatory with velocity $ U\cos(\omega t) $. A full treatment of the problem is in Example Sheet 2. The imposed time scale is $ \frac 1 \omega $ during which velocity variations can diffuse distance $ \sqrt{\frac\nu\omega} = \delta $ known as Stokes layer.
+\end{example}
+\begin{example}
+  Again we can see this problem with the fluid bounded from above. This gives two length scales $ \delta $ and $ h $ related by
+  \[
+	  S = \frac{\omega h^2}{\nu} = \frac {h^2}{\delta^2}
+  \]
+  where $ S $ is known as the Stokes number for the fluid 
+\end{example}
+\begin{remark}
+	The examples illustrate that the inivscid solution is \textit{not} uniformly the same as the limit of a small viscosity.
+\end{remark}
+\subsection{Navier-Stokes equations (NE)}
+These equations derive the most generla momentum equation for a Newtonian fluid. If we have that the fluid is incompressible, so $ \nabla\cdot\mathbf u = 0 $ then the equation is
+\[
+	\rho \frac{D\mathbf u }{Dt} = - \nabla p + \mathbf F + \mu\nabla^2 \mathbf u.
+\]
+This reduces to Euler in inviscid limit and the 2D parallel equations when $ \mathbf u = (u(y,t),0,0) $. We also have that $ \boldsymbol \omega $ satisfies
+\[
+	\frac{D\boldsymbol \omega}{Dt} = (\boldsymbol \omega \cdot\nabla)\mathbf u + U\nabla^2 \boldsymbol \omega.
+\]
+\subsection{The Reynolds number (NE)}
+Consider a flow with characteristic length scale $ L $ and velocity $ U $. Then we have that
+\[
+	\rho \frac{D\mathbf u }{Dt} \sim \rho \frac{u}{L/u} \sim \rho {u^2}L
+\]
+and
+\[
+	\mu\nabla^2 u \sim \mu\frac{u}{L^2}.
+\]
+Taking the ratio between these terms and setting it to a new quantity $ \mathbf {Re} $. We get that
+\[
+	\mathrm {Re} = \frac{\rho UL}\mu = \frac{UL}\nu.
+\]
+We call $ \mathrm {Re} $ the Reynolds number and it is a dimensionless quantity useful for study what kind of flow we have.
+\section{Inviscid irrotational flow}
+This chapter will study what we call irrotatoinal flow also known as potential flow. This is flow with $ \boldsymbol \omega = 0 $. 
+\subsection{Velocity potential}
+Since all the domains we care about in IB Fluid Dynamics are simply connected, since the flow is irrotational, it is conservative hence there exists a scale potential $ \phi $ such that
+\[
+  \mathbf u = \nabla \phi.
+\]
+We also have that the flow is incompressible, hence $ \nabla^2 \phi = 0 $, so $ \phi $ is harmonic. $ \phi $ also satisfies the Von Neumann boundary condition $ \frac{\partial \phi}{\partial \mathbf n } = \mathbf U\cdot \mathbf n $ which follows from the kinematic boundary condition $ \mathbf u \cdot\mathbf n = \mathbf U \cdot\mathbf n $.\par
+Hence solving the Euler equation for irrotational incompressible flow now reduces to solving Laplace's equation with Von Neumann boundary conditions. 
+\subsection{Examples}
+For simple geometries we build solutions using seperable solutions to Laplace's equations in suitable coordinate systems.
+\par
+  In spherical coordinates recall our general antisyemmtric solution to Laplace's equation is
+  \[
+	  \phi = \sum_{n\ge 0}(A_n r^n + B_n r^{-1-n})P_n(\cos\theta)
+  \]
+  where $ P_n $ is the $ n $th Legendre polynomial.
+Usually we only need a small number of modes.
+\begin{example}
+  Let's consider radial flow so $ \phi= \phi(r) $. Then from Laplace's equation's solution if we don't want $ \theta $ dependence we need only the $ n=0 $ mode. So
+  \[
+	  \frac{\partial \phi}{\partial r } = \frac A{r^2}
+  \]
+  for some constant $ A $. Hence \textit{wlog} $ \phi = -\frac Ar $. The physical significance of the factor $ A $ can be seen by applying Gauss' law like we would in IB Electrodynamics. Consider the volume flux $ q $ across a sphere with radius $ r $.
+  \[
+	  \int \mathbf u \cdot\mathbf n\ \mathrm dS = -\frac {A}{r^2}{4\pi r^2} = - 4\pi A.
+  \]
+  So 
+  \[
+	  \phi = -\frac q{4\pi r}
+  \].
+  This represents a source at the origin if $ q>0 $ and a sink if $ q<0 $.
+\end{example}
+\begin{example}
+  If instead we have uniform flow (in the $ z $ direction) Then we only want the 1st mode so $ \phi = Ur\cos\theta = U_z $ hence
+  \[
+	  \mathbf u = \nabla\phi = u_{\hat{\mathbf z}}.
+  \]
+\end{example}
+
+
+
+
+
+
+
+
+
 
 
 
