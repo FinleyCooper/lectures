@@ -177,7 +177,7 @@ Instead if we used the estimator $ T_b = \frac{X+1}{n+2}  = \omega\frac Xn + (1-
 \end{align*}
 Giving that
 \[
-	\mathrm {mse}(T_b) &= \omega^2 \zfrac{\theta(1-\theta)n} + (1-\omega)^2(\frac 12 - \theta)^2
+	\mathrm {mse}(T_b) = \omega^2 \frac{\theta(1-\theta)}n + (1-\omega)^2(\frac 12 - \theta)^2
 \]
 \subsection{Sufficient statistics}
 Suppose $ X_1,\dots, X_n $ are iid random variables taking values in $ \chi $ with pdf $ f_{X_1}(\cdot\mid \theta) $. Consider $ \theta $ as fixed. Denote $ X=(X_1,\dots, X_n) $.
@@ -210,7 +210,7 @@ which doesn't depend on $ \theta $, so $ T(X) $ is sufficient.\par
 Conversely, suppose $ T(X) $ is sufficient. We can write
 \begin{align*}
 \mathbb P_\theta(X=x) &= \mathbb P_\theta(X=x,T(X)=T(x))\\
-		      &= \mathbb P_\theta(X=x\mid T(X)=T(x))\prob_\theta(T(X)=T(x))\\
+		      &= \mathbb P_\theta(X=x\mid T(X)=T(x))\mathbb P_\theta(T(X)=T(x))\\
 		      &= h(x)g(T(X),\theta).
 \end{align*}
 So we're done.\qed
@@ -240,7 +240,7 @@ Let's see an example before we prove this. Suppose that $ X_1,\dots, X_n\sim\mat
 \end{align*}
 This is constant in $ (\mu,\sigma^2) $ if and only if $ \sum_i x_i=\sum_i y_i $ and $ \sum_i x_i^2 = \sum_i y_i^2 $ therefore $ T(X)=\left(\sum_{i=1}^n X_i,\sum_{i=1}^n X_i^2\right) $ is minimal sufficient.
 \par
-\pf Need to show that such a statistics is sufficient and minimal. First we'll show sufficiency. For each $ t $ pick a $ x_t $ such that $ T(x_t) = t $. Now let $ x\in \chi_^N $ and let $ T(x)=t $. So $ T(x) = T(x_t) $, so by the hypothesis $ \frac{f_X(x,\theta)}{f_X(x_t,\theta)} $ does not depend on $ \theta $. Let this be $ h(x) $ and let $ g(t,\theta) = f_X(x,\theta) $ then we have that $ f_X(x,\theta)=g(t,\theta)h(x) $ so sufficient.\par
+\pf Need to show that such a statistics is sufficient and minimal. First we'll show sufficiency. For each $ t $ pick a $ x_t $ such that $ T(x_t) = t $. Now let $ x\in \chi_N^2 $ and let $ T(x)=t $. So $ T(x) = T(x_t) $, so by the hypothesis $ \frac{f_X(x,\theta)}{f_X(x_t,\theta)} $ does not depend on $ \theta $. Let this be $ h(x) $ and let $ g(t,\theta) = f_X(x,\theta) $ then we have that $ f_X(x,\theta)=g(t,\theta)h(x) $ so sufficient.\par
 Now let $ S $ be any other sufficient statistic. By the factorisation criterion, there exists $ g_S, h_S $ such that $ f_X(x\mid\theta)=G_S(S(x),\theta)h_S(x) $. Suppose $ S(x)=S(y) $. Then
 \begin{align*}
 	\frac{f_X(x\mid \theta)}{f_X(y\mid\theta)} = \frac{g_S(S(x),\theta)h_S(x)}{g_S(S(y),\theta)h_S(y)} = \frac{h_S(x)}{h_S(y)}
@@ -588,7 +588,6 @@ Usually we set $ \alpha $ at an acceptable level for example $ 1\% $, and choose
 	\[
 		\Lambda_X(H_0,H_1) = \frac{f_1(X)}{f_0(X)}.
 	\]
-\ll
 \end{definition}
 \begin{definition}
 	(Likelihood ratio test) A \textit{Likelihood ratio test} (LRT) rejects $ H_0 $ when $ X\in C=\{x\in \Lambda_X(H_0,H_1)>k\} $ for some $ k>0$ .
@@ -599,7 +598,7 @@ Usually we set $ \alpha $ at an acceptable level for example $ 1\% $, and choose
 \pf Let $ \overline C $ be the complement of $ C $. Then
 \begin{align*}
 	\alpha &= \mathbb P_{H_0}(X\in C) = \int_C f_0(x)\mathrm dx\\
-	\beta &= \mathbb P_{H_1}(X\in \overlien C) = \int_{\overline C}f_1(x)\mathrm dx
+	\beta &= \mathbb P_{H_1}(X\in \overline C) = \int_{\overline C}f_1(x)\mathrm dx
 \end{align*}
 Let $ C^* $ be the critical region of another test of size $ \alpha^*\le \alpha $. We want to show that $ \beta\le\beta^* $.
 \begin{align*}
@@ -612,10 +611,10 @@ and the result follows from algebra manipulation.\qed
   A LRT with size $ \alpha $ for any given $ \alpha $ doesn't always exist. However we can always define a "randomised" test with exact level $ \alpha $.
 \end{remark}
 Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu , \sigma^2_0$ where $ \sigma^2_0 $ is known. We want to find the best size $ \alpha $ test for
-\[
+\begin{align*}
 	H_0 &: \mu = \mu_0 \\
 	H_1 &: \mu = \mu_1
-\]
+\end{align*}
 for some fixed $ \mu_1 > \mu_0 $. We have that
 \begin{align*}
 	\Lambda_X(H_0;H_1) &= \frac{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_1)^2\right)}{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_0)^2\right)}\\
@@ -675,7 +674,7 @@ Hence we're done. \qed
 \par
 Suppose that $ X=(X_1,\dots, X_n)\iid \mathcal N(\mu ,\sigma_0^2) $ where $ \sigma_0 $ is known. We foudn a $ 100(1-\alpha)\% $ confidence interval for $ \mu $, namely, $ I(X)=\overline X \pm \frac{\sigma_0}{\sqrt n} $. Using the second part of the theorem, we can find a size $ \alpha $ test for $ H_0: \mu = \mu_0 $, by defining the acceptance region as
 \begin{align*}
-	A(\mu\mu_0 \in I(x)_0) = \{x: \mu_0\in \left[\overline X - \frac{z_{\alpha/2} \sigma_0}{\sqrt n}, \overline X + \frac{z_{\alpha/2} \sigma_0}{\sqrt n}\right]\}.
+	A(\mu_0 \in I(x)_0) = \{x: \mu_0\in \left[\overline X - \frac{z_{\alpha/2} \sigma_0}{\sqrt n}, \overline X + \frac{z_{\alpha/2} \sigma_0}{\sqrt n}\right]\}.
 \end{align*}
 Equivalently we reject $ H_0 $ when
 \[
@@ -685,12 +684,12 @@ This is a two sided LRT. We could also equivalently go in the opposite direction
 \subsection{Composite hypotheses}
 Previously we considered $ H_0 $ and $ H_1 $ as \textit{simple} hypotheses with error porbabilities
 \[
-\alpha = \mathbb P_{H_0}(X\in C), \qquad \beta = \prob_{H_1}(X\notin C).
+\alpha = \mathbb P_{H_0}(X\in C), \qquad \beta = \mathbb P_{H_1}(X\notin C).
 \]
 Now we consider $ X\sim f_X(\cdot \mid \theta) $, with $ \theta\in\Theta $ and
 \begin{align*}
 	H_0 &: \theta\in\Theta_0 \subseteq \Theta\\
-	H_1 &: \theta\in\THeta_1 \subseteq \Theta
+	H_1 &: \theta\in\Theta_1 \subseteq \Theta
 \end{align*}
 \begin{definition}
 	(Power function) The \textit{power function} is $ W(\theta)= \mathbb P_\theta(X\in C) $.
@@ -763,9 +762,76 @@ and after simplication we get that
 Thus GLRT rejects $ H_0 $ if $ \frac{\sqrt n |\overline X - \mu_0|}{\sigma_0} $ is large. Under $ H_0 $, $ \frac{\sqrt n(\overline X - \mu_0)}{\sigma_0} \sim\mathcal N(0,1) $ so a test of size $ \alpha $ rejects $ H_0 $ if $ \frac{\sqrt n|\overline X - \mu|}{\sigma_0}>z_{\alpha/2} $.
 \par
 Note that in this example $ 2\log \Lambda_X(H_0;H_1) = \frac{n(\overline X-\mu_0)^2}{\sigma^2_0}\sim \chi^2_1 $. Thus the critical region of t he GLRT can also be written as $ \left\{x:\frac{\sqrt n(\overline X - \mu_0)^2}{\sigma_0^2} > \chi_1^2(\alpha)\right\} $. In a fact a more general result says that $ 2\log\Lambda_X(H_0;H_1) \approx \chi^2 $ when $ n $ is large.
-
-
-
-
-
+\begin{theorem}
+	(Wilks' theorem) Suppose the parameter $ \theta $ is $ k $-dimensional so $ \theta = (\theta_1,\dots, \theta_k) $. The \textit{dimension} of a hypothesis $ H_0:\theta\in\Theta_0 $ is the number of "free parameters in $ \Theta_0 $ for example
+	\begin{enumerate}
+		\item If $ \Theta_0= \{\theta\in \R^k:\theta_1=\theta_2=\dots = \theta_p = 0\} $ then $ \dim(\Theta_0) = k-p $.
+		\item Suppose $ \Theta_0 = \{\theta\in\R^k: \theta_i = f_i(\phi),\ \forall 1\le i \le k, $ for some $ \phi\in\R^{k-p}\} $. Then $ \dim(\Theta_0) = k-p $.
+	\end{enumerate}
+\end{theorem}
+\pf Not included.
+\begin{theorem}
+  Suppose that $ \Theta_0\subseteq \Theta_1 $ and $ \dim(\Theta_1)-\dim(\Theta_0) = p $. If $ (X_1,\dots, X_n) $ are idd then under regularity conditions, as $ n\to\infty $ the limiting distribution of $ 2\log\Lambda_X(H_0;H_1) $ is $ \chi_p^2 $. Thus if we reject $ H_0 $ when $ 2\log\Lambda_X(H_0;H_1)\ge \chi_p^2(\alpha) $ and we have a test of size $ \approx \alpha $.
+\end{theorem}
+\begin{example}
+  In the two-sided normal mean test, we had
+  \begin{align*}
+	  \Theta_0 &= \{\mu_0\}\\
+	  \Theta_1 &= \R\setminus \{\mu_0\}
+  \end{align*}
+  and we saw that
+  \[
+    2\log\Lambda_X(H_0;H_1) \sim \chi_1^2
+  \]
+  exactly. In a different parametric family, with large $ n $ this would hold aproximately.
+\end{example}
+\subsection{Goodness-of-fit tests}
+\begin{example}
+  In one of this experiments, Mendel crossed 556 smooth, yellow, male peas with wrinkled green female peas. He obtained a table of data of the phenotypes of the produced peas. Is there evidence in his data to reject the hypothesis that the genetic theory is correct?\par
+  Suppose $ X_1,\dots, X_n $ are iid samples from a distribution on $ \{ 1,\dots, k\ $. Let $ p_i = \mathbb P(X_1 = i) $ and let $ N_i $ be the number of observations in $ \{X_1,\dots, X_n\} $ of type $ i $. Hence $ \sum p_i = 1 $ and $ \sum N_i = n $. Then we have that
+	  \[
+		  (N_1, \dots, N_k) \sim \mathrm{Mult}(n; p_1,p_2,\dots, p_n).
+	  \]
+	  The likelihood is $ L(p)\propto p_1^{N_1}p_2^{N_2}\dots p_k^{N_k} $, so
+	  \[
+		  \ell(p) = \log(L(p)) = \text{const.} + \sum_{i=1}^k N_i\log p_i.
+	  \]
+	  We can test $ H_0 $ against $ H_1 $ using a GLRT
+	  \[
+		  2\log\Lambda = 2\left(\sup_{p\in\Theta_1} \ell(p) - \sup_{p\in \Theta_0} \ell(p)\right).
+	  \]
+	  Notice  that
+	  \[
+		  \sup_{p\in \Theta_1} \ell(p) = \sup_{p:\sum p_i = 1} \sum_i N_i \log p_i.
+	  \]
+	  Using the Lagrangian and calculating we get that the MLE is giving by
+	  \[
+		  \hat p = \hat p_i = \frac{N_i}n.
+	  \]
+	  So 
+	  \[
+		  2\log\Lambda = 2\sum_{i=1}^k N_i \log\left(\frac {N_i}{n\tilde p_i}\right).
+	  \]
+	  Wilks' theorem says that 
+	  $ 2\log \Lambda\approx \chi_p^2 $ with $ p=\dim(\Theta_1)-\dim(\Theta_0) = k-1 - 0 = k-1 $. Thus reject $ H_0 $ if $ 2\log \Lambda\ge \chi){k-1}^2(\alpha) $. It is common to write
+	  \[
+		  2\log(\Lambda) = 2\sum_i o_i \log\left(\frac{o_i}{e_i}\right)
+	  \]
+	  where $ o_i $ is $ N_i $ and $ e_i $ is the expected number of type $ i $ equal to $ i = n\tilde p_i $.\par
+	  Let $ \delta_i = o_i - e_i $. Then 
+	  \[
+		  2\log\Lambda \approx \sum_i \frac{\delta_i^2}{e_i} = \sum_i \frac{(o_i-e_i)^2}{e_i}
+	  \]
+	  which is Pearson's chi-square statistic.
+	\end{example}
+	Suppose we wish to test
+	\begin{align*}
+		H_0 &: p_1 =\theta^2,\  p_2=2\theta(1-\theta),\ p_3= (1-\theta)^2,\ \theta\in[0,1].
+	\end{align*}
+	Then the GLRT is
+	\begin{align*}
+		2\log \Lambda&= 2\left(\sup_{p:\sum p_i = 1} \ell(p) - \sup_\theta \ell(p(\theta))\right) \\
+			     &= 2(\ell(\hat p) - \ell(p(\hat \theta))) = 2\sum N_i \log\left(\frac {N_i}{n p_i(\hat\theta)}\right)\\
+			     &= 2\sum_i o_i\log\left(\frac{o_i}{e_i}\right).
+	\end{align*}
 \end{document}

@@ -66,7 +66,7 @@ Consider $ \R $ and $ (0,1) $ with the Euclidean metric and topology. Then the t
 	(Discrete topology) Let $ X $ be a set. The \textit{discrete} topology is the topology $ T_{\text{discrete}} = \mathcal P(X) $ (so every set is open).
 \end{definition}
 \begin{remark}
-	Any function from $ (X,T_{\text{discrete}}) $ to any space si continuous. This toplogy can be induced by the discrete metric, where $ d(x,y) = \begin{cases}
+	Any function from $ (X,T_{\text{discrete}}) $ to any space is continuous. This toplogy can be induced by the discrete metric, where $ d(x,y) = \begin{cases}
 		1 & x\ne y \\
 		0 & x = y
 	\end{cases} $. So $ B_{\frac 12}(x) = \{x\} $ so $ \{x\} $ is open, hence all the sets are open. 
@@ -257,7 +257,7 @@ and
 \begin{proposition}
 	This indeed is a topology and the sets $ V\times W $ are a basis for $ T_{X\times Y} $.
 \end{proposition}
-\pf Tautologically, we have that $ \emptyset \in T_{X\times Y} $. Taking $ V=X,W=Y $ we have that $ X\times Y\in T_{X\times Y} $. For a collection $ \{U_\alpha\}_{\alpha\in I} $ of elements of $ T_{X\times Y} $, let $ (x,y)\in \bigcup_{\alpha\in I}U_\alpha $. Then $ (x,y)\in U_\beta $ for \some $ \beta\in I $ so there exists neighbourhoods of $ x,y $ with their product a subset of $ U_\beta\subseteq \bigcup_{\alpha\in I} U_\alpha \in T_{X\times Y}$.  If $ I $ is finite and $ (x,y)\in \bigcap_{\alpha\in I}U_\alpha $. Then $ (x,y)\in V_\alpha\times W_\alpha \subseteq U_\alpha $ for each $ \alpha\in I $. So $ (x,y)\in \left(\bigcap_\alpha V_\alpha\right)\times\left(\bigcap_\alpha W_\alpha\right)\in \bigcap_\alpha U_\alpha $ and since these intersections are finite, these intersections are open.\qed
+\pf Tautologically, we have that $ \emptyset \in T_{X\times Y} $. Taking $ V=X,W=Y $ we have that $ X\times Y\in T_{X\times Y} $. For a collection $ \{U_\alpha\}_{\alpha\in I} $ of elements of $ T_{X\times Y} $, let $ (x,y)\in \bigcup_{\alpha\in I}U_\alpha $. Then $ (x,y)\in U_\beta $ for some $ \beta\in I $ so there exists neighbourhoods of $ x,y $ with their product a subset of $ U_\beta\subseteq \bigcup_{\alpha\in I} U_\alpha \in T_{X\times Y}$.  If $ I $ is finite and $ (x,y)\in \bigcap_{\alpha\in I}U_\alpha $. Then $ (x,y)\in V_\alpha\times W_\alpha \subseteq U_\alpha $ for each $ \alpha\in I $. So $ (x,y)\in \left(\bigcap_\alpha V_\alpha\right)\times\left(\bigcap_\alpha W_\alpha\right)\in \bigcap_\alpha U_\alpha $ and since these intersections are finite, these intersections are open.\qed
 \begin{proposition}
   The projection maps 
   \[
@@ -464,7 +464,7 @@ The space $ Y = \{\frac 1n \mid n=1,2,\dots \}\subseteq \R$ is \textit{not} comp
 \[
 	A = \{a\in [0,1] \mid \text{there is a finite } \mathcal U' \subset \mathcal U \text{ whose union contains } [0,a]\}.
 \]
-If $ 0\le a \le b $ then $ [0,a]\subseteq [0,b] $. So if $ b\in A $ then $ a\in A $. $ A $ is not non-empty since $ 0\in A $ since $ [0,0]=\{0\} $ has some $ U\in \mathcal U $ containing $ 0 $. Hence by completeness $ A $ has a supremum, so set $ \alpha =\sup A \in [0,1] $. We want to show that $ \alpha = 1 $. Let $ \alpha \in U_\alpha \in \mathcal U $. If $ \alpha<1 $ then there is an $ \varepsilon >0 $ such that $ (a-\varepsillon, a+\varepsilon)\subset [0,1] \subset U_\alpha$. So as $ \alpha-\varepsilon< \alpha $, there must be a $ \alpha-\varepsilon\le a <\varepsilon $ with $ a\in A $. Hence $ \alpha-\varepsilon \in A $ too. But then $ [0,\alpha-\varepsilon] $ has a finite cover by elements of $ \mathcal U $. Adding $ U_\alpha $ we have a finite subcover of $ [0,\alpha+\varepsilon/2] $ hence this contradicts the fact that $ \alpha $ is a supremum, so $ \alpha=1 $ and $ [0,1] $ is compact.\qed
+If $ 0\le a \le b $ then $ [0,a]\subseteq [0,b] $. So if $ b\in A $ then $ a\in A $. $ A $ is not non-empty since $ 0\in A $ since $ [0,0]=\{0\} $ has some $ U\in \mathcal U $ containing $ 0 $. Hence by completeness $ A $ has a supremum, so set $ \alpha =\sup A \in [0,1] $. We want to show that $ \alpha = 1 $. Let $ \alpha \in U_\alpha \in \mathcal U $. If $ \alpha<1 $ then there is an $ \varepsilon >0 $ such that $ (a-\varepsilon, a+\varepsilon)\subset [0,1] \subset U_\alpha$. So as $ \alpha-\varepsilon< \alpha $, there must be a $ \alpha-\varepsilon\le a <\varepsilon $ with $ a\in A $. Hence $ \alpha-\varepsilon \in A $ too. But then $ [0,\alpha-\varepsilon] $ has a finite cover by elements of $ \mathcal U $. Adding $ U_\alpha $ we have a finite subcover of $ [0,\alpha+\varepsilon/2] $ hence this contradicts the fact that $ \alpha $ is a supremum, so $ \alpha=1 $ and $ [0,1] $ is compact.\qed
 \par
 Let's look at some consequences of compactness.
 \begin{proposition}
@@ -580,19 +580,71 @@ We then define the \textit{Cantor space} as
 	C = \bigcap_{k=0}^\infty C_n \subset [0,1].
 \]
 We know that $ C_n $ is closed for all $ n\in \N $, hence $ C $ is closed. Clearly bounded hence $ C $ is compact. It contains the end points of the intervals in $ C_n $ for all $ n $.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{proposition}
+	There is a bijection between $ C $ and $ \{0,1\}^\N $. So $ C $ has the cardinality of $ \R $.
+\end{proposition}
+\pf Let $ \{0,1\}=\{\ell,r\} $. A sequence of $ \ell $'s and $ r $'s tells us how to chose one of the intervals in each $ C_n $ by choosing the left or right third. By the finite intersection property of compactness and th efact that $ [0,1] $ is compact looking at the collecction of closed sets $ I_0\supset I_1\supset I_2\supset \dots $. All the finite intersections of these are some $ I_j $ so non-empty hence 
+\[
+	\bigcap_{n=0}^\infty I_n \ne \emptyset
+\]
+by compactness. Suppose $ x,y\in \bigcap_{n=0}^\infty I_n $. Then $ x,y\in I_n $ and interval of length $ \frac 1{3^n} $. Taking $ n\to\infty $ we must have that $ x=y $. This defines a function 
+\[
+	\phi: \{\ell ,r\}^\N \to \C.
+\]
+We've just shown this is well-defined and an injection. This is tautologically surjective since each sequence defines a point in $ C $. So $ \phi $ is a bijection.\qed\par
+In fact it's easy to see that $ \inv \phi $ is continuous so it's a homeomorphism.
+\begin{proposition}
+  The connected components of $ C $ are the singletons.
+\end{proposition}
+If $ x,y \in C $ with $ x<y $. We want to find a real number $ x<z<y $ with $ z\notin C $. Suppose not. Then $ [x,y]\subset C  \in C_n	$ for all $ n $. But the lengths of $ C_n\to 0 $ as $ n\infty $, hence we can always pick $ n $ large enough so this can't happen. Hence such a $ z $ is not in $ C $. Then $ C\cap (-\infty , x) $, $ C\cap (z,\infty) $ disconnects $ C $ with $ x $ in the left set and $ y $ in the right set. So $ x $ and $ y $ cannot lie in a connected subspace of $ C $. Hence all the connected components are singletons.\qed
+\section{Manifolds}
+\begin{definition}
+	(Locally Euclidean) We say that a topogical space is \textit{locally Euclidean} (with dimension $ d $) if for all $ x\in X $ there exists an open neighbourhood of $ x $ homeomorphic to an open subset of $ \R^d $.
+\end{definition}
+\begin{definition}
+	(Manifold) A topological space $ X $ is a $ d $-dimensional \textit{manifold} if it is Hausdorff and it is locally Euclidean with dimension $ d $.
+\end{definition}
+\begin{remark}
+  Any open $ y\in U \subset \R^d $ has a $ y\in B_2(y)\subset U $ and $ B_2(y)\cong \R^d $ so equivalently we could change open subset of $ \R^d $ to a ball in $ \R^d $.
+\end{remark}
+\begin{remark}
+	Manifolds are also usually taken to be \textit{second countable} (they have a countable basis). This gives lots of useful properties, but none of which we will use in this course, so we will just ignore this.
+\end{remark}
+\begin{example}
+  Any open $ U\subset \R^d $ is a $ d $-dimensional manifold trivally.
+\end{example}
+\begin{example}
+	The sphere $ S^d=\{v\in \R^{d+1} \mid ||v|| =1 \} $ is a $ d $-dimensional manifold. Clearly it's Hausdorff since it's a subspace of $ \R^d $. To see that it's locally Euclidean consider the sterographic projection of the sphere with north pole $ p $ to the plane given by
+	\begin{align*}
+		S^d \setminus \{p\} &\longrightarrow \R^d\\
+		q &\longrightarrow \text{the intersection of the line through } p \text{ and } q \text{ with the plane } \{0\}\times \R^d.
+	\end{align*}
+	This gives a Euclidean neighbourhood of any point except $ p $, but we can do the same with $ p $ by just rotating the sphere.
+\end{example}
+\begin{example}
+  In particular the circle $ S^1 $ is a $ 1 $-dimensional manifold. It  can be described in other ways too. The relation $ x\sim y\iff x-y\in \X $ on $ \R $ has quotient space $ \R/\sim = \R/ \Z $ which is homeomorphic to $ S^1 $. The function
+  \begin{align*}
+	  f : \R &\to S^1\\
+	  t &\to (\sin(2\pi t), \cos(2\pi t))
+  \end{align*}
+  so the universal property of the quotient gives a continuous bijection
+  \[
+    \tilde f: \R/sim \to S^1.
+  \]
+  Note any equivalence class of $ \sim $ intersects $ [0,1] $ so using the continuous surjection 
+  \[
+	  [0,1]\overset{\text{inc}}{\longrightarrow} \R \overset{\pi}{\longrightarrow} \R/\sim.
+  \]
+  This shows that $ \R/\sim $ is the continuous image of a compact space hence it is comapct. But $ S^1\subseteq \R^2 $ so it's Hausdorff hence
+  \[
+    \tilde f: \R/\sim \to S^1
+  \]
+  is a homeomorphism so $ S^1\cong [0,1]/(0\sim 1) $.
+\end{example}
+\begin{example}
+	Let $ L= (\R\times \{0,1\})/((t,0)\sim (t,1)) $ for all $ t\ne 0 $. We have seen this space is not Hausdorff so not a manifold. However it is locally Euclidean. Let $ \pi $ be the quotient map and $ U = \pi((-1,1)\times \{1\}) $. Note that $ \inv \pi (U) =(-1,1)\times \{1\} \cup (-1,0)\times \{0\} \cap (0,1)\times \{0\}\subset \R $ is open so $ U\subseteq L $ is open. Note that $ \pi\mid_{(-1,1)\times \{1\}}: (-1,1)\times \{1\}\to U $ is a homeomorphism, so $ U $ is a Euclidean neighbourhood of the top origin. 
+\end{example}
+\begin{example}
+  If $ M $ is a $ m $-dimensional manifold and $ N $ is a $ n $-dimensional manifold then $ M\times N $ is a $ (m+n) $-dimensional manifold.
+\end{example}
 \end{document}
