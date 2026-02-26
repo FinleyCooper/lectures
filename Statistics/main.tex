@@ -834,4 +834,147 @@ Note that in this example $ 2\log \Lambda_X(H_0;H_1) = \frac{n(\overline X-\mu_0
 			     &= 2(\ell(\hat p) - \ell(p(\hat \theta))) = 2\sum N_i \log\left(\frac {N_i}{n p_i(\hat\theta)}\right)\\
 			     &= 2\sum_i o_i\log\left(\frac{o_i}{e_i}\right).
 	\end{align*}
+\subsection{Contingency tables}
+\subsubsection{Testing independence}
+Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking values in $ \{1,\dots, r\} $ and $ Y_i $ taking values on $ \{1,\dots, c\} $. We wish to test the null hypothesis that $ X_i $ and $ Y_i $ are independent. The entries in a contingency table are 
+\[
+	N_{ij} = # \{ \ell : 1\le \ell \le n; (X_\ell,Y_\ell) = (i,j)\}.
+\]
+\begin{example}
+  Part III admissions statistics from a recent year, by gender/stream
+  \begin{center}
+	  \begin{tabular}{c |c c c}
+      \hline
+      Stream & F & M & Other \\
+      \hline
+      MASA & 10 & 9 & 1 \\
+      MASTH & 11 & 59 & 0 \\
+      MASP & 10 & 56 & 2 \\
+      MASS & 6 &23 & 0 \\
+      MMATH & 13 & 87 & 1 \\
+      \hline 
+    \end{tabular}
+  \end{center}
+  We wish to test the null hypothesiss that gender and stream are independent. Observe $ n $ examples (fixed, given). A sample is of type $ (i,j) $ with probability $ p_{ij} $. Then $ (N_{11},N_{12},\dots, N_{21}, \dots, N_{rc})\sim \mathrm{Mult}(n,p_{11},p_{12},\dots, p_{rc}) $. Then let $ p_{i+} = \sum p_{ij} $ and $ p_{+j} = \sum_i p_{ij} $ so
+  \begin{align*}
+	  H_0 &: p_{ij} = p_{i+}p_{+j}\\
+	  H_1 &: \{p_{ij}\} \ \text{unconstrained}.
+  \end{align*}
+  Using Lagrangian methods, the MLEs are $ \hat p_{ij} = \frac{N_{ij}}n $ under $ H_1 $ and $ (\hat p_{i+}, \hat p_{+j} ) = \left(\frac{N_{i+}}n, \frac{N_{+j}}n\right)$ under $ H_0 $. Then the GLR statistic is
+  \[
+	  2\log \Lambda = 2\sum_{i=1}^r\sum_{j=1}^c N_{ij}\log\left(\frac{\hat p_{ij}}{\hat p_{i+}\hat p_{+j}}\right).
+  \]
+  Writing $ o_{ij} =N_{ij} $ and $ e_{ij} = h\hat p_{i+}\hat p_{+j} $ we have that
+  \[
+	  2\log\Lambda = 2\sum_i \sum_j o_{ij} \log\left(\frac{o_{ij}}{e_{ij}}\right)\approx \sum_i \sum_j \frac{(o_{ij}-e_{ij})^2}{e_{ij}}
+  \]
+  which converges to $ \chi^2 $ by Wilks' theorem. The number of degrees of freedom is $ p = \dim(\Theta_1) - \dim(\Theta_0) = (rc -1 ) - ((r-1)+(c-1)) = (r-1)(c-1) $.
+  \par
+  Applying this to our sample we get that
+  \[
+	  \sum_i \sum_j \frac{(o_{ij} - e_{ij})^2}{e_{ij}} \approx 22.2.
+  \]
+  Hence our $ p $-value is $ \mathbb P(\chi_8^2 \ge 22.2) \approx 0.005 $, so reject the null hypothesis of indepedence.
+\end{example}
+\begin{example}
+  MMATH admissions statistic by gender/year
+  \begin{center}
+	  \begin{tabular}{c | c c c}
+		  \hline
+		   & F & M  & Other \\
+		  \hline
+		  Year 1 & 13 & 87 & 1 \\
+		  Year 2 & 10 & 81 & 0 \\
+		  Year 3 & 15 & 87 & 4 \\
+		  Year 4 & 9 & 103 & 0 \\
+		  Year 5 & 16 & 126 & 0 \\
+\hline
+	  \end{tabular}
+  \end{center}
+  If we have hypotheses
+  \begin{align*}
+	  H_0&: \text{gender and year and independent} \\
+	  H_1&: \text{gender and year are not independent}
+  \end{align*}
+  then our test statistic is
+  \[
+	  \sum_i \sum_j \frac{(o_{ij} - e_{ij})^2}{e_{ij}} \approx 15.5.
+  \]
+  And our $ p $-value is $ \mathbb P(\chi^2_8\ge 15.5) = 0.051 $ so we do not reject $ H_0 $ at the $ 5\% $ significance level.
+\end{example}
+\subsubsection{Tests of homogeneity}
+\begin{example}
+  Suppose that $ 150 $ patients are randomly allocated to three groups of equal size. Two sets of patients were given a drug of two different doses. The third group were given a placebo. This is different from the last setting since the row totals are fixed. We want to test the null hypothesis of "homogeneity" which corresponds to the probability of response being unchanged between groups.\par
+  Our probability model is $ N_{i1},\dots, N_{ic}\sim \text{Mult}(n_{i+}; p_{i1},\dots, p_{ic}) $ independently for each $ 1\le i \le r $ where $ n_{i+} $'s are fixed row totals.
+  \begin{align*}
+	  H_0 &: p_{ij} = p_{2j} = \dots = p_{rj} \\
+	  H_1 &: (p_{i1},\dots, p_{ic}) \text{ is an arbitrary probability distribution}
+  \end{align*}
+  Under $ H_1 $,
+  \begin{align*}
+  L(p) = \prod_{i=1}^r \frac{n_{i+}!}{N_{i1}!\dots N_{ic}!}p_{i1}^{N_{i1}}\dots p_{ic}^{N_{ic}}
+  \end{align*}
+  and
+  \[
+	  \ell(p) = \log L(p) = \text{const.} + \sum_{i,j} N_{ij}\log p_{ij}.
+  \]
+  Ynder Lagrangian methods with constraints $ \sum_j p_{ij} = 1 $ we find the MLE
+  \[
+	  \hat p_{ij} = \frac{N_{ij}}{n_{i+}}.
+  \]
+  Under $ H_0 $ let $ p_{ij} = p_j $ for all $ i $. Then
+  \[
+	  \ell(p) = \text{const.} + \sum_{i,j} N_{ij}\log p_j= \text{const.} + \sum_{j=1}^c N_{+j} \log p_j.
+  \]
+  Using the Lagrangian method with constraint $ \sum_j p_j = 1 $ we have the MLE $ \hat p_j = \frac{N_{+j}}{n_{++}} $. Hence
+  \[
+	  2\log\Lambda = 2\sum_{i=1}^r \sum_{j=1}^c N_{ij} \log\left(\frac{\hat p_{ij}}{\hat p_j}\right) = 2\sum_{i,j} N_{ij} \log\left(\frac{N_{ij}}{n_{i+}n_{+j}/n_{++}}\right)
+  \]
+If we define $ o_{ij} = N_{ij} $ and $ e_{ij} = \frac{n_{i+}N_{+j}}{n_{++}} $, then
+\[
+	2\log\Lambda \approx \sum_{i,j}\frac{(o_{ij}-e_{ij})^2}{e_{ij}}.
+\]
+And Wilks' theorem states that asympototically the distribution of $ 2\log\Lambda $ is $ \chi^2_p $ with 
+\[
+  p = \dim(\Theta_1) - \dim(\Theta_0) = r(c-1) - (c-1) = (r-1)(c-1).
+\]
+\begin{remark}
+  The number of degrees of freedom is the same for both tests of homogeneity and independence.
+\end{remark}
+\end{example}
+\subsection{Multivariate normal theory}
+Let $ X = \begin{pmatrix}
+   X_1 \\
+   \vdots \\
+   X_n 
+\end{pmatrix} $ be a vector of random variables. Recall that
+\[
+  \mathbb E(X) = \begin{pmatrix}
+    \mathbb E(X_1) \\
+    \vdots \\
+    \mathbb E(X_n)
+\end{pmatrix}\quad \text{and}\quad \Cov{X} = \mathbb E[(X-\mathbb E(X))(X-E(X))^T]=(\Cov{X_i,X_j})_{ij}.
+\]
+Furthermore if $ A\in \R^{m\times n} $ and $ b\in \R^m $,
+\[
+	\mathbb E(AX+b) = A\mathbb E(X) + b\quad \text{and} \quad \Cov{AX+b} = A\Cov{X}A^T.
+\]
+\begin{definition}
+	(Multivariate normal) We say that $ X $ has a multivariate normal distribution if for any $ t\in \R^n $ the random variable $ t^TX $ has a normal distribution.
+\end{definition}
+\begin{proposition}
+  If $ X $ is multivariate normal then $ AX+b $ is multivariate normal.
+\end{proposition}
+\pf Take any $ t\in \R^m $. Them $ t^T(AX+b) = (A^T t)^TX + t^Tb $. Since $ X $ is multivariate normal, $ (A^Tt)^TX \sim\mathcal N(\mu,\sigma^2) $ for some $ (\mu,\sigma^2) $ then $ t^T(AX+b) \sim \mathcal N(\mu+t^Tb,\sigma^2) $.\qed
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

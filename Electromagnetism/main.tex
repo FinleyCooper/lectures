@@ -1102,4 +1102,92 @@ where $ E_0 $ is a constant amplitude and $ k = \frac \omega c $ is the \textit{
   \end{itemize}
 \end{remark}
 Because Maxwell's equations are linear, Electromagnetic waves of different amplitudes, frequencies and directions can be superposed.
+\par
+A more general approach to plane EM waves is to seek solutions of Maxwell's equations of the form 
+\begin{align*}
+	\mathbf E &= \Re(\mathbf E_0 e^{i(\mathbf k \cdot \x - \omega t)})\\
+	\mathbf B &= \Re(\mathbf B_0 e^{i(\mathbf k\cdot \x - \omega t)})
+\end{align*}
+where $ \mathbf E_0 $ and $ \mathbf B_0 $ are complex constant vector amplitudes, $ \mathbf k $ is the real, constant \textit{wavevector} and $ \omega $ is the real constant angular frequency. The wavenumber is $ k = |\mathbf k| $. The wave equation is satisfied by $ \mathbf E $ and $ \mathbf B $ if $ \omega $ and $ k $ satisfy the dispersion relation
+\[
+  \omega^2 = c^2k^2.
+\]
+The individual Maxwell equations reduce to algebraic conditions.
+\begin{align*}
+	\nabla\cdot\mathbf E \quad &\implies \quad \mathbf k\cdot\mathbf E_0 = 0\\
+	\nabla\cdot\mathbf B \quad&\implies \quad \mathbf k \cdot\mathbf B_0 = 0 \\
+	\nabla \times\mathbf E = -\frac{\partial \mathbf B}{\partial t} \quad & \implies \quad \mathbf k \times\mathbf E_0 = \omega \mathbf B_0 \\
+	\nabla\times\mathbf B = \mu_0\ep_0\frac{\partial\mathbf E}{\partial t} \quad&\implies \quad \mathbf k \times\mathbf B_0 = -\frac \omega{c^2}\mathbf E_0
+\end{align*}
+The fourth equation is redundant because the third and third together with the dispersion relation imply
+\begin{align*}
+	\mathbf k \times\mathbf B_0 = \frac 1 \omega \mathbf k \times(\mathbf k \times\mathbf E_0) = -\frac{k^2}\omega \mathbf E_0 = -\frac\omega{c^2} \mathbf E_0.
+\end{align*}
+Suppose that $ \mathbf E_0 $ is real. Then $ \mathbf B_0 $ is also real and the vectors $ \mathbf k,\mathbf E_0,\mathbf B_0 $ form an arothogonal triad. So $ \mathbf E $ and $ \mathbf B $ oscillate in fixed directions, with are perpendicular to each other and to the direction of propagation. This is similar to the 1D wave considered previously and corresponds to a linearly polarised wave. Polarisation describes the orientation of the electric field.\par
+Now suppose that $ \mathbf E_0 $ is complex and of the form
+\[ \mathbf E_0 = \mathbf a - i \mathbf b \]
+where $ \mathbf a, \mathbf b $ are lineraly independent real vectors in the plane perpendicular to $ \mathbf k $. Then the direction of 
+\[
+  \mathbf E = \mathbf a \cos(\mathbf k \cdot\x - \omega t) +\mathbf b \sin(\mathbf k \cdot\x-  \omega t)
+\]
+is not fixed but rotates in the plane perpendicular to $ k $. In general it traces out an ellipse and the wave is said to be \textit{elliptically polarised}.\par
+The special case of \textit{circular polarisation} occurs when $ |\mathbf a| = |\mathbf b| $ and $ \mathbf a \cdot\mathbf b= 0 $. Then $ \mathbf E $ traces out a circle.\par
+The polarisation is \textit{right-handed} if $ \mathbf b=\hat{\mathbf k} \times\mathbf a $ and \textit{left-handed} if $ \mathbf b = \mathbf a \times{\hat{\mathbf k}} $.\par
+Suppose a perfect conductor occupies the half-space $ x>0 $. An \textit{incident wave} approaching the surface $ x=0 $ in the $ +x $ direction has the form
+\[
+	\mathbf E_{\text{inc}} = \Re\left(E_0 e^{i(kx-\omega t)} \mathbf e_y\right)
+\]
+where we take $ k>0 $, $ \omega=ck>0 $ and $ E_0\in \R $.\par
+Inside the conductor we have $ \mathbf E = 0 $. Since the tangential components of $ \mathbf E $ are continuous at the interface $ ([\mathbf n \times\mathbf E]=0) $ we require $ E_y = 0 $ at $ x=0 $. This can be satisfied by adding a \textit{reflected wave}
+\[
+	\mathbf E_{\text{reff}} = \Re\left(-E_0 e^{i(-kx-\omega t)}\mathbf e_y\right)
+\]
+propagating in the $ -x $ direction. The combined solution is
+\begin{align*}
+	\mathbf E &= \mathbf E_{\text{inc}} +\mathbf E_{\text{ref}} \\
+		  &= \Re\left(2iE_0 \sin(kx)e^{-i\omega t} \mathbf e_y\right)\\
+		  &= 2E_0 \sin(kt)\sin(\omega t) \mathbf e_y
+\end{align*}
+which is a standing wave.
+\begin{exercise}
+  Show that $ \mathbf B $ is discontinuous at $ x=0 $ and work out the surface current density $ \mathbf K(t) $.
+\end{exercise}
+\subsection{Electromagnetic energy}
+In electrostatics we found that the energy per unit volume in $ \mathbf E $ is $ \frac 12 \ep_0 |\mathbf E|^2 $. In magnetostatics we found the energy per unit volume was $ \frac 1{2\mu_0}|\mathbf B|^2 $. \par
+Now derive a general conservation law from Maxwell's equations. Consider the rate of change of the electric and magnetic energy per unit volume. \begin{align*}
+	\frac\partial{\partial t}\left(\frac 12 \ep |\mathbf E|^2 + \frac 1{2\mu_0} |\mathbf B^2|\right) &= \mathbf E\cdot\left(\ep_0\frac{\partial \mathbf E}{\partial t}\right) + \mathbf B \cdot\left(\frac 1{\mu_0}\frac{\partial \mathbf B}{\partial t}\right)\\
+													 &= \mathbf E \cdot\left(\frac 1{\mu_0}\nabla\times\mathbf B - \mathbf J\right) + \mathbf B\cdot\left(-\frac 1{\mu_0} \nabla\times\mathbf E\right).
+\end{align*}
+An identity from vector calculus:
+\[
+  \nabla\cdot(\mathbf E\times\mathbf B) = \mathbf B\cdot(\nabla\times\mathbf E)-\mathbf E\cdot(\nabla\times\mathbf B).
+\]
+Divide by $ \mu_0 $ and add to the previous equation
+\[
+	\frac{\partial}{\partial t} \left(\frac 12 \ep_0 |\mathbf E|^2+\frac 1{2\mu_0}|\mathbf B|^2\right) + \nabla\cdot\left(\frac{\mathbf E\times\mathbf B}{\mu_0}\right) = -\mathbf E \cdot\mathbf J.
+\]
+This is the energy equation for the EM field. Write it as
+\[
+	\frac{\partial w}{\partial t} + \nabla\cdot\mathbf S = -\mathbf E \cdot\mathbf J
+\]
+where
+\[
+	w = \frac 12 \ep_0 |\mathbf E|^2 + \frac 1{2\mu_0}|\mathbf B|^2
+\]
+is the \textit{energy density} and 
+\[
+	\mathbf S = \frac{\mathbf E\times\mathbf B}{\mu_0}
+\]
+is the \textit{energy flux density} and it known as the \textit{Poynting vector}.\par
+In the absense of currents this becomes
+\[
+	\frac{\partial w}{\partial t} + \nabla\cdot\mathbf S = 0
+\]
+and expresses the conservation of electromagnetic energy. Integrate over some time independent volume $ V $ with $ \partial V = S $ and use the divergence theorem
+\begin{align*}
+	\frac{d}{dt} \int_V w\mathrm dV + \int_S \mathbf S \cdot\mathrm d\mathbf S = 0.
+\end{align*}
+So the rate of change of energy in $ V $ is equal to minus the flux of energy through the surface $ S $.\par
+If we do however have $ \mathbf J \ne 0 $, we can see that $ \mathbf E\cdot\mathbf J $ is the rate at which the EM field loses energy (per unit volume) by doing work on charged particles via the Lorentz force.
+
 \end{document}
