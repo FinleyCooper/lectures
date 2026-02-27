@@ -630,7 +630,7 @@ and
 \[
 	\mu\nabla^2 u \sim \mu\frac{u}{L^2}.
 \]
-Taking the ratio between these terms and setting it to a new quantity $ \mathbf {Re} $. We get that
+Taking the ratio between these terms and setting it to a new quantity $ \mathrm {Re} $. We get that
 \[
 	\mathrm {Re} = \frac{\rho UL}\mu = \frac{UL}\nu.
 \]
@@ -647,7 +647,7 @@ Hence solving the Euler equation for irrotational incompressible flow now reduce
 \subsection{Examples}
 For simple geometries we build solutions using seperable solutions to Laplace's equations in suitable coordinate systems.
 \par
-  In spherical coordinates recall our general antisyemmtric solution to Laplace's equation is
+  In spherical coordinates recall our general axisymmetric solution to Laplace's equation is
   \[
 	  \phi = \sum_{n\ge 0}(A_n r^n + B_n r^{-1-n})P_n(\cos\theta)
   \]
@@ -671,9 +671,112 @@ Usually we only need a small number of modes.
 \begin{example}
   If instead we have uniform flow (in the $ z $ direction) Then we only want the 1st mode so $ \phi = Ur\cos\theta = U_z $ hence
   \[
-	  \mathbf u = \nabla\phi = u_{\hat{\mathbf z}}.
+	  \mathbf u = \nabla\phi = u_{\hat{z}}.
   \]
 \end{example}
+\begin{example}
+	If we pick the solution $ \phi = A\frac{\cos\theta}{r^2} $ we get a potential dipole flow with a source and sink close to each other like we've seen in IB Electromagnetism.
+\end{example}
+Now instead for plane polar coordinates. The general solution to Laplace's equation is
+\[
+	\phi = C + A_0\log r = B_0\theta +\sum_{n=1}^\infty (A_nr^n+ B_nr^{-n})(C_n\cos(n\theta) + D_n\sin(n\theta)).
+\]
+Again usually we only take a few modes.
+\begin{example}
+	We have the flow $ \phi = \frac{q}{2\pi} \log r $ which gives $ \mathbf u = \frac{q}{2\pi r}\mathbf e_r $ which represents radial flow with a 2D point source/sink. The flow rate across any circle centred at the source is equal to $ q $.
+\end{example}
+\begin{example}
+	If $ \phi = \frac{\kappa}{2\pi}\theta $ then we get that $ \mathbf u = \nabla\phi - \frac{\kappa}{2\pi r}\mathbf e_\theta $. The circulation around any circle with radius $ a $ is $ 2\pi au_\theta = \kappa=\text{const.} $. This is a point vortex. We have that $ \boldsymbol\omega=0 $ everywhere in the plane, except the origin where $ \boldsymbol \omega $ is delta function-like. 
+\end{example}
+\begin{example}
+  If we write that $ \phi = Ur\cos \theta $ then we have uniform flow in the $ x $ axis.
+\end{example}
+\begin{example}
+	If we have $ \phi = A\frac{\cos\theta}r $ then we have a 2D dipole.
+\end{example}
+\subsection{Uniform flow past a rigid body}
+\subsubsection{Unifrom flow past a sphere}
+Take the sphere to have radius $ a $ and a uniform flow $ U $ coming in from the $ z $ direction. We have boundary conditions
+\begin{enumerate}
+	\item $ \nabla^2\phi = 0 $;
+	\item $ \mathbf u $ is uniform in the limit away from the sphere, so $ \phi\to Ur\cos\theta $ as $ r\to\infty $;
+	\item The kinematic boundary condition, $ \mathbf u\cdot\mathbf n = 0 $,
+		\[
+			\frac{\partial \phi}{\partial r} = 0
+		\]
+		as $ r=a $.
+\end{enumerate}
+Recall the general solution to Laplace. We have that $ \cos\theta = P_1(\cos\theta) $, so we'll try to find a solution of the form
+\[
+  \phi = f(r)P_1(\cos\theta).
+\]
+From the boundary conditions we try the ansatz
+\[
+	\phi = \left(A_r + \frac B{r^2}\right)\cos\theta.
+\]
+The second boundary condition gives that $ A = U $. The third boundary condition gives that
+\begin{align*}
+	\frac{\partial \phi}{\partial r} = \left(U - \frac{ 2B}{r^3}\right)\cos\theta
+\end{align*}
+so $ 2B = Ua^3 $, hence
+\[
+	\phi = U\cos\theta\left(r+ \frac{a^3}{2r^2}\right).
+\]
+We have uniqueness of Von Neumann boundary conditions, so $ \phi $ is unique up to a constant, hence $ \mathbf u $ is unique and is given by
+\[
+	\mathbf u = \left(U\cos\theta\left(1-\frac{a^3}{r^3}\right), -U\sin\theta\left(1+\frac{a^3}{2r^3}\right),0\right).
+\]
+\subsubsection{Unfirm flow past a cylinder with circulation}
+We have the conditions
+\begin{enumerate}
+	\item $ \nabla^2 \phi = 0 $;
+	\item $ \phi \to rU\cos\theta $ as $ r\to\infty $;
+	\item $\frac{\partial \phi}{\partial r} = 0 $ at $ r=a $;
+	\item We have that for curves $ C $ around the cylinder
+		\[
+			\oint_C \mathbf u \cdot \mathbf d \boldsymbol \ell = [\phi]^{2\pi}_0 = \kappa.
+		\]
+\end{enumerate}
+The solution is
+\[
+	\phi = \frac{\kappa}{2\pi}\theta + U\cos\theta\left(r+\frac{a^2}r\right).
+\]
+This is a singular vortex (inside the cylinder) plus a uniform and dipole flow. The equation of the flow is
+\[
+	\mathbf u = \nabla\phi = \left(U\cos\theta\left(1+\frac{a^2}{r^2}\right),\ -U\sin\theta\left(1+\frac{a^2}{r^2}\right)+ \frac\kappa{2\pi r}\right).
+\]
+If $ \kappa = 0 $ our flow is top/down symmetric (the flow above the cylinder is the same as below). Hence by Bernoulli the pressure at the top of the cylinder is the same at the bottom, so there is no net force in this direction. The magnitude of $ \mathbf u $ is $ 2U $ at the top and bottom. \par
+If instead $ \kappa = 2\pi U a $ the magnitude of $ \mathbf u $ is $ U $ at the top and $ 3U $ at the bottom. Hence we have an asymmetry in the pressure, so we have a net force.
+\subsection{Equation for pressure in potential flow with $ \mathbf f = -\nabla\chi $}
+\begin{itemize}
+	\item Without any force, solving $ \nabla^2 \phi =0 $ with boundary conditions gives $ \mathbf u $ easily.
+	\item With a force the Euler equation however is non-linear,
+		\[
+			\rho \frac{D \mathbf u}{Dt} = - \nabla p +\mathbf F.
+		\]
+\end{itemize}
+We want to show that if 
+\[
+  \begin{cases}
+    \mathbf F = -\nabla\chi \\
+    \rho \ \text{is constant}
+  \end{cases}
+\]
+then we have an explicit equation for $ p $.
+\par
+Using $ \mathbf u = \nabla\phi $ and the vector calculus identity
+\[
+	(\mathbf u \cdot\nabla )\mathbf u = \nabla\left(\frac 12 u^2\right) - \mathbf u \times(\nabla\times\mathbf u) = \nabla\left(\frac 12 u^2\right),
+\]
+the first term in Euler is $ \nabla\left(\rho \frac{\partial \phi}{\partial t}\right) $ and the second term is $ \nabla\left(\frac 12 \rho u^2\right) $. So our Euler equation is equivalent to
+\begin{align*}
+	\nabla\left(\rho \frac{\partial \phi}{\partial t} + \frac 12 \rho |\nabla\phi|^2 + p + \chi\right) = 0.
+\end{align*}
+Hence we have the theorem.
+\begin{theorem}
+	(Unsteady Bernoulli equation) For a inviscid irrotational flow with a body force $ \mathbf f=- \nabla\chi $, the Euler equation is equivalent to
+	\[\quad \rho\frac{\partial \phi}{\partial t} + \frac 12 \rho|\nabla\phi|^2 + p + \chi = f(t).\]
+\end{theorem}
 
 
 

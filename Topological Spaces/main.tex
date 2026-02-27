@@ -647,4 +647,64 @@ If $ x,y \in C $ with $ x<y $. We want to find a real number $ x<z<y $ with $ z\
 \begin{example}
   If $ M $ is a $ m $-dimensional manifold and $ N $ is a $ n $-dimensional manifold then $ M\times N $ is a $ (m+n) $-dimensional manifold.
 \end{example}
+\begin{example}
+	Consider the torus $ T = S^1 \times S^1 $ which is a $ 2 $-dimensional manifold. Using $ S^1 = \R/\Z $ we have that $ T = (\R\times \R)/(\Z\times \Z) $ i.e. the quotient of $ \R^2 $ by $ x\sim y\iff x-y\in \Z^2 $. Using $ S^1 = [0,1]/(0\sim 1) $ we get that $ T = [0,1]\times [0,1]\approx $ where $ (0,t)\approx (1,t) $ and $ (s,0)\approx (s,1) $ for all $ s,t\in [0,1] $. We can think of this geometrically as gluing two opposite edges of the unit square together to form a cylinder and then extending this cylinder and gluing end-to-end to form a doughnut shape which is what we usually understand as a torus as a subset of $ \R^3 $.
+\end{example}
+\begin{example}
+	Consider the equivalence relation $ \sim $ on $ [0,1]\times \R $ defined by $ (0,t)\sim(1,-t) $. We can think of this as gluing on side "backwards" to the other side. This gives the set $ M = [0,1]\times \R/\sim $. This is a $ 2 $-dimensional topological manifold which we will now prove.\par
+	Consider the subspaces $ U_t = M\setminus L_t $ where $ L_t = \pi(\{t\}\times \R) $ where $ 0<t<1 $. Note that $ \inv \pi(L_t)=\{t\}\times \R $\subset $ [0,1]\times \R $ hence $ L_t $ is closed since $ \{t\} \times \R $ is closed. Note that 
+	\[U_t = ([0,t) \times \R\ \sqcup\ (t,1]\times \R)/\sim .
+	\]
+	Doing the homeomorphism $ (x,v)\longrightarrow (x,-v)\ \cdot \  (t,1)\times \R\overset{\cong}{\longrightarrow} (t,1] \times \R $, defined as $ \varphi $ the relation $ \sim $ translates to $ \approx $ on $ [0,t)\times \R \ \sqcup \ (t,1] \times \R $, namely
+	\[
+		(0,s)\approx(1,s).
+	\]
+	So $ (\id \ \sqcup \ \varphi) $ gives a homeomorphism
+	\[
+		([0,t) \times \R \ \sqcup \ (t,1] \times \R)/\sim \ \overset{\cong}{\longrightarrow} ([0,t) \times \R \ \sqcup \ (t,1] \times \R)/\approx.
+	\]
+But this is homeomorphic to $ (0,1)\times \R $ so $ U_t\cong (0,1)\times \R \cong \R^2 $.\par
+As any $ [x,y] \in M $ with $ x\ne t $ for some $ 0<t<1 $ we have that $ [x,y]\in U_t $ a Euclidean neighbourhood. Any two points in $ M $ also lies in some $ U_t $ so Hausdorffness follows from Hausdorffness for Euclidean space.
+\end{example}
+\begin{example}
+	(Klein bottle) Combining the two examples, consider the relation $ \approx $ on $ [0,1]^2 $ given by
+	\[
+		(0,t)\approx (1,1-t)\quad \text{and}\quad (s,0)\approx (s,1).
+	\]
+	The manifold $ ([0,1]^2)/\approx $ is the \textit{Klein bottle}. The same consideration shows that this is a $ 2 $-dimensional manifold.
+\end{example}
+\begin{example}
+	(Connected-sum) If $ M, N$ are $ d $-dimensional manifolds with a point $ m\in M $ then we can find a Euclidean neighbourhood $ m\in U $ with $ \varphi: U \overset{\cong}{\longrightarrow} \R^d $. If $ n\in N $ then there is a Euclidean neighbourhood $ n\in V $ with $ \psi: V\overset{\cong}{\longrightarrow}\R^d $. We then "glue" these two topological spaces together, with the \textit{connected-sum} being the quotient space
+	\[
+	  M\#N = ((M \setminus \inv \varphi(B_1(0))) \ \sqcup (N\setmijnus \inv \psi (B_1(0))))/ \sim.
+	\]
+	Where we've defined $ \sim $ as
+	\[
+	  \inv \varphi(v) \sim \inv \psi(v)
+	\]
+	whenever $ v\in \R^d $ has $ |v| = 1 $. This is covered by three opens sets,
+	\begin{align*}
+		&M\setminus \inv \varphi\overline {B_1(0)} \\
+		&N \setminus \inv \psi\overline{B_1(0)} \\
+		&[(U \setminus \inv \varphi(B_1(0))) \ \sqcup \ (V\setminus \inv \psi B_1(0))]/\sim.
+	\end{align*}
+	Using the induced homeomorphisms
+	\begin{align*}
+		U\setminus \inv \varphi(B_1(0)) &\cong_\varphi \R^d \setminus B_1(0) \cong S^{d-1}\times (-\infty, 0] \\
+		V\setminus \inv \psi(B_1(0)) \cong_\psi \R^d\setminus B_1(0) \cong S^{d-1} \times [0,\infty).
+	\end{align*}
+	Hence the quotient is homeomorphic to $ S^{d-1}\times \R $ which are both manifolds, so every point has a Euclidean neighbourhood. We can check by cases it's Hausdorff hence a topological manifold.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
