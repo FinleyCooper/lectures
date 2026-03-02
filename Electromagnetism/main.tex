@@ -3,6 +3,7 @@
 \title{Electromagnetism}
 \author{Notes by Finley Cooper}
 \newcommand{\x}{\mathbf x}
+\newcommand{\glg}{\phantom{\mu}}
 \begin{document}
   \maketitle
   \newpage
@@ -1189,5 +1190,158 @@ and expresses the conservation of electromagnetic energy. Integrate over some ti
 \end{align*}
 So the rate of change of energy in $ V $ is equal to minus the flux of energy through the surface $ S $.\par
 If we do however have $ \mathbf J \ne 0 $, we can see that $ \mathbf E\cdot\mathbf J $ is the rate at which the EM field loses energy (per unit volume) by doing work on charged particles via the Lorentz force.
+\par
+Recall that
+\begin{align*}
+	\rho &= \sum_{i=1}^N q_i \delta (\x -\x_i) \\
+	\mathbf J &= \sum_{i=1}^N q_i \dot\x_i \delta(\x-\x_i)\\
+	\mathbf F_i &= q_i(\mathbf E(\x_i,t)+\dot \x_i \times \mathbf B(\x_i,t)).
+\end{align*}
+So the rate of working is
+\begin{align*}
+	\sum_{i=1}^N \mathbf F_i\cdot\dot\x_i &= \sum_{i=1}^N \mathbf E(\x_i,t)\cdot(q_i\dot\x_i) \\
+	&= \int_V\mathbf E\cdot\mathbf J \ \mathrm dV.
+\end{align*}
+If Ohm's law, $ \mathbf J = \sigma \mathbf E $ applies then
+\[
+	\mathbf E\cdot\mathbf J = \frac{|\mathbf J|^2}\sigma
+\]
+which is positive definite and is the rate of Joule heating per unit volume.\par
+We want to evaluate the energy density and the flux for an electromagnetic wave. For
+\begin{align*}
+	\mathbf E &= \Re\left(\mathbf E_0 e^{i(\mathbf k\cdot\x - \omega t)}\right) \\
+	\mathbf B &= \Re\left(\mathbf B_0 e^{i(\mathbf k\cdot \x - \omega t)}\right)
+\end{align*}
+we have, using the identity, 
+\[
+	\Re(A)\Re(B) = \Re\left(\frac{AB+A\overline B}2\right)
+\]
+that
+\begin{align*}
+	w &= \frac 12 \ep_0 |\mathbf E|^2+\frac 1{2\mu_0}|\mathbf B|^2\\
+	  &= \frac 14 \ep_0 \Re\left((\mathbf E_0\cdot\mathbf E_0)e^{2i(\mathbf k \cdot\x -\omega t)}+\underbrace{|\mathbf E_0|^2}_{\mathbf E_0 \cdot\overline{\mathbf E}_0}\ \right) + \frac 1{4\mu_0}\Re\left((\mathbf B_0\cdot\mathbf B_0)e^{2i(\mathbf k \cdot \x -\omega t)}+|\mathbf B_0|^2\right).
+\end{align*}
+The $ e^{2i(\mathbf k\cdot\x-\omega t)} $ terms average to zero, leaving the average energy density
+\[
+	\langle w\rangle = \frac 14 \ep_0 |\mathbf E_0|^2 + \frac 1{4\mu_0}|\mathbf B_0|^2.
+\]
+Since $ \mathbf B_0 = \frac 1c \hat{\mathbf k}\times \mathbf E_0 $ and $ \hat{\mathbf k}\cdot\mathbf E_0 = 0 $, the two contributions are equal so we have that
+\[
+  \langle w \rangle = \frac 12 \ep_0 |\mathbf E_0|^2.
+\]
+Similarly the Poynting vector is
+\begin{align*}
+	\mathbf S &= \frac{\mathbf E \times\mathbf B}{\mu_0} \\
+		  &=\frac 1{2\mu_0}\Re\left(\underbrace{(\mathbf E_0\times\mathbf B_0)e^{2i(\mathbf k \cdot \x - \omega t)}}_{\text{averages to } 0}+\mathbf E_0\times\overline{\mathbf B}_0\right).
+\end{align*}
+So the average flux density is
+\begin{align*}
+	\langle \mathbf S\rangle &= \frac{|\mathbf E_0|^2}{2\mu_0 c}\hat{\mathbf k} \\
+				 &= \frac 12 \ep_0 |\mathbf E_0|^2 c \hat{\mathbf k} \\
+				 &=\langle w \rangle\  c\hat{\mathbf k}.
+\end{align*}
+This implies that the electromagnetic wave transports energy at speed $ c $ in the direction $ \hat{\mathbf k} $.
+\section{Relativity}
+\subsection{Review of special relativity}
+In the special theory of relativity we use spacetime coordinates
+\[
+	X^\mu = (ct,x,y,x)=(ct,\x)
+\]
+to describe time and position in an inertial frame $ \mathcal S $. Greek indices such as $ \mu $ and $ \nu $ run from $ 0 $ to $ 3 $ to cover the dimensions of spacetime. Roman indices such as $ i $ and $ j $ will run from $ 1 $ to $ 3 $ to cover the dimensions of space.\par
+$ X $ is a position $ 4 $-vector. Under a \textit{Lorentz transformation} (LT) from $ \mathcal S $ to another inertial frame $ \mathcal S' $, it transforms according to
+\[
+	X' = \Lambda X\tag{\star}
+\]
+where $ \Lambda $ is the $ 4\times 4 $ Lorentz transformation matrix. In index notation,
+\[
+	X'^\mu = \Lambda^\mu_{\phantom{\mu} \nu} X^\nu
+\]
+where the summation convention implies a sum from $ 0 $ to $ 3 $ over the repeated index $ \nu $.\par
+We have that
+\[
+	\frac{\partial X'^\mu}{\partial X^\nu} = \Lambda^\mu_{\glg\nu}.
+\]
+An important example of a LT is a \textit{Lorentz boost} in standard configuration. $ \mathcal S' $ moves relative to $ \mathcal S $ with speed $ v $ in the $ x $-direction. Then
+\begin{align*}
+   t'&= \gamma\left(t-\frac{vx}{c^2}\right)\\
+   x' = \gamma (x-vt) \\
+   y'=y\\
+   z'=z
+\end{align*}
+where $ \gamma = \frac 1{\sqrt{1-\frac{v^2}{c^2}}} $ is the \textit{Lorentz factor}. The corresponding matrix is
+\[
+	\Lambda^\mu_{\glg \nu} = \begin{pmatrix}
+		\gamma& - \gamma\beta & 0 & 0 \\
+		-\gamma \beta & \gamma & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{pmatrix}
+\]
+with $ \beta  =\frac vc\in (-1,1) $, so $ \gamma = \frac 1{\sqrt{1-\beta^2}}\ge 1 $.
+\par
+A more general Lorentz transformation may combine a boost with a special isometry (rotations and reflections). \par
+Any $ 4 $-vector $ V $ transforms as $ (\star) $ under a Lorentz transformation, 
+\[
+  V' = \Lambda V.
+\]
+The \textit{inner product} of two $ 4 $-vectors $ V $ and $ W $ is
+\[
+	V\cdot W = \eta_{\mu\nu} V^{\mu}W^{\nu}
+\]
+where $ \eta_{\mu\nu} $ is the \textit{Minkowski metric tensor}. This is isotropic, having the same components
+\[
+	\eta_{\mu\nu} = \begin{pmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{pmatrix}=\mathrm{diag}(-1,1,1,1)
+\]
+in any inertial frame. Thus
+\[
+  V\cdot W = -V^0W^0 + V^1W^1 + V^2W^2 +V^3W^3.
+\]
+The inner product is \textit{invariant} under a Lorentz transformation since
+\begin{align*}
+	V'\cdot W' &= \eta'_{\mu\nu}V'^\muW'^\nu \\
+		   &= \eta_{\mu\nu}\Lambda^\mu_{\glg \rho}V^{\rho}\Lambda^\nu_{\glg \sigma}W^\sigma\\
+		   &= \eta_{\rho \sigma} V^\rho W^\sigma \\
+		   &= V\cdot W
+\end{align*}
+because the Lorentz transformation matrix satisfies the equation
+\[
+	\eta_{\mu\nu} \Lambda^\mu_{\glg \rho} \Lambda^{\nu}_{\glg \sigma} = \eta_{\rho \sigma}.
+\]
+In matrix notation
+\begin{align*}
+  \Lambda^T \eta \Lambda = \eta
+\end{align*}
+which implies that $ \det\Lambda = \pm 1 $.\par
+The \textit{square} of a $ 4 $-vector $ V $,
+\begin{align*}
+	V\cdot V &= \eta_{\mu\nu} V^\mu V^\nu \\
+		 &= - V^0 V^0 + V^i V^i \\
+		 &= -(V^0)^2 + (V^1)^2 + (V^2)^2 + (V^3)^2
+\end{align*}
+is also Lorentz-invariant. We say that $ V $ is \textit{timelike} if $ V\cdot V<0 $, \textit{spacelike} if $ V\cdot V > 0 $ or \textit{lightlike} if $ V\cdot V = 0 $.
+\par
+For example the invariant spacetime interval between two events
+\begin{align*}
+	\mathrm ds^2 &= \mathrm dX\cdot \mathrm dX \\
+		     &= -c^2\mathrm dt^2 + \mathrm dx^2 + \mathrm dy^2 + \mathrm dz^2.
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}

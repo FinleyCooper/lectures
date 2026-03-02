@@ -775,8 +775,77 @@ the first term in Euler is $ \nabla\left(\rho \frac{\partial \phi}{\partial t}\r
 Hence we have the theorem.
 \begin{theorem}
 	(Unsteady Bernoulli equation) For a inviscid irrotational flow with a body force $ \mathbf f=- \nabla\chi $, the Euler equation is equivalent to
-	\[\quad \rho\frac{\partial \phi}{\partial t} + \frac 12 \rho|\nabla\phi|^2 + p + \chi = f(t).\]
+	\[
+	\quad \rho\frac{\partial \phi}{\partial t} + \frac 12 \rho|\nabla\phi|^2 + p + \chi = f(t)
+\]
+where $ \mathbf u = \nabla \phi $.
 \end{theorem}
+\subsection{Forces on translating rigid bodies}
+\subsubsection{Translating sphere}
+We'll just look at steady motion so we will move in the reference frame of the sphere. Suppose that sphere has radius $ a $ and in our frame the flow has speed $ U $. To calculate the force, we integrate pressure,
+\[
+	\mathbf F = -\int_{\text{body}} p\mathbf n \ \mathrm dS.
+\]
+We will use Bernoulli (either form) on a streamine which touches the sphere at the top pole. On the sphere $ u_r = 0 $ and $ u_\theta = - \frac 32 U \sin\theta $, so
+\begin{align*}
+  \frac 12 \rho \left(-\frac 32 U \sin\theta\right)^2 +p = \frac 12 \rho U^2 + p_\infty.
+\end{align*}
+On the sphere, $ p-p_\infty=\frac 12 \rho U^2\left(1-\frac94 \sin^2\theta\right) $. The pressure distribution is symmetric up/down and left/right so the net force is actually $ 0 $. This seems very counterintuitive. This is called d'Alembert's paradox. In fact there is no drag (component of hydrodynamic force prarallel to motion) on any \textit{steady} moving rigid body in an unbounded potential flow. 
+\par
+In real life (with non-zero viscosity) we have flow seperation and there is a wake after the sphere which produces a force. This is a case where our approximation cannot be applied to things we wish to investigate.\par
+However the potential flow approximation is useful for: bubbles (non-rigid bodies); rapid acceleration of rigid particles; and for small amplitude oscillations.
+\subsubsection{Steady translation of a cylinder with circulation}
+Work again in the frame of the cylinder. Recall that
+\[
+	\phi = U \cos\left(r + \frac {a^2}r \right) + \frac\kappa{2p\i} \theta.
+\]
+On $ r=a $ we have that $ u_r = 0 $ and $ u_\theta = -2U \sin\theta + \frac\kappa{2\pi a} $. Let's compute $ p(a,\theta) $. By Bernoulli 
+\begin{align*}
+	\frac 12 \rho \left(-2U\sin\theta + \frac\kappa{2\pi a}\right)^2 + p = \frac 12 \rho U^2 +p_\infty.
+\end{align*}
+Let $ \mathbf F $ be the force exerted (per unit length) on the cylinder. So we have that
+\begin{align*}
+	\mathbf F &= - \int p\mathbf n \ \mathrm d S \\
+		  &= -\int_0^{2\pi} \left[\frac 12 \rho U^2 + p_\infty +\frac 12 \rho\left(4U^2\sin^2\theta + \frac{\kappa^2}{4\pi ^2a^2} - 2U\sin\theta\frac{\kappa}{\pi a}\right)\right]\begin{pmatrix}
+		    \cos\theta \\
+		    \sin\theta
+		  \end{pmatrix}a\ \mathrm d\theta \\
+		  &= \left(0,\  -\int_0^{2\pi} \frac 12 \rho(2U \sin\theta)\frac\kappa{\pi a} \sin\theta\ a\mathrm d\theta\right)\\
+		  &= \left(0, \ -\rho U\kappa\right).
+\end{align*}
+We have that the drag is still zero (from d'Alembert's paradox). But now we have a new force perpendicular to motion which is a "lift" force opposite to the sign of $ \kappa $.
+\par
+(Example Sheet 3) The uniform flow past \textit{any} 2D body with circulation $ \kappa $ induces the same lift of magnitude $ -\rho U \kappa $. 
+\subsection{Unsteady potential flows}
+\subsubsection{Free oscillations in a tube}
+Consider a U-shaped hollow tube with uniform cross section on the $ z $-axis. Let $ z=0 $ be the bottom of the bend and fill the tube with water. Then let the height of water on the right side be $ z = h+\zeta(t) $ and on the left be $ z=h-\zeta(t) $. We want to show how this evolves over time.\par
+We start with irrotational flow so the flow remains irrotational, hence we have a potential flow. The flow is uniform in each tube, so $ u = \dot\zeta $. Hence $ \phi= \dot \zeta z $ on the right and $ \phi = -\dot\zeta z $ on the left. So we get that
+\[
+	\frac{\partial \phi}{\partial t}|_{h+\zeta} = \ddot \zeta(h + \zeta)
+\]
+on the right. And the the left
+\[
+	\frac{\partial \phi}{\partial t}_{h-\zeta} = - \ddot \zeta(h-\zeta).
+\]
+Applying unsteady Bernoulli we get that
+\begin{align*}
+	\rho \ddot \zeta(h+\zeta) + \frac 12 \rho \dot{\zeta}^2 + p_a+\rho g(h+\zeta) = -\rho \ddot\zeta(h-\zeta) + \frac 12 \rho \dot\zeta^2 + p_a + \rho g(h-\zeta). 
+\end{align*}
+So we're left with
+\[
+  2\rho h \ddot \zeta + 2 \rho g \zeta = 0
+\]
+hence
+\[
+  \ddot \zeta = \frac gh \zeta = 0
+\]
+so we have simple harmonic motion with angular frequency $ \omega^2 = \frac gh $.
+
+
+
+
+
+
 
 
 
