@@ -2,7 +2,7 @@
 \usepackage{../header}
 \title{Statistics}
 \author{Notes by Finley Cooper}
-\newcommand{\iid}{\overset{\text{idd}}{\sim}}
+\newcommand{\iid}{\overset{\text{iid}}{\sim}}
 \begin{document}
   \maketitle
   \newpage
@@ -713,7 +713,7 @@ Now we consider $ X\sim f_X(\cdot \mid \theta) $, with $ \theta\in\Theta $ and
 \begin{remark}
   A UMP test might not exist. However many LRTs are UMP.
 \end{remark}
-Let's see an example for a one-sided test for a normal location. Suppose that $ X_1,\dots,X_n\iid \mathcal N(\mu,\sigma_0^2) $ with $ \sigma_0^2 $ known. We wish to test that
+Let's see an example for a one-sided test for a normal location. Suppose that $ X_1,\dots,X_n \iid \mathcal N(\mu,\sigma_0^2) $ with $ \sigma_0^2 $ known. We wish to test that
 \begin{align*}
 	H_0&: \mu \le \mu_0 \\
 	H_1&: \mu > \mu_0.
@@ -746,7 +746,7 @@ as
 	\Lambda_X(H_0;H_1) = \frac{\sup_{\theta\in\Theta_1} f_X(\cdot \mid \theta)}{\sup_{\theta\in \Theta_0}f_X(\cdot\mid \theta)}.
 \]
 We reject $ H_0 $ when $ \Lambda_X $ is large.\par
-Suppose that $ X_1,\dots, X_n\idd \mathcal N(\mu,\sigma^2_0) $ with $ \sigma_0^2 $ known. We wish to test
+Suppose that $ X_1,\dots, X_n\iid \mathcal N(\mu,\sigma^2_0) $ with $ \sigma_0^2 $ known. We wish to test
 \begin{align*}
 	H_0&: \mu = \mu_0\\
 	H_1&: \mu \ne \mu_0.
@@ -771,7 +771,7 @@ Note that in this example $ 2\log \Lambda_X(H_0;H_1) = \frac{n(\overline X-\mu_0
 \end{theorem}
 \pf Not included.
 \begin{theorem}
-  Suppose that $ \Theta_0\subseteq \Theta_1 $ and $ \dim(\Theta_1)-\dim(\Theta_0) = p $. If $ (X_1,\dots, X_n) $ are idd then under regularity conditions, as $ n\to\infty $ the limiting distribution of $ 2\log\Lambda_X(H_0;H_1) $ is $ \chi_p^2 $. Thus if we reject $ H_0 $ when $ 2\log\Lambda_X(H_0;H_1)\ge \chi_p^2(\alpha) $ and we have a test of size $ \approx \alpha $.
+  Suppose that $ \Theta_0\subseteq \Theta_1 $ and $ \dim(\Theta_1)-\dim(\Theta_0) = p $. If $ (X_1,\dots, X_n) $ are iid then under regularity conditions, as $ n\to\infty $ the limiting distribution of $ 2\log\Lambda_X(H_0;H_1) $ is $ \chi_p^2 $. Thus if we reject $ H_0 $ when $ 2\log\Lambda_X(H_0;H_1)\ge \chi_p^2(\alpha) $ and we have a test of size $ \approx \alpha $.
 \end{theorem}
 \begin{example}
   In the two-sided normal mean test, we had
@@ -813,7 +813,7 @@ Note that in this example $ 2\log \Lambda_X(H_0;H_1) = \frac{n(\overline X-\mu_0
 		  2\log\Lambda = 2\sum_{i=1}^k N_i \log\left(\frac {N_i}{n\tilde p_i}\right).
 	  \]
 	  Wilks' theorem says that 
-	  $ 2\log \Lambda\approx \chi_p^2 $ with $ p=\dim(\Theta_1)-\dim(\Theta_0) = k-1 - 0 = k-1 $. Thus reject $ H_0 $ if $ 2\log \Lambda\ge \chi){k-1}^2(\alpha) $. It is common to write
+	  $ 2\log \Lambda\approx \chi_p^2 $ with $ p=\dim(\Theta_1)-\dim(\Theta_0) = k-1 - 0 = k-1 $. Thus reject $ H_0 $ if $ 2\log \Lambda\ge \chi_{k-1}^2(\alpha) $. It is common to write
 	  \[
 		  2\log(\Lambda) = 2\sum_i o_i \log\left(\frac{o_i}{e_i}\right)
 	  \]
@@ -864,7 +864,7 @@ Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking value
   \[
 	  2\log \Lambda = 2\sum_{i=1}^r\sum_{j=1}^c N_{ij}\log\left(\frac{\hat p_{ij}}{\hat p_{i+}\hat p_{+j}}\right).
   \]
-  Writing $ o_{ij} =N_{ij} $ and $ e_{ij} = h\hat p_{i+}\hat p_{+j} $ we have that
+  Writing $ o_{ij} =N_{ij} $ and $ e_{ij} = n\hat p_{i+}\hat p_{+j} $ we have that
   \[
 	  2\log\Lambda = 2\sum_i \sum_j o_{ij} \log\left(\frac{o_{ij}}{e_{ij}}\right)\approx \sum_i \sum_j \frac{(o_{ij}-e_{ij})^2}{e_{ij}}
   \]
@@ -914,7 +914,6 @@ Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking value
   \begin{align*}
   L(p) = \prod_{i=1}^r \frac{n_{i+}!}{N_{i1}!\dots N_{ic}!}p_{i1}^{N_{i1}}\dots p_{ic}^{N_{ic}}
   \end{align*}
-  and
   \[
 	  \ell(p) = \log L(p) = \text{const.} + \sum_{i,j} N_{ij}\log p_{ij}.
   \]
@@ -942,6 +941,28 @@ And Wilks' theorem states that asympototically the distribution of $ 2\log\Lambd
   The number of degrees of freedom is the same for both tests of homogeneity and independence.
 \end{remark}
 \end{example}
+\subsection{Simpson's paradox}
+Consider the Cambridge admissions stats in 1996.
+\begin{center}
+	\begin{tabular}{c | c c c | c c c}
+\hline
+Subject & Applied (F) & Accepted (F) & \% Success & Applied (M) & Accepted (M) & \% Success \\
+\hline
+CS & 26 & 7 & 27 & 228 & 58 & 25 \\
+Econ & 240 & 63 & 26 & 512 & 112 & 22 \\
+Eng & 164 & 52 & 32 & 972 & 252 & 26 \\
+Med & 416 & 99 & 24 & 578 & 140 & 24 \\
+Vet Med & 338 & 53 & 16 & 180 & 22 & 12 \\
+\hline 
+Total & 1184 & 274 & 23 & 2470 & 584 & 24\\
+\hline
+  \end{tabular}
+\end{center}
+We can see that the men had a worse success rate than the women for all subjects. However averaging over the total, the men have a better success rate. The is \textit{Simpson's paradox} and occurs since the men apply for 'easier' subjects.
+
+
+
+
 \subsection{Multivariate normal theory}
 Let $ X = \begin{pmatrix}
    X_1 \\
@@ -966,6 +987,164 @@ Furthermore if $ A\in \R^{m\times n} $ and $ b\in \R^m $,
   If $ X $ is multivariate normal then $ AX+b $ is multivariate normal.
 \end{proposition}
 \pf Take any $ t\in \R^m $. Them $ t^T(AX+b) = (A^T t)^TX + t^Tb $. Since $ X $ is multivariate normal, $ (A^Tt)^TX \sim\mathcal N(\mu,\sigma^2) $ for some $ (\mu,\sigma^2) $ then $ t^T(AX+b) \sim \mathcal N(\mu+t^Tb,\sigma^2) $.\qed
+\begin{proposition}
+  A multivariate normal distribution is fully specified by its mean and covariance.
+\end{proposition}
+\pf Let $ X_1 $ and $ X_2 $ both be multivariate normal with mean $ \mu\in \R^n $ and covaraince $ \Sigma\in \R^{n\times n } $. We will show that their mgfs are equal, hence their distributions are the same.
+\begin{align*}
+	M_{X_1}(t) = \mathbb E[e^{t^TX_1}] &= \exp\left(\mathbb E[t^TX_1] + \frac 12 \Var{t^TX_1}\right)\\
+					   &=\exp\left(t^T\mu + \frac 12 t^T \Sigma t\right).
+\end{align*}
+Since the calculation is the same for $ X_2 $, they have the same distribution.\qed
+\begin{corollary}
+	Suppose $ X_1,\dots, X_n $ are indepdently distributed with distributions $ \mathcal N(\mu_i,\sigma^2) $ respectively. Let $ A\in \R^{n\times n} $ be an orthogonal matrx, so $ A^TA=AA^T = I $. Then the elements of $ Y=AX\in \R^n $ are independently distributed, and $ Y_i\sim\mathcal N((A\mu)_i,\sigma^2) $, where \[\mu=\begin{pmatrix}
+	  \mu_1 \\
+	  \vdots \\
+	  \mu_n
+  \end{pmatrix}. \]
+\end{corollary}
+\pf The distribution of $ Y $ is determined by the mean vector and the covariance matrix. 
+\[
+	\mathbb E[Y] = \mathbb E[AX] = A\mathbb E[X] = A\mu
+\]
+and
+\[
+	\Cov{AX} = A\Cov{X}A^T=A(\sigma^2 I)A^T = \sigma^2 I.
+\]
+\qed
+\par
+Suppose we have normal observations with unknown mean and variance, $ X_1,\dots, X_n \iid \mathcal N(\mu,\sigma^2) $ for some $ \mu\in \R $ and $ \sigma^2>0 $. Recall that the MLE of $ \mu $ is 
+\[
+	\overline X = \frac 1n \sum_{i=1}^n X_i
+\]
+and the MLE of $ \sigma^2 $ is 
+\[
+	\hat\sigma^2 = \frac{S_{xx}}n = \frac{\sum_{i=1}^n (X_i-\overline X)^2}n.
+\]
+\begin{theorem}
+  Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu,\sigma^2)$. Then
+  \begin{enumerate}
+	  \item  $\overline X \sim \mathcal N\left(\mu, \frac{\sigma^2}n\right) $
+	  \item $ \frac{S_{xx}}{\sigma^2} \sim \chi^2_{n-1} $
+	  \item $ \overline X $ and $ S_{xx} $ are independent.
+  \end{enumerate}
+\end{theorem}
+\pf The first part is an easy consequence of the fact that linear combinatiosn of Gaussians are Gaussian. For the second and third parts we write that
+\begin{align*}
+	\sum_{i=1}^n (X_i-\mu)^2 &= \sum_{i=1}^n((X_i-\overline X)+(\overline X-\mu))^2 \\
+				 &= \sum_{i=1}^n ((X-\overline X)^2 + 2(X_i - \overline X)(\overline X-\mu) +(\overline X - \mu)^2) \\
+				 &= S_{xx} + n(\overline X-\mu)^2
+\end{align*}
+Let $ A $ be an orthogonal matrix such that
+\[
+  Y=A\left(X-\begin{pmatrix}
+    \mu\\
+    \vdots \\
+    \mu
+  \end{pmatrix}\right) = \begin{pmatrix}
+    \sqrt n (\overline X - \mu) \\
+    Y_2\\
+    \vdots\\
+    Y_n
+  \end{pmatrix}
+\]
+which corresponds to taking
+\[
+  A=\begin{pmatrix}
+	  \frac 1{\sqrt n} & \frac 1{\sqrt n} & \cdots & \frac 1{\sqrt n} \\
+	   \vdots & \ddots  & \vdots & \vdots \\
+	\vdots 	 & \cdots & \ddots & \vdots\\
+	\vdots 	 & \cdots & \cdots &\ddots
+  \end{pmatrix}
+\]
+where the rows below the first are chosen so $ A\in O(n) $.
+Then $ Y_1 = \sqrt n(\overline X-\mu) \sim\mathcal N(0,\sigma^2) $ and $ Y_1 $ is independent of $ (Y_2,\dots, Y_n) $ by the corollary. Since
+\begin{align*}
+	\sum_{i=1}^n Y_i^2 &= \sum_{i=1}^n (X_i-\mu)^2 \\
+	||Y||_2^2 &= \left|\left|A(X-\begin{pmatrix}
+	  \mu \\
+	  \vdots \\
+	  \mu
+	\end{pmatrix}\right|\right|^2_2 \\
+		  &= \begin{pmatrix}
+		    X_1-\mu \\
+		    \vdots \\
+		    X_n-\mu
+		  \end{pmatrix}A^TA \begin{pmatrix}
+		    X_1- \mu \\
+		    \vdots \\
+		    X_n-\mu
+		  \end{pmatrix}
+	\end{align*}
+We must have
+\[
+	\sum_{i=2}^n Y_i^2 = \sum_{i=1}^n (X_i-\mu)^2 - n(\overline X-\mu)^2 = S_{xx}
+\]
+thus $ S_{xx} $ is independent of $ Y_1 $ thus also independent of $ \overline X $. Also
+\[
+	\frac{S_{xx}}{\sigma^2} = \sum_{i=2}^n \frac{Y_i^2}{\sigma^2}
+\]
+has a $ \chi_{n-1}^2 $ distribution.\qed
+\subsection{$t$-Tests}
+\begin{definition}
+  If $ U\sim\mathcal N(0,1) $ and $ V\sim\chi_n^2 $ with $ U $ independent of $ V $ then
+  \[
+	  T= \frac U{\sqrt{V/n}}
+  \]
+  has a \textit{Student's} $ t $\textit{-distribution} with $ n $ degrees of freedom, denoted by $ t_n $.
+\end{definition}
+\begin{example}
+  Suppose that $ X_1,\dots, X_n\iid \mathcal N(\mu,\sigma^2) $. When $ \sigma^2 $ is knonw, we find a $ 100(1-\alpha)\% $ confidence interval for $ \mu $ by noting that 
+  \[
+	  Z = \frac{\sqrt n (\overline X - \mu)}\sigma\sim\mathcal N(0,1)
+  \]
+  so $ \overline X \pm z_{\alpha/2}\frac\sigma{\sqrt n} $ is the required confidence interval. 
+\end{example}
+\begin{example}
+	If instead $ \sigma^2 $ is unknown, since $ \overline X $ and $ \hat \sigma^2 = \frac{S_{xx}}n $ are independent with $ \overline X \sim\mathcal N(\mu,\frac{\sigma^2}n) $ and $ S_{xx}\sim \chi_{n-1}^2 $. We have the pivot
+	\[
+		T = \frac{\sqrt n (\overline X -\mu)/\sigma}{\sqrt{S_{xx}/\sigma^2(n-1)}}\sim t_{n-1}.
+	\]
+	Thus
+	\begin{align*}
+		\mathbb P_{\mu,\sigma^2}\left(-t_{n-1}\left(\frac \alpha 2\right) \le \frac{\sqrt n(\overline X -\mu)}{\sqrt{S_{xx}/(n-1)}} \le t_{n-1}\left(\frac \alpha2\right)\right) = 1-\alpha
+	\end{align*}
+	so
+	\[
+		\overline X\pm \sqrt{\frac{S_{xx}}{n-1}}\cdot \frac{t_{n-1}\left(\frac \alpha 2\right)}{\sqrt n}
+	\]
+	is an exact $ 100(1-\alpha)\% $ CI for $ \mu $.
+\end{example}
+\begin{example}
+  If instead we wish to test $ H_0:\mu = \mu_0 $ with $ \sigma^2 $ unknown, then under $ H_0 $ we have that
+  \[
+	  T = \frac{\sqrt n(\overline X - \mu_0)}{\sqrt{S_{xx}/(n-1)}}\sim t_{n-1}
+  \]
+  so reject $ H_0 $ when $ |T|\ge t_{n-1}\left(\frac \alpha 2\right) $. This is a $ t $-test.
+\end{example}
+\begin{remark}
+	As $ n\to\infty $, $ \frac{S_{xx}}{n-1}\to \sigma^2 $ and $ t_{n-1}\left(\frac \alpha 2\right) \to z_{\alpha /2} $. Then the $ t $-test converges to the $ z $-test. Importantly the validity of the $ t $-test does not need large $ n $.
+\end{remark}
+\begin{remark}
+  The $ t $-test can be seen as an example of a GLRT for 
+  \begin{align*}
+	  H_0 &: \mu = \mu_0 \\
+	  H_1 &: \mu \ne \mu_0.
+  \end{align*}
+  The GLR is
+  \begin{align*}
+	  \Lambda_X(H_0;H_1)=\frac{\sup_{\mu,\sigma^2} f(X\mid \mu,\sigma^2)}{\sup_{\sigma^2} f(X\mid \mu_0,\sigma^2)}
+  \end{align*}
+  Plugging in $ (\hat \mu, \hat \sigma^2)= (\overline X, \frac{S_{xx}}n) $ the numerator is $ \left(\frac{2\pi \sum(X_i-\overline X)^2}{n}\right)^{-n/2}\exp\left(-\frac n2\right) $. When $ \mu = \mu_0 $ the MLE for $ \sigma^2 $ is $ \sum\frac{(X_i-\mu_0)^2}n $. The denominator is $ (\frac{2\pi \sum(X_i-\mu_0)^2}{n})^{-n/2}\exp(-\frac n2) $. Then
+  \begin{align*}
+	  \Lambda_X(H_0;H_1) &= \frac{(2\pi \sum(X_i-\overline X)^2)^{-n/2}}{(2\pi \sum(X_i-\mu_0)^2)^{-n/2}}\\
+			     &= \left(1+\frac{n(\overline X-\mu_0)^2}{\sum (X_i-\overline X)^2\right)^{n/2}}.
+  \end{align*}
+  Thus reject $ H_0 $ when $ \frac{\sqrt n(\overline X-\mu_0)}{\sqrt{S_{xx}/(n-1)}} $ is large.
+\end{remark}
+
+
+
 
 
 

@@ -598,6 +598,7 @@ In fact it's easy to see that $ \inv \phi $ is continuous so it's a homeomorphis
 \end{proposition}
 If $ x,y \in C $ with $ x<y $. We want to find a real number $ x<z<y $ with $ z\notin C $. Suppose not. Then $ [x,y]\subset C  \in C_n	$ for all $ n $. But the lengths of $ C_n\to 0 $ as $ n\infty $, hence we can always pick $ n $ large enough so this can't happen. Hence such a $ z $ is not in $ C $. Then $ C\cap (-\infty , x) $, $ C\cap (z,\infty) $ disconnects $ C $ with $ x $ in the left set and $ y $ in the right set. So $ x $ and $ y $ cannot lie in a connected subspace of $ C $. Hence all the connected components are singletons.\qed
 \section{Manifolds}
+\subsection{Definitions and examples}
 \begin{definition}
 	(Locally Euclidean) We say that a topogical space is \textit{locally Euclidean} (with dimension $ d $) if for all $ x\in X $ there exists an open neighbourhood of $ x $ homeomorphic to an open subset of $ \R^d $.
 \end{definition}
@@ -691,12 +692,45 @@ As any $ [x,y] \in M $ with $ x\ne t $ for some $ 0<t<1 $ we have that $ [x,y]\i
 	Using the induced homeomorphisms
 	\begin{align*}
 		U\setminus \inv \varphi(B_1(0)) &\cong_\varphi \R^d \setminus B_1(0) \cong S^{d-1}\times (-\infty, 0] \\
-		V\setminus \inv \psi(B_1(0)) \cong_\psi \R^d\setminus B_1(0) \cong S^{d-1} \times [0,\infty).
+		V\setminus \inv \psi(B_1(0)) &\cong_\psi \R^d\setminus B_1(0) \cong S^{d-1} \times [0,\infty).
 	\end{align*}
 	Hence the quotient is homeomorphic to $ S^{d-1}\times \R $ which are both manifolds, so every point has a Euclidean neighbourhood. We can check by cases it's Hausdorff hence a topological manifold.
 \end{example}
-
-
+\begin{example}
+	Let $ \R\mathbb P^d= \{1\text-\dim \ \text{subspaces of}\ \R^{d+1}\} $. Define a topology as a quotient of
+	\[
+		\R^{d+1} \setminus \{0\} \ \text{by}\ v\sim v'\iff \mathrm{span}(v) = \mathrm{span}(v')
+	\]
+	which gives a topological space $ \R\mathbb P^d $.\par
+	Write $ [x_0:x_1: \dots: x_d] $ for the equivalence class of $ (x_0,\dots, x_{d+1})\in \R^{d+1}\setminus \{0\} $ (so some $ x_i\ne 0 $). Thus the sets
+	\[
+		A_i=\{[x_0:\cdots : x_d]\mid x_i\ne 0\}
+	\]
+cover $ \R\mathbb P^d $. The preimage of $ A $ under the quotient map is
+\[
+	\{(x_0,\dots, x_d)\in \R^{d+1}\setminus \{0\} \mid x_i\ne 0 \}
+\]
+which is an open subset, so $ A_i $ is open in $ \R\mathbb P^d $. The restriction of the quotient map $ \pi\mid_{P_i} $ where $ P_i = \{(x_0,\dots, x_{i-1},1,x_{i+1},\dots, x_n)\in \R\mathbb P^{d+1}\setminus \{0\}\} $. Then $ \pi\mid_{P_i}:P_i\to A_i $ is a bijection. Also $ P_i\cong \R^d $ by omitting the $ i $th entry. We can see that $ \pi\mid_{P_i} $ is easily checked to be a homeomorphism we can see that the $ A_i $ are Euclidean which cover the space.\par
+To see that $ \R\mathbb P^d $ is Hausdorff let $ p,q\in \R\mathbb P^d $ with $ p\ne q $. The group $ GL_{d+1}(\R) $ of linear isomorphism of $ \R^{d+1} $ acts on $ \R\mathbb P^d $ continuously. We can find a matrix sending $ p $ and $ q $ to $ \langle e_1\rangle= \mathrm{span}(1,0, 0\dots, 0) $ and $ \langle e_2\rangle = \mathrm{span}(1,1,0,\dots, 0) $. It is now enough to show that we can separate $ \langle e_1\rangle $ and $ \langle e_2\rangle $. But these points are in $ A_1\cong \R^d $ so they can be separated by open sets. Hence $ \R\mathbb P^d $ is a $ d $-dimensional manifold.
+\par
+Any line in $ \R^{d+1} $ is spanned by a unit vector, well-defined up to $ \pm 1 $. We can also describe $ \R\mathbb P^d  = S^d/(v\sim -v)$ which gives the same topology. This show that $ \R\mathbb P^d $ is the quotient of a compact space, hence it must be compact. Every equivalence class can be described by a point in the northern hemisphere $ D^d_+ \subset S^d $. This is not unique, since if $ v $ is on the equator, then $ v $ is equivalent to another point in $ D^d_+ $. So $ \R\mathbb P^d=D^d/(v\sim -v) $ for $ v\in \partial D^d $.
+\end{example} 
+\begin{theorem}
+  A topological manifold is connected if and only if it is path connected.
+\end{theorem}
+\pf We know that path connected impleis connected for all spaces already. Suppose $ M $ is a connected $ d $-dimensional manifold. Then path component sof $ M $ partition into its disjoint subspaces. It suffice to show that the path components are open as then they are compact closed. So this would disconnected the space if there was more than one of them.\par
+Let $ C\subseteq M $ be a path componenet and $ c\in C $. Let $ c\in U\cong\R^d $ be a Euclidean neighbourhood. Since $ \R^d $ is path connected there is a path from any $ c'\in U $ to $ c $. Hence $ U\subseteq C $. Thus $ C $ is open.\qed
+\subsection{Homogeneity}
+We want to prove the following theorem.
+\begin{theorem}
+  If $ X $ is a connected topological manifold and $ p,q\in X $ then there is a homeomorphism $ \varphi:X\to X $ such that $ \varphi(p)=q $.
+\end{theorem}
+\begin{remark}
+  This is the same as saying the symmetry group of $ X $ acts transitively on $ X $.
+\end{remark}
+\begin{example}
+	Let $ X = S^1 \sqcup \R $. Then there is no homeomorphism of $ X $ sending $ p\in S^1 $ to $ q\in \R $. If there were, it would induce a homeomorphism $ X\setminus \{p\}\overset{\cong}{\longrightarrow} X\setminus \{q\} $. But $ X\setminus \{p\} $ has two path-components and $ X\setminus \{q\} $ has three path-components. So the conclusion of the theorem doesn't hold since we used a disconnected topological manifold.
+\end{example}
 
 
 
