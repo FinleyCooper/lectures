@@ -1330,9 +1330,127 @@ For example the invariant spacetime interval between two events
 	\mathrm ds^2 &= \mathrm dX\cdot \mathrm dX \\
 		     &= -c^2\mathrm dt^2 + \mathrm dx^2 + \mathrm dy^2 + \mathrm dz^2.
 \end{align*}
-
-
-
+The 4-\textit{velocity} of a massive particle is
+\[
+	U = \frac{dX}{d\tau}
+\]
+where $ \tau $ is the proper time (time expereienced by the particle). Since
+\begin{align*}
+	X^\mu &= (ct,\x) \\
+	U^\mu &= \frac{dt}{d\tau}(c,\mathbf u) = \gamma_{\mathbf u} (c,\mathbf u)
+\end{align*}
+where $ \mathbf u = \frac{d\x}{dt} $ is the $ 3 $-velocity and $ \gamma_{\mathbf u}= \frac 1{\sqrt{1-\frac{|\mathbf u|^2}{c^2}}} $. Then
+\begin{align*}
+	U\cdot U &= \left(\frac{dt}{dx}\right)^2(-c^2+|\mathbf u|^2)\\
+		 &=-c^2 \quad\text{(Lorentz-invariant)}
+\end{align*}
+So the $ 4 $-velocity of a massive particle is timelike.\par
+The $ 4 $-momentum of a massive particle with rest mass $ m>0 $ is
+\[
+	P^\mu = mU^\mu = m\gamma_{\mathbf u}(c,\mathbf u) = \begin{pmatrix}
+	  \frac Ec \\ \mathbf p
+	\end{pmatrix}
+\]
+where $ E $ is the energy and $ \mathbf p $ is the $ 3 $-momentum. The square of the $ 4 $-momentum is
+\begin{align*}
+  P\cdot P = -\left(\frac Ec\right)^2 + |\mathbf p|^2 = - m^2c^2
+\end{align*}
+consistant with
+\[
+	E = \sqrt{m^2c^4+|\mathbf p|^2c^2}
+\]
+In the Newtonian limit $ |\mathbf u|^2 \ll c^2 $ we have $ \mathbf p = m\gamma_{\mathbf u}\mathbf u \approx m\mathbf u $ and 
+\[
+	E = m\gamma_{\mathbf u}c^2\approx m\left(1+\frac 12 \frac{|\mathbf u|^2}{c^2}\right)c^2 = mc^2 + \frac 12 m|\mathbf u|^2.
+\]
+In the rest frame of the particle $ \mathbf u = 0 $ and $ E=mc^2 $ exactly, which is the rest energy.
+\par
+Massless particles such as photons travel at the speed of light in any intertial frame. They have $ E=|\mathbf p|c $ and have null 4-velocity.
+\subsection{Covectors and tensors}
+Let
+\[
+	Y_\mu = \frac{\partial f}{\partial X^\mu}
+\]
+be the \textit{derivative} of a scalar field $ f(X) $ on spacetime. How does this transform under a LT? By the chain rule,
+\begin{align*}
+	\frac{\partial f}{\partial X'^\mu} &=\frac{\partial X^\ny}{\partial X'^\mu}\frac{\partial f}{\partial X^\nu}
+\end{align*}
+So
+\[
+	Y'_\mu = (\inv \Lambda)^\nu_{\glg \mu}Y_\nu \tag{\dagger}
+\]
+where $ (\inv \Lambda)^\nu_{\glg \mu} = \frac{\partial X^\nu}{\partial X'^\mu} $ is the inverse LT matrix, satisfying
+\begin{align*}
+	\Lambda^\mu_{\glg \nu}(\inv \Lambda)^\nu_{\glg \rho} &= \frac{\partial X'^\mu}{\partial X^\nu}\frac{\partial X^\nu}{\partial X'^\rho} \\
+							     &= \frac{\partial X'^\mu}{\partial X'^\rho} = \delta^\nu_{\glg \rho}.
+\end{align*}
+The derivative is an example of \textit{covector}. Generally a covector transforms as $ (\dagger) $
+\[
+  Y' = \inv \Lambda Y.
+\]
+A $ 4 $-tensor of type $ (r,s) $ is an object whose $ 4^{r+s} $ components transform as
+\[
+	T'^{\mu_1\dots \mu_r}_{\phantom{\mu_1\dots\mu_r} \nu_1\dots \nu_s} = \Lambda^{\mu_1}_{\glg \rho_1}\cdots \Lambda ^{\mu_r}_{\glg \rho_r}(\inv \Lambda)^{\sigma_1}_{\glg \nu_1}\cdots (\inv \Lambda)^{\sigma_s}_{\glg \nu_s} T^{\rho_1\dots \rho_r}_{\phantom{\rho_1\dots\rho_r}\sigma_1\dots \sigma_s}
+\]
+under a Lorentz transformation. (Any ordering of the up and down indices is possible, for example $ A_\mu^\nu $ or $ B^{\nu \ \ \ \sigma}_{\glg \nu \rho}$. Each up index transforms like a vector and each down index transforms like a covector. 
+\begin{itemize}
+	\item A $ (1,0) $ tensor is a (4-)vector
+	\item A $ (0,1) $ tensor is a covector
+	\item A $ (0,0) $ tensor is a scalar (Lorentz invariant).
+\end{itemize}
+It is straightforward to show that 
+\begin{itemize}
+	\item A linear transformation of a $ (r,s) $ tensor is also a $ (r,s) $ tensor for example
+		\[
+			A^{\mu\nu}_{\glg\glg \rho\sigma} = aB^{\mu\nu}_{\glg\glg\rho\sigma}+bC^{\mu\nu}_{\glg\glg\rho\sigma}.
+		\]
+	\item The \textit{outer product} of tensors of type $ (r_1,s_1) $ and $ (r_2,s_2) $ is a tensor of type $ (r_1+r_2,s_1+s_2) $ for example
+		\[
+			A^{\mu\nu}_{\glg\glg \rho\sigma} = B^{\mu\nu}C_{\rho\sigma}.
+		\]
+	\item The \textit{derivative} of a tensor field of type $ (r,s) $ is a tensor field of type $ (r,s+1) $ for example
+		\[
+			A_{\mu \glg\glg \sigma}^{\glg \nu\rho} = \partial_\mu B^{\nu\rho}_{\glg\glg \sigma}
+		\]
+		where $ \partial_\nu = \frac{\partial}{\partial X^\mu} $.
+	\item The \textit{contraction} of an $ (r,s) $ tensor (with $ r,s>0 $) on a pair of its indices produces an $ (r-1,s-1) $ tensor. For example
+		\[
+			A^{\mu}_{\glg \rho} = B^{\mu\nu}_{\glg\glg \rho \nu}.
+		\]
+		This produces a tensor only if the pair of indices consists of one up and one down index.
+\end{itemize}
+The summation convention on spacetime requires the repeated Greek index to appear once up and one down.\par
+Note that for example
+\begin{align*}
+	\sum_{\mu = 0}^3 X^\mu X^\mu =  c^2t^2 + |\x|^2
+\end{align*}
+which is not a scalar since it's not a Lorentz invariant quantity, unlike
+\[
+  X\cdot X = - c^2t^2 +|\x|^2.
+\]
+\begin{definition}
+	(Isotropic) A tensor is \textit{isotropic} if its components are the same in every intertial frame.
+\end{definition}
+The metric tensor $ \eta_{\mu\nu} =\mathrm{diag}(-1,1,1,1)$ is isotropic $ (0,2) $ tensor, and its inverse
+\[
+	\eta^{\mu\nu} = \diag(-1,1,1,1)
+\]
+is also an isotropic tensor $ (2,0) $ tensor.\par
+The Kronecker delta symbol 
+\begin{align*}
+	\delta^\mu_{\glg \nu} = \mathrm{diag}(1,1,1,1)
+\end{align*}
+is an isotropic tensor of type $ (1,1) $. \par
+The Levi-Civita epsilon symbol
+\[
+	\ep_{\mu\nu\rho\sigma}=\begin{cases}
+	+1 & \text{if}\ (\mu,\nu,\rho,\sigma) \ \text{is an even permutation of} \ (0,1,2,3) \\
+-1 & \text{if}\ (\mu,\nu,\rho,\sigma) \ \text{is an odd permutation of} \ (0,1,2,3)\\
+0 & \text{otherwise}
+	\end{cases}
+\]
+is an isotropic \textit{pseudo-tensor} of type $ (0,4) $. A psuedo-tensor satisfies the same transformation law as a tensor but with an extra factor of $ \det(\Lambda) = \pm 1 $.\par
+A \textit{tensor equation} is one in which every term is a tensor of the same type and transforms identically under a Lorentz transformation. Such an equation is said to be \textit{covariant} and is valid in any intertial frame.  
 
 
 

@@ -1142,6 +1142,146 @@ has a $ \chi_{n-1}^2 $ distribution.\qed
   \end{align*}
   Thus reject $ H_0 $ when $ \frac{\sqrt n(\overline X-\mu_0)}{\sqrt{S_{xx}/(n-1)}} $ is large.
 \end{remark}
+\subsection{Analysis of variance}
+\begin{example}
+  Cambridge Part IA 2025 exam results
+  \begin{center}
+	  \begin{tabular}{|c | c | c c c|}
+		  \hline
+		  College & Total Marks & Probability & Differential Equations & Vector Calculus \\
+		  \hline
+		  Trinity & 318 & 36 & 29 & 32 \\
+		  Churchill & 283 & 25 & 37 & 35 \\
+		  St Johns & 294 & 28 & 35 & 37 \\
+		  Clare & 244 & 15 & 39 & 31 \\
+		  Christ's & 280 & 24 & 34 & 35 \\
+      \hline
+    \end{tabular}
+  \end{center}
+  We consider testing equality of means among $ k>2 $ groups. Our model is
+  \[
+	  X_{ij} = \mu_i +\ep_{ij}, \quad\forall 1\le j \le n_i \quad 1\le i \le k
+  \]
+  where $ n_i $ is the number of observations for the $ i $th group. Let $ N=\sum_{i=1}^k n_i $. We assume that $ \ep_{ij}\iid \mathcal N(0,\sigma^2) $.
+  \begin{align*}
+	  H_0&:\mu_1 = \mu_2 =\dots = \mu_k \\
+    H_1&: H_0 \ \text{is false}
+  \end{align*}
+  We use a GLRT with ratio of likelihoods being
+  \begin{align*}
+  \Lambda_X(H_0;H_1) &=\frac{\sup_{\mu_1,\dots, \mu_k,\sigma^2}(2\pi \sigma^2)^{-N/2}\exp\left(-\sum_{i,j}\frac{(X_{ij}-\mu_i)^2}{2\sigma^2}\right)}{\sup_{\mu,\sigma^2}(2\pi\sigma^2)^{-N/2}\exp\left(-\sum_{i,j}\frac{(X_{ij}-\mu)^2}{2\sigma^2}\right)}\\
+		     &=\left(\frac {s_0}{s_1}\right)^{N/2}
+  \end{align*}
+  where
+  \begin{align*}
+	  s_0 &= \sum_{i,j}(X_{ij}-\overline X_{\cdot\cdot})^2\\
+	  s_1 &= \sum_{i,j}(X_{ij}-\overline X_{i\cdot})^2
+  \end{align*}
+  where
+  \begin{align*}
+	  \overline X_{\cdot\cdot} &= \frac{\sum_{i,j}X_{ij}}{N}\\
+	  \overline X_{i\cdot} &= \frac 1{n_i}\sum_{j=1}^{n_i}X_{ij}.
+  \end{align*}
+  We should reject $ H_0 $ is $ \frac{s_0}{s_1} $ is large. Note that
+  \begin{align*}
+	  s_0 &= \sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline X_{i\cdot} + \overline X_{i\cdot} - \overline X_{\cdot\cdot})^2 \\
+	      &=\underbrace{\sum_{i,j}(X_{ij}-\overline X_{i\cdot})^2}_{s_1}+\underbrace{\sum_i n_i(\overline X_{i\cdot} - \overline X_{\cdot\cdot})^2}_{s_2}
+  \end{align*}
+  We call $ s_1 $ the within samples sum of squares and $ s_2 $ the between sample sum of squares. We reject $ H_0 $ if $ \frac{s_2}{s_1} $ is large.\par
+  Note that $ \sum_j(X_{ij}-\overline X_{i\cdot})^2 $ is independent of $ \overline X_{i\cdot} $, implying that $ s_1 $ is independent of $ s_2 $ (since the latter is a function of $ \{\overline X_{i\cdot}\}_i $ and the observations are independent for different $ i $. Also if $ H_9 $ is true
+  \[
+	  s_1\sim \sigma^2 \chi^2_{N-k} \quad \text{and} \quad s_2 \sim \sigma^2 \chi^2_{k-1}.
+  \]
+\begin{definition}
+	($ F $-distribution) If $ V\sim \chi^2_n $ and $ W\sim \chi^2_m $ with $ V $ and $ W $ independent, we say that
+	\[
+		F = \frac{V/n}{W/m}
+	\]
+	has an $ F $ distribution with $ (n,m) $ degrees of freedom.
+\end{definition}
+Thus under $ H_0 $ we have that
+\[
+	\frac{S_2/(k-1)}{S_1/(N-k)} \sim F_{k-1,N-k}
+\]
+and we obtain a size $ \alpha $ test if we reject $ H_0 $ when the test statistic exceeds $ F_{k-1,N-k}(\alpha) $.
+\begin{remark}
+  Recall the $ t $-distribution corresponding to
+  \[
+	  T = \frac{U}{\sqrt{V/n}}
+  \]
+  where $ U\sim \mathcal N(0,1) $ and $ V\sim \chi^2_n $. Since $ U^2\sim \chi_1 $, the statistic
+  \[
+	  T^2 = \frac{U^2}{V/n}\sim F_{1,n}.
+  \]
+\end{remark}
+For our exam data we have $ k=5 $ and $ N=100 $, so we're looking at the distribution $ F_{4,95} $. At the $ 5\% $ significance level we reject $ H_0 $ if the test statistic $ \ge F_{4,95}(0.05)\approx 2.47 $. Our corresponding $ F $-statistics are the following
+\begin{center}
+	\begin{tabular}{|c | c c c c|}
+		\hline
+		& Total Marks & Probability & Differential Equations & Vector Calculus \\
+		\hline
+		$ F $-statistic & 3.71 & 4.25 & 1.70 & 0.5 \\
+    \hline
+  \end{tabular}
+\end{center}
+So we reject $ H_0 $ for the total marks and Probability only.
+\begin{remark}
+	What we described is called \textit{one-way} ANOVA. Instead we could have done \textit{two-way} ANOVA which analyses data defined according to two varaibles. For example we could investigate students' performance on exams depends on how many supervisions were given and which college they were from. Our model this time would be
+	\[
+		Y_{ijk}= \alpha + \mu_j + \lambda_k + \ep_{ijk}
+	\]
+	where $ \ep_{ijk} $ is the binary coding of supervisions/college.
+\end{remark}
+\end{example}
+\section{Linear models}
+\subsection{Definitions}
+Suppose we have data $ \{(x_1,Y_1,\dots, (x_n,Y_n)\} $ with $ Y_i\in \R $ and $ x_i\in \R^p $. In a \textit{linear model} we assume that 
+\[
+	Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2}+\dots +\beta_p x_{ip} + \ep_i
+\]
+where $ \alpha $ is the \textit{intercept}, $ (\beta_1,\dots, \beta_p) $ are \textit{regression coefficients}, and $ (\ep_1,\dots, \ep_n) $ are random "noise" with mean $ 0 $ and variance $ \sigma^2 $.\par
+We want to estimate the parameters $ (\alpha,\beta_1,\dots, \beta_p) $. We call the $ x_i $'s the predictors or explanatory variables and the $ Y_i $'s response variables.
+\begin{remark}
+	We often eliminate the intercept by definining the first predictor $ x_{i1}=1 $ for all $ i $, so $ \beta_1 $ plays the role of $ \alpha $.
+\end{remark}
+\begin{remark}
+	We can also model non-linear relationships. For example $ x_{i1} = z_i $ and $ x_{i2}= z_i^2 $ so the "linear" model is then $ Y_i = \alpha + \beta_1z_1+\beta_2z_i^2+\ep_i $.
+\end{remark}
+\begin{remark}
+The coefficient $ \beta_j $ can be interpreted as the effect on the response of increasing $ x_{ij} $ by one unit by keeping other predictors fixed. In general, however, linear models can only reveal correlations in data rather than causation.
+\end{remark}
+The matrix formulation of a linear model if
+\[
+  Y=\begin{pmatrix}
+    Y_1 \\
+    \vdots \\
+    Y_n
+  \end{pmatrix},\quad X=\begin{pmatrix}
+  x_{11} & \cdots & x_{1p} \\
+  \vdots & \ddots & \vdots \\
+  x_{n1} & \cdots & x_{np}
+  \end{pmatrix},\quad \beta = \begin{pmatrix}
+    \beta_1 \\
+    \vdots \\
+    \beta_p
+  \end{pmatrix},\quad \ep = \begin{pmatrix}
+    \ep_1 \\
+    \vdots \\
+    \ep_n
+  \end{pmatrix}.
+\]
+The linear model is
+\[
+  Y = X\beta + \ep.
+\]
+
+
+
+
+
+
+
+
 
 
 

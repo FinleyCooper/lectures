@@ -367,7 +367,7 @@ Mass is conserved and the divergence of the curl is zero, so the second and thir
 \]
 So the vorticity equation is
 \[
-	\frac{\partial \boldsymbol\omega}{\partial t} + (\mathbf u \cdot \nabla)\boldsymbol\omega = (\boldsymbol\cdot\nabla)\mathbf u.
+	\frac{\partial \boldsymbol\omega}{\partial t} + (\mathbf u \cdot \nabla)\boldsymbol\omega = (\boldsymbol\omega\cdot\nabla)\mathbf u.
 \]
 This is equivalent to
 \[
@@ -394,11 +394,11 @@ where $ S $ is an open surface with $ \partial S = \Gamma $.
 \begin{theorem}
 	\textit{Non-examinable}	(Kelvine circulation theorem) For an inviscid fluid with constant density and conservative body forces then if we take $ \Gamma $ to be a material line then
 	\[
-		\frac{d}{dt}C = 0
+		\frac{d\Gamma}{dt} = 0
 	\]
 \end{theorem}
 \begin{remark}
-	If the flow is irrotatoinal at $ t=0 $ then it is irrotional at all times.
+	If the flow is irrotational at $ t=0 $ then it is irrotional at all times.
 \end{remark}
 \section{Viscosity}
 The previous chapter only covered flows which were inviscid and we neglected any friction in fluid flow. We had that
@@ -450,7 +450,7 @@ Consider an infinitesimal volume of fluid $ \delta x \delta y $. Consider a flow
 \]
 Using the balance of forces in the $ x $-direction we have that
 \[
-	p(x)\delta y - p(x+\delta x) \delta y + \left( \mu \frac{\partial y}{\partial y}(y+\delta y) - \mu \frac{\partial u}{\partial y}(y)\right)\delta x = 0.
+	p(x)\delta y - p(x+\delta x) \delta y + \left( \mu \frac{\partial u}{\partial y}(y+\delta y) - \mu \frac{\partial u}{\partial y}(y)\right)\delta x = 0.
 \]
 Expanding the $ \delta x\delta y $ terms we get that
 \[
@@ -726,7 +726,7 @@ We have uniqueness of Von Neumann boundary conditions, so $ \phi $ is unique up 
 \[
 	\mathbf u = \left(U\cos\theta\left(1-\frac{a^3}{r^3}\right), -U\sin\theta\left(1+\frac{a^3}{2r^3}\right),0\right).
 \]
-\subsubsection{Unfirm flow past a cylinder with circulation}
+\subsubsection{Uniform flow past a cylinder with circulation}
 We have the conditions
 \begin{enumerate}
 	\item $ \nabla^2 \phi = 0 $;
