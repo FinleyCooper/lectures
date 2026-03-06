@@ -610,7 +610,7 @@ and the result follows from algebra manipulation.\qed
 \begin{remark}
   A LRT with size $ \alpha $ for any given $ \alpha $ doesn't always exist. However we can always define a "randomised" test with exact level $ \alpha $.
 \end{remark}
-Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu , \sigma^2_0$ where $ \sigma^2_0 $ is known. We want to find the best size $ \alpha $ test for
+Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu , \sigma^2_0)$ where $ \sigma^2_0 $ is known. We want to find the best size $ \alpha $ test for
 \begin{align*}
 	H_0 &: \mu = \mu_0 \\
 	H_1 &: \mu = \mu_1
@@ -618,7 +618,7 @@ Suppose $ X_1,\dots, X_n \iid \mathcal N(\mu , \sigma^2_0$ where $ \sigma^2_0 $ 
 for some fixed $ \mu_1 > \mu_0 $. We have that
 \begin{align*}
 	\Lambda_X(H_0;H_1) &= \frac{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_1)^2\right)}{(2\pi \sigma_0)^{-n/2} \exp\left(-\frac1{2\pi \sigma^2_0} \sum_{i=1}^n (X_i - \mu_0)^2\right)}\\
-			   &= \exp\left(\frac{\mu_1 - \mu_0}{\sigma^2_0} n\overline X + \frac{n(\mu_0^2 - \mu_1^2)}{2\sigma_0^2}.
+			   &= \exp\left(\frac{\mu_1 - \mu_0}{\sigma^2_0} n\overline X + \frac{n(\mu_0^2 - \mu_1^2)}{2\sigma_0^2}\right).
 \end{align*}
 Since $ \Lambda_X(H_0;H_1) $ is monotone in $ \overline X $. We can depend our critical region for the LRT on $ \overline X $ equivalently. If we define
 \[

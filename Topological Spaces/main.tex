@@ -2,6 +2,7 @@
 \usepackage{../header}
 \title{Topological Spaces}
 \author{Notes by Finley Cooper}
+\newcommand{\homeo}{\overset{\cong}{\longrightarrow}}
 \begin{document}
   \maketitle
   \newpage
@@ -731,6 +732,96 @@ We want to prove the following theorem.
 \begin{example}
 	Let $ X = S^1 \sqcup \R $. Then there is no homeomorphism of $ X $ sending $ p\in S^1 $ to $ q\in \R $. If there were, it would induce a homeomorphism $ X\setminus \{p\}\overset{\cong}{\longrightarrow} X\setminus \{q\} $. But $ X\setminus \{p\} $ has two path-components and $ X\setminus \{q\} $ has three path-components. So the conclusion of the theorem doesn't hold since we used a disconnected topological manifold.
 \end{example}
+\begin{lemma}
+  If $ p,q\in B_1(0)\subset \R^d $ then there is a homeomorphism $ \varphi $ of $ \R^d $ which sends $ p $ to $ q $ and is the identity outside $ B_1(0) $.
+\end{lemma}
+\pf Suppose \textit{wlog} that $ p=0 $. Consider first the homeomorphism $ \rho:\R^d\to B_1(0)$ defined by
+\[
+	\phi(x) = \frac{x}{1+|x|}
+\]
+which has inverse
+\[
+	y\to \frac y{1-|y|}.
+\]
+There is a homeomorphism $ x\to x+\inv \rho (q) $ of $ \R^d $. When conjugated by $ \rho $ it gives a homeomorphism 
+\begin{align*}
+	\varphi'' : B_1(0)&\overset{\cong}{\longrightarrow} B_1(0)\\
+	y&\longrightarrow \rho(\inv \rho(y)+\inv \rho(q)
+\end{align*}
+which sends $ y=0 $ to $ q $.
+\par
+Define a function 
+\begin{align*}
+	\varphi': \overline{B_1(0)} &\to \overline{B_1(0)}\\
+	y&\to \begin{cases}
+		\varphi''(y) & |y|< 1\\
+		y & |y| = 1
+	\end{cases}.
+\end{align*}
+We now aim to show that $ \varphi' $ is continuous. We will use the sequential definition of continuity. Let $ y_n $ be a sequence in $ B_1(0) $ converging to $ y_\infty\in \partial \overline{B_1(0)} $. So $ |y_n|\to 1 $. Hence $ 1-|y_n|\to 0 $ from above. Now
+\begin{align*}
+	\varphi'(y_n) &= \varphi''(y_n) \\
+		      &= \rho(\inv \rho (y_n)+\inv\rho(q)) \\
+		      &= \frac{\frac{y_n}{1-|y_n|}+\frac q{1-|q|}}{1+\left|\frac{y_n}{1-|y_n|}+\frac q{1-|q|}\right|}\to y_\infty=\varphi''(y_\infty).
+\end{align*}
+So $ \varphi' $ is continuous and a bijection since $ \overline{B_1(0)} $ is compact and Hausdorff. So $ \varphi' $ is in fact a homeomorphism so defining
+\begin{align*}
+	\varphi : \R^d &\to \R^d \\
+	y &\to \begin{cases}
+		\varphi'(y) & |y| \le 1 \\
+		y & |y| \ge 1
+	\end{cases}
+\end{align*}
+which is continuous on both closed sets, so continuous by the gluing lemma. The same applies to $ \inv \varphi $.\qed
+\par
+We're now ready to prove the theorem\par
+\pf Consider $ x\sim y $ if and only if there exists a homeomorphism $ \varphi:X\to X $ such that $ \varphi(x) = y $. This is easily checked to be an equivalence relation, so partitions $ X $ into equivalence classes. As $ X $ is connected, it is enough to show that the equivalence classes are open, as having multiple equivalence classes would provide a disconnection for $ X $. Let $ x\in X $ and $ x\in U $ a Euclidean neighbourhood, so there is some $ \tau:U\homeo \R^d $. Let $ C= \inv \tau \overline{B_1(0)} $, so $ \mathring C = \inv \tau B_1(0) $. The lemma says that for each $ q\in \mathring C $, there is a homeomorphism $ \varphi_q $ of $ \R^d $ sending $ 0 $ to $ \tau(q) $ and such that $ \varphi_q $ is the identity outside $ \overline{B_1(0)} $. \par
+Then $ \inv \tau \circ\varphi_q \circ \tau $ is a homeomorphism of $ U $ sending $ p $ to $ q $ and is the identity outside of $ C $. Define
+\begin{align*}
+	\psi_q:X &\to X \\
+	x &\to \begin{cases}
+		x & x\notin C \\
+		\inv \tau\varphi_q\tau(x) & x \in U
+	\end{cases}
+\end{align*}
+which is well-defined since $ \inv\tau\varphi_q\tau(x) = x $ in $ U\setminus C $.\par
+As $ X $ is Hausdorff, the compact subspace $ C\subset U\subset X $ is closed, so $ X\setminus C $ is open. So $ \psi_q $ is continuous by the open set version of the gluing lemma. Same applies for $ \inv \psi_q $. Hence $ \psi_q $ is a homeomorphism of $ X $ sending $ p\in X $ to $ q\in \mathring C $. Hence the open neighbourhood $ \mathring C \ni p $ lies in the equivalence class of $ p $. So the equivalence class is open.\qed
+\subsection{Compact manifolds}
+\begin{theorem}
+	Let $ X $ be a compact $ d $-dimensional manifold. Then there is a $ N $ such that $ Y\subset \R^N $ with $ X\cong Y $.
+\end{theorem}
+We'll look at a function before prove this theorem.\par
+Consider
+\begin{align*}
+	\sigma:\R^d&\to[0,\infty)\\
+	x&\to \begin{cases}
+		1 & |x| \le 1 \\
+		2-|x| & 1 \le |x| \le 2 \\
+		0 & |x| \ge 2
+	\end{cases}
+\end{align*}
+which is clearly continuous by the gluing lemma.\par
+\pf For $ x\in X $ there is Euclidean neighbourhood $ U_x \ni x$ and a homeomorphism $ \tau_x :U_x \homeo \R^d $. Let $ V_x=\inv \tau_xB_1(0)\subset U_x $, a smaller neighbourhood. Consider $ \sigma_x = \sigma \circ \tau_x : U_x \to [0,\infty] $. Define
+\begin{align*}
+	b_x : X & \to \R^d \\
+	y&\to \begin{cases}
+		\sigma_x(y)\tau_x(y) & y \in U_x \\
+		0 & y\notin U_x
+	\end{cases}
+\end{align*}
+which is continuous again by the gluing lemma. Similarly we can consider $ \sigma_x: X \to [0,\infty) $ by letting it be zero outside $ U_x $ which is also continuous by the gluing lemma. The open sets $ V_x $ cover $ X $ hence by compactness there is a finite subcover $ V_{x_1},\dots, V_{x_n} $. Consider 
+\begin{align*}
+	e:X &\to (\R^d\times \R)^n \\
+y &\to (b_{x_1}(y),\sigma_{x_1}(y);\cdots; b_{x_n}(y),\sigma_{x_n}(y))
+\end{align*}
+which is continuous by the definition of the product topology. Suppose $ e(y) = e(y') $. Then $ y\in V_{x_i} $ for some $ i $, so $ \sigma_{x_i}(y)=1 $. So $ \sigma_{x_i}(y') = 1 $ too so $ y'\in V_{x_i} $. But then $ b_{x_i}(y) = b_{x_i}(y') $, so $ \tau_{x_i}(y)=\tau_{x_i}(y') $ hence $ y=y' $ since $ \tau_{x_i} $ is a homeomorphism so $ e $ is injective. So $ e: X \to \Ima(X) $ is a continuous bijection from a compact space to a Hausdorff space, hence it is a homeomorphism.\qed
+
+
+
+
+
+
+
 
 
 
