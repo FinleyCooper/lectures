@@ -907,7 +907,7 @@ Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking value
   Suppose that $ 150 $ patients are randomly allocated to three groups of equal size. Two sets of patients were given a drug of two different doses. The third group were given a placebo. This is different from the last setting since the row totals are fixed. We want to test the null hypothesis of "homogeneity" which corresponds to the probability of response being unchanged between groups.\par
   Our probability model is $ N_{i1},\dots, N_{ic}\sim \text{Mult}(n_{i+}; p_{i1},\dots, p_{ic}) $ independently for each $ 1\le i \le r $ where $ n_{i+} $'s are fixed row totals.
   \begin{align*}
-	  H_0 &: p_{ij} = p_{2j} = \dots = p_{rj} \\
+	  H_0 &: p_{1j} = p_{2j} = \dots = p_{rj} \\
 	  H_1 &: (p_{i1},\dots, p_{ic}) \text{ is an arbitrary probability distribution}
   \end{align*}
   Under $ H_1 $,
@@ -917,7 +917,7 @@ Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking value
   \[
 	  \ell(p) = \log L(p) = \text{const.} + \sum_{i,j} N_{ij}\log p_{ij}.
   \]
-  Ynder Lagrangian methods with constraints $ \sum_j p_{ij} = 1 $ we find the MLE
+  Under Lagrangian methods with constraints $ \sum_j p_{ij} = 1 $ we find the MLE
   \[
 	  \hat p_{ij} = \frac{N_{ij}}{n_{i+}}.
   \]
@@ -933,7 +933,7 @@ If we define $ o_{ij} = N_{ij} $ and $ e_{ij} = \frac{n_{i+}N_{+j}}{n_{++}} $, t
 \[
 	2\log\Lambda \approx \sum_{i,j}\frac{(o_{ij}-e_{ij})^2}{e_{ij}}.
 \]
-And Wilks' theorem states that asympototically the distribution of $ 2\log\Lambda $ is $ \chi^2_p $ with 
+And Wilks' theorem states that asymptotically the distribution of $ 2\log\Lambda $ is $ \chi^2_p $ with 
 \[
   p = \dim(\Theta_1) - \dim(\Theta_0) = r(c-1) - (c-1) = (r-1)(c-1).
 \]

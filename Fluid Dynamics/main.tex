@@ -940,24 +940,87 @@ applying to the free surface gives that
 \[
 	\rho \frac{\partial\phi}{\partial t}+\frac 12 \rho |\nabla\phi|^2 = p_0 +\rho g z=f(t)\quad \text{at}\ z=\xi(x,y,t).
 \]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+These four equations form a non-linear problem that is evaluated at an unknown interfacial position.
+\subsubsection{Linear water waves}
+Assume small amplitude so $ \xi\ll h $ and $ \left|\frac{\partial \xi}{\partial x}\right|, \left|\frac{\partial \xi}{\partial y}\right|\ll 1 $. We will linearise the equation about the rest state by
+\begin{itemize}
+	\item Ignoring non-linear terms
+	\item Taylor expansions around $ z=0 $ for all quantities that are evaluated at $ z=\xi $ (domain perturbation expansion). For example
+		\[
+			\left.\frac{\partial \phi}{\partial z}\right|_{z=\xi} = \left.\frac{\partial \phi}{\partial z}\right|_{z=0}+\xi\left.\frac{\partial^2\phi}{\partial z^2}\right|_{z=0} + \cdots.
+		\]
+\end{itemize}
+Our resulting linearised equations are
+\begin{enumerate}
+	\item $ \nabla^2\phi = 0 \quad\text{for } -h<z<0$;
+	\item $ \frac{\partial \phi}{\partial t}=0\quad\text{for } z=-h $;
+	\item $ \frac{\partial \xi}{\partial t} = \frac{\partial \phi}{\partial z}\quad \text{for }z=0 $;
+	\item $ \rho\frac{\partial \phi}{\partial t} + \rho g \xi =\tilde F(t)\quad\text{for } z=0 $.
+\end{enumerate}
+To find a solution we assume a solution of the form $ \phi = A(z)B(x)C(y)T(t) $ for a finite domain. If the domain is infinite, we take the Fourier transform instead. In 2D we ignore any $ y $ dependence and end up looking for solutions
+\[
+  \begin{cases}
+    \xi = \xi_0 \exp(ikx-i\omega t) \\
+    \phi = \Phi(z) \exp(i(kx-\omega t))
+  \end{cases}
+\]
+(assuming that real parts are taken). Our general solution is a superposition of an infinite number of Fourier modes. We have that
+\[
+  \nabla^\phi = 0 \ \longrightarrow \ \Phi'' - k^2 \Phi = 0
+\]
+so $ \Phi \sim e^{\pm kz} $ so we have a general solution as $ \Phi = A\cosh (k(z+h)) + B\sinh(k(z+h)) $. Since the boundary condition that $ \Phi'(z) = 0 $ at $ z=-h $ gives that $ B=0 $, so $ \Phi = A\cosh(k(z+h)) $.\par
+Taking the Fourier tranform of $ \tilde F(t) $ gives $ 0 $. The third equation gives that
+\[
+  -i\omega \xi_0 = Ak\sinh(kh)
+\]
+and the fouth equation gives
+\[
+  -i\omega\rho A\cosh(kh) + \rho g \xi_0 = 0
+\]
+which is a linear homogenous equation with non-zero solutions if and only if
+\[
+  \begin{vmatrix}
+	  i\omega & -k\sinh(kh) \\
+	  \rho g & -i\omega \rho \cosh(kh)
+  \end{vmatrix} = -\omega^2 \cosh(kh) + gk\sinh(kh) = 0
+\]
+So solutions must obey the dispersion relation which is
+\[
+  \omega^2 = gk\tanh(kh).
+\]
+We define the phase speed as $ c=\frac \omega k $ which is the speed of which the wave crests move and
+\[
+	c^2 = gh\frac{\tanh(kh)}{kh}.
+\]
+Notice how as $ kh\to \infty $, $ c^2 \to 0 $ so the long wavelengths travel faster than the small ones. Water waves are dispersive since waves of different wavelength travel at different speed.
+\begin{example}
+	Deep water waves where $ h\gg 1 $ so $ \tanh(kh) \approx 1 $ and $ \omega^2 = gk $ and $ c= \sqrt{g/k} $. Let's look at swell waves in the Atlantic ocean due to a storm. We have a period of about $ 15 $ seconds and $ \omega \sim 0.4 $ radians per second. So $ \inv k \ll \ \text{ocean depth} $. So $ c\sim \frac{\omega}k\approx 2000 $ kilometers per day and arrive ahead of the storm.
+\end{example}
+\begin{example}
+	Shallow water waves where $ kh \ll 1 $ so $ \omega\approx \sqrt{gh}k $ and $ c=\sqrt{gh} $ independent of $ k $. So the waves are approximately not dispersive. For example a tsumani has $ h\approx 4 \ \mathrm{km}$ but $ \inv k \approx 500\ \mathrm{km} $ so we still have that $ kh\ll 1 $. We calculate that $ c\approx 200\ \mathrm{ms}^{-1} $.
+\end{example}
+Let's consider the velocities in the wave. We know that $ \xi = \xi_0 e^{i(kx-\omega t)} $ hence
+\[
+\phi =-\frac{i\omega \xi_0}{k} \frac{\cosh(k(z+h))}{\sinh(kh)}e^{i(kx-\omega t)}.
+\]
+In the deep water limit $ kh\gg 1 $ to the trajectories of fluid particles are circles. In the shallow water limit $ kh\ll 1 $ we have very small $ z $ motion.
+\subsubsection{Standing waves}
+Consider a rectangular container with
+\[
+  0\le x \le a; \quad 0 \le y \le b; \quad z\le 0
+\]
+forming rigid boundaries. This gives the additional boundary conditions that $ \mathbf n \cdot\mathbf u = 0 $ at the side walls. So we have to solve the linearised system
+\begin{enumerate}
+	\item $ \nabla^2\phi = 0$;
+	\item $ \frac{\partial \phi}{\partial \mathbf n} = 0 \quad\text{at the side walls} $;
+	\item $ \nabla \phi \to 0 $ \quad\text{as } z\to\infty $;
+	\item $\frac{\partial \xi}{\partial t}=\frac{\partial \phi}{\partial z} \quad \text{at } z=0 $;
+	\item $ \rho \frac{\partial \phi}{\partial t} + \rho g \xi = F(t) $.
+\end{enumerate}
+By a separation of variables we get that
+\[
+	\phi = A\cos\left(\frac{m\pi x}a\right)\cos\left(\frac{n\pi y}b\right) e^{kz}e^{-i\omega t}.
+\]
 
 
 
