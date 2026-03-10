@@ -805,7 +805,8 @@ If $ U $ is a domain, we let $ \overline U $ denote the closure of $ U $. This i
 	  \item Let $ f(z) = \sum_{n=0}^\infty z^{2^n} $ defines a holomorphic function on $ \mathbb D $ with natural boundary $ \partial \mathbb D = S^1 $.
   \end{enumerate}
 \end{example}
-Recall that if $ U $ is a domain $ S\subseteq U $ dinite and $ f:U\to\C $ continuous and holomorphic on $ U\setminus S $, then $ f $ is holomorphic on $ U $ by Morera's theorem. But what happens if $ f $ is not continuous at $ S $?
+\subsection{Singularities}
+Recall that if $ U $ is a domain $ S\subseteq U $ finite and $ f:U\to\C $ continuous and holomorphic on $ U\setminus S $, then $ f $ is holomorphic on $ U $ by Morera's theorem. But what happens if $ f $ is not continuous at $ S $?
 \begin{proposition}
 	(Removal of singularities) Let $ U $ be a domain and $ z_0 \in U $, $ f:U\setminus \{z_0\} \to \C $ is holomorphic and $ f $ is bounded near $ z_0 $. Then there exists a $ a\in \C $ such that $ f(z) \to a $ as $ z\to z_0 $ and set 
 	\[
@@ -872,17 +873,195 @@ Then $ g $ is holomorphic in $ B(z_0,\ep) $ and $ g(z) = (z-z_0)^k f(z) $ for al
 		\item \textit{essential} otherwise.
 	\end{enumerate}
 \end{definition}
-
-
-
-
-
-
-
-
-
-
-
+We showed that in case (i) $ f $ has a limit at $ z_0 $ hence (iii) holds if and only if $ |f| $ has no limit in $ \R\cup \{\infty\} $. In case (ii) we saw that there is a unique $ k\ge $ and holomorphic $ g $ on $ B(a,r) $ such that $ g(z_0)\ne 0 $
+\[
+	f(z) = \frac{g(z)}{(z-a)^k}
+\]
+and we say that the pole has order $ k $.
+\begin{example}
+  Let's see some examples.
+  \begin{enumerate}
+	  \item Take $ f(z)=\frac{\sin(z)}z $ on $ \C^* $/ We know that $ \sin(z) = z - \frac{z^3}{3!} +\cdots $ so in fact 
+		  \[
+			  \frac{\sin(z)}z = 1 - \frac{z^2}{2!} + \cdots
+		  \]
+	  \item $ f(z) = \frac 1{z^3} $ has an order $ 3 $ pole as $ z=0 $.
+	  \item $ f(z) = \exp\left(\frac 1z\right) $ defined on $ \C^* $ at a essential singularity at $ z=0 $. Recall that the conformal map $ \exp $ sends the horizontal strip of width $ 2\pi $ to $ \C^* $. But $ z\to \frac 1z $ sends $ B(0,\ep)^*\to \C\setminus \overline{B(0,\frac 1\ep)} $ which contains such a $ 2\pi $ width strip. Hence the function $ f(z) = \exp(1/z) $ is onto $ \C^* $ in every punctured neighbourhood of the origin. Hence $ |f| $ can have no limit at $ 0 $ so the singularity is essential.
+  \end{enumerate}
+\end{example}
+\begin{theorem}
+	(Casorati-Weierstrass) If $ U $ is a domain and $ f: U\setminus \{z_0\} \to \C $ is holomorphic has an essential singularity at $ z_0\in U $. Then for all $ w\in \C $ there is some sequence $ z_n\to z_0 $ such that $ f(z_n)\to w $.
+\end{theorem} 
+\pf Example Sheet 2.\qed
+\par
+In fact something much stronger is true, which is the Great Picard's theorem.
+\begin{theorem}
+	(Picard's Great theorem) If $ f $ is an analytic function with an essential singularity at a point $ z_0 $ then on any punctured neighbourhood of $ z_0 $, $ f(z) $ takes all possible complex values, with at most one exception infinitely often.
+\end{theorem}
+\pf Very involved, omitted.
+\begin{remark}
+  This shows that $ \C $ minus one point is very different analytically and topologically from $ \C $ minus two or more points. This is covered in more detail in II Riemann Surfaces.
+\end{remark}
+\begin{remark}
+	If $ f:B(z_0,r)^* \to \C $ is holomorphic with a pole at $ z_0 $ then since $ |f| \to \infty $ as $ z\to z_0 $, $ f $ defines a map from $ B(z_0,r) \to \C \cup \{\infty\} $, defined by sending $ f(z_0)=\infty $.
+\end{remark} 
+\begin{definition}
+	(Meromorphic) If $ U $ is a domain then $ S \subset U $ is finite (discrete) and $ f:U\setminus S \to \C $ is holomorphic with only poles and removable singulaties then we say that $ f $ is \textit{meromorphic} on $ U $.
+\end{definition}
+\begin{remark}
+	When we say that $ S $ is \textit{discrete} we mean that all the points are isolated, so there is a neighbourhood around every point disjoint from $ S $. This definition means that a meromorphic function can have at most a countable number of poles since we can split $ \C $ up into a union of compact subspaces. Each compact subspace can only contain a finite number of poles, otherwise there would be an accumulation point by Bolzano-Weiestrass which we can't have since $ S $ is discrete. Hence since the countable union of finite sets is countable, the total number of poles is countable.
+\end{remark}
+\begin{example}
+	If $ P,Q\in \C[z] $, then $ \frac PQ $ is meromorphic on $ \C $.
+\end{example}
+\subsection{Laurent series}
+\begin{theorem}
+	(Laurent series) Let $ A=\{z\in \C: r< |z-a|<R\} $ where $ 0<r<R\le \infty $ and let $ f:A\to \C $ be holomorphic. Then 
+	\begin{enumerate}
+		\item $ f $ has a unique convergent power series expansion
+			\[
+				f(z)= \sum_{n=-\infty}^\infty c_n(z-a)^n
+			\]
+			on $ A $.
+		\item If $ r< \rho'\le \rho<R $ the series converges uniformly on the annulus $ \{ \rho'\le |x-a|\le \rho \} $.
+		\item For $ r< \rho < R $, we have that
+			\[
+				c_n = \frac 1{2\pi i} \int_{\partial B(a,\rho)} \frac{f(w)}{(w-a)^{n+1}} \ \mathrm dw.
+			\]
+	\end{enumerate}
+\end{theorem}
+\begin{corollary}
+  If $ r = 0 $ then $ A = B(a,R)^* $ and $ f $ has an isolated singularity at $ a $. Then
+  \begin{enumerate}
+	  \item $ a $ is removable if and only if $ c_n = 0$ for all $ n< 0 $
+	  \item $ a $ is a pole order $ k $ if and only if $ c_k \ne 0 $ and $ c_n = 0 $ for all $ n<-k $.
+	  \item $ a $ is essential if and only if $ c_n \ne 0 $ for infinitely many negative $ n $.
+  \end{enumerate}
+\end{corollary}
+\pf (i) and (ii) Immediate from our previous characteristions and then (iii) is true by exclusion. \qed
+\begin{remark}
+	In Taylor's theorem, $ f(z) = \sum_{n=0}^\infty c_n(z-a)^n $ if $ f $ is holomorphic on $ B(a,R) $ and
+	\[
+		c_n = \frac{f^{(n)}(a)}{n!}
+	\]
+	but in Laurent's theorem where $ f $ is holomorphic on $ B(a,R)^* $ there is no general formula for these coefficients.
+\end{remark}
+\pf Pick $ \rho_1,\rho_2 $ such that $ r<\rho_1<|z-a|<\rho_2 <R $ where we fixed $ z\in A $. Let $ \gamma_1,\gamma_2 $ be piecewise-$ C^1 $ curves formed by cutting from the $ \rho_2 $ circle down to the $ \rho_1 $ circle forming two half annuli. Let $ \gamma_1 $ be the boundary of the half annulus containing $ z $ traversed anticlockwise and $ \gamma_2 $ be the boundary of the other half annulus traversed clockwise. Applying the Cauchy integral formula for $ \gamma_1 $, we get that
+\[
+	f(z) = \frac 1{2\pi i} \int_{\gamma_1} \frac{f(w)}{w-z}\ \mathrm dw.
+\]
+Applying Cauchy's theorem for $ \gamma_2 $ we get that
+\[
+	0 =\frac 1{2\pi i}\int_{\gamma_2} \frac{f(w)}{w-z}\ \mathrm dw.
+\]
+Adding these, note that the line segments of $ \gamma_1 $ and $ \gamma_2 $ appear with opposite orientation. Hence we deduce that
+\[
+	f(z) = \frac 1{2\pi i}\left(\int_{\partial B(a,\rho_2)} \frac{f(w)}{w-z}\ \mathrm dw - \int_{\partial B(a,\rho_1)} \frac{f(w)}{w-z}\ \mathrm dw\right).
+\]
+As in the proof of Taylor's theorem we say that
+\[
+	\frac 1{w-z} = \frac{1}{w-a}\frac1{1-\frac{z-a}{w-a}} = \sum_{n=0}^\infty \frac{(z-a)^n}{(w-a)^{n+1}}
+\]
+which coverges uniformly on $ |w-a|=\rho_2 $ since $ |z-a|<\rho_2 $. We'll use this for the first integral. For the second integral, we use that
+\[
+	-\frac1{w-z} =  \frac1{z-a}\frac1{1-\frac{w-a}{z-a}}= \sum_{m=1}^\infty \frac{(w-a)^{m-1}}{(z-a)^m}
+\]
+which coverges uniformly on $ |w-a| = \rho_1 $ since $ |z-a|>\rho_1 $. Substitute this into the second integral. In both cases uniform convergence lets us swap the integral and summation. Thus we get that
+\begin{align*}
+	f(z) = \sum_{n=0}^\infty \left(\frac 1{2\pi i} \int_{\partial B(a,\rho_2)}\frac{f(w)}{(w-a)^{n+1}}\ \mathrm dw\right)(z-a)^n + \sum_{m=1}^\infty\left(\frac 1{2\pi i} \int_{\partial B(a,\rho_1)} \frac{f(w)}{(w-a)^{-m+1}} \ \mathrm dw\right)(z-a)^{-m}
+\end{align*}
+Now relabel $ n=-m $ in the second series and replace both contours $ \partial B(a,\rho_2) $ and $ \patrial B(a,\rho_1) $ by a common contour $ |w-a| = \rho $ using homotopy invariance of the integral. Thus we get the Laurent series.\par
+It remains to show uniqueness. If we could write
+\[
+	f(z) = \sum_{n=-\infty}^{\infty} c_n(z-a)^n = \sum_{m=-\infty}^\infty b_m(z-a)^m
+\]
+then
+\begin{align*}
+	2\pi i c_k = \int_{\partial B(a,\rho)} \frac{f(w)}{(w-a)^{n+1}}\ \mathrm dw &= \int_{\partial B(a,\rho)} \sum_{m=-\infty}^\infty b_m (w-a)^{m-k-1}\ \mathrm dw \\
+										    &= \sum_{m=-\infty}^\infty b_m \int_{\partial B(a,\rho)}(w-a)^{m-k-1} \ \mathrm dw = 2\pi i b_k
+\end{align*}
+Thus we have unique Laurent series and the rest of the theorem follows. \qed
+\begin{definition}
+	(Laurent series) For $ a\in \C $ a \textit{Laurent series} centred at $ a $ is a sum
+	\[
+		\sum_{n=-\infty}^\infty c_n(z-a)^n.
+	\]
+	We say the series converges at some $ z\in \C $ if $ \sum_{n=0}^\infty c_n(z-a)^n $ and the sum $ \sum_{n=-\infty}^{-1} c_n(z-a) = \sum_{n=1}^\infty c_n(z-a)^{-n} $ converges.
+\end{definition}
+From our results on power series, there exists a radius of convergence $ R\ge 0 $ such that $ \sum_{n=0}^\infty c_n(z-a)^n $ converges absolutely on $ \{|z-a|<R\} $ and coverges uniformly on $ \{|z-a|\le \rho\} $ for $ \rho < R $.\par
+Similarly if we set $ u =\frac 1{z-a} $ then
+\[
+	\sum_{n=1}^\infty c_{-n}(z-a)^{-n} = \sum_{n=1}^\infty c_{-n} u^n
+\]
+has a radius of convergence $ R' $ such that it converges absolutely if $ |u| < R' $ i.e. if $ |z-a| > \frac 1{R'} = r $. If $ r< R $, the Laurent series converges absolutely on the annulus $ A = \{ r<|z-a|<R \} $ and converges uniformly on $ \{\rho\le |z-a|\le \rho '\} $ for $ r<\rho \le \rho'<R $. So Laurent's theorem says that if $ f $ is holomorphic on an annulus $ A $ it admits a unique such Laurent series centred at the centre of the annulus. In our proof, we explicitly constructed power series $ f_{\text{out}} $ and $ f_{\text{in}} $ where $ f_{\text{in}} $ was holomorphic on $ |z-a| < R $ and $ f_{\text{out}} $ was holomorphic on $ |z-a| > r $. 
+\begin{definition}
+	(Principal part) If
+  \[
+	  f(z) = \sum_{n=-\infty}^\infty c_n(z-a)^n
+  \]
+  on an annulus $ A $ then the sum
+  \[
+	  \sum_{n=-\infty}^{-1} c_n(z-a)^n
+  \]
+  is called the \textit{principal part} of $ f $, written as $ f_{\text{prin}} $.
+\end{definition}
+\begin{remark}
+	If $ f $ is holomorphic on $ B(a,R)^* $ (so $ r=0 $), then $ f_{\text{prin}} $ defines a holomorphic function on $ \C\setminus \{a\} $, whcih moreover vanishes at infinity since the power series in $ u=\frac{1}{z-a} $ has no constant term.
+\end{remark}
+Again note that (when $ r=0 $) $ f-f_{\text{prin}} $ is holomorphic near $ a $.
+\begin{example}
+	Consider $ \csc(x) = \frac 1{\sin(z)} $ which is holomorphic everywhere except at $ z=k\pi $ for $ k\in \Z $. So it has a Laurent series on $ \{0<|z|< \pi\} $. Now we know that
+	\[
+		\sin z = z\left(1-\frac {z^2}6 + O(z^4)\right)
+	\]
+	so
+	\[
+		\csc z = \frac 1z \left(1-\frac {z^2}6 + O(z^4)\right)^{-1} = \frac 1z\left(1+ \frac {z^2}6 + O(z^4)\right)
+	\]
+	hence $ c_{-1} = 1 $ and $ \csc $ has a simple pole at $ 0 $ and $ c_k =0 $ for all $ k<-1 $.
+\end{example}
+\begin{example}
+  We claim that if $ z\in \C\setminus \Z $, we have that
+  \[
+	  \sum_{n\in Z} \frac 1{(z-n)^2} = \frac {\pi^2}{\sin^2(\pi z)}.
+  \]
+  For $ z\in \C\setminus \Z $, set $ f(z) = \sum_{n=-\infty}^\infty \frac 1{(z-n)^2} $. If $ w\in \C\setminus \Z $ we can pick $ r>0 $ such that $ |w-n| > 2r $ for all $ n\in \Z $. Then $ \forall z\in B(\omega,r) $, we have that $ |z-n| \ge \max\{r,n-|\omega| -r \} $. Hence
+  \[
+	  \frac 1{|z-n|^2} = \min\left\{ \frac 1{r^2}, \frac1{(n-|\omega|-r)^2}\right\} = M_n.
+  \]
+  We have that $ \sum_{n\ge N} M_n $ converges by comparison to $ \sum \frac 1{n^2} $ so by the Weiestrass $ M $-test we have that $ f $ converges uniformly on $ B(\omega,r) $. So $ f $ is holomorphic on $ \C\setminus \Z $. Note that 
+  \begin{enumerate}
+	  \item $ f(z+1) = f(z) $;
+	  \item $ \forall n\in \Z $, $ f $ has a double pole.
+  \end{enumerate}
+  Let
+  \[
+	  g(z) = \left(\frac \pi{\sin\pi z}\right)^2
+  \]
+  hence $ g $ is also $ \Z $-periodic, so $ g(z) = g(z+1) $. So from our power series for $ \sin $ and $ \csc $ $ g $ also has double poles at $ n\in \Z $. At $ z=n $, $ f_{\text{prin}} = \frac 1{(z-n)^2}=g_{\text{princ}} $ by checking that $ \lim_{z\to 0} z^2g(z) = 1 $ and using periodicity. So $ f(z)-g(z) $ is holomorphic on $ \C\setminus \Z $ and has trivial principal part at each $ n\in \Z $. Hence $ h(z) = f(z)-g(z) $ is entire. By Liouville it's enough to show that $ h $ is bounded and $ h\to 0 $ near infinity.\par
+  By periodicity we can just consider $ h $ on $ -\frac 12 \le \mathrm{re} z \le \frac 12 $. If $ z=x+yi $ with $ |x| \le \frac 12 $, $ y>0 $ then
+  \[
+	  |g(z)| = \frac{4\pi^2}{|e^{\pi y}-e^{-\pi y}|^2} \to 0
+  \]
+  as $ y\to\infty $, and
+  \[
+	  |f(z)| \le \sum_{n\in \Z} \frac 1{|x+yi-n|^2} \le \frac 1{y^2} + \sum_{n=1}^\infty 2\left(\frac 1{(n-\frac 12)^2 +y^2)}\right)\to 0
+  \]
+  as $ y\to \infty $. So there exists a $ Y>0 $ such that $ |f|,|g| $ are bounded by $ 1 $ outside the box hence they are bounded in the box by continuity. So we've proved the identity.
+\end{example}
+\section{Residues}
+\subsection{Winding numbers}
+We've seen that the integral "detects" the number of times a curve "winds" around a singularity giving a non-zero value sometimes when we integrate around a singularity of a function, for example $ \frac 1z $.
+\begin{lemma}
+	Let $ \gamma:[a,b] \to\C\setminus \{w\} $ be path such that $ w\notin\ima(\gamma) $. Then there are continuous functions
+	\begin{align*}
+		r &:[a,b]\to \R \\
+		\theta &: [a,b] \to \R
+	\end{align*}
+	such that $ \gamma(t) = w + r(t)e^{i\theta(t)} $.
+\end{lemma}
+\pf By translating \textit{wlog} $ w=0 $. We set $ r(t) = |\gamma(t)| $. Replacing $ \gamma $ by $ \frac{\gamma}r $ we can suppose that $ |\gamma(t)| = 1 $ for all $ t $.\par
+If we had that $ \gamma(t) \subseteq \C\setminus \R_{\le 0} $ we could set $ \theta = \Arg(\gamma(t)) \in (-\pi ,\pi $. More generally if $ \gamma(t)\subseteq \C\setminus \R_{\le 0}(e^{i\alpha}) $ then there exists a branch of the logarithm on the image of $ \gamma $ so we can define $ \theta $ for example by $ \Arg\left(\frac z{e^{i\alpha}}\right) $. We have that $ \gamma $ is continuous on $ [a,b] $ hence it is uniformly continous, so there exists a $ \delta>0 $ such that for $ |s-t|<\delta $ we have $ |\gamma(s)-\gamma(t)|<2 $. So $ \gamma(s) $ and $ \gamma(t) $ are antipodean. Write $ a = a_0 <a_1<\cdots < a_N = b $ such that $ |a_{i-1} - a_i|<\delta $ and $ \left.\gamma\right|_{a_{i-1},a_i} $ has an image in a slit plane. So for all $ n $ there exists a $ \theta_n:[a_{n-1},a_n]\to \R $ such that $ \gamma(t) = e^{i\theta_n(t)} $ on $ [a_{n-1},a_n] $ for $ n=1,2,\dots, N $. Note that $ \theta_{n-1}(a_{n-1}) = \theta_n(a_{n-1})+b_n $ for some $ b_n \in 2\pi \Z $ since values of the argument is fixed. Hence we can redefine $ \theta $ so they join up so $ \theta $ is continuous.\qed
 
 
 
