@@ -815,19 +815,56 @@ which is continuous again by the gluing lemma. Similarly we can consider $ \sigm
 y &\to (b_{x_1}(y),\sigma_{x_1}(y);\cdots; b_{x_n}(y),\sigma_{x_n}(y))
 \end{align*}
 which is continuous by the definition of the product topology. Suppose $ e(y) = e(y') $. Then $ y\in V_{x_i} $ for some $ i $, so $ \sigma_{x_i}(y)=1 $. So $ \sigma_{x_i}(y') = 1 $ too so $ y'\in V_{x_i} $. But then $ b_{x_i}(y) = b_{x_i}(y') $, so $ \tau_{x_i}(y)=\tau_{x_i}(y') $ hence $ y=y' $ since $ \tau_{x_i} $ is a homeomorphism so $ e $ is injective. So $ e: X \to \Ima(X) $ is a continuous bijection from a compact space to a Hausdorff space, hence it is a homeomorphism.\qed
+\subsection{Surfaces}
+For this section we will just look at $ 2 $-dimensional manifolds which we call surfaces. We've already seen the torus, the M\"obius band, the Klein bottle and $ \R\mathbb P^2 $. We've constructed these by gluing sides of squares together and sometimes changing the direction of the gluing (in the M\"obius band and Klein bottle). But there was nothing special about the square, more generally for a convex polygon $ P\in \R^2 $ having having $ 2n $ edges, each labelled by $ a,b,c,\dots $ such that every label that appears, appears exactly twice and each marked with an arrow.\par
+Define an equivalence relation $ \sim $ on $ P $ by identifying points on the two edges named $ \alpha $ in the direction indicated. Formally, if the edges called $ \alpha $ has vertices $ x,y $ with the arrow going $ x\to y $ and the other $ \alpha $ edge has vertices $ u,v $ with $ u\to v $ then let
+\[
+  tx+(1-t)y \sim tu+(1-t)v
+\]
+for all $ t\in [0,1] $ and all $ \alpha $.
+\begin{theorem}
+  $ P/\sim $ is a surface.
+\end{theorem}
+\pf We'll just cover a sketch of the proof. First we'll show that $ P/\sim $ is locally Euclidean. To show that $ P/\sim $ is locally Euclidean for every equivalence class $ [x] $ there are 3 cases.
+\begin{enumerate}
+	\item $ x $ is in the interior;
+	\item $ x $ is in the interior of an edge of $ P $;
+	\item $ x $ is a vertex.
+\end{enumerate}
+We know that (i) is obvious. For (iii) then suppose $ x $ is equivalent to other points $ x', x'', \dots $ for example. Then choose the radius $ \ep $ open sector around each vertex $ x',x'',\dots $. Then in $ P/\sim $, $ [x] $ has a neighbourhood $ (S \ \sqcup \ S'\sqcup \ S''\sqcup \ \cdots )/\sim $. This is homeomorphic to the open ball cut up into sectors. This is homeomorphic to $ \R^2 $ by scaling angles on each sector. The proof of case (ii) follows similarly. This also provides a proof for Hausdorffness since we can pick a sector/disc around each point small enough.\qed 
 
-
-
-
-
-
-
-
-
-
-
-
-
+\par
+The connected-sum of surface can be easily described through polygons in this way. We can consolidate edges together and reduce the number of vertices for shapes formed in this way.
+\begin{example}
+  In a similar way we can obtain a 12-gon giving a connected-sum $ \R\mathbb P^2 \# \R\mathbb P^2 \#\R\mathbb P^2 $ where all the edges are clockwise and read $ xyxyststuvuv $. We can consolidate the edges to get the hexagon with clockwise edges reading $ ppqqrr $. We can draw lines and cut and glue them to get the same image (TO BE COMPLETED NEXT LECTURE) as the connected-sum $ T \# \R\mathbb P^2 $, hence we get that
+  \[
+    \R\mathbb P^2 \# \R\mathbb P^2 \# \R\mathbb P^2 \cong T \# \R \mathbb P^2. 
+  \]
+\end{example}
+\subsection{Triangulations}
+Every surface that we have discussed can be \textit{triangulated} in the following sense.
+\begin{definition}
+	(Triangle) A \textit{triangle} in $ \R^N $ with non-collinear points $ pq,r \in \R^N $ is the space
+	\[
+		\{ t_0: p + t_1q+t_2r\in \R^N:t_0+t_1+t_2 =1, t_i\ge 0\}.
+	\]
+\end{definition}
+\begin{remark}
+  This formula gives the smallest convex set containing $ p,q,r $ by definition. The edges are the convex hulls of each pairwise choice of two vertices.
+\end{remark}
+\begin{definition}
+	(Polyhedron) A collection $ K = \{\Delta_1,\dots, \Delta_n\} $ of triangles in $ \R^N $ is called a \textit{polyhedron} if $ \Delta_i\cap \Delta_j $ is either empty or a common edge of both triangles. We set
+	\[
+		|K| = \bigcup_{i=1}^n \Delta_i
+	\]
+	as a subspace of $ \R^N $.
+\end{definition}
+\begin{definition}
+	(Triangulation) A \textit{traingulation} of a topological space $ S $ is the data of a polyhedron $ K $ together with a homeomorphism
+	\[
+	  \phi : |K| \homeo S.
+	\]
+\end{definition}
 
 
 

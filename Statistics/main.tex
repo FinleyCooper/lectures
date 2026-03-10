@@ -672,7 +672,7 @@ Let $ X\sim f_X(\cdot \mid \theta) $ for some $ \theta\in \Theta $.
 \end{enumerate}
 Hence we're done. \qed
 \par
-Suppose that $ X=(X_1,\dots, X_n)\iid \mathcal N(\mu ,\sigma_0^2) $ where $ \sigma_0 $ is known. We foudn a $ 100(1-\alpha)\% $ confidence interval for $ \mu $, namely, $ I(X)=\overline X \pm \frac{\sigma_0}{\sqrt n} $. Using the second part of the theorem, we can find a size $ \alpha $ test for $ H_0: \mu = \mu_0 $, by defining the acceptance region as
+Suppose that $ X=(X_1,\dots, X_n)\iid \mathcal N(\mu ,\sigma_0^2) $ where $ \sigma_0 $ is known. We found a $ 100(1-\alpha)\% $ confidence interval for $ \mu $, namely, $ I(X)=\overline X \pm \frac{\sigma_0}{\sqrt n} $. Using the second part of the theorem, we can find a size $ \alpha $ test for $ H_0: \mu = \mu_0 $, by defining the acceptance region as
 \begin{align*}
 	A(\mu_0 \in I(x)_0) = \{x: \mu_0\in \left[\overline X - \frac{z_{\alpha/2} \sigma_0}{\sqrt n}, \overline X + \frac{z_{\alpha/2} \sigma_0}{\sqrt n}\right]\}.
 \end{align*}
@@ -927,7 +927,7 @@ Suppose we have $ (X_1,Y_1),\dots, (X_n,Y_n) $ are iid with $ X_i $ taking value
   \]
   Using the Lagrangian method with constraint $ \sum_j p_j = 1 $ we have the MLE $ \hat p_j = \frac{N_{+j}}{n_{++}} $. Hence
   \[
-	  2\log\Lambda = 2\sum_{i=1}^r \sum_{j=1}^c N_{ij} \log\left(\frac{\hat p_{ij}}{\hat p_j}\right) = 2\sum_{i,j} N_{ij} \log\left(\frac{N_{ij}}{n_{i+}n_{+j}/n_{++}}\right)
+	  2\log\Lambda = 2\sum_{i=1}^r \sum_{j=1}^c N_{ij} \log\left(\frac{\hat p_{ij}}{\hat p_j}\right) = 2\sum_{i,j} N_{ij} \log\left(\frac{N_{ij}}{n_{i+}N_{+j}/n_{++}}\right)
   \]
 If we define $ o_{ij} = N_{ij} $ and $ e_{ij} = \frac{n_{i+}N_{+j}}{n_{++}} $, then
 \[
@@ -1274,10 +1274,85 @@ The linear model is
 \[
   Y = X\beta + \ep.
 \]
-
-
-
-
+We make the following assumptions:
+\begin{enumerate}
+	\item $ \mathbb E(\ep) = 0 $, so $ \mathbb E(\ep_i) = 0 $ for all $ i $ and $ \mathbb E(Y_i) = x_{i1}\beta_1+\cdots + x_{ip}\beta_p $.
+	\item $ \Cov{\ep} = \sigma^2 I $ so $ \Var{\ep_i} = \sigma^2 $ for all $ i $, $ \Cov{\ep_i,\ep_j} = 0 $ for all $ i\ne j $, $ \Var{V_i} = \Var{x_i^T\beta+\ep_i} =\Var{\ep_i} = \sigma^2 $.
+\end{enumerate}
+For now, we don't assume anything else about the distribution of the $ \ep_i $'s. Throughout out discussion we assume that $ X\in \R^{n\times p} $ is fixed with $ p\le n $ and $ \mathrm{rank}(X)=p $.
+\subsection{Least squares estimator}
+The \textit{least squares estimator} $ \hat\beta $ minimises the residual sum of squares.
+\begin{align*}
+	S(\beta) = ||Y-X\beta||_2^2 &= \sum_{i=1}^n (Y_i-X_i^T\beta)^2
+\end{align*}
+where $ X_i^T $ is the $ i $th row of $ X $. This is a quadratic polynomial in $ (\beta_1,\dots, \beta_p) $, so $ \hat\beta $ satisfies
+\[
+	\left.\frac{\partial S(\beta)}{\partial \beta_k}\right|_{k=\beta} =0
+\]
+for all $ 1\le k\le p $. Thus we have that
+\[
+	-2\sum_{i=1}^n x_{ik}\left(Y_i-\sum_{j=1}^p x_{ij}\hat \beta_j\right)=0
+\]
+for all $ 1\le k \le p $. Or in matrix form,
+\[
+  X^T X\hat\beta = X^T Y.
+\]
+This gives that 
+\[
+	\hat\beta = (X^TX)^{-1}X^TY.
+\]
+\begin{remark}
+  The least squares estimator is linear, so $ \hat\beta = MY $ for some fixed matrix $ M $. We can check:
+  \begin{enumerate}
+	  \item  $\mathbb E[\hat\beta] = (X^TX)^{-1}X^T\mathbb E[Y] = \beta $ \quad ($ \hat\beta $ is unbiased).
+	  \item  $ \mathrm{Cov}{\hat\beta}= (X^TX)^{-1}X^T\Cov{Y}X(X^TX)^{-1} =\sigma^2(X^TX)^{-1} $.
+  \end{enumerate}
+\end{remark}
+\begin{theorem}
+(Gauss-Markov) Let $ \beta^* = CY $ be any other unbiased linear estimator of $ \beta $. Then for any $ t\in \R^p $, $ \mathrm{Var}(t^T\hat\beta) \le \mathrm{Var}(t^T\beta^*) $. Thus the least squares estimator is the best linear unbiased estimator.
+\end{theorem}
+\pf Note that the condition $ \mathrm{Var}(t^T\beta^*) - \mathrm{Var}(t^T\hat\beta) = t^T(\mathrm{Cov}(\beta^*) - \mathrm{Cov}(\hat \beta))t\ge 0 $, is equivalent to $ \mathrm{Cov}(\beta^*) - \mathrm{Cov}(\hat\beta) $ being positive semidefinite.\par
+Let $ A = C-(X^TX)^{-1}X^T $. Then $ \mathbb E(AY) = \mathbb E(\beta^*)-\mathbb E(\hat\beta) = 0 $. Since $ \mathbb E(AY) = A\mathbb E(Y) =AX\beta$ for all $ \beta\in \R^p $, this means that $ AX=0 $. Furthermore,
+\begin{align*}
+	\mathrm{Cov}(\beta^*) &= \mathrm{Cov}((A+(X^TX)^{-1}X^T)Y) \\
+			      &= \sigma^2(AA^T +(X^TX)^{-1}+AX(X^TX)^{-1}+(X^TX)^{-1}X^TA^T) \\
+			      &= \sigma^2 AA^T + \mathrm{Cov}(\hat \beta).
+\end{align*}
+So $ \mathrm{Cov}(\beta^*) - \mathrm{Cov}(\hat\beta) = \sigma^2 AA^T  $ is positive semidefinite.\qed
+\begin{remark}
+  If we think about $ (t_1,\dots, t_p) $ as the values of the predictors for a new sample, $ t^T\hat \beta $ and $ t^T\beta^* $ would be our predictions for the mean response using either estimator. The Gauss-Markov theorem says that $ t^T\hat\beta $ always gives a smaller variance, and since $ t^T\hat\beta $ and $ t^T\beta^* $ are unbiased the MSE is also smaller.
+\end{remark}
+\begin{definition}
+	We say that $ P\in \R^{n\times n} $ is an \textit{orthogonal projection} if it is idempotent and symmetric.
+\end{definition}
+\begin{proposition}
+	We have the following:
+	\begin{enumerate}
+		\item The matrix $ P $ is an orthogonal projection if and only if for all $ v\in \mathrm{col}(P) $ we have that $ Pv=v $ and for all $ w\in \mathrm{col}(P)^\perp $ we have that $ Pw = 0 $. Equivalently we can write $ P = UU^T $ where the columns of $ U\in \R^{n\times k} $ form an orthonormal basis of $ \mathrm{col}(P) $ and $ k=\mathrm{rank}(P) $.
+		\item If $ P $ is an orthogonal projection, then so is $ I=P $.
+		\item $ ||Y||_2^2 = ||PY||_2^2 +||(I-P)Y||_2^2 $ for any $ Y\in \R^ n $.
+		\item The eigenvalues of $ P $ are all $ 0 $ or $ 1 $. In particular $ \tr(P)= \mathrm{rank}(P) $.
+		\end{enumerate}
+\end{proposition}
+The fitting values in linear regression are $ \hat Y = X\hat \beta $ (predicted mean responses) and the residuals are $ Y-\hat Y $. Note that 
+\begin{align*}
+	\hat Y =\underbrace{ X(X^TX)^{-1} X^T}_P Y,
+\end{align*}
+where we call $ P $ the \textit{hat matrix}, and $ Y-\hat Y = (I-P)Y $.
+\begin{proposition}
+	$ P $ is the orthogonal projection onto $ \mathrm{col}(X) $.
+\end{proposition}
+\pf $ P $ is clearly symmetric and $ P^2 = X(X^TX)^{-1}X^TX(X^TX)^{-1}X^T = P $ so $ P $ is an orthogonal projection. Also we have that $ \mathrm{col}(P) = \mathrm{col}(X) $ since for any $ a\in \R^n $ we have that
+\[
+	Pa =X(X^TX)^{-1}X^T a \in \mathrm{col}(X),
+\]
+and conversely if $ b = Xc \in \mathrm{col}(X) $, then
+\[
+	b = Xc = X(X^TX)^{-1}(X^TX)c = Pb \in \mathrm{col}(P).\qed
+\]
+\begin{corollary}
+	The vector of fitting values $ \hat Y = PY $ is the orthogonal projection of $ Y $ onto $ \mathrm{col}(X) $ and the vector of residuals $ Y-\hat Y = (I-P)Y $ is the orthogonal projection of $ Y $ onto $ \mathrm{col}(X)^\perp $.
+\end{corollary}
 
 
 
