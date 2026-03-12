@@ -1062,8 +1062,313 @@ We've seen that the integral "detects" the number of times a curve "winds" aroun
 \end{lemma}
 \pf By translating \textit{wlog} $ w=0 $. We set $ r(t) = |\gamma(t)| $. Replacing $ \gamma $ by $ \frac{\gamma}r $ we can suppose that $ |\gamma(t)| = 1 $ for all $ t $.\par
 If we had that $ \gamma(t) \subseteq \C\setminus \R_{\le 0} $ we could set $ \theta = \Arg(\gamma(t)) \in (-\pi ,\pi $. More generally if $ \gamma(t)\subseteq \C\setminus \R_{\le 0}(e^{i\alpha}) $ then there exists a branch of the logarithm on the image of $ \gamma $ so we can define $ \theta $ for example by $ \Arg\left(\frac z{e^{i\alpha}}\right) $. We have that $ \gamma $ is continuous on $ [a,b] $ hence it is uniformly continous, so there exists a $ \delta>0 $ such that for $ |s-t|<\delta $ we have $ |\gamma(s)-\gamma(t)|<2 $. So $ \gamma(s) $ and $ \gamma(t) $ are antipodean. Write $ a = a_0 <a_1<\cdots < a_N = b $ such that $ |a_{i-1} - a_i|<\delta $ and $ \left.\gamma\right|_{a_{i-1},a_i} $ has an image in a slit plane. So for all $ n $ there exists a $ \theta_n:[a_{n-1},a_n]\to \R $ such that $ \gamma(t) = e^{i\theta_n(t)} $ on $ [a_{n-1},a_n] $ for $ n=1,2,\dots, N $. Note that $ \theta_{n-1}(a_{n-1}) = \theta_n(a_{n-1})+b_n $ for some $ b_n \in 2\pi \Z $ since values of the argument is fixed. Hence we can redefine $ \theta $ so they join up so $ \theta $ is continuous.\qed
-
-
-
-
+\begin{remark}
+	In our construction, $ \theta(t) $ is not unique. if $ \gamma(t) = w+r(t)e^{i\theta(t)}= w+r(t)e^{i\tilde\theta(t)} $ both continuous, hence $ \theta-\tilde\theta:[a,b]\to 2\pi \Z \subseteq \R $. So $ \theta-\tilde\theta $ is constant. Hence $ \theta $ is unique up to an addition of $ 2\pi k $ for some fixed $ k $.
+\end{remark}
+\begin{definition}
+	(Winding number) Now suppose that $ \gamma:[a,b]\to \C\setminus \{w\} $ is a continuous \textit{closed} path, so $ \gamma(a)=\gamma(b) $. Then the \textit{winding number} $ I(\gamma;w) $ of $ \gamma $ about $ w $ is
+	\[
+		\frac{\theta(b)-\theta(a)}{2\pi}
+	\]
+	where $ \theta $ is defined above.
+\end{definition}
+\begin{remark}
+  Our previous remark shows that $ I(\gamma,w) $ is well-defined and in $ \Z $.
+\end{remark}
+\begin{lemma}
+	If $ \gamma:[a,b]\to \C\setminus \{w\} $ is a piecewise-$ C^1 $ closed path,
+	\[
+		I(\gamma;w) = \frac 1{2\pi i} \int_\gamma \frac 1{z-w} \ \mathrm dz.
+	\]
+\end{lemma}
+\pf When $ \gamma $ is a piecewise-$ C^1 $ curve both $ r(t) $ and $ \theta(t) $ are also piecewise-$ C^1 $. Then
+\[
+	\int_\gamma\frac1{z-w}\ \mathrm dz = \int_a^b \frac{\gamma'(t)}{\gamma(t) - w} \ \mathrm dt = \int_a^b \frac{r'(t)}{r(t)} + i \theta'(t) \ \mathrm dt
+\]
+if $ \gamma(t) = w+ r(t)e^{i\theta(t)} $. This gives
+\[
+  = \left.\log r(t) + i \theta (t)\right|^b_a = i(\theta(b)-\theta(a))=2\pi i I(\gamma,w).\qed
+\]
+In general if $ \gamma(t) $ is a loop, we can consider $ I(\gamma,w) $ as a function on points $ w\notin \ima(\gamma) $. In general, $ \C\setminus \ima(\gamma) $ may have many path components. Note there is exactly one path component that is unbounded since $ \ima(\gamma) $ is a closed and bounded set so we can always contain it in some $ B(0, R) $ for $ R $ sufficiently large. Then the path component containing $ \C \setminus B(0,R) $ is unbounded.
+\begin{proposition}
+  Let $ \gamma $ be a closed curve and $ w\notin \ima\gamma $. Then
+  \begin{enumerate}
+	  \item $ I(\gamma,w) $ is constant on path-components of $ \C\setminus \ima \gamma $.
+	  \item On the unbounded component $ I(\gamma, w) = 0 $.
+  \end{enumerate}
+\end{proposition}
+\pf The expression $ I(\gamma,w) = \frac 1{2\pi i} \int_\gamma \frac 1{z-w} \mathrm dz $ is continuous in $ w $. So $ I(\gamma,w) : \C\setminus \ima \gamma \to \Z$ is continuous hence it's constant on path so constant on path components.\par
+For the second part, we know that $ \ima\gamma\subseteq B(0,R) $ for some $ R>0 $. Pick $ w $ such that $ |w| > 2R $. Then
+\begin{align*}
+	|I(\gamma,w)| &= \frac 1{2\pi } \left| \int_\gamma \frac{\mathrm d}{z-w}\right| \\
+		      &\le \frac{\mathrm{length}(\gamma)}{2\pi} \frac 1R.
+\end{align*}
+As $ R\to \infty $ the RHS $ <1 $ and $ I(\gamma,w)\in \Z $ so it must be zero.\qed
+\begin{remark}
+  Consider Example Sheet 3 for a related viewpoint.
+\end{remark}
+\subsection{Cauchy's residue theorem}
+Let's go back to considering holomorphic functions $ f:B(a,r)^* \to \C $ with an isolated singularity at $ a $ and hence a Laurent series
+\[
+	f(z) =\sum_{n=-\infty}^\infty c_n(z-a)^n.
+\]
+\begin{definition}
+	(Residue) The value $ c_{-1} $ is called the \textit{residue} of $ f $ at $ a $, written as $ \Res_f(a) $.
+\end{definition}
+So if $ 0<\rho <r $, we have that
+\[
+\int_{\partial B(a,\rho)} f(z) \ \mathrm dz = 2\pi c_{-1} = 2\pi i \Res_f(a).
+\]
+We are now ready to relate integrals and winding numbers together in a theorem.
+\begin{theorem}
+	(Cauchy's residue theorem) Let $ U $ be a simply connected domain and let $ \{z_1,\dots, z_k\} \subseteq U$ and $ f:U\setminus \{z_1,\dots, z_k\}\to \C $ be holomorphic. Then let $ \gamma:[a,b]\to U\setminus \{z_1,\dots, z_k\} $ be a piecewise-$ C^1 $ closed path. Then
+	\[
+		\frac 1{2\pi i} \int_\gamma f(z) \mathrm dz = \sum_{j=1}^k I(\gamma,z_j) \Res_f(z_j).
+	\]
+\end{theorem} 
+\pf At $ z_j $, $ f $ has a Laurent series $ \sum_{n=-\infty}^\infty c_n^{(j)} (z-z_j)^n $ convergent in some $ B(z_j,\rho_j)^*\subseteq U $. Let
+\[
+	g_j(z) = \sum_{n=-\infty}^{-1} c_n^{(j)}(z-z_j)^n
+\]
+be the principal part of this series. This is holomorphic on $ \C\setminus \{z_j\} $ so in particular on $ U\setminus \{z_j\} $. Consider $ f-g_1-\dots-g_k $ which is now holomorphic on $ U\setminus \{z_1,\dots, z_k\} $, with removable singularities at each $ z_i $ so this defines a holomorphic function on the whole of $ U $. Now we can apply Cauchy's theorem for a simply connected domain, so
+\begin{align*}
+  \int_\gamma (f-g_1-\dots -g_k) = 0
+\end{align*}
+so rearranging we get that
+\[
+\int_\gamma f = \sum_{j=1}^k \int_\gamma g_j(z)\ \mathrm dz = \sum_{j=1}^k c^{(j)}2\pi iI(\gamma,z_j)
+\]
+and since $ \Res_f(z_j) =\Ref_{g_j}(z_j) $ we see
+\[
+	\int_\gamma f = 2\pi i \sum_{j=1}^k \Res_f(z_j)I(\gamma,z_j).
+\]
+giving the result.\qed
+\begin{remark}
+  This is a generalisation of Cauchy's theorem ($ f $ only having removable singularities), but also a generalisation of the Cauchy integral formula by applying the residue theorem to the function
+  \[
+	  \hat f(z) = \frac{f(z)}{z-w}
+  \]
+  and the contour $ \gamma(t) = \partial B(w,\rho) $.
+\end{remark}
+\begin{remark}
+	We say a piecewise-$ C^1 $ closed curve $ \gamma $ bounds a domain $ D $ in $ U $ if $ I(\gamma,w)=\mathbf 1_{\{w\in D\}} $ for $ w\in U\setminus \ima \gamma $. This is always true if $ \gamma $ is simple and $ U $ is simply connected. This is the special case of the Jordan curve theorem.
+\end{remark}
+We have a special case of the residue theorem which is more useful for the direct computation of integrals.
+\begin{corollary}
+  If $ f $ is meromorphic on $ U $ and has no poles on $ \gamma $ and $ \gamma  $ bounds a domain $ D $ in $ U $ then
+  \[
+	  \int_\gamma f = 2\pi i \sum_{w \text{ pole in } D} \Res_f(w)
+  \]
+\end{corollary}
+We've already proved there's only finitely many poles in $ D $ so this holds from the residue theorem.
+\begin{lemma}
+  Let $ f:U\to \C $ be meromorphic with a pole at $ a\in U $.
+  \begin{enumerate}
+	  \item If the pole is simple then
+		  \[
+			  \Res_f(a) = \lim_{z\to a} (z-a) f(z).
+		  \]
+	  \item If $ f(z) = \frac{g(z)}{h(z)} $ where $ h,g $ are holomorphic at $ a $, $ g(a)\ne 0 $ and $ h $ has a simple zero at $ a $ then
+		  \[
+			  \Res_f(a) = \frac{g(a)}{h'(a)}.
+		  \]
+	  \item If $ f(z) = \frac{g(z)}{(z-a)^k} $ with $ g $ holomorphic near $ a $ then
+		  \[
+			  \Res_f(a) = \frac{g^{(k-1)}(a)}{(k-1)!}.
+		  \]
+  \end{enumerate}
+\end{lemma}
+\pf
+\begin{enumerate}
+	\item $ f(z) = \frac{c_{-1}}{z-a} + c_0 + c_1(z-a) + \dots $. So clearly, $ c_{-1} = \lim_{z\to a}(z-a)f(z) $.
+	\item Using (i), $ \Res_f(a) = \lim_{z\to a} (z-a)\frac{g(z)}{h(z)} $ since $ h $ having a simple zero implies that $ \frac 1h $ has a simple pole. Hence we have that
+		\begin{align*}
+			\Res_f(a) & = g(a) \lim_{z\to a} \frac{z-a}{h(z)-h(a)} \\
+				  &= \frac{g(a)}{h'(a)}.
+		\end{align*}
+	\item We want the coefficient of $ (z-a)^{k-1} $ in Taylor series for holomorphic function $ g $. Then this is just part of Taylor's theorem.\qed
+\end{enumerate}
+\subsection{Applications of residues for integration}
+\begin{example}
+  Consider the function
+  \[
+	  f(z) = \frac 1{1+z^4}
+  \]
+  This is meromorphic on $ \C $ with poles at the $ 4 $th roots of unity. Consider a contour $ \gamma_R $ which runs along a long stetch of the real axis from $ -r $ to $ r $ and the along a semicircle of radius $ r $. This encloses two poles of $ f $ at $ e^{i\pi/4} $ and $ e^{3i\pi/4} $. So $ \gamma_R $ encloses two simple poles of $ F $ called $ p_1 $ and $ p_2 $ and its winding number about each is obviously $ 1 $. Then
+  \begin{align*}
+	  \int_{\gamma_R} f(z)\ \mathrm dz &= \int_{-R}^R \frac 1{1+x^4}\ \mathrm dx + \int_0^\pi \frac{iRe^{i\theta}}{1+R^4e^{4i\theta}} \ \mathrm d\theta.
+  \end{align*}
+  We can see our second integral is $ O(1/R^3) $ so goes to zero as $ R\to\infty $. Apply the residue theorem so in the limit at $ R\to\infty $ we have that
+  \begin{align*}
+	  2\int_0^\infty \frac 1{1+x^4}  \ \mathrm dx  &= 2\pi i (\Res_f(p_1) + \Res_f(p_2) \\
+						       &= -2\pi i(\frac 14(p_1 + p_2)).
+  \end{align*}
+  Hence we have that
+  \[
+	  \int_0^\infty \frac 1{1+x^4} \ \mathrm dx = \frac{\pi}{2\sqrt 2}.
+  \]
+\end{example}
+\begin{example}
+  Now we want to evaulate the integral
+  \[
+	  \allint \frac{\cos x}{1+x+x^2}\ \mathrm dx.
+  \]
+  At $ x = iR $ $ \cos z\approx e^R $ so we can't easily bound the integrand on the same kind of semicircular contour. Let
+  \[
+	  f(z) = \frac{e^{iz}}{1+z+z^2}
+  \]
+  then the integrand is the real part of $ f $ which has poles only at the zeros of $ 1+z+z^2 $. Now we can use the contour $ \gamma_R $ as before. On the semicricle,
+  \begin{align*}
+	  \left|\int_0^\pi f(Re^{i\theta}) i Re^{i\theta}\ \mathrm d\theta\right|  = \int_0^{2\pi}\frac{Re^{-R\sin\theta}}{|R^2e^{2i\theta}+Re^{i\theta}+1|} \ \mathrm d\theta.
+  \end{align*}
+  This is $ O(\inv R) $ hence it vanishes as $ R\to\infty $. So the arc section of the contour integral goes to zero. Hence
+  \begin{align*}
+	  \allint \frac{\cos x}{1+x+x^2} &= \Re \allint f(z) \ \mathrm dz \\
+					 &= \Re\lim_{R\to\infty} \int_{\gamma_R} f(z) \ \mathrm dz \\
+					 &= \Re(2\pi i \Res_f(\omega)) \\
+					 &= \frac{2\pi}{\sqrt 3} e^{-\sqrt 3/2}\cos\left(\frac12\right)
+  \end{align*}
+\end{example}
+\begin{lemma}
+	Let $ f:B(a,r)^* \to \C $ be holomorphic with a simple pole at $ a $. For $ 0\< \ep <r $, consider $ \gamma_\ep:[\alpha,\beta] \to \C $ sending $ t\to a+\ep e^{it} $. Then
+	\[
+		\lim_{\ep \to 0} \int_{\gamma_\ep} f(z) \ \mathrm dz = (\beta-\alpha)i \Res_f(a).
+	\]
+\end{lemma}
+\pf Since $ f $ has a simple pole, we can write that $ f(z) = \frac {c}{z-a} + g(z) $ where $ g $ is holomorphic. $ g $ is continuous and locally bounded, so
+\[
+	\left|\int_{\gamma_\ep} g \ \right| \le (\beta-\alpha)\ep\sup_{z\in{\gamma_\ep}}|g(z)|
+\]
+which goes to zero as $ \ep\to0 $. But
+\[
+	\lim_{\ep \to 0} \int_{\gamma_\ep}\frac{c}{z-a}\ \mathrm dz = c \lim_{\ep \to 0} \int_\alpha^\beta \frac1{\ep e^{it}} i \ep e^{it} \ \mathrm dt = (\beta-\alpha)i\Res_f(a).\qed
+\]
+\begin{lemma}
+	(Jordan's Lemma) Suppose that $ f $ is holomorphic on $ \{|z| \ge r\} $ and that $ zf(z) $ is bounded for large $ |z| $. Then for all $ \alpha>0 $,
+	\[
+		\int_{\gamma_R} f(z)e^{i\alpha z} \ \mathrm dz \to 0
+	\]
+	as $ R\to\infty $ where $ \gamma_R:[0,\pi]\to \C $ sends $ t\to Re^{it} $.
+\end{lemma}
+\pf We know that $ |f(z)| \le \frac{M}{|z|} $ for large $ |z| $ and some $ M>0 $. We also have that
+\[
+	|e^{i\alpha z}| = e^{-R\alpha\sin t}
+\]
+on our contour $ \gamma_R $. We note that on the interval $ (0,\frac \pi2] $ the function $ \frac{\sin\theta}\theta $ is decreasing since it's derviative is negative. So on $ t\in [0,\frac \pi 2] $ we have that
+\[
+	\sin t\ge \frac{2t}\pi.
+\]
+which gives the bound
+\[
+	|e^{i\alpha z}| = e^{-R\alpha\sin t} \le \begin{cases}
+		e^{-Ra2t/\pi} & 0\le t \le \frac \pi 2 \\
+		e^{-Ra2t'/\pi} & 0 \le t' = \pi - t \le \frac \pi2
+	\end{cases}
+\]
+Hence we can bound the first circle quarter arc as
+\begin{align*}
+	\left|\int_0^{\pi/2} e^{iR\alpha e^{it} f(Re^{it}) Re^{it}\ \mathrm dt\right| &\le \int_0^{2\pi} e^{-2\alpha Rt/\pi} M \ \mathrm dt \\
+										      &= \frac 1{2R} (1-e^{\alpha R)\to 0
+\end{align*}
+as $ R\to\infty $. The other quarter circle goes to zero too, hence the whole integral goes to zero.\qed
+\begin{example}
+  We want to show that
+  \[
+	  \int_0^\infty  \frac{\sin x}x \ \mathrm dx = \frac \pi 2.
+  \]
+  If we get $ \hat f(z) = \frac{\sin x}x $, the singularity at $ 0 $ is removable but it is $ O(e^R/R) $ on $ \gamma_R $.\par
+  If we instead let $ f(z) = \frac{e^{iz}}z $ then this has a pole at $ 0 $ so we can't use a contour which runs through zero. Hence we'll choose the contour $ \gamma_{R,\ep} $ which is a closed half annulus of radii $ \ep < R $ hence the winding number around the pole is zero, so the integral is $ 0 $ for any $ R,\ep >0 $. If we take $ R\to\infty,\ep \to 0 $ we should recover the contour we wanted to integrate across.\par
+  Using Jordan's lemam on the $ R $-semicricle $ \gamma_R $ with $ \alpha = 1 $ and $ \frac 1z $ as the fuction we know that 
+  \[
+	  \int_{\gamma_R}f(z) \ \mathrm dz \to 0
+  \]
+  as $ R\to \infty $. For the $ \ep $-semicircle, $ \gamma_\ep $ using our first lemma we get a contribution of the negative residue $ -i\pi $ since the orientation is reversed. Rearranging and using the fact that the function is even we get the desired result.
+\end{example}
+\begin{example}
+  Now we want to show that
+  \[
+	  \allint \frac{e^{ax}}{\cosh x} \ \mathrm dx = \pi \sec{ \frac{\pi a}2}.
+  \]
+  We have poles at $ \cosh z = 0 $ which corresponds to $ z =\frac{2n+1}2 i\pi $. This leads us to avoid semicircular contours t oavoid infinitely many poles in the limit. But $ \cosh(x + i\pi) = -\cosh x $, hence we are lead to consider the rectangular contour going through $ 0,\pi i$ stretching out to $ R $ and $ -R $ on the real axis. Now we only enclose a singular singularity, namely $ \rho = \frac {i\pi }2 $.\par
+  Along the right hand verticle segment,
+  \begin{align*}
+	  \left|\int_{\gamma}f(z) \ \mathbf dz\right| &= \left|\int_0^\pi \frac{e^{a(R+iy)}}{\cosh(R+iy)} i \ \mathrm dy \right| \\
+						      &\le \int_0^\pi \frac{2e^{aR}}{|e^R-e^{-R}} \ \mathrm dy
+  \end{align*}
+  which goes toe zero as $ R\to\infty $ since $ a<1 $. On the left hand segment we need $ a>-1 $ to control the integral. Thus applying residue theorem we get that
+  \[
+	  \allint\frac{e^{ax}}{\cosh x} = \pi \sec\left(\frac{\pi a}2\right)
+  \]
+  which gives the required result given that $ a\in (-1,1) $.
+\end{example}
+\begin{example}
+  We want to show that
+  \[
+	  \int_0^\infty \frac{\log x}{1+x^2} \ \mathrm dx =0.
+  \]
+  We need a cut plane to define the logarithm. Cut along $ \R_{\le 0} $. We use a similar contour $ \gamma_{R,\ep} $ formed from the closed half of an annulus with radii $ \ep $ and $ R $. On the large semicricle the integrand is $ O\left(\frac{R\log R}{R^2}\right)\to 0 $ as $ R\to\infty $. On the small semicricle the integrand is order $ O(\ep\log\ep)\to 0 $ as $ \ep \to 0 $. Along $ \R_{\le 0} $, $ \log x = \log|x| + i\pi $. Applying the Cauchy residue thereom we get that
+  \[
+	  \int_{\gamma_{R,\ep}} f(z) \ \mathrm dz = 2\pi i \Res_f(i) 
+  \]
+  where $ f(x) = \frac{\log x}{1+x^2} $. Now assembling we have that
+  \[
+	  \int_0^\infty \frac{\log x}{1+x^2} \ \mathrm dx + \int_{-\infty}^\infty \frac{\log|x| + i \pi}{1+x^2}(-\mathbf x) = 2\pi \Res_f(i)
+  \]
+  hence
+  \[
+	  2\int_0^\infty \frac{\log x}{1+x^2} \ \mathrm dx = 0
+  \]
+  by comparing imaginary and real parts.\qed
+\end{example}
+\begin{remark}
+  We sometimes want a keyhole contour, where we use a slice taken out of an annulus to go around a branch cut but get arbitrarily close to it.
+\end{remark}
+\begin{definition} (Order of poles and zeros) Let $ f:B(a,r)^*\to \C $ be meromorphic. Then we know that we can write
+	\[
+	  f(z) = (z-a)^kg(z)
+	\]
+	with $ g:B(a,r) \to \C $ holomorphic with $ g(a)\ne 0 $. Then we say that $ f $ has a zero of order $ k $ if $ k>0 $. If $ k<0 $ we say that $ f $ has a pole of order $ |k| $. We write that $ \mathrm{ord}_f(a)>0 $.
+\end{definition}
+\begin{lemma}
+	Suppose that $ f $ is meromorphic on a domain $ U $ with a zero/pole of order $ k $ at $ a\in U $. Then $ \frac{f'(z)}{f(z)} $ has a simple pole at $ a $ of residue $ \mathrm{ord}_f(a) $. 
+\end{lemma}
+\pf If $ f(z) = (z-a)^kg(z) $ with $ g(a)\ne 0 $ then $ f'(z) = k(z-a)^{k-1}g(z) + (z-a)^kg'(z) $, so
+\[
+	\frac{f'(z)}{f(z)} = \frac k{z-a} + \frac{g'(z)}{g(z)}.
+\]
+The second term is holomorphic near $ a $ hence we have a simple pole with residue $ k $.\qed
+\begin{definition}
+	(Logarithmic derivative) The function $ \frac{f'(z)}{f(z)} $ is called the \textit{logarithmic derivative} of $ f $.
+\end{definition}
+\begin{remark}
+  If $ U $ is simply connected, and $ 0\notin U $ we can define a branch of the logarithm on $ U $.\par
+  Indeed this is true since $ \frac 1z $ is holomorphic on $ U $, so $ \int_\gamma \frac 1z \ \mathrm dz =0 $ for all closed $ \gamma $ by simple connected Cauchy. Hence by the converse of the fundemental theorem of calculus there exists some antiderivative of $ \frac 1z $ which \textit{wlog} is the logarithm. So if $ f $ is non-vanishing then $ \log f(z) $ makes sense on $ U $ which has derivative $ \frac {f'}f $.
+\end{remark}
+\begin{theorem}
+	(The Argument Principle) Let $ U $ be a simple connected domain. Suppose that $ f $ is a meromorphic function on $ U $ with zeros $ \{z_1,\dots, z_k\} $ and poles $ \{w_1,\dots, w_\ell\} $. let $ \gamma[a,b]\to U $ be a closed piecewise-$ C^1 $ path which doesn't go through any zeros or poles. Then 
+	\[
+		\frac1{2\pi i}\int_\gamma \frac{f'(z)}{f(z)} \ \mathrm dz = \sum_{i=1}^k \mathrm{ord}_f(z_i)I(\gamma, z_i) - \sum_{j=1}^\ell \mathrm{ord}_f(w_j)I(\gamma, z_i).
+	\]
+\end{theorem}
+\pf The function $ \frac{f'}{f} $ has a singularity at $ z\in U $ if and only if $ z $ is a zero or pole of $ f $. Now just apply the Cauchy residue theorem.\qed
+\par
+Suppose $ \gamma $ bounds a domain $ D $ in $ U $, so $ I(\gamma,w) = \mathbb q(_{\{w\in D\}} $. Recall that if $ \gamma $ is simple and $ U $ is simply connected then is always true by the Jordan curve theorem. Then we get that
+\[
+	\frac 1{2\pi i}\int_\gamma \frac{f'}{f} \ \mathrm dz = \text{Number of zeros in D} - \text{Number of poles in D}
+\]
+each counted according to their multiplicity.
+\begin{remark}
+	Let $ \gamma $ has domain $ [a,b] $ and $ \Gamma:[a,b]\to \C $ be $ f\circ \gamma $. The zeros of $ f $ do not lie on $ \gamma $, so $ \Gamma $ has image in $ \C^* $. We know that $ \gamma $ is closed hence $ \Gamma $ is closed, so
+	\[
+		\frac 1{2\pi i}\int_{\Gamma} \frac{f'(z)}{f(z)} \ \mathrm dz = \frac {1}{2\pi} \int_\Gamma \frac 1 w \ \mathrm dw = I(\Gamma,0).
+	\]
+\end{remark}
+\begin{theorem}
+	(Rouche's Theorem) Let $ U\subseteq \C $ be a domain and let $ \gamma $ be a closed curve which bounds a domain $ D $ in $ U $. Let $ f,g $ be holomorphic on $ U $ and suppose that $ |f|>|g| $ on $ \gamma $. Then $ f $ and $ f+g $ have the same number of zeros in $ D $ when counter with multiplicity.
+\end{theorem}
+\pf If $ |f| > |g| $ on $ \gamma $ then in particular neither $ f $ or $ f+g $  can vanish on $ \gamma $. Let's look at
+\[
+	h(z) = \frac{f(z) +g(z)}{f(z)}= 1+ \frac{g(z)}{h(z)}.
+\]
+Note that for all $ z\in \gamma $, $ h(z) \in B(1,1) $ so $ h\circ \gamma $ has imagei n $ \Re(z)>0 $ hence $ I(h\circ \gamma, 0) = 0 $. The the argument principle says that the number of zeros of $ h $ in $ S $ agree, counted with multiplicity. This is exactly what we want since zeros of $ h $ correspond to zeros of $ f+g $ and poles of $ h $ correspond to zeros of $ f $. \qed
 \end{document}
