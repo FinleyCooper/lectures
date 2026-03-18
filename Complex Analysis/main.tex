@@ -1345,7 +1345,7 @@ The second term is holomorphic near $ a $ hence we have a simple pole with resid
   Indeed this is true since $ \frac 1z $ is holomorphic on $ U $, so $ \int_\gamma \frac 1z \ \mathrm dz =0 $ for all closed $ \gamma $ by simple connected Cauchy. Hence by the converse of the fundemental theorem of calculus there exists some antiderivative of $ \frac 1z $ which \textit{wlog} is the logarithm. So if $ f $ is non-vanishing then $ \log f(z) $ makes sense on $ U $ which has derivative $ \frac {f'}f $.
 \end{remark}
 \begin{theorem}
-	(The Argument Principle) Let $ U $ be a simple connected domain. Suppose that $ f $ is a meromorphic function on $ U $ with zeros $ \{z_1,\dots, z_k\} $ and poles $ \{w_1,\dots, w_\ell\} $. let $ \gamma[a,b]\to U $ be a closed piecewise-$ C^1 $ path which doesn't go through any zeros or poles. Then 
+	(The Argument Principle) Let $ U $ be a simple connected domain. Suppose that $ f $ is a meromorphic function on $ U $ with zeros $ \{z_1,\dots, z_k\} $ and poles $ \{w_1,\dots, w_\ell\} $. let $ \gamma:[a,b]\to U $ be a closed piecewise-$ C^1 $ path which doesn't go through any zeros or poles. Then 
 	\[
 		\frac1{2\pi i}\int_\gamma \frac{f'(z)}{f(z)} \ \mathrm dz = \sum_{i=1}^k \mathrm{ord}_f(z_i)I(\gamma, z_i) - \sum_{j=1}^\ell \mathrm{ord}_f(w_j)I(\gamma, z_i).
 	\]
@@ -1364,11 +1364,71 @@ each counted according to their multiplicity.
 	\]
 \end{remark}
 \begin{theorem}
-	(Rouche's Theorem) Let $ U\subseteq \C $ be a domain and let $ \gamma $ be a closed curve which bounds a domain $ D $ in $ U $. Let $ f,g $ be holomorphic on $ U $ and suppose that $ |f|>|g| $ on $ \gamma $. Then $ f $ and $ f+g $ have the same number of zeros in $ D $ when counter with multiplicity.
+	(Rouch\'e's Theorem) Let $ U\subseteq \C $ be a domain and let $ \gamma $ be a closed curve which bounds a domain $ D $ in $ U $. Let $ f,g $ be holomorphic on $ U $ and suppose that $ |f|>|g| $ on $ \gamma $. Then $ f $ and $ f+g $ have the same number of zeros in $ D $ when counted with multiplicity.
 \end{theorem}
 \pf If $ |f| > |g| $ on $ \gamma $ then in particular neither $ f $ or $ f+g $  can vanish on $ \gamma $. Let's look at
 \[
 	h(z) = \frac{f(z) +g(z)}{f(z)}= 1+ \frac{g(z)}{h(z)}.
 \]
-Note that for all $ z\in \gamma $, $ h(z) \in B(1,1) $ so $ h\circ \gamma $ has imagei n $ \Re(z)>0 $ hence $ I(h\circ \gamma, 0) = 0 $. The the argument principle says that the number of zeros of $ h $ in $ S $ agree, counted with multiplicity. This is exactly what we want since zeros of $ h $ correspond to zeros of $ f+g $ and poles of $ h $ correspond to zeros of $ f $. \qed
+Note that for all $ z\in \gamma $, $ h(z) \in B(1,1) $ so $ h\circ \gamma $ has image in $ \Re(z)>0 $ hence $ I(h\circ \gamma, 0) = 0 $. The the argument principle says that the number of zeros of $ h $ in $ S $ agree, counted with multiplicity. This is exactly what we want since zeros of $ h $ correspond to zeros of $ f+g $ and poles of $ h $ correspond to zeros of $ f $. \qed
+\begin{example}
+	We want to show that the polynomial $ z^6 + 6z +3 $ has three roots (counted with multiplicity in the annulus $ \{1<|z|<2\} $.\par
+	On $ |z|=2 $ we have that $ |z^4| = 16 > 6|z| + 3 > |6z+3| $ so our polynomial has the same number of roots in $ \{|z| < 2\} $ as $ z^4 $ i.e. $ 4 $ with multiplicity. On $ |z|=1 $, $ 6|z| = 6 > |z^4+3| $ so there is only one root in $ |z|<1 $ hence there are 3 roots in the annulus by Fundemental theorem of calculus.
+\end{example}
+\begin{remark}
+  FTA tells us we have roots: Roch\'e tells us how to locate them.
+\end{remark}
+\begin{example}
+	Let $ p(z) = x^n + a_{n-1}x^{n-1} + \cdots + a_0 $ with $ a_n \ne 0 $ and $ |a_{n-1}| > 1 + |a_{n-2}| + \cdots + |a_1| + |a_0| $, then $ p $ is irreducible in $ \Z[x] $.\par
+	Let $ f= a_{n-1}z^{n-1} $ and $ g(z) = p(x) - f(x) $. Our hypothesis is then that $ |f| > |g| $ on $ |z|=1 $ So $ f $ and $ f+g $ have $ n-1 $ roots in $ \{|z| <1 \} $. So $ p $ has exactly one root outside of the disc. Suppose that $ p(x)=q(x)r(x) $ with $ q,r $ non-constant. So at least one of $ q $ and $ r $ has all roots inside the open unit disc. But $ a_0 \ne 0 $ so neither $ q,r $ have vanishing constant terms. But they have integer coefficients which is a contradiciton since the product of roots must be a non-zero integer. So $ p $ is irreducible.
+\end{example}
+\begin{example}
+  We claim that
+  \[
+	  \int_{|z|=2} \frac 1{z^5+12z-5}\mathrm dz = 0.
+  \]
+  On the contour, $ |z^5| = 32 > 29 \ge |12z-5| $ so all of the zeros of $ z^5 + 12z-5 $ lies inside $ B(0,2) $. Note that if we took the contour out to infinity, we have that
+  \[
+	  \int_{|z|=R}\frac 1{z^5+12z-5}\mathrm dz = O(R^{-4}) \to 0
+  \]
+  as $ R\to\infty $. Take the contour which is an annulus with radii $ 2 $ and $ R $ split down the positive imaginary axis with lines split $ \ep $ apart. Then since the bound domain is simply connected (homotopic to the constant loop), the integral around it is zero since it contains no poles. As $ \ep\to 0 $ their contributions cancel, so and the outer curve goes to zero as discussed hence we prove the claim.
+\end{example}
+\begin{definition}
+	(Local degree) Let $ a\in \C $, and $ f:B(a,r)\to\C $ holomorphic and constant. The \textit{local degree} of $ \deg_{z=a}(f) $ of $ f $ at $ a $ is the order of the zero at a of $ f(z)-f(a) $.
+\end{definition} 
+\begin{lemma}
+	If $ \gamma(t) = a+\ep e^{it} $ where $ 0\le t \le 2\pi $ and $ \ep>0 $ sufficiently small, then
+	\[
+		\deg_{z=a}f = I(f\circ \gamma,f(a)).
+	\]
+\end{lemma}
+\pf By the identity theorem since $ g $ is non-constant there exists a $ \delta>0 $ such that $ g $ does not vanish on $ B(a,\delta)^* $. Take $ 0<\ep<\delta $. Then $ I(f\circ\gamma,f(a)) $ is well-defined since $ f(a)\not\in \ima(f\circ g) $. Now this is the argument principle using $ I(g\circ\gamma,0) = I(f\circ\gamma,f(a)) $.\qed
+\begin{theorem}
+	(Local mapping degree) Let $ f:B(a,r)\to \C $ be holomorphic, non-constant and with $ \deg_{z=k}(f)=k>0 $. Then for all $ \rho>0 $ sufficiently small, there exists a $ \ep>0 $ such that if
+	\[
+	  0<|w-f(a)|<\ep
+	\]
+	there $ f(z)=w $ has exactly $ k $ simple roots in $ B(a,\rho) $ (i.e. roots with degree $ 1 $).
+\end{theorem}
+\pf Pick $ \rho>0 $ such that $ g(z) = f(z) -f(a) $ and $ g'(z) = f'(z) $ are both non-vanishing in $ B(a,\rho)^* $ by the principle of isolated zeros. Now let $ \gamma(t) = a + \rho e^{2\pi t}  $ for $ 0\le 1 \le 1 $. Then $ f(a)\notin \ima(f\circ \gamma) $. So there exists a $ \ep>0 $ such that $ \ima(f\circ \gamma) \cap B(f(a), \ep) = \emptyset $. Since $ f\circ\gamma $ has a closed bounded image. If we take $ w\in B(f(a),\ep) $, we count solutions to $ f(z)=w $ inside $  B(a,\rho) $ using the argument principle.\par
+The number of zeros of $ f(z)-w $ in $ B(a,\rho) $ is equal to $ (I(f\circ \gamma,w) = I(f\circ \gamma,f(a)) $. Using that $ I(f\circ \gamma,\circ) $ depends only on components of $ \C\setminus \ima(f\circ \gamma) $ containing $ \cdot $. Now this is just $ \deg_{z=a}(f) = k $. So we have $ k $ zeros with multiplicity, now it's enough to show each root is simple. Since $ f' $ is non-vanishing in $ B(a,\rho) $, each root has be simple, so we have $ k $ distinct simple roots.\qed
+\begin{corollary}
+	(Open mapping theorem) Let $ U $ be a domain and $ f:U\to \C $ be holomorphc and non-constant. Then $ f $ is an open map.
+\end{corollary}
+\pf Suppose $ V\subseteq U $ open. Let $ z\in V $ hence there exists a $ \rho>0 $ such taht $ B(z,\rho) \subseteq V $. Hence there exists a $ \ep $ such that $ B(\ep, f(z)) \subseteq f(B(z,\rho)) \subseteq f(U)\subseteq \C $ by the local mapping degree theorem, given that $ k\ge 1 $ since $ f $ is non-constant.\qed
+\begin{corollary}
+  Let $ U\subseteq \C $ be proper and simply connected. Then there exists a holomorphic injection from $ U $ to $ \mathbb D $.
+\end{corollary}
+\begin{remark}
+  If $ U=\C $ then the conclusion would be definitely false by Liouville's theorem.
+\end{remark}
+\pf Let $ q\in \C\setminus U $. Let $ \phi(z) = z-q $. So on $ U $, $ \phi $ is non-vanishing. Since $ U $ is simply connected, there exists a branch of the logarithm on $ U $, so we can solve the equation $ \phi = h^2 $ for $ h $ holomorphic on $ U $ since the branch of the logarithm says that there exists a $ g $ such that $ \phi = e^g $, and then we can take $ h = e^{g/2} $.\par
+Pick some point $ y\in h(U) $. The open mapping theorem, says that there exists a $ \ep $ ball centred at $ y $. Now since $ \phi $ is injective, this implies that $ h(U)\cap B(-y,\ep)=\emptyst $ since if $ h(z_1) =\pm h(z_2) $ then $ z_1=z_2 $. Let's consider the map
+\[
+	z\to \frac{\ep}{2(h(z) + y)}
+\]
+which is holomorphic on $ U $ and the above shows that this has image in $ \mathbb D $.\qed
+
+
+
 \end{document}
