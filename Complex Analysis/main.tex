@@ -469,7 +469,7 @@ g(z) = \frac{f(z)-f(w)}{z-w}-f'(w)
 which vanishes at $ w $ since $ f $ is holomorphic.
 \begin{align*}
 	\frac I{4^n} \le \left|\int_{\partial T_n} f\right| &= \left| \int_{\partial T_n} f(z)-f(w)-(z-w)f'(w)\ \mathrm dz\right|\\
-							    &\le\left|\frac L{2^n}\sup_{z\in\partial T_n}|(z-w)g(z)|\\
+							    &\le\left|\frac L{2^n}\sup_{z\in\partial T_n}|(z-w)g(z)|\right|\\
 							    &\le \frac {L^2}{4^n}\sup_{z\in\partial T_n}|g(z)|\\
 	I &\le L^2 \sup_{z\in\partial T_n}|g(z)|\to0
 \end{align*}
@@ -738,13 +738,13 @@ Let $ \Gamma_i = \phi_i + \gamma_i - \psi_i - \gamma_{i-1} $ which is a closed p
 \]
 hence
 \begin{align*}
-	\sum_{i=1]^n \int_{\Gamma_i} f = 0.
+	\sum_{i=1}^n \int_{\Gamma_i} f = 0.
 \end{align*}
 The $ \gamma_i $ all appear twice with opposite orientation, so $ \int_\phi f + \int_{-\psi} f = 0 $ so
 \[
   \int_\phi f = \int_\psi f
 \]
-if $ \psi $ and $ \psi $ are elementary deformations of each other.\par
+if $ \phi $ and $ \psi $ are elementary deformations of each other.\par
 Now it is enough to prove that if $ \phi\cong\psi $ then there exists $ \phi  = \phi_0,\phi_1,\dots, \phi_N = \psi $ such that $ \psi_{i+1} $ is an elementary deformation of $ \phi_i $. Let $ \Phi:[a,b]\times [0,1]\to U $ be the homotopy function from $ \phi = \Phi_0 $ to $ \psi = \Phi_1 $. The domain of $ \Phi $ is closed and bounded, hence $ \Phi([a,b]\times [0,1]) $ is closed and bounded. Hence there exists an $ \ep $ such that $ \mathrm{dist}(\Phi([a,b]\times[0,1]),\C\setminus U) = 2\ep>0 $. So for all $(s,t) \in [a,b]\times [0,1] $, $ B(\Phi(s,t),\ep) \subset U $. Now $ \Phi $ is uniformly continuous so $ \exists\delta >0 $ such that 
 \begin{align*}
   |(s,t)-(s',t')|<\delta \implies |\Phi(s,t)-\Phi(s',t')|<\ep.
@@ -970,7 +970,7 @@ which coverges uniformly on $ |w-a| = \rho_1 $ since $ |z-a|>\rho_1 $. Substitut
 \begin{align*}
 	f(z) = \sum_{n=0}^\infty \left(\frac 1{2\pi i} \int_{\partial B(a,\rho_2)}\frac{f(w)}{(w-a)^{n+1}}\ \mathrm dw\right)(z-a)^n + \sum_{m=1}^\infty\left(\frac 1{2\pi i} \int_{\partial B(a,\rho_1)} \frac{f(w)}{(w-a)^{-m+1}} \ \mathrm dw\right)(z-a)^{-m}
 \end{align*}
-Now relabel $ n=-m $ in the second series and replace both contours $ \partial B(a,\rho_2) $ and $ \patrial B(a,\rho_1) $ by a common contour $ |w-a| = \rho $ using homotopy invariance of the integral. Thus we get the Laurent series.\par
+Now relabel $ n=-m $ in the second series and replace both contours $ \partial B(a,\rho_2) $ and $ \partial B(a,\rho_1) $ by a common contour $ |w-a| = \rho $ using homotopy invariance of the integral. Thus we get the Laurent series.\par
 It remains to show uniqueness. If we could write
 \[
 	f(z) = \sum_{n=-\infty}^{\infty} c_n(z-a)^n = \sum_{m=-\infty}^\infty b_m(z-a)^m
@@ -1230,7 +1230,7 @@ We've already proved there's only finitely many poles in $ D $ so this holds fro
   \end{align*}
 \end{example}
 \begin{lemma}
-	Let $ f:B(a,r)^* \to \C $ be holomorphic with a simple pole at $ a $. For $ 0\< \ep <r $, consider $ \gamma_\ep:[\alpha,\beta] \to \C $ sending $ t\to a+\ep e^{it} $. Then
+	Let $ f:B(a,r)^* \to \C $ be holomorphic with a simple pole at $ a $. For $ 0 < \ep <r $, consider $ \gamma_\ep:[\alpha,\beta] \to \C $ sending $ t\to a+\ep e^{it} $. Then
 	\[
 		\lim_{\ep \to 0} \int_{\gamma_\ep} f(z) \ \mathrm dz = (\beta-\alpha)i \Res_f(a).
 	\]
@@ -1267,8 +1267,8 @@ which gives the bound
 \]
 Hence we can bound the first circle quarter arc as
 \begin{align*}
-	\left|\int_0^{\pi/2} e^{iR\alpha e^{it} f(Re^{it}) Re^{it}\ \mathrm dt\right| &\le \int_0^{2\pi} e^{-2\alpha Rt/\pi} M \ \mathrm dt \\
-										      &= \frac 1{2R} (1-e^{\alpha R)\to 0
+	\left|\int_0^{\pi/2} e^{iR\alpha e^{it}} f(Re^{it}) Re^{it}\ \mathrm dt\right| &\le \int_0^{2\pi} e^{-2\alpha Rt/\pi} M \ \mathrm dt \\
+										      &= \frac{M}{2\alpha R} (1-e^{-\alpha R})\to 0
 \end{align*}
 as $ R\to\infty $. The other quarter circle goes to zero too, hence the whole integral goes to zero.\qed
 \begin{example}
@@ -1323,6 +1323,7 @@ as $ R\to\infty $. The other quarter circle goes to zero too, hence the whole in
 \begin{remark}
   We sometimes want a keyhole contour, where we use a slice taken out of an annulus to go around a branch cut but get arbitrarily close to it.
 \end{remark}
+\subsection{The argument principle}
 \begin{definition} (Order of poles and zeros) Let $ f:B(a,r)^*\to \C $ be meromorphic. Then we know that we can write
 	\[
 	  f(z) = (z-a)^kg(z)
@@ -1402,9 +1403,9 @@ Note that for all $ z\in \gamma $, $ h(z) \in B(1,1) $ so $ h\circ \gamma $ has 
 		\deg_{z=a}f = I(f\circ \gamma,f(a)).
 	\]
 \end{lemma}
-\pf By the identity theorem since $ g $ is non-constant there exists a $ \delta>0 $ such that $ g $ does not vanish on $ B(a,\delta)^* $. Take $ 0<\ep<\delta $. Then $ I(f\circ\gamma,f(a)) $ is well-defined since $ f(a)\not\in \ima(f\circ g) $. Now this is the argument principle using $ I(g\circ\gamma,0) = I(f\circ\gamma,f(a)) $.\qed
+\pf By the identity theorem since $ g $ is non-constant there exists a $ \delta>0 $ such that $ g $ does not vanish on $ B(a,\delta)^* $. Take $ 0<\ep<\delta $. Then $ I(f\circ\gamma,f(a)) $ is well-defined since $ f(a)\not\in \ima(f\circ g) $. Now this is the argument principle using $ I(g\circ\gamma,0) = I(f\circ\gamma, f(a)) $.\qed
 \begin{theorem}
-	(Local mapping degree) Let $ f:B(a,r)\to \C $ be holomorphic, non-constant and with $ \deg_{z=k}(f)=k>0 $. Then for all $ \rho>0 $ sufficiently small, there exists a $ \ep>0 $ such that if
+	(Local mapping degree) Let $ f:B(a,r)\to \C $ be holomorphic, non-constant and with $ \deg_{z=a}(f)=k>0 $. Then for all $ \rho>0 $ sufficiently small, there exists a $ \ep>0 $ such that if
 	\[
 	  0<|w-f(a)|<\ep
 	\]
@@ -1423,11 +1424,95 @@ The number of zeros of $ f(z)-w $ in $ B(a,\rho) $ is equal to $ (I(f\circ \gamm
   If $ U=\C $ then the conclusion would be definitely false by Liouville's theorem.
 \end{remark}
 \pf Let $ q\in \C\setminus U $. Let $ \phi(z) = z-q $. So on $ U $, $ \phi $ is non-vanishing. Since $ U $ is simply connected, there exists a branch of the logarithm on $ U $, so we can solve the equation $ \phi = h^2 $ for $ h $ holomorphic on $ U $ since the branch of the logarithm says that there exists a $ g $ such that $ \phi = e^g $, and then we can take $ h = e^{g/2} $.\par
-Pick some point $ y\in h(U) $. The open mapping theorem, says that there exists a $ \ep $ ball centred at $ y $. Now since $ \phi $ is injective, this implies that $ h(U)\cap B(-y,\ep)=\emptyst $ since if $ h(z_1) =\pm h(z_2) $ then $ z_1=z_2 $. Let's consider the map
+Pick some point $ y\in h(U) $. The open mapping theorem, says that there exists a $ \ep $ ball centred at $ y $. Now since $ \phi $ is injective, this implies that $ h(U)\cap B(-y,\ep)=\emptyset $ since if $ h(z_1) =\pm h(z_2) $ then $ z_1=z_2 $. Let's consider the map
 \[
 	z\to \frac{\ep}{2(h(z) + y)}
 \]
 which is holomorphic on $ U $ and the above shows that this has image in $ \mathbb D $.\qed
+\begin{definition}
+	(Local uniform convergence) Let $ U\subset \C $ be open and let $ f_n:U\to \C $ be holomorphic. We say that $ \{f_n\} $ converges \textit{locally uniformly} to $ f $ on $ U $ if $ \forall a\in U $, there is a $ B(a,r)\subseteq U $ such that $ f_n\to f $ uniformly on $ B(a,r) $.
+\end{definition}
+\begin{example}
+	Let $ f_n(z) = z^n $ on $ B(0,1) $. Then $ f_n\to f $ converges pointwise and indeed locally uniformly to zero, but not uniformly on $ B(0,1) $. If $ a\in B(0,1) $ and we pick a $ r $ such that $ |a|+r<1 $. Then there exists a $ \rho<1 $ such that $ B(a,r)\subset \overline{B(0,\rho)}\subset B(0,1) $.\par
+	Now notice that $ |f_n(z)| < \ep \iff |z| < \ep^{1/n} $. If we pick a $ N $ sufficiently large such that $ \rho < \ep^{1/N}<1 $ then we see that $ \{f_n\} $ converges to zero uniformly on $ \overline{B(0,\rho)} $.
+\end{example}
+Now using this we can make a corollary to Morera's theorem.
+\begin{corollary}
+  If $ U $ is a domain and $ f_n\to f $ locally uniformly on $ U $ with $ f_n $ holomorphic for all $ n $, then $ f $ is holomorphic and $ f_n'\to f' $ locally uniformly.
+\end{corollary}
+\begin{remark}
+	We've proved that $ f_n'\to f' $ \textit{pointwise}, but now we can prove this slightly stronger statement.
+\end{remark}
+\pf For $ a\in U $ pick $ r>0 $ such that $ f_n\to f $ uniformly on $ \overline{B(a,r)}\subset U $. For a closed contour $ \gamma $ in $ B(a,r) $ we have that 
+\[
+  \int_\gamma f_n = 0
+\]
+hence we have that
+\[
+  \int_\gamma f = 0
+\]
+for all $ \gamma $, so by Morera's theorem $ f $ is holomorphic. By Taylor's theorem we have that
+\[
+	|f_n'(w)-f'(w)| = \frac 1{2\pi i} \left|\int_{|z-a|=\rho} \frac{f_n(z)-f(z)}{(z-w)^2} \ \mathrm dz\right|
+\]
+for $ 0<\rho < r $ and $ w\in B(a,\rho) $. If $ |w-a| \le \frac{\rho}2 $, $ |f_n'(w)-f'(w)| \le \frac 1{2\pi i} \cdot 2\pi \rho \sup_{|z-a|=\rho}|f(z)-f_n(z)|\to 0 $ by uniform convergence of $ f_n\to f $ and bound by some $ \ep $ uniformly in $ w $ since the RHS is independent of $ w $ hence the convergence is locally uniform.\qed
+\begin{proposition}
+  Suppose $ U $ is a domain $ f_n:U\to \C $ be holomorphic and injective with $ f_n\to f $ uniformly. Then $ f $ is injective or constant.
+\end{proposition}
+\pf Suppose for contradiction that $ f $ is non-constant and non-injective, so there exists $ z_1,z_2\in U $ such that $ f(z_1)=f(z_2) = a $. $ U $ is a domain so path-connected, hence we can joint $ z_1,z_2 $ by a polygonal path in $ U $ created by line segments parallel to the axes. Construct a closed curve $ \gamma $ in $ U $ bounding a domain in $ U $ containing $ z_1 $ and $ z_2 $. \textit{Wlog} we can assume that $ f(z)\ne 0 $ for all $ z $ on $ \gamma $ since by the identity theorem $ \inv f(a) $ consists of isolated points (since they are zeros of the holomorphic function $ f(z) - a $). Now using the argument principle, we have that
+\begin{align*}
+	1 \ge \frac 1{2\pi i}\int_\gamma\frac{f_n'(z)}{f_n(z) - a} \ \mathrm dz
+\end{align*}
+since $ f_n $ is injective for all $ n $. This converges to
+\[
+	\frac 1{2\pi i}\int_\gamma \frac{f'(z)}{f(z)-a}\ \mathrm dz
+\]
+since $ f_n\to f $ and $ f_n'\to f' $ locally uniformly and hence on the closed bounded set bounded by $ \gamma $. But this integral is at least $ 2 $ since $ z_1,z_2 $ are both zeros of $ f(z)-a $ which is a contradiction.\qed
+\par
+We will now quote the following theorem without proof.
+\begin{theorem}
+		(Montel's theorem) Let $ \mathcal F $ be a family of holomorphic functions on a domain $ U $. Assume that $ \mathcal F $ is uniformly bounded, so there exists some $ R>0 $ such that $ \ima(f)\subset B(0,R) $ for all $ f\in \mathcal F $. Then if $ (f_j) $ is any sequence in $ \mathcal F $ is has a locally uniformly convergent subsequence.
+\end{theorem}
+\begin{remark}
+	A fundamental theorem in real analysis (Arzel\`a-Asocli Theorem) says that if $ \{f_n:[a,b]\to \R\} $ are uniformly bounded and uniformly equicontinuous so for every $ \ep>0 $ there exists a $ \delta>0 $ such that 
+	\[
+	  |f_n(x)-f_n(y)| < \ep
+	\]
+	whenever $ |x-y|<\delta $ for all functions $ f_n $ in the sequence. So $ \delta $ may depend on $ \ep $ but not on $ x,y,n $. Then there exists a subsequence converging uniformly.
+\end{remark}
+\begin{theorem}
+	(Riemann Mapping Theorem) Suppose $ U \ne \C $ is a simply connected domain. Then there exists a conformal equivalence from $ U $ to $ B(0,1) $.
+\end{theorem}
+\pf Let
+\[
+	\mathcal F = \{f:U\to B(0,1): f \text{ holomorphic, inejctive, and take } z_0 \to 0\}
+\]
+where we pick $ z_0 \in U $. We will prove the theorem in three steps
+\begin{enumerate}
+	\item $ \mathcal F $ is non-empty;
+\item There exists some $ f_\infty\in \mathcal F $ such that $ |f_\infty'(z_0)| $ is the maximal value this achieves over all $ f\in \mathcal F $;
+\item $ f_\infty $ is surjective and defines the required conformal isomorphism.
+\end{enumerate}
+We know (i) to be true from the open mapping theorem. We showed there existed some $ f:U\to B(0,1) $ holomorphic and injective. If this $ f $ wasn't such that $ f(z_0)\ne 0 $ we can compose with a M\"obius map to send $ f(z) $ to $ 0 $.
+\par
+For (ii), pick $ f_n $ in $ \mathcal F $ such that $ |f_n'(z_0)|\to \sup_{f\in \mathcal F}|f'(z_0)| $. $ \mathcal F $ is a uniformly bounded family. so there exists a subsequence $ f_{n_j}\to f_\infty $ locally uniformly by Montel. Then $ |f'_\infty(z_0)| = \max_{f\in \mathcal F}(f'(z_0)) > 0 $. So $ f_\infty  $ is non-constant, hence it's injective and holomorphic so it's in $ \mathcal F $.\par
+It remains to show that $ f_\infty $ is surjective for (iii). Suppose that $ f_\infty $ is not into $ B(0,1) $, say $ \alpha \in B(0,1)\setminus f_\infty(U) $ then consider
+\[
+	\sigma_\alpha(z) = \frac{z-\alpha}{z\overline{\alpha} - 1} \in \mathcal M(B(0,1))
+\]
+sand $ \sigma_\alpha \circ f_\infty(U) $ is a simply connected domain $ B(0,1) $ not containing $ 0 $. So there exists a holomorphic branch of $ \Log(\sigma_\alpha\circ f_\infty) $ on $ U $, hence this function has a square root $ s(z) $. So let $ h(z) = \sigma_{s(\alpha)}\circ s\circ(\sigma_\alpha\circ f_\infty):U\to B(0,1) $. Since $ s^2=\sigma_\alpha\circ f_\infty $ then one checks that $ h\in \mathcal F $. Write $ f_\infty = \Phi\circ h $ where $ \Phi=\inv \sigma_\alpha \circ (\text{squaring}) \circ \inv\sigma_{s(\alpha)} $. Now $ \Phi: B(0,1)\to B(0,1) $ is holomorphic with $ \Phi(0)= 0 $ and not a rotation. So we can apply Schwarz's Lemma from Example Sheet 2. Hence $ |\phi'(0)|<1 $, so $ |f_\infty'(z_0)| < |h'(z_0)| $ which is a contradiction to the construction of $ f_\infty $. Hence we have a contradiction, so $ f_\infty $ is surjective onto $ B(0,1) $. It's conformal everywhere and by the inverse function theorem it is an isomorphism so $ U\cong B(0,1) $.\qed
+\par
+\begin{remark}
+  This proof feels very opaque. The complexity is hidden amongst many theorem and it's not clear what the map looks like. Almost always these maps are not expressible in elementary functions.
+\end{remark}
+
+
+
+
+
+
+
+
 
 
 

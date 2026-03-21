@@ -624,7 +624,7 @@ If $ x,y \in C $ with $ x<y $. We want to find a real number $ x<z<y $ with $ z\
 	This gives a Euclidean neighbourhood of any point except $ p $, but we can do the same with $ p $ by just rotating the sphere.
 \end{example}
 \begin{example}
-  In particular the circle $ S^1 $ is a $ 1 $-dimensional manifold. It  can be described in other ways too. The relation $ x\sim y\iff x-y\in \X $ on $ \R $ has quotient space $ \R/\sim = \R/ \Z $ which is homeomorphic to $ S^1 $. The function
+  In particular the circle $ S^1 $ is a $ 1 $-dimensional manifold. It  can be described in other ways too. The relation $ x\sim y\iff x-y\in \Z $ on $ \R $ has quotient space $ \R/\sim = \R/ \Z $ which is homeomorphic to $ S^1 $. The function
   \begin{align*}
 	  f : \R &\to S^1\\
 	  t &\to (\sin(2\pi t), \cos(2\pi t))
@@ -654,7 +654,7 @@ If $ x,y \in C $ with $ x<y $. We want to find a real number $ x<z<y $ with $ z\
 \end{example}
 \begin{example}
 	Consider the equivalence relation $ \sim $ on $ [0,1]\times \R $ defined by $ (0,t)\sim(1,-t) $. We can think of this as gluing on side "backwards" to the other side. This gives the set $ M = [0,1]\times \R/\sim $. This is a $ 2 $-dimensional topological manifold which we will now prove.\par
-	Consider the subspaces $ U_t = M\setminus L_t $ where $ L_t = \pi(\{t\}\times \R) $ where $ 0<t<1 $. Note that $ \inv \pi(L_t)=\{t\}\times \R $\subset $ [0,1]\times \R $ hence $ L_t $ is closed since $ \{t\} \times \R $ is closed. Note that 
+	Consider the subspaces $ U_t = M\setminus L_t $ where $ L_t = \pi(\{t\}\times \R) $ where $ 0<t<1 $. Note that $ \inv \pi(L_t)=\{t\}\times \R \subset [0,1]\times \R $ hence $ L_t $ is closed since $ \{t\} \times \R $ is closed. Note that 
 	\[U_t = ([0,t) \times \R\ \sqcup\ (t,1]\times \R)/\sim .
 	\]
 	Doing the homeomorphism $ (x,v)\longrightarrow (x,-v)\ \cdot \  (t,1)\times \R\overset{\cong}{\longrightarrow} (t,1] \times \R $, defined as $ \varphi $ the relation $ \sim $ translates to $ \approx $ on $ [0,t)\times \R \ \sqcup \ (t,1] \times \R $, namely
@@ -678,7 +678,7 @@ As any $ [x,y] \in M $ with $ x\ne t $ for some $ 0<t<1 $ we have that $ [x,y]\i
 \begin{example}
 	(Connected-sum) If $ M, N$ are $ d $-dimensional manifolds with a point $ m\in M $ then we can find a Euclidean neighbourhood $ m\in U $ with $ \varphi: U \overset{\cong}{\longrightarrow} \R^d $. If $ n\in N $ then there is a Euclidean neighbourhood $ n\in V $ with $ \psi: V\overset{\cong}{\longrightarrow}\R^d $. We then "glue" these two topological spaces together, with the \textit{connected-sum} being the quotient space
 	\[
-	  M\#N = ((M \setminus \inv \varphi(B_1(0))) \ \sqcup (N\setmijnus \inv \psi (B_1(0))))/ \sim.
+	  M\#N = ((M \setminus \inv \varphi(B_1(0))) \ \sqcup (N\setminus \inv \psi (B_1(0))))/ \sim.
 	\]
 	Where we've defined $ \sim $ as
 	\[
@@ -814,7 +814,7 @@ which is continuous again by the gluing lemma. Similarly we can consider $ \sigm
 	e:X &\to (\R^d\times \R)^n \\
 y &\to (b_{x_1}(y),\sigma_{x_1}(y);\cdots; b_{x_n}(y),\sigma_{x_n}(y))
 \end{align*}
-which is continuous by the definition of the product topology. Suppose $ e(y) = e(y') $. Then $ y\in V_{x_i} $ for some $ i $, so $ \sigma_{x_i}(y)=1 $. So $ \sigma_{x_i}(y') = 1 $ too so $ y'\in V_{x_i} $. But then $ b_{x_i}(y) = b_{x_i}(y') $, so $ \tau_{x_i}(y)=\tau_{x_i}(y') $ hence $ y=y' $ since $ \tau_{x_i} $ is a homeomorphism so $ e $ is injective. So $ e: X \to \Ima(X) $ is a continuous bijection from a compact space to a Hausdorff space, hence it is a homeomorphism.\qed
+	which is continuous by the definition of the product topology. Suppose $ e(y) = e(y') $. Then $ y\in V_{x_i} $ for some $ i $, so $ \sigma_{x_i}(y)=1 $. So $ \sigma_{x_i}(y') = 1 $ too so $ y'\in V_{x_i} $. But then $ b_{x_i}(y) = b_{x_i}(y') $, so $ \tau_{x_i}(y)=\tau_{x_i}(y') $ hence $ y=y' $ since $ \tau_{x_i} $ is a homeomorphism so $ e $ is injective. So $ e: X \to \text{Im}(X) $ is a continuous bijection from a compact space to a Hausdorff space, hence it is a homeomorphism.\qed
 \subsection{Surfaces}
 For this section we will just look at $ 2 $-dimensional manifolds which we call surfaces. We've already seen the torus, the M\"obius band, the Klein bottle and $ \R\mathbb P^2 $. We've constructed these by gluing sides of squares together and sometimes changing the direction of the gluing (in the M\"obius band and Klein bottle). But there was nothing special about the square, more generally for a convex polygon $ P\in \R^2 $ having having $ 2n $ edges, each labelled by $ a,b,c,\dots $ such that every label that appears, appears exactly twice and each marked with an arrow.\par
 Define an equivalence relation $ \sim $ on $ P $ by identifying points on the two edges named $ \alpha $ in the direction indicated. Formally, if the edges called $ \alpha $ has vertices $ x,y $ with the arrow going $ x\to y $ and the other $ \alpha $ edge has vertices $ u,v $ with $ u\to v $ then let
@@ -836,7 +836,7 @@ We know that (i) is obvious. For (iii) then suppose $ x $ is equivalent to other
 \par
 The connected-sum of surface can be easily described through polygons in this way. We can consolidate edges together and reduce the number of vertices for shapes formed in this way.
 \begin{example}
-  In a similar way we can obtain a 12-gon giving a connected-sum $ \R\mathbb P^2 \# \R\mathbb P^2 \#\R\mathbb P^2 $ where all the edges are clockwise and read $ xyxyststuvuv $. We can consolidate the edges to get the hexagon with clockwise edges reading $ ppqqrr $. We can draw lines and cut and glue them to get the same image (TO BE COMPLETED NEXT LECTURE) as the connected-sum $ T \# \R\mathbb P^2 $, hence we get that
+  In a similar way we can obtain a 12-gon giving a connected-sum $ \R\mathbb P^2 \# \R\mathbb P^2 \#\R\mathbb P^2 $ where all the edges are clockwise and read $ xyxyststuvuv $. We can consolidate the edges to get the hexagon with clockwise edges reading $ ppqqrr $. Let $ a $ be the line connecting the vertex between the $ p $'s and the vertex between the $ r $'s. Now we cut along $ a $ and glue along $ r $. Hence we get the hexagon with edges reading $ apqqap $ with the $ a $'s and the second $ p $ being traversed anticlockwise instead of clockwise. Now cut along the midpoint of $ q $ and $ q $ to the vertex between $ a $ and $ p $ (the first $ a $). Call this $ b $, cut along $ b $ and glue along $ q $. So we now get the hexagon with edges $ apbpab $ where the first $ a $ is the only anticlockwise edge. Now cut along the vertex between $ p $ (first) and $ b $ to vertex between $ p $ and $ a $. Call this $ c $. Cut along $ c $ and glue along $ p $ to get the hexagon with sides $ abccab $ with the first $ a $ and $ b $ being traversed anticlockwise. This is the polygon representation of $ \R\mathbb P^2 \# T $. Hence we have that
   \[
     \R\mathbb P^2 \# \R\mathbb P^2 \# \R\mathbb P^2 \cong T \# \R \mathbb P^2. 
   \]
@@ -865,8 +865,66 @@ Every surface that we have discussed can be \textit{triangulated} in the followi
 	  \phi : |K| \homeo S.
 	\]
 \end{definition}
+\begin{example}
+  Let's try and triangulate the torus $ T $. Split $ T $ into 18 triangles by splitting it into a $ 3\times 3 $ grid and creating two triangles out of each square. By the equivalence on the unit square of the torus we have 9 vertices on the picture. Assign to the region with vertices $ (i,j,k) $ the triangle in $ \R^9 $ with vertices $ e_i,e_j,e_k $. This gives us a $ \varphi;T\to \R^9 $ affineon each such region. We check that its image which is a union of triangles, is a polyhedron and $ \phi $ is injective. The torus is compact and $ \R^9 $ is Hausdoff, so this is enough to show that $ \varphi $ is a homeomorphism. We require so many triangles to ensure that each edge or triangle in the picturei s uniquely determined by its vertices. This is what's needed to verify that the triangles in $ \R^9 $ form a polyhedron.\par
+  More na\"ively suppose we proposed a triangulation of $ T $ by just splitting it into two triangles across its diagonal. Then any $ \phi:T\to \R^n $ which is linear on each region must be constant since all vertices of each triangle are qual, so if we tried to realise the convex hull in Euclidean space we will just get a point so we can't get a polyhedron. \par
+  If instead we split up the torus into a $ 2\times 2 $ grid and then cut each square into two triangles we still have a problem. Then drawing it out and marking the diagram we have two triangles with the exact same vertices which is a problem.
+\end{example}
+This type of triangulation can always be made into a true triangulation by conducting \textit{barycentric subdivision}. This is a triangulation of the triangle by drawing lines from each vertex along to the barycenter (centriod) of the triangle formed to the midpoint of the opposite side.
+\begin{theorem}
+	(Rad\'o) Every compact topological surface admits a triangulation.
+\end{theorem}
+This is too hard. We'll just assume this.
+\begin{definition}
+	(Euler characteristic) The \textit{Euler characteristic} of a triangulated surface $ \varphi:|K| \homeo S $ is the integer
+	\[
+	  \chi(K) = V - E + F,
+	\]
+	where $ V $ is the number of vertices, $ E $ is the number of edges, and $ F $ is the number of triangles.
+\end{definition}
+\begin{remark}
+  In Part II Algebraic topology we will see that if $ \phi': |K'| \homeo S $ is another triangulation then $ \chi(K) = \chi(K') $, so it's well-defined to write $ \chi(S) $.
+\end{remark}
+\begin{example}
+  $ S^2 $ is homeomorphism to the boundary of the tetrahedron. So $ \chi(S^2) = 2 $.
+\end{example}
+\begin{example}
+  For the torus looking at our representation from before we have 9 vertices, 27 edges and 18 triangles. Hence $ \chi(T) = 0 $. Hence we can deduce that the torus is not homeomorphic to the sphere.
+\end{example}
+\begin{example}
+  Consider $ \R\mathbb P^2 $. We can use the triangulation we used for the torus again slightly modified to the top left and bottom right triangles are mirrored. However not the counts of vertices and edges are different, since the gluing is different. This has 10 vertices, 18 triangles, and 27 edges so $ \chi(\R\mathbb P^2) = 1 $.
+\end{example}
+\begin{definition}
+	(Orientation) An \textit{orientation} of a triangulated surface $ \phi:|K|\homeo S $ with polyhedron $ K = \{\Delta_1, \dots, \Delta_n\} $ is a choice of cycle order of the vertices of each triangle with the condition that if $ \Delta_i \cap \Delta_j $ is an edge then the induced ordering the end points of this edge are opposite. If is has an orientation then it is called \textit{orientable}. Otherwise it is \textit{non-orientable}.
+\end{definition}
+\begin{remark}
+  Like the Euler characteristic orientability does not actually depend on the triangulation: it is an intrisic property of $ S $.
+\end{remark}
+Recall our triangulation of $ \R\mathbb P^2 $ from before and consider the middle strip which is a M\"obius band and try to cyclically order the vertices in each triangle from left to right so that they fit together.
+No matter how we choose the cycle order of the vertices we can't orient the band so the entire of $ \R\mathbb P^2 $ is non-orientable. Similarly $ \R\mathbb P^2 \# S $ for $ S $ triangulable is non-orientable too chosing a good connected-sum.
+\begin{example}
+  Let's show that $ T $ is orientable. Use our $ 3\times 3 $ trianguation from before. Orient each triangle clockwise. At each interior edge the two induced orderings are opposite. The induced ordering of hte vertices of the edges on the left-hand side of the square then points upwards, and that on the right-hand side of the square points downwards, so these are indeed opposite. The same happens with the top and bottom of the square.
+\end{example}
+\begin{example}
+  Consider the $ g $-fold connect sum of $ T $ with itself. This can be obtained by gluing edges of a $ 4g $-gon, with pattern $ ab\inv a \inv b cd \inv c \inv d \cdots $. We can fake trianglate the polygon by addinga central vertex and connecting every point. Then subdividing twice gives a valid trianglarisation. Then orient every triangle clockwise. As edges $ abc\dots $ arise once clockwise and once anticlockwise these orientations match across edges.
+\end{example}
+\begin{theorem}
+	(Classification of surfaces) Any compact connected topological surface is homeomorphic to one of
+\[
+  S^2, T, T\# T, T\# T\# T,\dots
+\]
+or
+\[
+  \R\mathbb P^2, \R\mathbb P^2 \# \R\mathbb P^2, \R\mathbb P^2 \# \R\mathbb P^2 \# \R\mathbb P^2,\dots.
+\]
+Furthermore no two of these surfaces are homeomorphic.
+\end{theorem}
+We will not attempt to make a full proof of the theorem.\par
 
-
-
-
+The first list are orientable surfaces with Euler characteristic $ 2,0,-2,-4,\dots $ (Example Sheet 3 Q7). The second list of surfaces are non-orientable with Euler characteristic $ 1,0,-1,-2,\dots $.
+\par
+The idea of the proof consider a triangulation $ \phi:|K|\homeo S $. Looking at $ |K| $, draw the dual graph so add one central vertex for each triangle and connect an edge between these new vertices if the triangles share an edge. Find a maximal tree of the the dual graph by taking a greedy approach. Glue together the abstract triangles only along the edges in the tree. This gives a large polygon. The remaining edges in the dual graph. This tells you how to pair up the remaing edges. Hence every surface is obtained by polygon gluing. Then invent some algorithm to take any polygon with edge identifications and cut-and-glue to get a simplier polygon.
+\begin{corollary}
+  If two compact connected topological spaces have the same orientability and Euler characteristic, then they are homeomorphic.
+\end{corollary}
 \end{document}
