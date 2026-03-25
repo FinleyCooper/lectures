@@ -1329,7 +1329,7 @@ So $ \mathrm{Cov}(\beta^*) - \mathrm{Cov}(\hat\beta) = \sigma^2 AA^T  $ is posit
 	We have the following:
 	\begin{enumerate}
 		\item The matrix $ P $ is an orthogonal projection if and only if for all $ v\in \mathrm{col}(P) $ we have that $ Pv=v $ and for all $ w\in \mathrm{col}(P)^\perp $ we have that $ Pw = 0 $. Equivalently we can write $ P = UU^T $ where the columns of $ U\in \R^{n\times k} $ form an orthonormal basis of $ \mathrm{col}(P) $ and $ k=\mathrm{rank}(P) $.
-		\item If $ P $ is an orthogonal projection, then so is $ I=P $.
+		\item If $ P $ is an orthogonal projection, then so is $ I-P $.
 		\item $ ||Y||_2^2 = ||PY||_2^2 +||(I-P)Y||_2^2 $ for any $ Y\in \R^ n $.
 		\item The eigenvalues of $ P $ are all $ 0 $ or $ 1 $. In particular $ \tr(P)= \mathrm{rank}(P) $.
 		\end{enumerate}
@@ -1447,4 +1447,114 @@ i.e. that the first predictor has no effect on the response. By the duality of c
   \]
   of which is explored in Example Sheet 3.
 \end{remark}
+\subsection{F-tests for linear regression}
+Suppose we have a linear model $ Y = X\beta + \ep $, and assume we're in a normal model so $ \ep\sim\mathcal N (0,\sigma^2 I) $. We wish to test the null hypothesis that a whole collection of predictors have no effect on the response. This is the multidimensional case of the $ t $-test	 we just did previously. Without loss of generality, take $ p_0\le p $ coefficients. We want to test that
+\begin{align*}
+	H_0&: \beta_1 = \beta_2 = \cdots = \beta_{p_0} = 0 \\
+	H_1 &: (\beta_1,\dots, \beta_{p_0}) \in \R^{p_0}.
+\end{align*}
+We write $ X = \begin{pmatrix}
+	X_0 & X_1
+\end{pmatrix}$ where $ X_0 $ is $ n\times p_0 $ and $ X_1 $ is $ n\times(p-p_0) $. Similarly we say that $ \beta = \begin{pmatrix}
+   \beta^0 \\ \beta^1
+\end{pmatrix} $. The null model has $ \beta^0 = 0 $ so it is a linear model
+\[
+  Y = X\beta + \ep = X_1 \beta^1 +\ep.
+\]
+We will write that $ P = X(X^TX)^{-1}X^T $ and $ P_1 = X_1(X_1^TX_1)^{-1}X_1^T $. Since $ X $ and $ P $ have full rank, so do $ X_1 $ and $ P_1 $.
+\par
+Recall that the MLE in the linear model is
+\begin{align*}
+	\max_{\beta\in \R^p,\sigma^2>0}\ell(\beta,\sigma^2) &= \ell(\hat\beta,\hat\sigma^2) = -\frac n2 \log\hat\sigma^2 - \frac{S(\hat\beta)}{(2\hat\sigma^2} + \text{const.}
+							    &= - \frac n2 \log\left(\frac{||(I-P)Y||_2^2}n\right) + \text{const.}
+\end{align*}
+Thus a GLRT for our hypotheses ($ \beta^0 = 0 $ against $ \beta^0 \in \R^{p_0} $ involves computing
+\begin{align*}
+	\max_{\beta\in\R^P,\sigma^2>0}\ell(\beta,\sigma^2) - \max_{\beta^0 = 0, \sigma^2>0} \ell(\beat,\sigma^2) &= \frac n2 \left(-\log\left(\frac{||(I-P)Y||_2^2}n\right)+\log\left(\frac{||(I-P_1)Y||_2^2}n\right)\right).
+\end{align*}
+The GLRT rejects $ H_0 $ when this is large. This is monotone in
+\begin{align*}
+	\frac{||(I-P_1)Y||_2^2}{||(I-P)Y||_2^2} &= \frac{||(I-P+P-P_1)Y||_2^2}{||(I-P)Y||^2_2} \\
+						&= \frac{||(I-P)Y||_2^2+||(P-P_1)Y||_2^2 + 2Y^T(I-P)(P-P_1)Y}{||(I-P)Y||_2^2}.
+\end{align*}
+\begin{lemma}
+  We have that
+  \[
+	  (I-P)(P-P_1) = 0
+  \]
+and $ P-P_1 $ is an orthogonal projection with rank $ p_0 $.
+\end{lemma}
+\pf We know since $ P $ is a orthogonal projection that $ (I-P)P = 0 $. So we only have to look at $ (I-P)P_1 $. Suppose $ x\in \mathrm{col}(P_1) $ then $ x $ is also in the column space of $ P $, so
+\[
+	(I-P)P_1x = (I-P)x = x - Px = 0.
+\]
+If instead $ x\notin \mathrm{col}(P_1) $,
+\[
+	(I-P)P_1x = 0
+\]
+since $ P_1 $ is a orthogonal projection. So since true for all $ x $ we have that $ (I-P)(P-P_1) = 0 $.\par
+Since $ P $ and $ P_1 $ are symmetric, $ P-P_1 $ is also symmetric. Since $ P_1 $ is a subprojection of $ P $, $ P_1P = PP_1 = P_1 $ so 
+\begin{align*}
+	(P-P_1)^2 = (P^2 - P_1P - PP_1 + P_1^2 = P - P_1
+\end{align*}
+hence $ P-P_1 $ is an orthogonal projection. Since $ P $ and $ P_1 $ have full rank they have traces $ p $ and $ p-p_0 $ respectively. Hence $ P-P_1 $ has trace and therefore rank $ p_0 $.\qed
+\par
+Thus the test statistic is monotonically increasing in
+\begin{align*}
+	\frac{||(P-P_1)Y||^2_2}{||(I-P)Y||^2_2} \frac{1/p_0}{1/(n-p)} = F
+\end{align*}
+Under $ H_0 $ we have that 
+\[
+(P-P_1)Y = (P-P_1)(X\beta + \ep) = (P-P_1)(X_1\beta^1 + \ep)= (P-P_1)\ep.
+\]
+Thus
+\[
+	F = \frac{||(P-P_1)\ep||^2_2}{||(I-P)\ep||^2_2} \frac{1/p_0}{1/(n-p)}.
+\]
+Observe that
+\[
+	\frac{||(P-P_1)\ep||^2_2}{\sigma^2} \sim \chi^2_p \quad \text{and}\quad \frac{||(I-P)\ep||^2_2}{\sigma^2} \sim \chi^2_{n-p}.
+\]
+And also the vector $ \begin{pmatrix}
+	(P-P_1 ) \ep \\ (I-P)\ep
+\end{pmatrix} $ is normal since it's an affine transformation of $ \ep $ and the covariance of $ (P-P1)\ep $ and $ (I-P)\ep $ is zero by the lemma. Thus we have that $ F\sim F_{p_0, n-p_0} $. So the generalised likelihood ratio test is a $ F $-test which rejects $ H_0 $ when
+\[
+	\frac{||P-P_1)Y||^2_2}{||(I-P)Y||_2^2} \cdot \frac{1/p_0}{1/(n-p)} > F_{p_0,n-p}(\alpha).
+\]
+\subsection{Logistic regression}
+Suppose we observe data $ \{(x_1,Y_1),\dots, (x_n,Y_n)\} $ with $ Y_i\in \{0,1\} $ and $ x_i \in \R^p $. We wish to predict $ Y_i $ from $ x_i $. The \textit{logistic model} is
+	\[
+	p(x_i) = \mathbb P(Y_i\mid x_i) = \frac{\exp(\beta^T x_i)}{1+\exp(\beta^T x_i)}
+	\]
+	where $ \beta\in\R^p $ is the vector of parameters we want to estimate.\par
+	The RHS is called the \textit{sigmoid funciton} of $ \beta^T x_i $. Rearranged, the model is
+	\[
+		\log\left(\frac{p(x_i)}{1-p(x_i)}\right) = \beta^T x_i.
+	\]
+Now we want to find the MLE. The likelihood can be written as
+\begin{align*}
+L(\beta) = \prod_{i:\ y_i = 1} p(x_i) \prod_{i\ y_i=0} (1-p(x_i)) &= \prod_{i=1}^n p(x_i)^{y_i}(1-p(x_i))^{1-y_i},
+\end{align*}
+and we wish to maximise
+\[
+	\ell(\beta) = \sum_{i=1}^n (y_u\log(p(x_i)) + (1-y_i)\log(1-p(x_i))).
+\]
+Based on an estimate $ \hat\beta $ of the logistic coefficients, we can compute
+\[
+	\hat p(x) = \frac{\exp(\hat\beta^T x)}{1+\exp(\hat\beta^T x)}
+\]
+on a new input, and classify $ x $ according to $ 1_{\{\hat p(x) > \frac 12\}} $.
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
