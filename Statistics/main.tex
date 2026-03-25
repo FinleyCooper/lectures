@@ -1353,22 +1353,98 @@ and conversely if $ b = Xc \in \mathrm{col}(X) $, then
 \begin{corollary}
 	The vector of fitting values $ \hat Y = PY $ is the orthogonal projection of $ Y $ onto $ \mathrm{col}(X) $ and the vector of residuals $ Y-\hat Y = (I-P)Y $ is the orthogonal projection of $ Y $ onto $ \mathrm{col}(X)^\perp $.
 \end{corollary}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection{Maximum likelihood estimation}
+In addition to $ \mathbb E[\ep] = 0 $ and $ \mathrm{Cov}(\ep) = \sigma^2 I $ we now assume that $ \ep $ is multivariate normal, so $ \ep \sim \mathcal N(0,\sigma^2 I) $. We wish to estimate the parameters $ (\beta,\sigma^2) $. The observations of $ Y $ have pdf
+\[
+	f_Y(Y\mid \beta,\sigma^2) = (2\pi \sigma^2)^{-n/2}\exp\left(-\frac 1{2\sigma^2}\sum_{i=1}^n(Y_i-X_i^T\beta)^2\right).
+\]
+The log-likelihood is
+\[
+	\ell(\beta,\sigma^2) = \text{const.} - \frac n2 \log\sigma^2 - \frac 1{2\sigma^2}||Y-X\beta||_2^2.
+\]
+Note that for any $ \sigma^2>0 $, $ \ell(\beta,\sigma^2) $ is maximised when $ S(\beta) $ is minimised. Thus the MLE of $ \beta $ is the least squares estimator $ \hat\beta $. The MLE for $ \sigma^2 $ minimises
+\[
+	\ell(\hat\beta,\sigma^2) = \text{const.} - \frac n2 \log\sigma^2 - \frac {1}{2\sigma^2}S(\hat\beta).
+\]
+So
+\[
+	\frac{\partial \ell}{\partial \sigma^2} = -\frac n{2\sigma^2} + \frac 1{2\sigma^4} S(\hat\beta).
+\]
+which setting to zero gives that
+\[
+	\hat\sigma^2 = \frac{S(\hat\beta)}n = \frac{||Y-X\hat\beta||^2_2}n = \frac{||Y-\hat Y||_2^2}n = \frac{||(I-P)Y||_2^2}n.
+\]
+\begin{theorem}
+  If $ X\sim \mathcal N(0,\sigma^2 I) $ and $ P $ is an orthogonal projection matrix, then 
+  \begin{enumerate}
+	  \item $ PX\sim \mathcal N(0,\sigma^2 P) $ and $ (I-P)X\sim \mathcal N(0,\sigma^2(I-P)) $ are independent;
+	  \item $ \frac{||PX||^2_2}{\sigma^2} \sim\chi_{\mathrm{rank}(P)}^2 $.
+  \end{enumerate}
+\end{theorem}
+\pf Part (i) proved on Example Sheet 3. For part $ 2 $ note that
+\[
+	\frac{||PX||_2^2}{\sigma^2} = \frac{(PX)^T(PX)}{\sigma^2} = \frac{X^T(UU^T)^T(UU^T)X}{\sigma^2}
+\]
+where the columns of $ U $ form a basis for $ \mathrm{col}(P) $. This then equal to
+\[
+	\frac{||U^TX||_2^2}{\sigma^2} = \sum_{i=1}^{\mathrm{rank}(P)}\frac{(U^TX)_i^2}{\sigma^2}.
+\]
+But we know that $ U^TX \sim\mathcal N(0,\sigma^2 U^TU) = \mathcal N(0,\sigma^2 I) $, so $ \frac{(U^TX)_i}{\sigma} $ are iid $ \mathcal N(0,1) $ for all $ i $. Hence
+\[
+	\frac{||PX||_2^2}{\sigma^2}\sim\chi^2_{\mathrm{rank}(P)} = \chi^2_{\mathrm{tr}(P)}.
+\]
+\begin{corollary}
+  We have that 
+  \begin{enumerate}
+	  \item $ \hat\beta\sim \mathcal N(\beta,\sigma^2(X^TX)^{-1}) $
+	  \item $ \frac{\hat\sigma^2}{\sigma^2}n\sim \chi^2_{n-p} $
+	  \item $ \hat\beta $ and $ \hat\sigma^2 $ are independent.
+  \end{enumerate}
+\end{corollary}
+\pf For (i) we already know that $ \mathbb E[\hat \beta] = \beta $ and $ \mathrm{Cov}(\hat\beta) = \sigma^2(X^TX)^{-1} $. Since $ \hat\beta = (X^TX)^{-1}X^TY $ is linear in $ Y\sim \mathcal N(X\beta, \sigma^2 I) $ we know that $ \hat\beta $ is also multivariate normal.\par
+For (ii) note that
+\[
+	\frac{\hat \sigma^2}{\sigma^2}n = \frac{||(I-P)Y||^2_2}{\sigma^2} = \frac{||(I-P)(X\beta+\ep)||^2_2}{\sigma^2} = \frac{||(I-P)\ep||_2^2}_{\sigma^2}\sim \chi^2_{\mathrm{tr}(I-P)}.
+\]
+Note that $ \tr(I-P) = \tr(I)-\tr(P) = n - p $.
+\par
+For (iii) note that $ \hat\sigma^2 $ is a functoin of $ (I-P)\ep $ and
+\begin{align*}
+	\hat\beta &= (X^TX)^{-1} X^TY = (X^TX)^{-1} X^{-1}(X\beta+\ep) \\
+		  &= \beta + (X^TX)^{-1}X^T\ep\\
+		  &= \beta + (X^TX)^{-1} X^T P\ep
+\end{align*}
+using the fact that $ P=X(X^TX)^{-1}X^T $. So $ \hat\beta $ is a function of $ P\ep $. By the previous theorem we have that $ \hat\beta $ and $ \hat\sigma^2 $ are independent.\qed
+\par
+Suppose we want a $ 100(1-\alpha)\% $ confidence interval for the coefficients in the linear model. \textit{Wlog} consider just $ \beta_1 $. Note that
+\[
+	\frac{\hat \beta_1 - \beta_1}{\sqrt{\sigma^2(X^TX)^{-1}_{11}}}\sim \mathcal N(0,1)
+\]
+independent of $ \frac{\hat\sigma^2}{\sigma^2} n \sim \chi^2_{n-p} $. We use this to construct a pivot since
+\[
+	\frac{\frac{\hat \beta_1 - \beta_1}{\sqrt{\sigma^2(X^TX)^{-1}_{11}}}}{\sqrt{\frac{\hat\sigma^2 n}{\sigma^2 (n-p)}}}\sim t_{n-p}.
+\]
+Rearranging, we arrive at the confidence interval,
+\[
+	\hat \beta_1 \pm t_{n-p}\left(\frac \alpha 2\right)\sqrt{\frac{(X^TX)^{-1}_{11}\hat\sigma^2 n}{n-p}}.
+\]
+\subsection{Hypothesis testing}
+Suppose we wish to test
+\begin{align*}
+	H_0 &: \beta_1 = 0\\
+	H_1 &: \beta_1 \ne 0
+\end{align*}
+i.e. that the first predictor has no effect on the response. By the duality of confidence intervals and hypothesis tests, we can obtain a size $ \alpha $ test for $ H_0 $ by defining the acceptance region $ A = \{\beta:  0 \in I(\beta)\} $. In other words, reject $ H_0 $, if
+\[
+	|\hat \beta_1| < t_{n-p}\left(\frac \alpha 2\right)\sqrt{\frac{\hat\sigma^2 n (X^TX)^{-1}_{11}}{n-m}}.
+\]
+\begin{remark}
+  THere is nothing special about testing $ \beta_1= 0 $: we could just as easily derive a size $ \alpha $ test for $ H_0: \beta_1 = \beta_1' $ for any $ \beta_1' $ in $ \R $.
+\end{remark}
+\begin{remark}
+  We could also determine a confidence set (ellipsoid) for the whole vector of coefficients $ \beta $ by constructing a pivot based on \[
+  \hat \beta-\beta = \mathcal N(0,\sigma^2(X^TX)^{-1})
+  \]
+  of which is explored in Example Sheet 3.
+\end{remark}
 \end{document}
