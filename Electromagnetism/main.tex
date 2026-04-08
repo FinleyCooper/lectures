@@ -2,7 +2,6 @@
 \usepackage{../header}
 \title{Electromagnetism}
 \author{Notes by Finley Cooper}
-\newcommand{\x}{\mathbf x}
 \newcommand{\glg}{\phantom{\mu}}
 \begin{document}
   \maketitle
@@ -129,7 +128,7 @@ Where
   Q = \int_V \rho\mathrm dV
 \]
 is the total charge in $ V $. Gauss' law is the integral version of the first of Maxwell's equations and is valid generally. We get that electric flux is proportional to the total charge enclosed.\par
-In special situations we use Gauss' law together with symmetry to deduce $ \E $ from $ \rho $, by choosing the \textit{Gaussian surface} S appropriately.
+In special situations we use Gauss' law together with symmetry to deduce $ \mathbf E $ from $ \rho $, by choosing the \textit{Gaussian surface} S appropriately.
 \subsubsection{Spherical symmetry}
 Consider a spherically symmetric charge distribution, $ \rho(r) $ in spherical polar coordinates with total charge $ Q $ contained within an outer radius $ R $. To have spherical symmetry, the electric field should have the form
 \[
@@ -223,10 +222,10 @@ For a general $ \rho(\x) $ we cannot determine $ \mathbf E(\x) $ using Gauss' la
 \]
 \begin{definition}
 	(Potential difference) The \textit{potential difference} or \text{voltage} between two points $ \x_1 $ and $ \x_2 $ is
-	\[
+	\begin{align*}
 		\Phi(\x_2)-\Phi(\x_1) &= \int\mathrm d\Phi \\
 				      &= - \int_{\x_1}^{\x_2} \mathbf E\cdot\mathrm d\x
-	\]
+	\end{align*}
 	and is path independent since $ \nabla\times \mathbf E = 0 $ is zero and the region is simply connected, so the field is conservative .
 \end{definition}
 \begin{definition}
@@ -253,7 +252,7 @@ This is the convolution of $ \rho(\x) $ with the potential of a unit point charg
 \[
 	-\nabla^2\Phi = \frac{\delta(\x)}{\varepsilon_0}
 \]
-satisfying $ \Phi\to 0 $ as $ |\x|\to \infty $. Note that $ \E $ is unaffected if we add an arbitrary constant to $ \Phi $ (this makes sense since $ \Phi $ measures a potential difference between two points so increasing the charge uniformly doesn't change $ \E $). We usually choose this such that $ \Phi \to 0 $ as $ |\x|\to \infty $. If $ \rho(\x) $ does not decay sufficiently rapidly this may not be possible. For example if we have a line charge $ E_r\propto \frac 1r $, so we have that $ \Phi\propto \log r $ which doesn't go to zero as $ r\to \infty $.
+satisfying $ \Phi\to 0 $ as $ |\x|\to \infty $. Note that $ \mathbf E $ is unaffected if we add an arbitrary constant to $ \Phi $ (this makes sense since $ \Phi $ measures a potential difference between two points so increasing the charge uniformly doesn't change $ \mathbf E $). We usually choose this such that $ \Phi \to 0 $ as $ |\x|\to \infty $. If $ \rho(\x) $ does not decay sufficiently rapidly this may not be possible. For example if we have a line charge $ E_r\propto \frac 1r $, so we have that $ \Phi\propto \log r $ which doesn't go to zero as $ r\to \infty $.
 \subsubsection{Point charge}
 The potential due to a point charge $ q $ at the origin is
 \[
@@ -278,7 +277,7 @@ In the limit as $ |\mathbf d| \to 0 $ with $ q\mathbf d $ finite, we obtain a \t
 \]
 which has potential
 \[
-	\Phi(\x) = \frac{\p \cdot \x}{4\pi \varepsilon_0 |\x|^3}
+	\Phi(\x) = \frac{\mathbf p \cdot \x}{4\pi \varepsilon_0 |\x|^3}
 \]
 and electric field
 \begin{align*}
@@ -479,7 +478,7 @@ and the first equation here implies that $ \nabla\cdot\mathbf J = 0 $, the time-
 \subsection{Ampere's law}
 Consider a closed curve $ C $ that is the boundary of an open surface $ S $. Integrate the fourth Maxwell equation over $ S $ and apply Stokes' theorem to obtain Ampere's law.
 \[
-  \int_C \mathbff B\cdot\mathrm d\x = \mu_0 I
+  \int_C \mathbf B\cdot\mathrm d\x = \mu_0 I
 \]
 where 
 \[
@@ -582,7 +581,7 @@ The solution of Poisson's equation is
 \]
 We should check that the solution satisfies the assumed Coluomb gauge condition
 \begin{align*}
-	\nabla\cdot\mathbf A(\x)&=\frac{\mu_0}{4\pi}\int_V\nabla\cdot\left\frac{\mathbf J(\x')}{|\x-\x'|}\mathrm d^3\x'\\
+	\nabla\cdot\mathbf A(\x)&=\frac{\mu_0}{4\pi}\int_V\nabla\cdot\left(\frac{\mathbf J(\x')}{|\x-\x'|}\right)\mathrm d^3\x'\\
 				&=\frac{\mu_0}{4\pi}\int_V\mathbf J(\x')\cdot\nabla\left(\frac 1{|\x-\x'|}\right)\mathrm d^3\x'\\
 				&=-\frac{\mu_0}{4\pi}\int_V\mathbf J(\x')\cdot\nabla'\left(\frac 1{|\x-\x'|}\right)\mathrm d^3\x'\\
 				&=-\frac{\mu_0}{4\pi}\int_V\nabla'\cdot\left(\frac {\mathbf J(\x')}{|\x-\x'|}\right)\mathrm d^3\x'\\
@@ -612,7 +611,7 @@ which gives the same equation if substituted in. Charge conservation takes the f
 \end{align*}
 where $ C $ runs from $ \x_1 $ to $ \x_2 $. If $ C $ is closed then $ \x_2=\x_1 $ and $ \nabla\cdot\mathrm J=0 $ as expected. If $ C $ is infinite then $ \nabla\cdot\mathrm J =0  $ for any finite $ \x $. Let's check the thin-wire version of Biot-Savart's law gives the same result as Ampere's law for a long straight thin wire along the $ z $ azis of cylindrical polars. We have that $ \x = r\mathbf e_r $ (taking $ z=0 $ \textit{wlog}) and $ \x'=z'\mathbf e_z $. So $ \x-\x'=r\mathbf e_r-z'\mathbf e_z $. We also have that $ \mathrm d\x'=\mathrm z'\mathbf e_z $. This gives that 
 \[
-	\mathbf B(\x) = \frac{\mu_0 I}{4\pi}\mathbf e_\phi\int_{-\infty}^\infty\frac{r\mathrm dz'}{(r^2+z^2')^{3/2}}=\frac{\mu_0 I}{2\pi r}\mathbf e_\phi
+	\mathbf B(\x) = \frac{\mu_0 I}{4\pi}\mathbf e_\phi\int_{-\infty}^\infty\frac{r\mathrm dz'}{(r^2+z'^2)^{3/2}}=\frac{\mu_0 I}{2\pi r}\mathbf e_\phi
 \]
 as expected.
 \subsection{Magnetic dipoles}
@@ -675,7 +674,7 @@ To evaulated this, let $ \mathbf a $ be any constant vector. Then by Stokes' the
 \begin{align*}
 	\mathbf a \cdot\mathrm m &= \frac I2\int_C\mathbf a\cdot(\x\times \mathrm d\x)\\
   &= \frac I2\int_C(\mathrm a \times \x)\cdot\mathrm d\x\\
-  &= \frac I2 \int_S(\nabla\times (\mathrm a \time \x))\cdot\mathrm d\mathbf S\\
+	&= \frac I2 \int_S(\nabla\times (\mathrm a \times \x))\cdot\mathrm d\mathbf S\\
   &= I\int_S \mathbf a\cdot\mathrm d\mathbf S
 \end{align*}
 where $ S $ is an open surface with boundary $ C $ and we use
@@ -769,7 +768,7 @@ This is directed towards wire 2 is $ I_1I_2>0 $ so the force is attractive if th
 Let's consider the force and torque on a magnetic dipole. Consider a localised current distribution confined to a ball $ \{V:|\x|<R\} $. Place this in an external magnetic field $ \mathbf B(\x) $ that varies slowly over the length scale $ R $. the magnetic torque about the origin on the current loop is
 \begin{align*}
 	\boldsymbol\tau &= \int_V\x \times(\mathbf J(\x) \times \mathbf B(\x)\mathrm d^3\x\\
-			&= \int_V ((\x\cdot \mathbf B(\x))\mathbf J(\x)-(\x\cdot \J(\x))\mathbf B(\x))\mathrm d^3\x.
+			&= \int_V ((\x\cdot \mathbf B(\x))\mathbf J(\x)-(\x\cdot \mathbf J (\x))\mathbf B(\x))\mathrm d^3\x.
 \end{align*}
 within $ V $, $ \mathbf B(\x) $ can be expanded as a Taylor series,
 \begin{align*}
@@ -836,7 +835,7 @@ is the \textit{electromotive force} (emf) around $ C $ and
   \mathcal F = \int_S \mathbf B\cdot\mathrm d\mathbf S
 \]
 is the \textit{magnetic flux} through $ S $.\par
-Since $ \naabla\cdot\mathbf B = 0 $, the flux $ \mathcal F $ is the same through any surface $ S $ such that $ \partial S=C $, so it can be regarded as the magnetic flux through $ C $.
+Since $ \nabla\cdot\mathbf B = 0 $, the flux $ \mathcal F $ is the same through any surface $ S $ such that $ \partial S=C $, so it can be regarded as the magnetic flux through $ C $.
 \par
 Using $ \mathbf B = \nabla\times \mathbf A $ and Stokes' theorem we can write $ \mathcal F = \int_C\mathbf A\cdot\mathrm d \x $, which is invariant under a gauge transformation. The emf is not actually a force. it is the line integral of the Lorentz force on a particle of unit charge confined to $ C $.
 \[
@@ -1249,9 +1248,9 @@ In the special theory of relativity we use spacetime coordinates
 \]
 to describe time and position in an inertial frame $ \mathcal S $. Greek indices such as $ \mu $ and $ \nu $ run from $ 0 $ to $ 3 $ to cover the dimensions of spacetime. Roman indices such as $ i $ and $ j $ will run from $ 1 $ to $ 3 $ to cover the dimensions of space.\par
 $ X $ is a position $ 4 $-vector. Under a \textit{Lorentz transformation} (LT) from $ \mathcal S $ to another inertial frame $ \mathcal S' $, it transforms according to
-\[
-	X' = \Lambda X\tag{\star}
-\]
+\begin{equation}
+	X' = \Lambda X\tag{$\star$}
+\end{equation}
 where $ \Lambda $ is the $ 4\times 4 $ Lorentz transformation matrix. In index notation,
 \[
 	X'^\mu = \Lambda^\mu_{\phantom{\mu} \nu} X^\nu
@@ -1303,7 +1302,7 @@ in any inertial frame. Thus
 \]
 The inner product is \textit{invariant} under a Lorentz transformation since
 \begin{align*}
-	V'\cdot W' &= \eta'_{\mu\nu}V'^\muW'^\nu \\
+	V'\cdot W' &= \eta'_{\mu\nu}V'^\mu W'^\nu \\
 		   &= \eta_{\mu\nu}\Lambda^\mu_{\glg \rho}V^{\rho}\Lambda^\nu_{\glg \sigma}W^\sigma\\
 		   &= \eta_{\rho \sigma} V^\rho W^\sigma \\
 		   &= V\cdot W
@@ -1366,18 +1365,18 @@ In the Newtonian limit $ |\mathbf u|^2 \ll c^2 $ we have $ \mathbf p = m\gamma_{
 In the rest frame of the particle $ \mathbf u = 0 $ and $ E=mc^2 $ exactly, which is the rest energy.
 \par
 Massless particles such as photons travel at the speed of light in any intertial frame. They have $ E=|\mathbf p|c $ and have null 4-velocity.
-\subsection{Covectors and tensors}
+\par
 Let
 \[
 	Y_\mu = \frac{\partial f}{\partial X^\mu}
 \]
 be the \textit{derivative} of a scalar field $ f(X) $ on spacetime. How does this transform under a LT? By the chain rule,
 \begin{align*}
-	\frac{\partial f}{\partial X'^\mu} &=\frac{\partial X^\ny}{\partial X'^\mu}\frac{\partial f}{\partial X^\nu}
+	\frac{\partial f}{\partial X'^\mu} &=\frac{\partial X^\nu}{\partial X'^\mu}\frac{\partial f}{\partial X^\nu}
 \end{align*}
 So
 \[
-	Y'_\mu = (\inv \Lambda)^\nu_{\glg \mu}Y_\nu \tag{\dagger}
+	Y'_\mu = (\inv \Lambda)^\nu_{\glg \mu}Y_\nu \tag{$\dagger$}
 \]
 where $ (\inv \Lambda)^\nu_{\glg \mu} = \frac{\partial X^\nu}{\partial X'^\mu} $ is the inverse LT matrix, satisfying
 \begin{align*}
@@ -1433,7 +1432,7 @@ which is not a scalar since it's not a Lorentz invariant quantity, unlike
 \end{definition}
 The metric tensor $ \eta_{\mu\nu} =\mathrm{diag}(-1,1,1,1)$ is isotropic $ (0,2) $ tensor, and its inverse
 \[
-	\eta^{\mu\nu} = \diag(-1,1,1,1)
+	\eta^{\mu\nu} = \mathrm{diag}(-1,1,1,1)
 \]
 is also an isotropic tensor $ (2,0) $ tensor.\par
 The Kronecker delta symbol 
@@ -1450,16 +1449,366 @@ The Levi-Civita epsilon symbol
 	\end{cases}
 \]
 is an isotropic \textit{pseudo-tensor} of type $ (0,4) $. A psuedo-tensor satisfies the same transformation law as a tensor but with an extra factor of $ \det(\Lambda) = \pm 1 $.\par
-A \textit{tensor equation} is one in which every term is a tensor of the same type and transforms identically under a Lorentz transformation. Such an equation is said to be \textit{covariant} and is valid in any intertial frame.  
-
-
-
-
-
-
-
-
-
-
-
+A \textit{tensor equation} is one in which every term is a tensor of the same type and transforms identically under a Lorentz transformation. Such an equation is said to be \textit{covariant} and is valid in any intertial frame.
+\par
+The spacetime derivative of a scalar field $ f(X) $ is a covector field
+\begin{align*}
+	\partial_\mu f &= (\partial_0 f,\ \partial_i f) \\
+		       &= \left(\frac 1c \frac{\partial f}{\partial t}, \ \nabla f \right).
+\end{align*}
+The spacetime divergence of a 4-vector field $ V(X) = (V^0, \ \mathbf v) $ is a scalar field
+\begin{align*}
+	\partial_\mu V^\mu &= \partial_0 V^0 + \partial_i V^i\\
+			   &= \frac 1c \frac{\partial V^0}{\partial t} + \nabla \cdot\mathbf v.
+\end{align*}
+In $ \R^3 $ the curl involves the antisymmetric part of the derivatives of a vector field. The spacetime equivalent is the antisymmetric derivative of a covector field $ Y(X) $, a tensor field of type $ (0,2) $
+\[
+  \partial_\mu Y_\nu - \partial_\nu Y_\mu.
+\]
+The generalisation of the Laplacian $ \nabla^2 $ is the d'Alembertion, a similar differential operator
+\begin{align*}
+	\square &= \eta^{\mu \nu}\partial_\mu\partial_\nu \\
+		&= - \partial_0 \partial_0 + \partial_i\partial_i \\
+		&= -\frac 1{c^2} \frac{\partial^2}{\partial t^2} + \nabla^2.
+\end{align*}
+The wave equation for a scalar field $ f(X) $ is $ \square f = 0 $.  This is a scalar equation only for waves that travel at $ c $.
+\par
+The metric tensor $ \eta^{\mu \nu} $ provides an isomorphism between vectors ($ V^\mu $) and covectors ($ V_\mu $) since
+\[
+	V^\mu = \eta^{\mu\nu} V_\nu,\quad V_\mu = \eta_{\mu\nu}V^{\nu}.
+\]
+These operations are known as raising and lowering indices.\par
+Raising or lowering simply changes the sign of the zeroth (the time) component, whilst leaving the spatial components unchanged, since the restriction of $ \eta $ on space is just the identity. Raising or lowering a Roman index changes nothing. For example for the 4-velocity,
+\begin{align*}
+	U^\mu = \gamma_{\mathbf u}(c,\ \mathbf u), \quad U_\mu = \gamma_{\mathbf u}(-c,\ \mathbf u)
+\end{align*}
+or for the derivative,
+\[
+	\partial_\mu f = \left(\frac 1c \frac{\partial f}{\partial t},\ \nabla f\right), \quad \partial^\mu f = \left(-\frac 1c \frac{\partial f}{\partial t}, \ \nabla f\right).
+\]
+The inner product of two 4-vectors can be written variously as
+\begin{align*}
+	V\cdot W &= \eta_{\mu \nu}V^\mu W^\nu \\
+		 &= V_\nu W^\nu \\
+		 &= V^\mu W_\mu \\
+		 &= \eta^{\mu \nu}V_\nu W_\nu.
+\end{align*}
+Raising and lowering can be applied to any tensor index, for example
+\begin{align*}
+	T_{\mu}^{\glg \nu} &= \eta_{\mu \rho}T^{\rho \nu} \\
+	T_{\glg \nu}^{\mu} &= \eta_{\nu \rho}T^{\mu \rho}.
+\end{align*}
+A tensor may be symmetric or antisymmetric on a pair of its indices. If both indices are raised or lowered, then symmetry/antisymmetry is preserved.
+\subsection{Charge conservation}
+The equation of charge conservation is
+\[
+	\frac{\partial \rho}{\partial t} + \nabla\cdot\mathbf J = 0
+\]
+and can be written in the form of a spacetime divergence
+\[
+	\partial_\mu J^\mu = 0
+\]
+by defining the \textit{charge-current density} 4-vector as
+\[
+  J^\mu = (\rho c, \ \mathbf J).
+\]
+The equation of spcaetime divergence is a scalar Lorentz-invariant equation, valid in any inertial frame.
+\begin{example}
+Consider a Lorentz boost in standard configuration. Suppose in frame $ \mathcal S $ we have a uniform distribution of charged particles at rest, with charge $ q $ and proper number density (number per unit volume in the rest frame) $ n $. Then $ \rho=nq $ and $ \mathbf J = 0 $, giving
+\[
+  J^\mu = (nqc, \ 0)
+\]
+in $ \mathcal S $. In frame $ \mathcal S' $, the particles have a 3-velocity $ (-v, 0,0) $. Their number density increases to $ \gamma n $ due to length contraction in the $ x $ direction. So $ \rho' = \gamma nq $ and $ \mathbf J' = \gamma nq(-v,0,0) $, giving 
+\[
+  J'^\mu = (\gamma nqc,\ -\gamma nqv,\ 0,\ 0)
+\]
+in $ \mathcal S' $. These are consistant with the Lorentz transformation of a 4-vector.
+\end{example}
+\begin{example}
+  Now suppose that in $ \mathcal S $ we have a wire in which particles of charge $ +q $ and number density $ n_+ $ move along the wire with 3-velocity $ (u,0,0) $ and particles of charge $ -q $ and number density $ n_-=n_+ $ move along the wire with 3-velocity $ (-u,0,0) $. The net charge density is $ \rho = n_+ q - n_-q = 0 $ and the net current density is
+  \[
+    \mathbf J = n_+ q(u,0,0) - n_-q(-u,0,0) = (2n_+qu,\ 0,\ 0).
+  \]
+  The wire is uncharged, but carries a current. So $ \mathbf E = 0 $ and $ \mathbf B\ne 0 $. In $ \mathcal S' $ these positive and negative particles have different velocities in the $ x $ direction. Recall that we add velocities by
+  \[
+	  \frac{\pm u - v}{1\mp \frac{uv}{c^2}}
+  \]
+  and therefore different charge densities because of length contraction. The wire has a net charge and therefore $ \mathbf E' \ne 0 $.
+\end{example}
+So a magnetic field in one frame can produce an electric field in another and vice-versa.
+\subsection{Electromagnetic tensor}
+The relativistic equation of motion for a massive particle is
+\[
+	\frac{dP^\mu}{d\tau} = f^\mu
+\]
+where $ \tau $ is the proper time and $ f^\mu $ is the 4-force. Since $ P\cdot P = -m^2c^2 $ is constant, $ f^\mu $ must satisfy $ f\cdot P = 0 $. In detail,
+\begin{align*}
+	\frac{d}{d\tau}\left(\eta_{\mu\nu}P^\mu P^\nu\right) &= \eta_{\mu\nu}\left(\frac{dP^\mu}{d\tau} P^\nu + P^\mu \frac{dP^\nu}{d\tau}\right) \\
+							     &= \eta_{\mu\nu}(f^\mu P^\nu + P^\mu f^\nu) \\
+							     &= 2 \eta_{\mu\nu} f^\mu P^\nu \\
+							     &= 2f_\mu P^\mu = 0.
+\end{align*}
+How can we express the Lorentz force as a 4-vector (or covector)? It should be proportional to the charge $ q $ of the particle and linear in the 4-velocity $ U^\mu $. We'll assume that
+\[
+	f_\mu = qF_{\mu\nu}U^\nu
+\]
+for some $ (0,2) $ tensor $ F_{\mu\nu} $. Now from the constraint that $ f\cdot P = 0 $ this is equivalent to $ qmF_{\mu \nu} U^\mu U^\nu = 0 $ and is satisfied for all $ U $ if $ F_{\mu\nu} $ is antisymmetric.\par
+We can decompose and the spatial components are
+\[
+	f_i = q(F_{i0}U^0 + F_{ij}U^j) = \gamma_{\mathbf u} q(F_{i0}c + F_{ij}u_j).
+\]
+For this to agree with $ \gamma_{\mathbf u}q(E_i+\ep_{ijk}u_jB_k) $ (since we get that $ \gamma_{\mathbf u} $ factor from using the chain to convert $ \frac{d}{dt} $ to $ \frac{d}{dt} $) we require
+\[
+	F_{i0} = \frac{E_i}c,\quad F_{ij} = \ep_{ijk}B_k.
+\]
+And by antisymmetry we have
+\[
+	F_{00} = 0, \quad F_{0i} = - \frac{E_i}c.
+\]
+Hence we can write $ F_{\mu\nu} $ as a matrix
+\[
+	F_{\mu\nu} = \begin{pmatrix}
+		0 & - E_x/c & -E_y/c & -E_z/c \\
+		E_x/c & 0 & B_x & -B_y \\
+		E_y/c & -B_z & 0 & B_x \\
+		E_z/c & B_y & -B_x & 0
+	\end{pmatrix}
+\]
+which we call the electrromagnetic tensor. Now neither $ \mathbf E $ or $ \mathbf B $ is the spatial part of a 4-vector. However for a particle with 4-velocity $ U $, $ F_{\mu\nu}U^\nu $ is a covectro that equals $ (0,\mathbf E) $ in the particle's rest frame.\par
+We have by construction that the spatial compoenents of relativistic equation of motion for a massive particle gives
+\[
+	\frac{d\mathbf p}{d\tau} = \gamma_{\mathbf u} q(\mathbf E + \mathbf u\times\mathbf B)
+\]
+where $ \mathbf p = \gamma_{\mathbf u} m \mathbf u $ is the relativistic 3-momentum. Equivalently we have
+\[
+	\frac{d\mathbf p}{dt} = q(\mathbf E +\mathbf u\times\mathbf B) = \mathbf F
+\]
+which is our familiar express for the Lorentz force. Here $ \mathbf F $ is the 3-force.\par
+The time componenet of the relativistic equation for motion is
+\[
+	\frac{dP^0}{d\tau} = f^0 = -f_0 = -qF_{0i}U^i = q\frac{E_i}c \gamma_{\mathbf u} u_i,
+\]
+which is equivalent to
+\[
+	\frac{dE}{d\tau} = q \gamma_{\mathbf u}\mathbf E \cdot\mathbf u
+\]
+or
+\[
+	\frac{dE}{dt} = q \mathbf E\cdot\mathbf u = \mathbf F \cdot\mathbf u.
+\]
+\subsection{The 4-potential}
+We previously wrote 
+\[
+	\mathbf E = - \nabla\Phi - \frac{\partial \mathbf A}{\partial t}, \quad \mathbf B = \nabla\times\mathbf A
+\]
+in terms of scalar and vector potentials.\par
+What does this mean for $ F_{\mu\nu} $?
+\begin{align*}
+	F_{i0} = \frac{E_i}c &= - \frac 1c \frac{\partial \Phi}{\partial x_i} - \frac 1c \frac{\partial A_i}{\partial t} \\
+			     &= \partial_i\left(-\frac{\Phi}c \right) - \partial_0 A_i
+\end{align*}
+and
+\begin{align*}
+	F_{ij} = \ep_{ijk}B_k &= \ep_{ijk}\ep_{k\ell m} \partial_\ell A_m \\
+			      &= \partial_iA_j - \partial_j A_i.
+\end{align*}
+We interpret $ F_{\mu\nu} $ as the antisymmetric derivative,
+\[
+	F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
+\]
+of the covector $ A_\mu = \left(-\frac \Phi c, \ \mathbf A\right) $. The related 4-vector is the 4-potential obtained by raising the index,
+\[
+  A^\mu = \left(\frac \Phi c, \ \mathbf A\right). 
+\]
+A gauge transformation
+\[
+	\tilde{\mathbf A} = \mathbf A + \nabla\chi, \quad \tilde\Phi = \Phi - \frac{\partial \chi}{\partial t}
+\]
+corresponds to replacing $ A_\mu $ with
+\[
+  \tilde A_\mu = A_\mu + \partial_\mu \chi
+\]
+i.e. adding $ \partial_\mu \chi = \left(\frac 1c\frac{\partial \chi}{\partial t},\ \nabla \chi\right) $ to $ A_\mu = \left(-\frac \Phi c , \ \mathbf A\right) $. This leaves $ F_{\mu\nu} $ unchanged, because
+\[
+  \partial_\mu(\partial\nu\chi) - \partial_\nu(\partial_\mu\chi) = 0.
+\]
+The spacetiem equivalent of the Coulomb gauge is the \textit{Lorentz gauge} in which
+\[
+  \partial_\mu A^\mu = 0.
+\]
+If $ \partial_\mu A^\mu \ne 0 $ then we can make a gauge transformation such that $ \partial_\mu \tilde A^\mu = 0 $ by choosing $ \chi $ to be the solution of the forced wave equation
+\[
+  -\square \chi = \partial_\mu A^\mu.
+\]
+(Note that $ \partial_\mu \partial^\mu \chi = \eta^{\mu\nu}\partial_\mu\partial_\nu\chi = \square \chi $.)
+\subsection{Lorentz transformation of $ \mathbf E  $ and $ \mathbf B $}
+Since $ F_{\mu\nu} $ is a $ (0,2) $ tensor it transforms as
+\[
+	F'_{\mu\nu} = (\inv \Lambda)^{\rho}_{\glg \mu}(\inv \Lambda)^{\sigma}_{\glg \nu} F_{\rho \sigma}.
+\]
+In matrix rotation,
+\[
+  F' = (\inv \Lambda)^T F(\inv \Lambda).
+\]
+For a Lorentz boost in standard configuration,
+\[
+  \inv \Lambda = \begin{pmatrix}
+	  \gamma & \gamma\beta & 0 & 0 \\
+	  \gamma\beta & \gamma & 0 & 0 \\
+	  0 & 0 & 1 & 0 \\
+	  0 & 0 & 0 & 1
+  \end{pmatrix}.
+\]
+Hence after some calculations we get that
+\begin{align*}
+	F'_{01} &= \gamma^2(F_{01} + \beta^2 F_{10} + \beta(F_{00}+F_{11})) \\
+		&= \gamma^2(1-\beta^2)F_{01} \\
+		&= F_{01}
+\end{align*}
+and that
+\begin{align*}
+	F'_{02} &= \gamma(F_{02} + \beta F_{12}) \\
+	F'_{03} &= \gamma(F_{03} + \beta F_{13}) \\
+	F'_{12} &= \gamma(F_{12} + \beta F_{02}) \\
+	F'_{13} &= \gamma(F_{13} + \beta F_{03}) \\
+	F'_{23} &= F_{23}
+\end{align*}
+from which we deduce that 
+\begin{align*}
+	E'_x &= E_x \\
+	E'_y &= \gamma(E_y - vB_z) \\
+	E'_z &= \gamma(E_z + vB_y)
+\end{align*}
+and
+\begin{align*}
+	B_x' &= B_x \\
+	B_y' &= \gamma(B_y + \frac v{c^2} E_z) \\
+	B_z' &= \gamma(B_z - \frac v{c^2} E_y).
+\end{align*}
+More generally, if $ \mathbf v $ is the velocity of $ \mathcal S' $ with respect to $ \mathcal S $ then the parallel components of $ \mathbf E' $ and $ \mathbf B' $ are unchanged and
+\[
+	\mathbf E'_{\perp} = \gamma(E_\perp + \mathbf v \times\mathbf B_\perp) \quad \text{and} \quad \mathbf B'_\perp = \gamma(\mathbf B_\perp - \frac 1{c^2} \mathbf v \times \mathbf E_{\perp})
+\]
+where we've decomposes $ \mathbf E $ and $ \mathbf B $ into components parallel and perpendicular to $ \mathbf v $.\par
+We can also doubly raise $ F_{\mu\nu} $ to get that
+\[
+	F^{\mu\nu} = \begin{pmatrix}
+	   0 & E_x/c & E_y/c & E_z/c \\
+	   -E_x/c & 0 & B_z & -B_y \\
+	   -E_y/c & -B_z & 0 & B_x \\
+	   -E_z/c & B_y & -B_x & 0
+	\end{pmatrix}
+\]
+still antisymmetric as a covector. We can then calculate a generalisation of the inner product by contracting $ F_{\mu\nu} $ on its raised version, so
+\begin{align*}
+	F_{\mu\nu}F^{\mu\nu} &= F_{00}F^{00} + F_{0i}F^{0i} + F_{i0}F^{i0} + F_{ij}F^{ij} \\
+			     &= 0 + \left(-\frac{E_i}c\right)\left(\frac{E_i}c\right) + \left(\frac{E_i}c\right)\left(-\frac{E_i}c\right) + \ep_{ijk}B_k\ep_{ij\ell}B_\ell \\
+			     &= -2\frac{|\mathbf E|^2}{c^2} + 2\delta_{k\ell} B_kB_\ell \\
+			     &= -\frac2{c^2}(|\mathbf E|^2 - c^2|\mathbf B|^2)
+\end{align*}
+We can also take the outer product of both raised indices and then contract over all indices with the Levi-Civita symbol to form a pseudoscalar
+\begin{align*}
+	\ep_{\mu\nu \sigma\rho}F^{\mu\nu}F^{\rho\sigma} &= \ep_{0ijk}F^{0i}F^{jk} + \ep_{i0jk} F^{i0}F^{jk} + \ep_{ij0k}F^{ij}F^{0k} + \ep_{ijk0}F^{ij}F^{k0} \\
+							&= \ep_{ijk} \frac{E_i}c \ep_{jk\ell} B_\ell - \ep_{ijk}\left(-\frac {E_i}c\right) \ep_{jk\ell}B_\ell + \ep_{ijk}\ep_{ij\ell}B_\ell\frac{E_k}c - \ep_{ijk}\ep_{ij\ell} B_\ell\left(-\frac{E_k}c\right) \\
+							&= 4 \ep_{ijk} \frac{E_i}c \ep_{jk\ell}B_\ell \\
+							&= \frac 8c \delta_{i\ell} E_iB_\ell \\
+							&= \frac 8c \mathbf E \cdot \mathbf B
+\end{align*}
+using the fact that $ \ep_{0ijk} = \ep_{ijk} $ and similar results for permutations. So $ |\mathbf E|^2 - c^2 |\mathbf B|^2 $ is a scalar and $ \mathbf E \cdot\mathbf B $ is a pseudo-scalar. Hence if $ \mathbf E $ and $ \mathbf B $ are perpendicular in one inertial frame, then they are perpendicular in all frames.
+\subsection{Maxwell's equations}
+Now we want to write Maxwell's equations in a covariant form. We have the relations
+\[
+	F^{0i} = -F^{i0} = \frac{E_i}c,\quad F^{ij} = \ep_{ijk}B_k, \quad J^0 = \rho, \quad J^i = J_i,\quad c^2=\frac 1{\mu_0\ep_0}.
+\]
+So the first Maxwell equation becomes
+\[
+	c\partial_i F^{0i} = \frac{J^0}{\ep_0 c}
+\]
+which is then equivalent to
+\[
+	\partial_i F^{0i} = \mu_0 J^0.
+\]
+The fourth Maxwell euation becomes
+\[
+	\ep_{ijk}\partial_j B_k = \mu_0J_i + \frac1c \partial_0 E_i
+\]
+which is then equivalent to
+\[
+	\partial_0 F^{i0} + \partial_j F^{ij} = \mu_0 J^i.
+\]
+We can see that these are the components of the 4-vector equation
+\[
+	\partial_\nu F^{\mu\nu} = \mu_0 J^\mu.
+\]
+We have that
+\[
+	F_{ij} = \ep_{ijk}B_k
+\]
+so
+\[
+	B_i = \frac 12 \ep_{ijk}F_{jk}
+\]
+hence the second Maxwell equation becomes
+\[
+	\partial_i B_i = \frac 12 \ep_{ijk} \partial_i F_{jk} = \partial_1 F_{23} + \partial_2 F_{32} + \partial_3 F_{12} = 0
+\]
+which equivalent to
+\[
+	\partial_i F_{jk} + \partial_jF_{ki} + \partial_kF_{ij} = 0.
+\]
+The third Maxwell equation becomes
+\[
+	\ep_{ijk}\partial_j E_k = -c\partial_0 B_i
+\]
+which after multiplying by $ \ep_{i\ell m} $ and dividing by $ c $ is equivalent to
+\[
+	\partial_\ell F_{m0} - \partial_m F_{\ell 0} + \partial_0 F_{\ell m} = 0.
+\]
+Using antisymmetry and relabeling this is the same as
+\[
+	\partial_i F_{j0} + \partial_j F_{0i} + \partial_0 F_{ij} = 0
+\]
+hence the second and third Maxwell equations are equivalent to
+\[
+	\partial_\mu F_{\nu\rho} + \partial_\nu F_{\rho \mu} + \partial_\rho F_{\mu\nu} = 0
+\]
+which can also be written as
+\[
+	\ep^{\mu\nu\rho\sigma} \partial_\nu F_{\rho\sigma} = 0.
+\]
+The equations of motion of a charged particle is
+\[
+	\frac{d P^\mu}{d\tau} = f^\mu
+\]
+with $ P^\mu = mU^\mu $ and $ f_\mu = qF_{\mu\nu} U^\nu $. Charge conservation follow from the first covariant Maxwell equation since
+\[
+	\frac 1{\mu_0}\partial_\mu\partial_\nu F^{\mu\nu} = \partial_\mu J^\mu = 0
+\]
+since $ \partial_\mu\partial_\nu $ is symmetric and $ F^{\mu\nu} $ is antisymmetric.\par
+If we write $ F_{\mu\nu} $ in terms of the 4-potential,
+\[
+	F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
+\]
+then the second covariant Maxwell equations are satisfied automatically and the first gives that
+\[
+	\partial_\nu(\partial^\mu A^\nu) - \partial_\nu(\partial^\nu A^\mu) = \mu_0 J^\mu.
+\]
+If we choose the Lorentz gauage, the first term vanishes, so
+\[
+  \partial_\nu(\partial^\mu A^\nu) = \partial^\mu(\partial_\nu A^\nu) = 0
+\]
+giving that 
+\[
+  -\square A^\mu = \mu_0 J^\mu.
+\]
+This is an inhomogeneous wave equation for the 4-potential, with a source proportional to charge-current density.
+\begin{enumerate}
+	\item In the absence of charges and currents, this describes free EM waves.
+	\item In a time-independent situtation it reduces to
+		\[
+			-\nabla^2 \Phi = \frac{\rho}{\ep_0},\quad -\nabla^2\mathbf A = \mu_0 \mathbf J
+		\]
+		as we found in electrostatics and magnetostatics since the Lorentz gauge becomes the Coulomb gauge when there is no time-dependence.
+	\item More generally this equation describes how EM waves are generated by time-dependent charge and current distributions. 
+\end{enumerate}
 \end{document}
