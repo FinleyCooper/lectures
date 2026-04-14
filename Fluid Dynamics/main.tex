@@ -49,7 +49,7 @@
 \end{remark}
 	If the flow is \textit{steady} (so $ \mathbf u $ does not depend on time). Then pathlines and streamlines are the same.
 \subsection{The material derivative}
-We will characterise the rate of change of "stuff" moving with a fluid. Consider a quantity $ F(\x,t) $ in a fluid flow (intution is $ F $ is temperature). We want to measure how the temperature chnages as we move through the field $ F $ along the flow. Let compute the rate of change of $ \F $ (in time) seen by a moving observer. We will call this $ \frac{DF}{Dt} $. Take a small time interval $ \delta t $. Then
+We will characterise the rate of change of "stuff" moving with a fluid. Consider a quantity $ F(\x,t) $ in a fluid flow (intution is $ F $ is temperature). We want to measure how the temperature chnages as we move through the field $ F $ along the flow. Let compute the rate of change of $ F $ (in time) seen by a moving observer. We will call this $ \frac{DF}{Dt} $. Take a small time interval $ \delta t $. Then
 \begin{align*}
 	\delta F &= F(\x+\delta\x,t+\delta t)-F(\x,t)\\
 		 &= \delta t\frac{\partial F}{\partial t}+(\delta\x\cdot \nabla)F + \text{(higher order terms)}.
@@ -94,7 +94,7 @@ Hence we require $ \mathbf u \cdot n = \mathbf U \cdot \mathbf n $ at the interf
 We have some consequences of this condition.
 \begin{enumerate}
 	\item If the boundary is fixed, $ \mathbf U=0 $ implies that $ \mathbf u \cdot \mathbf n = 0 $. This is called the no penetration condition.
-	\item Consider an air/water interface (free surface). Suppose the surface is defined by $ z=\xi(x,y,t) $. Then can think of the free space as $ F(x,y,z,t)=0 $ where $ F(x,y,z,t) = z-\deta(x,y,t) $. So $ \mathbf n $ is perp to $ \nabla F = (-\xi_x,-\xi_y,1) $. Then if $ \mathbf u = (u,v,w) $ so $ \mathbf U = (0,0,\xi_t) $. Then the kinematic boundary condition becomes $ -u\xi_x-c\xi_y+w=\xi_t $, so $ w=\xi_t+u\xi_x+v\xi_y=\frac{D\xi}{Dt} $. This is equivalent to $ \frac{DF}{Dt}=0 $.
+	\item Consider an air/water interface (free surface). Suppose the surface is defined by $ z=\xi(x,y,t) $. Then can think of the free space as $ F(x,y,z,t)=0 $ where $ F(x,y,z,t) = z-\xi(x,y,t) $. So $ \mathbf n $ is perp to $ \nabla F = (-\xi_x,-\xi_y,1) $. Then if $ \mathbf u = (u,v,w) $ so $ \mathbf U = (0,0,\xi_t) $. Then the kinematic boundary condition becomes $ -u\xi_x-c\xi_y+w=\xi_t $, so $ w=\xi_t+u\xi_x+v\xi_y=\frac{D\xi}{Dt} $. This is equivalent to $ \frac{DF}{Dt}=0 $.
 \end{enumerate}
 \subsection{Streamfunction for 2D incompressible flow}
 We know that $ \nabla\cdot \mathbf u = 0 $ which is equivalent to there existing a vector potential $ \mathbf A $ such that $ \mathbf u = \nabla\times \mathbf A $. In 2D if $ \mathbf u = (u,v,0) $ then $ \mathbf A = (0,0,\psi(x,y)) $. So
@@ -308,7 +308,7 @@ Where we've extended the fluid pressure field into the body. $ \rho g V $ is the
 \subsection{Vorticity}
 Recall we defined $ \boldsymbol \omega = \nabla\times \mathbf u $ as the \textit{vorticity} of the flow. Let's see some examples of vorticity.
 \begin{itemize}
-	\item Let $ \mathbf u = \boldsymbol \Omega \times \z $ (solid body rotation). Then using IA Vector Calculus identities, we have that $ \boldsymbol \omega = 2\boldsymbol\Omega $.
+	\item Let $ \mathbf u = \boldsymbol \Omega \times \mathbf z $ (solid body rotation). Then using IA Vector Calculus identities, we have that $ \boldsymbol \omega = 2\boldsymbol\Omega $.
 	\item Let $ \mathbf u$ be the \textit{shear flow} $ \mathbf u = (0,\gamma x,0) $, so $ \boldsymbol \omega = (0,0\gamma) $.
 	\item Let $ \mathbf u = \frac{k}{2\pi r} \mathbf e_\phi $ in cylindrical coordinates, representing a line singular vortex. Then $ \boldsymbol \omega = 0 $ everywhere except at $ r = 0 $, where
 		\[
@@ -318,7 +318,7 @@ Recall we defined $ \boldsymbol \omega = \nabla\times \mathbf u $ as the \textit
 \end{itemize}
 \subsubsection{Interpretation of $ \boldsymbol\omega $}
 Here we will show $ \boldsymbol\omega $ is equivalent to twice the local rotation rate of fluid particles.\par
-Consider a material line $ \delta\boldsymbol \ell $. How does $ \delt\boldsymbol\ell $ change from $ t $ to $ t+\delta t $.
+Consider a material line $ \delta\boldsymbol \ell $. How does $ \delta\boldsymbol\ell $ change from $ t $ to $ t+\delta t $.
 \[
   \x + \delta\boldsymbol \ell \to \x+\delta\boldsymbol\ell + \mathbf u(\x+\delta\boldsymbol\ell,t) \delta t
 \]
@@ -1013,7 +1013,7 @@ forming rigid boundaries. This gives the additional boundary conditions that $ \
 \begin{enumerate}
 	\item $ \nabla^2\phi = 0$;
 	\item $ \frac{\partial \phi}{\partial \mathbf n} = 0 \quad\text{at the side walls} $;
-	\item $ \nabla \phi \to 0 $ \quad\text{as } z\to\infty $;
+	\item $ \nabla \phi \to 0 \quad\text{as } z\to\infty $;
 	\item $\frac{\partial \xi}{\partial t}=\frac{\partial \phi}{\partial z} \quad \text{at } z=0 $;
 	\item $ \rho \frac{\partial \phi}{\partial t} + \rho g \xi = F(t) $.
 \end{enumerate}
@@ -1021,10 +1021,123 @@ By a separation of variables we get that
 \[
 	\phi = A\cos\left(\frac{m\pi x}a\right)\cos\left(\frac{n\pi y}b\right) e^{kz}e^{-i\omega t}.
 \]
-
-
-
-
-
+Now if we put this back into Laplace's equation we get that
+\[
+	k^2 = k_{mn}^2 = \frac{m^2\pi^2}{a^2} + \frac{n^2\pi^2}{b^2}
+\]
+giving us quantised wavenumbers. Adding our kinematic boundary conditions we get that $ \omega^2 = g k $.\par
+Now consider the container upside down but with gravity pulling upwards. Henc the situation is symmetric so the same equations hold but with $ g $ replaced with $ -g $. Hence we have that $ \omega^2 = -gk $ so $ \omega = \pm i\sqrt{gk} $ so the $ e^{i\omega t} $ factor gives exponential growth.
+\subsection{Rotating fluid dynamics}
+The Earth as we know is rotating with angular velocity
+\[
+	\Omega = \frac{2\pi}{86400} \approx 10^{-4} \ \inv{\mathrm s}.
+\]
+This rotation has a large effect on the motion of the ocean and atmosphere. The typical speed of the Earth at the equator is around $ 500\ \mathrm{ms}^{-1} $, faster than any wind.
+\subsubsection{Euler equations in a rotating frame}
+We'll assume that $ \rho $ is constant and $ \nabla\cdot\mathbf u = 0 $. For IA Dynamics and Relativity we know that the acceleration of a fluid particle in a rotating frame is
+\[
+	\frac{D\mathbf u}{Dt} + 2\boldsymbol \Omega \times \mathbf u + \boldsymbol \Omega \times(\boldsymbol \Omega \times \x),
+\]
+where we're assuming that $ \boldsymbol\Omega $ is time-independent so we can ignore the Euler force. We recall that the first term is the Coriolis term and the second is the centrifugal term. Note that
+\[
+  \rho \boldsymbol\Omega \times(\boldsymbol\Omega \times\x) = \nabla\left(\frac 12 \rho|\boldsymbol \Omega \times \x |^2\right)
+\]
+so we can absorb this into the $ \nabla\rho $ term. Also note that since the centrifugal term is $ O(\boldsymbol\Omega^2) $ we can ignore it for a large slowly rotating body like the Earth. So we can write the equation for motion as
+\[
+	\rho \frac{D\mathbf u}{Dt} + 2\rho \boldsymbol\Omega \times\mathbf u = -\nabla\rho + \rho \mathbf g.
+\]
+Taking the curl and using the fact that $ \nabla\times(\boldsymbol\Omega\times\mathbf u) = -2(\boldsymbol\Omega \cdot\nabla)\mathbf u $ we get the new vorticity equation which is 
+\[
+	\frac{D\boldsymbol \omega }{Dt} = (\boldsymbol\omega + 2\boldsymbol \Omega) \cdot \nabla \mathbf u,
+\]
+so now vortex stretching includes the relative vorticity $ \boldsymbol\omega $ and the planetary vorticity $ 2\boldsymbol \Omega $.
+\subsubsection{The Rossby number}
+We want a way to quantify the relative effect of Coriolis effects. Now we want a dimensionless that scales this each effect. We see that
+\[
+	R_o = \frac U{\Omega L}
+\]
+is a good choice. This is the Rossby number and quantifies the relative mangitude of inertia versus relation. For Earth we have that $ R_o \sim 0.1 $. Note when $ R_0 \ll 1 $ the vorticity the dominated by the planetary component. 
+\subsubsection{Rotating flows in a shallow layer}
+Consider flow over characteristic length scale $ L $ with depth $ H $ and $ H\ll L \ll R $ where $ R $ is the radius of the Earth. Defining local Cartesian coordinates with $ (x,y,z) $ being east, north, and up respectively and $ \overline \theta \in [-\pi/2, \pi/2] $ being the polar angle (latitude). So $ \boldsymbol\Omega = \Omega(0,\cos\overline \theta, \sin\overline \theta) $ and setting $ \mathbf u = (u,v,w) $. Therefore
+\[
+  2\boldsymbol\Omega \times\mathbf u = 2\Omega(w\cos\overline\theta - v\sin\overline\theta, u\sin\overline \theta, -u\cos\overline\theta).
+\]
+Now we make the following assumptions
+\begin{enumerate}
+	\item We can neglect the $ z $ term of Coriolis;
+	\item $ H\ll L $ so $ \nabla\cdot\mathbf u =0  $ gives that $ w \ll u,v $.
+	\item $ w $ is small so we can neglect $ \rho \frac{D\mathbf u}{Dt} $ in $ z $ relative to gravity.
+\end{enumerate}
+This gives the simplified equations
+\begin{align*}
+	\frac{Du}{dt} - fv &= - \frac 1\rho \frac{\partial p}{\partial x} \\
+		\frac{Dv}{Dt} + fu &= -\frac 1 \rho \frac{\partial p}{\partial y} \\
+		0 &= -\frac 1\rho \frac{\partial p}{\partial z} - \rho g \\
+		\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} &= 0.
+\end{align*}
+where $ f= 2\Omega \sin(\overline \theta) $ is the Coriolis parameter: only the verticle component of rotation matters.
+Calling $ \xi = wz = \boldsymbol \omega \cdot \mathbf e_z $ we get the new form of the vorticity equation
+\[
+	\frac{D\xi}{Dt} = (\xi+f)\frac{\partial w}{\partial z} = -(\xi+f)\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\right).
+\]
+Let's now consider flow in a shallow layer with an air-water interface of height $ h(x,y,t) $. Then we have the system of equations
+\begin{align*}
+	\frac{\partial p}{\partial z} &= - \rho g \\
+	\frac{\partial p}{\partial x} &= \rho g \frac{\partial h}{\partial x} \\
+	\frac{\partial p}{\partial y} &= \rho g \frac{\partial h}{\partial y}
+\end{align*}
+where as $ \nabla_H p = \rho g \nabla_H h $ where we define $ \nabla_H = \left(\frac{\partial}{\partial x}, \frac{\partial}{\partial y}\right) $. This is independent of $ z $ so if $ u $ and $ v $ are independent of $ z $ at $ t=0 $ then they equations can be decoupled and they remain independent of $ z $ for all time. Let's define $ \mathbf u_H = (u,v) $. Then mass conservation gives for a cylinder $ A $,
+\[
+	\frac d{dt}\int_A \rho h \ \mathrm dA +\oint_{\partial A} h \rho\mathbf u \cdot \mathbf n  \ \mathrm dS = 0
+\]
+so applying divergence theorem since $ A $ was general we get
+\[
+	\frac{\partial h}{\partial t} + \nabla_H \cdot (h\mathbf u_{H}) = 0.
+\]
+This is equivalent to
+\[
+	\frac{Dh}{Dt} + h \nabla_H \cdot \mathbf u_H = 0
+\]
+\subsubsection{Geostropic balance}
+If we consider steady flow with $ R_0 \ll 1 $ then the equations become
+\begin{align*}
+	-fv &= -\frac 1\rho \frac{\partial p}{\partial x} = - g\frac{\partial h}{\partial x} \\
+	fu &= -\frac 1\rho \frac{\partial p}{\partial y} = - g\frac{\partial h}{\partial y}.
+\end{align*}
+We can rewrite this as
+\[
+  \begin{cases}
+	  u = \frac{\partial}{\partial y}\left(-\frac{gh}f\right) \\
+	  v = -\frac{\partial}{\partial x} \left( -\frac{gh}f\right)
+  \end{cases}
+\]
+So if we define our \textit{shallow water streamfunction}
+\[
+	\psi = - \frac{gh}f.
+\]
+Now $ \psi $ acts like a streamfunction from before, with the flow occuring along lines of $ \psi $ being constant. Hence the flow is parallel to isobars (lines of constant pressure). 
+\subsubsection{Potential vorticity}
+Recall we have that
+\begin{align*}
+	\frac D{Dt}(\xi + f) &= -(\xi + f)\nabla_H \cdot\mathbf u_H \\
+	\frac{Dh}{Dt} &= -h \nabla_H\cdot\mathbf u_H.
+\end{align*}
+Putting these together we have that
+\[
+	\frac D{Dt} \left(\frac{\xi + f}h \right) = 0.
+\]
+This is conservation of "potential vorticity" for a material fluid column.
+\subsubsection{Linearised equations}
+Suppose that $ h = h_0 + \eta(x,y,t) $ with $ \eta $ small. Then linearising the equations of motion we have that
+\begin{align*}
+	\frac{\partial u}{\partial t} - fv &= -g\frac{\partial \eta}{\partila x} \\
+	\frac{\partial v}{\partial t} + fu &= -g\frac{\partial \eta}{\partial y} \\
+	\frac{\partial \eta}{\partial t} + h_) \left(\frac{\partial u}{\partial x}+ \frac{\partial v}{\partial y}\right) = 0.
+\end{align*}
+Combining with our conservation of potential vorticity we have that
+\[
+	\frac{\partial^2 \eta}{\partial t^2} - c^2 \nabla^2 \eta + f^2\eta  = f^2 \eta_0 - h_0 f\xi_0
+\]
+where $ \eta_0, h_0, \xi_0 $ are the values at $ t=0 $ respectively and $ c =\sqrt{gh_0} $ is the shallow-water wave speed. We have a new relevant length scale $ a = \frac cf $ which is the Rossby radius of deformation. 
 
 \end{document}
