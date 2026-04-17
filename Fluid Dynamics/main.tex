@@ -1064,7 +1064,7 @@ Consider flow over characteristic length scale $ L $ with depth $ H $ and $ H\ll
 \]
 Now we make the following assumptions
 \begin{enumerate}
-	\item We can neglect the $ z $ term of Coriolis;
+	\item We can neglect the drop the horizontal component of $ \boldsymbol\Omega $ and drop the $ \Omega \cos\overline \theta $ terms sinec the verticle velocities are small.
 	\item $ H\ll L $ so $ \nabla\cdot\mathbf u =0  $ gives that $ w \ll u,v $.
 	\item $ w $ is small so we can neglect $ \rho \frac{D\mathbf u}{Dt} $ in $ z $ relative to gravity.
 \end{enumerate}
@@ -1072,7 +1072,7 @@ This gives the simplified equations
 \begin{align*}
 	\frac{Du}{dt} - fv &= - \frac 1\rho \frac{\partial p}{\partial x} \\
 		\frac{Dv}{Dt} + fu &= -\frac 1 \rho \frac{\partial p}{\partial y} \\
-		0 &= -\frac 1\rho \frac{\partial p}{\partial z} - \rho g \\
+		0 &= -\frac 1\rho \frac{\partial p}{\partial z} - g \\
 		\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} &= 0.
 \end{align*}
 where $ f= 2\Omega \sin(\overline \theta) $ is the Coriolis parameter: only the verticle component of rotation matters.
