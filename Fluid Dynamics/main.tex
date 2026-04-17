@@ -1070,7 +1070,7 @@ Now we make the following assumptions
 \end{enumerate}
 This gives the simplified equations
 \begin{align*}
-	\frac{Du}{dt} - fv &= - \frac 1\rho \frac{\partial p}{\partial x} \\
+	\frac{Du}{Dt} - fv &= - \frac 1\rho \frac{\partial p}{\partial x} \\
 		\frac{Dv}{Dt} + fu &= -\frac 1 \rho \frac{\partial p}{\partial y} \\
 		0 &= -\frac 1\rho \frac{\partial p}{\partial z} - g \\
 		\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} &= 0.
@@ -1130,9 +1130,9 @@ This is conservation of "potential vorticity" for a material fluid column.
 \subsubsection{Linearised equations}
 Suppose that $ h = h_0 + \eta(x,y,t) $ with $ \eta $ small. Then linearising the equations of motion we have that
 \begin{align*}
-	\frac{\partial u}{\partial t} - fv &= -g\frac{\partial \eta}{\partila x} \\
+	\frac{\partial u}{\partial t} - fv &= -g\frac{\partial \eta}{\partial x} \\
 	\frac{\partial v}{\partial t} + fu &= -g\frac{\partial \eta}{\partial y} \\
-	\frac{\partial \eta}{\partial t} + h_) \left(\frac{\partial u}{\partial x}+ \frac{\partial v}{\partial y}\right) = 0.
+	\frac{\partial \eta}{\partial t} + h_0 \left(\frac{\partial u}{\partial x}+ \frac{\partial v}{\partial y}\right) = 0.
 \end{align*}
 Combining with our conservation of potential vorticity we have that
 \[
