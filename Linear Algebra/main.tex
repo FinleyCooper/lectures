@@ -362,27 +362,39 @@ and $ B_V=B_U\cup T' $ spans $ V $. But we have that
 \]
 so by the previous corollary, $ B_V $ is a basis for $ V $.\qed\par
 Now we'll finally prove the Steinitz exchange lemma.\par
-\pf Let $ S=\{u_1,\dots, u_m\} $, $ T=\{v_1,\dots, v_n\} $ with $ |T|=m $ and $ |T|=n $. If $ S $ is empty then we're done. Otherwise there exists $ \lambda_i\in \F $ such that 
+\pf Let $ S=\{u_1,\dots,u_m\} $ be linearly independent and $ T=\{v_1,\dots,v_n\} $ span $ V $. We prove by induction on $ k $ that for each $ 0\le k\le m $ there is a renumbering of $ T $ such that
 \[
-	u_1=\sum_{i=1}^n\lambda_iv_i
+	\{u_1,\dots,u_k,v_{k+1},\dots,v_n\}
 \]
-so by renumbering we can say that $ \lambda_1\ne 0 $. Then
+spans $ V $. The case $ k=0 $ is exactly that $ T $ spans $ V $.
+
+Assume $ 0\le k<m $ and that
 \[
-	v_1=\frac 1{\lambda_1}\left(u_1-\sum_{i=2}^n\lambda_iv_i\right)
+	A_k:=\{u_1,\dots,u_k,v_{k+1},\dots,v_n\}
 \]
-So $ \{u_1,v_2,\dots, v_n\} $ spans $ V $. After repeating $ k $ times with $ k<m $ suppose $ \{u_1,\dots, u_k,v_{k+1},\dots, v_n\} $ spans V, then there exists $ \lambda_i,\mu_j\in\F $ such that
-\begin{align*}
-	u_{k+1}=\sum_{j=1}^k\mu_ju_j+\sum_{i=k+1}^n\lambda_iv_i
-\end{align*}
-If for all $ \lambda_i= 0 $ then
+spans $ V $. Since $ u_{k+1}\in V $, there exist $ \mu_1,\dots,\mu_k,\lambda_{k+1},\dots,\lambda_n\in\F $ such that
 \[
-	\left(\sum_{j=1}^k\mu_ju_j\right) -u_{k+1}=\mathbf 0
+	u_{k+1}=\sum_{j=1}^k\mu_j u_j+\sum_{i=k+1}^n\lambda_i v_i.
 \]
-which is a contradiction since $ S $ is linearly independent. So by relabeling we have that $ \lambda_{k+1}\ne 0 $ such that 
+If all $ \lambda_i=0 $, then
 \[
-	v_{k+1}=\frac 1{\lambda_{k+1}}\left(u_{k+1}-\sum_{j=1}^k\mu_ju_j-\sum_{i=k+1}^n\lambda_iv_i\right)
+	u_{k+1}-\sum_{j=1}^k\mu_j u_j=\mathbf 0,
 \]
-so $ (u_1,\dots, u_{k+1},v_{k+2},\dots, v_n\}$ spans $ V $. So we can conclude that $ m\ne n $ and $ \{u_1,\dots, u_m,v_{m+1},\dots, v_n\} $ spans $ V $ hence the set $ T'=\{v_{m+1},\dots, v_n\} $ exists as claimed. \qed
+which is a non-trivial linear relation among $ u_1,\dots,u_{k+1} $, contradiction. Hence some $ \lambda_i\ne 0 $ for $ i\in\{k+1,\dots,n\} $; renumber so that $ \lambda_{k+1}\ne 0 $. Solving for $ v_{k+1} $ gives
+\[
+	v_{k+1}=\frac 1{\lambda_{k+1}}\left(u_{k+1}-\sum_{j=1}^k\mu_j u_j-\sum_{i=k+2}^n\lambda_i v_i\right),
+\]
+so $ v_{k+1}\in\langle u_1,\dots,u_{k+1},v_{k+2},\dots,v_n\rangle $. Therefore
+\[
+	A_{k+1}:=\{u_1,\dots,u_{k+1},v_{k+2},\dots,v_n\}
+\]
+also spans $ V $.
+
+By induction, $ A_m=\{u_1,\dots,u_m,v_{m+1},\dots,v_n\} $ spans $ V $. In particular we must have $ m\le n $, and with
+\[
+	T':=\{v_{m+1},\dots,v_n\}\subseteq T
+\]
+we get $ |T'|=n-m=|T|-|S| $ and $ S\cup T' $ spans $ V $. \qed
 \begin{definition}
 	(Nullity) For a linear map $ \alpha:V\to W $ we define the \textit{nullity} of $ \alpha $ as
 	\[
