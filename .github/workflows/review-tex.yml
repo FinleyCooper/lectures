@@ -1,0 +1,62 @@
+
+
+
+Review tex · YML
+name: Review LaTeX maths
+ 
+on:
+  push:
+    branches: [main]        # change if your default branch is different
+    paths: ['**/*.tex']     # only run when a .tex file changed
+ 
+permissions:
+  contents: write
+  pull-requests: write
+ 
+concurrency:
+  group: tex-review-${{ github.ref }}
+  cancel-in-progress: false
+ 
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+ 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+ 
+      - run: pip install anthropic
+ 
+      - name: Ask Claude to review changed .tex files
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          CLAUDE_MODEL: claude-haiku-5-5   # cheaper alternative
+        run: python .github/scripts/review_tex.py
+ 
+      - name: Open PR with findings
+        if: steps.review.outputs.has_issues == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHORT="${GITHUB_SHA::7}"
+          BRANCH="claude-review/${SHORT}"
+          git config user.name "claude-review[bot]"
+          git config user.email "claude-review[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -- '*.tex'
+          git commit --allow-empty -m "Claude review of ${SHORT}: suggested maths fixes"
+          git push origin "$BRANCH"
+          gh pr create \
+            --base "${{ github.ref_name }}" \
+            --head "$BRANCH" \
+            --title "Possible maths errors in ${SHORT}" \
+            --body-file "$RUNNER_TEMP/pr_body.md"
+ 
+Claude finished the response
