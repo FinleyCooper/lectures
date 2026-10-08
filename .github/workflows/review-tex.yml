@@ -54,5 +54,3 @@ jobs:
             --head "$BRANCH" \
             --title "Possible maths errors in ${SHORT}" \
             --body-file "$RUNNER_TEMP/pr_body.md"
- 
-Claude finished the response
