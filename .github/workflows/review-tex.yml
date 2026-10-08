@@ -1,7 +1,3 @@
-
-
-
-Review tex · YML
 name: Review LaTeX maths
  
 on:
@@ -37,7 +33,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
-          CLAUDE_MODEL: claude-haiku-5-5   # cheaper alternative
+          CLAUDE_MODEL: claude-haiku-5-5
         run: python .github/scripts/review_tex.py
  
       - name: Open PR with findings
