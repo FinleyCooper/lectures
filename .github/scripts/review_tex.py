@@ -17,23 +17,30 @@ Env vars:
 """
 
 import os
+import re
 import subprocess
 from pathlib import Path
 
 import anthropic
 
-MODEL = os.environ.get("CLAUDE_MODEL", "claude-opus-5-5")
+MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-5-5")
 BEFORE = os.environ.get("BEFORE_SHA", "")
 AFTER = os.environ["AFTER_SHA"]
 ZERO = "0" * 40
-MAX_FILE_CHARS = 150_000  # skip absurdly large files rather than blow the budget
+# Files up to FULL_FILE_CHARS (~700 lines) are sent whole. Bigger files are sent as
+# the diff with CONTEXT_LINES of surrounding context, plus the preamble and a list
+# of labels/macros/theorem environments defined anywhere in the file.
+FULL_FILE_CHARS = int(os.environ.get("FULL_FILE_CHARS", "30000"))
+CONTEXT_LINES = int(os.environ.get("CONTEXT_LINES", "40"))
+PREAMBLE_CHARS = 6000
+MAX_PROMPT_CHARS = 150_000  # skip a file if even the trimmed prompt exceeds this
 CATEGORY_ORDER = {"math": 0, "latex": 1}
 CATEGORY_LABEL = {"math": "Math", "latex": "LaTeX"}
 
-SYSTEM = """Review a LaTeX lecture-notes diff (full file given for context). Report errors in the added/changed lines only.
+SYSTEM = """Review a LaTeX lecture-notes diff (the full file, or the changed regions with context, is given). Report errors in the added/changed lines only.
 
 category "math": real mathematical errors (algebra, signs, wrong formulas or claims, invalid proof steps, wrong constants/indices, contradictions with earlier text).
-category "latex": errors that break compilation or render wrongly (unbalanced braces, mismatched \\begin/\\end or \\left/\\right, math/text-mode mistakes, unescaped %&#_, bad &/\\\\ in align/tabular, duplicate \\label, \\ref/\\cite to missing targets, undefined macros).
+category "latex": errors that break compilation or render wrongly (unbalanced braces, mismatched \\begin/\\end or \\left/\\right, math/text-mode mistakes, unescaped %&#_, bad &/\\\\ in align/tabular, duplicate \\label, \\ref to a label that does not exist, undefined macros).
 
 Rules:
 - No style/notation preferences or prose typos. Report only what you are confident is wrong.
@@ -97,20 +104,52 @@ def changed_tex_files() -> list[str]:
     return [f for f in out.splitlines() if f.endswith(".tex")]
 
 
-def file_diff(path: str) -> str:
+def file_diff(path: str, context: int = 3) -> str:
+    u = f"-U{context}"
     try:
         if is_new_branch():
-            return sh("git", "show", "--format=", AFTER, "--", path)
-        return sh("git", "diff", BEFORE, AFTER, "--", path)
+            return sh("git", "show", "--format=", u, AFTER, "--", path)
+        return sh("git", "diff", u, BEFORE, AFTER, "--", path)
     except subprocess.CalledProcessError:
-        return sh("git", "show", "--format=", AFTER, "--", path)
+        return sh("git", "show", "--format=", u, AFTER, "--", path)
 
 
-def review(client: anthropic.Anthropic, path: str, text: str, diff: str) -> list[dict]:
-    user = (
-        f"File: {path}\n\n<diff>\n{diff}\n</diff>\n\n"
-        f"<current_file>\n{text}\n</current_file>"
-    )
+def file_definitions(text: str) -> str:
+    """Names defined anywhere in the file, so cross-reference checks still work
+    when only part of the file is shown."""
+    labels = sorted(set(re.findall(r"\\label\{([^}]*)\}", text)))
+    macros = sorted(set(
+        re.findall(r"\\(?:re)?newcommand\*?\s*\{?\\([A-Za-z]+)", text)
+        + re.findall(r"\\DeclareMathOperator\*?\s*\{\\([A-Za-z]+)\}", text)
+        + re.findall(r"\\def\\([A-Za-z]+)", text)
+    ))
+    envs = sorted(set(re.findall(r"\\newtheorem\*?\{([^}]*)\}", text)))
+    return (f"labels: {', '.join(labels)}\nmacros: {', '.join(macros)}\n"
+            f"theorem environments: {', '.join(envs)}")
+
+
+def build_user_message(path: str, text: str) -> str | None:
+    """Whole file for small files; changed regions + context for big ones."""
+    if len(text) <= FULL_FILE_CHARS:
+        diff = file_diff(path)
+        if not diff.strip():
+            return None
+        return (f"File: {path}\n\n<diff>\n{diff}\n</diff>\n\n"
+                f"<current_file>\n{text}\n</current_file>")
+    diff = file_diff(path, CONTEXT_LINES)
+    if not diff.strip():
+        return None
+    preamble = ""
+    if "\\begin{document}" in text:
+        preamble = text.split("\\begin{document}", 1)[0][:PREAMBLE_CHARS]
+    return (f"File: {path} (large file: only the changed regions are shown, "
+            f"with {CONTEXT_LINES} lines of context)\n\n"
+            f"<preamble>\n{preamble}\n</preamble>\n\n"
+            f"<defined_in_file>\n{file_definitions(text)}\n</defined_in_file>\n\n"
+            f"<diff>\n{diff}\n</diff>")
+
+
+def review(client: anthropic.Anthropic, path: str, user: str) -> list[dict]:
     resp = client.messages.create(
         model=MODEL,
         max_tokens=3000,  # short report only; raise if you often get truncation warnings
@@ -138,15 +177,15 @@ def main() -> None:
         if not p.exists():
             continue
         text = p.read_text(encoding="utf-8")
-        if len(text) > MAX_FILE_CHARS:
-            print(f"Skipping {path}: too large")
+        user_msg = build_user_message(path, text)
+        if user_msg is None:
             continue
-        diff = file_diff(path)
-        if not diff.strip():
+        if len(user_msg) > MAX_PROMPT_CHARS:
+            print(f"Skipping {path}: change set too large ({len(user_msg)} chars)")
             continue
 
-        print(f"Reviewing {path} ...")
-        issues = review(client, path, text, diff)
+        print(f"Reviewing {path} ({len(user_msg)} chars sent) ...")
+        issues = review(client, path, user_msg)
         if not issues:
             print("  no errors found")
             continue
