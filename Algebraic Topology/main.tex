@@ -2,11 +2,145 @@
 \usepackage{../header}
 \title{Algebraic Topology}
 \author{Notes made by Finley Cooper}
-
+\newcommand{\rel}{\mathrm{rel}\:}
 \begin{document}
   \maketitle
   \newpage
   \tableofcontents
   \newpage
-
-\end{document}
+  \section{Introduction}
+  \subsection{Recap of IB Topological Spaces}
+  We use algebra to turn topological questions to algebraic questions. This results in a loss of information but lets us prove some results.
+  \begin{example}
+    \[
+	    \R^n \cong \R^m \implies n = m
+    \]
+  \end{example}
+  This is a statement which is very hard to prove otherwise. Likewise we can prove that difference of topological surfaces with a different number of 'knots' in their surface.
+  \par
+  For this section all functions are continuous until mentioned otherwise.
+  \begin{definition}
+	  (Map) A \textit{map} is a continuous function.
+  \end{definition}
+  \begin{lemma}
+	  (Gluing lemma) Let $ f:X\to Y $ be a funtion and $ C, K\subset X$ be closed subsets with $ C\cup K = X $. Then $ f $ is continuous if and only if the restriction of $ f $ on $ C $ and $ K $ is continuous.
+  \end{lemma}
+  \pf We have that $ f $ is continuous if and only if for all closed sets $ D\subset Y $ the preimage of $ D $ is closed. This holds if and only if $ \forall D \subset Y $ closed we have that $ \inv f(D) \cap C $ and $ \inv f(D)\cap K $ are closed. Hence this holds if and only if $ f|_C\inv (D), f|_K\inv(D) $ are closed. Hence this holds if and only if the restriction of $ f $ on $ C $ and $ K $ is continuous.
+  \begin{lemma}
+	  (Lebesgue number lemma) Let $ (X,d) $ be a compact metric space. For any open cover $ \mathcal U = \{U_\alpha\}_{\alpha\in I} $ of $ X $ there exists a $ \delta > 0 $ such that for all $ x\in X $, $ B_\delta(x)\in U_\alpha $ for some $ \alpha\in I $. 
+  \end{lemma}
+  \pf Suppose no such $ \delta $ existed. Then for all $ n > 0 $ there is some $ x_n\in X $ such that $ B_{1/n}(x_n)\in U_\alpha $ for all $ \alpha\in I $. The sequence $ \{x_n\} $ admits a convergence subsequence due to compactness, so \textit{wlog} replace $ x_n $ with its convergent subsequence, and take $ x_n\to y $. Then take $ \alpha\in I $ such that $ y\in U_\alpha $. Then since $ U_\alpha $ is open there exists a $ r>0 $ such that $ B_r(y)\subset U_\alpha $. Take $ N>0 $ such that
+\[
+  \begin{cases}
+    \frac 1N < \frac r2 \\
+    d(x_n,y) < \frac r2
+  \end{cases}
+\]
+which implies that $ B_{1/N}(x_N)\subset B_r(y)\subset U_\alpha $ which is a contradiction.
+\subsection{Cell complexes}
+\begin{definition}
+	(Cell attachment) Given a space $ X $ and a map $ f:S^{n-1} \to X $. The space $ X\cup_f D^n := X \sqcup D^n / \sim $ where $ x\sim f(x), \forall x \in S^{n-1}\subset D^n $ is the result of a attaching an $ n $-cell to $ X $ along $ f $.
+	\par
+	The image of $ f $ is called the \textit{attaching sphere}.
+\end{definition}
+\begin{definition}
+	(Cell complex) A \textit{finite-dimensional cell complex} is a obtained by:
+	\begin{enumerate}
+		\item Start with a set $ X^0 $ with the discrete topology.
+		\item Inductively once $ X^{n-1} $ is defined we form $ X^n $ by attaching a collection of $ n $-cells along some collection of attachment maps
+			\[
+				\{ f_\alpha:S^{n-1} \to X^{n-1}\}_{\alpha\in I}.
+			\]
+		i.e. that $ X^n = \left( X^{n-1} \sqcup \bigsqcup_{\alpha\in I} D_\alpha^n\right) / \sim $ where we define $ x\sim f_\alpha(x) $.
+	\item $ X=X^k $ for some $ k\ge 0 $. This is minimal such $ k $ is called the dimension of $ X $.
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+  In general we can make sense of infinite dimensional cell complexes. Suppose that we have
+  \[
+    X_0 \subset X_1 \subset \cdots
+  \]
+  such that
+  \begin{enumerate}
+	  \item $ X_0 $ is discrete,
+	  \item $ X_n $ is formed by attaching $ n $-cells to $ X^{n-1} $.
+  \end{enumerate}
+  Define
+  \[
+	  X = \bigcup_{n\ge 0} X_n.
+  \]
+  Then $ \mathcal U \subset X $ is open $ \iff \mathcal U \cap X_n $ is open in $ X_n $. We say that $ X $ is a CW-complex and that $ X_n $ is the $ n $-skeleton of $ X $.
+ \end{remark}
+ \section{Homotopy and the fundamental group}
+ \subsection{Homotopy}
+ \begin{definition}
+	 We call denote $ I $ as the closed interval $ [0,1] $.
+ \end{definition}
+ \begin{definition}
+	 (Homotopy) Let $ f,g:X\to Y $. Then we say that a map $ H: X\times I \to Y $ is a \textit{homotopy from} $ f $ \textit{to} $ g $ if $ H(x,0) = f(x) $ and $ H(x,1)=g(x) $. If such a $ H $ exists we say that $ f $ is \textit{homotopic} to $ g $ and $ f\simeq g $.
+ \end{definition}
+If $ A\subset X $ and $ f|_A = g|_A $ then a homotopy $ H $ from $ f $ t o $ g $ is relative to $ A $ (i.e. a homotopy \rel $ A $) if $ H(a,t) = f(a) = g(a) $ for all $ a\in A $.
+\begin{proposition}
+  The relation homotopic \rel A defines an equivalence relation.
+\end{proposition}
+\pf
+\begin{enumerate}
+	\item $ f\simeq_A f $ trivally by $ H(x,t) = f(x) $.
+	\item $ f\simeq_A g \implies g\simeq_A f $, by replacing $ t $ with $ 1-t $.
+	\item Suppose that $ f\simeq_A g, g\simeq_A h $. Then let $ H_1 $ be the homotopy $ \rel A $ from $ f $ to $ g $ and $ H_2 $ for $ g $ to $ h $. Then define
+		\[H(x,t) =
+		  \begin{cases}
+			  H_1(x,2t) & 0 \le t \le \frac 12 \\
+			  H_2(x,2t-1) & \frac 12 \le t \le 1
+		  \end{cases}.
+		\]
+\end{enumerate}
+Hence by the gluing lemma $ H $ is continuous so $ H $ is a homotopy $ \rel A $ from $ f $ to $ h $ and therefore $ f\simeq_A h $.
+\begin{definition}
+	(Homotopy equivalence) A map $ f:X\to Y $ then we say that $ f $ is a \textit{homotopy equivalence} if there exists a $ g: Y\to X $ such that $ f\circ g \simeq \id_Y $ and $ g \circ f \simeq \id_X $. If there exists a homotopy inverse $ X\to Y $ then $ X $ is \textit{homotopy equivalent} to $ Y $ and we write that $ X\simeq Y $.
+\end{definition}
+\begin{definition}
+	(Contractible) A space $ X $ is \textit{contractible} if $ X $ is homotopy equivalent to the point set.
+\end{definition}
+\begin{lemma}
+  Let $ f_0,f_1 : X\to Y $ be homotopic maps and $ g_0,g_1 $ also be homotopic maps. Then
+  \[
+    g_0 \circ f_0 \simeq g_1 \circ f_1.
+  \]
+\end{lemma}
+\pf We want to show that $ g_0\circ f_0 \simeq g_0\circ f_1 \simeq g_1 \circ f_1 $.\par
+Choose homotopies $ H $ from $ f_0 $ to $ f_1 $ and $ H' $ from $ g_0 $ to $ g_1 $. Then $ g_0 \circ H $ is a homotopy from $ g_0f_0 $ to $ g_0f_1 $. We also have that $ H'\circ (f_1 \times \id_I) $ is a homotopy from $ g_0f_1 $ to $ g_1f_1 $ hence we're done.\qed
+\begin{proposition}
+  Homotopy equivalence is an equivalence relation.
+\end{proposition}
+\pf 
+\begin{enumerate}
+	\item $ X\simeq X $ is obvious from the identity map.
+	\item $ X\simeq Y $ then we have $ Y\simeq X $ just by switching the roles of $ f $ and $ g $.
+	\item $ X \simeq Y $ and $ Y \simeq Z $. Then suppose $ f,g $ are the homotopy equivalences (and the inverse for $ X $ and $ Y $ and $ f',g' $ for $ Y $ and $ Z $. Consider the homotopy equivalence $ f'f $ from $ X $ to $ Z $ and it's homotopic inverse $ gg' $.\par
+		\begin{align*}
+			gg'f'f \sim g\id_Y f &= gf \sim \id _X \\
+			f'fgg'\sim f'\id_Y g' &= f'g' \sim \id_Z
+		\end{align*}
+		Therefore $ f'f $ is a homotopic equivalence and $ X\simeq Z $.\qed
+\end{enumerate}
+\begin{example}
+  Consider the inclusion 
+  \[
+	  \tau: S^1 \hookrightarrow \R^2\setminus \{0\}.
+  \]
+  Witrh inverse $ r : \R^2 \setminus \{0\} \to S^1 $ by projecting each vector onto it's unit vector. Since vector normalisation doesn't do anything to unit vectors one of the directions of composition is obivious. For the other direction,
+  \[
+	  \R^2 \setminus \{0\} \to S^1 \hookrightarrow \R^2 \setminus \{0\}
+  \]
+  we're given the homotopy
+  \begin{align*}
+	  H : (\R^2 \setminus \{0\}) \times I &\to \R^2\setminus \{0\}\\
+	  (x,t) &\to \frac{x}{t+(1-t)||y||}
+  \end{align*}
+  which is a homotopy from $ \tau \circ r $ to $ \id_{\R^2 \setminus \{0\}} $. Therefore we have that $ S^1 \simeq \R^2 \setminus \{0\} $. Similarly we have that $ S^{n-1} \simeq \R^n \setminus \{0\}$.
+\end{example}
+\begin{example}
+  We have that $ \R^n $ is contractible.
+\end{example}
+  \end{document}
