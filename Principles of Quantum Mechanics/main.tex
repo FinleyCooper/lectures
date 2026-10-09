@@ -47,7 +47,7 @@
   \]
 defines a map from $ V^\dagger \times V \to \C $ with
 \[
-\ff{\phi \mid (\alpha_1 \mid \psi_1\rangle + \alpha_2 \mid \psi_2\rangle ) = \alpha_1 \ff{\phi\mid \psi_1 } + \alpha_2 \langle \phi \mid \psi_2\rangle
+\left\langle \phi \mid \alpha_1\mid \psi_1\rangle + \alpha_2 \mid \psi_2\rangle = \alpha_1 \ff{\phi\mid \psi_1 } + \alpha_2 \langle \phi \mid \psi_2\right\rangle
 \]
 and
 \[
@@ -60,7 +60,7 @@ The spaces $ V $ and $ V^\dagger $ comes with an inner product which can be desc
 \end{align*}
 We also have that if we take a linear combination of states to the dual space, the coefficients have to have their complex conjugates taken to from the dual space to $ V $ or visa-versa. Hence the inner product is
 \[
-	\mid\phi\rangle, \mid\psi\rangle \to \ff{ \phi\mid \psi} = (\mid \psi\rangle)^\dagger \mid \psi\rangle
+	\mid\phi\rangle, \mid\psi\rangle \to \ff{ \phi\mid \psi} = (\mid \phi\rangle)^\dagger \mid \psi\rangle
 \]
 and it is assumed to obey
 \[
@@ -90,7 +90,7 @@ for any $ \alpha\in \C $ non-zero. So we will usually normalise to make the stat
 A complete inner product space is called a \textit{Hilbert space}.
 \par
 \begin{definition}
-	(Operator) An \textit{operator} \theta is a linear map on states
+	(Operator) An \textit{operator} Q is a linear map on states
 	\[
 	  \mid \psi \rangle \to Q \langle \psi \rangle.
 	\]
