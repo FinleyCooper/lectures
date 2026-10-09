@@ -8,5 +8,37 @@
   \newpage
   \tableofcontents
   \newpage
-
+\section{Introduction}
+The Part IB Fluid Dynamics course mainly covers inviscid flow and irrotational flow including potential flow. The course covered an introduction to viscious flow for the very simple case where $ \mathbf u = (u(y,t), 0) $ in 2D parallel flow.
+\par
+This course is about the effects of viscosity and answers the following very important questions
+\begin{enumerate}
+	\item How does viscosity affect the equations for a general flow?
+	\item What happens if viscosity dominates over the inertia of the fluid?
+	\item What happens if the flow is nearly paralllel?
+	\item What happens if viscosity is small compared to inertia?
+	\item What about stability?
+\end{enumerate}
+\section{Equations for a Newtonian Viscious Flow}
+\subsection{Dynamic Viscosity}
+Recall from Part IB Fluid Dynamics we have Couette flow where a plate at rest and a plate with velocity $ U $ are parallel with a space $ h $ between them filled with a viscous fluid. For a simple fluid we find that the force required to move the top plate $ F $ is proportional to $ \frac {uA}h $. Hence the shear stress is
+\[
+  \tau_s = \frac FA = \mu\frac Uh
+\]
+where $ \mu $ is the dynamic viscosity. The shear stress is due to the relative motion between each layer of fluid and its neighbours above and below.
+\subsection{Rate of strain tensor}
+Consider the velocity near a fixed point $ \mathbf 0 $ \textit{wlog}. Taylor expand $ \mathbf u $ so we have the multivaraible Taylor expansion
+\[
+	u_i(\mathbf x) = u_i(0) + x_j\left\frac{\partial u_i}{\partial x_j} \right|_{\mathbf 0} + \frac 12 x_jx_k\left\frac{\partial^2 u_i}{\partial x_j\partial x_k}\right|_{\mathbf 0} + \cdots
+\]
+We drop the quadratic terms and decompose $ \frac{\partial u_i}{\partial x_j} $ into symmetric and antisymmetric parts so
+\begin{align*}
+	\frac{\partial u_i}{\partial x_j} &= \frac 12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) + \frac 12 \left(\frac{\partial u_i}{\partial x_j}-\frac{\partial u_j}{\partial x_i}\right) \\
+					  &= e_{ij} + \frac 12 \varepsilon_{jik} \boldsymbol \omega_k
+\end{align*}
+where $ e_{ij} $ is the \textit{rate of strain tensor} and $ \boldsymbol\omega = \nabla\times \mathbf u  $ is the vorticity. Hence we have that
+\[
+  \mathbf u (\mathbf x) \approx \mathbf u (\mathbf 0) + \mathbf e \cdot \mathbf x + \frac 12 \boldsymbol \omega \times \mathbf x.
+\]
+We have that $ e_{ij}= e_{ji} $ by definition so $ \mathbf e $ is real symmetic and hence has real orthogonal eigenvectors which are the principle axis of strain. We have that $ e_{ii} = \nabla\cdot\mathbf u = 0 $ so the eigenvalues sum to $ 0 $. The eigenvalues are called the principle rates of strain.
 \end{document}

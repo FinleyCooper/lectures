@@ -8,5 +8,57 @@
   \newpage
   \tableofcontents
   \newpage
+  \section{Introduction}
+  In this course we will have $ 0\in \N $.
+\begin{definition}
+	(Alphabet) An \textit{alphabet} $ \Sigma $ is a finite non-empty set with elements which are \textit{symbols} or \textit{letters}.
+\end{definition}
+\begin{definition}
+	(String) A \textit{string} or \textit{word} of length $ m $ over $ \Sigma $ is $ \alpha = x_1x_2\dots x_m $ with $ x_i\in \Sigma $ or more formally $ \alpha \in\Sigma^m $. We write $ |\alpha| = m $ for the length of $ \alpha $.
+\end{definition}
+\begin{remark}
+  We will denote the empty word as $ \varepsilon $ and denote
+  \[
+	  \Sigma^* = \bigcup_{n\in \N}\Sigma^n
+  \]
+  and $ \Sigma^\dagger = \Sigma^* \setminus \{\varepsilon\} $.
+\end{remark}
+\begin{definition}
+	(Concatenation) If $ \alpha = x_1\cdots x_m\in \Sigma^m $ and $ \beta= y_1\cdots y_n\in \Sigma^n $ then $ \alpha\beta $ is $ x_1\cdots x_my_1\cdots y_n \in \Sigma^{m+n} $.
+\end{definition}
+For $ 0\le i \le j \le m $, $ x_{i+1}\cdots x_j $ is a substring of $ \alpha $ of length $ j-i $. So for $ \alpha,\beta\in \Sigma^* $, $\beta $ is a substring of $ \alpha $ if and only if there exists $ \gamma,\delta\in\Sigma^* $ with $ \alpha = \gamma\beta\delta $.
+\begin{definition}
+	(Homomorphism) For alphabets $ \Sigma, \Pi $, a \textit{homomorphism} $ h: \Sigma^* \to \Pi^* $ satisfies $ h(\alpha\beta) = h(\alpha)h(\beta) $ for all $ \alpha,\beta\in \Sigma^* $.
+\end{definition}
+\begin{remark}
+  This implies that $ h(\varepsilon) = \varepsilon $. 
+\end{remark}
+\begin{remark}
+  Alternatively we can just consider a function $ f : \Sigma \to \Pi$ which defines a unique homomorphism extending $ f $ by concatenation.
+\end{remark}
+\begin{definition}
+	(Formal Langauge) A \textit{formal language} $ L $ over $ \Sigma $ is \textit{any} subset of $ \Sigma^* $.
+\end{definition}
+\section{Regular Languages and Finite-State Automata}
+\subsection{Deterministic Finite-State Automata}
+\begin{remark}
+	Suppose we want to describe a language $ L $ over $ \Sigma $ using a finite amount of information. We could extend $ \Sigma $ with other symbols to get an alphabet $ \Pi \supset \Sigma $. and assign a word $ w\in\Pi^* $ to $ L $.
+\end{remark}
+We can do this for countably many $ L $. But we want $ w $ to \textit{describe} $ L $. We'll now see a countable class of languages where we can do this symbolically. We first give a computational method to determine these languages.
+\begin{definition}
+	(Deterministic Finite-State Automata) A \textit{Deterministic Finite-State Automata} (DFA) is a structure
+	\[
+	  D = (Q,\Sigma, \delta, q_0, F)
+	\]
+	where,
+	\begin{enumerate}
+		\item $ Q $ is a finite non-empty set of states;
+		\item $ \Sigma $ is an alphabet;
+		\item $ \delta $ is a transition function from $ Q\times\Sigma \to Q $;
+		\item Starting state $ q_0\in Q $;
+		\item $ F\subseteq Q $ is a set of acceptance states.
+	\end{enumerate}
+\end{definition}
+The idea for a DFA is that we input a word $ w\in \Sigma^* $ we call $ w = x_1\cdots x_n $. The DFA starts in state $ q_0 $ and reads the first letter of the input string $ x_1 $. The DFA then transitions according to $ \delta $ to $ q_1 = \delta(q_0,x_1)\in Q $. We then repeat this process with $ x_2 $ and so on. Once the string is exhusted the string is accepted if $ q_n\in F $ otherwise it is rejected. This defines a language.
 
-\end{document}
+  \end{document}
