@@ -1,107 +1,205 @@
 \documentclass{article}
+
 \usepackage{../header}
+
 \title{Principles of Quantum Mechanics}
+
 \author{Notes made by Finley Cooper}
 
-\newcommand{\ff}[1]{\left\langle #1 \right\rangle}
 
 \begin{document}
-  \maketitle
-  \newpage
-  \tableofcontents
-  \newpage
-  \section{Introduction}
-  Recall from IB Quantum Mechanics we have the following:
-  \begin{enumerate}
-	  \item Wave-particle duality. Waves behaving like particles like light quanta and vice-versa (particles behaving like waves).
-	  \item We have a wavefunction $ \psi(x) $ for a particle which we interperate as a probability density $ |\psi(x)|^2 $ (i.e. probability is intristic to the theory).
-	  \item Observables become operators on wavefunctions:
-		  \begin{itemize}
-			  \item $ \hat x \to x $;
-			  \item $ \hat p \to -i\hbar \frac\partial{\partial x} $
-		  \end{itemize}
-		  and the lack of commutation since $ [\hat x, \hat p] =i\hbar  $ leads to the uncertianty relation.
-	  \item Schr\"odinger's equation with Hamiltonian $ H $ specifies dynamics and eigenvalues of $ H $ are the allowed energy levels of the of the system.
-	  \item All of this explains the hydrogen atom structure and the resulting line spectra.
-  \end{enumerate}
-  The aims of this course are the following:
-  \begin{enumerate}
-	  \item Reformulate quantum mechanics in a more powerful, flexible and useful form: the Dirac formulation, which goes beyond wavefunctions. The previous description appears as a particular realisation of our generalisation of quantum states and also leads to alternatives such as
-		  \[
-			  \tilde \psi(p) \quad \text{with } \hat x \to i\hbar \frac\partial{\partial p} \quad \text{and } \hat p \to p.
-		  \]
-	  \item This more general approach allows much simpler analysis of known problems (for example the Simple Harmonic Oscillator) but also lots of new things such as \textit{spin} of particles and symmetries (translations, rotations) and the related conservation laws.
-	  \item We will also look as a identical particles (bosons and fermions).
-	  \item We will develop a framework for quantising more general systems such as EM fields.
-	  \item We will also setup perturbation theory which is a practical tool for computation but we will not heavily consider the detailed applications.
-  \end{enumerate}
-  \section{Dirac Formalism}
-  \subsection{Concepts and Definitions}
-  A quantum system is described at each instant by a \textit{state} $ |\psi \rangle $ which belons to a complex vector space $ V $; any non-zero element of this space $ V $ is a possible state. Thus
-  \[
-	  \mid \psi\rangle,\; \mid \phi\rangle \in V\implies \alpha \mid \psi\rangle + \beta\mid \phi\rangle \in V  \text{ for any } \alpha,\beta\in \C.
-  \]
-  Physically rhis is a superposition principle leading to wave-like behaviour but these states are \textit{not wavefunctions}. There are also \textit{dual} of conjugate states $ \langle \psi \mid $ which belong to the dual space $ V^\dagger $. By definition states and duals can be combined or paired to give a complex number. The map
-  \[
-	  \ff{\psi \mid , \mid \psi} \to \ff{\psi \mid \phi}
-  \]
-defines a map from $ V^\dagger \times V \to \C $ with
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+Recall from IB Quantum Mechanics we have the following:
+
+\begin{enumerate}
+
+    \item Wave-particle duality. Waves behave like particles, like light quanta, and vice versa (particles behave like waves).
+
+    \item We have a wavefunction $\psi(x)$ for a particle which we interpret as a probability density $|\psi(x)|^2$ (i.e. probability is intrinsic to the theory).
+
+    \item Observables become operators on wavefunctions:
+
+        \begin{itemize}
+            \item $\hat{x} \to x$;
+            \item $\hat{p} \to -i\hbar \frac{\partial}{\partial x}$
+        \end{itemize}
+
+        The lack of commutation, since $[\hat{x},\hat{p}] = i\hbar$, leads to the uncertainty relation.
+
+    \item Schrödinger's equation with Hamiltonian $H$ specifies dynamics, and eigenvalues of $H$ are the allowed energy levels of the system.
+
+    \item All of this explains the hydrogen atom structure and the resulting line spectra.
+
+\end{enumerate}
+
+The aims of this course are the following:
+
+\begin{enumerate}
+
+    \item Reformulate quantum mechanics in a more powerful, flexible and useful form: the Dirac formulation, which goes beyond wavefunctions. The previous description appears as a particular realisation of our generalisation of quantum states and also leads to alternatives such as
+
+        \[
+            \tilde{\psi}(p)
+            \quad \text{with} \quad
+            \hat{x} \to i\hbar \frac{\partial}{\partial p}
+            \quad \text{and} \quad
+            \hat{p} \to p.
+        \]
+
+    \item This more general approach allows much simpler analysis of known problems (for example, the Simple Harmonic Oscillator), but also lots of new things such as \textit{spin} of particles and symmetries (translations, rotations) and the related conservation laws.
+
+    \item We will also look at identical particles (bosons and fermions).
+
+    \item We will develop a framework for quantising more general systems such as EM fields.
+
+    \item We will also set up perturbation theory, which is a practical tool for computation, but we will not heavily consider the detailed applications.
+
+\end{enumerate}
+
+\section{Dirac Formalism}
+
+\subsection{Concepts and Definitions}
+
+A quantum system is described at each instant by a \textit{state} $\ket{\psi}$ which belongs to a complex vector space $V$; any non-zero element of this space $V$ is a possible state. Thus
+
 \[
-\langle \phi \mid (\alpha_1 \mid \psi_1\rangle + \alpha_2 \mid \psi_2\rangle) = \alpha_1 \langle \phi \mid \psi_1\rangle + \alpha_2 \langle \phi \mid \psi_2\rangle
+    \ket{\psi}, \ket{\phi} \in V
+    \implies
+    \alpha\ket{\psi} + \beta\ket{\phi} \in V
+    \quad \text{for any } \alpha,\beta \in \mathbb{C}.
 \]
+
+Physically, this is a superposition principle leading to wave-like behaviour, but these states are \textit{not wavefunctions}. There are also \textit{dual} or conjugate states $\bra{\psi}$ which belong to the dual space $V^\dagger$. By definition, states and duals can be combined or paired to give a complex number. The map
+
+\[
+    (\bra{\psi}, \ket{\phi}) \mapsto \bra{\psi}\ket{\phi}
+\]
+
+defines a map from $V^\dagger \times V \to \mathbb{C}$ with
+
+\[
+    \bra{\phi}
+    \left(\alpha_1\ket{\psi_1}+\alpha_2\ket{\psi_2}\right)
+    =
+    \alpha_1\bra{\phi}\ket{\psi_1}
+    +
+    \alpha_2\bra{\phi}\ket{\psi_2}
+\]
+
 and
+
 \[
-	\langle ( \beta_1\langle \phi_1 \mid + \beta_2 \langle \phi_2 \mid ) \mid \psi\rangle = \beta_1 \ff{\phi_1\mid\psi} + \beta_2 \ff{\phi_2\mid \psi}.
+    \left(\beta_1\bra{\phi_1}+\beta_2\bra{\phi_2}\right)\ket{\psi}
+    =
+    \beta_1\bra{\phi_1}\ket{\psi}
+    +
+    \beta_2\bra{\phi_2}\ket{\psi}.
 \]
-The spaces $ V $ and $ V^\dagger $ comes with an inner product which can be described as a one-to-one correspondence between the spaces
+
+The spaces $V$ and $V^\dagger$ come with an inner product which can be described as a one-to-one correspondence between the spaces
+
 \begin{align*}
-	V&\to V^\dagger\\
-	\mid \psi \rangle & \to \langle \psi \mid = \left(\mid\psi\rangle\right)^\dagger.
+    V &\to V^\dagger \\
+    \ket{\psi} &\to \bra{\psi}
+    = \left(\ket{\psi}\right)^\dagger.
 \end{align*}
-We also have that if we take a linear combination of states to the dual space, the coefficients have to have their complex conjugates taken to from the dual space to $ V $ or visa-versa. Hence the inner product is
+
+We also have that if we take a linear combination of states to the dual space, the coefficients have to have their complex conjugates taken when mapping from the dual space to $V$ or vice versa. Hence the inner product is
+
 \[
-	\mid\phi\rangle, \mid\psi\rangle \to \ff{ \phi\mid \psi} = (\mid \phi\rangle)^\dagger \mid \psi\rangle
+    \ket{\phi},\ket{\psi}
+    \mapsto
+    \bra{\phi}\ket{\psi}
+    =
+    \left(\ket{\phi}\right)^\dagger\ket{\psi}
 \]
+
 and it is assumed to obey
+
 \[
-	\ff {\phi\mid\psi} = \ff {\psi\mid\phi}^*
+    \bra{\phi}\ket{\psi}
+    =
+    \left(\bra{\psi}\ket{\phi}\right)^*
 \]
-since the inner product is hermitian, and is the inner product defines a positive definite norm on $ V $.
+
+since the inner product is Hermitian, and the inner product defines a positive-definite norm on $V$:
+
 \[
-  ||\mid\psi\rangle||^2 = \langle \psi \mid \psi\rangle.
+    \|\ket{\psi}\|^2 = \bra{\psi}\ket{\psi}.
 \]
+
 \begin{remark}
-	Konwing $ \ff {\phi\mid \psi} $ for all $ \langle \phi\mid $ determines $ \mid\psi\rangle $ and visa-versa.
+
+    Knowing $\bra{\phi}\ket{\psi}$ for all $\bra{\phi}$ determines $\ket{\psi}$ and vice versa.
+
 \end{remark}
+
 We can show this by
+
 \[
-	\ff {\phi\mid \psi_1} = \ff{\phi\mid \psi_2} \implies \ff{\psi\mid \chi} = 0 
+    \bra{\phi}\ket{\psi_1}
+    =
+    \bra{\phi}\ket{\psi_2}
+    \implies
+    \bra{\phi}\ket{\chi}=0,
 \]
-where $ \mid\chi\rangle = \mid\psi_1\rangle - \mid\psi_2\rangle $. If this holds for all $ \langle \phi\mid $ we can set $ \langle \phi\mid = \langle \chi \mid $ so by positve definiteness we have that the norm of $ \mid\chi\rangle $ is zero, so $ \mid\chi\rangle=0 $ too.
+
+where $\ket{\chi}=\ket{\psi_1}-\ket{\psi_2}$. If this holds for all $\bra{\phi}$, we can set $\bra{\phi}=\bra{\chi}$, so by positive definiteness we have that the norm of $\ket{\chi}$ is zero, and therefore $\ket{\chi}=0$ too.
+
 \par
-We also have that the physically content of any state is unchanged by
+
+We also have that the physical content of any state is unchanged by
+
 \[
-  \mid\psi\rangle \to \alpha\mid\psi\rangle
+    \ket{\psi} \to \alpha\ket{\psi}
 \]
-for any $ \alpha\in \C $ non-zero. So we will usually normalise to make the state have norm $ 1 $, but we can still change by a phase vector.
+
+for any non-zero $\alpha \in \mathbb{C}$. So we will usually normalise to make the state have norm $1$, but we can still change it by a phase factor.
+
 \begin{remark}
-  Relative phases can be important in expressions where we're adding a linear combination of elements of $ V $. We also assume the space $ V $ is complete so appropriate sequences and series converge in $ V $.
+
+    Relative phases can be important in expressions where we're adding a linear combination of elements of $V$. We also assume the space $V$ is complete so appropriate sequences and series converge in $V$.
+
 \end{remark}
+
 A complete inner product space is called a \textit{Hilbert space}.
+
 \par
+
 \begin{definition}
-	(Operator) An \textit{operator} Q is a linear map on states
-	\[
-	  \mid \psi \rangle \to Q \mid \psi \rangle.
-	\]
+
+    (Operator) An \textit{operator} $Q$ is a linear map on states
+
+    \[
+        \ket{\psi} \to Q\ket{\psi}.
+    \]
+
 \end{definition}
+
 The same operator can be thought of as acting to the left on dual states, so
+
 \[
-  \langle \phi \mid \to \langle \phi \mid Q
+    \bra{\phi} \to \bra{\phi}Q
 \]
-where the right hand side is defined by
+
+where the right-hand side is defined by
+
 \[
-  \left(\langle \phi \mid Q \right)\mid \psi\rangle = \langle \phi\mid \left(Q\mid \psi\rangle\right) = \langle \phi\mid Q\mid \psi\rangle
+    \left(\bra{\phi}Q\right)\ket{\psi}
+    =
+    \bra{\phi}\left(Q\ket{\psi}\right)
+    =
+    \bra{\phi}Q\ket{\psi}.
 \]
 
 \end{document}
