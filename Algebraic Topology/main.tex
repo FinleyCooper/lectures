@@ -154,4 +154,171 @@ Choose homotopies $ H $ from $ f_0 $ to $ f_1 $ and $ H' $ from $ g_0 $ to $ g_1
   \par
   The same argument works for any $ X\subset\R^n $ which is star-shaped about some point $ x_0 $ (e.g.\ any convex set), using $ H(x,t) = (1-t)x_0 + tx $.
 \end{example}
+\begin{definition}
+(Deformation contraction) For a space $ X $ and subspace $ A $ a \textit{deformation contraction} of $ X $ to $ A $ is a map $ r: X\to A $ such that the restriction of $ r $ on $ A $ is the identity and the composition of $ r $ and the inclusion map onto $ X $ is the identity.
+\end{definition}
+\begin{remark}
+  This implies that $ X\simeq A $ by the inclusion map from $ A $ to $ X $ and $ r $ from $ X $ to $ A $. This is a strictly stronger condition.
+\end{remark}
+\begin{definition}
+	(Retraction) A \textit{retraction} of $ X $ to $ A $ is a map $ r:X\to A $ such that $ r\mid_A = \id $.
+\end{definition}
+\begin{remark}
+  A retraction need not be a homotopy equivalence.
+\end{remark}
+\begin{example}
+	$ X $ is a space and $ x\in X $. Then $ X $ retracts to $ \{x\} $. But $ X\simeq \{x\} \iff X $ is contractible
+\end{example} 
+\subsection{Path}
+\begin{definition}
+	(Path) For a space $ X $ and points $ x_0,x_1\in X $, a \textit{path} from $ x_0 $ to $ x_1 $ is a map $ \gamma:I \to X $ such that $ \gamma(0) = x_0 $ and $ \gamma(1) = x_1 $. 
+\end{definition}
+We write that $ \gamma: x_0 \rightsquigarrow x_1 $, and if $ x_0 =x_1 $ we say that $ \gamma $ is a loop based at $ x_0 $.\par
+If we have $ \gamma:x_0 \rightsquigarrow x_1 $ and $ \gamma':x_1\rightsquigarrow x_2 $ then the concatenation of $ \gamma\circ \gamma' $ is defined by using the gluing lemma and going in double time which goes from $ x_0 $ to $ x_2 $.\par
+We also define the inverse path of $ \gamma: x_0\rightsquigarrow x_1 $ as $ \inv \gamma(t) = \gamma(1-t): x_1\rightsquigarrow x_0 $.\par
+Finally we define the constant path $ c_{x_0}(t) = x_0: x_0\rightsquigarrow x_0 $.\par
+If we define a relation $ \sim $ on $ X $ by $ x\sim y \iff $ there is a path from $ x $ to $ y $, these definitions show that $ \sim $ is an equivalence relation.
+\begin{definition}
+	(Path components) The equivalence classes of $ \sim $ are called \textit{path components} of $ X $. The set of all path components of $ X $ is denoted by $ \pi_0(X) $. If $ |\pi_0(X)| = 1 $ then we say that $ X $ is \textit{path-connected}.
+\end{definition}
+\begin{remark}
+  $ X $ is path-connected $ \iff\; \forall x,y\in X $ there exists a path $ x\rightsquigarrow y $.
+\end{remark}
+\begin{proposition}
+  Given a map $ f:X\to Y $ there is a well-defined associated function 
+  \[
+    \pi_0(f): \pi_0(X) \to \pi_0(Y)
+  \]
+  given by $ \pi_0(f)[x] = [f(x)] $. Futhermore,
+  \begin{enumerate}
+	  \item If $ f\simeq g $, then $ \pi_0(f) = \pi_0(g) $;
+	  \item For maps $ A \overset h\rightarrow B \overset k\rightarrow C $ we have that 
+		  \[
+		    \pi_0(k\circ h) = \pi_0(k) \circ \pi_0(h).
+		  \]
+	  \item $ \pi_0(\id_X) = \id_{\pi_0(X)} .$
+  \end{enumerate}
+\end{proposition}
+\pf Choose $ x,x'\in X $ such that $ [x]=[x'] $. Then there exists a path $ \gamma $ from $ x $ to $ x' $ in $ X $. Now $ f\circ \gamma $ is a path from $ f(x) $ to $ f(x') $ hence they are in the same path-component so $ \pi_0(f) $ is well-defined.\par
+For (i), let $ H:X\times I \to Y $ be a homotopy from $ f $ to $ g $. Choose any $ x\in X $. The map $ H(x,\cdot) $ is a path from $ f(x) $ to $ g(x) $ so $ [f(x)] = [g(x)] $ and hence $ \pi_0(f) = \pi_0(g) $. (ii) and (iii) are obvious.\qed
+\begin{corollary}
+  If $ f:X\to Y $ is a homotopy equivalence then $ \pi_0(f) $ is bijective.
+\end{corollary}
+\pf Let $ g: Y \to X $ be the homotopy inverse of $ f $ so $ fg\simeq \id_Y $ hence $ \pi_0(f) \pi_0(g) = \pi_0(\id_Y) = \id_{\pi_0(Y)} $. Similary $ gf\simeq \id_X $ gives the other direction. Hence $ \pi_0(f) $ is a bijection.\qed
+\begin{example}
+	Consider the space $ \{0,1\} $ equipped with the discrete topology. Let's prove it is not contractible. If it were, then we'd have $ \pi_0(\{0,1\}) \simeq \pi_0(*) $ (the one point space). This is false because $ \{0,1\} $ has two path-components.
+\end{example}
+\begin{example}
+	$ \R^2 $ does not retract to $ A = \{(-1,0), (1,0)\} $. Suppose that $ r: \R^2 \to A $ is a retraction. Then the composition
+	\[
+		\pi_0(A) \overset{\pi_0(\tau)}\rightarrow \pi_(\R^2) \overset{\pi_0(r)}\rightarrow \pi_0(A)
+	\]
+	has to be the identity. This is impossible.
+\end{example}
+\begin{definition}
+	(Homotopic paths) The paths $ \gamma,\gamma':I \to X $ are \textit{homotopic as paths} if they are homotopic $ \rel \{0,1\} \subseteq I$.
+\end{definition}
+\begin{lemma}
+  If $ \gamma_0,\gamma_1:  x_0\rightsquigarrow x_1 $ and $ \gamma_0', \gamma_1':x_1 \rightsquigarrow x_2 $ are homotopic then $ \gamma_0\circ\gamma_0' \simeq \gamma_1 \circ \gamma_1':x_0\rightsquigarrow x_2 $.
+\end{lemma}
+\pf Let $ H $ be the homotopy of paths from $ \gamma_0 $ to $ \gamma_1 $ and let $ H' $  be the homotopy of paths from $ \gamma_0' $ to $ \gamma_1' $. Define 
+\[
+  H''(s,t) = \begin{cases}
+	  H(2s,t) & 0\le s \le \frac 12 \\
+	  H'(2s-1,t) & \frac 12 \le s \le 1
+  \end{cases}
+\]
+which is continuous by the gluing lemma. At $ H''(s,0) = (\gamma_0\circ \gamma_0')(s) $ and $ H''(s,1) = \gamma_1\circ\gamma_1' $. So $ H'' $ is a homotopy from $ \gamma_0\circ \gamma_0' $ to $ \gamma_1 \circ\gamma_1' $.
+\begin{proposition}
+  Let $ \gamma_0: x_0\rightsquigarrow x_1, \gamma_1:x_1\rightsquigarrow x_2, \gamma_2:x_2\rightsquigarrow x_3 $ be paths in $ X $. Then
+  \begin{enumerate}
+	  \item $ (\gamma_0 \circ \gamma_1) \circ \gamma_2 \simeq \gamma_0 \circ (\gamma_1 \circ \gamma_2) $;
+	  \item $ \gamma_0 \circ c_{x_1} \simeq \gamma_0 \simeq c_{x_0} \circ \gamma_0 $;
+	  \item $ \gamma_0 \inv\gamma_0 \simeq c_{x_0} $, $ \inv \gamma_0\circ \gamma_0\simeq c_{x_1} $.
+  \end{enumerate}
+\end{proposition}
+\pf
+From these, we arrive at the following formulae.
+
+\begin{enumerate}
+    \item[(i)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0\left(\dfrac{4s}{t+1}\right)
+        & 0\leq s\leq \dfrac{t+1}{4},\\[8pt]
+        \gamma_1(4s-1-t)
+        & \dfrac{t+1}{4}\leq s\leq \dfrac{t+2}{4},\\[8pt]
+        \gamma_2\left(1-\dfrac{4(1-s)}{2-t}\right)
+        & \dfrac{t+2}{4}\leq s\leq 1.
+    \end{cases}
+    \]
+    goes from $(\gamma_0\cdot\gamma_1)\cdot\gamma_2$
+    to $\gamma_0\cdot(\gamma_1\cdot\gamma_2)$ as paths
+    from $x_0$ to $x_3$.
+
+    \item[(ii)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0\left(\dfrac{2s}{t+1}\right)
+        & 0\leq s\leq \dfrac{t+1}{2},\\[8pt]
+        x_1
+        & \dfrac{t+1}{2}\leq s\leq 1,
+    \end{cases}
+    \]
+    goes from $\gamma_0\cdot c_{x_1}$ to $\gamma_0$ as paths
+    from $x_0$ to $x_1$.
+
+    \item[(iii)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0(2s)
+        & 0\leq s\leq \dfrac{1-t}{2},\\[8pt]
+        \gamma_0(1-t)
+        & \dfrac{1-t}{2}\leq s\leq \dfrac{1+t}{2},\\[8pt]
+        \gamma_0(2-2s)
+        & \dfrac{1+t}{2}\leq s\leq 1.
+    \end{cases}
+    \]
+    goes from $\gamma_0\cdot\overline{\gamma_0}$
+    to $c_{x_0}$ as paths from $x_0$ to $x_0$.
+\end{enumerate}
+\begin{proposition}
+  Let $ X $ be a space, $ x_0 \in X $. Define
+  \[
+	  \pi_1(X,x_0) = \{ \text{loops in } X \text{ based at } x_0\}/ \text{homotopy}.
+  \]
+  Then the rule $ [\gamma]\circ [\gamma'] = [ \gamma \circ \gamma'] $ defines a group structure on $ \pi_1(X,x_0) $. The identity is paths homotopic to the constant path.
+\end{proposition}
+\pf The previous proposition.
+\begin{definition}
+	(Fundamental Group) We call $ \pi_1(X,x_0) $ the \textit{fundamental group} of $ X $ at $ x_0 $.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   \end{document}
