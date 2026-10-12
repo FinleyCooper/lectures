@@ -41,9 +41,72 @@ where $ e_{ij} $ is the \textit{rate of strain tensor} and $ \boldsymbol\omega =
   \mathbf u (\mathbf x) \approx \mathbf u (\mathbf 0) + \mathbf e \cdot \mathbf x + \frac 12 \boldsymbol \omega \times \mathbf x.
 \]
 We have that $ e_{ij}= e_{ji} $ by definition so $ \mathbf e $ is real symmetic and hence has real orthogonal eigenvectors which are the principle axis of strain. We have that $ e_{ii} = \nabla\cdot\mathbf u = 0 $ so the eigenvalues sum to $ 0 $. The eigenvalues are called the principle rates of strain.
-% claude: on review add a diagram here with tikx, import it.
 \subsection{The stress tensor}
-
+Recall in mechanics we consider two types of forces:
+\begin{enumerate}
+	\item Body forces $ \mathbf f $ that act per unit volume, such as gravity;
+	\item Surface forces $ \boldsymbol \tau $ that act per unit area, for example pressure and viscious shear stress
+\end{enumerate}
+Let $ \boldsymbol\tau (\mathbf n; \mathbf x, t) \delta S $ denote the force exerted by the positive side on the negative side of the small area element with $ \mathbf n $ pointing from the negative to positive direction. \par
+For example we have that $ \boldsymbol\tau(\mathbf n) = - p\mathbf n $ for an inviscid fluid. \par
+Now let $ \mathbf n \delta S $ be the sloping face of a small tetrahedron of size $ \ell $ whose three other faces are aligned with the cooridnate planes. The force acting on the sloped face is $ \boldsymbol \tau(\mathbf n)\delta S $. The force on the other faces are $ \boldsymbol\tau(-\mathbf 1)\delta S_1, \boldsymbol\tau(-\mathbf 2)\delta S_2, \boldsymbol\tau(-\mathbf 3)\delta S_3 $. Consider the force balance, the body force and inertia are $ O(\ell^3) $ and the surface forces $ \boldsymbol \tau $ are $ O(\ell^2) $, so their ratio is $ O(\ell)\to 0 $ as $ \ell \to 0 $. So the surface forces must balance themselves for small $ \ell $.\par
+Note, pressure and viscous stresses balance inertia and gravity on the characteristic length scale so small $ \ell $ means that $ \ell $ is small compared to the characteristic length scale $ L $.\par
+Since forces balance we have that
+\[
+  \boldsymbol\tau(\mathbf n ) \delta S + \boldsymbol \tau(-\mathbf 1)\delta S_1 + \boldsymbol\tau (-\mathbf 2)S_2 + \boldsymbol\tau(-\mathbf 3)\delta S_3 = 0.
+\]
+Now
+\begin{align*}
+  \delta S_i = \mathbf i \cdot (\mathbf n \delta S) = n_i \delta S
+\end{align*}
+and $ \boldsymbol \tau(-\mathbf 1) = - \boldsymbol \tau(\mathbf 1) $ by Newton's Third Law. Putting this in, we get that
+\[
+  \boldsymbol \tau(\mathbf n) = \boldsymbol \tau (\mathbf 1) n_1 + \boldsymbol \tau(\mathbf 2) n_2 + \boldsymbol \tau(\mathbf 3) n_3
+\]
+which shows that the $ \boldsymbol \tau $ is linear in $ \mathbf n $. So we have that
+\[
+	\tau_i(\mathbf n) = \sigma_{ij} n_j
+\]
+where $ \sigma_{ij} = \tau_i(j) $.
+\begin{definition}
+	(Stress tensor) We call $ \sigma(\mathbf x,t) $, as constructed above, the \textit{stress tensor}.
+\end{definition}
+The key result is that the stress $ \boldsymbol\tau $ exerted on a small area element (by the outside on the inside) is given by $ \boldsymbol\tau(\mathbf n) = \sigma\cdot \mathbf n $.\par
+For the invisicid case $ \sigma $ is just the identity tensor.
+\par
+We will now show that $ \sigma $ is a symmetric tensor.
+\par
+Consider the angular momentum balance on a small ($ \ell \ll L $) arbitrary volume $ V $ about a fixed point in $ V $ we'll call $ \mathbf 0 $.
+\par
+The moment of the surface forces is
+\begin{align*}
+	\int_{\partial V} \varepsilon_{ijk} x_j \tau_{k\ell}n_\ell \mathrm dS
+\end{align*}
+which is $ O(\ell^3) $. Similarly the moment of the volume forces are inertia are
+\[
+  \int_V \mathbf x \times (\dots\dots) \mathrm dV
+\]
+which also should be $ O(\ell^4) $.
+\par
+For small $ \ell $, the moments of the surface force must balance, hence
+\[
+   0 = \int_V \varepsilon_{ijk}\frac{\partial }{\partial x_\ell} (x_j \sigma_{k\ell} )\mathrm dV = \int_V \varepsilon_{ijk}\left(\sigma_{kj} + x_j \frac{\partial \sigma_{k\ell}}{\partial x_\ell}\right)\mathrm dV.
+\]
+and as $ x_j $ is $ O(\ell) $ we can take $ \ell \to 0 $ to get rid of the second term hence the integral is approximately
+\[
+	\sim \int_V \varepsilon_{ijk} \sigma_{kj} \mathrm dV.
+\]
+But $ V $ is arbitrary so $ \varepsilon_{ijk} \sigma_{kj} = 0 $ hence $ \sigma_{ij} = \sigma_{ji} $.
+\subsection{Constitutive Equation for a Newtonian Fluid}
+We divide the stress tensor into two terms:
+\begin{enumerate}
+	\item An isotropic pressure term $ -p\delta_{ij} $ so $ p = -\frac 13 \sigma_{kk} $.
+	\item A deviatoric stress $ \sigma_{ij}^{\mathrm{dev}} $ which is the deviation from isotropic.
+\end{enumerate}
+So we have that
+\[
+	\sigma_{ij} = -p\delta_{ij} + \sigma_{ij}^\mathrm{dev}
+\]
 
 
 \end{document}
