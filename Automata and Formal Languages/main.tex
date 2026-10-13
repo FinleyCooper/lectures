@@ -1,5 +1,8 @@
-\documentclass{article}
+\documentclass[tikx, border = 10pt]{article}
+
 \usepackage{../header}
+ \usepackage{tikz}
+\usetikzlibrary{automata,positioning,arrows.meta,calc}
 \title{Automata and Formal Languages}
 \author{Notes made by Finley Cooper}
 
@@ -59,6 +62,121 @@ We can do this for countably many $ L $. But we want $ w $ to \textit{describe} 
 		\item $ F\subseteq Q $ is a set of acceptance states.
 	\end{enumerate}
 \end{definition}
-The idea for a DFA is that we input a word $ w\in \Sigma^* $ we call $ w = x_1\cdots x_n $. The DFA starts in state $ q_0 $ and reads the first letter of the input string $ x_1 $. The DFA then transitions according to $ \delta $ to $ q_1 = \delta(q_0,x_1)\in Q $. We then repeat this process with $ x_2 $ and so on. Once the string is exhusted the string is accepted if $ q_n\in F $ otherwise it is rejected. This defines a language.
+The idea for a DFA is that we input a word $ w\in \Sigma^* $ we call $ w = x_1\cdots x_n $. The DFA starts in state $ q_0 $ and reads the first letter of the input string $ x_1 $. The DFA then transitions according to $ \delta $ to $ q_1 = \delta(q_0,x_1)\in Q $. We then repeat this process with $ x_2 $ and so on. Once the string is exhusted the string is accepted if $ q_n\in F $ otherwise it is rejected. This defines a language.\par
+We describe these with tables and diagrams.
+\begin{definition}
+	(Transition diagram) A \textit{transition diagram} for a DFA, $ D $, is a directed labelled graph with:
+	\begin{enumerate}
+		\item The vertices being the states $ Q $.
+		\item For each $ (q,\sigma)\in Q\times \Sigma $, we draw a directed edge from $ q $ to $ \delta(q, \sigma) $ and label this edge with $ \sigma $. So each vertex has $ |\Sigma| $ out-edges for every vertex.
+		\item Add an arrow from outside the diagram to $ q_0 $ labelled \verb&START&.
+		\item Draw vertex as a circle or as a double circle if the state is an accept state.
+	\end{enumerate}
+\end{definition}
+If we have lots of edges from one state to another vertex, we can join them in a single edge with the label subset of $ \Sigma $.
+\par
+Consider the following diagram which shows a DFA which accepts the word 'cat' and nothing else.
+
+\begin{tikzpicture}[
+    >=Stealth,
+    shorten >=1pt,
+    auto,
+    node distance=3cm,
+    semithick,
+    initial text=,
+    every state/.style={minimum size=1cm}
+]
+
+% Main path: c -> a -> t
+\node[state,initial]   (q0) {$q_0$};
+\node[state,right=of q0] (q1) {$q_1$};
+\node[state,right=of q1] (q2) {$q_2$};
+\node[state,accepting,right=of q2] (q3) {$q_3$};
+
+% Trap (dead) state, placed below the middle of the path
+\node[state] (dead) at ($(q1)!0.5!(q2)+(0,-3.5)$) {$q_\emptyset$};
+
+% Transitions along "cat"
+\path[->]
+    (q0) edge node {c} (q1)
+    (q1) edge node {a} (q2)
+    (q2) edge node {t} (q3);
+
+% Everything else goes to the trap state
+\path[->]
+    (q0) edge[bend right=25] node[sloped,below] {$\Sigma \setminus \{\mathtt{c}\}$} (dead)
+    (q1) edge node[sloped,above] {$\Sigma \setminus \{\mathtt{a}\}$} (dead)
+    (q2) edge node[sloped,above] {$\Sigma \setminus \{\mathtt{t}\}$} (dead)
+    (q3) edge[bend left=25] node[sloped,below] {$\Sigma$} (dead)
+    (dead) edge[loop below] node {$\Sigma$} (dead);
+
+% Alphabet legend
+\node[anchor=north west,align=left] at ($(q0)+(-1.5,2.2)$)
+    {$\Sigma = \{\mathtt{a},\mathtt{b},\dots,\mathtt{z},\mathtt{\_}\}$ \quad ($\mathtt{\_}$ denotes a space)};
+
+\end{tikzpicture}
+
+\begin{definition}
+	(Transition table) For a DFA we can also show the corresponding information in a table. The columns are symbols in $ \Sigma $ and the rows are states $ q_0, q_1, \dots $ and the $ (i,j) $ entry is $ \delta(q_i,\sigma_j) $.
+\end{definition}
+\subsection{Regular Languages}
+\begin{definition}
+	(Extended transition function) The \textit{extended transition function} of a DFA, $ D $, is
+	\[
+	  \hat\delta: Q \times \Sigma^* \to Q
+	\]
+	defined inductively via
+	\[
+		\hat \delta(q, \varepsilon) = q, \quad \hat\delta(q, \sigma_1) = \delta(q, \sigma_1), \quad \delta(q, \sigma_1\cdots \sigma_k) = \delta(\hat\delta(q,\sigma_1\dots \sigma_{k-1}), \sigma_k)
+	\]
+	for all $ q\in Q $ and $ \sigma_1,\dots, \sigma_k\in \Sigma $.
+\end{definition}
+So for any word $ w\in \Sigma^* $, $ \hat\delta(q_0,w) $ is the end state with input $ w $.
+\begin{lemma}
+  For all $ 1\le \ell \le k $, we have 
+  \begin{align*}
+	  \hat\delta(q, \sigma_1\dots \sigma_k) = \hat\delta( \hat\delta(q,\sigma_1 \dots\sigma_\ell), \sigma_{\ell +1} \dots \sigma_k).
+  \end{align*}
+\end{lemma}
+\pf Induct on $ k $. We take the base case where $ k = \ell $ which follows from the definition. Otherwise,
+\begin{align*}
+	\text{LHS} & = \delta(\hat\delta(q, \sigma_1 \dots \sigma_{k-1}), \sigma_k)\\
+		   &= \delta(\hat\delta(\hat\delta(q,\sigma_1\dots \sigma_\ell), \sigma_{\ell +1}\dots \sigma_{k-1}), \sigma_k) = \text{RHS}\qed
+\end{align*}
+\begin{definition}
+	(Regular Language) Let $ D $ be a DFA. The langauge $\mathcal L(D) $ of $ D $ is the set of words accepted by $ D $ namely
+	\[
+		\mathcal L(D) = \left\{ w \in \Sigma^* \mid \hat\delta (q_0, w) \in F\right\} \subseteq \Sigma^*
+	\]
+	A language $ L $ is \textit{regular} if there exists a DFA $ D $ such that $ L = \mathcal L(D) $.
+\end{definition}
+\subsection{Non-determinism and $ \varepsilon $-transitions}
+We now examine a seemingly more general construction where we can choose which state to move to (or equivalently move to many states simultaneously).
+\begin{definition}
+	(Non-deterministic Finite-State Automaton) A \textit{non-deterministic finite-state automaton} (NFA) is a structure
+	\[
+	  N = (Q, \Sigma, \delta, q_0, F)
+	\]
+	just as a for a DFA, however $ \delta $ is now a map $ Q\times \Sigma \to \mathcal P(Q) $, to contain the idea of moving to many states "at once".
+\end{definition}
+An NFA as input $ w= \sigma_1\dots \sigma_k \in \Sigma^* $ while in state $ q_0 $, reads $ \sigma_1 $ then "moves to" all of the states in $ \delta(q_0,\sigma_1) $. Then for all states $ p\in \delta(q_0,\sigma_1) $, read $ \sigma_2 $ and move to $ \sigma(p,\sigma_2) $. Continue to end of $ w $ to get to all end states $ E_w\subseteq Q $. If $ E_w\cap F \ne \emptyset $, then $ w $ is accepted, otherwise $ w $ is rejected.
+\begin{remark}
+	Note that since $ \emptyset \in\mathcal P(Q) $ we can have $ \delta(p, \sigma) = \emptyset $. But what if we're currently in states $ S\subseteq Q $ and to read $ \sigma_i $ only to find that $ \bigcup_{p\in S} \delta(p,\sigma_i) = \emptyset $. Then we are in "no state" and we are stuck in NFA limbo until the end of the word, where the word is automatically rejected.
+\end{remark}
+Given an NFA $ N $, we can define the transition diagram and the transition table in the same way as for a DFA although the table now contains subsets of $ \Sigma $ and the diagram has multiple directed edges for a single letter in $ \Sigma $.
+\begin{definition}
+	(Extended transition function) For an NFA the \textit{extended transition function} $ \hat\delta $ of $ N $ is $ \hat\delta : Q \times \Sigma^* \to \mathcal P(Q) $ defined by $ \hat\delta(q,\varepsilon) = \{q\} $ for $ q\in Q $, $ \hat\delta(q,\sigma) = \delta(q, \sigma) $ for $ q\in Q $ and $ \sigma\in \Sigma $ and
+	\[
+		\hat\delta(q,\sigma_1\dots\sigma_k) = \bigcup_{p\in \hat\delta(q, \sigma_1\dots \sigma_{k-1})}\delta(p,\sigma_k).
+	\]
+	So for $ w\in \Sigma^* $ we have that $ \hat\delta(q_0,w) $ is the set of end states $ E_w $.
+\end{definition}
+
+
+
+
+
+
+
 
   \end{document}
