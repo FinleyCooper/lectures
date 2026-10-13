@@ -155,7 +155,7 @@ def review(client: anthropic.Anthropic, path: str, user: str) -> list[dict]:
         max_tokens=3000,  # short report only; raise if you often get truncation warnings
         system=SYSTEM,
         tools=[TOOL],
-        tool_choice={"type": "tool", "name": "report_issues"},
+        tool_choice={"type": "auto"},
         messages=[{"role": "user", "content": user}],
     )
     if resp.stop_reason == "max_tokens":
