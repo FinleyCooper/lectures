@@ -174,7 +174,7 @@ We want to define a more general type of state machine. We want a more flexible 
 \begin{definition}
 	($ \ep $-NFA) An $ \ep $\textit{-NFA} is a structure $ E = (Q,\Sigma, \delta, q_0, F) $ defined just as for an NFA except
 	\[
-		\delta: Q \times (\Sigma \cup \{\ep\} \to \mathcal P(Q)
+		\delta: Q \times (\Sigma \cup \{\ep\}) \to \mathcal P(Q)
 	\]
 	where $ \ep\notin \Sigma $ but is acting like a symbol.
 \end{definition}
@@ -194,7 +194,7 @@ for some $ N $ since we have a strictly increasing chain which balances at some 
 \end{lemma}
 \pf Let $ C = \mathrm{ecl}(S) $. We need that $ \mathrm{ecl}(C)\subseteq C $. But $ x\in \mathrm{ecl}(C) $ means that $ x\in \mathrm{ecl}(r) $ for some $ r\in C $, so there exists a finite sequence of $ \ep $-transitions from $ r $ to $ x $. But $ r \in \mathrm{ecl}(S) $ so there exists some $ s\in S $ with a sequence of $ \ep $-transitions from $ s $ to $ r $. Putting these together we get that $ x\in S_{m+n}(s)\subseteq \mathrm{ecl}(s)\subseteq C $, where $ m $ and $ n $ are the lengths of the $ \ep $-transitions of the paths from $ r $ to $ x $ and $ r $ to $ s $ respectively.\qed 
 \par
-An $ \ep $-NFA has input $ w=\simga_1\cdots \sigma_k\in \Sigma^* $. From $ q_0 $ it moves to all states in $ \mathrm{ecl}(q_0) $ and only then reads $ \sigma_1 $. For each $ x\in\mathrm{ecl}(q_0) $ it takes the set of the states $ \delta(x,\sigma_1) $ and for each $ y_x\in \delta(x,\sigma_1) $ it now goes to $ \mathrm{ecl}(y_x) $, so now in these states unioned over $ y_x $ and $ x $. Continue with $ \sigma_2 $ and repeat, until we read the last letter $ \sigma_k $ and then $ w $ is accepted if any of these end states are in $ F $, otherwise it is rejected.
+An $ \ep $-NFA has input $ w=\sigma_1\cdots \sigma_k\in \Sigma^* $. From $ q_0 $ it moves to all states in $ \mathrm{ecl}(q_0) $ and only then reads $ \sigma_1 $. For each $ x\in\mathrm{ecl}(q_0) $ it takes the set of the states $ \delta(x,\sigma_1) $ and for each $ y_x\in \delta(x,\sigma_1) $ it now goes to $ \mathrm{ecl}(y_x) $, so now in these states unioned over $ y_x $ and $ x $. Continue with $ \sigma_2 $ and repeat, until we read the last letter $ \sigma_k $ and then $ w $ is accepted if any of these end states are in $ F $, otherwise it is rejected.
 \begin{definition}
 	(Extended transition function) For an $ \ep $-NFA, its \textit{extended transition function} is a function
 	\[
@@ -202,7 +202,7 @@ An $ \ep $-NFA has input $ w=\simga_1\cdots \sigma_k\in \Sigma^* $. From $ q_0 $
 	\]
 	defined inductvely on the length of the word $ w = \sigma_1 \cdots \sigma_k $ via $ \hat \delta(q,\ep) = \mathrm{ecl}(q) $.
 	\[
-		\hat\delta(q,\sigma) = \mathrm{ecl}\left(\bigcup_{p\in \mathrm{ecl}(q)} \delta(q,\sigma)\right)\hat\delta(q,\sigma_1\dots \sigma_k) = \mathrm{ecl}\left( \bigcup_{p\in \hat \delta(q,\sigma_1\dots \sigma_{k-1})} \delta(p,\sigma_k)\right).
+		\hat\delta(q,\sigma) = \mathrm{ecl}\left(\bigcup_{p\in \mathrm{ecl}(q)} \delta(p,\sigma)\right),\quad \hat\delta(q,\sigma_1\dots \sigma_k) = \mathrm{ecl}\left( \bigcup_{p\in \hat \delta(q,\sigma_1\dots \sigma_{k-1})} \delta(p,\sigma_k)\right).
 	\]
 \end{definition}
 What is the relationship between these finite-state machines? 
