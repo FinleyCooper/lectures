@@ -268,6 +268,7 @@ For the second part let $ \ket n $ be an eigenstate of $ Q $ with eigenvalues $ 
 \end{align*}
 hence $ \bra m Q \ket n = q_n\bra{m}\ket{n} = q_m\bra{m}\ket{n} $. But we have that $ q_m\ne q_n $ so $ \bra{m}\ket{n} = 0 $.\qed
 \subsection{The Harmonic Oscillator}
+\subsubsection{Construction of the eigenstates}
 A one-dimensional harmonic oscillator of mass $ m $ and frequency $ \omega $ is a system with position $ \hat x $, momentum $ \hat p $ and Hamilitonian
 \[
 	 H = \frac 1{2m} \hat p^2 + \frac  12 m \omega^2 \hat x^2.
@@ -331,5 +332,116 @@ Now the news states with be eigenstates provided their norms are non-zero. We ca
 			     &= \lambda + 1.
 \end{align*}
 Because of these properties $ a^\dagger $ and $ a $ are called \textit{creation} (or raising) and \textit{annihilation} (or lowering) operators.\par
-We can't lower below zero, since the eigenvalues are positive so the eigenvalues must be a subset of the positive integers to avoid a contradiction. We can lower and raise all we want, so we can generate any other state with eigenvalues being all of the non-negative integers.
+We can't lower below zero, since the eigenvalues are positive so the eigenvalues must be a subset of the positive integers to avoid a contradiction. We can lower and raise all we want, so we can generate any other state with eigenvalues being all of the non-negative integers.\par
+More formally, since we know that $ \lambda \ge 0  $, so for a given eigenstate $ \ket \lambda $, if $ \lambda $ is \textit{not} an integer, then
+\[
+  a\ket \lambda, a^2\ket\lambda, \dots, a^n\ket \lambda
+\]
+are states with eigenvalues
+\[
+  \lambda -1, \lambda -2, \dots, \lambda -n
+\]
+but for $ n $ sufficiently large $ \lambda - n <0 $ which is a contradiction.
+\par
+By contrast if $ \lambda =k \in \N $ then the contradiction is avoided because
+\[
+  a\ket k, a^2 \ket k, \dots, a^k \ket k
+\]
+with eigenvalues
+\[
+  k-1, k-2, \dots, 0
+\]
+so we can't lower anymore because our eigenstate has collapsed to zero, i.e. if we force integer eigenvalues the resultant eigenstate is \textit{nilpotent}.\par
+We can use the raising operator $ a^\dagger $ to generate the eigenstates with eigenvalues $ k+1, k+2, \dots $ forever.
+\par
+Hence the eigenvalues of $ N $ are therefore precisely the non-negative integers and the oscillator has energy levels
+\[
+  E_n = \hbar \omega\left(n+\frac 12 \right).
+\]
+From our calculation of norms above, we can choose normalised eigenstates $ \ket n $ related by 
+\begin{align*}
+	a^\dagger \ket n &= \sqrt{n+1}\ket{n+1} \\
+	a\ket n &= \sqrt{n} \ket{n-1}.
+\end{align*}
+Starting from any state, $ \ket n $, we can generate all others. In particular, starting from the \textit{ground state} $ \ket 0 $, characteristed by 
+\[
+  a\ket 0 = 0
+\]
+we can construct normalised eigenstates
+\[
+	\ket n =\frac 1{\sqrt{n!}} (a^\dagger)^n \ket 0.
+\]
+\begin{remark}
+	Beware that $ \ket 0 $ is \textit{not} zero in $ V $. It is an eigenstate and therefore non-zero by definition.
+\end{remark}
+\subsubsection{Importance of the oscillator}
+\begin{enumerate}
+	\item A smooth potential $ V(x) $ with equilibrium point $ x = x_0 $ (so that $ V'(x_0) = 0 $) can be expanded by
+		\[
+		  V(x_0 + x) = V(x_0) + \frac 12 V''(x_0) x^2 + O(x^2)
+		\]
+		so, if $ x=x_0 $ is \textit{stable}, then we can set $ V''(x_0) = m\omega^2 > 0 $ and for displacements $ x $ not too large, we can expect the system to be well approximated by a oscillator.
+	\item This can also be applied in the case for a diatomic molecules where we have quantisation of vibrational energies which is important in understanding the internal energy and heat capacities which result in macroscopic consequences.
+	\item More complicated systems can be analysed in terms of normal modes. Coherent motion in which all degrees of freedom oscillate with the same common frequency $ \omega $. The general solution for a classical oscillator is
+		\[
+			x(t) = A e^{-i\omega t} + A^* e^{i\omega t}
+		\]
+		where $ A $ is a complex constant.\par
+		Normal modes for a system with variables $ x_N $ are solutions of the form
+		\[
+			x_N(t) = Au_Ne^{-i\omega t} + A^* u^*_N e^{i\omega t}
+		\]
+		with $ u_N $ a complex vector specific to each normal frequency $ \omega $.
+	\item For example consider a crystal with a number of atoms $ \mathcal N \sim 10^{23} $ where the force are approximately elastic and $ N $ labels diretions of motion for each atom, so we have $ 3\times \mathcal N $ values.
+	\item Or we consider an EM field, where normal modes are oscillations of electric and mangetic at each point in space are given by
+		\[
+			\mathbf E(\x,t) = A\mathbf u(\x) e^{-i\omega t} + A^*\mathbf u(\x)^*e^{i\omega t}.
+		\]
+		This is exact.
+	\item Normal modes are independent oscillator: treat these as above. For each mode we have
+		\[
+			a(\omega) \quad\text{and}\quad a(\omega)^\dagger
+		\]
+		where are ground state $ \ket 0 $ with $ a(\omega)\ket 0  = 0$. Non-ground states created with the raising operators add energy and momentum and behave like particles. In this way we can see that $ a $ destroys particles and $ a^\dagger $ creates particles. 
+\end{enumerate}
+\subsection{Bases and Measurements}
+\subsubsection{Bases of Eigenstates}
+We know that for any observable $ Q $ there is an orthonormal basis of eigenstates $ \{\ket n\} $ for $ V $,
+\[
+  Q \ket n = q_n\ket n.
+\]
+We have orthonormality $ \bra{m}\ket{n} = \delta_{mn} $ and for any state $ \ket \psi \in V $ we have that
+\[
+  \ket \psi = \sum_n \alpha_n \ket n
+\]
+where $ \alpha_n = \bra{n}\ket{\psi} $. Note that $ ||\ket \psi||^2 = 1 $ if and only if
+\[
+	\bra{\psi}\ket{\psi} = \left(\sum_m \alpha_m^*\ket m\right)\left(\sum_n\alpha_N \ket n \right) = \sum_n |\alpha_n|^2 = 1.
+\]
+Note that we can write
+\[
+  1 = \sum_n \ket n \bra n.
+\]
+since for any state $ \ket \psi $ we have that
+\begin{align*}
+	\ket \psi &= \left(\sum_n \ket n \bra n\right)\ket \psi \\
+		  &= \sum_n \ket n(\bra{n}\ket{\psi})
+\end{align*}
+In above there may be several independent staets with the same eigenvalue $ \lambda $. The eigenspace for a given eigenvalue is
+\[
+	V_\lambda = \{ \ket \psi : Q\ket \psi = \lambda \ket \psi\}.
+\]
+Note that $ V_\lambda $ has basis $ \{ \ket n : q_n = \lambda\} $. The \textit{degeneracy} of $ \lambda $ is the number of sattes in this basis (i.e the dimension of $ V_\lambda $). If $ V_\lambda $ has dimension $ 1 $, then we say that $ \lambda $ is non-degenerate.
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
