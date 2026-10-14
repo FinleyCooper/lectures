@@ -378,7 +378,7 @@ we can construct normalised eigenstates
 \begin{enumerate}
 	\item A smooth potential $ V(x) $ with equilibrium point $ x = x_0 $ (so that $ V'(x_0) = 0 $) can be expanded by
 		\[
-		  V(x_0 + x) = V(x_0) + \frac 12 V''(x_0) x^2 + O(x^2)
+		  V(x_0 + x) = V(x_0) + \frac 12 V''(x_0) x^2 + O(x^3)
 		\]
 		so, if $ x=x_0 $ is \textit{stable}, then we can set $ V''(x_0) = m\omega^2 > 0 $ and for displacements $ x $ not too large, we can expect the system to be well approximated by a oscillator.
 	\item This can also be applied in the case for a diatomic molecules where we have quantisation of vibrational energies which is important in understanding the internal energy and heat capacities which result in macroscopic consequences.
@@ -416,7 +416,7 @@ We have orthonormality $ \bra{m}\ket{n} = \delta_{mn} $ and for any state $ \ket
 \]
 where $ \alpha_n = \bra{n}\ket{\psi} $. Note that $ ||\ket \psi||^2 = 1 $ if and only if
 \[
-	\bra{\psi}\ket{\psi} = \left(\sum_m \alpha_m^*\ket m\right)\left(\sum_n\alpha_N \ket n \right) = \sum_n |\alpha_n|^2 = 1.
+	\bra{\psi}\ket{\psi} = \left(\sum_m \alpha_m^*\bra m\right)\left(\sum_n\alpha_n \ket n \right) = \sum_n |\alpha_n|^2 = 1.
 \]
 Note that we can write
 \[
