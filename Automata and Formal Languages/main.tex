@@ -5,7 +5,6 @@
 \usetikzlibrary{automata,positioning,arrows.meta,calc}
 \title{Automata and Formal Languages}
 \author{Notes made by Finley Cooper}
-
 \begin{document}
   \maketitle
   \newpage
@@ -171,6 +170,93 @@ Given an NFA $ N $, we can define the transition diagram and the transition tabl
 	\]
 	So for $ w\in \Sigma^* $ we have that $ \hat\delta(q_0,w) $ is the set of end states $ E_w $.
 \end{definition}
+We want to define a more general type of state machine. We want a more flexible type where we can change certain states without reading a symbol. We think about this as reading $ \ep $ between the letters.
+\begin{definition}
+	($ \ep $-NFA) An $ \ep $\textit{-NFA} is a structure $ E = (Q,\Sigma, \delta, q_0, F) $ defined just as for an NFA except
+	\[
+		\delta: Q \times (\Sigma \cup \{\ep\} \to \mathcal P(Q)
+	\]
+	where $ \ep\notin \Sigma $ but is acting like a symbol.
+\end{definition}
+\begin{definition}
+	($ \ep $-closure) For an $ \ep $-NFA, E, and a state $ q\in Q $, we define the $ \ep $\textit{-closure} $ \mathrm{ecl}(q) $ of $ q $ as the set of states reached from $ q $ by repeated $ \ep $-transitions.
+\end{definition}
+That is define inductively, $ S_0(q) = \{q\} $, $ S_1 = \{q\} \cup \delta(q,\ep) $ and $ S_{i+1} (q) = S_i(q) \cup \bigcup_{r\in S_i(q)} \delta(r,\ep) $. Then we can say that
+\[
+	\mathrm{ecl}(q) = \bigcup_{i=0}^\infty S_i(q) = S_N(q)
+\]
+for some $ N $ since we have a strictly increasing chain which balances at some point. We can also take the $ \ep $-closure of a subset $ S \subseteq Q $ defined as $ \mathrm{ecl}(S) $, defined as the union of the $ \ep $-closure of each element in $ S $. We have that the $ \ep $-closure moves in and out of unions. \par
+\begin{definition}
+	($ \ep $-closed) We say that $ R\subseteq Q $ is $ \ep $\textit{-closed} if $ \mathrm{ecl}(R) = R $.
+\end{definition}
+\begin{lemma}
+	For any $ S\subseteq Q $ we have that $ \mathrm{ecl}(S) $ is $ \ep $-closed.
+\end{lemma}
+\pf Let $ C = \mathrm{ecl}(S) $. We need that $ \mathrm{ecl}(C)\subseteq C $. But $ x\in \mathrm{ecl}(C) $ means that $ x\in \mathrm{ecl}(r) $ for some $ r\in C $, so there exists a finite sequence of $ \ep $-transitions from $ r $ to $ x $. But $ r \in \mathrm{ecl}(S) $ so there exists some $ s\in S $ with a sequence of $ \ep $-transitions from $ s $ to $ r $. Putting these together we get that $ x\in S_{m+n}(s)\subseteq \mathrm{ecl}(s)\subseteq C $, where $ m $ and $ n $ are the lengths of the $ \ep $-transitions of the paths from $ r $ to $ x $ and $ r $ to $ s $ respectively.\qed 
+\par
+An $ \ep $-NFA has input $ w=\simga_1\cdots \sigma_k\in \Sigma^* $. From $ q_0 $ it moves to all states in $ \mathrm{ecl}(q_0) $ and only then reads $ \sigma_1 $. For each $ x\in\mathrm{ecl}(q_0) $ it takes the set of the states $ \delta(x,\sigma_1) $ and for each $ y_x\in \delta(x,\sigma_1) $ it now goes to $ \mathrm{ecl}(y_x) $, so now in these states unioned over $ y_x $ and $ x $. Continue with $ \sigma_2 $ and repeat, until we read the last letter $ \sigma_k $ and then $ w $ is accepted if any of these end states are in $ F $, otherwise it is rejected.
+\begin{definition}
+	(Extended transition function) For an $ \ep $-NFA, its \textit{extended transition function} is a function
+	\[
+	  \hat\delta: Q\times \Sigma^* \to \mathcal P(Q)
+	\]
+	defined inductvely on the length of the word $ w = \sigma_1 \cdots \sigma_k $ via $ \hat \delta(q,\ep) = \mathrm{ecl}(q) $.
+	\[
+		\hat\delta(q,\sigma) = \mathrm{ecl}\left(\bigcup_{p\in \mathrm{ecl}(q)} \delta(q,\sigma)\right)\hat\delta(q,\sigma_1\dots \sigma_k) = \mathrm{ecl}\left( \bigcup_{p\in \hat \delta(q,\sigma_1\dots \sigma_{k-1})} \delta(p,\sigma_k)\right).
+	\]
+\end{definition}
+What is the relationship between these finite-state machines? 
+\begin{enumerate}
+	\item Any DFA is a NFA (by changing the transition function to map to the singleton set insteaed).
+	\item Any NFA is an $ \ep $-NFA by defining $ \delta(q,\ep) = \emptyset $.
+\end{enumerate}
+However all of these state machines actually define the same subset of languages called \textit{regular languages}! We'll work up to a proof of that now.
+\begin{definition}
+	(Language of NFAs and $ \ep $-NFAs) Given an NFA or a $ \ep $-NFA, E, it's language $ \mathcal L(E) $ is given by
+	\[
+		\mathcal L(E) = \left\{ w\in \Sigma^* : \hat\delta(q_0,w)\cap F\neq \emptyset \right\}.
+	\]
+\end{definition}
+\subsection{Equivalence of DFAs and ($ \ep $-)NFAs}
+Any regular language is the language of an ($ \ep $-)NFA which is fairly simple to see. We want ot show the converse using the \textit{subset construction}
+\par
+First suppose we have an NFA, $ N $. We produce a DFA $ D $ on the same alphabet $ \Sigma $ such that $ \mathcal L (N) = \mathcal L (D) $.
+\begin{definition}
+	(Subset construction) For the NFA $ N = (Q,\Sigma, \delta, q_0, F) $, the \textit{subset construction} for $ N $ produces the DFA 
+	\[
+		D = (\mathcal P(Q), \Sigma, \Delta, \{q_0\}, \mathcal F)
+	\]
+	where $ \mathcal F = \{ S \subseteq Q : S \cap F \ne \emptyset \} $ and for $ S\subseteq Q, \sigma \in \Sigma $ we have that
+	\[
+		\Delta(S, \sigma) = \bigcup_{p\in S} \delta(p,\sigma) \in \mathcal P(Q).
+	\]
+\end{definition}
+\begin{theorem}
+	For the NFA $ N $ and DFA $ D $ obtained from the subset construction, let $ \hat \delta $ and $ \hat \Delta $ to be their respective extended transition functions. Then for all $ w\in \Sigma^* $ we have that
+	\[
+		\hat \Delta(\{q_0\}, w) = \hat \delta(q_0,w).
+	\]
+\end{theorem}
+\pf Induct on word length $ k  = | w | $. The base case $ k = 0 $ is $ w = \ep $ then the LHS $ = \{q_0\} = $ RHS. Now the inductive hypothesis
+\[
+	\hat \Delta (\{q_0\}, \sigma_1\dots \sigma_{k-1}) = \hat\delta( q_0,\sigma_1\dots \sigma_{k-1}).
+\]
+Then for $ w = \sigma_1\dots \sigma_k $, we have that
+\begin{align*}
+	\hat \delta(q_0,w) = \bigcup_{p\in \hat\delta(q_0,\sigma_1\dots \sigma_{k-1})} \delta(p,\sigma_k) &= \Delta(\hat\delta(q_0,\sigma\dots \sigma_{k-1}),\sigma_k) \\
+													  &= \Delta(\hat \Delta(\{q_0\}, \sigma_1\dots \sigma_{k-1}),\sigma_k) = \hat\Delta(\{q_0\}, \sigma_1\dots \sigma_k)\qed\\
+\end{align*}
+\begin{corollary}
+  A language $ L $ is accepted by some DFA if and only if it accepted by some NFA.
+\end{corollary}
+\pf Forwared direction is obvious. In the converse, suppose we're given an NFA $ N $, form a DFA $ D $ from the subset construction. Then $ w $ is accepted by $ N $ if and only if $ \hat \Delta(\{q_0\}, w) \in \mathcal F $ by the previous theorem.\qed
+
+
+
+
+
+
+
 
 
 
