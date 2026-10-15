@@ -3,6 +3,7 @@
 \title{Algebraic Topology}
 \author{Notes made by Finley Cooper}
 \newcommand{\rel}{\mathrm{rel}\:}
+\newcommand{\RP}{\mathbb{RP}}
 \begin{document}
   \maketitle
   \newpage
@@ -385,4 +386,100 @@ Then by the previous lemma with the identity map we get that $ u_\#' = (g\circ f
 \end{lemma}
 \pf The forward direction is obvious just from taking $ x_0 = x_1 $ where the result follows directly.\par
 Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. Since $ X $ is path-connected, there is a path from $ x_0 $ to $ x_1 $. Choose two paths $ \gamma $ and $ \gamma' $ from $ x_1 $ to $ x_1 $. Then $ [\inv \gamma \cdot \gamma']\in \pi_1(X,x_1) $. So $ \inv\gamma\cdot \gamma'\simeq c_{x_1} $. Hence there is a homotopy from $ \gamma \cdot \inv \gamma \cdot \gamma' $ to $ \gamma \cdot c_{x_1}	$. Since we can reduce the path $ \gamma \cdot \inv \gamma $ to a point, we have that $ \gamma' \simeq \gamma $.\qed
+\section{Covering Space}
+\begin{definition}
+	(Covering map) A map $ f:\tilde X\to X $ is a \textit{covering map} if it is surjective and for all $ p\in X $ there is an open neighbourhood $ U_p\subset X $ such that $ \inv f (U_p) \simeq \bigsqcup_{\alpha\in I} V_\alpha $ where each 
+	\[
+		f |_{V_\alpha}:V_\alpha \to U_p
+	\]
+	is a homeomorphism. We say that $ \tilde X $ is the covering space of $ X $.
+\end{definition}
+\begin{example}
+  Clearly homeomorphism are covering maps
+\end{example}
+\begin{example}
+  If $ p:\tilde X \to X $ and $ q:\tilde Y \to Y $ are covering maps then $ p\times q: \tilde X \times \tilde Y \to X\times Y $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ S^1 = \{z \in \C : |z| = 1 \}\subseteq \C $. Take $ p(t) = e^{2\pi i t}:\R\to S^1 $.\par
+	To prove that $ p $ is a covering map, consider the set $ U_{y>} = \{ x+iy \in S^1 : y> 0\} $, the open upper semicircle. Then
+	\begin{align*}
+		\inv p(U_{y>0}) = \bigsqcup_{j\in \Z} \left(j,j+\frac 12\right) \subset \R
+	\end{align*}
+	which is the disjoint union of $ \Z $ many open intervals. Furthermore 
+	\[
+		p|_{(j,j+\frac 12)}: \left(j,j+\frac 12\rright) \to U_{y>0}
+	\]
+	is a continuous bijection with inverse
+	\begin{align*}
+		U_{y>0} &\longrightarrow \left(j,j+\frac 12\right) \\
+		x+ iy &\longrightarrow j+\inv\cos(x)/2\pi.
+	\end{align*}
+	Similarly with $ U_{y<0}, U_{x>0}, U_{x<0} $ these open sets cover $ S^1 $. Thus $ p $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ p(z) = z^n: S^1 \to S^1 $ and denote $ \eta = e^{\frac{2\pi i}n} $ and let $ \zeta $ be some $ n $th root of $ y $. Then we have that
+	\[
+		\inv p(y) = \{\zeta, \eta \zeta, \eta^2\zeta,\dots, \eta^{n-1}\zeta\}
+	\]
+	and $ \inv p(S^1 \setminus \{y\}) $ is the complement of this set. Now we can define
+	\[
+		V_0 = \{z\in S^1 \mid 0 < \arg(z/\eta) < 2\pi /n\}
+	\]
+	and $ V_i = V_0 \cdot \eta^i $ for $ 0\le i < n $, so we get that
+	\[
+		\inv p(S^1 \setminus \{y\}) = \bigsqcup_{i=0}^{n-1} V_i.
+	\]
+	Then $ p\mid_{V_i} : V_i\to S^1 \setminus \{y\} $ is a homeomorphism and
+	\[
+		S^1 =\bigcup_{y\in S^1} S^1 \setminus \{y\}
+	\]
+	therefore $ p $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ S^2 = \{ v\in \R^3 \mid ||v|| = 1 \} \subseteq \R^2 $. We can define an equivalence relation $ x\sim -x $ on $ S^2 $ which defines a quotient space $ \RP^2 = S^2 / \sim $. Consider the quotient map
+	\begin{align*}
+		p: S^2 &\longrightarrow \RP^2 \\
+	  x & \longrightarrow [x]
+	\end{align*}
+	which we claim is a covering map. Let $ V = \{(x,y,z|) \in S^2 \mid z \ne 0\} $ then $ V\simeq V_{z> 0} \sqcup V_{z<0} $ so we can define $ p $ on the restriction to each of these subspaces. We claim that
+	\begin{align*}
+		p\mid_{V_{z>0}}: V_{z>0} &\to p(V) \\
+		p\Mid_{V_{z<0}}: V_{z<0} & \to p(V)
+	\end{align*}
+	are homeomorphisms. Similarly define $ V_x,V_y\subset S^2 $ then $ p(V_x), p(V_y), p(V_z) $ are evenly covered and forms san open cover of $ \RP^2 $. Hence $ p $ is a covering map.
+\end{example}
+\begin{definition}
+	(Lifting) Let $ :p: \tilde X \to X $ be a covering map and $ f: Y \to X $ be any map. Then a map $ \tilde f:Y \to \tilde X $ is a \textit{lift} of $ f $ along $ p $ if $ f = p \circ \tilde f $.
+\end{definition}
+\begin{lemma}
+	(Uniqueness of lifts lemma) Let $ p: \tilde X \to X $ be a covering map and $ f: Y \to X $ be any map. Let $ \tilde f_0, \tilde f_1 $ be two lifts of $ f $ along $ p $. Then the set $ \{y\in Y : \tilde f_0(y) = \tilde f_1(y)\} $ is clopen in $ Y $. Consequently if $ Y $ is connected then $ S = Y $ or $ S = \emptyset $.
+\end{lemma}
+\pf First we'll show that $ S $ is open. Choose $ y\in S $ and let $ U $ be an open neighbourhood of $ f(s) \in X $ which is evenly covered, so $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha $. Then $ \tilde f_0(y) $ and $ \tilde f_1(y) $ are equal so lie in the same $ V_\beta $. Thus we have that on $ N = \tilde f_0^{-1}(V_\beta) \cap \tilde f_1^{-1}(V_\beta) $ we have that 
+\[
+	p|_{V_\beta} \circ \tilde f_0 \mid_N = f\mid_N = p\mid_{V_\beta} \circ \tilde f_1 \mid_N
+\]
+but since $ p\mid V_\beta $ is a homeomorphism, it has an inverse so $ \tiled f_0\mid_N = \tilde f_1\mid_N $ and $ y\in N \subset S $, so $ S $ is open.\par
+Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is open. Suppose that $ y\notin S $, so $ \tilde f_0(y) \ne \tilde f_1(y) $. Choose an evenly covered open neighbourhood $ U $ at $ f(y) $ and identify $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha  $ so $ \tilde f_0(y) \in V_\alpha $ and $ \tilde f_1(y) \in V_\beta $ for some $ \alpha,\beta\in I $ since $ V_\alpha $ is mapped homeomorphically to $ U $ and the covering maps differ, we must have that $ \alpha\ne \beta $. So $ N = \tilde f_0^{-1}(V_\beta) \cap \tilde f_0^{-1}(V_\alpha) $ is an open neighbourhood of $ y $ so must intersect $ S $ by the definition of closure. But then $ V_\alpha $ and $ V_\beta $ must intersect which is a contradiction.
+\begin{lemma}
+	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map  and $ H: Y\times I \to X $ be a homotopy from $ f  $ to $ g $. Choose a lift $ \tilde f $ of $ f $, so $ \tilde f: Y \to \tilde X $. Then there exists a unique homotopy $ \tilde H : \tilde Y \times I \to \tilde X $ such that
+	\begin{enumerate}
+		\item $ \tilde H(-,0) = \tilde f $;
+		\item $ \tilde H $ is a lift of $ H $ along $ p $.
+	\end{enumerate}
+\end{lemma}
+\pf 
+
+
+
+
+
+\begin{corollary}
+	(Path lifting) For a path $ \gamma: I \to X $ choose $ \tilde x_0 \in \tilde X $ such that $ p(\tilde x_0) = \gamma(0) $. Then there exists a unique path $ \tilde \gamma: I \to \tilde X $ such that $ \tilde \gamma(0) = \tilde x_0 $ and $ p\circ\tilde \gamma = \gamma $.
+\end{corollary}
+\pf Take $ Y = \{*\} $ and apply the homotopy lifting lemma.
+\begin{corllary}
+  Let $ \gamma,\gamma': I \to X $ be paths in $ X $ from $ x_0 $ to $ x_1 $ and $ \tilde \gamma,\tilde \gamma': I \to \tilde X $ be lifts starting at $ \tilde x_0 \in \inv p(x_0 $. If $ \gamma\simeq \gamma' $ as paths, then $ \tilde \gamma \simeq \tilde \gamma' $ as paths, in particular $ \tilde \gamma(1) \simeq \tilde\gamma'(1) $.
+\end{corllary}
+\pf Let $ H: I\times I \to X $ be a homotopy of paths from $ \gamma $ to $ \gamma' $ and lifts strating at $ \tilde \gamma $ to obtain a homtoopy $ \tilde H:I\times I \to \tilde X $.
   \end{document}
