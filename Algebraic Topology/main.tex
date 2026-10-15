@@ -408,7 +408,7 @@ Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. S
 	\end{align*}
 	which is the disjoint union of $ \Z $ many open intervals. Furthermore 
 	\[
-		p|_{(j,j+\frac 12)}: \left(j,j+\frac 12\rright) \to U_{y>0}
+		p|_{(j,j+\frac 12)}: \left(j,j+\frac 12\right) \to U_{y>0}
 	\]
 	is a continuous bijection with inverse
 	\begin{align*}
@@ -437,7 +437,7 @@ Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. S
 	therefore $ p $ is a covering map.
 \end{example}
 \begin{example}
-	Consider $ S^2 = \{ v\in \R^3 \mid ||v|| = 1 \} \subseteq \R^2 $. We can define an equivalence relation $ x\sim -x $ on $ S^2 $ which defines a quotient space $ \RP^2 = S^2 / \sim $. Consider the quotient map
+	Consider $ S^2 = \{ v\in \R^3 \mid ||v|| = 1 \} \subseteq \R^3 $. We can define an equivalence relation $ x\sim -x $ on $ S^2 $ which defines a quotient space $ \RP^2 = S^2 / \sim $. Consider the quotient map
 	\begin{align*}
 		p: S^2 &\longrightarrow \RP^2 \\
 	  x & \longrightarrow [x]
@@ -459,10 +459,10 @@ Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. S
 \[
 	p|_{V_\beta} \circ \tilde f_0 \mid_N = f\mid_N = p\mid_{V_\beta} \circ \tilde f_1 \mid_N
 \]
-but since $ p\mid V_\beta $ is a homeomorphism, it has an inverse so $ \tiled f_0\mid_N = \tilde f_1\mid_N $ and $ y\in N \subset S $, so $ S $ is open.\par
-Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is open. Suppose that $ y\notin S $, so $ \tilde f_0(y) \ne \tilde f_1(y) $. Choose an evenly covered open neighbourhood $ U $ at $ f(y) $ and identify $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha  $ so $ \tilde f_0(y) \in V_\alpha $ and $ \tilde f_1(y) \in V_\beta $ for some $ \alpha,\beta\in I $ since $ V_\alpha $ is mapped homeomorphically to $ U $ and the covering maps differ, we must have that $ \alpha\ne \beta $. So $ N = \tilde f_0^{-1}(V_\beta) \cap \tilde f_0^{-1}(V_\alpha) $ is an open neighbourhood of $ y $ so must intersect $ S $ by the definition of closure. But then $ V_\alpha $ and $ V_\beta $ must intersect which is a contradiction.
+but since $ p\mid V_\beta $ is a homeomorphism, it has an inverse so $ \tilde f_0\mid_N = \tilde f_1\mid_N $ and $ y\in N \subset S $, so $ S $ is open.\par
+Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is open. Suppose that $ y\notin S $, so $ \tilde f_0(y) \ne \tilde f_1(y) $. Choose an evenly covered open neighbourhood $ U $ at $ f(y) $ and identify $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha  $ so $ \tilde f_0(y) \in V_\alpha $ and $ \tilde f_1(y) \in V_\beta $ for some $ \alpha,\beta\in I $ since $ V_\alpha $ is mapped homeomorphically to $ U $ and the covering maps differ, we must have that $ \alpha\ne \beta $. So $ N = \tilde f_1^{-1}(V_\beta) \cap \tilde f_0^{-1}(V_\alpha) $ is an open neighbourhood of $ y $ so must intersect $ S $ by the definition of closure. But then $ V_\alpha $ and $ V_\beta $ must intersect which is a contradiction.
 \begin{lemma}
-	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map  and $ H: Y\times I \to X $ be a homotopy from $ f  $ to $ g $. Choose a lift $ \tilde f $ of $ f $, so $ \tilde f: Y \to \tilde X $. Then there exists a unique homotopy $ \tilde H : \tilde Y \times I \to \tilde X $ such that
+	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map  and $ H: Y\times I \to X $ be a homotopy from $ f  $ to $ g $. Choose a lift $ \tilde f $ of $ f $, so $ \tilde f: Y \to \tilde X $. Then there exists a unique homotopy $ \tilde H : Y \times I \to \tilde X $ such that
 	\begin{enumerate}
 		\item $ \tilde H(-,0) = \tilde f $;
 		\item $ \tilde H $ is a lift of $ H $ along $ p $.
@@ -478,7 +478,7 @@ Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is op
 	(Path lifting) For a path $ \gamma: I \to X $ choose $ \tilde x_0 \in \tilde X $ such that $ p(\tilde x_0) = \gamma(0) $. Then there exists a unique path $ \tilde \gamma: I \to \tilde X $ such that $ \tilde \gamma(0) = \tilde x_0 $ and $ p\circ\tilde \gamma = \gamma $.
 \end{corollary}
 \pf Take $ Y = \{*\} $ and apply the homotopy lifting lemma.
-\begin{corllary}
+\begin{corollary}
   Let $ \gamma,\gamma': I \to X $ be paths in $ X $ from $ x_0 $ to $ x_1 $ and $ \tilde \gamma,\tilde \gamma': I \to \tilde X $ be lifts starting at $ \tilde x_0 \in \inv p(x_0 $. If $ \gamma\simeq \gamma' $ as paths, then $ \tilde \gamma \simeq \tilde \gamma' $ as paths, in particular $ \tilde \gamma(1) \simeq \tilde\gamma'(1) $.
 \end{corllary}
 \pf Let $ H: I\times I \to X $ be a homotopy of paths from $ \gamma $ to $ \gamma' $ and lifts strating at $ \tilde \gamma $ to obtain a homtoopy $ \tilde H:I\times I \to \tilde X $.
