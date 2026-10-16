@@ -176,4 +176,93 @@ And we can use the fact that the fluid is incompressible, to get the \textit{Nav
 \[
 	\rho \frac{D \mathbf u}{Dt} = \mathbf f - \nabla p + \mu\nabla^2 \mathbf u.
 \]
+\subsubsection{Boundary conditions}
+ For a material boundary with normal $ \mathbf n $ we have that
+ \begin{enumerate}
+	 \item Mass conservations gives that $ \mathbf u \cdot \mathbf n $ is continuous;
+	 \item $ \nabla \mathbf u $ is finite because we need $ \sigma $ to be finite, so $ \mathbf u - (\mathbf u \cdot\mathbf n)\mathbf n $ is continuous for a  viscous fluid. This is the no slip condition. These together mean that $ \mathbf u $ is continuous.
+	 \item From Newton's Third law we get that $ \sigma \cdot \mathbf n $ is continuous since the stresses must balance on the boundary. i.e the body stress on the fluid is the negative of the fluid stress on the solid.
+ \end{enumerate}
+ \subsection{Energy Equation and Viscous Dissipation}
+Obtain a mechanical energy equation by dotting the Cauchy momentum equation with $ \mathbf u $ so we get
+\begin{align*}
+	u_i \rho\left(\frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_j}\right) &= u_if_i + u_i\frac{\partial \sigma_{ij}}{\partial x_j} \\
+	\frac \partial{\partial t} \left(\frac 12 \rho u^2\right) - \frac 12 u^2 \frac{\partial \rho}{\partial t}+ \frac\partial{\partial x_j} \left(\frac 12 \rho u^2  u_j\right) - \frac 12 u^2 \frac{\partial}{\partial x_j}(\rho u_j) &= u_if_i +\frac{\partial}{\partial x_j}(u_i\sigma_{ij}) - \sigma_{ij}\frac{\partial u_i}{\partial x_j}.
+\end{align*}
+Now we integrate over a fixed volume $ V $ to get the following equation.
+\begin{definition}
+	(Energy Equation)
+	\[
+		\frac d{dt} \int_V \frac 12 \rho u^2\  \mathrm dV + \int_{\partial V} \frac 12 \rho u^2(\mathbf u \cdot\mathbf n) \ \mathrm dS = \int_V \mathbf u\cdot\mathbf f\  \mathrm dV + \int_{\partial V}\mathbf u \cdot \sigma \mathbf n \ \mathrm dS - \int_V \sigma_{ij}e_{ij}\ \mathrm dV.
+	\]
+\end{definition}
+Now we can explain each term in the equation in the order as written.
+\begin{enumerate}
+	\item The rate of change of kinetic energy inside $ V $.
+	\item Kinetic energy being carried across the boundary $ \partial V $.
+	\item The rate of doing work by body forces inside $ V $.
+	\item The rate of doing work by surface forces $ \boldsymbol \tau = \sigma \cdot\mathbf n $ on $ \partial V $.
+	\item The rate of doing work against the internal stresses due to deformation.
+\end{enumerate}
+For incompressible Newtonian fluids $ \sigma_{ij} = -p \delta_{ij} + 2\mu e_{ij} $ so we have that
+\[
+	\sigma_{ij}e_{ij} = -p e_{ii} + 2\mu e_{ij}e_{ij}
+\]
+and $ e_{ii} $ vanishes since the flow is incompressible.\par
+Hence in the case for an incompressible fluid, the fifth term gives the rate of loss of mechanical energy (dissipation) due to viscosity and defomration. The energy lost if converted to heat and is a source term in the temperature equation.
+\begin{definition}
+	(Localy viscous dissipation rate) We define $ \Phi $ as the \textit{viscous dissipation rate} given as
+	\[
+		\Phi = 2\mu e_{ij}e_{ij}.
+	\]
+\end{definition}
+\subsection{Nondimensionalisation}
+Suppose a flow has a characteristic length scale $ L $ and velocity scale $ U $ and varies on a timescale $ T $. Assume no body forces so we get that
+\[
+	\rho\left(\frac{\partial \mathbf u}{\partial t} + (\mathbf u\cdot\nabla)\mathbf u\right) = - \nabla p + \mu \nabla^2 \mathbf u, \quad \nabla \cdot\mathbf u = 0
+\]
+where $ \mathbf u = \mathbf u(\x,t,\rho,\mu,U,L,T,\text{shape},\dots) $. Define a dimensionless velocity $ \mathbf u^* = \frac{\mathbf u}U $, position $ \x^* = \frac \x L $, time $ t^* = \frac tT $, pressure $ p^* = \frac p{\mu U/L} $ (an alternative inertial scaling sets $ p^{**} = \frac{p}{\rho U^2}) $.\par
+And substitute these into the Navier-Stokes equation. This gives that
+\begin{align*}
+	\rho \left(\frac UT \frac{\partial u^*}{\partial t} + \frac {U^2}L \mathbf u^* \cdot \nabla^* \mathbf u^*\right) &= - \frac{\mu U}{L^2} \nabla^* p^* + \frac{\mu U}{L^2} {\nabla^*}^2 \mathbf u^*.
+\end{align*}
+So collecting constants, we get that
+\[
+	\mathrm{Re}\left(\mathrm{St}\frac{\partial u^*}{\partial t^*} + (\mathbf u^* \cdot\nabla)\mathbf u^*\right) = -\nabla^* p^* + {\nabla^*}^2 \mathbf u^*
+\]
+where we have the following defintions
+\begin{definition}
+	(Reynolds number) For a flow with length scale $ L $, velocity scale $ U $, density $ \rho $, and dynamic velocity $ \mu $ we have
+	\[
+		\mathrm{Re} = \frac{\rho UL}{\mu} = \frac{UL}{\nu}
+	\]
+	where we are defining 
+	\[
+		\nu = \frac{\mu}\rho
+	\]
+	to be the \textit{kinematic viscosity}.
+\end{definition}
+We also have $ \mathrm{St} = \frac L{UT} $ as the \textit{Stroughal number} although this comes up much less.
+\par These are dimensionless quantities which we can use to characterise properties of the flow. \par
+Now we can have $ \mathbf u^* = \mathbf u^*(\x^*,t,\mathrm{Re}, \mathrm{St}, \mathrm{Shape}) $ which is a function of fewer parameters. If the flow is steady then we can set $ T = \frac LU $, called the \textit{advection time}, and $ \mathrm{St} = 1 $, so the Reynolds number is the only important parameter. If the boundary conditions are oscillatory, then set $ T = \frac 1 \omega $, and then group 
+\[
+	\mathrm{Re}_T = \mathrm{Re} \cdot \mathrm{St}
+\]
+is called the \textit{unsteady Reynolds number} or the \textit{Stokes number}.
+\[
+	\mathrm{Re}_T = \frac{L^2}{\nu T} = \frac{\omega L^2}{\nu}
+\]
+which is a ratio of lengthscales.
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
