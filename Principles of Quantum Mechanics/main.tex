@@ -432,16 +432,117 @@ In above there may be several independent staets with the same eigenvalue $ \lam
 	V_\lambda = \{ \ket \psi : Q\ket \psi = \lambda \ket \psi\}.
 \]
 Note that $ V_\lambda $ has basis $ \{ \ket n : q_n = \lambda\} $. The \textit{degeneracy} of $ \lambda $ is the number of sattes in this basis (i.e the dimension of $ V_\lambda $). If $ V_\lambda $ has dimension $ 1 $, then we say that $ \lambda $ is non-degenerate.
+\subsubsection{Functions of Operators}
+It is straight forward to define $ f(Q) $ for some operator $ Q $ if $ f $ is a polynmoial or power series (assuming convergence). For example we can consider $ f(Q) = Q^3 + Q $ or $ f(Q) = e^Q $ in this way. Important examples are $ e^{-iHt/\hbar} $ which is the time-evolution operator and $ e^{-ia\hat p/\hbar} $ which is the translation operator through some fixed displacement $ a $ in the $ x $ direction.\par
+More generally, for $ Q $ an observable, with basis of eigenstates, we can define
+\[
+  f(Q) \ket n = f(q_n) \ket n
+\]
+and then defined on any state, provided that $ f(q_n) $ makes sense. For example for $ f(Q) = \frac 1Q $, we have that
+\[
+	\frac 1 Q \ket n = \frac 1 {q_n} \ket n
+\]
+for $ q_n\ne 0 $.
+\par
+In addition we have that 
+\begin{align*}
+	Q &= \sum_n q_n \ket n \bra n \\
+	f(Q) &= \sum_n f(q_n) \ket n \bra n.
+\end{align*}
+Recall our eigenspace $ V_\lambda $ and consider a projection operation $ P_\lambda $ onto this subspace, $ V\to V_\lambda $ can be defined by its action on basis states
+\[
+  P_\lambda \ket n = \begin{cases}
+	  \ket n & q_n = \lambda \\
+	  0 & \text{otherwise}
+  \end{cases}
+\]
+which can be written as
+\[
+	P_\lambda  = \sum_{n: \ q_n = \lambda} \ket n \bra n.
+\]
+\subsubsection{Measurement Axioms}
+Consider a measurement of $ Q $ (observable) when the systme is in a normalised state $ \ket \psi $. Then
+\begin{enumerate}
+	\item The result in an eigenvalue $ \lambda $ of $ Q $;
+	\item This result is obtained with probability
+		\[
+			p(\lambda) = ||P_\lambda \ket \psi ||^2 \sum_{n:\ q_n=\lambda} |\alpha_n|^2.
+		\]
+	\item Immediately after the measurement the state is
+		\[
+			c P_\lambda \ket = c\sum_{n:\ q_n=\lambda} \alpha_n \ket n
+		\]
+		where $ c $ is a constant for normalisation. 
+\end{enumerate}
+It is often the case with $ \lambda $ being a non-generate eigenstate. In that case we just get that $ p(\lambda) = |\bra{n}\ket{\psi}|^2 = |\alpha_n|^2 $ where $ \alpha_n $ is often called the amplitude of the state.
+\par
+We have that 
+\[
+	\sum_{\lambda} p(\lambda) = 1.
+\]
+\begin{example}
+  Consider a system with space $ V $ with orthonormal basis states
+  \[
+    \ket 1, \ket 2, \ket 3
+  \]
+  which are eigenstaets of $ Q $ with eigenvalues $ q_1=q_2 = 0 $ and $ q_3 = 1 $. Consider
+  \[
+	  \ket \psi = \frac 1{\sqrt 6}\left(2 \ket 1 + \ket 2 + \ket 3\right)
+  \]
+  So we get that
+  \begin{align*}
+	  p(1) &= \left|\frac 1{\sqrt 6}\right|^2 & = \frac 16 \\
+	  p(0) &= \left|\frac 2{\sqrt 6}\right|^2 + \left|\frac 1{\sqrt 6}\right|^2 = \frac 56
+  \end{align*}
+  and the state afterwards is $ \ket 3 $ if $ 1 $ was measured and is 
+  \[
+  \frac 1{\sqrt 5}(2 \ket 1 + \ket 2)  
+  \]
+  if we measured $ 0 $.
+\end{example}
+\begin{definition}
+	(Expectation value) The \textit{expectation value} or \textit{mean} of $ Q $ in a state $ \ket \psi $ is
+	\[
+	  \langle Q\rangle_\psi = \bra \psi Q \ket \psi = \sum_\lambda \lambda p(\lambda) = \sum_n q_n|\alpha_n|^2. 
+	\]
+\end{definition}
+\begin{definition}
+	(Uncertainty) The \textit{uncertainty} or \textit{variance} of an operator $ Q $ in a state $ \ket \psi $ is
+	\[
+	  \left(\Delta Q\right)^2_\psi = \langle (Q-\langle Q\rangle_\psi)^2\rangle_\psi = \langle Q^2 \rangle_\psi - \langle Q\rangle^2_\psi.
+	\]
+\end{definition}
+\begin{remark}
+  In thinking about many repeated measurements, we must prepare the system in the same state $ \ket \psi $ each time.
+\end{remark}
+\begin{remark}
+  If $ \ket \psi $ is an eigenstate of $ Q $ with eigenvalue $ \lambda $ then
+  \[
+	  \langle \alpha \rangle_\psi = \lambda \quad \text{and}\quad (\Delta Q)_\psi = 0.
+  \]
+  Quantum mechanical behaviour arises from the fact that certain obserables do not commute. In general, in any state $ \ket \psi $
+  \[
+	  (\Delta A)_\psi(\Delta B)_\psi \ge \frac 12 \left|\langle [A,B]\rangle_\psi\right|
+  \]
+  so $ [A,B]\ne 0 $ implies that we cannot expect to measure $ A $ and $ B $ at the same time.\par
 
-
-
-
-
-
-
-
-
-
-
-
+  \textit{A proof of the general uncertainty relation can be seen from expanding} $ ||(A+i\lambda B)\ket \psi||^2 \ge 0 $.
+\end{remark}
+The prototypical case is with position and momentum $ \hat x, \hat p $ which obey
+\[
+	[\hat x, \hat p] = i\hbar 
+\]
+in one dimension and $ \Delta x \Delta p \ge \frac h2 $.\par
+In three dimensions we have 
+\[
+	[\hat x_i, \hat p_j] = i\hbar \delta_{ij}
+\]
+and the uncertainty applies to position and momentum in a particular direction.
+\subsubsection{Simultaneous measuremtn and complete commuting sets}
+If an observable $ Q $ does not distinguish states completely because some eigenvalues are degenerate, then we can look for an additional obserable $ Q' $ such that $ Q,Q' $ are simultaneously measureable (i.e simultaneously diagonalisable) and preserves the eigenspaces of the other operator. This means we have joint eigenstates $ \ket {\lambda,\lambda'} $ with
+\begin{align*}
+	Q \ket {\lambda, \lambda'} &= \lambda \ket{\lambda, \lambda'} \\
+	Q' \ket{\lambda,\lambda'} &= \lambda' \ket{\lambda,\lambda'}
+\end{align*}
+so $ [Q,Q'] = 0 $. Conversely if $ [Q,Q'] = 0 $, it is easy to check that $ Q':V_\lambda \to V_\lambda $ and hence we can find a basis of eigenstates of $ Q' $ in $ V_\lambda $ which gives us joint eigenstates for $ Q $ and $ Q' $. Since we assume that $ Q $ is Hermitian so $ V $ is a direct sum of eigenstates, we can do this for all eigenstates, giving us a complete basis of joint eigenstates, which we call $ \ket{\lambda,\lambda'} $.
 \end{document}

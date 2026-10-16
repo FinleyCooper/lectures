@@ -143,7 +143,7 @@ So for any word $ w\in \Sigma^* $, $ \hat\delta(q_0,w) $ is the end state with i
 		   &= \delta(\hat\delta(\hat\delta(q,\sigma_1\dots \sigma_\ell), \sigma_{\ell +1}\dots \sigma_{k-1}), \sigma_k) = \text{RHS}\qed
 \end{align*}
 \begin{definition}
-	(Regular Language) Let $ D $ be a DFA. The langauge $\mathcal L(D) $ of $ D $ is the set of words accepted by $ D $ namely
+	(Regular Language) Let $ D $ be a DFA. The language $\mathcal L(D) $ of $ D $ is the set of words accepted by $ D $ namely
 	\[
 		\mathcal L(D) = \left\{ w \in \Sigma^* \mid \hat\delta (q_0, w) \in F\right\} \subseteq \Sigma^*
 	\]
@@ -250,19 +250,73 @@ Then for $ w = \sigma_1\dots \sigma_k $, we have that
   A language $ L $ is accepted by some DFA if and only if it accepted by some NFA.
 \end{corollary}
 \pf Forwared direction is obvious. In the converse, suppose we're given an NFA $ N $, form a DFA $ D $ from the subset construction. Then $ w $ is accepted by $ N $ if and only if $ \hat \Delta(\{q_0\}, w) \in \mathcal F $ by the previous theorem.\qed
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{definition}
+	(Subset construciton) For the $ \ep $-NFA, $ E = (Q,\Sigma, \delta, q_0, F) $ the \textit{subset construction} with $ \ep $-transitions produces the DFA $ D(\mathcal P(Q), \Sigma, \Delta, \mathrm{ecl}(\{q_0\}),\mathcal F) $ where $ \mathcal F = \{ S\subseteq Q | S\cap F \ne \emptyset \} $ as before and for $ S\subseteq Q, \sigma \in \Sigma $ we have that
+	\[
+		\Delta(S,\sigma) = \mathrm{ecl}\left(\bigcup_{p\in S}\delta(p,\sigma)\right)\in \mathcal P(Q).
+	\]
+\end{definition}
+\begin{remark}
+  This can be put into words as the subsets of states reached from $ S $ by following an edge labelled $ \sigma $ then some edges labelled $ \ep $. 
+\end{remark}
+As before we have a theorem proving this constructions defines the same language.
+\begin{theorem}
+  For an $ \ep $-NFA, $ E $, and DFA, $ D $, obtained from the subset construction, we have that
+  \[
+	  \hat \Delta(\mathrm{ecl}(\{q_0\}), w) = \hat\delta(q_0,w).
+  \]
+\end{theorem}
+\pf As in the previous theorem, the base case for $ w\in \ep $ gives $ \mathrm{ecl}(\{q_0\}) $. Then the inductive steps is similar to the previous proof with the $ \mathrm{ecl} $ places and handled with appropiately.\qed 
+\begin{corollary}
+  A language $ L $ is accepted by some $ DFA $ if and only if it is accepted by some $ NFA $ if and only if it is accepted by some $ \ep $-NFA.
+\end{corollary}
+\subsection{Regular Expressions}
+We know now that DFAs and ($ \ep $-)NFAs defnie the same languages. We knwo want to give an algebraic or symbolic description of a regular language: that of a regular expression. Then we will show that DFAs $ \implies $ Regular Expressions $ \implies $ $ \ep $-NFAs, which will show they're all equivalent.
+\begin{definition}
+	(Creating new languages from old)
+	\begin{enumerate}
+		\item The \textit{union} of languages $ L,M $ over $ \Sigma_L, \Sigma_M $ is the language $ L \cup M $ over $ \Sigma_L \cup \Sigma_M $.
+		\item The \textit{concatenation} $ LM $ of languages $ L $, $ M $ is the words $ w=uv $ where $ \{(u,v) \in L\times M\}\subseteq (\Sigma_L \cup \Sigma_M)^* $.
+		\item The \textit{closure} $ L^* $ of a language $ L $ is a set of all words formed by concatenating an arbitrary number of wordes in $ L $ so
+			\[
+				L^* = \bigcup_{n\ge 0} L^n
+			\]
+			including the empty word.
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+  For $ n\ge 2 $ we can have $ L\not\subseteq L^n $ if $ \ep \notin L $, but not if $ \ep \in L $ since we can use the empty word to pad the word out. However certainly $ L\subseteq L^* $.
+\end{remark}
+\begin{definition}
+	(Regular Expression) A \textit{regular expression} $ R $ is a finite string of symbols denoting a language $ \mathcal L(R) $ over some alphabet, build up from the following inductive rules:
+	\begin{enumerate}
+	\item Both $ \ep $ and $ \emptyset $ are regular expressions with $ \mathcal L(\ep) = \{\ep\} $ and $ \mathcal L(\emptyset\} = \emptyset $.
+	\item If $ a $ is a symbol then $ a $ is a regular expression with $ \mathcal L(a) = \{a\} $.
+	\item If $ E $ and $ F $ are regular expressions then $ E+F $ is a regular expression denoting union so $ \mathcal L(E+F) = \mathcal L(E) \cup \mathcal L(F) $.
+	\item $ EF $ is a regular expression denoting concatenation, so $ \mathcal L (EF) = \mathcal L(E)\mathcal L(F) $.
+	\item $ E^* $ is a regular expression denoting the closure of $ E $ so $ \mathcal L(E^*) = \mathcal L(E)^* $.
+	\item $ (E) $ is a regular expression with the same language of $ E $ and brackets are used to avoid ambiguity and enforce order of operations. 
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	(Order of operations) The order of precendence for regular expressiosn is brackets, then Kleene star, then concatenation, then addition.
+\end{definition}
+\begin{example}
+	For example the regular expression $ 01^* + 1 $ defines the language accepting $ 1 $ or anything of the form $ 0(\text{any number of 1s}) $.
+\end{example}
+\subsubsection{Regular expressions define regular languages}
+\begin{theorem}
+  For each regular expression $ R $, there exists an $ \ep $-NFA, $ E $, such that $ \mathcal L(E) = \mathcal L(R) $.
+\end{theorem}
+\pf We build $ E $ up by induction. Our $ \ep $-NFA will be constructed such that
+\begin{enumerate}
+	\item There is a unique accepting state;
+	\item There are no directed edges into the start state accept \verb&START&;
+	\item No directed edges out of the accepting state.
+\end{enumerate}
+We can construct $ \ep $-NFAs for the regular expressions $ \ep $, $ \emptyset $ and $ a $ just by taking two states (with the first one the starting state and the second state accepting) and joining them by $ \varepsilon $, nothing, and $ a $ respectively. \par
+Now assume for a regular expression $ R $ we have an $ \ep $-NFA	 $ E $ with $ \mathcal L(E) = \mathcal L(R) $ with the construction properties as above. Now suppose we're given two regular expressions $ R $ and $ S $ each with their own $ \ep $-NFAs of the form we like. Then we can joint the $ \ep $-NFAs together by adding a new start state with $ \ep $-transitions to the two NFAs start states and then connect the NFAs end states to a new accept state also with an $ \ep $-transition. This accepts the language $ \mathcal L(R+S) $ exactly. \par
+Similarly for $ RS $ we can construct a $ \ep $-NFA by doing $ R $ then $ S $ connnected by an $ \ep $-transition.
+\par
+Finially we can create an $ \ep $-NFA for the Kleene star, by connecting the start and end state to eachother with $ \ep $-transitions. \qed
   \end{document}
