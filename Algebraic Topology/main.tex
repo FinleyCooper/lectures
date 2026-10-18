@@ -461,19 +461,65 @@ Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. S
 \]
 but since $ p\mid V_\beta $ is a homeomorphism, it has an inverse so $ \tilde f_0\mid_N = \tilde f_1\mid_N $ and $ y\in N \subset S $, so $ S $ is open.\par
 Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is open. Suppose that $ y\notin S $, so $ \tilde f_0(y) \ne \tilde f_1(y) $. Choose an evenly covered open neighbourhood $ U $ at $ f(y) $ and identify $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha  $ so $ \tilde f_0(y) \in V_\alpha $ and $ \tilde f_1(y) \in V_\beta $ for some $ \alpha,\beta\in I $ since $ V_\alpha $ is mapped homeomorphically to $ U $ and the covering maps differ, we must have that $ \alpha\ne \beta $. So $ N = \tilde f_1^{-1}(V_\beta) \cap \tilde f_0^{-1}(V_\alpha) $ is an open neighbourhood of $ y $ so must intersect $ S $ by the definition of closure. But then $ V_\alpha $ and $ V_\beta $ must intersect which is a contradiction.
+% Corrected version. No connectedness / local path-connectedness hypothesis on Y is needed.
+% Uses the custom macros \pf, \qed, \inv, \ima exactly as in the original.
 \begin{lemma}
-	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map  and $ H: Y\times I \to X $ be a homotopy from $ f  $ to $ g $. Choose a lift $ \tilde f $ of $ f $, so $ \tilde f: Y \to \tilde X $. Then there exists a unique homotopy $ \tilde H : Y \times I \to \tilde X $ such that
+	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map, let $ Y $ be an arbitrary topological space, and let $ H: Y\times I \to X $ be a homotopy from $ f_0 $ to $ f_1 $, i.e.\ $ H(-,0)=f_0 $ and $ H(-,1)=f_1 $. Let $ \tilde f_0 : Y \to \tilde X $ be a lift of $ f_0 $. Then there exists a unique homotopy $ \tilde H : Y \times I \to \tilde X $ such that
 	\begin{enumerate}
-		\item $ \tilde H(-,0) = \tilde f $;
-		\item $ \tilde H $ is a lift of $ H $ along $ p $.
+		\item $ \tilde H(-,0) = \tilde f_0 $;
+		\item $ \tilde H $ is a lift of $ H $ along $ p $, i.e.\ $ p\circ\tilde H = H $.
 	\end{enumerate}
+	In particular, $ \tilde H $ is a homotopy from $ \tilde f_0 $ to the lift $ \tilde f_1 := \tilde H(-,1) $ of $ f_1 $.
 \end{lemma}
-\pf 
-
-
-
-
-
+\pf Throughout, $ I=[0,1] $. We use the \emph{uniqueness of lifts} lemma in the following form: if $ Z $ is a connected space and $ g_1,g_2:Z\to\tilde X $ are two lifts along $ p $ of the same map $ Z\to X $ which agree at one point of $ Z $, then $ g_1=g_2 $. We only ever apply it with $ Z=I $; in particular no connectedness (or local path connectedness) of $ Y $ is needed anywhere below.
+\par
+\textbf{Step 1: uniqueness.} Let $ \tilde H_1 $ and $ \tilde H_2 $ both satisfy (1) and (2). Fix $ y\in Y $. The paths $ t\mapsto \tilde H_1(y,t) $ and $ t\mapsto \tilde H_2(y,t) $ in $ \tilde X $ are both lifts of the path $ t\mapsto H(y,t) $ in $ X $, and by (1) both start at $ \tilde f_0(y) $. Since $ I $ is connected, uniqueness of lifts gives $ \tilde H_1(y,t)=\tilde H_2(y,t) $ for all $ t\in I $. As $ y\in Y $ was arbitrary, $ \tilde H_1=\tilde H_2 $.
+\par
+This argument works for every space $ Y $, so it applies in particular to any open subset $ Y'\subseteq Y $ with the restricted data $ H|_{Y'\times I} $ and $ \tilde f_0|_{Y'} $.
+\par
+\textbf{Step 2: local existence.} We claim that for every $ y_0\in Y $ there exist an open neighbourhood $ U_{y_0} $ of $ y_0 $ in $ Y $ and a continuous map $ \tilde H_{y_0}:U_{y_0}\times I\to\tilde X $ such that $ p\circ\tilde H_{y_0}=H|_{U_{y_0}\times I} $ and $ \tilde H_{y_0}(-,0)=\tilde f_0|_{U_{y_0}} $.
+\par
+\emph{(2a) Choosing a partition.} Fix $ y_0\in Y $. For each $ t\in I $ the point $ H(y_0,t) $ has an evenly covered open neighbourhood in $ X $. By continuity of $ H $ there are an open neighbourhood $ W_t $ of $ y_0 $ in $ Y $ and an open neighbourhood $ N_t $ of $ t $ in $ I $ such that $ H(W_t\times N_t) $ is contained in an evenly covered open subset of $ X $. The sets $ \{N_t\}_{t\in I} $ form an open cover of the compact space $ I $, so there is a finite subcover $ N_{s_1},\dots,N_{s_k} $. Put
+\[
+	W = W_{s_1}\cap\cdots\cap W_{s_k},
+\]
+an open neighbourhood of $ y_0 $. By the Lebesgue number lemma there is an $ N\ge 1 $ such that each interval $ [\frac iN,\frac{i+1}N] $ lies in some $ N_{s_j} $. Write $ t_i=\frac iN $. Then for each $ i=0,\dots,N-1 $ there is an evenly covered open subset $ U_i\subseteq X $ with
+\[
+	H\left(W\times[t_i,t_{i+1}]\right)\subseteq H(W_{s_j}\times N_{s_j})\subseteq U_i .
+\]
+Write
+\[
+	\inv p(U_i) = \bigsqcup_{\alpha\in A_i} V_{i,\alpha}, \qquad p\mid_{V_{i,\alpha}}:V_{i,\alpha} \overset{\sim}{\longrightarrow} U_i
+\]
+where the $ V_{i,\alpha} $ are pairwise disjoint open subsets of $ \tilde X $ and $ \overset\sim\longrightarrow $ means a homeomorphism.
+\par
+\emph{(2b) Inductive construction with shrinking.} We show by induction on $ i=0,\dots,N $ that there exist an open neighbourhood $ W_i' $ of $ y_0 $ with $ W_i'\subseteq W $ and a continuous map $ G_i:W_i'\times[0,t_i]\to\tilde X $ such that $ p\circ G_i=H|_{W_i'\times[0,t_i]} $ and $ G_i(y,0)=\tilde f_0(y) $ for all $ y\in W_i' $.
+\par
+For $ i=0 $ take $ W_0'=W $ and $ G_0(y,0)=\tilde f_0(y) $; then $ p\circ G_0=f_0|_W=H(-,0)|_W $.
+\par
+Suppose $ W_i' $ and $ G_i $ are constructed for some $ i<N $. The point $ G_i(y_0,t_i) $ satisfies $ p(G_i(y_0,t_i))=H(y_0,t_i)\in U_i $, so it lies in $ \inv p(U_i) $, hence in exactly one sheet $ V=V_{i,\alpha} $. Since $ y\mapsto G_i(y,t_i) $ is continuous and $ V $ is open,
+\[
+	W_{i+1}' = \{y\in W_i' \mid G_i(y,t_i)\in V\}
+\]
+is an open neighbourhood of $ y_0 $. Define $ G_{i+1}:W_{i+1}'\times[0,t_{i+1}]\to\tilde X $ by
+\[
+	G_{i+1}(y,t)=
+	\begin{cases}
+		G_i(y,t) & t\in[0,t_i],\\
+		\left(p\mid_{V}\right)^{-1}\bigl(H(y,t)\bigr) & t\in[t_i,t_{i+1}].
+	\end{cases}
+\]
+The second formula makes sense because $ H(y,t)\in U_i $ for $ y\in W\supseteq W_{i+1}' $ and $ t\in[t_i,t_{i+1}] $. The two formulas agree at $ t=t_i $: indeed $ G_i(y,t_i)\in V $ and $ p(G_i(y,t_i))=H(y,t_i) $, so $ \left(p\mid_V\right)^{-1}(H(y,t_i))=G_i(y,t_i)$. Both pieces are continuous on closed subsets $ W_{i+1}'\times[0,t_i] $ and $ W_{i+1}'\times[t_i,t_{i+1}] $ whose union is the whole domain, so $ G_{i+1} $ is continuous by the pasting lemma. Clearly $ p\circ G_{i+1}=H $ and $ G_{i+1}(-,0)=\tilde f_0 $ on $ W_{i+1}' $, which completes the induction.
+\par
+Finally set $ U_{y_0}=W_N' $ and $ \tilde H_{y_0}=G_N $. Note that we shrank the neighbourhood only finitely many times, so $ U_{y_0} $ is still an open neighbourhood of $ y_0 $; this is exactly where one would otherwise want $ Y $ to be (locally) connected, and the shrinking trick avoids it.
+\par
+\textbf{Step 3: the local lifts are compatible.} Let $ y_0,y_1\in Y $ and $ Y'=U_{y_0}\cap U_{y_1} $, which is open. If $ Y'=\emptyset $ there is nothing to show. Otherwise $ \tilde H_{y_0}|_{Y'\times I} $ and $ \tilde H_{y_1}|_{Y'\times I} $ are both lifts of $ H|_{Y'\times I} $ whose restriction to $ Y'\times\{0\} $ is $ \tilde f_0|_{Y'} $. By the uniqueness in Step 1 (applied to $ Y' $), $ \tilde H_{y_0}=\tilde H_{y_1} $ on $ (U_{y_0}\cap U_{y_1})\times I $.
+\par
+\textbf{Step 4: gluing.} Define $ \tilde H:Y\times I\to\tilde X $ by
+\[
+	\tilde H(y,t)=\tilde H_{y_0}(y,t)\quad\text{for any } y_0\in Y \text{ with } y\in U_{y_0}.
+\]
+(Such a $ y_0 $ exists, e.g.\ $ y_0=y $.) This is well defined by Step 3. The sets $ U_{y_0}\times I $ form an open cover of $ Y\times I $ and $ \tilde H $ restricts to the continuous map $ \tilde H_{y_0} $ on each of them, so $ \tilde H $ is continuous, since continuity is a local property. Moreover $ p\circ\tilde H=H $ and $ \tilde H(-,0)=\tilde f_0 $ hold on each $ U_{y_0}\times I $, hence on $ Y\times I $. This proves existence, and uniqueness was shown in Step 1.\qed
 \begin{corollary}
 	(Path lifting) For a path $ \gamma: I \to X $ choose $ \tilde x_0 \in \tilde X $ such that $ p(\tilde x_0) = \gamma(0) $. Then there exists a unique path $ \tilde \gamma: I \to \tilde X $ such that $ \tilde \gamma(0) = \tilde x_0 $ and $ p\circ\tilde \gamma = \gamma $.
 \end{corollary}
