@@ -466,11 +466,11 @@ Consider a measurement of $ Q $ (observable) when the systme is in a normalised 
 	\item The result in an eigenvalue $ \lambda $ of $ Q $;
 	\item This result is obtained with probability
 		\[
-			p(\lambda) = ||P_\lambda \ket \psi ||^2 \sum_{n:\ q_n=\lambda} |\alpha_n|^2.
+			p(\lambda) = ||P_\lambda \ket \psi ||^2 = \sum_{n:\ q_n=\lambda} |\alpha_n|^2.
 		\]
 	\item Immediately after the measurement the state is
 		\[
-			c P_\lambda \ket = c\sum_{n:\ q_n=\lambda} \alpha_n \ket n
+			c P_\lambda \ket \psi = c\sum_{n:\ q_n=\lambda} \alpha_n \ket n
 		\]
 		where $ c $ is a constant for normalisation. 
 \end{enumerate}
@@ -518,7 +518,7 @@ We have that
 \begin{remark}
   If $ \ket \psi $ is an eigenstate of $ Q $ with eigenvalue $ \lambda $ then
   \[
-	  \langle \alpha \rangle_\psi = \lambda \quad \text{and}\quad (\Delta Q)_\psi = 0.
+	  \langle Q \rangle_\psi = \lambda \quad \text{and}\quad (\Delta Q)_\psi = 0.
   \]
   Quantum mechanical behaviour arises from the fact that certain obserables do not commute. In general, in any state $ \ket \psi $
   \[
@@ -532,7 +532,7 @@ The prototypical case is with position and momentum $ \hat x, \hat p $ which obe
 \[
 	[\hat x, \hat p] = i\hbar 
 \]
-in one dimension and $ \Delta x \Delta p \ge \frac h2 $.\par
+in one dimension and $ \Delta x \Delta p \ge \frac \hbar2 $.\par
 In three dimensions we have 
 \[
 	[\hat x_i, \hat p_j] = i\hbar \delta_{ij}
