@@ -527,5 +527,29 @@ Finally set $ U_{y_0}=W_N' $ and $ \tilde H_{y_0}=G_N $. Note that we shrank the
 \begin{corollary}
   Let $ \gamma,\gamma': I \to X $ be paths in $ X $ from $ x_0 $ to $ x_1 $ and $ \tilde \gamma,\tilde \gamma': I \to \tilde X $ be lifts starting at $ \tilde x_0 \in \inv p(x_0 $. If $ \gamma\simeq \gamma' $ as paths, then $ \tilde \gamma \simeq \tilde \gamma' $ as paths, in particular $ \tilde \gamma(1) \simeq \tilde\gamma'(1) $.
 \end{corollary}
-\pf Let $ H: I\times I \to X $ be a homotopy of paths from $ \gamma $ to $ \gamma' $ and lifts strating at $ \tilde \gamma $ to obtain a homtoopy $ \tilde H:I\times I \to \tilde X $.
-  \end{document}
+\pf Let $ H: I\times I \to X $ be a homotopy of paths from $ \gamma $ to $ \gamma' $ and lifts strating at $ \tilde \gamma $ to obtain a homotopy $ \tilde H:I\times I \to \tilde X $ such that $ \tilde H(\cdot, 0) = c_{\tilde x_0} $. We have to show that $ \tilde H(\cdot, 1) $ is a constant path.\par
+Observe that $ \tilde H(\cdot, 1) $ is a path in $ \tilde X $, $ p\circ\tilde H(\cdot, 1) = H(\cdot,1) $ is constant. By uniqueness, $ \tilde H(\cdot, 10) $ is constant.\qed
+\par
+Suppose we have $ p:\tilde X \to X $ being a covering map and a point $ x_0\in X $ with $ \tilde x_0\in \inv p(x_0) $. For a path $ u: x_0\rightsquigarrow x_1 $ in $ X $, the first corollary tells us that there exists a lift $ \tilde u $ of $ u $ with domain $ \tilde x_0 $. Then $ \tilde x_0 \to \tilde u(1) $ is a well-defined function we denote
+\[
+  u_*: \inv p(x_0) \to \inv p(x_1).
+\]
+By the second corollary $ u_* $ depends only on the homotopy class at $ u $.
+\begin{corollary}
+	We have the following:
+	\begin{enumerate}
+		\item If $ u:x_0\rightsquigarrow x_1 $ and $ u':x_1\rightsquigarrow x_2 $ then $ (u\cdot u')_* = u_*' \circ u_* $;
+		\item $ u_* $ is a bijection;
+		\item If $ X $ is path connected then $ |\inv p(x_0)| = |\inv p(x_1)| $.
+	\end{enumerate}
+\end{corollary}
+\pf We can see that (ii) and (iii) following from (i), so we'll just prove (i). Choose a lift $ \tilde u:\tilde x_0\to \tilde x_1 $ of $ u $ and $ \tilde u': \tilde x_1 \to \tilde x_2 $ of $ u' $. Then $ \tilde u \cdot \tilde u' : \tilde x_0\to\tilde x_2 $ is a lift of $ u\cdot u' $. Thus $ (u\cdot u')_*(\tilde x_0) = \tilde x_2 = u_*'(\tilde x_1) = u_*'(u_*(\tilde x_0)) = (u_*'\circ u_*)(\tilde x_0) $.\qed
+\begin{lemma}
+  Let $ p:\tilde X\to X $ be a covering map. Choose $ x_0\in X $, $ \tilde x_0\in \inv p(x_0) $. Then
+  \[
+    p_*: \pi_1(\tilde X,\tilde x_0) \to \pi_1(X,x_0)
+  \]
+  is injective.
+\end{lemma}
+\pf Choose a loop $ \gamma $ in $ \tilde X $, based at $ \tilde x_0 $ such that $ [\gamma]\in\ker p_* $. Hence $ [p\circ \gamma] = 0 $. So there is a homotopy $ H: I\times I\to X $ from $ p\circ\gamma $ to $ c_{x_0} $. By the homotopy lifting lemma, $ H $ admits a lift $ \tilde H $ which is a homotopy $ \gamma $ to some lift of $ c_{x_0} $. By uniqueness of lifts, the lift of $ c_{x_0} $ is $ c_{\tilde x_0} $ so $ [\gamma] = [c_{\tilde x_0}] = 0\in \pi_1(\tilde X,\tilde x_0) $ so $ p_* $ is injective.
+\end{document}
