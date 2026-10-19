@@ -311,7 +311,7 @@ We know now that DFAs and ($ \ep $-)NFAs defnie the same languages. We knwo want
 \pf We build $ E $ up by induction. Our $ \ep $-NFA will be constructed such that
 \begin{enumerate}
 	\item There is a unique accepting state;
-	\item There are no directed edges into the start state accept \verb&START&;
+	\item There are no directed edges into the start state except \verb&START&;
 	\item No directed edges out of the accepting state.
 \end{enumerate}
 We can construct $ \ep $-NFAs for the regular expressions $ \ep $, $ \emptyset $ and $ a $ just by taking two states (with the first one the starting state and the second state accepting) and joining them by $ \varepsilon $, nothing, and $ a $ respectively. \par
@@ -319,4 +319,81 @@ Now assume for a regular expression $ R $ we have an $ \ep $-NFA	 $ E $ with $ \
 Similarly for $ RS $ we can construct a $ \ep $-NFA by doing $ R $ then $ S $ connnected by an $ \ep $-transition.
 \par
 Finially we can create an $ \ep $-NFA for the Kleene star, by connecting the start and end state to eachother with $ \ep $-transitions. \qed
+\begin{theorem}
+  For each DFA $ D $ there is a regular expression $ R $ such that $ \mathcal L(D) = \mathcal L(R) $.
+\end{theorem}
+\pf Given $ D = (Q,\Sigma, \delta, q_0, F) $, label the states by $ \{1, 2,\dots, n\} $ and let the start state be $ 1 $. Now given $ 1\le i,j\le n $ and $ 0\le k\le n $ we construct by induction on $ k $ a regular expression $ R_{ij}^{(k)} $ with language exactly the words $ w $ that begin at state $ i $, end at state $ j $ and are such that all the intermediate states pass through (not including the endpoints) are at most $ k $ (by label not by count). So we're thinking of $ w $ as a directed path from $ i $ to $ j $.\par
+For $ k = 0 $ we have to go directly from $ i $ to $ j $. If $ i\ne j $ then set
+\[
+	R^{(0)}_{ij} = \begin{cases}
+		a_1 + \dots + a_\ell & \ell > 0 \\
+		\emptyset &\ell = 0
+	\end{cases}
+\]
+and if $ i=j $ then let
+\[
+	R^{(0)}_{ii} = \begin{cases}
+		a_1 + \dots + a_\ell + \ep & \ell > 0 \\
+		\ep & \ell = 0
+	\end{cases}
+\]
+where we're using $ \ep $ to denote not moving. Suppose that that $ R^{(t)}_{ij} $ is defined for all $ t<k $. Give a path $ \pi $ from $ i $ to $ j $ not passing through states $ k+1, k+2, \dots, n $. Either
+\begin{enumerate}
+	\item If $ \pi $ does not pass through $ k $ either, the word which would read from $ \pi $ is already in $ \mathcal L(R^{(k-1)}_{ij}) $ and vice-versa.
+	\item Otherwise $ \pi $ does pass through $ k $ various times, so we split the path into $ \sigma, \pi_1,\pi_2, \dots, \pi_r, \omega $ where $ \sigma $ goes from $ i $ to $ k $, hitting $ k $ for the first time on the last step, $ \pi_\ell $ is a loop from $ k $ to $ k $ and $ \omega $ is a path from $ k $ to $ j $ which doesn't hit $ k $ (except at the start). Now the word read from $ \sigma $ is in $ \mathcal L(R_{ik}^{(k-1)}) $ and then each word $ \pi_1,\dots, \pi_r $ is in $ \mathcal L(R_{kk}^{(k-1)}) $ and $ \omega $ is in $ \mathcal L(R^{(k-1)}_{kj}) $. The the word read from $ \pi $ is in the language given by the regular expression
+		\[
+			R^{(k-1)}_{ik} {R^{(k-1)}_{kk}}^* R^{(k-1)}_{kj}
+		\]
+\end{enumerate}
+This for cases (i) and (ii) we have $ \mathcal L(R^{(k-1)}_{ij} +	R^{(k-1)}_{ik}{ R^{(k-1)}_{kk}}^* R^{(k-1)}_{kj}) $. We therefore define the regular expression as $ R^{(k)}_{ij} $. Finally if $ F = \{ j_1,\dots, j_s\} $ then
+\[
+	\mathcal L(D) = \mathcal L(R^{(n)}_{1j_1} + \dots + R^{(n)}_{1j_s}).
+\]
+So we're done.\qed
+\subsection{Closure Properties}
+\begin{theorem}
+  Let $ L,M $ be regular languages over $ \Sigma_L, \Sigma_M $. Then
+  \begin{enumerate}
+	  \item $ L \cup M $ is regular over $ \Sigma_L \cup \Sigma_M $;
+	  \item $ LM $ is regular;
+	  \item $ L^* $ is regular over $ \Sigma_L $.
+  \end{enumerate}
+\end{theorem}
+\pf We know a language is regular if and only if it is represented by a regular expression. Let $ R_L, R_M $ be regular expressions for $ L $ and $ M $. Then we can prove as follows:
+\begin{enumerate}
+	\item $ R_L+R_M $ clearly works;
+	\item $ R_LR_M $ clearly works;
+	\item $ R_L^* $ clearly works.
+\end{enumerate}
+These can be checked trivally. \qed
+\begin{theorem}
+  Let $ L $ be a regular language over $ \Sigma $ then so is 
+  \[
+    \overline L = \Sigma^* \setminus L
+  \]
+  called the complement of $ L $.
+\end{theorem}
+\pf Let $ D $ be a DFA for $ L $. Then modify the DFA so every accept state is not longer an accept state and every non-accept state is an accept state, so replace $ F $ with $ Q\setminus F $. This is a DFA which clearly accepts the langauge $ \overline L $.\qed
+\begin{corollary}
+  If $ L,M $ are regular languages then so is $ L\cap M $.
+\end{corollary}
+\pf Use De Morgan's law. Since $ \overline L $ and $ \overline M $ are regular, then so is $ \overline L \cup \overline M $. Hence the complement of this is just $ L \cap M $ by De Morgan's law. \qed
+\subsection{The Pumping Lemma}
+How do we show a language is \textit{not} regular? We know that
+\begin{enumerate}
+	\item Any finite language is regular;
+	\item As $ \Sigma^n $ is a finite set, if $ L $ is infinite then for all $ N $ there exists a word $ w\in L $ with $ |w| \ge N $.
+\end{enumerate}
+Suppose a word $ w $ is accepted by a DFA $ D $ but $ |w|\ge Q $. Then $ w $ defines a directed path in a transition diagram $ I'_D $ which must visit some state at least twice. So we can write $ w = xyz $ for subwords $ x,y,z $ where $ y $ gives us a loop and then go around the loop again or not at all.
+\begin{theorem}
+	(Pumping Lemma) If $ L $ is a regular language then there exists a $ n\ge 1 $ called the \textit{pumping number} for $ L $ such that for all words $ w\in L $ with $ |w|\ge n $, we can write $ w=xyz $ for subwords $ x,y,z $ where
+	\begin{enumerate}
+		\item $ y\ne \ep $;
+		\item $ |xy|\le n $;
+		\item $ \forall k\ge 0 $ we have word $ xy^kz\in L $.
+	\end{enumerate}
+	i.e we can pump appearance of $ y $.
+\end{theorem}
+
+
   \end{document}

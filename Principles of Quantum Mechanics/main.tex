@@ -461,7 +461,7 @@ which can be written as
 	P_\lambda  = \sum_{n: \ q_n = \lambda} \ket n \bra n.
 \]
 \subsubsection{Measurement Axioms}
-Consider a measurement of $ Q $ (observable) when the systme is in a normalised state $ \ket \psi $. Then
+Consider a measurement of $ Q $ (observable) when the system is in a normalised state $ \ket \psi $. Then
 \begin{enumerate}
 	\item The result in an eigenvalue $ \lambda $ of $ Q $;
 	\item This result is obtained with probability
@@ -538,11 +538,139 @@ In three dimensions we have
 	[\hat x_i, \hat p_j] = i\hbar \delta_{ij}
 \]
 and the uncertainty applies to position and momentum in a particular direction.
-\subsubsection{Simultaneous measuremtn and complete commuting sets}
+\subsubsection{Simultaneous measurement and complete commuting sets}
 If an observable $ Q $ does not distinguish states completely because some eigenvalues are degenerate, then we can look for an additional obserable $ Q' $ such that $ Q,Q' $ are simultaneously measureable (i.e simultaneously diagonalisable) and preserves the eigenspaces of the other operator. This means we have joint eigenstates $ \ket {\lambda,\lambda'} $ with
 \begin{align*}
 	Q \ket {\lambda, \lambda'} &= \lambda \ket{\lambda, \lambda'} \\
 	Q' \ket{\lambda,\lambda'} &= \lambda' \ket{\lambda,\lambda'}
 \end{align*}
 so $ [Q,Q'] = 0 $. Conversely if $ [Q,Q'] = 0 $, it is easy to check that $ Q':V_\lambda \to V_\lambda $ and hence we can find a basis of eigenstates of $ Q' $ in $ V_\lambda $ which gives us joint eigenstates for $ Q $ and $ Q' $. Since we assume that $ Q $ is Hermitian so $ V $ is a direct sum of eigenstates, we can do this for all eigenstates, giving us a complete basis of joint eigenstates, which we call $ \ket{\lambda,\lambda'} $.
+\begin{definition}
+	(Complete commuting set) A set of observables $ \{Q,Q',Q'',\dots \} $ is a \textit{complete commuting set} if their pairwise commute. This implies that there is a basis of joint eigenstates, and the set of eigenvalues $ \lambda,\lambda',\lambda'',\dots $ label states uniquely (up to normalisation)
+\end{definition}
+\begin{remark}
+	Equivalently if $ A $ is any observable such that $ [A,Q]=[A,Q']=\dots = 0 $ then $ A = f(Q,Q',\dots) $.
+\end{remark}
+\begin{example}
+	Consider the previous example with orthonormal satets $ \ket 1, \ket 2, \ket 3 $ and eigenstates of $ Q $ with $ \lambda = 0 $ for $ \ket 1 $ and $ \ket 2 $ and $ \lambda = 1 $ for $ \ket 3 $. Now consider a second observabke $ Q' $ with $ Q'\ket 1 = \ket 2, Q'\ket 2 = \ket 1, Q'\ket 3 = 0 $. Now by writing a general vector in the orthonormal basis, we have that $ [Q,Q'] = 0 $. Now let 
+	\[
+		\ket \pm = \frac 1{\sqrt 2}(\ket 1 \pm \ket 2)
+	\]
+	so then
+	\[
+	  Q' \ket \pm = \pm \ket \pm
+	\]
+	$ Q,Q' $ is a complete commuting set with basis of joint eigenstates $ \ket +, \ket -, \ket 3 $.
+\end{example}
+\subsection{Bases, Representations and Wavefunctions}
+\subsubsection{Discrete and Continuous Bases}
+Consider orthonormal basis $ \{\ket n\} $ with $ n $ discrete label. We can regard all states and operators as row or column vectors and matrices respectively
+\begin{align*}
+	\ket{\psi} &= \sum_n \alpha_n \ket{n} \iff \alpha_n &= \bra{n}\ket{\psi} \\
+	\ket{\phi} &= \sum_n \beta_n\ket{n} \iff \beta_n &= \bra{n}\ket{\phi} \\
+\end{align*}
+and inner product
+\[
+	\bra{\phi}\ket{\psi} = \sum_n \beta_n^*\alpha_n.
+\]
+For an operator $ A $,
+\[
+	a\ket n = \sum_m \ket m A_{mn}
+\]
+where $ A_{mn} $ is a complex matrix with entries $ \bra{m}A\ket{n} $.\par
+It's simple to check that
+\[
+	\ket \phi = A \ket \psi \iff \beta_{m} = \sum_n A_{mn} \alpha_n
+\]
+and also if $ B $ is another operator with matrix $ B_{mn} = \bra m B\ket n $ then
+\[
+	(AB)_{mn} = \sum_p A_{mp}B_{pn}
+\]
+i.e matrix multiplication.\par
+The choice of basis provides a representation of the quantum states and operators. We can also allow the index $ n $ to be continuous. This requires modifications such as the following:
+\begin{align*}
+	\sum_n  &\longrightarrow \int \mathrm dn \\
+	\bra {n}\ket {m} = \delta_{nm} &\longrightarrow \delta(n-m) \\
+	\ket \psi = \sum_n \alpha\ket n &\longrightarrow \int \mathrm dn \ \alpha_n \ket n \\
+\end{align*}
+and the completeness relation goes to
+\[
+  I = \sum_n \ket n \bra n \longrightarrow \int \mathrm dn \ket n \bra n.
+\]
+Note that if basis a bove arise as eigenstates of an obserable then
+\[
+	|\alpha_n|^2 = |\bra{n}\ket{\psi}|^2 \longrightarrow \text{probability density for continuous range } n.
+\]
+\subsubsection{Position and Momentum Bases}
+Considera particle in one dimension with position $ \hat x $ and momentum $ \ket p $ obeying the relation $ [\hat x,\hat p] = i \hbar $. Let $ \ket x $ be the position eigenstates
+\[
+  \hat x \ket x = x \ket x
+\]
+which are continuous eigenvalues with
+\[
+	\bra{x} \ket{x'} = \delta(x-x'), \quad \int\mathrm dx \ket x \bra x = I.
+\]
+Any state can be written as
+\[
+  \ket\psi = \int \mathrm dx \ \psi(x) \ket x 
+\]
+with $ \psi(x) = \bra{x}\ket{\psi} $ and this is the usual position space wavefunction. From our remarks in the previous section $ |\psi(x)|^2 $ is a probability density for measuring position.\par
+Our inner product of two wavefunctions from Part IB Quantum mechanics is recovered through
+\begin{align*}
+	\bra {\phi}\ket{\psi} &= \left(\int \mathrm dx\ \phi(x)^*\bra x\right)\left(\int \mathrm dx' \ \psi(x') \ket x'\right) \\
+			      &= \int \mathrm dx \int\mathrm dx' \ \phi(x)^* \psi(x') \bra{x}\ket{x'} = \int\mathrm dx \ \phi(x)^*\psi(x) \\
+\end{align*}
+and
+\[
+	||\ket \phi||^2 = \bra{\psi}\ket{\psi} = \int\mathrm dx |\psi(x)|^2 = 1
+\]
+if normalised.\par
+Similarly, define momentum eigenstate $ \ket p $ with
+\begin{align*}
+  \hat p \ket p = p \ket p
+\end{align*}
+and
+\[
+	\bra{p}\ket{p'} = \delta(p-p'),\quad \int\mathrm dp \ket p \bra p = I.
+\]
+Now we can expand
+\begin{align*}
+	\ket \psi &= \int \mathrm dp \ \tilde \psi(p) \ket p 
+\end{align*}
+with $ \tilde \psi(p) = \bra{p}\ket{\psi} $ momentum space wavefunction and $ |\tilde \psi(p)|^2 $ probability distribution for measurements of momentum.\par
+To proceed, we need the following result that
+\begin{align*}
+	\bra{x}\ket{p} &= \frac 1{(2\pi \hbar)^{1/2}} e^{ipx/\hbar} \\
+	\bra{p}\ket{x} &= \frac 1{(2\pi \hbar)^{1/2}} e^{-ipx/\hbar} \\
+\end{align*}
+which we will assume holds. Consider the action of $ \hat x $ and $ \hat p $ on position space wavefunctions. So suppose we have $ \hat x \ket \psi $ has wavefunction
+\[
+	\bra x \hat x \ket \psi = x\bra {x}\ket {\psi} = x \psi(x).
+\]
+Similarly if we have $ \hat p \ket \psi $, the wavefunction is
+\begin{align*}
+	\bra x \hat p \ket \psi &= \int\mathrm dp \bra x \hat p \ket p \bra{p}\ket{\psi} \\
+				&=\int \mathrm dp\ p \bra {x}\ket{p} \bra{p}\ket{\psi}
+\end{align*}
+and note that $ p\bra{x}\ket{p} = -i\hbar \frac\partial{\partial x} \bra {x}\ket{p} $, so hence
+\begin{align*}
+	\bra x \hat p \ket \psi& = -i\hbar \frac{\partial}{\partial x} \int \mathrm dp \ \bra {x}\ket{p} \bra{p} \ket{\psi}\\
+			       &= -i\hbar \frac{\partial}{\partial x}\bra{x}\ket{\psi} \\
+			       &= -i\hbar \psi'(x).
+\end{align*}
+which gives us the action of $ \hat x $ and $ \hat p $ on position space wavefunctions. Similarly on momentum space wavefunctions we calculate $ \bra p \hat x \ket \psi $ and $ \bra p \hat p \ket \psi $ and the result is that
+\begin{align*}
+	\hat x &\longrightarrow i\hbar \frac\partial{\partial p} \\
+	\hat p &\longrightarrow p. \\
+\end{align*}
+The relationship between $ \psi(x) $ and $ \tilde\psi(p) $ also follows from our assumed result, as
+\begin{align*}
+	\tilde \psi(p) = \bra{p}\ket{\psi} &= \int \mathrm dx \bra{p}\ket{x} \bra{x}\ket{\psi} \\
+					   &= \frac 1{(2\pi \hbar)^{1/2}} \int\mathrm dx \ e^{-ipx/\hbar} \psi(x)
+\end{align*}
+and
+\begin{align*}
+	\psi(x) = \bra{x}\ket{\psi} &= \frac 1{(2\pi \hbar)^{1/2}} \int \mathrm dp \bra{x}\ket{p} \bra{p}\ket{\psi} \\
+				    &= \frac 1{(2\pi \hbar)^{1/2}} \int\mathrm dp \ e^{ixp/\hbar} \tilde \psi(p). \\
+\end{align*}
 \end{document}
