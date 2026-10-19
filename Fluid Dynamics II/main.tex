@@ -253,14 +253,92 @@ is called the \textit{unsteady Reynolds number} or the \textit{Stokes number}.
 	\mathrm{Re}_T = \frac{L^2}{\nu T} = \frac{\omega L^2}{\nu}
 \]
 which is a ratio of lengthscales.
-
-
-
-
-
-
-
-
+\par
+If two flows with different $ U,L,T $, have the same geometry and same $ \mathrm{Re}, \mathrm{St}, f $ and dimensionless boundary conditions, then they are \textit{dynamically similar} because they give the same dimensionless $ \mathbf u^* $.\par
+In the limit with $ \mathrm{St} \ll 1 $ we have slow oscillations and hence we can neglect the $ \frac{\partial u^*}{\partial t^*} $ term to leading order which results in quasi-steady behaviour. Otherwise if $ \mathrm{St} \gg 1 $, we have rapid oscillations and we can neglect $ \mathbf u^*\cdot\nabla \mathbf u^* $ which results in a linearised set of equations. 
+\par
+If instead we have $ \mathrm{Re} \ll 1 $ the flow is viscously dominated and we neglect the LHS to get Stokes equations. If instead we have that $ \mathrm{Re}\gg 1 $ the flow is inertially dominated on length scale $ L $ which means we can often neglect $ {\nabla^*}^2 \mathbf u^* $ at most positions which results in the Euler equations, but not near rigid boundaries on lengthscales $ \ll 1 $, which gives our boundary layer equations.
+\section{Unidirectional Flows}
+Now start with the Navier-Stokes equations and have $ \sigma $ and dissipation $ \Phi $. Suppose that $ \mathbf u = (u,0,0) $. Incompressibility $ \nabla\cdot\mathbf u= 0 $ which implies that $ \frac{\partial u}{\partial x} = 0 $ which gives that $ (\mathbf u\cdot\nabla) \mathbf u =0 $ and hence $ \frac{D\mathbf u}{Dt} = \left(\frac{\partial u}{\partial t},0,0\right) $. Naiver-Stokes equation becomes
+\begin{align*}
+	\rho \frac{\partial u}{\partial t} &= f_x - \frac{\partial p}{\partial x} + \mu \nabla^2_{\perp} u \\
+	\mathbf f_\perp &= \nabla_\perp p
+\end{align*}
+where $ u = u(y,z,t) $ and $ \perp $ indicates the components perpendicular to the flow direction. If $ \mathbf f =\mathbf 0 $ then 
+\[
+	\frac{\partial p}{\partial y} = \frac{\partial p}{\partial z} = 0
+\]
+and 
+\[
+	\frac{\partial u}{\partial x} = 0 \implies - \frac{\partial p}{\partial x} = G(t)
+\]
+independent of $ x $.
+\subsection{Couette Flow}
+Consider steady flow, driven by motion of the boundaries between two plates, the bottom of which is at rest, and the top plate which moves with velocity $ V $ in the positive $ x $ direction. Now from the previous equations we have that
+\[
+	0 =\mu \frac{\partial^2 u}{\partial y^2}
+\]
+along with boundary conditions $ u(0) = 0, u(h)=V $ which gives that $ =\frac Vh y $. Now
+\[
+	\frac{\partial u_i}{\partial x_j} = \begin{pmatrix}
+		0 & \gamma & 0 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0
+	\end{pmatrix} \implies e_{ij} = \begin{pmatrix}
+		0 & \frac{\gamma} 2 & 0 \\
+		\frac{\gamma}2 & 0 & 0 \\
+		0 & 0 & 0
+	\end{pmatrix}
+	\implies \sigma_{ij} = \begin{pmatrix}
+		-p & \mu\gamma & 0 \\
+		\mu\gamma & -p & 0 \\
+		0 & 0 & -p
+	\end{pmatrix}
+\]
+e.g. the stress exerted by the bottom plate on the fluid is given by $ \sigma \cdot \mathbf n $ with $ \mathbf n = \begin{pmatrix}
+	0 \\ -1 \\ 0
+\end{pmatrix} $. This is equal to $ \begin{pmatrix}
+  -\mu\gamma \\ p \\ 0
+\end{pmatrix} $.\par
+We have that $ \Phi = 2 \mu e_{ij}e_{ij} = 2\mu \left(\left(\frac \gamma 2\right)^2 + \left(\frac \gamma 2 \right)^2 \right) = \mu\gamma^2 $.
+\subsection{Plane Poiseuille Flow}
+Consider two plates both at rest placed at $ y=-h $ and $ y=h $. Suppose the pressure on the right is $ p_- $ and $ p_+ $ on the left. The result is steady flow driven by the pressure gradient $ \frac{dp}{dx} < 0 $. So now we have that
+\[
+	\mu \frac{\partial^2 u}{\partial y^2} = \frac{dp}{dx}, \quad u(\pm h) = 0.
+\]
+This gives that $ u = -\frac 1{2\mu} \frac{dp}{dx}(h^2-y^2) $ and hence the flux per unit length 
+\begin{align*}
+	q = \int_{-h}^h u\ \mathrm dy = -\frac{2h^3}{3\mu} \frac{dp}{dx}.
+\end{align*}
+The vorticity $ \boldsymbol\omega = \nabla \times \mathbf u = \left(0,0,-\frac 1\mu \frac{dp}{dx} y\right) $ and the strain rate is $
+  \begin{pmatrix}
+     0 & \frac 12 \frac{\partial u}{\partial y} & 0 \\
+     \frac 12 \frac{\partial u}{\partial y} & 0 & 0 \\
+     0 & 0 & 0
+\end{pmatrix} $ with dissipation $ \Phi(y) = \mu\left(\frac{\partial u}{\partial y}\right)^2 $.
+\begin{remark}
+	Check the stress exerted \textit{by} the boundary \textit{on} the fluid at $ y = \pm h $ is $ \left(h \frac{dp}{dx}, \mp p, 0\right) $ and check the total dissipation $ \int_V \boldsymbol \Phi(y)\ \mathrm dV $ is equal to the rate of working by the stresses on $ \partial V $ which is $ \int_{\partial V} \mathbf u \cdot \sigma \cdot \mathbf n \ \mathrm dS $.
+\end{remark}
+\subsection{Circular Poiseuille Flow}
+Consider Poiseuille flow in a cylinder with radius $ a $, bottom and top at $ z=0 $ and $ z=L $ with pressure $ p_0 + \Delta P $ at the bottom and $ p_0 $ at the top. This pressure gradient induces a flow upwards. We can ignore entrance and exist effects assuming that the cylinder is long and thin so $ L\gg a $.\par
+In cylindrical polar coordinates, $ (r,\theta,z) $ Navier-Stokes equation becomes
+\begin{align*}
+	\frac{\partial p}{\partial r} = \frac 1r \frac{\partial p}{\partial \theta} = 0 &\\
+	0 = -\frac{\partial p}{\partial z} + \mu \frac 1r \frac{\partial}{\partial r} \left(r\frac{\partial w}{\partial r}\right) &\quad \text{for} \ \mathbf u= (0,0,w).
+\end{align*}
+So since $ \nabla\mathbf u = 0 \implies\frac{\partial w}{\partial z} = 0\implies -\frac{\partial p}{\partial z} = G $ and we get
+\[
+	\implies \frac 1r \frac\partial{\partial r} r \frac{\partial w}{\partial r} = -\frac G\mu \implies\frac{\partial w}{\partial r} = -\frac {Gr}{2\mu} + \frac Ar
+\]
+and we get that $ A=0 $ since we have regularity at $ r=0 $ which is part of the flow. Now we get that
+\[
+	w = \frac G{4\mu}\left(a^2 - r^2)
+\]
+which gives our upwards flow, using the no-slip condition on the walls. Similarly we can calculate the flux,
+\begin{align*}
+	\text{Volumn Flux} = Q = \int_0^{2\pi} \int_0^a w \ \mathrm dr\mathrm d\theta &= 2\pi \frac{G}{4\mu} \left[\frac{a^2r^2}2 - \frac{r^4}4 \right]^a_0 \\
+	&=\frac{\pi Ga^4}{8\mu}
+\end{align*}
 
 
 
