@@ -332,15 +332,72 @@ So since $ \nabla\mathbf u = 0 \implies\frac{\partial w}{\partial z} = 0\implies
 \]
 and we get that $ A=0 $ since we have regularity at $ r=0 $ which is part of the flow. Now we get that
 \[
-	w = \frac G{4\mu}\left(a^2 - r^2)
+	w = \frac G{4\mu}\left(a^2 - r^2\right)
 \]
 which gives our upwards flow, using the no-slip condition on the walls. Similarly we can calculate the flux,
 \begin{align*}
 	\text{Volumn Flux} = Q = \int_0^{2\pi} \int_0^a w \ \mathrm dr\mathrm d\theta &= 2\pi \frac{G}{4\mu} \left[\frac{a^2r^2}2 - \frac{r^4}4 \right]^a_0 \\
-	&=\frac{\pi Ga^4}{8\mu}
+	&=\frac{\pi Ga^4}{8\mu}.
 \end{align*}
-
-
-
-
+We have that
+\[
+  \mathbf u =w \mathbf e_z \implies e = \begin{pmatrix}
+	  0 & 0 & \frac 12 \frac{\partial w}{\partial r} \\
+	  0 & 0 & 0 \\
+	  \frac 12 \frac{\partial w}{\partial r} & 0 & 0
+  \end{pmatrix},\quad \sigma_{rz} = 2\mu\sigma_{rz} = \mu\frac{\partial w}{\partial r} = -\frac {Gr}2.
+\]
+We can show that the total shear stress \textit{by} the fluid \textit{on} the tube is equal to the pressure force applied to the fluid which is $ \Delta p \pi a^2\mathbf e_z $. The total dissipation is equal to the rate of doing work (Example Sheet 1, Question 5).
+\begin{example}
+  We could extend this to flow in an annulus, with two fluids arranged concentrically, or as an ellipsoid.
+\end{example}
+\subsection{Pressure driven flow in a rectangular channel}
+Consider a rectangle of length $ L $ of fluid with flow in the $ z $ direction with $ \mathbf u = w(x,y)\mathbf e_z $. Let the input channel be width $ 2a $ in the $ x $ direction and height $ 2b $ in the $ y $ direction. We want
+\[
+	\mu \nabla^2 w = \frac{\partial p}{\partial z} = - G
+\]
+with $  w = 0 $ on $ x = \pm a $, $ y= \pm b $. Suppose that $ a\gg b $. Then we'd have our normal parallel plate flow in the limit
+\[
+	w = \frac {G}{2\mu}(b^2-y^2)
+\]
+which we'll use as our particular solution since it solves the Poisson equation and the boundary condition $ w=0 $ on $ y=\pm b $, we just need to add a complementy solution for the boundary conditions. So we need a $ w^{\mathrm c}(x,y) $ such that $ \nabla^2 w^{\mathrm c} = 0 $ which satisfies the boundary conditions. We need $ w^c = 0 $ at $ y=\pm b $ and $ w^c = -\frac G{2\mu}(b^2-y^2) $ on $ x = \pm a $.\par
+Since Laplace's equation is homogeneous, we can use seperation of variables and Fourier series of the $ x $ boundary condition to get that
+\[
+	w^{\mathrm c} = \frac{Gb^2}{2\mu}\sum_{n=0}^\infty\frac{4(-1)^n}{\lambda_n^3} \cos\frac{\lambda_n y}b\frac{\cosh\frac{\lambda_n x}b}{\cosh\frac{\lambda_n a}{b}}
+\]
+where we're scaling so our eigenvalues of the operator are $ \lambda_n = \left(n+\frac 12 \right)\pi $.\par
+So the flux is
+\begin{align*}
+	Q = \int_{-b}^b \int_{-a}^a w \ \mathrm dx\mathrm dy &= \frac{4\Delta p}{3\mu L} ab^3\left(1 - \frac{6b}a \sum_{n=0}^\infty \frac{\tanh\left(\lambda_n \frac ab\right)}{\lambda_n^5}\right) \\
+							     &= 2a\cdot q_{\text{2D}}\left(1- \text{correction due to the sides}\right).
+\end{align*}
+\subsection{Implusively started flat plate}
+Consider a fluid in $ y>0 $, initially at rest and set into motion by a rigid plate at $ y=0 $, which starts to move with velocity $ (U,0) $ at $ t=0 $. This results in unidirectional flow $ \mathbf u = (u(y,t),0,0) $ which obeys the equation
+\[
+	\frac{\partial u}{\partial t} = \nu \frac{\partial^2 u}{\partial y^2},\quad u(0,t) = U
+\]
+for $ t>0 $, and $ u\to 0 $ as $ y\to \infty $. The only relevant lengthscale from the equation is $ \sqrt{\nu t} $. Our similarity solution is $ u = U\mathrm{erfc}(\eta) $ where $ \eta = \frac{y}{2\sqrt{\eta t}} $, and $ \mathrm{erfc}(\eta) = \frac 2{\sqrt \pi} \int_{\eta}e^\infty e^{-s^2} \ \mathrm ds $. The stress by the fluid on the plate is $ \mu\frac{\partial u}{\partial y} = -\frac{\mu U}{\sqrt{\pi \nu t}} $. The rate of working by the plate on the fluid is $ U\left(-\mu \frac{\partial u}{\partial y}\right) $ which must equal the rate of change of kinetic energy of the flow plus the rate of dissipation. \par
+It's easiest to check from integrating the equation $ \rho u \left(\frac{\partial u}{\partial t}\right) = \rho u\left(\nu \frac{\partial^2 u}{\partial y^2}\right) $ which implies that
+\begin{align*}
+	\frac{d}{dt}\int_0^\infty \frac 12 \rho u^2 \ \mathrm dy = \mu \int_0^\infty u \frac{\partial^2 u}{\partial y^2}\ \mathrm dy = \left[ \mu u \frac{\partial u}{\partial y}\right]^\infty_0 - \mu \int_0^\infty \left(\frac{\partial u}{\partial y}\right)^2 \ \mathrm dy.
+\end{align*}
+\subsection{Oscillating flat plate}
+Consider a fluid in $ y>0 $ with a rigid plate at $ y=0 $ which has velocity $ U\cos(\omega t) $ with vertical length scale $ \delta $. Then we have 
+\[
+	\frac{\partial u}{\partial t} = \nu \frac{\partial^2 u}{\partial y^2}
+\]
+again. We have by the no-slip condition that $ u = \mathrm{Re}(Ue^{i\omega t}) $ at $ y=0 $ and the boundary condition that $ u\to 0 $ as $ y\to\infty $. Steady oscillations (after decay of transients gives that
+\begin{align*}
+	u &=\mathrm{Re}\left(Ue^{i\omega t}e^{-\sqrt{\frac{i\omega}\nu}}y\right) \\
+	  &= U e^{-ky} \cos(\omega t- ky)
+\end{align*}
+where $ k = \left(\frac{\omega}{2\nu}\right)^{\frac 12} $, so we get that
+\[
+	\delta \sim \frac 1k \sim \left(\frac {\nu}\omega\right)^{\frac 12} \sim (\nu T)^{\frac 12}.
+\]
+Again, the rate of working is given by the change in kinetic energy plus the rate of dissipation, but time dependency makes this complicated.\par
+For the time-averaged energy calculations (quadratic quantities) note that $ \langle \cos^2\rangle = \langle \sin^2\rangle = \frac 12 $, $ \langle \cos\sin\rangle = 0 $, and
+\[
+	\langle \mathrm{Re}(Ae^{i\omega t}\mathrm{Re}(Be^{i\omega t})\rangle &= \frac 12 \mathrm{Re}(AB^*).
+\]
 \end{document}
