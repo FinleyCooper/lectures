@@ -575,7 +575,7 @@ and inner product
 \]
 For an operator $ A $,
 \[
-	a\ket n = \sum_m \ket m A_{mn}
+	A\ket n = \sum_m \ket m A_{mn}
 \]
 where $ A_{mn} $ is a complex matrix with entries $ \bra{m}A\ket{n} $.\par
 It's simple to check that
@@ -622,7 +622,7 @@ Our inner product of two wavefunctions from Part IB Quantum mechanics is recover
 \end{align*}
 and
 \[
-	||\ket \phi||^2 = \bra{\psi}\ket{\psi} = \int\mathrm dx |\psi(x)|^2 = 1
+	||\ket \psi||^2 = \bra{\psi}\ket{\psi} = \int\mathrm dx |\psi(x)|^2 = 1
 \]
 if normalised.\par
 Similarly, define momentum eigenstate $ \ket p $ with
@@ -673,4 +673,143 @@ and
 	\psi(x) = \bra{x}\ket{\psi} &= \frac 1{(2\pi \hbar)^{1/2}} \int \mathrm dp \bra{x}\ket{p} \bra{p}\ket{\psi} \\
 				    &= \frac 1{(2\pi \hbar)^{1/2}} \int\mathrm dp \ e^{ixp/\hbar} \tilde \psi(p). \\
 \end{align*}
+Now given $ H(\hat x, \hat p) $ we can consider the time independent Schr\"odinger equation
+\[
+  H\ket \psi = E \ket \psi.
+\]
+If $ H = \frac{\hat p^2}{2m} + V(\hat x) $ then on $ \psi(x) $ we get that
+\[
+	H\to -\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2} + V(x)
+\]
+and on $ \tilde \psi(p) $ we get that
+\[
+	H\to \frac{p^2}{2m} + V\left(i\hbar\frac{\partial}{\partial p}\right).
+\]
+It may  be easy to interpret the potential term in momentum space for something like $ V(x) = \lambda x^n $ which gives
+\[
+	V\left(i\hbar \frac{\partial}{\partial p}\right) = \lambda(i\hbar)^n\left(\frac\partial{\partial p}\right)^n
+\]
+for a positive integer $ n $. More generally this isn't obvious what the potential term in momentum space means. We will argue from first principles as follows.\par
+Consider
+\begin{align*}
+	\bra{p} V(\hat x) \ket{\psi} &= \int\mathrm dx\bra p V(\hat x) \ket x \bra{x}\ket{\psi} \\
+				     &= \int\mathrm dx \int\mathrm dp'\bra p V(\hat x) \ket x \bra{x}\ket{p'} \bra{p'}\ket{\psi} \\
+				     &= \int\mathrm dp'\left(\int\mathrm dx \ V(x)\bra{p}\ket{x} \bra{x}\ket{p'}\bra{p'}\ket{\psi}\right) \\
+				     &= \int\mathrm dp'\int\mathrm dx \ V(x) \frac{e^{-i(p-p')x/\hbar}}{2\pi \hbar} \tilde \psi(p) \\
+				     &= \frac 1{(2\pi \hbar)^{1/2}}\int\mathrm dp'\ \tilde V(p-p')\tilde \psi(p')
+\end{align*}
+Which is a reproduction of the convolution theorem. So $ H\ket \psi = E \ket \psi $ becomes
+\[
+	-\frac{\hbar^2}{2m} \psi''(x) + V(x)\psi(x) =E\psi(x)
+\]
+in position form. Or
+\[
+	\frac{p^2}{2m}\tilde \psi(p) + \frac 1{(2\pi\hbar)^{1/2}} \int\mathrm dp'\tilde V(p-p') \tilde \psi(p') = E\tilde \psi(p)
+\]
+in momentum space.\par
+To generalise from one to three dimensions we use the commutation relation that
+\[
+	[\hat x_i, \hat p_j] = i\hbar \delta_{ij}.
+\]
+One complete commuting set is
+\[
+	\hat{\mathbf x} = (\hat x_1, \hat x_2, \hat x_3)
+\]
+with joint eigenstates
+\[
+	\hat x_i\ket{\mathbf x} = x_i\ket{\mathbf x}
+\]
+which are orthonormal, so $ \bra{\mathbf x}\ket{\mathbf x'} = \delta^{(3)}(\mathbf x- \mathbf x') $. \par
+An alternative set
+\[
+	\hat{\mathbf p} = (\hat p_1, \hat p_2,\hat p_3)
+\]
+with joint eigenstates
+\[
+	\hat p_i \ket{\mathbf p} = p_i\ket{\mathbf p}
+\]
+which are orthonormal in the same sense as the position operator. For any state $ \ket \psi $, we can expand
+\begin{align*}
+	\ket \psi = \int \mathrm d^3 \mathbf x\ \psi(\mathbf x)\ket{\mathbf x} = \int\mathrm d^3 \mathbf p\ \tilde \psi(\mathbf p)\ket{\mathbf p}
+\end{align*}
+where $ \psi(\mathbf x)=\bra{\x}\ket{\psi} $ and $ \tilde \psi(\mathbf p) = \bra{\mathbf p} \ket{\psi}$. We also get that
+\[
+\bra{\x}\ket{\mathbf p} = \frac 1{(2\pi\hbar)^{3/2}} e^{i\mathbf p \cdot\mathbf x/\hbar}
+\]
+and the wavefunctions are related by
+\[
+	\tilde \psi(\mathbf p) = \frac 1{(2\pi \hbar)^{3/2}} \int \mathrm d^3 \mathbf x \ e^{i\mathbf p \cdot\mathbf x/\hbar} \psi(\mathbf x)
+\]
+and the corresponding Fourier inverse.
+\subsubsection{Position and Momentum Eigenstates}
+Now we return to one dimension and seek to justify the result for $ \bra{x}\ket{p} $ using only the commutator relation. Given $ \ket x $ with $ \hat x \ket x = x\ket x $, consider
+\[
+	T(a) = e^{-ia\hat p/\hbar} = \sum_{n=0}^\infty \frac 1{n!} \left(\frac{-ia}{\hbar}\right)^n \hat p^n
+\]
+and note that
+\[
+[\hat x,T(a)] = \left[\hat x, \frac{-ia\hat p}{\hbar}\right]T(a) = aT(a).
+\]
+Hence 
+\begin{align*}
+	\hat x(T(x)\ket x) &= ([\hat x, T(a)]+T(a)\hat x)\ket x \\
+			   &= (x+a)(T(x)\ket x)
+\end{align*}
+so we can think of $ T(a)\ket x $ as a translated eigenstate.\par
+Similarly consider $ S(b) = e^{ib\hat x/\hbar} $ and note that $ [\hat p, S(b)] = bS(b) $. Hence
+\[
+  \hat p\ket p = p \ket p \implies \hat p (S(b)\ket p) = (p+b)(S(b)\ket p)
+\]
+so $ S(b) $ gives a translation in momentum space.
+\par
+Now take fixed values $ x_0 $ and $ p_0 $ and define all eigenstates by
+\[
+	\ket{x_0+a} = T(a) \ket{x_0},\quad \ket{p_0+b} = S(b) \ket{p_0}.
+\]
+Now observe that 
+\begin{align*}
+	\bra{x_0+a}\ket{p_0+b} &= \bra{x_0} e^{ia\hat p/\hbar}\ket{p_0+b} \\
+			       &= \bra{x_0} e^{ia(p_0+b)/\hbar}e^{ib\hat x/\hbar} \ket {p_0} \\
+			       &= e^{(ab +ap_0 + bx_0)/\hbar}\bra{x_0}\ket{p_0}. \\
+\end{align*}
+Now choose $ \bra{x_0}\ket{p_0} = \frac 1{\sqrt{2\pi\hbar}} $ for correct and consistent normalisation. Then set $ x_0 = p_0 = 0 $, so we get
+\[
+	\bra {a}\ket {b} = \frac 1{\sqrt{2\pi \hbar}} e^{iab/\hbar}.
+\]
+\section{Evolution in Time and Pictures}
+\subsection{The Schr\"odinger Equation and the Schr\"odinger Picture}
+The evolution in time of state $ \ket {\psi(t)} $ is governed (in absence of external influences of measurement) by the Sch\"odinger equation
+\[
+	i\hbar \frac{\partial}{\partial t}\ket {\psi(t)} = H\ket{\psi(t)}
+\]
+where $ H = H^\dagger $ is the Hamiltonian.\par
+Equivalently
+\[
+	-i\hbar \frac\partial{\partial t}\bra{\psi(t)} = \bra{\psi(t)} H.
+\]
+This implies that
+\[
+	\frac \partial{\partial t}\left(\bra{\psi(t)}\ket{\psi(t)}\right) = 0
+\]
+so that the normalisation of $ \ket{\psi(t)} $ is preserved in time.\par
+The solution of the Schr\"odinger equation can be written as
+\[
+	\ket{\psi(t)} = U(t)\ket{\psi(0)}
+\]
+where $ U(t) = e^{-iHt/\hbar} $ is the time-evolution operator, assuming that $ H $ is independent of $ t $. We can check immediately from $ i\hbar \frac{\partial U(t)}{\partial t} = HU(t) $.\par
+Recall that time-evolution problems can be conveniently solved by working with basis of energy eigenstates $ \{\ket n\} $ with
+\[
+  H\ket n = E_n\ket n.
+\]
+with
+\[
+	e^{-iE_n t/\hbar}\ket n
+\]
+being a solution of the time-dependent Schr\"odinger equation.
+
+
+
+
+
+
 \end{document}
