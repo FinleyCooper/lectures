@@ -299,7 +299,7 @@ We know now that DFAs and ($ \ep $-)NFAs defnie the same languages. We knwo want
 	\end{enumerate}
 \end{definition}
 \begin{definition}
-	(Order of operations) The order of precendence for regular expressiosn is brackets, then Kleene star, then concatenation, then addition.
+	(Order of operations) The order of precendence for regular expressions is brackets, then Kleene star, then concatenation, then addition.
 \end{definition}
 \begin{example}
 	For example the regular expression $ 01^* + 1 $ defines the language accepting $ 1 $ or anything of the form $ 0(\text{any number of 1s}) $.
@@ -384,16 +384,49 @@ How do we show a language is \textit{not} regular? We know that
 	\item Any finite language is regular;
 	\item As $ \Sigma^n $ is a finite set, if $ L $ is infinite then for all $ N $ there exists a word $ w\in L $ with $ |w| \ge N $.
 \end{enumerate}
-Suppose a word $ w $ is accepted by a DFA $ D $ but $ |w|\ge Q $. Then $ w $ defines a directed path in a transition diagram $ I'_D $ which must visit some state at least twice. So we can write $ w = xyz $ for subwords $ x,y,z $ where $ y $ gives us a loop and then go around the loop again or not at all.
+Suppose a word $ w $ is accepted by a DFA $ D $ but $ |w|\ge |Q| $. Then $ w $ defines a directed path in a transition diagram $ I'_D $ which must visit some state at least twice. So we can write $ w = xyz $ for subwords $ x,y,z $ where $ y $ gives us a loop and then go around the loop again or not at all.
 \begin{theorem}
 	(Pumping Lemma) If $ L $ is a regular language then there exists a $ n\ge 1 $ called the \textit{pumping number} for $ L $ such that for all words $ w\in L $ with $ |w|\ge n $, we can write $ w=xyz $ for subwords $ x,y,z $ where
 	\begin{enumerate}
 		\item $ y\ne \ep $;
 		\item $ |xy|\le n $;
-		\item $ \forall k\ge 0 $ we have word $ xy^kz\in L $.
+		\item $ \forall k\ge 0 $ we have the word $ xy^kz\in L $.
 	\end{enumerate}
 	i.e we can pump appearance of $ y $.
 \end{theorem}
+\pf We have that $ L=\mathcal L(D) $ for a DFA $ D = (Q,\Sigma,\delta,q_0,F) $ and set $ n=|Q| $. Now take an accepted word $ w\in L $ with $ w = \sigma_1\dots\sigma_m $ where $ m\ge n $. Let $ p_i = \hat\delta(q_0, \sigma_1\dots \sigma_i) $: the state we're in after reading the first $ i $ letters of $ w $ with $ 0\le i \le m $. By the pigeonhole principle, we must have $ 0\le \ell < r\le n $ with $ p_\ell = p_r $. So we can write \[ 
+	w = \underbrace{\sigma_1\dots \sigma_\ell}_{x}\underbrace{\sigma_{\ell+1}\dots \sigma_r}_y\underbrace{\sigma_{r+1}\dots \sigma_m}_z = xyz
+\]
+thus we have that $ |xy| =r \le n $ and since $ \ell<r $ we have that $ y\ne \ep $. So for any $ k\ge 0 $, let's input $ xy^kz $ into $ D $. If $ k=0 $ then we can see that this is accepted since we just don't "do the loop" which $ y $ does. Similarly for $ k>1 $, the route corresponds to just doing the $ y $ loop $ k $ times which is obviously still accepted.\qed
+\begin{example}
+	If $ L $ is regular and infinite then the pumping lemma applies to some word $ w\in L $ so $ \{|w|: w\in L\} $ contains an arithmetic progression. Hence the language $ \{a^n: n \text{ is prime}\} $ is not regular.
+\end{example}
+\begin{example}
+	The language $ L = \{0^i1^i: i\ge 0\} $ is \text{not} regular. Suppose that $ L $ is regular. Take $ w = 0^n1^n\in L $ for the $ n $ in the pumping lemma and write $ w=xyz $ so $ xy=0^m $ and $ y^\ell $ for some $ 0<\ell \le m\le n $. Now we can pump down, so $ xz=0^{n-\ell}1^n $ which clearly isn't in the language, but the pumping lemma says it is in the language. Alternatively we can pump up, so $ xy^2z =  0^{n+\ell}1^n $ which also clearly isn't in the language, but again the pumping lemma say it's in the language so $ L $ isn't regular.\par
+	This exact argument words for $ L' = \{w: w \text{ contains same number of } 0\text{s and } 1\text{s} \}$.
+\end{example}
+\subsection{Equivalence relations and minimisation of DFAs}
+Given a DFA $ D $ over an alphabet $ \Sigma $, we want a DFA $ D' $ over $ \Sigma $ with $ \mathcal L(D') = \mathcal (D) $ but with the smallest possible number of states. DFAs from the subset construction often have an excess of states. 
+\begin{definition}
+	(Accessible state) An \textit{accessible state} $ q\in Q $ of a DFA is one where $ \exists w\in \Sigma^* $ with $ \hat \delta_D(q_0,w) = q $. Otherwise we say that the state is \textit{inaccessible}.
+\end{definition}
+From $ D $ we can form a DFA $ A $ with no inaccessible states and $ \mathcal L(A) = \mathcal L(D) $ if $ n = |Q_D| $ then form $ S_i\subseteq Q_D $ via 
+\[
+	S_0 = \{q_0\},\quad S_i = \bigcup_{q\in S_i} \left(\bigcup_{\sigma\in \Sigma} \delta_D(q,\sigma)\right)
+\]
+so $ S_i $ is states reachable from $ q_0 $ after $ i $ steps. But any accessible state can be reached after $ n-1 $ steps (remove closed loops of repeated states) so set
+\[
+	S = \bigcup_{j=0}^{n-1} S_j
+\]
+and $ Q_A = S, F_A=F_D\cap S $ and $ \delta_A $ is a restriction of $ \delta_D $  to $ Q_A\times \sigma $ maps to $ Q_A $ by construction.
+
+
+
+
+
+
+
+
 
 
   \end{document}
