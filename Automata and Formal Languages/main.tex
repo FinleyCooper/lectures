@@ -406,13 +406,13 @@ thus we have that $ |xy| =r \le n $ and since $ \ell<r $ we have that $ y\ne \ep
 	This exact argument words for $ L' = \{w: w \text{ contains same number of } 0\text{s and } 1\text{s} \}$.
 \end{example}
 \subsection{Equivalence relations and minimisation of DFAs}
-Given a DFA $ D $ over an alphabet $ \Sigma $, we want a DFA $ D' $ over $ \Sigma $ with $ \mathcal L(D') = \mathcal (D) $ but with the smallest possible number of states. DFAs from the subset construction often have an excess of states. 
+Given a DFA $ D $ over an alphabet $ \Sigma $, we want a DFA $ D' $ over $ \Sigma $ with $ \mathcal L(D') = \mathcal L(D) $ but with the smallest possible number of states. DFAs from the subset construction often have an excess of states. 
 \begin{definition}
 	(Accessible state) An \textit{accessible state} $ q\in Q $ of a DFA is one where $ \exists w\in \Sigma^* $ with $ \hat \delta_D(q_0,w) = q $. Otherwise we say that the state is \textit{inaccessible}.
 \end{definition}
 From $ D $ we can form a DFA $ A $ with no inaccessible states and $ \mathcal L(A) = \mathcal L(D) $ if $ n = |Q_D| $ then form $ S_i\subseteq Q_D $ via 
 \[
-	S_0 = \{q_0\},\quad S_i = \bigcup_{q\in S_i} \left(\bigcup_{\sigma\in \Sigma} \delta_D(q,\sigma)\right)
+	S_0 = \{q_0\},\quad S_i = \bigcup_{q\in S_{i-1}} \left(\bigcup_{\sigma\in \Sigma} \delta_D(q,\sigma)\right)
 \]
 so $ S_i $ is states reachable from $ q_0 $ after $ i $ steps. But any accessible state can be reached after $ n-1 $ steps (remove closed loops of repeated states) so set
 \[
