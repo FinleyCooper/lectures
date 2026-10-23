@@ -400,4 +400,56 @@ For the time-averaged energy calculations (quadratic quantities) note that $ \la
 \[
 	\langle \mathrm{Re}(Ae^{i\omega t}\mathrm{Re}(Be^{i\omega t})\rangle = \frac 12 \mathrm{Re}(AB^*).
 \]
+\subsection{Taylor-Couette Flow}
+This is flow between long coaxial rotating cylinders. The flow is axisymmetric so $ \mathbf u = v(r) \mathbf e_\theta $. The inner cylinder $ r==a $ rotates with angular velocity $ \Omega_2 $ and the outer cylinder $ r=b $ rotates with angular velocity $ \Omega_1 $. We want Navier-Stokes equations in cylindrical polar coordinates. In fluids we need $ \nabla^2 \mathbf u $. We can use the identity that
+\[
+  \nabla^2 \mathbf u = \nabla(\nabla \cdot\mathbf u) - \nabla\times(\nabla\times \mathbf u)
+\]
+and the first term on the RHS is zero in an incompressible fluid which makes things much simplier. Formula are not required to be memorised for the exam. The case of Taylor-Couette flow however is sufficiently simple so we can do it by hand. We obtain that 
+\[
+	(\mathbf u \cdot\nabla)\mathbf u = -\frac{v^2}r \mathbf e_r
+\]
+which is the formula for circular motion. There's no radial component of the viscous term so we get that
+\[
+	-\rho \frac{v^2} r= - \frac{\partial p}{\partial r}
+\]
+so the radial pressure gradient balances the centrifugal force. In the azimuthal direction (since $ \frac{\partial p}{\partial \theta} =0) $ we have that
+\[
+   0 = \mu\left(\frac{\partial^2 v}{\partial r^2} + \frac 1r\frac{\partial v}{\partial r} - \frac{v}{r^2}\right)
+\]
+with $ v(a_1) = \Omega_1a_1 $ and $ v(a_2) = \Omega_2 a_2 $. This is a Cauchy-Euler equation, which is solved with the boundary conditions (Example Sheet 1, Question 6).
+\section{Stokes Flows}
+Stokes flows are flows with $ \mathrm{Re}\ll 1 $, so we neglect inertial forces. Then Navier-Stokes equations become
+\[
+   0 =\mathbf f - \nabla p + \mu \nabla^2 \mathbf u,\quad \nabla\cdot\mathbf u = 0.
+\]
+Recall that $ \mathrm{Re} = \frac{UL}{\nu} $ so this is good for $ U $ and $ L $ small (for example micro-organisms and aerosols) or if the viscosity is very large like lava flows or ice-sheets.\par
+We will often assume that $ \mathbf f = \mathbf 0 $ as we can remove $ \rho\mathbf g $ from the equation by subtracting the hydrostatic pressure from the problem, $ p_0-\rho gz $ from $ p $. In this case we have that
+\[
+  \mathbf 0 = -\nabla p + \mu\nabla^2 \mathbf u = \nabla \cdot \sigma.
+\]
+\subsection{Simple Properties}
+\begin{enumerate}
+	\item The flow is instanteous, so there is no $ \frac{\partial}{\partial t} $ term, so this is a pure spacial problem. The flow only depends on the boundary conditions (and $ \mathbf f $) at each instant. It may depend on time parametrically, in which we say the flow is quasi-steady if for example the boundary conditions are changing with time.
+	\item The equation is linaer since there is no $ (\mathbf u \cdot\nabla)\mathbf u $ term. So $ \mathbf u, p, \sigma $ are linear in the boundary conditions (and in $ \mathbf f $).\par
+\begin{example}
+  Suppose we have some body in a fluid moving with velocity $ \mathbf U $ with a drag force equal to $ -A\cdot\mathbf U $ where $ A $ is a second rank tensor. We can use symmetric/anti-symmetric decomposition to break up a problem into two problems where one velocity is parallel with the axis of the body, and the other is perpendicular.
+\end{example}
+\item Changing the sign of all of the boundary conditions (and $\mathbf f $) results in just changing the sign of $ \mathbf u $. Reversing all the boundary conditions and the history of their application results in the fluid particles retracing their paths exactly.
+\item If we have symmetry in space then due to linearity and reversibility we can use the symmetry of the geometry to show something is zero.
+	\begin{example}
+	  Consider a sphere falling under $ \mathbf g $ by a vertical wall. We'll show that (due to drag) the sphere must fall vertically. Take coordinates with $ z $ vertical and $ x $ perpendicular to the wall. Suppose not and the sphere falls non-vertically with a component in the $ x-y $ plane going away from the wall (wlog). Then reverse gravity so we reverse the velocity $ \mathbf U $. The problem is symmetrical so we can reflect the problem along the sphere's equator, perpendicular to the wall. So we can $ \mathbf g $ acting down again and $ \mathbf U $ pointing towards the wall. But by symmetry it can't have a component both towards the wall and away from the wall. So $ U_x = 0 $ and similarly by a symmetric argument $ U_y = 0 $. 
+	\end{example}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
 \end{document}
+

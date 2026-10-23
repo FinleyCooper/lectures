@@ -806,10 +806,205 @@ with
 	e^{-iE_n t/\hbar}\ket n
 \]
 being a solution of the time-dependent Schr\"odinger equation.
-
-
-
-
-
-
+\par
+Generally if
+\[
+	\ket{\psi(0)} = \sum_n\alpha_n \ket{n}
+\]
+where 
+\[
+  H\ket n = E_n\ket n
+\]
+then
+\[
+	\ket {\psi(t)} = \sum_n\alpha_n e^{-iE_nt/\hbar} \ket n.
+\]
+\begin{example}
+  Consider a system with two energy eigenstates $ \ket 1 $ and $ \ket 2 $. Consider measuring $ Q $ defined by
+  \[
+    Q\ket 1 = \ket 2, \quad Q\ket 2 = \ket 1
+  \]
+  So $ [Q,H]\ne 0 $. The eigenstates of $ Q $ are
+  \[
+	  \ket \pm = \frac 1{\sqrt 2}(\ket 1 \pm \ket 2)
+  \]
+  with eigenvalues $ q_\pm = \pm 1 $. Take the initial state
+  \[
+	  \ket {\psi(0)} = \ket +.
+  \]
+  This implies that
+  \[
+	  \ket{\psi(t)} = \frac 1{\sqrt 2}\left(e^{-iE_1t/\hbar}\ket 1 + e^{-iE_2t/\hbar}\ket 2\right)
+  \]
+  so the probability of measuring $ Q $ at time $ t $ and getting $ \pm 1 $ is
+  \begin{align*}
+	  |\bra{\pm}\ket{\psi(t)}|^2 &= \left|\frac 12 (\bra{1}\pm\ket{2})(e^{-iE_1t/\hbar}\ket{1}+e^{-iE_2t/\hbar} \ket 2)\right|^2 \\
+				     &= \left|\frac 12(e^{-iE_1t/\hbar}\pm e^{-iE_2t/\hbar})\right|^2 \\
+				     &= \begin{cases}
+					     \cos^2(E_1-E_2)t/2\hbar \\
+					     \sin^2(E_1-E_2)t/2\hbar
+				     \end{cases}. \\
+  \end{align*}
+  In the basis 
+  \begin{align*}
+	  \ket  1 &\longrightarrow \begin{pmatrix}
+      1 \\ 0
+    \end{pmatrix} \\
+		  \ket 2 &\longrightarrow \begin{pmatrix}
+		    0 \\ 1
+		  \end{pmatrix}
+  \end{align*}
+  then
+  \[
+    H\longrightarrow \begin{pmatrix}
+       E_1 & 0 \\
+       0 & E_2
+    \end{pmatrix}
+  \]
+  and
+  \[
+	  U= e^{-iHt/\hbar} \longrightarrow \begin{pmatrix}
+	     e^{-iE_1t/\hbar} & 0 \\
+	     0 & e^{-iE_2t/\hbar}.
+	  \end{pmatrix}
+  \]
+  But instead we can work in the alternate basis where
+  \begin{align*}
+	  \ket + &\longrightarrow \begin{pmatrix}
+	    1 \\ 0
+	  \end{pmatrix} \\
+		  \ket - &\longrightarrow \begin{pmatrix}
+		    0 \\ 1
+		  \end{pmatrix}
+  \end{align*}
+  So we have that
+  \begin{align*}
+	  H \ket \pm &= \frac 1{\sqrt 2}(E_1\ket 1 + E_2\ket 2)\\
+	  \bra \pm H\ket \pm &= \frac 12(E_1+E_2) = \ep \\
+	  \bra \mp H \ket \mp &= \frac 12(E_1-E_2) = \hbar\lambda
+  \end{align*}
+  where we define $ \ep $ and $ \lambda $ to be constants. Then we have that
+  \[
+    H\longrightarrow \begin{pmatrix}
+	    \ep & \hbar \lambda \\
+	    \hbar\lambda & \ep
+    \end{pmatrix} = \ep I + \hbar\lambda M
+  \]
+  where $ I $ is the identity matrix and $ M $ is the matrix $ \begin{pmatrix}
+     0 & 1 \\ 1 & 0
+  \end{pmatrix} $ so now we have that
+  \begin{align*}
+	  U(t) &= e^{-iHt/\hbar} = e^{-it(\ep I + \lambda\hbar M)/\hbar} \\
+	       &= e^{-i t \ep/\hbar}e^{-it\lambda M}.
+  \end{align*}
+  Note that $ M^2 = I $ and hence we have that
+  \begin{align*}
+	  \mathrm{exp}(-it\lambda M)& = \sum_{r=0}^\infty \frac 1{(2r)!} (-i\lambda r)^{2r} I + \sum_{r=0}^\infty \frac 1{(2r+1)!}(-i\lambda t)^{2r+1} M \\
+				    &= (\cos\lambda t) I -i (\sin\lambda t) M.
+  \end{align*}
+  So we have that 
+  \begin{align*}
+	  \ket{\psi(0)} = \ket + \longrightarrow \begin{pmatrix}
+	    1 \\ 0
+	  \end{pmatrix}
+  \end{align*}
+  so
+  \[
+	  \ket{\psi(t)} = e^{-iHt/\hbar} \ket +\longrightarrow e^{-it\ep/\hbar}\begin{pmatrix}
+	    \cos\lambda t \\
+	    -i\sin\lambda t
+	  \end{pmatrix}
+  \]
+  which is therefore 
+  \[
+	  e^{-it\ep/\hbar}(\cos\lambda t \ket + - i\sin\lambda t\ket -).
+  \]
+  Now compare with previous result for probability of measuring $ W $ and finding $ \pm 1 $.
+\end{example}
+\subsection{Heisenberg Picture and Heisenberg Equations}
+\subsubsection{Unitary operators}
+Physical predictions in quantum mechanics are given by probability amplitudes, eigenvalues, expectation values, etc, hence we have expressions like
+\[
+	\bra{\psi}\ket{\phi},\quad \bra{\phi}A\ket{\psi}
+\]
+and similar things. 
+\begin{definition}
+	(Unitary) An operator $ U $ is called \textit{unitary} if
+	\[
+	  UU^\dagger = U^\dagger U = I
+	\]
+	or equivalently
+	\[
+		U^\dagger = \inv U.
+	\]
+\end{definition}
+Given any such $ U $ consider a map on states and operators taking
+\begin{align*}
+	\ket \psi &\longrightarrow U\ket \psi = \ket{\psi'} \\
+	\bra \psi &\longrightarrow \bra \psi U^\dagger = \bra{\psi'} \\
+	A&\longrightarrow  UAU^\dagger = A'.
+\end{align*}
+Under this, all physical predictions remain unchanged sinc we have that
+\[
+	\bra{\phi}\ket{\psi} \longrightarrow \bra{\phi'}\ket{\psi'} = \bra{\phi} U^\dagger U\ket{\psi} = \bra{\phi}\ket{\psi}
+\]
+and
+\[
+	\bra{\phi}A\ket{\psi} \longrightarrow \bra{\phi'}A'\ket{\psi'} = \bra{\phi}U^\dagger UAU^\dagger U \ket{\psi} = \bra{\phi}A\ket{\psi}.
+\]
+Furthermore we have that
+\[
+  C = AB\longrightarrow C'=A'B'
+\]
+and
+\[
+	C =[A,B] \longrightarrow C'=[A',B'].
+\]
+We also have that if $ Q $ is Hermitian, then $ Q' $ is also Hermitian. We also have the implication that 
+\begin{align*}
+	Q\ket{\psi} = \lambda \ket{\psi} \implies Q'\ket{\psi'} = \lambda \ket{\psi'}
+\end{align*}
+with the same eigenvalue $ \lambda $.
+\subsubsection{Changing Pictures}
+In the Schr\"odinger picture we have that
+\begin{align*}
+	i\hbar \frac{\partial}{\partial t} \ket{\psi(t)} &= H \ket{\psi(t)}\\ 
+	\implies \ket{\psi(t)} &= U(t) \ket{\psi(0)}
+\end{align*}
+where $ U(t) = \mathrm{exp}(-iHt/\hbar) $ is unitary. In fact we have that $ U(t)^\dagger = U(-t) = \inv{U(t)} $ and that $ U(t_1)U(t_2) = U(t_1 + t_2) $. The states depend on $ t $ but observables do not in the Schr\"odinger picture. To pass to the Heisenberg picture we shift $ t $-dependence from states to operators as follows. In the Schr\"odinger picture we have states and operators
+\[
+	\ket{\psi(t)}_{\mathrm S} \quad A_{\mathrm S}.
+\]
+But in the Heisenberg picture we have 
+\begin{align*}
+	\ket{\psi}_{\mathrm H} &= U^\dagger \ket{\psi(t)}_\mathrm{S} = e^{itH/\hbar} \ket{\psi(t)}_{\mathrm{S}} = \ket{\psi(0)}_{\mathrm S} \\
+	A_{\mathrm H}(t) &= U^\dagger A_{\mathrm S} U = e^{itH/\hbar}A_{\mathrm S} e^{-itH/\hbar}
+\end{align*}
+and because the transformation $ U(t) $ is unitary we have that
+\[
+	\bra{\phi(t)} A_{\mathrm S} \ket{\psi(t)}_{\mathrm S} = \bra{\phi}A_{\mathrm H}(t)\ket{\psi}_{\mathrm H}
+\]
+Note that $ H_{\mathrm H} = H_{\mathrm S} = H $.\par
+To specify dynamics in the Heisenberg picture consider
+\begin{align*}
+	\frac d{dt} A_{\mathrm H} (t) &= \frac d{dt} \left(e^{iHt/\hbar} A_{\mathrm S} e^{-iHt/\hbar}\right) \\
+				      &= \frac{iH}\hbar e^{iHt/\hbar} A_{\mathrm S} e^{-iHt/\hbar} - e^{iHt/\hbar}A_{\mathrm S} e^{-iHt/\hbar} \frac{iH}\hbar \\
+				      &= \frac i\hbar [H,A_{\mathrm H}(t)] 
+\end{align*}
+or
+\[
+	i\hbar \frac{d}{dt}A_{\mathrm H} (t) = [A_{\mathrm H}(t), H]
+\]
+which is the Heisenberg equations of motion.
+\begin{example}
+	Consider a particle in one dimension $ \hat x(t), \hat p(t) $ in the Heisenberg picture. Consider $ H = \frac{\hat p^2}{2m} + V(\hat x) $ so the Heisenberg equations of motion become
+	\[
+		\frac {d}{dt} \hat x(t) = \frac 1{i\hbar} [\hat x(t), H] = \frac 1 m \hat p(t)
+	\]
+	and
+	\[
+		\frac {d}{dt} \hat p(t) = \frac 1{i\hbar} [\hat p(t), H] = -V' (\hat x(t))
+	\]
+	using $ [\hat x(t),\hat p(t)] = i\hbar $.
+\end{example}
 \end{document}

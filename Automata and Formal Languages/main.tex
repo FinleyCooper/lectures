@@ -419,6 +419,106 @@ so $ S_i $ is states reachable from $ q_0 $ after $ i $ steps. But any accessibl
 	S = \bigcup_{j=0}^{n-1} S_j
 \]
 and $ Q_A = S, F_A=F_D\cap S $ and $ \delta_A $ is a restriction of $ \delta_D $  to $ Q_A\times \sigma $ maps to $ Q_A $ by construction.
+\begin{remark}
+  This might not be enough. Moreover what about uniqueness?
+\end{remark}
+\begin{definition}
+	(Equivalence) For $ A $, $ B $ both DFAs over $ \Sigma $ we say that $ A $ and $ B $ are \textit{equivalent}, written $ A\equiv B $ if (up to relabling of non-start states) they are the same DFA.
+\end{definition}
+\begin{remark}
+  Obviously this means they define the same language too.
+\end{remark}
+Now for a single DFA, we say group together equivalent states.
+\begin{definition}
+(Equivance of states) For a DFA, $ D $, we call two states, $ p,q\in Q $ \textit{equivalent} or \textit{indistinguishable} if $\forall w \in \Sigma^* $ we have that
+\[
+  \hat \delta(p,w)\in F \iff \hat\delta(q,w)\in F
+\]
+written as $ p\sim q $, or otherwise $ p,q $ are \textit{distinguished} by $ w $.
+\end{definition}
+\begin{proposition}
+  For a DFA, $ D $ and $ p,q\in Q $ we have that
+  \begin{enumerate}
+	  \item $ \sim $ is an equivalence relation on $ Q $;
+	  \item If $ p\sim q $ then $ \forall\sigma \in \Sigma $ we have that $ \delta(p,\sigma) \sim\delta(q,\sigma) $ and $ \hat\delta(p,w)\sim\hat\delta(q,w) $ for all words $ w\in \Sigma^* $;
+	  \item If $ p\sim q $ then $ p $ is accepting if and only if $ q $ is.
+  \end{enumerate}
+\end{proposition}
+\pf\par
+\begin{enumerate}
+	\item Trivally symmetric and reflexive. For transitivity suppose that $ p\sim q $ and $ q\sim r $ and take a word $ w\in \Sigma^* $. Then both $ \hat\delta(p,w) $, $ \hat\delta(q,w) $ are either both accepting or both not accepting as are both of $ \hat \delta(q,w) $ and $ \hat\delta(r,w) $ so true for $ \hat\delta(p,w) $ and $ \hat\delta(r,w) $.
+	\item Suppose we have $ \sigma \in \Sigma $ with $ \delta(p,\sigma)\not\sim \delta(q,\sigma) $ so \textit{wlog} we have $ w\in \Sigma^* $ with $ \hat\delta(\delta(p,\sigma),w) $ accepted but $ \hat\delta(\delta(q,\sigma),w) $ is not. Then $ p,q $ are distinguished by $ \sigma w $ which is a contradiction since $ p\sim q $ now induction on $ |w| $.
+	\item Just put $ w=\ep $ in the definition.\qed
+\end{enumerate}
+We now reduce the number of states in a DFA by identifying as follows.
+\begin{definition}
+	(Minimal DFA) Given a DFA, $ D = (Q,\Sigma,\delta, q_0,F) $ we define the \textit{minimal DFA}, $ D/\sim $ for $ D $ as $ (Q/\sim, \Sigma, \delta, [q_0]_\sim, F') $ where
+	\[
+		\delta'([q],\sigma) = [\delta(q,\sigma)]
+	\]
+	which is well-defined by (ii) from the previous proposition and the accept states
+	\[
+		F' = \{[p] \mid p \in F\}
+	\]
+	which works by (iii) from the proposition.
+\end{definition}
+\begin{lemma}
+  For a DFA $ D $ and $ D/\sim $ as above, take $ q\in Q $ and $ w\in \Sigma^* $. Then
+  \[
+	  \hat\delta'([q],w) = [\hat\delta(q,w)].
+  \]
+\end{lemma}
+\pf Proceed by induction on $ |w| $. b
+\begin{align*}
+	\hat\delta'([q],\sigma_1\dots\sigma_k) &=\delta'(\hat\delta'([q],\sigma_1\dots\sigma_{k-1}), \sigma_k) \\
+					       &=\delta'([\hat\delta(q,\sigma_1\dots \sigma_{k-1})],\sigma_k)=[\delta(\hat\delta(q,\sigma_1\dots\sigma_{k-1}),\sigma_k] = [\hat\delta(q,w)]\qed
+\end{align*}
+\begin{theorem}
+  For a DFA $ D $ and its minimal DFA $ D/\sim $, we have that \[
+    \mathcal L(D/\sim) = \mathcal L(D).
+  \]
+\end{theorem}
+\pf For all $ w\in \Sigma^* $ we have that 
+\begin{align*}
+	w\in \mathcal L(D/\sim) &\iff \hat\delta'([q_0],w) \in F'\\
+				&\iff [\hat\delta(q_0,w)] \in F' \\
+				&\iff \hat\delta(q_0,w) \in F \\
+				&\iff w\in \mathcal L(D).\qed
+\end{align*}
+\begin{lemma}
+  For a DFA $ D $ and its minimal DFA $ D/\sim $, no two distinct states of $ D/\sim $ are equivalent.
+\end{lemma}
+\pf Suppose for two states $ p,q $ of $ D $ we have $ [p]\sim [q] $ in $ D/\sim $. Then for all words $ w $, we have $ \hat\delta'([p],q), \hat\delta'([q],w) $ are both accepting or non-accepting in $ D/\sim $. So by previous lemma $ [\hat \delta(p,q)] $, $ [\hat\delta(q,w)] $ are both accepting or non-accepting, so $ \hat\delta(p,q), \hat\delta(q,w) $ are both accepting or non-accepting in $ D $. Thus $ p\sim q $ in $ D $ and so $ [p]=[q] $ in $ D/\sim $.\qed
+\begin{corollary}
+  If $ D $ is a DFA then $ (D/\sim)/\sim\ \equiv D/\sim $ as DFAs.
+\end{corollary}
+\pf On forming $ D/\sim $, no two distinct states of $ D/\sim $ are equivalent so for each state $ s\in D/\sim $ on forming $(D/\sim)/\sim $ we see that these states are $ [s] = \{s\} $ so on relabelling back to $ s $ we find that we have some accept states and transition function for $ D/\sim $ and $ (D/\sim)/\sim $.\qed
+\begin{example}
+	Consider the "cat" DFA from before. This has no inaccessible states and no equivalent states. Now add a "phantom" state $ q_4 $ to $ C $ with no arrows to or from the other states and which is not an accept state then in this new DFA $ D $ we have that $ q_4 $ is inaccessible. Moreover $ \hat\delta(q_4,w)\notin F= \{q_3\} $ so $ q_4 $. Thus all states of $ D $ are inequivalent. So $ D/\sim $ is $ D $ but clearly not the smallest, since we can get rid of $ q_4 $. 
+\end{example}
+Here we will first remove inaccessible states, and then minimise with the equivalence.
+\begin{theorem}
+  If the DFA $ D $ has no inaccessible states and $ A $ is a DFA with $ \mathcal L(D) = \mathcal L(A) $ then
+  \begin{enumerate}
+	  \item $ A $ has at least as many states as $ D/\sim $;
+	  \item If $ A $ and $ D/\sim $ have the same number of states then $ A\equiv D/\sim $.
+  \end{enumerate}
+\end{theorem}
+\pf Take a $ DFA $ $ B $ with the fewest states, subject to $ \mathcal L(B) = \mathcal L(D) $. Then $ B $ as no inaccessible states and $ D/\sim $ also has none since for any state $ [q] $ we have some $ w $ where $ \hat\delta(q_0,w)=q $ since it holds for $ D $, then $ \hat\delta'([q_0],w) = [q] $. So we have that $ D/\sim\  = (Q/\sim, \Sigma,\delta', [q_0], F') $ and $ B=(S,\Sigma, d,S_0,G) $. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
