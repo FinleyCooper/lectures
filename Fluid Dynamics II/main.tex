@@ -438,18 +438,70 @@ We will often assume that $ \mathbf f = \mathbf 0 $ as we can remove $ \rho\math
 \item Changing the sign of all of the boundary conditions (and $\mathbf f $) results in just changing the sign of $ \mathbf u $. Reversing all the boundary conditions and the history of their application results in the fluid particles retracing their paths exactly.
 \item If we have symmetry in space then due to linearity and reversibility we can use the symmetry of the geometry to show something is zero.
 	\begin{example}
-	  Consider a sphere falling under $ \mathbf g $ by a vertical wall. We'll show that (due to drag) the sphere must fall vertically. Take coordinates with $ z $ vertical and $ x $ perpendicular to the wall. Suppose not and the sphere falls non-vertically with a component in the $ x-y $ plane going away from the wall (wlog). Then reverse gravity so we reverse the velocity $ \mathbf U $. The problem is symmetrical so we can reflect the problem along the sphere's equator, perpendicular to the wall. So we can $ \mathbf g $ acting down again and $ \mathbf U $ pointing towards the wall. But by symmetry it can't have a component both towards the wall and away from the wall. So $ U_x = 0 $ and similarly by a symmetric argument $ U_y = 0 $. 
+Consider a sphere falling under $ \mathbf g $ by a vertical wall. We'll show that the sphere must fall vertically. Take coordinates with $ z $ vertical and $ x $ perpendicular to the wall. Suppose not and the sphere falls non-vertically with a component in the $ x-y $ plane going away from the wall (wlog). Then reverse gravity so we reverse the velocity $ \mathbf U $. The problem is symmetrical so we can reflect the problem along the sphere's equator, perpendicular to the wall. So we can $ \mathbf g $ acting down again and $ \mathbf U $ pointing towards the wall. But by symmetry it can't have a component both towards the wall and away from the wall. So $ U_x = 0 $ and similarly by a symmetric argument $ U_y = 0 $. 
 	\end{example}
+	We'll show a similar result with rotation (psuedovectors) instead of velocity.
+	\begin{example}
+		(Falling uniform rod does not rotate). Suppose a rod falls with angular velocity $ \Omega $ due to the falling motion. Reverse $ g $ so $ \Omega $ now goes the other way and $ g $ points up. Now rotate by $ \pi $ so we have the same problem with $ \Omega $ going the opposite direction, so by symmetry we have that $ \Omega = 0 $, i.e there is no rotation induced by the fall.
+	\end{example}
+\item We have harmonic properties (for $ \mathbf f = \mathbf 0) $, so
+	\[
+	  \mu\nabla^2 \mathbf u = \nabla p,\quad \nabla\cdot\mathbf u = 0
+	\]
+	so taking divergence of the left equation we get that $ p $ is harmoinc. Taking the curl of the left equation we get $ \nabla^2\boldsymbol\omega = 0 $ so vorticity is harmonic. From taking the Laplacian of the left equation we get that $ \nabla^2\nabla^2 \mathbf u = \nabla^4 \mathbf u = 0 $ which we say that $ \mathbf u $ is biharmonic.
 \end{enumerate}
+	\subsection{More Properties}
+	We'll first assume that $ \mathbf f = \mathbf 0 $ so we have that $ \nabla \cdot \sigma = 0 $.\par
+We have uniqueness of flows. Suppose $ \mathbf u_1 $ and $ \mathbf u_2 $ are Stokes flows in a domain $ V $ and satisfy the same boundary conditions on $ \partial V $. Let $ \mathbf u = \mathbf u_1 - \mathbf u_2 $ and $ e = e_1-e_2 $. Then we get that
+		\begin{align*}
+			D = 2\mu \int_V e_{ij}e_{ij}\ \mathrm dV &= \int (\sigma_{ij} +  p\delta_{ij})e_{ij}\ \mathrm dV \\
+								 &= \int_V \sigma_{ij}\frac{\partial u_i}{\partial x_j}\ \mathrm dV \\ 
+								 &= \int_V \frac{\partial}{\partial x_j}(u_i\sigma_{ij}) - u_i\frac{\partial}{\partial x_j}\sigma_{ij}\ \mathrm dV \\
+								 &= \int_{\partial V} \mathbf u \cdot \sigma \cdot\mathbf n \ \mathrm dS \\
+								 &= 0
+		\end{align*}
+		since $ \mathbf u_1 = \mathbf u_2 $ or the stress equals on the boundary ($ \sigma_1\cdot\mathbf n =\sigma_2\cdot\mathbf n $ on $ \partial V $. So we get $ \mathbf e = 0 $ in $ V $. So $ \mathbf u $ is at most a solid body motion. If $ \mathbf u_1 = \mathbf u_2 $ on $ \partial V $ them $ \mathbf u_1 = \mathbf u_2 $ in $ V $. Instead if $ \sigma_1\cdot\mathbf n = \sigma_1\cdot\mathbf n $ then $ \mathbf u_1 = \mathbf u_2 +\mathbf U + \boldsymbol\Omega \times \mathbf x $.
+\begin{theorem}
+	(Minimum dissipation theorem) Let $ \mathbf u^{\mathbf S} $ be a Stokes flow in $ V $ and $ \mathbf u $ be any incompressible flow that has the same velocity on $ \partial V $. Then
+	\[
+		2\mu \int_V e_{ij}^{\mathrm S} e_{ij}^{\mathrm S}\ \mathrm dV \le 2\mu \int_V e_{ij}e_{ij}\ \mathrm dV
+	\]
+\end{theorem}
+\pf We have that
+\begin{align*}
+	0 &\le 2\mu \int_V (e_{ij}-e^{\mathrm S}_{ij})(e_{ij} -e_{ij}^{\mathrm S}) \ \mathrm dV \\
+	  &= 2\mu \int_V (e_{ij}e_{ij} - e^{\mathrm S}_{ij}e^{\mathrm S}_{ij}) \ \mathrm dV + 4\mu \int_V e^{\mathrm S}_{ij}(e^{\mathrm S}_{ij} - e_{ij})\ \mathrm dV.
+\end{align*}
+The last term (using incompressibility in both flows) is equal to
+\begin{align*}
+	2\int_V \sigma_{ij}^{\mathrm S}(e_{ij}^{\mathrm S} - e_{ij}) &= 2\int_V \frac{\partial}{\partial x_j}((u_i^{\mathrm S} - u_i) \sigma_{ij}^{\mathrm S}) - (u_i^{\mathrm S} - u_i)\frac{\partial}{\partial x_j}\sigma_{ij}^{\mathrm S} \ \mathrm dV \\
+								     &= 2\int_{\partial V} (u_i^{\mathrm S} - u_i)\sigma_{ij}n_j \ \mathrm dS = 0
+\end{align*}
+so we get the required result.\qed
+\begin{example}
+	We can bound drag on a translating rigid body. Consider an arbirary rigid body, translating with velocity $ \mathbf U $ with Stokes flow $ \mathbf u^{\mathrm S} $ in the fluid volume $ V $ around it. Take $ \mathbf n $ into the boundy so 
+	\begin{align*}
+		\int_{\partial V} \sigma\cdot\mathbf n \ \mathrm dS&= \text{force } F_{\mathrm S} \text{ exerted by body on fluid}
+	\end{align*}
+ we have that the dissipation
+	\begin{align*}
+		D &= 2\mu \int_V e^{\mathrm S}_{ij}e^{\mathrm S}_{ij} \ \mathrm dV \\
+		  &= \int_{\partial V} \mathbf u^{\mathrm S} \cdot\sigma\cdot\mathbf n  \ \mathrm dS = \mathbf U \cdot \int_{\partial V} \sigma^{\mathrm S}\cdot \mathbf n \ \mathrm dS = \mathbf U \cdot \mathbf F^{\mathrm S}.
+	\end{align*}
+	Now suppose that $ S $ is a sphere of radius $ a $ which circumscribes the body. Define a flow $ \mathbf u $ in the original fluid volume $ V $ by taking the Stokes flow outside the rigid sphere $ S $ moving the velocity $ \mathbf U $ and taking uniform flow $ \mathbf U $ in the gap between $ S $ and the body. So we get that
+	\[
+		2\mu \int_V e_{ij}e_{ij} \ \mathrm dV = 2\mu \int_{\text{outside of }} S e_{ij}e_{ij} \ \mathrm dV
+	\]
+	since $ e_{ij} = 0 $ in the gap. Now this is equal to
+	\[
+		\mathbf U \cdot (\text{force exerted by sphere})
+	\]
+	which is $ 6\pi \mua \mathbf U $ (result derivation later). Hence the minimium dissipation gives that
+	\[
+		\mathbf U \cdot\mathbf F^{\mathrm S} \le 6\pi \mu aU^2.
+	\]
 
-
-
-
-
-
-
-
-
-
+\end{example}
 \end{document}
+
 

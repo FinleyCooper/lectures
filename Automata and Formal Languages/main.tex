@@ -504,17 +504,35 @@ Here we will first remove inaccessible states, and then minimise with the equiva
 	  \item If $ A $ and $ D/\sim $ have the same number of states then $ A\equiv D/\sim $.
   \end{enumerate}
 \end{theorem}
-\pf Take a $ DFA $ $ B $ with the fewest states, subject to $ \mathcal L(B) = \mathcal L(D) $. Then $ B $ as no inaccessible states and $ D/\sim $ also has none since for any state $ [q] $ we have some $ w $ where $ \hat\delta(q_0,w)=q $ since it holds for $ D $, then $ \hat\delta'([q_0],w) = [q] $. So we have that $ D/\sim\  = (Q/\sim, \Sigma,\delta', [q_0], F') $ and $ B=(S,\Sigma, d,S_0,G) $. 
-
-
-
-
-
-
-
-
-
-
+\pf Take a DFA $ B $ with the fewest states, subject to $ \mathcal L(B) = \mathcal L(D) $. Then $ B $ as no inaccessible states and $ D/\sim $ also has none since for any state $ [q] $ we have some $ w $ where $ \hat\delta(q_0,w)=q $ since it holds for $ D $, then $ \hat\delta'([q_0],w) = [q] $. So we have that $ D/\sim\  = (Q/\sim, \Sigma,\delta', [q_0], F') $ and $ B=(S,\Sigma, d,S_0,G) $. \par
+We form the "disjoint union DFA" $ U $ of $ D/\sim $ and $ B $ where
+\[
+	U = (Q/\sim\sqcup S, \Sigma, \Delta, [q_0], G\sqcup F')
+\]
+where
+\[
+  \Delta:(Q/\sim \sqcup S)\times \Sigma \to Q/\sim \sqcup S
+\]
+is defined via $ \delta' $ and $ d $. As $ \mathcal L(D/\sim) = \mathcal L(D) = \mathcal L(B) $, this means that states $ [q_0] $ and $ s_0 $ of $ U $ are equivalent because reading a word in $ U $ start at $ [q_0] $ is the same as it is in $ D/\sim $ and also in $ B $ starting at $ s_0 $. Then for any state $ p\in Q/\sim $, we have a state $ s\in S $ with $ p\sim s $ in $ U $ because we have some $ w\in \Sigma^* $ with $ \hat\delta([q_0],w) = p $ as it's accessible in $ D/\sim $ but $ [q_0]\sim s_0 $ in $ U $ which implies that $ p = \hat \Delta([q_0],w) \sim \tilde \Delta(s_0,w) $ in $ U=\hat d(s_0,w)=s\in S $. Now consider in $ U $. The equivalence classes of the states if $ |D/\sim |>|B| $ then have two states $ p_1,p_2 $ of $ D/\sim $ which are equivalent to a single state of $ B $ so they are equivalent to eachother in $ U $, i.e we have that
+\[
+  \hat \Delta(p_1,w)\in G\sqcup F' \iff \hat\Delta(p_2,w)\in G\sqcup F'.
+\]
+But by disjointness of the DFAs in $ U $, we have that $ \hat\Delta(p_2,w)\in G\sqcup F'\iff \hat\delta'(p_2,w)\in F' $ so $ p_1,p_2 $ are equivalent states in $ D/\sim $ which is a contradiction. So now we have $ |D/\sim|=|B| $ by minimality and each state of $ D/\sim $ is equivalent in $ U $ to a state in $ B $ and visa-versa. As pairs of equivalent statesin $ U $ ar preserved under $ \Delta $ and all states are accessible, the DFAs $ D/\sim $ and $ B $ are "matched" exactly under the equivalence, i.e $ [q_0]\sim s_0 $ in $ U $ so $ \delta'([q_0],\sigma) = \Delta([q_0], \sigma) \sim\Delta(s_0,\sigma)=d(s_0,\sigma) $ so since $ \sigma $ is arbitrary, they are the same DFA upto a relabling of states.\qed
+\par
+We'll now describe an algorithm to minimise a DFA. First remove inaccessible states. To find equivalent states, use \textit{Hopcroft's table filling algorithm}. Having the table $ Q\times Q $ with the $ (p,q) $th entry having a $ \times $ in it to show that $ p\not\sim q $. Only fill in the lower left part (since we have symmetry) and start with all blanks.
+\par
+For the base step put a $ \times $ whenver we have $ (p,q) $ with one in $ F $ and one not (since $ \ep $ distinguishes). For the inductive step take any pair $ (p,q) $ which is empty. If we have $ \sigma\in \Sigma $ with $ \delta(p,\sigma) = r $, $ \delta(q,\sigma) = s $ and $ (r,s) $ marked $ \times $. Then $ p,q $ are distinguished by $ \sigma $ concatenated with whatever distinguishses $ (r,s) $. Halt when this fails for all unmarked pairs and symbols. The algorithm works of we have a pair $ (p,q) $ unmarked by $ p\not\sim q $, take one with the shortest distinguishing word $ w= \sigma_1\dots\sigma_n $ where we say $ \hat\delta(p,w)\in F, \hat\delta(q,w)\notin F $. Now $ w\ne \ep $ (by the base step), so $ r=\delta(p,\sigma_1), s=\delta(q,\sigma_1) $ distinguished by $ \sigma_2\dots \sigma_n $, shorter word so $ (r,s) $ marked with a $ \times $ so $ (p,q) $ would be marked in the inductive step. Finally, given $ 2 $ DFAs $ D_1,D_2 $ over $ \Sigma $ we can test whether or not they have the same language. First we do the first two steps above to get $ E_1,E_2 $ then $ E_1/\sim, E_2/\sim $ which the same languages as $ D_1 $ and $ D_2 $ respectively. So $ \mathcal L(E_1/\sim) = \mathcal L(E_2/\sim) $ i.e the states are a relabling of eachother iff $ \mathcal L(D_1) = \mathcal L(D_2) $. 
+\section{Context Free Grammars}
+\subsection{Grammers and Languages}
+\begin{definition}
+	(Production rule) Given an alphabet $ \Omega $, a \textit{production} or \textit{rewrite} rule is an element $ (\alpha,\beta)\in \Omega^+\times \Omega^* $, written $ \alpha \longrightarrow \beta $, read as "replace $ \alpha $ with $ \beta $". Think of this as if $ w\in \Omega^* $ contains $ \alpha $ as a substring, so $ w = \gamma \alpha\delta $ then we can \textit{choose} to replace $ \alpha $ with $ \beta $, changing $ w $ to $ \gamma\beta\delta $.
+\end{definition}
+\begin{remark}
+	We have that $ \alpha\ne\ep $ but we can have $ \alpha\longrightarrow \ep $ called an $ \ep $-production.
+\end{remark}
+\begin{definition}
+	(Rewrite system) A \textit{rewrite system} $ (\Omega,P) $ is an alphabet $ \Omega $ and a finite set $ P $ of rewrite rules.
+\end{definition}
 
 
 

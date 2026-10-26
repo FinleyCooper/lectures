@@ -1007,4 +1007,97 @@ which is the Heisenberg equations of motion.
 	\]
 	using $ [\hat x(t),\hat p(t)] = i\hbar $.
 \end{example}
+Taking expectation values in any state $ \ket \psi $ (now independent of $ t $ in the Heisenberg picture) gives
+\[
+	\frac d{dt} \langle \hat x\rangle = \frac 1m \langle \hat p \rangle
+\]
+and
+\[
+	\frac d{dt} \langle \hat p\rangle = - \langle V'(\hat x)\rangle
+\]
+which is Ehrenfest's theorem, which is true in all pictures. For some potentials we can solve the Heisenberg question. For example if $ V=0 $ we have a free particle, so
+\[
+	\frac d{dt} \hat p(t) = 0
+\]
+which means that $ \hat p(t) = \hat p(0) $ which is a constant operator. And therefore $ \hat x(t) = \hat x(0) + \frac{\hat p(0)}m t $ like classical dynamics. If we have $ V = \frac 12 m\omega^2 x^2 $ for a oscillator then we get the set of equations
+\[
+  \begin{cases}
+	  \frac d{dt} \hat x(t) = \frac 1m \hat p(t) \\
+	  \frac d{dt} \hat p(t) = -m\omega^2 \hat x(t)
+  \end{cases}
+\]
+which gives that
+\begin{align*}
+	\frac{d^2}{dt^2} \hat x + \omega^2 \hat x &= 0\\
+	\frac{d^2}{dt^2} \hat p + \omega^2 \hat p &= 0
+\end{align*}
+which as a solution gives
+\[
+  \begin{cases}
+	  \hat x(t) = \hat x(0) \cos\omega t + \frac{\hat p(0)}m \sin\omega t \\
+	  \hat p(t) = \hat p(0) \cos\omega t - m\omega^2 \hat x(0) \sin\omega t
+  \end{cases}
+\]
+or equivalently
+\[
+  \begin{cases}
+	  \hat x(t) = \left(\frac\hbar{2m\omega}\right)^{1/2}(ae^{-i\omega t} + a^\dagger e^{i\omega t}) \\
+	  \hat p(t) = \left(\frac{\hbar m\omega}2\right)^{1/2}\frac 1i (ae^{-i\omega t} - a^\dagger e^{i\omega t})
+  \end{cases}
+\]
+\subsection{Canonical Quantisation (Non-examinable)}
+This is the final step in Dirac's approach to constructing quantum mechanics. How do we pass from a general classical system to its quantum version? Any classical system can be described by a set of generalised positions $ x_i(t) $ and momenta $ p_i(t) $ with $ 1\le i \le N $ which may include angles and angular momenta. These are coordinates in \textit{phase space}. Dynamics are governed by some Hamiltonian $ H(x_i,p_i) $. The \textit{Poisson bracket} of any functions $ f(x_i,p_i), g(x_i,p_i) $ is defined by
+\[
+	\{ f,g\} = \sum_i \frac{\partial f}{\partial x_i} \frac{\partial g}{\partial p_i} - \frac{\partial f}{\partial p_i}\frac{\partial g}{\partial x_i}
+\]
+which is a new function on phase space. The properties of Poisson brackets closely resemble those of commutators. Dynamics in this formulation given by Hamilton's equation 
+\[
+	\frac {df}{dt} = \{ f, H\}.
+\]
+In \textit{cononical quantisation} define quantum theory by taking classical funtions to quantum operators and Poisson brackets determine commutators.
+\[
+	[\hat f,\hat g] = i\hbar \hat{\{f,g\}}
+\]
+which recovers $ [\hat x_i,\hat p_j] = i\hbar \delta_{ij} $ and Heisenberg's equation from Hamilton's equation.
+\section{Composite Systems and Identical Particles}
+\subsection{Tensor Products}
+This is a general way of constructing quantum systems from simplier subsystems. Suppose that 
+\begin{align*}
+  \ket \psi \in V_1,\quad \ket \phi \in V_2
+\end{align*}
+are states in spaces for two systems. The tensor product space
+\[
+  V = V_1 \otimes V_2
+\]
+which consists of all linear combinations of tensor product states
+\[
+  \ket \psi \otimes \ket \phi
+\]
+subject to
+\begin{enumerate}
+	\item $ (\ket \psi + \ket {\psi'}) \otimes \ket \phi = \ket \psi \oplus \ket \phi + \ket {\psi'} \otimes \ket \phi $;
+	\item $ \ket \phi \otimes (\ket \phi + \ket{\phi'}) = \ket \psi \otimes \ket \phi + \ket \psi \otimes \ket{\phi'} $;
+		\item $ (\alpha \ket \psi) \otimes \ket \phi = \ket\psi\otimes (\alpha\ket \phi) = \alpha(\ket \psi\otimes \ket \phi) $.
+\end{enumerate}
+and similarly for duals.\par
+The inner product on $ V $ satisfies
+\[
+	(\bra{\psi'}\otimes \bra {\phi'})(\ket \psi \otimes \ket\phi) = \bra{\psi'}\ket{\psi}\bra{\phi'}\ket{\phi}
+\]
+
+and extend by linearity. Given operators $ A $ and $ B $ on $ V_1 $ and $ V_2 $ respectively, we define an operator $ A\otimes B $ on $ V $ by
+\[
+	(A\otimes B)(\ket \psi \otimes \ket\phi) = (A\ket \psi)\otimes (B\ket\phi)
+\]
+and again extend by linearity. In particular, $ A\longrightarrow A\otimes I $ and $ B\longrightarrow I \otimes B $. Operators of this form commute for any $ A,B $. Consider a particle in two dimensions with position operators $ \hat x_1, \hat x_2 $, The basis of join eigensates constructed as $ \ket{x_1,x_2} $ we can take $ \ket{x_1,x_2}=\ket{x_1}\otimes \ket{x_2} $. This makes it obvious that $ [\hat x_i,\hat x_j] = 0 $ for $ i\ne j $.\par
+The wavefunction for $ \ket \psi \otimes \ket \phi $ is now given by
+\begin{align*}
+	\bra{x_1,x_2}(\ket \psi \otimes \ket\phi) &= (\bra {x_1}\otimes \bra{x_2})(\ket\psi\otimes \ket \phi) \\
+						  &= \bra{x_1}\ket {\psi}\bra{x_2}\ket{\phi} \\
+						  &= \psi(x_1)\phi(x_2).
+\end{align*}
+This gives a correspondence between tensor product state and separable wavefunctions. Hence there is a correspondence between the tensor product space and all linaer combinations of such wavefunctions.
+\begin{remark}
+	If we have basis $ \{\ket n\} $ for $ V_1 $ and $ \{\ket m\} $ for $ V_2 $ then $ \{\ket n\otimes \ket {m}\} $ is a basis for $ V $. If basis are finite then the dimension of the tensor produce space is the product of the dimensions.
+\end{remark}
 \end{document}
