@@ -546,7 +546,7 @@ We need to use the grammar to construct a language. For a grammar $ G = (N,\Sigm
 		\[
 			\alpha \arr{G}{1} \beta.
 		\]
-	\item A \textit{derivation} of length $ n $ of $ \beta $ from $ \alpha $ written as $ \alpha\arr{G}{n}\beta $ which means that we have a $ \gamma $ with $ a\arr{G}{n-1}\gamma, \gamma\arr{G}{1} \beta $ and $ \alpha\arr G0 \alpha $.
+	\item A \textit{derivation} of length $ n $ of $ \beta $ from $ \alpha $ written as $ \alpha\arr{G}{n}\beta $ which means that we have a $ \gamma $ with $ \alpha\arr{G}{n-1}\gamma, \gamma\arr{G}{1} \beta $ and $ \alpha\arr G0 \alpha $.
 	\item $ \alpha \arr G* \beta $ means that there exists an $ n $ with $ \alpha \arr Gn \beta $ and we say that $ \beta $ is \textit{derivable} from $ \alpha $.
 	\item A word $ w\in \Omega^* $ is derivable from the start symbol $ S $ is in \textit{sequential form}.
 	\item A word in sequential form is a \textit{sentence} if $ w\in \Sigma^* $ (only contains terminals).
