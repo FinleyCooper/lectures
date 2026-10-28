@@ -1096,8 +1096,102 @@ The wavefunction for $ \ket \psi \otimes \ket \phi $ is now given by
 						  &= \bra{x_1}\ket {\psi}\bra{x_2}\ket{\phi} \\
 						  &= \psi(x_1)\phi(x_2).
 \end{align*}
-This gives a correspondence between tensor product state and separable wavefunctions. Hence there is a correspondence between the tensor product space and all linaer combinations of such wavefunctions.
+This gives a correspondence between tensor product state and separable wavefunctions. Hence there is  correspondence between the tensor product space and all linaer combinations of such wavefunctions.
 \begin{remark}
 	If we have basis $ \{\ket n\} $ for $ V_1 $ and $ \{\ket m\} $ for $ V_2 $ then $ \{\ket n\otimes \ket {m}\} $ is a basis for $ V $. If basis are finite then the dimension of the tensor produce space is the product of the dimensions.
 \end{remark}
+\begin{example}
+  Consider the two dimensional isotropic oscillator where isotropic means we have the same angular velocity in all directions. So
+  \[
+	  H = \frac 1{2m}(\hat p_1^2 + \hat p_2^") + \frac 12 m\omega^2 (\hat x_1^2 + \hat x_2^2) = H_1 + H_2
+  \]
+  where
+  \[
+	  H_i = \frac 1{2m}\hat p_i^2 + \frac 12 m\omega^2 \hat x_i^2 = \hbar \omega\left(N_i+\frac 12\right)
+  \]
+  where $ N_i = a_i^\dagger a_i $ with $ [a_i,a_j^\dagger] = \delta_{ij} $. Note that $ [N_1,N_2]=0 $ so we can construct simulataneous eigenstates like
+  \[
+	  \ket{n_1,n_2} = \ket{n_1}\otimes \ket{n_2}
+  \]
+  where
+  \[
+	  H\ket{n_1,n_2} = (H_1\ket{n_1})\otimes \ket{n_2} + \ket{n_1}\otimes (H_2\ket{n_2}) = E_{n_1n_2}\ket{n_1,n_2}
+  \]
+  with $ E_{n_1,n_2} = \hbar\omega(n_1+n_2+1) $ so our eigenstates as wavefunctions are
+  \[
+  \psi_{n_1n_2}(x_1,x_2) = \bra{x_1,x_2}\ket{n_1,n_2} = \psi_{n_1}(x_1)\psi_{n_2}(x_2)  \]
+\end{example}
+\subsection{Spin}
+Experiements show that particles carry an \textit{internal} degree of freedom called \textit{spin} or intrinsic angular momentum. Even if the particle appears to be "elementary" or "point-like" its space of states is of the form
+\[
+	V = V_{\mathrm{space}} \otimes V_{\mathrm {spin}}
+\]
+i.e that position operators are not (in general) a complete commuting set by themselves. There are other observables $ Q $ acting just on $ V_{\mathrm{spin}} $ with $ [\hat x_i,Q] = 0 $. We will return to these operators later, for now we'll just focus on the states.\par
+Each kind of particle ha a definite total spin $ s $ which is a half integer 
+\[
+  s = 0,\frac 12, 1, \frac 32, \dots
+\]
+which is a part of the particle's nature like mass or charge. For spin $ s $ , a particle of non-zero mass has $ 2s+1 $ basis states in $ V_{\mathrm{spin}} $ labelled by $ r= s,s-1,\dots, -s $. We may sometimes use $ \ket \uparrow, \ket \downarrow $ to correspond to $ \ket{\frac 12} $ and $ \ket{-\frac 12} $.\par
+The existance of spin states is revealed by experiements like the Stern-Gerlach experiment where we can separate a beam of particles by spin by using an inhomogeneous electromagnetic field which causes a difference effect (force) on different spin states.
+\par
+A general state $ \ket\psi $ in $ V $ has a $ (2s+1) $-component wavefunction
+\[
+	\psi(\mathbf x,r) = \bra{\mathbf x,r}\ket{\psi}
+\]
+where $ |\psi(\mathbf x,r)|^2 $ is the probability density for position of a particle with spin state $ r $. A mixed/hybrid notation is also common with
+\[
+  \sum_r \psi(\mathbf x,r)\ket r
+\]
+\subsection{Bosons and Fermions}
+Consider particles labelled by $ a=1,2,\dots, N $ and let $ V_a $ be a space of states for each particle with a basis $ \{\ket{\mathbf x_a,r_a}\} $. The general multiparticle states belong to
+\[
+	\bigotimes_{i=1}^N V_i
+\]
+with basis states 
+\[
+	\ket{\x_1,r_2,\x_2,r_2,\dots, \x_N,r_N} = \bigotimes_{i=1}^N \ket{\x_i,r_i}.
+\]
+\subsubsection{Bose-Einstein and Fermi-Dirac Statistics}
+If particles above are identical then $ V_a \cong V $. Consider the simple case with $ N=2 $. Define an operator $ U $ which exchanges particles by actin on basis states
+\[
+	U\ket{\x_1,r_1,\x_2,r_2} = \ket{\x_2,r_2,\x_1,r_1}
+\]
+so the action on a general two particle state is
+\[
+	U\ket{\Psi} = \eta\ket{\Psi}
+\]
+since $ \ket{\Psi} $ and $ U\ket{\Psi} $ are physically equivalent states. But $ U^2 = 1 $ forms an action on basis states so $ \eta^2 = 1 $ hence $ \eta $ is a second root of unity i.e $ \pm 1 $. Thus $ 2 $-particle states do not belong merely to $ V\otimes V $ spanned by $ \ket \psi \otimes \ket\phi $ but either to $ (V\otimes V)_{\mathrm S} $ spanned by $ \ket\psi \otimes \ket{\phi} + \ket{\phi}\otimes \ket{\psi} $ with $ \eta = + 1$ or belong to $ (V\otimes V)_{\mathrm A} $ spanned by $ \ket\psi \otimes \ket \phi - \ket\phi \otimes \ket \psi $.\par
+Similarly for multiparticle states with $ N\ge 2 $ we can define $ U_{(a,b)} $ being a transposition $ \{\x_a,r_a\}\to \{\x_b,r_b\} $ by simlarl action on basis states. Then
+\[
+	U_{(a,b)} \ket{\Phi} = \eta_{(a,b)}\ket{\Psi}
+\]
+with $ \eta_{(a,b)} = \pm 1 $ since $ U_{(a,b)} $ is a transposition. Now for any permutation $ \pi $ of $ \{1,2,\dots, N\} $ define $ U_{\pi} $ to be the operator which applies the permutation $ \pi $ to the basis states like we did with $ U_{(a,b)} $. On a general state we have that 
+\[
+	U_\pi\ket{\Psi} = \eta_\pi\ket{\Psi}
+\]
+for some $ \eta_\pi = \pm 1 $. But the algebra of transpositions implies that 
+\[
+	\eta_{(a,b)} = \pm 1 
+\]
+with the same value for all pairs $ (a,b) $. Since $ \pi $ can be obtained as a product of transpositions from IA Groups we have that
+\[
+  \eta_\pi = \begin{cases}
+	  1 \\ 
+	  \mathrm{sgn}(\pi) = (-1)^{\text{\# of swaps needed for } \pi}
+  \end{cases} 
+\]
+with the same alternative for all $ \pi $.
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
