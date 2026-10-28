@@ -488,7 +488,7 @@ We now reduce the number of states in a DFA by identifying as follows.
 \begin{lemma}
   For a DFA $ D $ and its minimal DFA $ D/\sim $, no two distinct states of $ D/\sim $ are equivalent.
 \end{lemma}
-\pf Suppose for two states $ p,q $ of $ D $ we have $ [p]\sim [q] $ in $ D/\sim $. Then for all words $ w $, we have $ \hat\delta'([p],w), \hat\delta'([q],w) $ are both accepting or non-accepting in $ D/\sim $. So by previous lemma $ [\hat \delta(p,q)] $, $ [\hat\delta(q,w)] $ are both accepting or non-accepting, so $ \hat\delta(p,q), \hat\delta(q,w) $ are both accepting or non-accepting in $ D $. Thus $ p\sim q $ in $ D $ and so $ [p]=[q] $ in $ D/\sim $.\qed
+\pf Suppose for two states $ p,q $ of $ D $ we have $ [p]\sim [q] $ in $ D/\sim $. Then for all words $ w $, we have $ \hat\delta'([p],w), \hat\delta'([q],w) $ are both accepting or non-accepting in $ D/\sim $. So by previous lemma $ [\hat \delta(p,w)] $, $ [\hat\delta(q,w)] $ are both accepting or non-accepting, so $ \hat\delta(p,w), \hat\delta(q,w) $ are both accepting or non-accepting in $ D $. Thus $ p\sim q $ in $ D $ and so $ [p]=[q] $ in $ D/\sim $.\qed
 \begin{corollary}
   If $ D $ is a DFA then $ (D/\sim)/\sim\ \equiv D/\sim $ as DFAs.
 \end{corollary}
