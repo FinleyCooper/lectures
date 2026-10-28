@@ -502,6 +502,182 @@ so we get the required result.\qed
 	\]
 
 \end{example}
+We have a similar argument for an inscribed sphere of radius $ b $ so we get the same formula but with $ b $ instead of $ a $. Then for a cube of size $ 2L $ set $ b =L $ and $ a =\sqrt 3 L $ so from the symmetries of the cube with $ \mathbf F^{\mathrm S} = A\mathbf U $ has the same $ A $ for all orientations (Example Sheet 2, Question 2) and we deduce that
+\[
+	1 \le \frac A{6\pi \mu L}\le \sqrt 3
+\]
+and we have a regular argument for couple and rotation.\par
+\begin{theorem}
+	(Reciprocal Theorem) Let $ \mathbf u^1 $ and $ \mathbf u^2 $ be Stokes flows in some domain $ V $ with different boundary conditions on $ \partial V $. Then
+	\[
+		\int_{\partial V}\mathbf u^1 \cdot\sigma^2 \cdot\mathbf n \ \mathrm dS = \int_{\partial V}\mathbf u^2 \cdot\sigma^1\cdot\mathbf n\ \mathrm dS.
+	\]
+\end{theorem}
+\pf We'll go over a quick outline of the proof now. Consider
+\begin{align*}
+ 2\mu \int_V e_{ij}^2e_{ij}^2 \ \mathrm dV &= \int_V(\sigma^1_{ij} + p^1\delta_{ij})e_{ij}^2 \ \mathrm V
+\end{align*}
+and we can get rid of the pressure term since $ \nabla \cdot\mathbf u^2 = 0 $, and using the fact that $ \sigma^1_{ij} = \sigma^2_{ji} $, so we have that (after applying integration by parts and using the fact that the divergence of $ \sigma^1 $ is zero and using the divergence theorem)
+\[
+	\cdots = \int_{\partial V} \mathbf u^2 \cdot\sigma^1 \cdot\mathbf n \ \mathrm dS = RHS
+\]
+and since the first line was symmetric, the theorem follows. \qed
+\begin{example}
+	Suppose that $ \mathbf u^{1,2} $ are Stokes flows due to rigid body motion of a certain body (some $ V $) i.e that $ \mathbf u^{1,2} = \mathbf U^{1,2} +\boldsymbol \Omega^{1,2} \times \mathbf x $ on $ \partial V $ where $ \mathbf U^i,\boldsymbol\Omega^i $ are constants. The reciprocal theorem gives that
+	\begin{equation}
+		\mathbf U^1 \cdot\mathbf F^2 +\boldsymbol\Omega^1 \cdot\mathbf G^2 = \mathbf U^2 \cdot\mathbf F^1 + \boldsymbol\Omega^2 \cdot\mathbf G^1\tag{*} 
+	\end{equation}
+	where 
+	\[
+		\mathbf F = \int_{\partial V} \sigma \cdot\mathbf n \ \mathrm dS\quad \text{and}\quad \mathbf G = \int_{\partial V}\mathbf x \times \sigma \cdot\mathbf n \ \mathrm dS
+	\]
+	are the corresponding forces and couples exerted by/on the body $ \mathbf n $ out/in of the fluid.
+	\par
+	By the linearity of the Stokes equations we have that 
+	\begin{align*}
+		\mathbf F &= A\cdot\mathbf U + B\cdot\boldsymbol \Omega \\
+		\mathbf G &= C\cdot\mathbf U + D\cdot\boldsymbol \Omega
+	\end{align*}
+	where the tensors $ A,B,C,D $ depend on the shape of the body. We can show that using $ (*) $ that $ A=A^\top, D=D^\top $ and $ B= C^\top $.\par
+	For a sphere and a cube, symmetries imply that
+	\[
+	  A = AI, D=DI, B=C^\top = 0
+	\]
+	where the $ LHS $ is a tensor and the $ RHS $ is a constant multiplied by the identity tensor.\par
+	For a helix $ B = C^\top \ne 0 $.
+\end{example}
+\subsection{Flow Past a Sphere}
+\subsubsection{Stationary Sphere in Uniform Flow}
+Consider a sphere with radius $ a $ with a uniform flow $ \mathbf U $ past a fixed rigid sphere, radius $ a $. There are several methods, all which have heavy algebra somewhere or depend on heavy usage of spherical polar coordinates.
+\par
+The solution is
+\[
+	\mathbf u =\mathbf U \left(1 - \frac{3a}{4r} - \frac{a^3}{4r^3}\right) + \mathbf x(\mathbf U\cdot\mathbf x) \left(-\frac {3a}{4r^3} + \frac {3a^3}{4r^5}\right)
+\]
+
+which we can derive in many painful ways.
+%------------------------------------------------------------
+\subsubsection{Method 1 (semi-modern, linearity and vector method)}
+
+From the linearity of the Stokes equations, $\mathbf{u}(\mathbf{x})$ must be linear in $\mathbf{U}$. Taking the origin to be at the centre of the sphere, the spherically symmetric geometry means the only other vector ingredient for $\mathbf{u}$ is $\mathbf{x}$. Hence the velocity and pressure fields must take the forms
+\begin{align*}
+  \mathbf{u}(\mathbf{x}) &= \mathbf{U} f(r) + \mathbf{x}(\mathbf{U}\cdot\mathbf{x})\, g(r), \\
+  p(\mathbf{x}) &= \mu (\mathbf{U}\cdot\mathbf{x})\, h(r),
+\end{align*}
+where $r = |\mathbf{x}|$, and $f$, $g$ and $h$ are scalar functions of $r$ to be determined.
+
+Differentiate
+\begin{equation}
+  \frac{\partial u_i}{\partial x_j}
+  = U_i x_j f'/r + \delta_{ij} U_n x_n g + x_i U_j g + x_i x_j U_n x_n\, g'/r.
+  \tag{$*$}
+\end{equation}
+Contract $i$ with $j$ and apply incompressibility:
+\[
+  \nabla\cdot\mathbf{u} = U_n x_n \bigl( f'/r + 4g + r g' \bigr) = 0.
+\]
+Differentiate again:
+\begin{align*}
+  \mu\nabla^2 u_i &= \mu U_i \bigl( f'' + 2f'/r + 2g \bigr) + \mu x_i U_n x_n \bigl( g'' + 6g'/r \bigr), \\
+  \nabla_i p &= \mu U_i h + \mu x_i U_n x_n\, h'/r.
+\end{align*}
+In $\mu\nabla^2\mathbf{u} = \nabla p$ equate the bits with $U_i$ and those with $x_i U_n x_n$. So the Stokes equations give
+\[
+  f'/r + 4g + r g' = 0, \qquad f'' + 2f'/r + 2g = h \qquad\text{and}\qquad g'' + 6g'/r = h'/r.
+\]
+Eliminating $h$ and then $f$ yields
+\[
+  r^2 g''' + 11 r g'' + 24 g' = 0.
+\]
+This ODE is equidimensional in $r$ so look for solutions of the form $g = r^\alpha$. Substituting, we find $\alpha = 0, -3$ and $-5$, with associated $f = -(\alpha+4)\, r^{\alpha+2}/(\alpha+2)$ and $h = -(\alpha+5)(\alpha+2)\, r^\alpha$.
+
+Hence the general solution of the assumed form linear in $\mathbf{U}$ is
+\begin{align*}
+  \mathbf{u}(\mathbf{x}) &= \mathbf{U}\Bigl( -2Ar^2 + B + Cr^{-1} - \tfrac{1}{3} D r^{-3} \Bigr)
+    + \mathbf{x}(\mathbf{U}\cdot\mathbf{x})\Bigl( A + Cr^{-3} + Dr^{-5} \Bigr), \\
+  p(\mathbf{x}) &= \mu(\mathbf{U}\cdot\mathbf{x})\Bigl( -10A + 2Cr^{-3} \Bigr).
+\end{align*}
+
+Find $\mathbf{e}$ from $(*)$ and thus $\boldsymbol{\sigma}$: the stress across a spherical surface with normal $\mathbf{n} = \mathbf{x}/r$ is
+\[
+  \boldsymbol{\sigma}\cdot\mathbf{n}
+  = \mu\mathbf{U}\Bigl( -3Ar + 2Dr^{-4} \Bigr)
+  + \mu\mathbf{x}(\mathbf{U}\cdot\mathbf{x})\Bigl( 9Ar^{-1} - 6Cr^{-4} - 6Dr^{-6} \Bigr).
+\]
+
+Applying the boundary conditions $\mathbf{u} = \mathbf{0}$ on the rigid sphere and $\mathbf{u} \to \mathbf{U}$ in the far field, we find the coefficients
+\[
+  A = 0, \qquad B = 1, \qquad C = -\tfrac{3}{4}a \qquad\text{and}\qquad D = \tfrac{3}{4}a^3,
+\]
+so
+\begin{align*}
+  \mathbf{u} &= \mathbf{U}\left( 1 - \frac{3a}{4r} - \frac{a^3}{4r^3} \right)
+    + \mathbf{x}(\mathbf{U}\cdot\mathbf{x})\left( -\frac{3a}{4r^3} + \frac{3a^3}{4r^5} \right), \\
+  p &= -\frac{3a\mu\, \mathbf{U}\cdot\mathbf{x}}{2r^3}
+  \qquad\text{and}\qquad
+  \boldsymbol{\sigma}\cdot\mathbf{n}\Big|_{r=a} = \frac{3\mu}{2a}\mathbf{U}.
+\end{align*}
+Hence the drag on the sphere is
+\[
+  \int_{r=a} \boldsymbol{\sigma}\cdot\mathbf{n}\, \mathrm{d}S
+  = 4\pi a^2 \,\frac{3\mu}{2a}\mathbf{U} = 6\pi\mu a\,\mathbf{U}.
+\]
+
+%------------------------------------------------------------
+\subsubsection{Method 2 (classical, separable streamfunction in sphericals $r, \theta, \phi$)}
+
+Use a Stokes streamfunction $\Psi(r,\theta)$ for the axisymmetric flow with
+\[
+  u_r = \frac{1}{r^2 \sin\theta}\frac{\partial\Psi}{\partial\theta}
+  \qquad\text{and}\qquad
+  u_\theta = -\frac{1}{r\sin\theta}\frac{\partial\Psi}{\partial r}
+\]
+(from $\mathbf{u} = \nabla\times\mathbf{A}$ and $\mathbf{A} = \Psi\,\mathbf{e}_\phi / r\sin\theta$ so that $\mathbf{u}\cdot\nabla\Psi = 0$). In Stokes flow $\nabla^2\boldsymbol{\omega} = \mathbf{0} \Rightarrow \nabla^4\mathbf{A} = (\nabla\times)^4\mathbf{A} = \mathbf{0}$ and (with patience or Wikipedia)
+\[
+  D^2 D^2 \Psi = 0
+  \qquad\text{where}\qquad
+  D^2 = \frac{\partial^2}{\partial r^2} + \frac{\sin\theta}{r^2}\frac{\partial}{\partial\theta}\left( \frac{1}{\sin\theta}\frac{\partial}{\partial\theta} \right).
+\]
+The uniform flow at infinity (the nonzero condition) has $\Psi = \tfrac{1}{2}Ur^2\sin^2\theta$; try $\Psi = F(r)\sin^2\theta$ and find $F = Ar^4 + Br^2 + Cr + D/r$. Then $A = 0$, $B = \tfrac{1}{2}$, and apply the BCs on sphere.
+
+%------------------------------------------------------------
+\subsubsection{Method 3 (semi-classical, hybrid)}
+
+The vorticity is a harmonic function (as is the pressure), decaying at infinity, linear in $\mathbf{U}$ and otherwise constructed only from $\mathbf{x}$ by spherical symmetry. Can be shown the decaying solutions of $\nabla^2(\cdot) = 0$ are $\dfrac{1}{r}$, $\nabla\dfrac{1}{r} = -\mathbf{x}/r^3$, $\nabla\nabla\dfrac{1}{r}$, etc. Hence the vorticity, a pseudo vector, (and the pressure, a scalar) must have the form
+\[
+  \boldsymbol{\omega} = A\,\mathbf{U}\times\mathbf{x}/r^3
+  \qquad\bigl(\text{and } p = \mu B\,\mathbf{U}\cdot\mathbf{x}/r^3\bigr).
+\]
+Return to spherical polars and solve $D^2\Psi = AU\sin^2\theta / r$ with $\Psi = F(r)\sin^2\theta$. From $\nabla p = -\mu\nabla\times\boldsymbol{\omega}$ get $B = \mu A$.
+
+%------------------------------------------------------------
+\subsubsection{Method 4 (modern, Papkovich--Neuber)}
+
+If $\boldsymbol{\phi}(\mathbf{x})$ is a vector harmonic function ($\nabla^2\boldsymbol{\phi} = \mathbf{0}$) then
+\[
+  \mathbf{u} = \nabla(\mathbf{x}\cdot\boldsymbol{\phi}) - 2\boldsymbol{\phi},
+  \qquad
+  p = 2\mu\,\nabla\cdot\boldsymbol{\phi}.
+\]
+is a solution of the Stokes equations (Sheet 2, Q5). It's not quite the general solution (see Part III), but does include this problem.
+
+Linearity and spherical symmetry give (for the perturbation $\mathbf{u} - \mathbf{U}$, which decays at infinity)
+\[
+  \boldsymbol{\phi} = A\,\mathbf{U}\,\frac{1}{r} + B\,\mathbf{U}\cdot\nabla\nabla\frac{1}{r},
+\]
+with coefficients to be determined by applying the boundary conditions.
+
+%------------------------------------------------------------
+\begin{remark}
+
+Velocity is a true vector. Vorticity/angular velocity are pseudo vectors. (Difference is behaviour under reflections.) Sometimes linearity is not sufficient, you need to pay attention to the true vs.\ pseudo nature of the vectors involved. E.g.\ rotation of a sphere: $\mathbf{u}$ (true vector) linear in $\boldsymbol{\Omega}$ (pseudo vector) gives (by Method 1)
+\[
+  \mathbf{u} = \boldsymbol{\Omega}\times\mathbf{x}\, f(r).
+\]
+\end{remark}
+\begin{remark}
+Often deal with a sphere moving with velocity $\mathbf{U}$ in fluid otherwise at rest. Remove uniform flow from the above, and put $\mathbf{U} \to -\mathbf{U}$. Better, start from scratch with correct BCs. Can also use general algebra ($A$, $B$, $C$, $D$) with different BCs for a spherical bubble (Example Sheet 2, Question 6), or a spherical drop.
+\end{remark}
 \end{document}
 
 
