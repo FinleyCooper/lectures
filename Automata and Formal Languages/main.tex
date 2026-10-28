@@ -407,13 +407,13 @@ thus we have that $ |xy| =r \le n $ and since $ \ell<r $ we have that $ y\ne \ep
 	This exact argument words for $ L' = \{w: w \text{ contains same number of } 0\text{s and } 1\text{s} \}$.
 \end{example}
 \subsection{Equivalence relations and minimisation of DFAs}
-Given a DFA $ D $ over an alphabet $ \Sigma $, we want a DFA $ D' $ over $ \Sigma $ with $ \mathcal L(D') = \mathcal (D) $ but with the smallest possible number of states. DFAs from the subset construction often have an excess of states. 
+Given a DFA $ D $ over an alphabet $ \Sigma $, we want a DFA $ D' $ over $ \Sigma $ with $ \mathcal L(D') = \mathcal L(D) $ but with the smallest possible number of states. DFAs from the subset construction often have an excess of states. 
 \begin{definition}
 	(Accessible state) An \textit{accessible state} $ q\in Q $ of a DFA is one where $ \exists w\in \Sigma^* $ with $ \hat \delta_D(q_0,w) = q $. Otherwise we say that the state is \textit{inaccessible}.
 \end{definition}
 From $ D $ we can form a DFA $ A $ with no inaccessible states and $ \mathcal L(A) = \mathcal L(D) $ if $ n = |Q_D| $ then form $ S_i\subseteq Q_D $ via 
 \[
-	S_0 = \{q_0\},\quad S_i = \bigcup_{q\in S_i} \left(\bigcup_{\sigma\in \Sigma} \delta_D(q,\sigma)\right)
+	S_0 = \{q_0\},\quad S_{i+1} = \bigcup_{q\in S_i} \left(\bigcup_{\sigma\in \Sigma} \delta_D(q,\sigma)\right)
 \]
 so $ S_i $ is states reachable from $ q_0 $ after $ i $ steps. But any accessible state can be reached after $ n-1 $ steps (remove closed loops of repeated states) so set
 \[
@@ -472,7 +472,7 @@ We now reduce the number of states in a DFA by identifying as follows.
 \pf Proceed by induction on $ |w| $. b
 \begin{align*}
 	\hat\delta'([q],\sigma_1\dots\sigma_k) &=\delta'(\hat\delta'([q],\sigma_1\dots\sigma_{k-1}), \sigma_k) \\
-					       &=\delta'([\hat\delta(q,\sigma_1\dots \sigma_{k-1})],\sigma_k)=[\delta(\hat\delta(q,\sigma_1\dots\sigma_{k-1}),\sigma_k] = [\hat\delta(q,w)]\qed
+					       &=\delta'([\hat\delta(q,\sigma_1\dots \sigma_{k-1})],\sigma_k)=[\delta(\hat\delta(q,\sigma_1\dots\sigma_{k-1}),\sigma_k)] = [\hat\delta(q,w)]\qed
 \end{align*}
 \begin{theorem}
   For a DFA $ D $ and its minimal DFA $ D/\sim $, we have that \[
@@ -489,7 +489,7 @@ We now reduce the number of states in a DFA by identifying as follows.
 \begin{lemma}
   For a DFA $ D $ and its minimal DFA $ D/\sim $, no two distinct states of $ D/\sim $ are equivalent.
 \end{lemma}
-\pf Suppose for two states $ p,q $ of $ D $ we have $ [p]\sim [q] $ in $ D/\sim $. Then for all words $ w $, we have $ \hat\delta'([p],q), \hat\delta'([q],w) $ are both accepting or non-accepting in $ D/\sim $. So by previous lemma $ [\hat \delta(p,q)] $, $ [\hat\delta(q,w)] $ are both accepting or non-accepting, so $ \hat\delta(p,q), \hat\delta(q,w) $ are both accepting or non-accepting in $ D $. Thus $ p\sim q $ in $ D $ and so $ [p]=[q] $ in $ D/\sim $.\qed
+\pf Suppose for two states $ p,q $ of $ D $ we have $ [p]\sim [q] $ in $ D/\sim $. Then for all words $ w $, we have $ \hat\delta'([p],w), \hat\delta'([q],w) $ are both accepting or non-accepting in $ D/\sim $. So by previous lemma $ [\hat \delta(p,w)] $, $ [\hat\delta(q,w)] $ are both accepting or non-accepting, so $ \hat\delta(p,w), \hat\delta(q,w) $ are both accepting or non-accepting in $ D $. Thus $ p\sim q $ in $ D $ and so $ [p]=[q] $ in $ D/\sim $.\qed
 \begin{corollary}
   If $ D $ is a DFA then $ (D/\sim)/\sim\ \equiv D/\sim $ as DFAs.
 \end{corollary}

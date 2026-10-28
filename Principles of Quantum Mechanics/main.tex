@@ -1034,8 +1034,8 @@ which gives that
 which as a solution gives
 \[
   \begin{cases}
-	  \hat x(t) = \hat x(0) \cos\omega t + \frac{\hat p(0)}m \sin\omega t \\
-	  \hat p(t) = \hat p(0) \cos\omega t - m\omega^2 \hat x(0) \sin\omega t
+	  \hat x(t) = \hat x(0) \cos\omega t + \frac{\hat p(0)}{m\omega} \sin\omega t \\
+	  \hat p(t) = \hat p(0) \cos\omega t - m\omega \hat x(0) \sin\omega t
   \end{cases}
 \]
 or equivalently
@@ -1075,8 +1075,8 @@ which consists of all linear combinations of tensor product states
 \]
 subject to
 \begin{enumerate}
-	\item $ (\ket \psi + \ket {\psi'}) \otimes \ket \phi = \ket \psi \oplus \ket \phi + \ket {\psi'} \otimes \ket \phi $;
-	\item $ \ket \phi \otimes (\ket \phi + \ket{\phi'}) = \ket \psi \otimes \ket \phi + \ket \psi \otimes \ket{\phi'} $;
+	\item $ (\ket \psi + \ket {\psi'}) \otimes \ket \phi = \ket \psi \otimes \ket \phi + \ket {\psi'} \otimes \ket \phi $;
+	\item $ \ket \psi \otimes (\ket \phi + \ket{\phi'}) = \ket \psi \otimes \ket \phi + \ket \psi \otimes \ket{\phi'} $;
 		\item $ (\alpha \ket \psi) \otimes \ket \phi = \ket\psi\otimes (\alpha\ket \phi) = \alpha(\ket \psi\otimes \ket \phi) $.
 \end{enumerate}
 and similarly for duals.\par
