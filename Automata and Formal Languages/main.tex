@@ -648,7 +648,7 @@ To show that $ \hat P $ is a finite set, start with $ P $ finite and add all typ
 Let $ \hat G $ be the CFG $ (N,\Sigma, \hat P,S) $. As $ P\subseteq \hat P $ we have that $ \mathcal L(G)\subseteq \mathcal L(\hat G) $. But for any word $ w\in \mathcal L(\hat G) $, a derivation of $ w $ from $ S $ in $ \hat P $ can be replaced by the one where all the productions are obtained in the previous stage. Hence we can keep going back until we can make $ w $ with just productions in $ P $. So $ w\in \mathcal L(G) $, so $ \mathcal L(G)=\mathcal L(\hat G) $.\par
 We'll now show we can remove all $ \ep $ and unit productions from $ \hat P $ to get $ \mathring P $ without changing $ \mathcal L(\hat G) $ apart from losing $ \ep $. For any $ w\in \mathcal L(\hat G) $ with $ w\ne \ep $, take a minimum length derviation $ S\arr{\hat G}{*} w $. Suppose an $ \ep $-production $ B\longrightarrow \ep $ is used here. So we have
 \[
-	S\arr{\hat G}{*} \gamma B \delta \arr{\hat G}{1} \gamma \arr{\hat G}* w.
+	S\arr{\hat G}{*} \gamma B \delta \arr{\hat G}{1} \gamma\delta \arr{\hat G}{*} w.
 \]
 Given $ \alpha \arr{\hat G}1 \beta $ using $ (A,\pi) $ and a particular appearance of a nontemrinal $ X $ in $ \beta $, say that $ X $ is \textit{new} if it is in $ \pi $.\par
 Consider the point at which this particular $ B $ is new ($ B $ is the original $ S $ as that's replaced immediately) coming from some production $ A\longrightarrow \alpha B\beta $ in $ \hat G $,
