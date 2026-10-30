@@ -678,6 +678,73 @@ Velocity is a true vector. Vorticity/angular velocity are pseudo vectors. (Diffe
 \begin{remark}
 Often deal with a sphere moving with velocity $\mathbf{U}$ in fluid otherwise at rest. Remove uniform flow from the above, and put $\mathbf{U} \to -\mathbf{U}$. Better, start from scratch with correct BCs. Can also use general algebra ($A$, $B$, $C$, $D$) with different BCs for a spherical bubble (Example Sheet 2, Question 6), or a spherical drop.
 \end{remark}
+\subsubsection{Sphere translating through fluid otherwise at rest}
+We find that (from previous sections methods) that
+\[
+	\mathbf u = \mathbf U\left(\frac {3a}{4r} + \frac{a^3}{4r^3}\right) + (\mathbf U \cdot\mathbf x)\mathbf x\left(\frac{3a}{4r^3} - \frac{3a^3}{4r^5}\right)
+\]
+and
+\[
+	p = \frac {3\mu a}2 \frac{\mathbf U\cdot\mathbf x}{r^3},\quad \sigma\cdot\mathbf n \Big{|}_{r=a} = -\frac{3\mu}{2a} \mathbf U
+\]
+and the fluid drag on the sphere is $ -6\pi\mu a \mathbf U $ which is minus the force $ \mathbf F $ exerted by the sphere on the fluid. \par
+For example consider a falling sphere with no inertia. Then the weight-buoyancy is equal to $ \frac 43 \pi a^3(\rho_s-\rho) \mathbf g = \mathbf F = 6\pi \mu a \mathbf U $ which implies that $ \mathbf U = \frac 29 \frac{\Delta p a^2}{\mu} \mathbf g $ is the terminal velocity for a sphere dropped in a fluid otherwise at rest.\par
+\begin{example}
+	Considering a $ 1 $ \textmu m sphere and $ \Delta p = 10^3 \ \text{kg} \ \mathrm{m}^{-3} $ which gives that $ U\approx 2\ \text{\textmu m}\text{s}^{-1} $ so the Reynolds number is approximately $ 2\times 10^{-6} $ so we can safely ignore inertial forces.
+\end{example}
+\subsubsection{Far-field}
+For $ r\gg a $, the $ O\left(\frac 1r\right) $ terms in $ \mathbf u $ dominate the $ O\left(\frac 1{r^3}\right) $ terms, and the sphere act just like a point exerting a force $ \mathbf F $ at $ \mathbf x = \mathbf 0 $. The disturbance flow (to uniform flow or to rest) can be written as
+\[
+	\mathbf u' = \frac 1{8\pi \mu}\left(\mathbf F \frac 1r+ (\mathbf F\cdot\mathbf x)\mathbf x \frac 1{r^3}\right).
+\]
+This is the solution for a point force $ \mathbf f(\mathbf x) = \mathbf F \delta(\mathbf x) $ which we call a Stokeslet.
+\subsection{Corner Flows}
+There are many examples of 2D flows in a corner like scraping a fluid. We can scrap the fluid with an inclinded planes moving past each other, or we can hinge two plates together and have them move closer together. We might also have flow going exiting a pipe or flow coming out of a source at the corner of hinged plates. We can also look at the example of flow past a corner which will produce eddies like in a weir.\par
+Sufficiently close to the corner we expect that $ L\sim r $ and $ \mathrm{Re} \ll 1 $ (not true for the source flow since it has $ UL\sim Q $ so we need $ Q\ll \nu $ to have Stokes flow. We will use a 2D streamfunction $ \psi $ with $ \mathbf u = \nabla\times (0,0,\psi) $ and plane polar coordinates, so
+\[
+	\mathbf u = \left(\frac 1r \frac{\partial\psi}{\partial \theta}, -\frac{\partial \psi}{\partial r}, 0\right)
+\]
+and the vorticity is
+\[
+  \boldsymbol\omega = \nabla\times \mathbf u = (0,0,-\nabla^2 \psi)
+\]
+and since we know that $ \nabla^2 \boldsymbol\omega = \mathbf 0 $ in a Stokes flow, so $ \nabla^4 \psi = \nabla^2\nabla^2 \psi = 0 $ i.e $ \psi $ is biharmonic.\par
+We can get pressure from $ \nabla p = \mu \nabla^2 \mathbf u = \mu \nabla \times(0,0,\nabla^2\psi) $.
+\begin{example}
+	(Soucrce flow between plates angled together) Take rigid plates angled at $ \theta = \alpha $ and $ \theta = -\alpha $ respectively with a source $ Q $ at the point where they meet. By mass conservation we will have $ u_r \propto \frac Qr $. So we should try $ \psi = Qf(\theta) $ which already gives us that $ u_\theta =0 $ so we have purely radial flow, which we expect by the symmetry of the problem. So we have that
+	\[
+		\nabla^4 \psi = Q\left(\frac 1r\frac{\partial}{\partial r} r \frac{\partial}{\partial r} + \frac 1{r^2} \frac{\partial^2}{\partial \theta^2}\right)\left(\frac 1r\frac{\partial}{\partial r} r \frac{\partial}{\partial r} + \frac 1{r^2} \frac{\partial^2}{\partial \theta^2}\right)f(\theta)= 0
+	\]
+	which reduces to
+	\[
+	  f'''' + 4f'' = 0
+	\]
+	and hence we get that $ f = A\cos(2\theta) + B\sin(2\theta) + C + D\theta $.\par
+	Symmetry implies that $ u_r $ has to be even, so $ \psi $ is odd so we can remove $ A $ and $ C $. So $ f(\theta) = B\sin(2\theta) + D\theta $. The no-slip condition gives that $ u_r(\pm \alpha) = 0  $ which implies that $ f'(\pm \alpha) = 0 $ so $ D = - 2B\cos 2\alpha $. For the last condition we need to say something about the flux $ Q $. So we have that
+	\[
+		Q = \int_0^{\infty} u_r r \ \mathrm d\theta = Q(f(\alpha)- f(-\alpha))
+	\]
+	and hence $ f(\pm \alpha) = \pm \frac 12 $, so we get the solution that
+	\[
+		f(\theta) =  \frac 12 \frac{\sin2\theta - 2\theta \cos 2\alpha}{\sin2\alpha - 2\alpha\cos2\alpha}
+	\]
+	and finally
+	\[
+		\mathbf u = \frac Q{r} \frac{\cos2\theta - \cos2\alpha}{\sin2\alpha - 2\alpha \cos2\alpha}\mathbf e_r.
+	\]
+	\begin{remark}
+	  As $ \alpha \to 0 $ we see that $ u_r $ gains a parabolic profile as expected. The flow is positive only if $ 2\alpha < \pi $ otherwise if $ \alpha > \frac \pi 2 $ then we get inflow by the walls.
+	\end{remark}
+	\begin{remark}
+	  if the denominator is zero which happens for $ 2\alpha = 257^\circ $ we have a problem.
+	\end{remark}
+\end{example}
+
+
+
+
+
+
 \end{document}
 
 

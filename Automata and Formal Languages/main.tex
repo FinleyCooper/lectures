@@ -596,7 +596,7 @@ so we can tell whether or not $ w\in L=\mathcal L(G) $ systematically by creatin
   We write $ A\to a\mid b $ to mean the two production rules $ A\to a , A\to b $.
 \end{remark}
 \begin{example}
-  \par
+  \ 
   \begin{enumerate}
 	  \item A type $ 2 $ language is a context free language;
 	  \item Suppose that $ N = \{S\} $, $ \Sigma = \{a,b\} $ with production rules $ S\longrightarrow aSb \mid \ep $. This generates the language $ \{a^nb^n: n\ge 0\} $ which we know is not regular by the pumping lemma.
@@ -606,10 +606,80 @@ so we can tell whether or not $ w\in L=\mathcal L(G) $ systematically by creatin
   \end{enumerate}
 \end{example}
 \begin{definition}
-	(Language of balanced parentheses) Let $ \Sigma = \{(,)\} $. For $ w\in \Sigma^* $ let $ L(w) $ be the number of left brackets in $ w $ and elet $ R(w) $ be the number of right brackets in $ w $. Then $ w $ is balanced if $ L(w) = R(w) $ and for all $ x\in \Sigma^* $ with $ w=xy $ we have that $ L(x) \ge R(x) $.
+	(Language of balanced parentheses) Let $ \Sigma = \{(,)\} $. For $ w\in \Sigma^* $ let $ L(w) $ be the number of left brackets in $ w $ and let $ R(w) $ be the number of right brackets in $ w $. Then $ w $ is balanced if $ L(w) = R(w) $ and for all $ x\in \Sigma^* $ with $ w=xy $ we have that $ L(x) \ge R(x) $.
 \end{definition}
 This language can be shown to be context free, however it is not regular.
-
-
+\subsection{Chomsky Normal Form}
+We want to be able to convert any context free grammar into a standard form. This standard form may be longer, but should have simplier production rules and define the same language (except will be missing $ \ep $).
+\begin{definition}
+	(Chomsky normal form) A CFG $ G = (N,\Sigma, P,S) $ is in \textit{Chomsky normal form} (CNF) if all productions are of the form $ A \to BC $ or $ A \to a $.
+\end{definition}
+\begin{example}
+  We can have the production rules:
+  \[
+    S\longrightarrow AB\mid AC\mid SS,\quad C\longrightarrow SB
+  \]
+  and
+  \[
+    A\longrightarrow a, B\longrightarrow b
+  \]
+  which is in CNF.
+\end{example}
+\begin{definition}
+  Let $ G = (N,\Sigma, P,S) $ be a CFG. Then
+  \begin{enumerate}
+	  \item An $ \ep $-\textit{production} is one of the form $ A\to \ep $ (for $ A\in N $);
+	  \item A \textit{unit production} is one of the form $ A\to B $ (for $ A,B\in N $).
+  \end{enumerate}
+\end{definition}
+We first show we can modify a CFG to remove $ \ep $ and unit productions but have the same defined language (apart from we might lose $ \ep $ as a word in the language).
+\begin{theorem}
+  Let $ G $ be a CFG as above. Then we can construct a CFG $ \mathring G = (N,\Sigma, \mathring P, s) $ with no $ \ep $ or unit productions for which
+  \[
+	  \mathcal L(\mathring G) = \mathcal L(G)\setminus \{\ep\}.
+  \]
+\end{theorem}
+\pf Given the productions $ P $ of $ G $ let $ \hat P $ be the smallest set of productions with $ P\subseteq \hat P $ and closed under 
+\begin{enumerate}
+	\item If $ A\longrightarrow \alpha B\beta $ and $ B\longrightarrow \ep $ are both in $ \hat P $ then $ A\longrightarrow \alpha\beta $ is in $ \hat P $.
+	\item If $ A\longrightarrow B $ and $ B\longrightarrow \gamma $ are both in $ \hat P $ then $ A\to \gamma $ is in $ \hat P $. 
+\end{enumerate}
+To show that $ \hat P $ is a finite set, start with $ P $ finite and add all types of (1) and (2) is both in $ P $ and continue. At each stage, any added production has RHS no longer than existing productions so we terminate (as finite number of possible right hand sides).\par
+Let $ \hat G $ be the CFG $ (N,\Sigma, \hat P,S) $. As $ P\subseteq \hat P $ we have that $ \mathcal L(G)\subseteq \mathcal L(\hat G) $. But for any word $ w\in \mathcal L(\hat G) $, a derivation of $ w $ from $ S $ in $ \hat P $ can be replaced by the one where all the productions are obtained in the previous stage. Hence we can keep going back until we can make $ w $ with just productions in $ P $. So $ w\in \mathcal L(G) $, so $ \mathcal L(G)=\mathcal L(\hat G) $.\par
+We'll now show we can remove all $ \ep $ and unit productions from $ \hat P $ to get $ \mathring P $ without changing $ \mathcal L(\hat G) $ apart from losing $ \ep $. For any $ w\in \mathcal L(\hat G) $ with $ w\ne \ep $, take a minimum length derviation $ S\arr{\hat G}{*} w $. Suppose an $ \ep $-production $ B\longrightarrow \ep $ is used here. So we have
+\[
+	S\arr{\hat G}{*} \gamma B \delta \arr{\hat G}{1} \gamma \arr{\hat G}* w.
+\]
+Given $ \alpha \arr{\hat G}1 \beta $ using $ (A,\pi) $ and a particular appearance of a nontemrinal $ X $ in $ \beta $, say that $ X $ is \textit{new} if it is in $ \pi $.\par
+Consider the point at which this particular $ B $ is new ($ B $ is the original $ S $ as that's replaced immediately) coming from some production $ A\longrightarrow \alpha B\beta $ in $ \hat G $,
+\[
+	S\arr{}{m}\eta A \theta \arr{}{1} \eta \alpha B\beta \theta \arr{}{n} \gamma B\delta \arr{}{1}\gamma\delta \arr{}{k} w
+\]
+but $ A\longrightarrow \alpha\beta $ is also in	$ \hat G $. So we can shorten the above chain to
+\[
+	\cdots \longrightarrow \eta A \theta \arr{}{1} \eta \alpha\beta\theta \arr{}{n} \gamma\delta\longrightarrow\cdots
+\]
+as $ B $ was\ untouched between here. Contradiction so we can remove $ \ep $-productions.\par
+Now say we use a unit production
+\[
+	S\arr{}{*} \alpha A \beta \arr{}{1} \alpha B \beta \arr{}{*} w
+\]
+in a derivation of minimal length. Eventually as $ B\notin \Sigma $ we have that $ B $ is replaced with $ B\longrightarrow \gamma $. So we have 
+\[
+	S \arr{}m \alpha A \beta \arr{}{1} \alpha B\beta \arr{}{n} \eta B\theta \arr{}{1} \eta \gamma\theta\arr{}{k}w \in \Sigma^*
+\]
+and again since we have $ A\longrightarrow \gamma $ in $ \hat G $ we geta shorter derivation
+\[
+	S \arr{}{m} \alpha A\beta \arr{}{1}\alpha\gamma\beta\arr{}{m} \eta \gamma\theta \arr{}{k} w
+\]
+which is again a contradiciton of minimality. \par
+So throwing away all $ \ep $ and unit productions from $ \hat P $ to get $ \mathring G = (N,\Sigma, \mathring P, S) $ doesn't change the language (except $ \ep $).\qed
+\begin{lemma}
+  For a CFG $ G = (N,\Sigma, P,S) $ without $ \ep $-productions we have a related CFG $ G' = (N', \Sigma, P', S) $ with $ \mathcal L(G') = \mathcal L(G) $ and such that every production is of the form $ A\longrightarrow a $ or $ A\longrightarrow B_1\dots B_k $ for $ k\ge 1 $ where $ A,B_1,\dots, B_k\in N' $ and $ a\in \Sigma $.
+\end{lemma}
+\pf For each $ a\in \Sigma $, add a new non-terminal $ A_a $ to $ N $ to get $ N' $ and also a production $ A_a \longrightarrow a $ to $ P $. Now replace any $ a\in \Sigma $ on the RHS of any production in $ P $ with $ A_a $, unless it's of the form $ B\to a $ in which case we can keep. This forms $ P' $ and hence $ G' $.
+\par
+For $ \mathcal L(G)\subseteq \mathcal L(G') $, if in $ G $ we have $ A\longrightarrow (\text{something}) $ which contains terminals $ a_1, a_2, \dots $ then this was replaced by with $ A_{a_1},A_{a_2} $ then apply the production rules $ A_{a_i} \longrightarrow a_i $ which we added to $ P' $.\par
+For $ \mathcal L(G')\subseteq \mathcal L(G) $, note that the new non-terminals only appear on the RHS apart from $ A_a \longrightarrow a $ where they're replaced. So we can reverse the argument above thus $ G $ and $ G' $ define the same language.\qed
 
   \end{document}

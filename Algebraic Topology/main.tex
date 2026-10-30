@@ -552,4 +552,39 @@ By the second corollary $ u_* $ depends only on the homotopy class at $ u $.
   is injective.
 \end{lemma}
 \pf Choose a loop $ \gamma $ in $ \tilde X $, based at $ \tilde x_0 $ such that $ [\gamma]\in\ker p_* $. Hence $ [p\circ \gamma] = 0 $. So there is a homotopy $ H: I\times I\to X $ from $ p\circ\gamma $ to $ c_{x_0} $. By the homotopy lifting lemma, $ H $ admits a lift $ \tilde H $ which is a homotopy $ \gamma $ to some lift of $ c_{x_0} $. By uniqueness of lifts, the lift of $ c_{x_0} $ is $ c_{\tilde x_0} $ so $ [\gamma] = [c_{\tilde x_0}] = 0\in \pi_1(\tilde X,\tilde x_0) $ so $ p_* $ is injective.
+\begin{definition}
+	($ n $-sheeted cover) For a covering map $ p:\tilde X\to X $ we say that $ p $ is an $ n $-\textit{sheeted cover} for $ n\in \N\cup \{\infty\} $ if each $ \inv p(x) $ has cardinality $ n $.
+\end{definition}
+\begin{definition}
+	(Universal cover) For a covering map $ p:\tilde X\to X $ we say that $ p $ is a \textit{universal} if $ \tilde X $ is \textit{simply connected} and we say that $ \tilde X $ is a \textit{universal cover} of $ X $.
+\end{definition}
+From the above lemma we have an action of $ \pi_1(X,x_0) $ acting on $ \inv p(x_0) $ by the action for some $ [\gamma] $ and $ \tilde x_0 $ a point in the fiber, we have
+\[
+	\tilde x_0 \cdot [\gamma] = \tilde \gamma(1)
+\]
+where $ \tilde \gamma $ is the unique lift of $ \gamma $. This is well-defined by the uniqueness of lifts for homotopically equivalent loops (up to homotopy).
+\begin{lemma}
+  Let $ p:\tilde X\to X $ be a covering map and $ X $ path-connected. Then
+  \begin{enumerate}
+	  \item $ \tilde X $ is path-connected if and only if the action of $ \pi_1(X,x_0) $ on $ \inv p(x_0) $ is transitive.
+	   \item If the covering map is universal then the action is simply transitive.
+	  \item The stabiliser for a point $ y_0\in \inv p(x_0) $ in the fibre is the subgroup
+		  \[
+		    \ima(p_*: \pi_1(\tilde X,y_0) \to \pi_1(X,x_0))\le \pi_1(X,x_0)
+		  \]
+	  \item If $ \tilde X $ is path-connected then there is a bijection
+		  \[
+			  \frac{\pi_1(X,x_0)}{p_*\pi_1(\tilde X,y_0)} \longrightarrow \inv p(x_0)
+		  \]
+		  induced by action on the point $ y_0 $.
+  \end{enumerate}
+\end{lemma}
+\pf \ 
+\begin{enumerate}
+	\item Take $ y_0,y_1 \in \inv p(x_0) $ elements of the fibre. Then by assumption they are path-connected by some path $ \gamma: I \to \tilde X $. So $ p\circ \gamma: I \to X $ is a loop in $ X $ which is based at $ x_0 $ and lifts to $ \gamma $, starting at $ y_0 $. The action of $ [p\circ \gamma] \in \pi_1(X,x_0) $ takes $ y_0 $ to $ y_1 $. Since $ y_0 $ and $ y_1 $ were arbitrary action is transitive.\par
+		Conversely 
+
+\end{enumerate}
+
+
 \end{document}

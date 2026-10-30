@@ -1181,17 +1181,76 @@ with the same value for all pairs $ (a,b) $. Since $ \pi $ can be obtained as a 
   \end{cases} 
 \]
 with the same alternative for all $ \pi $.
-
-
-
-
-
-
-
-
-
-
-
-
+\par
+Hence there are two fundamentally different kinds of particles:
+\begin{itemize}
+	\item \textit{Bosons} which obey \textit{Bose-Einstein} statistics where an interchange of identical bosons leave the state unchanged, $ \eta = +1 $ with multiparticle states in $ (V\otimes \cdots \otimes V)_{\mathrm S} $
+	\item \textit{Fermions} which obey \textit{Fermi-Dirac} statistics where the interchange of identical fermiions changes the state by a sign, $ \eta = -1 $ with mutliparticle states in $ (V\otimes \cdots\otimes V)_{\mathrm A} $
+\end{itemize}
+This fundamental principle states that integral spin particles are bosons and half integral spin particles are  fermions.\par
+This is confirmed by experiment and can be derived in relativistic quantum mechanics or quantum field theory where it becomes the spin-statistic theorem. The most common elementary particles are fermions such as electrons, protons, neutrons, neutrinos which are all spin $ \frac 12 $. So too are quarks, muon, etc.\par
+Particles associated with forces are bosons such as photons, $ W^\pm, Z $ bosons, and gluons which are all spin $ 1 $. 
+\subsubsection{Two Particle Examples}
+Now we know that states of two identical particles belong to
+\[
+	(V\otimes V)_{\mathrm S} \quad \text{or}\quad (V\otimes V)_{\mathrm A}
+\]
+where $ V = V_{\mathrm{space}} \otimes V_{\mathrm{spin}} $. It is convenient to construct these by first taking 
+\[
+	(V_{\mathrm{space}} \otimes V_{\mathrm{space}})_{\mathrm S \text{ or} \mathrm A}\quad\text{and}\quad	(V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm S \text{ or} \mathrm A}
+\]
+separately, then combining to get the desired symmetry overall. \par
+For instance, consider the single particle Hamiltonian $ H(\hat \x, \hat{\mathbf p}) $ independent of spin, with non-degnerate energy levels 
+\[
+  E_0 < E_1 < E_2 < \dots
+\]
+with wavefunctions
+\[
+  \psi_0(\mathbf x), \psi_1(\mathbf x), \dots
+\]for states in $ V_{\mathrm{space}} $.\par
+So for a pair we can split the Hamiltonians
+\[
+	H(\hat{\mathbf x_1}, \hat{\mathbf p_1}) + H(\hat{\mathbf x_2}, \hat{\mathbf p_2})
+\]
+and basis of energy eigenfunctions $ \psi_i(\mathbf x_1),\psi_j(\mathbf x_2) $ with energy $ E = E_i + E_j $.\par
+The lowest level
+\[
+	\Psi^{\mathrm S}_0(\x_1,\x_2) = \psi_0(\x_1)\psi_0(\x_2)
+\]
+we have $ E = 2E_0 $ and in the next level theres no definite symmetry so we do $ S $ or $ A $ so we get
+\begin{align*}
+	\Psi_1^{\mathrm S}(\x_1,\x_2) &= \frac 1{\sqrt 2}(\psi_0(\x_1)\psi_1(\x_2) + \psi_1(\x_1)\psi_0(\x_2)) \\
+	\Psi_1^{\mathrm A}(\x_1,\x_2) &= \frac 1{\sqrt 2}(\psi_0(\x_1)\psi_1(\x_2) - \psi_1(\x_1)\psi_0(\x_2)). \\
+\end{align*}
+Now consider spin. For spin $ 0 $ $ V_{\mathrm{spin}} $ is just one state so we can ignore it. But spin-statistics implies that bosons and states are in $ (V\otimes V)_{\mathrm S} $ or in this case $ (V_{\mathrm{space}}\otimes V_{\mathrm{space}})_{\mathrm S} $. The lowest level is $ \Psi_0^{\mathrm S}(\x_1,\x_2) $ with energy $ 2E_0 $ and the next level is $ \Psi_1^{\mathrm S}(\x_1,\x_2) $ with energy $ E_0+E_1 $ both non-degenerate.\par
+With spin $ \frac 12 $ we have that $ V_{\mathrm{spin}} $ has basis $ \{\ket \uparrow, \ket \downarrow\} $ for each particle. So the tensor product has basis $ \{\ket \uparrow \ket \uparrow, \ket \uparrow \ket \downarrow, \ket \downarrow \ket \uparrow, \ket \downarrow, \ket \downarrow\} $ or (normalised combinations with definite symmetry
+\[
+	\frac 1{\sqrt 2}(\ket \uparrow \ket\downarrow + \ket \downarrow\ket\uparrow)\qquad \frac 1{\sqrt 2}(\ket \uparrow \ket\downarrow - \ket \downarrow\ket\uparrow)
+\]
+with the first being part of $ (V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm S} $ and the second being part of $(V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm A} $.\par
+Spin-statistics gives that the states must belong to
+\[
+	(V\otimes V)_{\mathrm A} =  (V_{\mathrm{space}} \otimes V_{\mathrm{space}})_{\mathrm A} \otimes  (V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm S} +  (V_{\mathrm{space}} \otimes V_{\mathrm{space}})_{\mathrm S} \otimes  (V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm A}
+\]
+so at the lowest level we have that
+\[
+	\Psi_0^{\mathrm S} (\x_1,\x_2) \frac 1{\sqrt 2} (\ket\uparrow\ket \downarrow - \ket \downarrow\ket \uparrow)
+\]
+and the next level is
+\begin{align*}
+	&\Psi^{\mathrm S}_1(\x_1,\x_2)(1 \text{ state from }  (V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm A}\ ) \\
+	\text{or } & \Psi_1^{\mathrm A} (\x_1,\x_2)(3 \text{ states from }  (V_{\mathrm{spin}} \otimes V_{\mathrm{spin}})_{\mathrm S}\ )
+\end{align*}
+with $ 4 $ states with energy $ E_0 + E_1 $.
+\subsection{Pauli Exclusion Principle and Atomic Structure}
+A state of $ N $ identical fermions can be specified by taking $ N $ \textit{distinct} one particle states (each in $ V $) and antisymmetrising to ensure Fermi statistics (producing states in $ (V\otimes \cdots \otimes V)_{\mathrm A} \ $). The condition that the one particle states must be distinct (else we get zero) is the \textit{Pauli Exclusion Principle}.\par
+The original application of this was to atomic structure. Consider $ N $ electrons bound to a nucleus with $ Z $ protons. Ignoring electron-electron interactions the Hamiltonian is 
+\[
+	H(\hat {\x_1},\hat{\mathbf p_1}) + \cdots + H(\hat{\x_N},\hat{\mathbf p_N})
+\]
+with single particle Hamiltonian
+\[
+	H(\hat \x, \hat{\mathbf p}) = \frac {\hat{\mathbf p}^2}{2m} - \frac {2e^2}{4\pi \ep_0 |\hat{\mathbf x}^2|}.
+\]
 
 \end{document}
