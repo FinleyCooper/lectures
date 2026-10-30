@@ -170,7 +170,7 @@ Choose homotopies $ H $ from $ f_0 $ to $ f_1 $ and $ H' $ from $ g_0 $ to $ g_1
 \begin{example}
 	$ X $ is a space and $ x\in X $. Then $ X $ retracts to $ \{x\} $. But $ X\simeq \{x\} \iff X $ is contractible
 \end{example} 
-\subsection{Path}
+\subsection{Paths}
 \begin{definition}
 	(Path) For a space $ X $ and points $ x_0,x_1\in X $, a \textit{path} from $ x_0 $ to $ x_1 $ is a map $ \gamma:I \to X $ such that $ \gamma(0) = x_0 $ and $ \gamma(1) = x_1 $. 
 \end{definition}
@@ -286,6 +286,7 @@ From these, we arrive at the following formulae.
     goes from $\gamma_0\cdot\overline{\gamma_0}$
     to $c_{x_0}$ as paths from $x_0$ to $x_0$.
 \end{enumerate}
+\subsection{The Fundamental Group}
 \begin{proposition}
   Let $ X $ be a space, $ x_0 \in X $. Define
   \[
@@ -566,12 +567,13 @@ where $ \tilde \gamma $ is the unique lift of $ \gamma $. This is well-defined b
 \begin{lemma}
   Let $ p:\tilde X\to X $ be a covering map and $ X $ path-connected. Then
   \begin{enumerate}
-	  \item $ \tilde X $ is path-connected if and only if the action of $ \pi_1(X,x_0) $ on $ \inv p(x_0) $ is transitive.
-	   \item If the covering map is universal then the action is simply transitive.
+	  \item $ \tilde X $ is path-connected if and only if the action of $ \pi_1(X,x_0) $ on $ \inv p(x_0) $ is transitive.  
 	  \item The stabiliser for a point $ y_0\in \inv p(x_0) $ in the fibre is the subgroup
 		  \[
 		    \ima(p_*: \pi_1(\tilde X,y_0) \to \pi_1(X,x_0))\le \pi_1(X,x_0)
 		  \]
+\item If the covering map is universal then the action is simply transitive.
+
 	  \item If $ \tilde X $ is path-connected then there is a bijection
 		  \[
 			  \frac{\pi_1(X,x_0)}{p_*\pi_1(\tilde X,y_0)} \longrightarrow \inv p(x_0)
@@ -582,9 +584,181 @@ where $ \tilde \gamma $ is the unique lift of $ \gamma $. This is well-defined b
 \pf \ 
 \begin{enumerate}
 	\item Take $ y_0,y_1 \in \inv p(x_0) $ elements of the fibre. Then by assumption they are path-connected by some path $ \gamma: I \to \tilde X $. So $ p\circ \gamma: I \to X $ is a loop in $ X $ which is based at $ x_0 $ and lifts to $ \gamma $, starting at $ y_0 $. The action of $ [p\circ \gamma] \in \pi_1(X,x_0) $ takes $ y_0 $ to $ y_1 $. Since $ y_0 $ and $ y_1 $ were arbitrary action is transitive.\par
-		Conversely 
-
+		Conversely suppose that $ y_0,z_0\in \tilde X $ lie in different path-components. Since $ X $ is path connected, choose paths $ \gamma_y $ and $ \gamma_z $ from $ p(y_0) $ to $ x_0 $ and from $ p(z_0) $ to $ x_0 $ and lift them into $ \tilde X $. These paths therefore end at $ y_1,z_1\in \inv p(x_0) $ which  must again be in different path components. But $ \pi_1(X,x_0) $ acts transitively on $ \inv p(x_0) $ so there is a $ [\gamma']\in \pi_1(X,x_0) $ such that $ z_1\bullet [\gamma'] = y_1 $, i.e the lift of $ \gamma' $ starting at $ z_1 $ ends at $ y_1 $, so they're path-connected so $ y_0 $ and $ z_0 $ are path-connected which is a contradiction. 
+	\item Suppose that $ y_0 \bullet [\gamma] = y_0 $ so the lift $ \tilde\gamma $, of $ \gamma $ starting at $ y_0 $ also ends at $ y_0 $. So $ \tilde \gamma $ is a loop based at $ y_0 $. We have that $ \gamma = p \circ \tilde \gamma $ i.e that $ p_*([\tilde\gamma]) = [\gamma]\in \ima(p_*) $.
+		\par Conversely suppose that $ [\gamma]\in \ima(p_*) $. So there exists a $ [\tilde \gamma] \in \pi_1(\tilde X,y_0) $ such that $ \gamma = p \circ \tilde \gamma $ starting at $ y_0 $. It ends at $ y_0 $ too so we have that $ y_0\bullet [p\circ\gamma] = y_0 $ hence it is in the stabiliser of $ y_0 $.
+	\item If $ \tilde X $ is a universal cover then it is simply connected so $ \pi_1(\tilde X,y_0) \cong \{*\} $. So the image of $ p_* $ is trivial, hence by (ii) the stabiliser for a point $ y_0 $ in the fibre is trivial, so all stabiliser are trivial and the action is free. Since it is free and transitive by (i) it is simply transitive (regular).
+	\item Apply orbit-stabiliser.\qed
 \end{enumerate}
-
-
+\begin{remark}
+	In this case it's good to think of "simply transitive" as meaning for every pair of points in the fibre, there is \textit{exactly} one element taking one point to the other.
+\end{remark}
+\subsection{The Fundamental Group of the Circle}
+\begin{theorem}
+	We have that
+	\[
+	  \pi_1(S^1,1) \cong \Z.
+	\]
+\end{theorem}
+\pf
+Consider the covering map
+\[
+	p(t) = e^{2\pi i t}: \R \to S^1
+\]
+which we proved was a covering map. We know that $ \R $ is contractible and hence it is simply connected so $ p $ is universal (since $ S^1 $ and $ \R $ is path-connected). Thus (taking arbitrary base points) we have that $ \pi_1(S^1,1) $ acts on $ \inv p(1) = \Z $ and is simply transitive.\par
+Consider the loop $ \gamma(t) = e^{2\pi it}:I\to S^1 $ which is a loop based at $ 1\in S^1 $. So we have $ [\gamma]\in \pi_1(S^1,1) $. Consider the induced action $ \langle[\gamma]\rangle $ on $ \inv p(1) $. We claim that is this also simply transitive, in which case it will follow that $ \langle[\gamma]\rangle = \pi_1(S^1,1) \cong \Z $.\par
+Consider $ [\gamma]\bullet n = \tilde \gamma(1) $ where $ \tilde\gamma $ is a lift of $ \gamma $ such that $ \tilde\gamma(0) = n $. We'll guess that 
+\[
+	\tilde \gamma(t) = n + t\implies p\circ\tilde\gamma = e^{2\pi i(n+t)} = e^{2\pi it} = \gamma(t)
+\]
+so by uniqueness this our unique lift starting at $ n $. So $ \tilde\gamma(1) = n+1 $, hence $ [\gamma]\bullet n = n+1 $. So this action is simply transitive and hence
+\[
+  \pi_1(S^1,1) \cong \Z.\qed
+\]
+\begin{theorem}
+  The disc $ D^2 $ does not retract to it boundary $ \partial D^2 = S^1 $.
+\end{theorem}
+\pf Suppose we have a retraction $ r: D^2 \to S^1 $ and the inclusion map $ \iota: S^1 \hookrightarrow D^2 $. Then $ r\circ \iota = \id_{S^1} $ and we have the factorisation
+\[
+	\Z \cong \pi_1(S^1,1) \arr{}{\iota_*} \pi_1(D^2,1) \arr{}{r^*} \pi_1(S^1,1) \cong \Z
+\]
+of the identity map. But $ D^2 $ is simply connected so it's fundamental group is trivial so this is a contradiction.\qed
+\par
+This gives us a nice corollary.
+\begin{theorem}
+	(Brouwer's fixed point theorem). For a continuous map $ f: D^2 \to D^2 $ there is some $ x\in D^2 $ such that $ f(x)=x $, i.e $ f $ has a fixed point.
+\end{theorem}
+\pf Suppose that $ f $ has no fixed points. Define a function $ r:D^2 \to S^1 $ sending $ x $ to the first point on $ S^1 $ hit by the ray from $ f(x) $ to $ x $ which makes sense since $ f(x) $ and $ x $ are distinct points by assumption. Now $ r $ is continuous since $ f $ is continuous. But we have a continuous retraction of $ D^2 $ to $ S^1 $ but this is impossible from the previous theorem.\qed
+\begin{theorem}
+	(Fundamental Theorem of Algebra) Any polynomial $ f\in \C[X] $ that is non-vanishing on $ \C $ is constant.
+\end{theorem}
+\pf Write that $ f(x) = x^n + a_1x^{n-1} + \cdots + a_n $. Take $ r> \mathrm{max}\left(1,\sum_{i=1}^n |a_1|\right) $. Then $ |z|^n > |a_1 x^{n-1} + \cdots + a_n| $ whenever $ |z| = r $. Consider the polynomial
+\[
+	f_t(x) = x^n + t(a_1 x^{n-1} + \cdots + a_n)
+\]
+so that $ f_t $ is non-vanishing on $ |x| =r $. Define
+\[
+F(s,t) = \frac{f_t(re^{2\pi is})/f_t(r)}{|f_t(re^{2\pi is})/f_t(r)|}
+\]
+which is well-defined so this is a homotopy $ I\times I \to \C $. $ F $ is a homotopy from $ [s\to e^{2\pi ins}] $ to the loop $ \left[s\to\frac{f(re^{2\pi is}/f(r)}{|f(re^{2\pi is}/f(r)|}\right] $ which we will call $ \gamma_r(s) $. Take $ r \to 0 $ which goes towards the constant loop $ c_1 $ hence since $ F $ is a homotopy, $ [s\to e^{2\pi ins}] $ is the identity in $ \pi_1(S^1,1) $. But it also represents $ n $. Hence $ n=0 $ so $ f $ is constant.\qed
+\subsection{The Construction of Universal Covers}
+We will assume $ X $ to be \textit{locally path-connected} (i.e all points have an open neighbourhood that is path-connected.
+\begin{definition}
+	(Semilocally Simply Connected) A path-connected and locally path-connected space $ X $ is \textit{semilocally simply connected} if for all $ p\in X $ there exists an open neighbourhood $ U_p \subseteq X $ of $ p $ such that the map
+	\[
+	  \pi_1(U_p,p) \to \pi_1(X,p)
+	\]
+	is trivial i.e every loop in $ U_p $ can be contracted to a point.
+\end{definition}
+\begin{remark}
+  This is different than $ U_p $ just being simply connected, since we're allowing the contraction to happen anywhere in $ X $, so the loop may move around to contract itself somewhere else.
+\end{remark}
+\begin{theorem}
+  If $ X $ is path-connected, locally path-connected, and semilocally simply connected then $ X $ admits a universal cover.
+\end{theorem}
+\pf \textit{(Non-examinable)} We'll just sketch a proof out now. Observe that
+\[
+	\mathcal O =\{ U \subset X \text{ open} \mid U \text{ is path connected } \pi_1(U,p) \to \pi_1(X,p) \text{ trivial}\}
+\]
+is an open cover at $ X $. Write $ \mathcal O = \{U_\alpha\}_{\alpha \in I} $. Choose $ p \in X $. For each $ \alpha \in I $, take $ x_\alpha\in U_\alpha $. Choose a path $ \gamma_\alpha $ from $ p $ to $ x_\alpha $ on $ X $. Then for all $ x\in U_\alpha $ choose any path $ \gamma_{x,\alpha}^0 $ which is a path from $ x_\alpha $ to $ x $ and concatenate $ \gamma_{x,\alpha} = \gamma_\alpha\gamma_{x,\alpha}^0 $ from $ p $ to $ x $ (in $ X $). Then $ [\gamma_{x,\alpha}] $ depends only on $ x,\alpha,\gamma_\alpha $. Now for each $ \alpha,\beta \in I $, for all $ x\in U_\alpha \cap U_\beta $ define
+\[
+	\varphi_{\alpha,\beta}: U_\alpha \cap U_\beta \to \mathrm{Sym}(\pi_1(X,p))
+\]
+by
+\[
+	\varphi_{\alpha,\beta}(x)(g) = g\bullet [\gamma_{x,\alpha}\inv\gamma_{x,\beta}].
+\]
+This function is locally trivial and thus constant. For $ \alpha,\beta,\gamma\in I $ and $ x\in U_\alpha \cap U_\beta \cap  U_\gamma $ we get that 
+\[
+	\varphi_{\beta\gamma} \varphi_{\alpha\beta}(x) = \varphi_{\alpha\gamma}(x).
+\]
+Form
+\[
+	\tilde X = \left(\bigsqcup_{\alpha \in I} (U_\alpha \times \pi_1(X,p))\right)/\sim
+\]
+where $ (x\in U_\alpha,g)\sim (x\in U_\beta, \varphi_{\alpha \beta}(x)(g)) $ whenever $ \alpha,\beta \in I $, $ x\in U_\alpha\cap U_\beta $. We have a map
+\[
+  p: \tilde X \to X 
+\]
+taking $ (x,g) \to x $. This is a universal covering map (proof omitted).\qed
+\subsection{The Galois Correspondence}
+We know that $ p_*: \pi_1(\tilde X, \tilde x_0) \to \pi_1(X,x_0) $ is injective and we obtain a subgroup $ p_*(\pi_1(\tilde X,\tilde x_0)) $. We want a correspondance
+\[
+\left\{ \begin{array}{c}
+\text{based covering maps} \\
+p : (\widetilde{X}, \tilde{x}_0) \to (X, x_0)
+\end{array} \right\}
+\longrightarrow
+\{\text{subgroups of } \pi_1(X, x_0)\}
+\]
+and
+\[
+\{\text{covering maps } p : \widetilde{X} \to X\}
+\longrightarrow
+\left\{ \begin{array}{c}
+\text{conjugacy classes of} \\
+\text{subgroups of } \pi_1(X, x_0)
+\end{array} \right\}.
+\]
+and we wish to turn these into bijections by dividing out by an appropriate equuivalence relation on the left hand side to turn both of these functions into bijections.
+\begin{proposition}
+  Suppose that $ X $ is path-connected, locally path-connected and semilocalyl simply connected. Then for any subgroup $ H \le \pi_1(X,x_0) $ there is a based covering map $ p:(\tilde X,\tilde x_0) \to (X,x_0) $ such that $ p_*(\pi_1(\tilde X,\tilde x_0))=H $.
+\end{proposition}
+\pf From the assumptions on $ X $ we know that $ X $ has a universal cover $ \overline p:\overline X \to X $. For each $ \tilde x\in \overline X $ choose a path $ \tilde \gamma $ from	$ \tilde x_0 $ to $ \tilde x $. Write $ \gamma = p\circ\tilde \gamma $ and $ x = \overline p(\tilde x) $. Given any element $ [\gamma_0] \in \pi_1(X,x_0) $, $ \gamma_0\gamma $ is a path from $ x_0 $ to $ x $. So there exists a lift $ \widetilde{\gamma_0\gamma} $ from $ \tilde x_0 $ to some point. We define
+\[
+	[\gamma_0]\bullet \tilde x = \widetilde{\gamma_0\gamma}(1)
+\]
+which defines a group action from the fundamental group on the universal covering space such that for all $ g\in \pi(X,x_0) $ and $ x\in \overline X $, $ p(g\tilde x) = p(\tilde x) $.\par
+Choose any evenly covered (by $ \overline p $) path-connected open subset $ U\subset X $ then we claim that any element $ g\in \pi_1(X,x_0) $ acts on $ \inv p(U) \cong U \times F $, where $ F $ is the discrete space parameterising the fibre, by permuting $ F $ and fixing $ U $ i.e it is permuting the fibre sheets. Now we'll prove this claim.\par
+Choose $ x,y\in U $, $ \alpha\in F $, $ g\in \pi_1(X,x_0) $ and suppose that
+\[
+  g \bullet (x,\alpha) = (x, \beta)
+\]
+with $ \beta \in F $.  Choose a path $ \gamma $ from $ x $ to $ y $ on $ U $ and take its lift, so we have the path $ \tilde \gamma $ starting at $ (x,\beta) $. Then $ \tilde \gamma $ is a path in the sheet $ U\times \{\beta\} $ so write its endpoint as $ (y,\beta) $. So if we write $ g = [\gamma_g] $ and choose paths $ \gamma_x $ taking $ x_0 $ to $ x $ and $ \tilde\gamma_x $ taking $ x_0 $ to $ (x,\alpha) $, then 
+\[
+	\widetilde{\gamma_g\gamma_x}(0) = (x,\beta)
+\]
+which gives that $ g\cdot(y,\alpha) = \widetilde{\gamma_g\gamma_\alpha\gamma}(1) = \tilde \gamma(1) = (y,\beta) $. So $ \pi_1(X,x_0) $ acting on $ \overline X $ is continuous and $ \overline p:\overline X\to X $ induces $ p_H: \overline X/H \to X $.\par
+Here $ \pi_1(X,x_0) $ acts on $ \inv{\overline p}_H(x_0) $ is right multiplication. The quotient by $ H $ is as the left. So the induced action of the fundamental group on the fibre $ \inv{p}_H(x_0) = (H\setminus \pi_1(X,x_0))[\tilde x_0] $ so the stabiliser is $ H $ and hence this is the image of $ p_* $.\qed
+\begin{proposition}
+	(Based Uniqueness) Suppose that $ X $ is path-connected and locally path-connected. Suppose we have
+	\[
+	  p_1: (\tilde X_1,\tilde x_2) \to (X,x_0) \qquad p_2:(\tilde X_2,\tilde x_2) \to (X,x_0)
+	\]
+	based covering maps. Then there exists a unique based homeomorphism 
+	\[
+	  h: (\tilde X_1, \tilde x_1) \to (\tilde X_2, \tilde x_2)
+	\]
+	such that $ p_2\circ h = p_1 $ if and only if $ \ima({p_1}_*) = \ima({p_2}_*). $
+\end{proposition}
+\pf If $ h $ exists then $ h_* $ is an isomorphism so the result is obvious.\par
+For the converse direction, choose any point $ \tilde x \in \tilde X_1 $ and path $ \tilde \gamma $ from $ \tilde x_1 $ to $ \tilde x $ on $ \tilde X_1 $. Consider $ \gamma = p_1 \circ \tilde \gamma $ going from $ x_0 $ to $ x_1 = p(\tilde x) $. It has unique lift $ \tilde \gamma' $ such that $ \tilde \gamma(0) = \tilde x_2 $ in $ \tilde X_2 $. Then we define $ h(\tilde x) = \tilde \gamma'(1) $ and this is independent of the choice of $ \tilde\gamma $. We also have to prove that $ h $ is continuous (it can be proved using path-connected, evenly covered open neighbourhoods. So we have constructed $ h $ uniquely. Similarly we have a $ h' $ which is our unique based homeomorphism from $ (\tilde X_2, \tilde x_2) $ to $ (\tilde X_1,\tilde x_1) $. So now $ h'\circ h = \id_{\tilde X_1} $ by the uniqueness. Symmetrically we have that $ h\circ h'  = \id_{\tilde X_2} $ so $ h $ is a based homeomorphism.\qed
+\begin{remark}
+  For this, we don't require $ X $ to be semilocally simply connected, i.e we don't need $ X $ to have a universal cover.
+\end{remark}
+\begin{proposition}
+	(Unbased Uniqueness) Suppose that
+	\[
+	  p_1: \tilde X_1 \to X,\quad p_2:\tilde X_2 \to X
+	\]
+	are path connected covering spaces. Then there is a homeomorphism
+	\[
+	  h: \tilde X_1 \to \tilde X_2
+	\]
+such that $ p_2 \circ h = p_1 $ if and only if $ \ima({p_1}_*) $ is conjugate to $ \ima({p_2}_*) $.
+\end{proposition}
+\pf If $ h $ exists, choose a point $ \tilde x_1 \in \inv p_1(x_0) $ and $ \tilde x_2 = h(\tilde x_1) $. Then we can apply the previous proposition.\par
+Conversely choose basepoints $ x\in X $, $ \tilde x_1 \in \tilde X_1 $, and $ \tilde x_2 \in \tilde X_2 $ so that $ p_1(\tilde x_1) = p_2(\tilde x_2) = x $. So now we have that
+\[
+	{p_i}_*: \pi_1(\tilde X_i, \tilde x_i) \to \pi_1(X,x)
+\]
+for $ i=1,2 $. Choose $ [\gamma] \in \pi_1(X,x) $ so we can move the base point (which corresponds to conjugating by $ \gamma $) such that 
+\[
+	\ima({p_1}_*) = \inv{[\gamma]} \ima({p_2}_*) [\gamma].
+\]
+Choose a lift $ \tilde \gamma $ of $ \gamma $ satisfying $ \tilde \gamma(0) = \tilde x_1 $. Write $ \tilde x_'=\tilde \gamma(1) $. So we have that by the previous proposition that we have a based homeomorphism
+\[
+  h: (\tilde X_1, \tilde x_1') \to (\tilde X_2, \tilde x_2).\qed
+\]
+\section{Free Groups}
 \end{document}
