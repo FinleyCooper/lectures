@@ -1,0 +1,1065 @@
+\documentclass{article}
+\usepackage{../header}
+\usepackage{tikz-cd}
+
+\title{Algebraic Topology}
+\author{Notes made by Finley Cooper}
+\newcommand{\rel}{\mathrm{rel}\:}
+\newcommand{\RP}{\mathbb{RP}}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  \section{Introduction}
+  \subsection{Recap of IB Topological Spaces}
+  We use algebra to turn topological questions to algebraic questions. This results in a loss of information but lets us prove some results.
+  \begin{example}
+    \[
+	    \R^n \cong \R^m \implies n = m
+    \]
+  \end{example}
+  This is a statement which is very hard to prove otherwise. Likewise we can distinguish topological surfaces with a different number of `holes' in their surface.
+  \par
+  For this section all functions are continuous until mentioned otherwise.
+  \begin{definition}
+	  (Map) A \textit{map} is a continuous function.
+  \end{definition}
+  \begin{lemma}
+	  (Gluing lemma) Let $ f:X\to Y $ be a function and $ C, K\subset X$ be closed subsets with $ C\cup K = X $. Then $ f $ is continuous if and only if the restriction of $ f $ on $ C $ and $ K $ is continuous.
+  \end{lemma}
+  \pf We have that $ f $ is continuous if and only if for all closed sets $ D\subset Y $ the preimage of $ D $ is closed. Since $ \inv f(D) = (\inv f(D)\cap C)\cup(\inv f(D)\cap K) $, this holds if and only if $ \forall D \subset Y $ closed we have that $ \inv f(D) \cap C $ and $ \inv f(D)\cap K $ are closed. Since $ C $ and $ K $ are closed in $ X $, a subset of $ C $ (resp.\ $ K $) is closed in $ C $ (resp.\ $ K $) if and only if it is closed in $ X $. Hence this holds if and only if $ \inv{(f|_C)}(D), \inv{(f|_K)}(D) $ are closed in $ C $ and $ K $ respectively. Hence this holds if and only if the restriction of $ f $ on $ C $ and $ K $ is continuous.\qed
+  \begin{lemma}
+	  (Lebesgue number lemma) Let $ (X,d) $ be a compact metric space. For any open cover $ \mathcal U = \{U_\alpha\}_{\alpha\in I} $ of $ X $ there exists a $ \delta > 0 $ such that for all $ x\in X $, $ B_\delta(x)\subset U_\alpha $ for some $ \alpha\in I $.
+  \end{lemma}
+  \pf Suppose no such $ \delta $ existed. Then for all $ n > 0 $ there is some $ x_n\in X $ such that $ B_{1/n}(x_n)\not\subset U_\alpha $ for all $ \alpha\in I $. The sequence $ \{x_n\} $ admits a convergent subsequence due to compactness, so \textit{wlog} replace $ x_n $ with its convergent subsequence, and take $ x_n\to y $. Then take $ \alpha\in I $ such that $ y\in U_\alpha $. Then since $ U_\alpha $ is open there exists a $ r>0 $ such that $ B_r(y)\subset U_\alpha $. Take $ N>0 $ such that
+\[
+  \begin{cases}
+    \frac 1N < \frac r2 \\
+    d(x_N,y) < \frac r2
+  \end{cases}
+\]
+which implies that $ B_{1/N}(x_N)\subset B_r(y)\subset U_\alpha $ which is a contradiction.\qed
+\subsection{Cell complexes}
+\begin{definition}
+	(Cell attachment) Given a space $ X $ and a map $ f:S^{n-1} \to X $. The space $ X\cup_f D^n := X \sqcup D^n / \sim $ where $ x\sim f(x), \forall x \in S^{n-1}\subset D^n $ is the result of attaching an $ n $-cell to $ X $ along $ f $.
+	\par
+	The image of $ f $ is called the \textit{attaching sphere}.
+\end{definition}
+\begin{definition}
+	(Cell complex) A \textit{finite-dimensional cell complex} is obtained by:
+	\begin{enumerate}
+		\item Start with a set $ X^0 $ with the discrete topology.
+		\item Inductively once $ X^{n-1} $ is defined we form $ X^n $ by attaching a collection of $ n $-cells along some collection of attachment maps
+			\[
+				\{ f_\alpha:S^{n-1} \to X^{n-1}\}_{\alpha\in I}.
+			\]
+		i.e.\ that $ X^n = \left( X^{n-1} \sqcup \bigsqcup_{\alpha\in I} D_\alpha^n\right) / \sim $ where we define $ x\sim f_\alpha(x) $ for $ x\in S^{n-1}_\alpha = \partial D^n_\alpha $.
+	\item $ X=X^k $ for some $ k\ge 0 $. The minimal such $ k $ is called the dimension of $ X $.
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+  In general we can make sense of infinite dimensional cell complexes. Suppose that we have
+  \[
+    X^0 \subset X^1 \subset \cdots
+  \]
+  such that
+  \begin{enumerate}
+	  \item $ X^0 $ is discrete,
+	  \item $ X^n $ is formed by attaching $ n $-cells to $ X^{n-1} $.
+  \end{enumerate}
+  Define
+  \[
+	  X = \bigcup_{n\ge 0} X^n
+  \]
+  with the topology where $ U \subset X $ is open $ \iff U \cap X^n $ is open in $ X^n $ for all $ n $. We say that $ X $ is a CW-complex and that $ X^n $ is the $ n $-skeleton of $ X $.
+ \end{remark}
+ \section{Homotopy and the fundamental group}
+ \subsection{Homotopy}
+ \begin{definition}
+	 We denote by $ I $ the closed interval $ [0,1] $.
+ \end{definition}
+ \begin{definition}
+	 (Homotopy) Let $ f,g:X\to Y $. Then we say that a map $ H: X\times I \to Y $ is a \textit{homotopy from} $ f $ \textit{to} $ g $ if $ H(x,0) = f(x) $ and $ H(x,1)=g(x) $. If such an $ H $ exists we say that $ f $ is \textit{homotopic} to $ g $ and $ f\simeq g $.
+ \end{definition}
+If $ A\subset X $ and $ f|_A = g|_A $ then a homotopy $ H $ from $ f $ to $ g $ is relative to $ A $ (i.e.\ a homotopy $ \rel A $) if $ H(a,t) = f(a) = g(a) $ for all $ a\in A $ and $ t\in I $. If such an $ H $ exists we write $ f\simeq_A g $.
+\begin{proposition}
+  The relation homotopic $ \rel A $ defines an equivalence relation.
+\end{proposition}
+\pf
+\begin{enumerate}
+	\item $ f\simeq_A f $ trivially by $ H(x,t) = f(x) $.
+	\item $ f\simeq_A g \implies g\simeq_A f $, by replacing $ t $ with $ 1-t $.
+	\item Suppose that $ f\simeq_A g, g\simeq_A h $. Then let $ H_1 $ be the homotopy $ \rel A $ from $ f $ to $ g $ and $ H_2 $ for $ g $ to $ h $. Then define
+		\[H(x,t) =
+		  \begin{cases}
+			  H_1(x,2t) & 0 \le t \le \frac 12 \\
+			  H_2(x,2t-1) & \frac 12 \le t \le 1
+		  \end{cases}.
+		\]
+\end{enumerate}
+Since $ H_1(x,1) = g(x) = H_2(x,0) $, $ H $ is well-defined, and by the gluing lemma (applied to the closed sets $ X\times[0,\frac12] $ and $ X\times[\frac12,1] $) $ H $ is continuous. Also $ H(a,t) = f(a) $ for all $ a\in A $, so $ H $ is a homotopy $ \rel A $ from $ f $ to $ h $ and therefore $ f\simeq_A h $.\qed
+\begin{definition}
+	(Homotopy equivalence) Given a map $ f:X\to Y $ we say that $ f $ is a \textit{homotopy equivalence} if there exists a $ g: Y\to X $ such that $ f\circ g \simeq \id_Y $ and $ g \circ f \simeq \id_X $. We call $ g $ a \textit{homotopy inverse} of $ f $. If there exists a homotopy equivalence $ X\to Y $ then $ X $ is \textit{homotopy equivalent} to $ Y $ and we write that $ X\simeq Y $.
+\end{definition}
+\begin{definition}
+	(Contractible) A space $ X $ is \textit{contractible} if $ X $ is homotopy equivalent to the one-point space $ \{*\} $.
+\end{definition}
+\begin{lemma}
+  Let $ f_0,f_1 : X\to Y $ be homotopic maps and $ g_0,g_1 : Y\to Z $ also be homotopic maps. Then
+  \[
+    g_0 \circ f_0 \simeq g_1 \circ f_1.
+  \]
+\end{lemma}
+\pf We want to show that $ g_0\circ f_0 \simeq g_0\circ f_1 \simeq g_1 \circ f_1 $.\par
+Choose homotopies $ H $ from $ f_0 $ to $ f_1 $ and $ H' $ from $ g_0 $ to $ g_1 $. Then $ g_0 \circ H $ is a homotopy from $ g_0f_0 $ to $ g_0f_1 $. We also have that $ H'\circ (f_1 \times \id_I) $ is a homotopy from $ g_0f_1 $ to $ g_1f_1 $ hence we're done by transitivity.\qed
+\begin{proposition}
+  Homotopy equivalence is an equivalence relation.
+\end{proposition}
+\pf
+\begin{enumerate}
+	\item $ X\simeq X $ is obvious from the identity map.
+	\item $ X\simeq Y $ then we have $ Y\simeq X $ just by switching the roles of $ f $ and $ g $.
+	\item $ X \simeq Y $ and $ Y \simeq Z $. Then suppose $ f,g $ are the homotopy equivalence and its inverse for $ X $ and $ Y $, and $ f',g' $ for $ Y $ and $ Z $. Consider the map $ f'f $ from $ X $ to $ Z $ and its candidate homotopy inverse $ gg' $. By the lemma above,\par
+		\begin{align*}
+			gg'f'f \simeq g\id_Y f &= gf \simeq \id _X \\
+			f'fgg'\simeq f'\id_Y g' &= f'g' \simeq \id_Z
+		\end{align*}
+		Therefore $ f'f $ is a homotopy equivalence and $ X\simeq Z $.\qed
+\end{enumerate}
+\begin{example}
+  Consider the inclusion
+  \[
+	  \tau: S^1 \hookrightarrow \R^2\setminus \{0\}
+  \]
+  with homotopy inverse $ r : \R^2 \setminus \{0\} \to S^1 $ given by projecting each vector onto its unit vector, $ r(x) = x/\|x\| $. Since vector normalisation doesn't do anything to unit vectors one of the directions of composition is obvious: $ r\circ\tau = \id_{S^1} $. For the other direction,
+  \[
+	  \R^2 \setminus \{0\} \to S^1 \hookrightarrow \R^2 \setminus \{0\}
+  \]
+  we're given the homotopy
+  \begin{align*}
+	  H : (\R^2 \setminus \{0\}) \times I &\to \R^2\setminus \{0\}\\
+	  (x,t) &\mapsto \frac{x}{t+(1-t)\|x\|}
+  \end{align*}
+  which is well-defined since the denominator is strictly positive, and is a homotopy from $ \tau \circ r $ to $ \id_{\R^2 \setminus \{0\}} $. Therefore we have that $ S^1 \simeq \R^2 \setminus \{0\} $. Similarly we have that $ S^{n-1} \simeq \R^n \setminus \{0\}$.
+\end{example}
+\begin{example}
+  We have that $ \R^n $ is contractible. Let $ f:\R^n\to\{0\} $ be the constant map and $ g:\{0\}\hookrightarrow\R^n $ be the inclusion. Then
+  \[
+	  f\circ g = \id_{\{0\}}
+  \]
+  so one direction is trivial. For the other direction, $ g\circ f:\R^n\to\R^n $ is the constant map $ x\mapsto 0 $. Define the straight-line homotopy
+  \begin{align*}
+	  H : \R^n \times I &\to \R^n\\
+	  (x,t) &\mapsto tx.
+  \end{align*}
+  This is continuous since scalar multiplication $ \R\times\R^n\to\R^n $ is continuous. We have $ H(x,0) = 0 = (g\circ f)(x) $ and $ H(x,1) = x = \id_{\R^n}(x) $, so $ H $ is a homotopy from $ g\circ f $ to $ \id_{\R^n} $. Therefore $ g\circ f\simeq\id_{\R^n} $, so $ f $ is a homotopy equivalence with homotopy inverse $ g $. Hence $ \R^n\simeq\{0\} $, i.e.\ $ \R^n $ is contractible.
+  \par
+  The same argument works for any $ X\subset\R^n $ which is star-shaped about some point $ x_0 $ (e.g.\ any convex set), using $ H(x,t) = (1-t)x_0 + tx $.
+\end{example}
+\begin{definition}
+(Deformation Retraction) Let $ i:A\hookrightarrow X $ be the inclusion of a subspace. We say that $ A $ is a \textit{deformation retract} of $ X $ if there is a map $ r:X\to A $ such that $ r\mid_A=\id_A $ and $ i\circ r\simeq\id_X $. If the homotopy is relative to $ A $, then $ A $ is a strong deformation retract of $ X $.
+\end{definition}
+\begin{remark}
+  This implies that $ X\simeq A $ by the inclusion map from $ A $ to $ X $ and $ r $ from $ X $ to $ A $. This is a strictly stronger condition.
+\end{remark}
+\begin{definition}
+	(Retraction) A \textit{retraction} of $ X $ to $ A $ is a map $ r:X\to A $ such that $ r\mid_A = \id $.
+\end{definition}
+\begin{remark}
+  A retraction need not be a homotopy equivalence.
+\end{remark}
+\begin{example}
+	$ X $ is a space and $ x\in X $. Then $ X $ retracts to $ \{x\} $. But $ X\simeq \{x\} \iff X $ is contractible
+\end{example} 
+\subsection{Paths}
+\begin{definition}
+	(Path) For a space $ X $ and points $ x_0,x_1\in X $, a \textit{path} from $ x_0 $ to $ x_1 $ is a map $ \gamma:I \to X $ such that $ \gamma(0) = x_0 $ and $ \gamma(1) = x_1 $. 
+\end{definition}
+We write that $ \gamma: x_0 \rightsquigarrow x_1 $, and if $ x_0 =x_1 $ we say that $ \gamma $ is a loop based at $ x_0 $.\par
+If we have $ \gamma:x_0 \rightsquigarrow x_1 $ and $ \gamma':x_1\rightsquigarrow x_2 $ then the concatenation of $ \gamma\circ \gamma' $ is defined by using the gluing lemma and going in double time which goes from $ x_0 $ to $ x_2 $.\par
+We also define the inverse path of $ \gamma: x_0\rightsquigarrow x_1 $ as $ \inv \gamma(t) = \gamma(1-t): x_1\rightsquigarrow x_0 $.\par
+Finally we define the constant path $ c_{x_0}(t) = x_0: x_0\rightsquigarrow x_0 $.\par
+If we define a relation $ \sim $ on $ X $ by $ x\sim y \iff $ there is a path from $ x $ to $ y $, these definitions show that $ \sim $ is an equivalence relation.
+\begin{definition}
+	(Path components) The equivalence classes of $ \sim $ are called \textit{path components} of $ X $. The set of all path components of $ X $ is denoted by $ \pi_0(X) $. If $ |\pi_0(X)| = 1 $ then we say that $ X $ is \textit{path-connected}.
+\end{definition}
+\begin{remark}
+  $ X $ is path-connected $ \iff\; \forall x,y\in X $ there exists a path $ x\rightsquigarrow y $.
+\end{remark}
+\begin{proposition}
+  Given a map $ f:X\to Y $ there is a well-defined associated function 
+  \[
+    \pi_0(f): \pi_0(X) \to \pi_0(Y)
+  \]
+  given by $ \pi_0(f)[x] = [f(x)] $. Futhermore,
+  \begin{enumerate}
+	  \item If $ f\simeq g $, then $ \pi_0(f) = \pi_0(g) $;
+	  \item For maps $ A \overset h\rightarrow B \overset k\rightarrow C $ we have that 
+		  \[
+		    \pi_0(k\circ h) = \pi_0(k) \circ \pi_0(h).
+		  \]
+	  \item $ \pi_0(\id_X) = \id_{\pi_0(X)} .$
+  \end{enumerate}
+\end{proposition}
+\pf Choose $ x,x'\in X $ such that $ [x]=[x'] $. Then there exists a path $ \gamma $ from $ x $ to $ x' $ in $ X $. Now $ f\circ \gamma $ is a path from $ f(x) $ to $ f(x') $ hence they are in the same path-component so $ \pi_0(f) $ is well-defined.\par
+For (i), let $ H:X\times I \to Y $ be a homotopy from $ f $ to $ g $. Choose any $ x\in X $. The map $ H(x,\cdot) $ is a path from $ f(x) $ to $ g(x) $ so $ [f(x)] = [g(x)] $ and hence $ \pi_0(f) = \pi_0(g) $. (ii) and (iii) are obvious.\qed
+\begin{corollary}
+  If $ f:X\to Y $ is a homotopy equivalence then $ \pi_0(f) $ is bijective.
+\end{corollary}
+\pf Let $ g: Y \to X $ be the homotopy inverse of $ f $ so $ fg\simeq \id_Y $ hence $ \pi_0(f) \pi_0(g) = \pi_0(\id_Y) = \id_{\pi_0(Y)} $. Similary $ gf\simeq \id_X $ gives the other direction. Hence $ \pi_0(f) $ is a bijection.\qed
+\begin{example}
+	Consider the space $ \{0,1\} $ equipped with the discrete topology. Let's prove it is not contractible. If it were, then we'd have $ \pi_0(\{0,1\}) \simeq \pi_0(*) $ (the one point space). This is false because $ \{0,1\} $ has two path-components.
+\end{example}
+\begin{example}
+	$ \R^2 $ does not retract to $ A = \{(-1,0), (1,0)\} $. Suppose that $ r: \R^2 \to A $ is a retraction. Then the composition
+	\[
+		\pi_0(A) \overset{\pi_0(\tau)}\rightarrow \pi_0(\R^2) \overset{\pi_0(r)}\rightarrow \pi_0(A)
+	\]
+	has to be the identity. This is impossible.
+\end{example}
+\begin{definition}
+	(Homotopic paths) The paths $ \gamma,\gamma':I \to X $ are \textit{homotopic as paths} if they are homotopic $ \rel \{0,1\} \subseteq I$.
+\end{definition}
+\begin{lemma}
+  If $ \gamma_0,\gamma_1:  x_0\rightsquigarrow x_1 $ and $ \gamma_0', \gamma_1':x_1 \rightsquigarrow x_2 $ are homotopic then $ \gamma_0\circ\gamma_0' \simeq \gamma_1 \circ \gamma_1':x_0\rightsquigarrow x_2 $.
+\end{lemma}
+\pf Let $ H $ be the homotopy of paths from $ \gamma_0 $ to $ \gamma_1 $ and let $ H' $  be the homotopy of paths from $ \gamma_0' $ to $ \gamma_1' $. Define 
+\[
+  H''(s,t) = \begin{cases}
+	  H(2s,t) & 0\le s \le \frac 12 \\
+	  H'(2s-1,t) & \frac 12 \le s \le 1
+  \end{cases}
+\]
+which is continuous by the gluing lemma. At $ H''(s,0) = (\gamma_0\circ \gamma_0')(s) $ and $ H''(s,1) = \gamma_1\circ\gamma_1' $. So $ H'' $ is a homotopy from $ \gamma_0\circ \gamma_0' $ to $ \gamma_1 \circ\gamma_1' $.
+\begin{proposition}
+  Let $ \gamma_0: x_0\rightsquigarrow x_1, \gamma_1:x_1\rightsquigarrow x_2, \gamma_2:x_2\rightsquigarrow x_3 $ be paths in $ X $. Then
+  \begin{enumerate}
+	  \item $ (\gamma_0 \circ \gamma_1) \circ \gamma_2 \simeq \gamma_0 \circ (\gamma_1 \circ \gamma_2) $;
+	  \item $ \gamma_0 \circ c_{x_1} \simeq \gamma_0 \simeq c_{x_0} \circ \gamma_0 $;
+	  \item $ \gamma_0 \inv\gamma_0 \simeq c_{x_0} $, $ \inv \gamma_0\circ \gamma_0\simeq c_{x_1} $.
+  \end{enumerate}
+\end{proposition}
+\pf
+From these, we arrive at the following formulae.
+
+\begin{enumerate}
+    \item[(i)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0\left(\dfrac{4s}{t+1}\right)
+        & 0\leq s\leq \dfrac{t+1}{4},\\[8pt]
+        \gamma_1(4s-1-t)
+        & \dfrac{t+1}{4}\leq s\leq \dfrac{t+2}{4},\\[8pt]
+        \gamma_2\left(1-\dfrac{4(1-s)}{2-t}\right)
+        & \dfrac{t+2}{4}\leq s\leq 1.
+    \end{cases}
+    \]
+    goes from $(\gamma_0\cdot\gamma_1)\cdot\gamma_2$
+    to $\gamma_0\cdot(\gamma_1\cdot\gamma_2)$ as paths
+    from $x_0$ to $x_3$.
+
+    \item[(ii)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0\left(\dfrac{2s}{t+1}\right)
+        & 0\leq s\leq \dfrac{t+1}{2},\\[8pt]
+        x_1
+        & \dfrac{t+1}{2}\leq s\leq 1,
+    \end{cases}
+    \]
+    goes from $\gamma_0\cdot c_{x_1}$ to $\gamma_0$ as paths
+    from $x_0$ to $x_1$.
+
+    \item[(iii)] The homotopy
+    \[
+    H(s,t)=
+    \begin{cases}
+        \gamma_0(2s)
+        & 0\leq s\leq \dfrac{1-t}{2},\\[8pt]
+        \gamma_0(1-t)
+        & \dfrac{1-t}{2}\leq s\leq \dfrac{1+t}{2},\\[8pt]
+        \gamma_0(2-2s)
+        & \dfrac{1+t}{2}\leq s\leq 1.
+    \end{cases}
+    \]
+    goes from $\gamma_0\cdot\overline{\gamma_0}$
+    to $c_{x_0}$ as paths from $x_0$ to $x_0$.
+\end{enumerate}
+\subsection{The Fundamental Group}
+\begin{proposition}
+  Let $ X $ be a space, $ x_0 \in X $. Define
+  \[
+	  \pi_1(X,x_0) = \{ \text{loops in } X \text{ based at } x_0\}/ \text{homotopy}.
+  \]
+  Then the rule $ [\gamma]\circ [\gamma'] = [ \gamma \circ \gamma'] $ defines a group structure on $ \pi_1(X,x_0) $. The identity is paths homotopic to the constant path.
+\end{proposition}
+\pf The previous proposition.
+\begin{definition}
+	(Fundamental Group) We call $ \pi_1(X,x_0) $ the \textit{fundamental group} of $ X $ at $ x_0 $.
+\end{definition}
+\begin{definition}
+	(Based space) A \textit{based space} is a pair $ (X,x_0) $ where $ x_0 $ is called the \textit{basepoint}. Given based spaces $ (X,x_0), (Y,y_0) $ a \textit{based map} between them is a map $ f:X\to Y $ such that $ f(x_0) = y_0 $. A \textit{based homotopy} is a homotopy relative to the basepoint.
+\end{definition}
+\begin{proposition}
+  For a based map $ f: (X,x_0) \to (Y,y_0) $ there is a well-defined associated group homomorphism
+  \[
+    \pi_1(f): \pi_1(X,x_0) \to \pi_1(Y,y_0)
+  \]
+  given by $ \pi_1(f)[\gamma] \to [f \circ \gamma] $, with the following
+  \begin{enumerate}
+	  \item If $ f $ is based homotopic to $ g $ then $ \pi_1(f) = \pi_1(g) $.
+	  \item $ \pi_1(f\circ g) = \pi_1(f) \circ \pi_1(g) $.
+	  \item $ \pi_1(\id_X) = \id_{\pi_1(X,x_0)} $.
+  \end{enumerate}
+\end{proposition}
+\pf $ \pi_1(f) $ is well-defined because if $ \gamma \simeq \gamma' $ then $ f\circ \gamma \simeq f \circ\gamma' $.\par
+We know that $ f \circ c_{x_0} = c_{f(x_0)} = c_{y_0} $ so $ \pi_1(f) $ preserves the identity element of the group. We also have that 
+\[
+  f\circ (\gamma \cdot \gamma') = (f \circ \gamma) \cdot (f \circ \gamma')
+\]
+so $ \pi_1(f) $ is multiplicative, hence $ \pi_1(f) $ is a group homomorphism.
+\par
+For (i) if $ f,g $ are homotopic $ \rel x_0 $ then $ f\circ \gamma \simeq g \circ \gamma $ so $ \pi_1(f) = \pi_1(g) $. For (ii) since $ \pi_(f\circ g)[\gamma] = [f \circ g\circ \gamma] = \pi_(f)[g\circ \gamma] = \pi_1(f) \circ \pi_1(g) $. Part (iii) is obvious. \qed
+\par
+For ease of notation, we'll just write $ f_* $ to mean $ \pi_1(f) $.
+\begin{proposition}
+  Let $ u: x_0\rightsquigarrow x_1 $ be a path in $ X $. Then it induces a group homomorphism 
+\begin{align*}
+	u_\#: \pi_1(X,x_0) &\to \pi_1(X,x_1) \\
+	[\gamma] &\to [\inv u \cdot \gamma \cdot u]
+\end{align*}
+satisfying
+\begin{enumerate}
+	\item $ u \simeq u' \implies u_\# = u_\#' $;
+	\item $ (c_{x_0})_\# = \id_{\pi_1(X,x_0)} $;
+	\item $ v: x_1\rightsquigarrow x_2\implies (u\cdot v)_\# = v_\# u_\# $;
+	\item If $ x_0 = x_1 $, then $ u_\# $ is conjugation by $ [u] $;
+	\item $ f:X\to Y $, then we have
+		\[
+			(f\circ u)_\# \circ f_* = f_* \circ u_\#.
+		\]
+\end{enumerate}
+\end{proposition}
+\pf Parts (i)-(iv) are obvious. We'll just prove (v).\par
+We have that 
+\begin{align*}
+	((f\circ u)_\# \circ f_*)[\gamma] &= (f\circ u)_\#[f\circ \gamma] \\
+					  &= [(f\circ u)^{-1} \cdot (f\circ \gamma) \cdot (f\circ u)]\\
+					  &= [f\circ(\inv u \cdot \gamma \cdot u)] \\
+					  &= f_*[\inv u \cdot \gamma \cdot u] \\
+					  &= f_* u_\#[\gamma].\qed
+\end{align*}
+Suppose $ f,g:X\to Y $ with $ x_0\in X $ and $ H:X\times I \to Y $ is a homotopy from $ f $ to $ g $. Then $ H(x_0, \cdot): I \to Y $ is a path from $ f(x_0) $ to $ g(x_0) $. Write this path as $ u $. This sets us up to prove the following lemma
+\begin{lemma}
+  For $ u,f,g $ given as above,
+  \[
+    u_\# \circ f_*  = g_*.
+  \]
+\end{lemma}
+\pf Choose any loop $ \gamma $ at $ x_0 $. Consider the composition
+\begin{align*}
+	F: I \times I \overset{\gamma\times \id_I}{\longrightarrow} X\times I \overset{H}\longrightarrow Y
+\end{align*}
+so $ F(s,t) = H(\gamma(s),t)) $.
+% TODO: FINISH PROOF HERE
+\qed
+\par
+\begin{theorem}
+	Let $ f: X\to Y $ and choose $ x_0\in X $. Then $ f_*: \pi_1(X,x_0) \to \pi_1(Y,f(x_0)) $. If $ f $ is a homotopy equivalence, then $ f_* $ is a group isomorphism. 
+\end{theorem}
+\pf Let $ g:Y \to X $ be a homotopy inverse for $ f $ such that $ f\circ g\simeq \id $ and $ g\circ f \simeq \id $. Choose homotopies $ H $ from $ fg $ to $ \id $ and $ H' $ from $ gf $ to $ \id $. Let 
+\[
+  u'(t) = H'(x_0,1-t): I \to X.
+\]
+Then by the previous lemma with the identity map we get that $ u_\#' = (g\circ f)_* = g_* \circ f_* $. We know that $ u'_\# $ is an isomorphism hence $ g_* \circ f_* $ and $ f_*\circ g_* $ are both isomorphisms (by doing the same thing the otherway around). Hence since the first result gives that $ f_* $ is injective and $ g_* $ is surjective, and the second result gives that the otherway around, we get that both functions are isomorphisms, namely that $ f_* $ is an isomorphism.\qed
+\begin{definition}
+	(Simply connected) A space $ X $ is \textit{simply connected} if it is path-connected and satifies $ \pi_1(X,x_0) = 1 $ for all $ x_0\in X $.
+\end{definition}
+\begin{remark}
+  From the previous proposition, since $ X $ is path-connected, we can connected every two points with a path, so $ \pi_1(X,x_0) \cong \pi_1(X,x_1) $, hence it's equivalent that $ \pi_1(X,x_0) =1 $ for a $ x_0\in X $ is enough for equivalence of simply connectedness.
+\end{remark}
+\begin{example}
+	Any contractible space is simply connected. This is clear since if $ X $ is contractible then $ X\simeq \{*\} $ so $ \pi_1(X,x_0)\cong \pi_1(*,*) = 1 $.
+\end{example}
+\begin{lemma}
+  A space $ X $ is simply connected if and only if for all $ x_0,x_1 $ there is a unique homotopy class of paths from $ x_0 $ to $ x_1 $.
+\end{lemma}
+\pf The forward direction is obvious just from taking $ x_0 = x_1 $ where the result follows directly.\par
+Instead if we suppose that $ X $ is simply connected and $ \pi_1(X,x_1) = 1 $. Since $ X $ is path-connected, there is a path from $ x_0 $ to $ x_1 $. Choose two paths $ \gamma $ and $ \gamma' $ from $ x_1 $ to $ x_1 $. Then $ [\inv \gamma \cdot \gamma']\in \pi_1(X,x_1) $. So $ \inv\gamma\cdot \gamma'\simeq c_{x_1} $. Hence there is a homotopy from $ \gamma \cdot \inv \gamma \cdot \gamma' $ to $ \gamma \cdot c_{x_1}	$. Since we can reduce the path $ \gamma \cdot \inv \gamma $ to a point, we have that $ \gamma' \simeq \gamma $.\qed
+\section{Covering Space}
+\begin{definition}
+	(Covering map) A map $ f:\tilde X\to X $ is a \textit{covering map} if it is surjective and for all $ p\in X $ there is an open neighbourhood $ U_p\subset X $ such that $ \inv f (U_p) \simeq \bigsqcup_{\alpha\in I} V_\alpha $ where each 
+	\[
+		f |_{V_\alpha}:V_\alpha \to U_p
+	\]
+	is a homeomorphism. We say that $ \tilde X $ is the covering space of $ X $.
+\end{definition}
+\begin{example}
+  Clearly homeomorphism are covering maps
+\end{example}
+\begin{example}
+  If $ p:\tilde X \to X $ and $ q:\tilde Y \to Y $ are covering maps then $ p\times q: \tilde X \times \tilde Y \to X\times Y $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ S^1 = \{z \in \C : |z| = 1 \}\subseteq \C $. Take $ p(t) = e^{2\pi i t}:\R\to S^1 $.\par
+	To prove that $ p $ is a covering map, consider the set $ U_{y>} = \{ x+iy \in S^1 : y> 0\} $, the open upper semicircle. Then
+	\begin{align*}
+		\inv p(U_{y>0}) = \bigsqcup_{j\in \Z} \left(j,j+\frac 12\right) \subset \R
+	\end{align*}
+	which is the disjoint union of $ \Z $ many open intervals. Furthermore 
+	\[
+		p|_{(j,j+\frac 12)}: \left(j,j+\frac 12\right) \to U_{y>0}
+	\]
+	is a continuous bijection with inverse
+	\begin{align*}
+		U_{y>0} &\longrightarrow \left(j,j+\frac 12\right) \\
+		x+ iy &\longrightarrow j+\inv\cos(x)/2\pi.
+	\end{align*}
+	Similarly with $ U_{y<0}, U_{x>0}, U_{x<0} $ these open sets cover $ S^1 $. Thus $ p $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ p(z) = z^n: S^1 \to S^1 $ and denote $ \eta = e^{\frac{2\pi i}n} $ and let $ \zeta $ be some $ n $th root of $ y $. Then we have that
+	\[
+		\inv p(y) = \{\zeta, \eta \zeta, \eta^2\zeta,\dots, \eta^{n-1}\zeta\}
+	\]
+	and $ \inv p(S^1 \setminus \{y\}) $ is the complement of this set. Now we can define
+	\[
+		V_0 = \{z\in S^1 \mid 0 < \arg(z/\eta) < 2\pi /n\}
+	\]
+	and $ V_i = V_0 \cdot \eta^i $ for $ 0\le i < n $, so we get that
+	\[
+		\inv p(S^1 \setminus \{y\}) = \bigsqcup_{i=0}^{n-1} V_i.
+	\]
+	Then $ p\mid_{V_i} : V_i\to S^1 \setminus \{y\} $ is a homeomorphism and
+	\[
+		S^1 =\bigcup_{y\in S^1} S^1 \setminus \{y\}
+	\]
+	therefore $ p $ is a covering map.
+\end{example}
+\begin{example}
+	Consider $ S^2 = \{ v\in \R^3 \mid ||v|| = 1 \} \subseteq \R^3 $. We can define an equivalence relation $ x\sim -x $ on $ S^2 $ which defines a quotient space $ \RP^2 = S^2 / \sim $. Consider the quotient map
+	\begin{align*}
+		p: S^2 &\longrightarrow \RP^2 \\
+	  x & \longrightarrow [x]
+	\end{align*}
+	which we claim is a covering map. Let $ V = \{(x,y,z|) \in S^2 \mid z \ne 0\} $ then $ V\simeq V_{z> 0} \sqcup V_{z<0} $ so we can define $ p $ on the restriction to each of these subspaces. We claim that
+	\begin{align*}
+		p\mid_{V_{z>0}}: V_{z>0} &\to p(V) \\
+		p\mid_{V_{z<0}}: V_{z<0} & \to p(V)
+	\end{align*}
+	are homeomorphisms. Similarly define $ V_x,V_y\subset S^2 $ then $ p(V_x), p(V_y), p(V_z) $ are evenly covered and forms san open cover of $ \RP^2 $. Hence $ p $ is a covering map.
+\end{example}
+\begin{definition}
+	(Lifting) Let $ :p: \tilde X \to X $ be a covering map and $ f: Y \to X $ be any map. Then a map $ \tilde f:Y \to \tilde X $ is a \textit{lift} of $ f $ along $ p $ if $ f = p \circ \tilde f $.
+\end{definition}
+\begin{lemma}
+	(Uniqueness of lifts lemma) Let $ p: \tilde X \to X $ be a covering map and $ f: Y \to X $ be any map. Let $ \tilde f_0, \tilde f_1 $ be two lifts of $ f $ along $ p $. Then the set $ \{y\in Y : \tilde f_0(y) = \tilde f_1(y)\} $ is clopen in $ Y $. Consequently if $ Y $ is connected then $ S = Y $ or $ S = \emptyset $.
+\end{lemma}
+\pf First we'll show that $ S $ is open. Choose $ y\in S $ and let $ U $ be an open neighbourhood of $ f(s) \in X $ which is evenly covered, so $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha $. Then $ \tilde f_0(y) $ and $ \tilde f_1(y) $ are equal so lie in the same $ V_\beta $. Thus we have that on $ N = \tilde f_0^{-1}(V_\beta) \cap \tilde f_1^{-1}(V_\beta) $ we have that 
+\[
+	p|_{V_\beta} \circ \tilde f_0 \mid_N = f\mid_N = p\mid_{V_\beta} \circ \tilde f_1 \mid_N
+\]
+but since $ p\mid V_\beta $ is a homeomorphism, it has an inverse so $ \tilde f_0\mid_N = \tilde f_1\mid_N $ and $ y\in N \subset S $, so $ S $ is open.\par
+Now we have to show that $ S $ is closed. We'll show that $ Y\setminus S $ is open. Suppose that $ y\notin S $, so $ \tilde f_0(y) \ne \tilde f_1(y) $. Choose an evenly covered open neighbourhood $ U $ at $ f(y) $ and identify $ \inv p(U) = \bigsqcup_{\alpha \in I} V_\alpha  $ so $ \tilde f_0(y) \in V_\alpha $ and $ \tilde f_1(y) \in V_\beta $ for some $ \alpha,\beta\in I $ since $ V_\alpha $ is mapped homeomorphically to $ U $ and the covering maps differ, we must have that $ \alpha\ne \beta $. So $ N = \tilde f_1^{-1}(V_\beta) \cap \tilde f_0^{-1}(V_\alpha) $ is an open neighbourhood of $ y $ so must intersect $ S $ by the definition of closure. But then $ V_\alpha $ and $ V_\beta $ must intersect which is a contradiction.
+% Corrected version. No connectedness / local path-connectedness hypothesis on Y is needed.
+% Uses the custom macros \pf, \qed, \inv, \ima exactly as in the original.
+\begin{lemma}
+	(Homotopy lifting lemma) Let $ p:\tilde X \to X $ be a covering map, let $ Y $ be an arbitrary topological space, and let $ H: Y\times I \to X $ be a homotopy from $ f_0 $ to $ f_1 $, i.e.\ $ H(-,0)=f_0 $ and $ H(-,1)=f_1 $. Let $ \tilde f_0 : Y \to \tilde X $ be a lift of $ f_0 $. Then there exists a unique homotopy $ \tilde H : Y \times I \to \tilde X $ such that
+	\begin{enumerate}
+		\item $ \tilde H(-,0) = \tilde f_0 $;
+		\item $ \tilde H $ is a lift of $ H $ along $ p $, i.e.\ $ p\circ\tilde H = H $.
+	\end{enumerate}
+	In particular, $ \tilde H $ is a homotopy from $ \tilde f_0 $ to the lift $ \tilde f_1 := \tilde H(-,1) $ of $ f_1 $.
+\end{lemma}
+\pf Throughout, $ I=[0,1] $. We use the \emph{uniqueness of lifts} lemma in the following form: if $ Z $ is a connected space and $ g_1,g_2:Z\to\tilde X $ are two lifts along $ p $ of the same map $ Z\to X $ which agree at one point of $ Z $, then $ g_1=g_2 $. We only ever apply it with $ Z=I $; in particular no connectedness (or local path connectedness) of $ Y $ is needed anywhere below.
+\par
+\textbf{Step 1: uniqueness.} Let $ \tilde H_1 $ and $ \tilde H_2 $ both satisfy (1) and (2). Fix $ y\in Y $. The paths $ t\mapsto \tilde H_1(y,t) $ and $ t\mapsto \tilde H_2(y,t) $ in $ \tilde X $ are both lifts of the path $ t\mapsto H(y,t) $ in $ X $, and by (1) both start at $ \tilde f_0(y) $. Since $ I $ is connected, uniqueness of lifts gives $ \tilde H_1(y,t)=\tilde H_2(y,t) $ for all $ t\in I $. As $ y\in Y $ was arbitrary, $ \tilde H_1=\tilde H_2 $.
+\par
+This argument works for every space $ Y $, so it applies in particular to any open subset $ Y'\subseteq Y $ with the restricted data $ H|_{Y'\times I} $ and $ \tilde f_0|_{Y'} $.
+\par
+\textbf{Step 2: local existence.} We claim that for every $ y_0\in Y $ there exist an open neighbourhood $ U_{y_0} $ of $ y_0 $ in $ Y $ and a continuous map $ \tilde H_{y_0}:U_{y_0}\times I\to\tilde X $ such that $ p\circ\tilde H_{y_0}=H|_{U_{y_0}\times I} $ and $ \tilde H_{y_0}(-,0)=\tilde f_0|_{U_{y_0}} $.
+\par
+\emph{(2a) Choosing a partition.} Fix $ y_0\in Y $. For each $ t\in I $ the point $ H(y_0,t) $ has an evenly covered open neighbourhood in $ X $. By continuity of $ H $ there are an open neighbourhood $ W_t $ of $ y_0 $ in $ Y $ and an open neighbourhood $ N_t $ of $ t $ in $ I $ such that $ H(W_t\times N_t) $ is contained in an evenly covered open subset of $ X $. The sets $ \{N_t\}_{t\in I} $ form an open cover of the compact space $ I $, so there is a finite subcover $ N_{s_1},\dots,N_{s_k} $. Put
+\[
+	W = W_{s_1}\cap\cdots\cap W_{s_k},
+\]
+an open neighbourhood of $ y_0 $. By the Lebesgue number lemma there is an $ N\ge 1 $ such that each interval $ [\frac iN,\frac{i+1}N] $ lies in some $ N_{s_j} $. Write $ t_i=\frac iN $. Then for each $ i=0,\dots,N-1 $ there is an evenly covered open subset $ U_i\subseteq X $ with
+\[
+	H\left(W\times[t_i,t_{i+1}]\right)\subseteq H(W_{s_j}\times N_{s_j})\subseteq U_i .
+\]
+Write
+\[
+	\inv p(U_i) = \bigsqcup_{\alpha\in A_i} V_{i,\alpha}, \qquad p\mid_{V_{i,\alpha}}:V_{i,\alpha} \overset{\sim}{\longrightarrow} U_i
+\]
+where the $ V_{i,\alpha} $ are pairwise disjoint open subsets of $ \tilde X $ and $ \overset\sim\longrightarrow $ means a homeomorphism.
+\par
+\emph{(2b) Inductive construction with shrinking.} We show by induction on $ i=0,\dots,N $ that there exist an open neighbourhood $ W_i' $ of $ y_0 $ with $ W_i'\subseteq W $ and a continuous map $ G_i:W_i'\times[0,t_i]\to\tilde X $ such that $ p\circ G_i=H|_{W_i'\times[0,t_i]} $ and $ G_i(y,0)=\tilde f_0(y) $ for all $ y\in W_i' $.
+\par
+For $ i=0 $ take $ W_0'=W $ and $ G_0(y,0)=\tilde f_0(y) $; then $ p\circ G_0=f_0|_W=H(-,0)|_W $.
+\par
+Suppose $ W_i' $ and $ G_i $ are constructed for some $ i<N $. The point $ G_i(y_0,t_i) $ satisfies $ p(G_i(y_0,t_i))=H(y_0,t_i)\in U_i $, so it lies in $ \inv p(U_i) $, hence in exactly one sheet $ V=V_{i,\alpha} $. Since $ y\mapsto G_i(y,t_i) $ is continuous and $ V $ is open,
+\[
+	W_{i+1}' = \{y\in W_i' \mid G_i(y,t_i)\in V\}
+\]
+is an open neighbourhood of $ y_0 $. Define $ G_{i+1}:W_{i+1}'\times[0,t_{i+1}]\to\tilde X $ by
+\[
+	G_{i+1}(y,t)=
+	\begin{cases}
+		G_i(y,t) & t\in[0,t_i],\\
+		\left(p\mid_{V}\right)^{-1}\bigl(H(y,t)\bigr) & t\in[t_i,t_{i+1}].
+	\end{cases}
+\]
+The second formula makes sense because $ H(y,t)\in U_i $ for $ y\in W\supseteq W_{i+1}' $ and $ t\in[t_i,t_{i+1}] $. The two formulas agree at $ t=t_i $: indeed $ G_i(y,t_i)\in V $ and $ p(G_i(y,t_i))=H(y,t_i) $, so $ \left(p\mid_V\right)^{-1}(H(y,t_i))=G_i(y,t_i)$. Both pieces are continuous on closed subsets $ W_{i+1}'\times[0,t_i] $ and $ W_{i+1}'\times[t_i,t_{i+1}] $ whose union is the whole domain, so $ G_{i+1} $ is continuous by the pasting lemma. Clearly $ p\circ G_{i+1}=H $ and $ G_{i+1}(-,0)=\tilde f_0 $ on $ W_{i+1}' $, which completes the induction.
+\par
+Finally set $ U_{y_0}=W_N' $ and $ \tilde H_{y_0}=G_N $. Note that we shrank the neighbourhood only finitely many times, so $ U_{y_0} $ is still an open neighbourhood of $ y_0 $; this is exactly where one would otherwise want $ Y $ to be (locally) connected, and the shrinking trick avoids it.
+\par
+\textbf{Step 3: the local lifts are compatible.} Let $ y_0,y_1\in Y $ and $ Y'=U_{y_0}\cap U_{y_1} $, which is open. If $ Y'=\emptyset $ there is nothing to show. Otherwise $ \tilde H_{y_0}|_{Y'\times I} $ and $ \tilde H_{y_1}|_{Y'\times I} $ are both lifts of $ H|_{Y'\times I} $ whose restriction to $ Y'\times\{0\} $ is $ \tilde f_0|_{Y'} $. By the uniqueness in Step 1 (applied to $ Y' $), $ \tilde H_{y_0}=\tilde H_{y_1} $ on $ (U_{y_0}\cap U_{y_1})\times I $.
+\par
+\textbf{Step 4: gluing.} Define $ \tilde H:Y\times I\to\tilde X $ by
+\[
+	\tilde H(y,t)=\tilde H_{y_0}(y,t)\quad\text{for any } y_0\in Y \text{ with } y\in U_{y_0}.
+\]
+(Such a $ y_0 $ exists, e.g.\ $ y_0=y $.) This is well defined by Step 3. The sets $ U_{y_0}\times I $ form an open cover of $ Y\times I $ and $ \tilde H $ restricts to the continuous map $ \tilde H_{y_0} $ on each of them, so $ \tilde H $ is continuous, since continuity is a local property. Moreover $ p\circ\tilde H=H $ and $ \tilde H(-,0)=\tilde f_0 $ hold on each $ U_{y_0}\times I $, hence on $ Y\times I $. This proves existence, and uniqueness was shown in Step 1.\qed
+\begin{corollary}
+	(Path lifting) For a path $ \gamma: I \to X $ choose $ \tilde x_0 \in \tilde X $ such that $ p(\tilde x_0) = \gamma(0) $. Then there exists a unique path $ \tilde \gamma: I \to \tilde X $ such that $ \tilde \gamma(0) = \tilde x_0 $ and $ p\circ\tilde \gamma = \gamma $.
+\end{corollary}
+\pf Take $ Y = \{*\} $ and apply the homotopy lifting lemma.
+\begin{corollary}
+  Let $ \gamma,\gamma': I \to X $ be paths in $ X $ from $ x_0 $ to $ x_1 $ and $ \tilde \gamma,\tilde \gamma': I \to \tilde X $ be lifts starting at $ \tilde x_0 \in \inv p(x_0) $. If $ \gamma\simeq \gamma' $ as paths, then $ \tilde \gamma \simeq \tilde \gamma' $ as paths, in particular $ \tilde \gamma(1) \simeq \tilde\gamma'(1) $.
+\end{corollary}
+\pf Let $ H: I\times I \to X $ be a homotopy of paths from $ \gamma $ to $ \gamma' $ and lifts strating at $ \tilde \gamma $ to obtain a homotopy $ \tilde H:I\times I \to \tilde X $ such that $ \tilde H(\cdot, 0) = c_{\tilde x_0} $. We have to show that $ \tilde H(\cdot, 1) $ is a constant path.\par
+Observe that $ \tilde H(\cdot, 1) $ is a path in $ \tilde X $, $ p\circ\tilde H(\cdot, 1) = H(\cdot,1) $ is constant. By uniqueness, $ \tilde H(\cdot, 1) $ is constant.\qed
+\par
+Suppose we have $ p:\tilde X \to X $ being a covering map and a point $ x_0\in X $ with $ \tilde x_0\in \inv p(x_0) $. For a path $ u: x_0\rightsquigarrow x_1 $ in $ X $, the first corollary tells us that there exists a lift $ \tilde u $ of $ u $ with domain $ \tilde x_0 $. Then $ \tilde x_0 \to \tilde u(1) $ is a well-defined function we denote
+\[
+  u_*: \inv p(x_0) \to \inv p(x_1).
+\]
+By the second corollary $ u_* $ depends only on the homotopy class at $ u $.
+\begin{corollary}
+	We have the following:
+	\begin{enumerate}
+		\item If $ u:x_0\rightsquigarrow x_1 $ and $ u':x_1\rightsquigarrow x_2 $ then $ (u\cdot u')_* = u_*' \circ u_* $;
+		\item $ u_* $ is a bijection;
+		\item If $ X $ is path connected then $ |\inv p(x_0)| = |\inv p(x_1)| $.
+	\end{enumerate}
+\end{corollary}
+\pf We can see that (ii) and (iii) following from (i), so we'll just prove (i). Choose a lift $ \tilde u:\tilde x_0\to \tilde x_1 $ of $ u $ and $ \tilde u': \tilde x_1 \to \tilde x_2 $ of $ u' $. Then $ \tilde u \cdot \tilde u' : \tilde x_0\to\tilde x_2 $ is a lift of $ u\cdot u' $. Thus $ (u\cdot u')_*(\tilde x_0) = \tilde x_2 = u_*'(\tilde x_1) = u_*'(u_*(\tilde x_0)) = (u_*'\circ u_*)(\tilde x_0) $.\qed
+\begin{lemma}
+  Let $ p:\tilde X\to X $ be a covering map. Choose $ x_0\in X $, $ \tilde x_0\in \inv p(x_0) $. Then
+  \[
+    p_*: \pi_1(\tilde X,\tilde x_0) \to \pi_1(X,x_0)
+  \]
+  is injective.
+\end{lemma}
+\pf Choose a loop $ \gamma $ in $ \tilde X $, based at $ \tilde x_0 $ such that $ [\gamma]\in\ker p_* $. Hence $ [p\circ \gamma] = 0 $. So there is a homotopy $ H: I\times I\to X $ from $ p\circ\gamma $ to $ c_{x_0} $. By the homotopy lifting lemma, $ H $ admits a lift $ \tilde H $ which is a homotopy $ \gamma $ to some lift of $ c_{x_0} $. By uniqueness of lifts, the lift of $ c_{x_0} $ is $ c_{\tilde x_0} $ so $ [\gamma] = [c_{\tilde x_0}] = 0\in \pi_1(\tilde X,\tilde x_0) $ so $ p_* $ is injective.
+\begin{definition}
+	($ n $-sheeted cover) For a covering map $ p:\tilde X\to X $ we say that $ p $ is an $ n $-\textit{sheeted cover} for $ n\in \N\cup \{\infty\} $ if each $ \inv p(x) $ has cardinality $ n $.
+\end{definition}
+\begin{definition}
+	(Universal cover) For a covering map $ p:\tilde X\to X $ we say that $ p $ is a \textit{universal} if $ \tilde X $ is \textit{simply connected} and we say that $ \tilde X $ is a \textit{universal cover} of $ X $.
+\end{definition}
+From the above lemma we have an action of $ \pi_1(X,x_0) $ acting on $ \inv p(x_0) $ by the action for some $ [\gamma] $ and $ \tilde x_0 $ a point in the fiber, we have
+\[
+	\tilde x_0 \cdot [\gamma] = \tilde \gamma(1)
+\]
+where $ \tilde \gamma $ is the unique lift of $ \gamma $. This is well-defined by the uniqueness of lifts for homotopically equivalent loops (up to homotopy).
+\begin{lemma}
+  Let $ p:\tilde X\to X $ be a covering map and $ X $ path-connected. Then
+  \begin{enumerate}
+	  \item $ \tilde X $ is path-connected if and only if the action of $ \pi_1(X,x_0) $ on $ \inv p(x_0) $ is transitive.  
+	  \item The stabiliser for a point $ y_0\in \inv p(x_0) $ in the fibre is the subgroup
+		  \[
+		    \ima(p_*: \pi_1(\tilde X,y_0) \to \pi_1(X,x_0))\le \pi_1(X,x_0)
+		  \]
+\item If the covering map is universal then the action is simply transitive.
+
+	  \item If $ \tilde X $ is path-connected then there is a bijection
+		  \[
+			  \frac{\pi_1(X,x_0)}{p_*\pi_1(\tilde X,y_0)} \longrightarrow \inv p(x_0)
+		  \]
+		  induced by action on the point $ y_0 $.
+  \end{enumerate}
+\end{lemma}
+\pf \ 
+\begin{enumerate}
+	\item Take $ y_0,y_1 \in \inv p(x_0) $ elements of the fibre. Then by assumption they are path-connected by some path $ \gamma: I \to \tilde X $. So $ p\circ \gamma: I \to X $ is a loop in $ X $ which is based at $ x_0 $ and lifts to $ \gamma $, starting at $ y_0 $. The action of $ [p\circ \gamma] \in \pi_1(X,x_0) $ takes $ y_0 $ to $ y_1 $. Since $ y_0 $ and $ y_1 $ were arbitrary action is transitive.\par
+		Conversely suppose that $ y_0,z_0\in \tilde X $ lie in different path-components. Since $ X $ is path connected, choose paths $ \gamma_y $ and $ \gamma_z $ from $ p(y_0) $ to $ x_0 $ and from $ p(z_0) $ to $ x_0 $ and lift them into $ \tilde X $. These paths therefore end at $ y_1,z_1\in \inv p(x_0) $ which  must again be in different path components. But $ \pi_1(X,x_0) $ acts transitively on $ \inv p(x_0) $ so there is a $ [\gamma']\in \pi_1(X,x_0) $ such that $ z_1\bullet [\gamma'] = y_1 $, i.e the lift of $ \gamma' $ starting at $ z_1 $ ends at $ y_1 $, so they're path-connected so $ y_0 $ and $ z_0 $ are path-connected which is a contradiction. 
+	\item Suppose that $ y_0 \bullet [\gamma] = y_0 $ so the lift $ \tilde\gamma $, of $ \gamma $ starting at $ y_0 $ also ends at $ y_0 $. So $ \tilde \gamma $ is a loop based at $ y_0 $. We have that $ \gamma = p \circ \tilde \gamma $ i.e that $ p_*([\tilde\gamma]) = [\gamma]\in \ima(p_*) $.
+		\par Conversely suppose that $ [\gamma]\in \ima(p_*) $. So there exists a $ [\tilde \gamma] \in \pi_1(\tilde X,y_0) $ such that $ \gamma = p \circ \tilde \gamma $ starting at $ y_0 $. It ends at $ y_0 $ too so we have that $ y_0\bullet [p\circ\gamma] = y_0 $ hence it is in the stabiliser of $ y_0 $.
+	\item If $ \tilde X $ is a universal cover then it is simply connected so $ \pi_1(\tilde X,y_0) \cong \{*\} $. So the image of $ p_* $ is trivial, hence by (ii) the stabiliser for a point $ y_0 $ in the fibre is trivial, so all stabiliser are trivial and the action is free. Since it is free and transitive by (i) it is simply transitive (regular).
+	\item Apply orbit-stabiliser.\qed
+\end{enumerate}
+\begin{remark}
+	In this case it's good to think of "simply transitive" as meaning for every pair of points in the fibre, there is \textit{exactly} one element taking one point to the other.
+\end{remark}
+\subsection{The Fundamental Group of the Circle}
+\begin{theorem}
+	We have that
+	\[
+	  \pi_1(S^1,1) \cong \Z.
+	\]
+\end{theorem}
+\pf
+Consider the covering map
+\[
+	p(t) = e^{2\pi i t}: \R \to S^1
+\]
+which we proved was a covering map. We know that $ \R $ is contractible and hence it is simply connected so $ p $ is universal (since $ S^1 $ and $ \R $ is path-connected). Thus (taking arbitrary base points) we have that $ \pi_1(S^1,1) $ acts on $ \inv p(1) = \Z $ and is simply transitive.\par
+Consider the loop $ \gamma(t) = e^{2\pi it}:I\to S^1 $ which is a loop based at $ 1\in S^1 $. So we have $ [\gamma]\in \pi_1(S^1,1) $. Consider the induced action $ \langle[\gamma]\rangle $ on $ \inv p(1) $. We claim that is this also simply transitive, in which case it will follow that $ \langle[\gamma]\rangle = \pi_1(S^1,1) \cong \Z $.\par
+Consider $ [\gamma]\bullet n = \tilde \gamma(1) $ where $ \tilde\gamma $ is a lift of $ \gamma $ such that $ \tilde\gamma(0) = n $. We'll guess that 
+\[
+	\tilde \gamma(t) = n + t\implies p\circ\tilde\gamma = e^{2\pi i(n+t)} = e^{2\pi it} = \gamma(t)
+\]
+so by uniqueness this our unique lift starting at $ n $. So $ \tilde\gamma(1) = n+1 $, hence $ [\gamma]\bullet n = n+1 $. So this action is simply transitive and hence
+\[
+  \pi_1(S^1,1) \cong \Z.\qed
+\]
+\begin{theorem}
+  The disc $ D^2 $ does not retract to it boundary $ \partial D^2 = S^1 $.
+\end{theorem}
+\pf Suppose we have a retraction $ r: D^2 \to S^1 $ and the inclusion map $ \iota: S^1 \hookrightarrow D^2 $. Then $ r\circ \iota = \id_{S^1} $ and we have the factorisation
+\[
+	\Z \cong \pi_1(S^1,1) \arr{}{\iota_*} \pi_1(D^2,1) \arr{}{r^*} \pi_1(S^1,1) \cong \Z
+\]
+of the identity map. But $ D^2 $ is simply connected so it's fundamental group is trivial so this is a contradiction.\qed
+\par
+This gives us a nice corollary.
+\begin{theorem}
+	(Brouwer's fixed point theorem). For a continuous map $ f: D^2 \to D^2 $ there is some $ x\in D^2 $ such that $ f(x)=x $, i.e $ f $ has a fixed point.
+\end{theorem}
+\pf Suppose that $ f $ has no fixed points. Define a function $ r:D^2 \to S^1 $ sending $ x $ to the first point on $ S^1 $ hit by the ray from $ f(x) $ to $ x $ which makes sense since $ f(x) $ and $ x $ are distinct points by assumption. Now $ r $ is continuous since $ f $ is continuous. But we have a continuous retraction of $ D^2 $ to $ S^1 $ but this is impossible from the previous theorem.\qed
+\begin{theorem}
+	(Fundamental Theorem of Algebra) Any polynomial $ f\in \C[X] $ that is non-vanishing on $ \C $ is constant.
+\end{theorem}
+\pf Write that $ f(x) = x^n + a_1x^{n-1} + \cdots + a_n $. Take $ r> \mathrm{max}\left(1,\sum_{i=1}^n |a_1|\right) $. Then $ |z|^n > |a_1 x^{n-1} + \cdots + a_n| $ whenever $ |z| = r $. Consider the polynomial
+\[
+	f_t(x) = x^n + t(a_1 x^{n-1} + \cdots + a_n)
+\]
+so that $ f_t $ is non-vanishing on $ |x| =r $. Define
+\[
+F(s,t) = \frac{f_t(re^{2\pi is})/f_t(r)}{|f_t(re^{2\pi is})/f_t(r)|}
+\]
+which is well-defined so this is a homotopy $ I\times I \to \C $. $ F $ is a homotopy from $ [s\to e^{2\pi ins}] $ to the loop $ \left[s\to\frac{f(re^{2\pi is}/f(r)}{|f(re^{2\pi is}/f(r)|}\right] $ which we will call $ \gamma_r(s) $. Take $ r \to 0 $ which goes towards the constant loop $ c_1 $ hence since $ F $ is a homotopy, $ [s\to e^{2\pi ins}] $ is the identity in $ \pi_1(S^1,1) $. But it also represents $ n $. Hence $ n=0 $ so $ f $ is constant.\qed
+\subsection{The Construction of Universal Covers}
+We will assume $ X $ to be \textit{locally path-connected} (i.e all points have an open neighbourhood that is path-connected.
+\begin{definition}
+	(Semilocally Simply Connected) A path-connected and locally path-connected space $ X $ is \textit{semilocally simply connected} if for all $ p\in X $ there exists an open neighbourhood $ U_p \subseteq X $ of $ p $ such that the map
+	\[
+	  \pi_1(U_p,p) \to \pi_1(X,p)
+	\]
+	is trivial i.e every loop in $ U_p $ can be contracted to a point.
+\end{definition}
+\begin{remark}
+  This is different than $ U_p $ just being simply connected, since we're allowing the contraction to happen anywhere in $ X $, so the loop may move around to contract itself somewhere else.
+\end{remark}
+\begin{theorem}
+  If $ X $ is path-connected, locally path-connected, and semilocally simply connected then $ X $ admits a universal cover.
+\end{theorem}
+\pf \textit{(Non-examinable)} We'll just sketch a proof out now. Observe that
+\[
+	\mathcal O =\{ U \subset X \text{ open} \mid U \text{ is path connected } \pi_1(U,p) \to \pi_1(X,p) \text{ trivial}\}
+\]
+is an open cover at $ X $. Write $ \mathcal O = \{U_\alpha\}_{\alpha \in I} $. Choose $ p \in X $. For each $ \alpha \in I $, take $ x_\alpha\in U_\alpha $. Choose a path $ \gamma_\alpha $ from $ p $ to $ x_\alpha $ on $ X $. Then for all $ x\in U_\alpha $ choose any path $ \gamma_{x,\alpha}^0 $ which is a path from $ x_\alpha $ to $ x $ and concatenate $ \gamma_{x,\alpha} = \gamma_\alpha\gamma_{x,\alpha}^0 $ from $ p $ to $ x $ (in $ X $). Then $ [\gamma_{x,\alpha}] $ depends only on $ x,\alpha,\gamma_\alpha $. Now for each $ \alpha,\beta \in I $, for all $ x\in U_\alpha \cap U_\beta $ define
+\[
+	\varphi_{\alpha,\beta}: U_\alpha \cap U_\beta \to \mathrm{Sym}(\pi_1(X,p))
+\]
+by
+\[
+	\varphi_{\alpha,\beta}(x)(g) = g\bullet [\gamma_{x,\alpha}\inv\gamma_{x,\beta}].
+\]
+This function is locally trivial and thus constant. For $ \alpha,\beta,\gamma\in I $ and $ x\in U_\alpha \cap U_\beta \cap  U_\gamma $ we get that 
+\[
+	\varphi_{\beta\gamma} \varphi_{\alpha\beta}(x) = \varphi_{\alpha\gamma}(x).
+\]
+Form
+\[
+	\tilde X = \left(\bigsqcup_{\alpha \in I} (U_\alpha \times \pi_1(X,p))\right)/\sim
+\]
+where $ (x\in U_\alpha,g)\sim (x\in U_\beta, \varphi_{\alpha \beta}(x)(g)) $ whenever $ \alpha,\beta \in I $, $ x\in U_\alpha\cap U_\beta $. We have a map
+\[
+  p: \tilde X \to X 
+\]
+taking $ (x,g) \to x $. This is a universal covering map (proof omitted).\qed
+\subsection{The Galois Correspondence}
+We know that $ p_*: \pi_1(\tilde X, \tilde x_0) \to \pi_1(X,x_0) $ is injective and we obtain a subgroup $ p_*(\pi_1(\tilde X,\tilde x_0)) $. We want a correspondance
+\[
+\left\{ \begin{array}{c}
+\text{based covering maps} \\
+p : (\widetilde{X}, \tilde{x}_0) \to (X, x_0)
+\end{array} \right\}
+\longrightarrow
+\{\text{subgroups of } \pi_1(X, x_0)\}
+\]
+and
+\[
+\{\text{covering maps } p : \widetilde{X} \to X\}
+\longrightarrow
+\left\{ \begin{array}{c}
+\text{conjugacy classes of} \\
+\text{subgroups of } \pi_1(X, x_0)
+\end{array} \right\}.
+\]
+and we wish to turn these into bijections by dividing out by an appropriate equuivalence relation on the left hand side to turn both of these functions into bijections.
+\begin{proposition}
+  Suppose that $ X $ is path-connected, locally path-connected and semilocalyl simply connected. Then for any subgroup $ H \le \pi_1(X,x_0) $ there is a based covering map $ p:(\tilde X,\tilde x_0) \to (X,x_0) $ such that $ p_*(\pi_1(\tilde X,\tilde x_0))=H $.
+\end{proposition}
+\pf From the assumptions on $ X $ we know that $ X $ has a universal cover $ \overline p:\overline X \to X $. For each $ \tilde x\in \overline X $ choose a path $ \tilde \gamma $ from	$ \tilde x_0 $ to $ \tilde x $. Write $ \gamma = p\circ\tilde \gamma $ and $ x = \overline p(\tilde x) $. Given any element $ [\gamma_0] \in \pi_1(X,x_0) $, $ \gamma_0\gamma $ is a path from $ x_0 $ to $ x $. So there exists a lift $ \widetilde{\gamma_0\gamma} $ from $ \tilde x_0 $ to some point. We define
+\[
+	[\gamma_0]\bullet \tilde x = \widetilde{\gamma_0\gamma}(1)
+\]
+which defines a group action from the fundamental group on the universal covering space such that for all $ g\in \pi(X,x_0) $ and $ x\in \overline X $, $ p(g\tilde x) = p(\tilde x) $.\par
+Choose any evenly covered (by $ \overline p $) path-connected open subset $ U\subset X $ then we claim that any element $ g\in \pi_1(X,x_0) $ acts on $ \inv p(U) \cong U \times F $, where $ F $ is the discrete space parameterising the fibre, by permuting $ F $ and fixing $ U $ i.e it is permuting the fibre sheets. Now we'll prove this claim.\par
+Choose $ x,y\in U $, $ \alpha\in F $, $ g\in \pi_1(X,x_0) $ and suppose that
+\[
+  g \bullet (x,\alpha) = (x, \beta)
+\]
+with $ \beta \in F $.  Choose a path $ \gamma $ from $ x $ to $ y $ on $ U $ and take its lift, so we have the path $ \tilde \gamma $ starting at $ (x,\beta) $. Then $ \tilde \gamma $ is a path in the sheet $ U\times \{\beta\} $ so write its endpoint as $ (y,\beta) $. So if we write $ g = [\gamma_g] $ and choose paths $ \gamma_x $ taking $ x_0 $ to $ x $ and $ \tilde\gamma_x $ taking $ x_0 $ to $ (x,\alpha) $, then 
+\[
+	\widetilde{\gamma_g\gamma_x}(0) = (x,\beta)
+\]
+which gives that $ g\cdot(y,\alpha) = \widetilde{\gamma_g\gamma_\alpha\gamma}(1) = \tilde \gamma(1) = (y,\beta) $. So $ \pi_1(X,x_0) $ acting on $ \overline X $ is continuous and $ \overline p:\overline X\to X $ induces $ p_H: \overline X/H \to X $.\par
+Here $ \pi_1(X,x_0) $ acts on $ \inv{\overline p}_H(x_0) $ is right multiplication. The quotient by $ H $ is as the left. So the induced action of the fundamental group on the fibre $ \inv{p}_H(x_0) = (H\setminus \pi_1(X,x_0))[\tilde x_0] $ so the stabiliser is $ H $ and hence this is the image of $ p_* $.\qed
+\begin{proposition}
+	(Based Uniqueness) Suppose that $ X $ is path-connected and locally path-connected. Suppose we have
+	\[
+	  p_1: (\tilde X_1,\tilde x_2) \to (X,x_0) \qquad p_2:(\tilde X_2,\tilde x_2) \to (X,x_0)
+	\]
+	based covering maps. Then there exists a unique based homeomorphism 
+	\[
+	  h: (\tilde X_1, \tilde x_1) \to (\tilde X_2, \tilde x_2)
+	\]
+	such that $ p_2\circ h = p_1 $ if and only if $ \ima({p_1}_*) = \ima({p_2}_*). $
+\end{proposition}
+\pf If $ h $ exists then $ h_* $ is an isomorphism so the result is obvious.\par
+For the converse direction, choose any point $ \tilde x \in \tilde X_1 $ and path $ \tilde \gamma $ from $ \tilde x_1 $ to $ \tilde x $ on $ \tilde X_1 $. Consider $ \gamma = p_1 \circ \tilde \gamma $ going from $ x_0 $ to $ x_1 = p(\tilde x) $. It has unique lift $ \tilde \gamma' $ such that $ \tilde \gamma(0) = \tilde x_2 $ in $ \tilde X_2 $. Then we define $ h(\tilde x) = \tilde \gamma'(1) $ and this is independent of the choice of $ \tilde\gamma $. We also have to prove that $ h $ is continuous (it can be proved using path-connected, evenly covered open neighbourhoods. So we have constructed $ h $ uniquely. Similarly we have a $ h' $ which is our unique based homeomorphism from $ (\tilde X_2, \tilde x_2) $ to $ (\tilde X_1,\tilde x_1) $. So now $ h'\circ h = \id_{\tilde X_1} $ by the uniqueness. Symmetrically we have that $ h\circ h'  = \id_{\tilde X_2} $ so $ h $ is a based homeomorphism.\qed
+\begin{remark}
+  For this, we don't require $ X $ to be semilocally simply connected, i.e we don't need $ X $ to have a universal cover.
+\end{remark}
+\begin{proposition}
+	(Unbased Uniqueness) Suppose that
+	\[
+	  p_1: \tilde X_1 \to X,\quad p_2:\tilde X_2 \to X
+	\]
+	are path connected covering spaces. Then there is a homeomorphism
+	\[
+	  h: \tilde X_1 \to \tilde X_2
+	\]
+such that $ p_2 \circ h = p_1 $ if and only if $ \ima({p_1}_*) $ is conjugate to $ \ima({p_2}_*) $.
+\end{proposition}
+\pf If $ h $ exists, choose a point $ \tilde x_1 \in \inv p_1(x_0) $ and $ \tilde x_2 = h(\tilde x_1) $. Then we can apply the previous proposition.\par
+Conversely choose basepoints $ x\in X $, $ \tilde x_1 \in \tilde X_1 $, and $ \tilde x_2 \in \tilde X_2 $ so that $ p_1(\tilde x_1) = p_2(\tilde x_2) = x $. So now we have that
+\[
+	{p_i}_*: \pi_1(\tilde X_i, \tilde x_i) \to \pi_1(X,x)
+\]
+for $ i=1,2 $. Choose $ [\gamma] \in \pi_1(X,x) $ so we can move the base point (which corresponds to conjugating by $ \gamma $) such that 
+\[
+	\ima({p_1}_*) = \inv{[\gamma]} \ima({p_2}_*) [\gamma].
+\]
+Choose a lift $ \tilde \gamma $ of $ \gamma $ satisfying $ \tilde \gamma(0) = \tilde x_1 $. Write $ \tilde x'=\tilde \gamma(1) $. So we have that by the previous proposition that we have a based homeomorphism
+\[
+  h: (\tilde X_1, \tilde x_1') \to (\tilde X_2, \tilde x_2).\qed
+\]
+\section{Free Groups}
+\subsection{Construct of the Free Group}
+\begin{definition}
+	(Word) Given a set $ S $, a \textit{word} on $ S $ is a (possibly empty) finite sequence 
+	\[
+	  x_1x_2\dots x_n
+	\]
+	where $ x_i\in S\sqcup \inv S $ where $ \inv S = \{ \inv s: s\in S\} $. A word $ x_1\dots x_n $ is \textit{reduced} if it does not contain the string $ s\inv s $ or $ \inv s s $. Let
+	\[
+		W_{\mathrm{red}}(S) = \{ \text{reduced words on } S\}
+	\]
+\end{definition}
+For any given $ G $ and a function $ \phi: S \to G $ we have the evaluation map
+\[
+	\mathcal E: W_{\mathrm{red}}(S) \to G
+\]
+which maps each character to their image under $ \phi $ (taking the inverse of the character to mean the inverse of in $ G $.
+\begin{definition}
+	(Free) Let $ G $ be a group. We say that $ G $ is \textit{freely generated} by $ S_0\subseteq G $ if the evaluation map
+	\[
+		\mathcal E: W_{\mathrm{red}}(S_0) \to G
+	\]
+	induced by the inclusion $ \iota: S_0 \to G $ is bijective. In this case we say that $ G $ is \textit{free}.
+\end{definition}
+
+\begin{definition}
+	(Free Group) Given a set $ S $, a \textit{free group} on $ S $ is a group $ G $ with inclusion $ \iota: S \to G $ such that $ G $ is freely generated by $ \iota(S) $.
+\end{definition}
+For each $ s\in S $ define $ L_s:W_{\mathrm{red}}(S) \to W_{\mathrm{red}}(S) $ as taking 
+\[
+  L_s(x_1x_2\dots x_n) = \begin{cases}
+	  x_2\dots x_n & x_1 = \inv s \\
+	  s x_1\dots x_n & x_1 \ne \inv s
+  \end{cases}.
+\]
+Clearly this has inverse $ L_{\inv s} $ so it is bijective and hence a map $ \varphi: S \to \mathrm{Sym}(W_{\mathrm{red}}(S)) $ taking $ s $ to $ L_s $
+\begin{claim}
+	We claim that
+  \[
+	  \langle L_s \mid s\in S \rangle = \langle \ima \varphi \rangle \subseteq \mathrm{Sym}(W_{\mathrm{red}}(s))
+  \]
+  is freely generated by $ \ima \varphi $.
+\end{claim}
+\pf We only have to show that
+\[
+	\mathcal E: W_{\mathrm{red}}(S) \to \mathrm{Sym}(W_{\mathrm{red}}(S))
+\]
+taking $ x_1^{\pm 1} \dots x_n^{\pm 1} \to L_{x_1}^{\pm 1} \dots L_{x_n}^{\pm 1} $ is injective. Suppose note. So there exists a non-empty reduced word with 
+\[
+	L_{x_1}^{\pm 1 }\dots L_{x_n}^{\pm 1} = \id.
+\]
+Evaulate this at the empty word so we get that $ x_1^{\pm 1}\dots x_n^{\pm 1} $ which we know is reduced but not the empty word so it can't be $ \id $ hence contradiction.\qed
+\par
+This already implies that $ \varphi $ is injective.
+\begin{lemma}
+  Every set admits a free group.
+\end{lemma}
+\pf $ \langle \ima \varphi\rangle $ is freely generated by $ \ima \varphi $, so $ \langle \ima \varphi\rangle $ is a free group on $ S $.\qed
+\begin{remark}
+	(Finley's Comments) The free group is in a sense the "most basic" group structure we can impose onto a set. We can formalise this notion by considering the functor $ F: \mathbf{Set} \to \mathbf{Grp} $ called the \textit{free group functor} which maps a set $ S $ to its free group. This is the natural left adjoint of the forgetful functor $ U: \mathbf{Grp} \to \mathbf{Set} $ which is reassuring that we're looking at something actually interesting. This relationship between catagories gives us a universal property for the morphisms of the catagory $ \mathbf{Grp} $ which are \textit{homomorphisms}. This makes the lecture's next comment much less opaque. 
+\end{remark}
+\begin{lemma}
+  Let $ S $ be a set, $ F(S) $ be the free group on $ S $, and $ G $ be any group. Then for any functions $ \varphi: S \to G $ there exists a unique group homomorphism $ \tilde S: F(S) \to G $ such that $ \tilde \varphi\mid_S = \varphi $.
+\end{lemma}
+\pf $ F(S) $ is generated by $ S $ so uniqueness is obvious. For existance, set
+\[
+	\tilde \varphi(x_1^{\pm 1}\dots x_n^{\pm 1}) = \varphi(x_1)^{\pm 1} \dots \varphi(x_n)^{\pm 1}
+\]
+so since any element of $ F(S) $ can be written uniquely as a reduced word on $ S $ so $ \tilde \varphi $ is well-defined. Fairly obvious to see that it is also a homomorphism.\qed
+\begin{lemma}
+  Let $ (G_1, \iota_1: S \hookrightarrow G_1) $ and $ (G_2, \iota_2: S \hookrightarrow G_2) $ be free groups on $ S $. Then there exists a unique isomorphism $ \varphi: G_1 \to G_2 $ such that $ \varphi\circ \iota_1 = \iota_2 $.
+\end{lemma}
+\pf The follwoing diagram commutes.
+\[
+\begin{tikzcd}[row sep=large, column sep=huge]
+  S \arrow[r, "\iota_1"] \arrow[d, "\mathrm{id}"'] & G_1 \arrow[d, "f"] \arrow[dd, bend left=60, "g \circ f"] \\
+  S \arrow[r, "\iota_2"] \arrow[d, "\mathrm{id}"'] & G_2 \arrow[d, "g"] \\
+  S \arrow[r, "\iota_1"'] & G_1
+\end{tikzcd}
+\]
+So we have that $ g\circ f = \id_{G_1} $ by uniqueness hence symmetrically $ f\circ g = \id_{G_2} $ so $ G_1 $ and $ G_2 $ are isomorphic.\qed
+\subsection{Presentation}
+\begin{definition}
+	(Presentation) Let $ S $ be a set and $ R\subset F(S) $ be a subset. The group $ \bra{S}\ket{R} $ is defined as the quotient 
+	\[
+		\frac{F(S)}{\langle\langle R\rangle\rangle}
+	\]
+	where $ \langle\langle R \rangle\rangle $, the \textit{normal closure} of $ R $ is defined as
+	\[
+		\langle\langle R \rangle\rangle = \bigcap_{N\triangleleft  F(S), R\subseteq N} N. 
+	\]
+	We call $ \langle S \mid R\rangle $ the group with generator $ S $ and relations $ R $ and call the data $ (S,R) $ a \textit{presentation} of this group. If $ S $ and $ R $ are both finite, we call it a \textit{finite presentation}.
+\end{definition}
+\begin{lemma}
+  For any group $ H $,
+  \[
+\left\{ \begin{array}{c} \text{group homomorphisms} \\ \psi : \langle S \mid R \rangle \to H \end{array} \right\}
+\longrightarrow
+\left\{ \begin{array}{c} \text{functions } \varphi : S \to H \text{ such} \\ \text{that } \tilde\varphi(r) = 1 \text{ for each } r \in R \end{array} \right\}
+\]
+defined by sending $ \psi $ to the composition $ \varphi: S \arr{}{\iota} F(S) \arr{}{} \langle S \mid R \rangle \arr{}\psi H $.
+\end{lemma}
+\pf If $ \psi $ and $ \psi' $ induce the same functions on $ S $. Then $ F(S) \to F(S)/\langle\langle R\rangle\rangle\arr{\psi \text{ or} \psi'} H $ is the same map no matter if the last arrow was done by $ \psi $ or $ \psi' $. Cleraly the quotient map from $ F(S) $ to $ F(S)/\langle\langle R\rangle\rangle $ is surjective, so $ \psi=\psi' $.
+\par
+Conversely if we are given a function $ \varphi: S \to H $ such that $ \tilde \varphi(r) = 1 $ for all $ r\in R $ then $ \tilde \varphi: F(S) \to H $ satisfies $ \ker\tilde\varphi \supset R $. so $ \langle\langle R \rangle \rangle \subseteq \ker \tilde \varphi $, so $ \tilde \varphi $ induces a $ \psi: F(s)/\langle\langle R \rangle\rangle \to H $.\qed
+\begin{example}
+  Take any group $ G $ and consider $ \id_G: G \to G $, considering the domain of $ \id_G $ as a set, so $ \id_G $ lifts uniquely to $ \varphi: F(G) \to G $ such that $ \varphi\mid_G = \id_G $ and we have that 
+  \[
+	  \frac{F(G)}{\ker \varphi} \cong G
+  \]
+  so we have that $ G\cong \langle G \mid \ker \varphi\rangle $.
+\end{example}
+\begin{example}
+	Consider $ G = \langle a,b \mid a \rangle $. Write $ \Z = \langle t\rangle $ and consider the  function $ \{a,b\} \to \Z $ mapping $ a $ to $ 1 $ and $ b $ to $ t $. So there exists a unique group homomorphism $ \varphi: G \to \Z $. We also have that the map $ \{t\} \to G $ sending $ t \to b $ induces a unique group homomorphism $ \psi: \Z \to G $. Now we have that $ \varphi\psi(t) = t $ so $ \varphi\circ \psi = \id_{\Z} $. For the reverse, $ \psi\varphi $ maps $ a $ to $ a $ and $ b $ to $ b  $, $ \psi\circ\varphi = \id_G $, so we have that $ G\cong \Z $.
+\end{example}
+\subsection{Free products with amalgamation}
+Let $ H,G_1,G_2 $ be groups and we have homorphisms
+\begin{align*}
+	i_1 &: H \to G_1 \\
+	i_2 &: H \to G_2.
+\end{align*}
+\begin{definition}
+	(Free Product) The \textit{free product} of $ G_1 $ and $ G_2 $ is 
+	\[
+	  G_1 + G_2 = \langle S_1 \sqcup S_2 \mid R_1 \sqcup R_2\rangle
+	\]
+	where $ G_1 = \langle S_1 \mid R_1 \rangle $, $ G_2 = \langle S_2 \mid R_2 \rangle $.
+\end{definition}
+This is well-defined, but the proof is out-of-scope for this course.
+\par
+The functions $ S_i \to S_1 \sqcup S_2 \to F(S_1 \cup S_2) \to G_1 * C_2 $ give a canonical homomorphism $ j_i $ from $ G_i $ to $ G_1 * G_2 $. 
+\begin{definition}
+	(Free Product with Amalgamation) We define the \textit{free product with amalgamation} over $ H	$ to be the quotient
+	\[
+		G_1 *_H G_2 = (G_1 * G_2)/\langle\langle j_1i_1(h)(j_2i_2(h))^{-1} \mid h \in H \rangle \rangle.
+	\]
+\end{definition}
+\begin{remark}
+	The free product is the free product with amalgamation for $ H = \{e\} $. For general $ H $ we have that the following diagram commutes. 
+	\[
+	\begin{tikzcd}
+H \arrow[r, "i_1"] \arrow[d, "i_2"'] & G_1 \arrow[d, "j_1"] \\
+G_2 \arrow[r, "j_2"'] & G_1 *_H G_2
+\end{tikzcd}
+	\]	
+\end{remark}
+\begin{proposition}
+  For a group $ K $ suppose that $ \varphi_i:G_i\to K $ are homomorphisms such that $ \varphi_1 i_1 = \varphi_2 i_2 $ Then there exists a unique homomorphism
+  \[
+    \varphi: G_1 *_H G_2 \to K
+  \]
+  such that $ \varphi\circ j_1 = \varphi_1 $ and $ \varphi\circ j_2 = \varphi_2 $.
+\end{proposition}
+\pf We can understand the question from the diagram.
+\[
+  \begin{tikzcd}
+H \arrow[r, "i_1"] \arrow[d, "i_2"'] & G_1 \arrow[d, "j_1"] \arrow[dd, bend left=60, "\varphi_1"] \\
+G_2 \arrow[r, "j_2"'] \arrow[dr, bend right=40, "\varphi_2"'] & G_1 *_H G_2 \arrow[d, dashed, "\exists!\, \varphi"] \\
+& K
+\end{tikzcd}
+\]
+Uniqueness follows from the fact that the images at $ j_1 $ and $ j_2 $ generate $ G_1 *_H G_2 $. By the universal property of the free product, $ \varphi_1 $ and $ \varphi_2 $ induce the map $ \varphi_1 * \varphi_2: G_1 * G_2 \to K $. For any $ h\in H $, $ \varphi_1\circ i_1(h) = \varphi_2 i_2(h) $, so $ (\varphi_1 * \varphi_2)(j_2i_2(h)(j_1i_1(h))^{-1}) = \varphi_2(i_2(h))\varphi_1(i_1(h))^{-1} = 1 $. \par
+So $ j_2i_2(h)(j_1i_1(h))^{-1}\in \ker(\varphi_1*\varphi_2) $ so the normal closure of that element is in $ \ker(\varphi_1*\varphi_2) $, so $ \varphi_1 * \varphi_2 $ induces 
+\[
+	\varphi: \frac{G_1 * G_2}{\langle\langle j_2i_2(h)(j_1i_1(h))^{-1}\mid h\in H\rangle\rangle} \to K
+\]
+so $ \varphi $ is a desired group homomorphism.\qed
+\section{The Seifert-van Kampen Theorem}
+\subsection{The Seifert-van Kampen Theorem}
+Suppose that $ X $ is a topological space and $ A,B\subset X $ are open subsets satisfying $ A\cup B = X $. Choose a basepoint $ x_0\in A \cap B $ (assuming that $ A\cap B \ne \emptyset $). We have the commumative diagram
+\[
+  \begin{tikzcd}
+\pi_1(A \cap B, x_0) \arrow[r] \arrow[d] & \pi_1(A, x_0) \arrow[d] \\
+\pi_1(B, x_0) \arrow[r] & \pi_1(X, x_0)
+\end{tikzcd}
+\]
+where all of the homomorphisms are those induced on the fundamental group by the natural inclusions. By the universal property of the amalgamated free products there is a corresponding homomorphism
+\[
+	\varphi: \pi_1(A,x_0) *_{\pi_1(A\cap B,x_0)} \pi_1(B,x_0) \to \pi_1(X,x_0)
+\]
+\begin{theorem}
+	(Seifert-van Kampen Theorem) Suppose that $ A\cap B $ is path-connected. Then $ \varphi $ is an isomorphism. In particular
+	\[
+		\pi_1(X,x_0) \cong \pi_1(A,x_0) *_{\pi_1(A\cup B,x_0)} \pi_1(B,x_0).
+	\]
+\end{theorem}
+\pf \textit{(Non-examinable)} We'll just sketch out a quick proof for the Seifert-van Kampen Theorem. Surjectivity is much easier to prove so we'll do that first and fully, but hand-wave the proof for injectivity.\par
+Choose any loop $ [\gamma] \in \pi_1(X,x_0) $. $ X = A\cup B $ is an open cover of $ X $, so $ \inv \gamma(A) \cup \inv \gamma(B) = I $ is an open cover too. By the Lebesgue number lemma, there is a $ N> 0 $ such that $ \gamma\left(\left[ \frac iN, \frac{i+1} N \right]\right) $ is contained in either $ A $ or $ B $ whenever $ 0\le i < N $. For each such $ i $, choose paths $ \gamma_i: x_0\rightsquigarrow \gamma\left(\frac 1N\right) $ such that $ \gamma_i $ is a path in $ A $ or $ B $ respectively (or in $ A\cap B $ if both). This is possible since $ A\cap B $ is path-connected. Then
+\[
+	\gamma_i \cdot \gamma\Big|_{\left[\frac iN, \frac{i+1}N \right]} \cdot \inv \gamma_{i+1}
+\]
+is contained in either $ A $ or $ B $ and is a loop based at $ x_0 $. Thus $ [\gamma]=[\gamma_0\gamma|_{[0,\frac 1N]} \inv\gamma_1\gamma_1 \gamma|_{[\frac 1N,\frac 2N]} \gamma_2^{-1} \cdots ] \in \ima \varphi $. Therefore $ \varphi $ is surjective.
+\par
+Now for injectivity. Choose $ [\gamma_i]\in \pi_1(A,x_0) $ or $ \pi_1(B,x_0) $ for $ 1\le i \le n $ such that $ [\gamma_1 \dots \gamma_n] = 0 $ in $ \pi_1(X,x_0) $. This implies that there is a homotopy $ H:I\times I \to X $ from $ \gamma_1\dots \gamma_n $ to $ c_{x_0} $. By the Lebesgue number lemma there exists a $ \ep>0 $ such that any $ \ep $-ball on $ I\times I $ is mapped to either $ A $ or $ B $. Hence we subdivide $ I\times I $ into a grid such that every piece is mapped to $ A $ or $ B $.
+\begin{claim}
+  We can choose $ H $ such that it is constant near every special point (the intersections of the grid in $ I\times I $)
+\end{claim}
+\begin{claim}
+  We can further modify $ H $ such that it takes every special point to $ x_0 $.
+\end{claim}
+The above claim is done by choosing paths between them. We won't prove them. Taking a loop $ \gamma $ in either $ A $ or $ B $ we argue inductively to move our loop to the top so
+\[
+	[\gamma_1]\dots [\gamma_n] = [c_{x_0}] \cdots [c_{x_0}] = 1
+\]
+so we get that $ \ker\varphi = 1 $ and hence $ \varphi $ is an isomorphism.\qed
+
+\begin{example}
+(Path-connectedness of $ A\cap B $ is required) We can write that $ S^1 = A \cup B $ where $ A\cong B \cong \R $ and $ A\cap B \cong \R \sqcup \R $. We have that $ A $ and $ B $ are contractible, so $ \pi_1(X,x_0)=  \pi(B,x_0) = 1 $, and hence their amalgamated product is also trivial, but we know $ \pi_1(S^1,x_0) \cong \Z $.
+\end{example}
+\begin{example}
+	Consider $ S^n =\{ v\in \R^{n+1} \mid ||v|| = 1 \}\subset \R^{n+1} $ for $ n\ge 2 $. Let $ A, B $ be the open sets which are $ S^n $ with the north/south pole remove respectively. Each of these are open and by a sterographic progrection there are homeomorphic to $ \R^n $ and hence simply connected. Their intersection is homeomorphic to an open cylinder which is path-connected. By the Seifert-van Kampen theorem we have that
+	\[
+		\pi_1(S^n, x_0) \cong \{e\} *_{\pi_1(U\cap V,x_0)} \{e\} = \{e\}
+	\]
+	so the $ n $-sphere is simply connected for $ n\ge 2 $.
+\end{example}
+\begin{example}
+Recall that we have a 2-sheeted covering map $ p: S^n \to \mathbb{RP}^n $. For $ n\ge 2 $ we know that $ S^n $ is simply connected so the covering map is universal. So there is a bijection from the fundamental group to the fibre but $ \inv p(x_0) $ is only of two elements, and there is only one group of order $ 2 $ so we must have that $ \pi_1(\mathbb{RP}^n, x_0) = \Z/2 $
+\end{example}
+\subsection{The Effect on the Fundamental Group of Attaching Cells}
+Let $ X $ be a topological space and choose $ x_0\in X $. Let $ f: (S^{n-1}, *) \to (X,x_0) $ be an attaching map so that we form a new spcae $ Y = X \cup_f D^n $ where we identify the boundary of the disk $ S^{n-1} $ with it's image(s) in $ X $. How can we compute $ \pi_1(Y,y_0) $ from $ \pi(X,x_0) $ and $ f $? First we need to have $ y_0 = [x_0] $ for a based map to make sense. This let's us use the inclusion map $ \iota: X\to Y $ as a based map. Therefore we have the induced homomorphism
+\[
+  \iota_*: \pi_1(X,x_0) \to \pi_1(Y,y_0).
+\]
+Let $ U $ be the interior of $ D^n $ and let $ V $ be $ X \cup_f (D^n\setminus \{0\}) $ which is an open cover of $ Y $. And assuming that $ X $ is path-connected we have that $ U\cap V $ is path-connected for $ n\ge 2 $.
+\begin{theorem}
+  For $ \iota $ as above we have that:
+  \begin{enumerate}
+	  \item If $ n\ge 3 $ then the map $ \iota_* $ is an isomorphism;
+	  \item If $ n = 2 $ then $ \iota_* $ is surjective with kernel being the normal subgroup generated by $ [f]\in \pi_1(X,x_0) $.
+  \end{enumerate}
+\end{theorem}
+\pf Let $ y_1 $ be a point in $ U\cap V $ so it's in the interior of $ D^n $ and not the center. Let $ u $ be a path in $ D^n \setminus \{0\} $ from $ y_1 $ to the basepoint $ *\in S^{n-1} $ which is identified to $ x_0 $. If $ n\ge 3 $ then since $ U\cap V \cong S^{n-1} $ it is simply connected, so by the Seifert-van Kampen theorem the map
+\[
+	\phi: \pi(U,y_0) *_{\pi_1(U\cap Y,y_1)} \pi(V,y_1) \to \pi_1(Y,y_1)
+\]
+is an isomorphism. Since both $ U\cap V $ and $ U $ are simply connected, they have trivial fundamental groups and hence the map $ \pi_1(V,y_1) \to \pi_1(Y,y_1) $ is an isomorphism. So using the change-of-basepoint isomorphism we have that $ \pi_1(V,y_0) \to \pi_1(Y,y_0) $ is an isomorphism. Since the inclusion $ \iota $ is a based homotopy equivalence (by pulling $ D^n\setminus \{0\} $ on to its boundary so $ \iota_* $ is an isomorphism.\par
+Now if $ n = 2 $ we have that $ U\cap V\cong \Z $ so the map
+\[
+  \pi_1(U\cap V, y_1) \to \pi_1(V,y_1)
+\]
+sends the generator (of $ \Z $) to the loop $ u_{\#}([f]) $. Since we have that $ \pi_1(U,y_1) = \{e\} $ the Seifert-van Kampen theorem gives us that 
+\[
+  \phi: \pi_1(V,y_1)/\langle\langle u_{\#}([f])\rangle\rangle \to \pi_1(Y,y_1)
+\]
+is an isomorphism. Again apply the change-of-basepoint isomorphism and again use the fact that inclusion $ (X,x_0) \to (V,y_0) $ is a based homotopy equivalence so the theorem follows.\qed
+\begin{remark}
+  This follows even if we attach (possibly infinitely many) $ n $-cells to $ X $.
+\end{remark}
+\begin{example}
+  Consider the torus $ T = S^1 \times S^1 $. If we cut along along $ \alpha $ being a circle which goes around the torus we get an annulus/cylinder and then if we cut along $ \beta $ being a circle which is a circle in the other direction (i.e $ \alpha $ and $ \beta $ correspond to the homotopy loops $ (1,0) $ and $ (0,1) $ when viewing $ \pi_1(T,x_0) \cong \Z \times \Z $, we end up with an open square or equivalently the interior of $ D^2 $. Conversely this means that $ T $ is obtained by attaching a $ 2 $-cell to $ \alpha\cup \beta\cong S^1 \vee S^1 $. We can see that the attaching loop is $ \alpha \beta\inv \alpha\inv \beta $. So we get that
+  \[
+    \pi_1(T) \cong \pi_1(S^1 \vee S^1)/ \langle\langle \alpha\beta\inv\alpha\inv\beta\rangle\rangle.
+  \]
+\end{example}
+\begin{example}
+	(Wedge product $ S^1 \vee S^1 $). We can view $ S^1 \vee S^1 $ as the figure eight space. Let $ U $ and $ V $ be open sets with $ U $ missing a point in the right circle and $ V $ missing a point in the left circle. Hence their intersection looks like the character "X" and hence is contractible. So since $ U $ and $ V $ are homotopically equivalent to $ S^1 $ we have an isomorphism from $ \pi_1(U) * \pi_1(V) \to \pi_1(S^1 \vee S^1) \cong \Z * \Z = \langle a,b\rangle \cong F_2 $.
+\end{example}
+So going back to $ T $ we have that
+\[
+  \pi_1(T)\cong \langle \alpha,\beta \mid \alpha\beta \inv \alpha\inv\beta\rangle \cong \Z^2.
+\]
+\begin{definition}
+	(Strong deformation retract) Given a space $ X $ and a subspace $ A\subset X $ we say that $ A $ is a \textit{strong deformation retract} of $ X $ there is a retraction $ r: X \to A $ and homotopy $ H $ from $ \iota \circ r $ to $ \id_X $ that fixes every point at $ A $ at all time.
+\end{definition}
+\begin{definition}
+	(Neighbourhood deformation retract) Given a space $ X $ and a subspace $ A\subset X $ we say that $ A $ is a \textit{neighbourhood deformation retract} if it is a strong deformation retract of some open neighbhourhood of it.
+\end{definition}
+\begin{example}
+	Consider $ X = S^1 $ and $ A = \{*\} $. Clearly $ A $ is not a strong deformation retract since $ S^1 $ is not homotopy equivalent to $ A $ since $ X $ is not contractible. However we can easily see that $ A $ is a neighbourhood deformation retract.
+\end{example}
+We can now state a refinement of the Seifert-van Kampen theorem.
+\begin{theorem}
+  Let $ X $ be a topological space and $ A,B\subset X $ be closed subsets such that $ A\cap B $ is path-connected and $ A\cap B $ is a neighbourhood deformation retract in both $ A $ and $ B $. Then the natural map
+  \[
+	  \pi_1(A,x_0) *_{\pi_1(A\cap B,x_0)} \pi_1(B,x_0)\to \pi_1(X,x_0)
+  \]
+  is an isomorphism for all $ x_0\in A\cap B $.
+\end{theorem}
+\pf Choose open neighbourhoods $ A\cap B \subset U \subset A $ and $ A\cap B \subset V \subset B $ which strongly deformation retract to $ A\cap B $. Now the complement of $ A\cup V $ in $ X $ is $ B \setminus V $ which is closed since $ V	$ is open in $ B $. Thus $ A\cup V $ is open in $ X $. Similarly $ U\cup B $ is open in $ X $. The strong deformation retraction of $ V $ to $ A\cap B $ shows that inclusion map $ \iota: A \to A \cup V $ is a homotopy equivalence and similarly for $ B\to U\cup B $. Finally since $ (A\cup V)\cap (U\cup B) = U\cup V $ and the strong deformation retractions of $ U $ to $ A\cap B $ and $ V $ to $ A\cap B $ glue together to give a strong deformation retraction of $ U\cap V $ to $ A\cap V $. So we can apply the Seifert-van Kampen  theorem to the open cover $ A\cup V $ and $ U\cup B $ which have intersection $ U\cup V\simeq A\cap B $ which is path-connected. The theorem then follows since all of the maps
+\begin{align*}
+	\pi_1(A,x_0) &\to \pi_1(A\cup B,x_0) \\
+ \pi_1(B,x_0) &\to \pi_1(U\cup B,x_0) \\
+ \pi_1(A\cap B,x_0) & \to \pi_1(U\cup V,x_0)
+\end{align*}
+are all isomorphism.\qed
+For based spaces $ (X,x_0) $ and $ (Y,y_0) $ define $ (X,x_0) \vee (Y,y__0) = (X\vee Y,x_0 = y_0) $ where the wedge is defined by
+\[
+  X\vee Y = X\sqcup Y/x_0 \sim y_0.
+\]
+\begin{corollary}
+	If $ \{x_0\} $ and $ \{y_0\} $ are neighbourhood deformation retracts in $ X $ and $ Y $ then
+	\[
+	  \pi_1(X,x_0) * \pi_1(Y,y_0) \to \pi_1(X\wedge Y,x_0 = y_0)
+	\]
+	is an isomorphism.
+\end{corollary}
+\pf Trivial.\qed
+
+
+\end{document}
