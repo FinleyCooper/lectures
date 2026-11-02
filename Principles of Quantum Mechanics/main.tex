@@ -1252,5 +1252,118 @@ with single particle Hamiltonian
 \[
 	H(\hat \x, \hat{\mathbf p}) = \frac {\hat{\mathbf p}^2}{2m} - \frac {Z e^2}{4\pi \ep_0 |\hat{\mathbf x}|}.
 \]
+For a single electron with states in $ V_{\mathrm{space}} $ we have joint eigenstates $ \ket{n, \ell, m} $ of $ H,\mathbf L^2, L_3 $ with eigenvalues $ E_n, \hbar^2\ell(\ell+1), \hbar m $ respetively. Where
+\[
+	E_n = -\frac m2 \left(\frac{2e^2}{4\pi \ep_0\hbar}\right)^2 \frac 1{n^2}
+\]
+and $ n=1,2,\dots $ is the principal quantum number and $ \ell = 0,1, \dots, n-1 $ and $ m = 0, \pm 1, \dots, \pm \ell $ gives $ 2\ell + 1 $ states.\par
+Hence the degeneracy level of $ E_n $ is
+\[
+  1 + 3 + \dots + (2n-1) = n^2.
+\]
+Now if we include $ V_{\mathrm{spin}} $ with basis $ \{\ket \uparrow, \ket \downarrow\} $ each electron has $ 2n^2 $ states at energy $ E_n $.\par
+Let's see the strucutre of electrically neutral atoms with $ N=2 $. We fill up energy levels, starting with the lowest using Pauli exclusion principle. This gives a rough picture of the periodic table with some qualitative insights into chemical properties. For example we expect unreactive elements for completely fill energy levels (noble gases). For example $ E_1 $ filled for $ Z=2 $ gives helium and $ E_1 $ and $ E_2 $ filled for $ Z=10 $ gives neon.
+\section{Perturbation Theory}
+Few quantum mechanical systems can be solved exactly. In perturbation theory we start from a known system
+\[
+  H\ket n = E_n\ket n
+\]
+with $ \{\ket n\} $ being an orthonormal basis of energy eigenstates. We calculate energies and eigenstates for a \textit{perturbed} Hamiltonian
+\[
+	(H+ \lambda V)\ket \psi = E\ket \psi.
+\]
+order-by-order in parameter $ \lambda $ with $ V $ some Hermitian operator. We assume that $ E $ and $ \ker\psi $ depend smoothly on $ \lambda $.
+\subsection{Non-degenerate Case}
+Suppose that $ \lambda \to 0 $ so
+\begin{align*}
+	\ket \psi &\to \ket r  \\
+	E & \to E_r.
+\end{align*}
+Use $ \{\ket n\} $ as a basis for $ \lambda \ne 0  $ so we can write
+\[
+	\psi = \alpha\ket r + \sum_{j\ne r} \beta_j \ket j = \alpha\left(\ket r + \sum_{j\ne r} \gamma_j \ket j\right)
+\]
+where $ \alpha,\beta,\gamma_j = \beta_j/\alpha $ are all power series in $ \lambda $ such that with $ \alpha \to 1 $ and $ \beta_j,\gamma_j\to 0 $ as $ \lambda \to 0 $. The aim to calculate coefficients in expansions
+\begin{align*}
+	E &= E_r + E_r' \lambda +E_r''\lambda^2 +\dots \\
+	\alpha &= 1 + a \lambda + \dots \\
+	\gamma_j &= c_j\lambda +\dots
+\end{align*}
+but first substitute expressions for $ \ket\psi $ into the Schr\"odinger equation, so
+\begin{align*}
+	(E_r + \lambda V) \ket r + \sum_{j\ne r} \gamma_j(E_j + + \lambda V) \ket j  = E\left( \ket r  + \sum_{j\ne r}\gamma_j \ket j\right) 
+\end{align*}
+cancelling a factor of $ \alpha $, or 
+\[
+(E-E_r) \ket r+ \sum_{j\ne r} \gamma_j (E-E_j) \ket j =\lambda V\ket r + \lambda \sum_{j\ne r} \gamma_j V \ket j
+\]
+so taking $ \bra r $ of the above equation we get that
+\[
+	E-E_r = \lambda \bra{r}V\ket{r} + \lambda \sum_{j\ne r} \gamma_j \bra{r}V\ket{j}.
+\]
+So far this is exact (holds for all orders in $ \lambda $) but now in terms of the series expansion we find that
+\[
+	\lambda E_r' + \lambda^2 E_r'' + \dots = \lambda \bra{r}V\ket{r} + \lambda^2 \sum_{j\ne r} c_j \bra{r}V\ket{j} + \dots
+\]
+so we can see that first-order change is given by
+\[
+	E_r' = \bra{r}V\ket{r}.
+\]
+To find second-order change we need to know $ c_j $, so multiplying with $ \bra i $ instead of $ \bra r $ we get that
+\[
+	\gamma_i (E-E_i) = \lambda \bra i V \ket r + \lambda \sum_{j\ne r} \gamma_j \bra i V\ket j+ \dots.
+\]
+Again this result is exact, but to leading order in $ \lambda  $ we get that
+\[
+  \lambda c_i(E-E_i) = \lambda \bra i V \ket r
+\]
+hence
+\[
+	c_i = \frac{\bra i V \ket r}{E_r-E_i}
+\]
+using that fact that $ E_i\ne E_r $ since we're looking at the non-degenerate case and 
+\[
+	E_r'' = \sum_{j\ne r} \frac{|\bra j V\ket r|^2}{E_r - E_j}
+\]
+so in summary
+\[
+	E = E_r + \lambda \bra r V\ket r + \lambda^2 \sum_{j\ne r} \frac{|\bra j V \ket r |^2}{E_r-E_j}
+\]
+to $ O(\lambda^2) $.
+\begin{example}
+	We'll return to the harmonic oscillator.
+	\[
+		H = \frac{\hat p^2}{2m} + \frac 12 m\omega^2 \hat x^2 = \hbar w\left(a^\dagger a + \frac 12\right)
+	\]
+	with states $ \ket n $, $ E_n = \hbar \omega\left(n + \frac 12 \right) $. Let 
+	\begin{align*}
+		V = m\omega^2\hat x^2 &= m\omega^2 \frac\hbar{2m\omega}(a^2 + {a^\dagger}^2 + aa^\dagger + a^\dagger a) \\
+				      &= \hbar \omega(a^2 + {a^\dagger}^2 + 2a^\dagger a + 1).
+	\end{align*}
+	Note that 
+	\begin{align*}
+		\bra n V \ket n &= \frac 12 \hbar \omega (2n+1) \\
+		\bra{n+2} V \ket n &= \frac 12 \hbar \omega \sqrt{n+1}\sqrt{n+2} \\
+		\bra{n-2} V \ket n = \frac 12 \hbar \omega \sqrt n \sqrt{n-1} \
+		\bra{m} V \ket n = 0
+	\end{align*}
+	for all other $ m $. The perturbed energy of the $ n $th level to $ O(\lambda^2) $ is
+	\begin{align*}
+		E_n & + \lambda\bra n V \ket n + \lambda \sum_{m\ne n } \frac{|\bra m V \ket n|^2}{E_n-m} \\
+		&= \hbar \omega\left(n+\frac 12\right) + \lambda \hbar \omega\left(n+\frac 12\right) + \lambda^2 \left(\frac{\hbar \omega}2\right)^2\left(\frac{(n+1)(n+2)}{-2\hbar \omega} + \frac{n(n-1)}{2\hbar \omega}\right) \\
+													 &= \hbar \omega\left(n+\frac 12\right) \left(1+\lambda - \frac{\lambda^2}2\right)
+	\end{align*}
+	to $ O(\lambda^2) $. But this problem can be solved exactly. $ H\to H +\lambda V $ is equivalent to $ \omega^2 \to {\omega'}^2 = \omega^2(1+2\lambda) $. New energies are exactly
+	\begin{align*}
+		\hbar\omega'\left(n+\frac 12\right) &=\hbar \omega\left(n+\frac 12\right)\left(1+2\lambda\right)^{1/2} \\
+						    &= \hbar \omega\left(n+\frac 12 \right) \left(1+\lambda - \frac 12 \lambda^2 + O(\lambda^2)\right).
+	\end{align*}
+\end{example}
+
+
+
+
+
+
 
 \end{document}
