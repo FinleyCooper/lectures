@@ -622,7 +622,7 @@ so by uniqueness this our unique lift starting at $ n $. So $ \tilde\gamma(1) = 
 \end{theorem}
 \pf Suppose we have a retraction $ r: D^2 \to S^1 $ and the inclusion map $ \iota: S^1 \hookrightarrow D^2 $. Then $ r\circ \iota = \id_{S^1} $ and we have the factorisation
 \[
-	\Z \cong \pi_1(S^1,1) \arr{}{\iota_*} \pi_1(D^2,1) \arr{}{r^*} \pi_1(S^1,1) \cong \Z
+	\Z \cong \pi_1(S^1,1) \arr{}{\iota_*} \pi_1(D^2,1) \arr{}{r_*} \pi_1(S^1,1) \cong \Z
 \]
 of the identity map. But $ D^2 $ is simply connected so it's fundamental group is trivial so this is a contradiction.\qed
 \par
@@ -634,7 +634,7 @@ This gives us a nice corollary.
 \begin{theorem}
 	(Fundamental Theorem of Algebra) Any polynomial $ f\in \C[X] $ that is non-vanishing on $ \C $ is constant.
 \end{theorem}
-\pf Write that $ f(x) = x^n + a_1x^{n-1} + \cdots + a_n $. Take $ r> \mathrm{max}\left(1,\sum_{i=1}^n |a_1|\right) $. Then $ |z|^n > |a_1 x^{n-1} + \cdots + a_n| $ whenever $ |z| = r $. Consider the polynomial
+\pf Write that $ f(x) = x^n + a_1x^{n-1} + \cdots + a_n $. Take $ r> \mathrm{max}\left(1,\sum_{i=1}^n |a_i|\right) $. Then $ |z|^n > |a_1 x^{n-1} + \cdots + a_n| $ whenever $ |z| = r $. Consider the polynomial
 \[
 	f_t(x) = x^n + t(a_1 x^{n-1} + \cdots + a_n)
 \]
@@ -886,7 +886,7 @@ Let $ H,G_1,G_2 $ be groups and we have homorphisms
 \begin{definition}
 	(Free Product) The \textit{free product} of $ G_1 $ and $ G_2 $ is 
 	\[
-	  G_1 + G_2 = \langle S_1 \sqcup S_2 \mid R_1 \sqcup R_2\rangle
+	  G_1 * G_2 = \langle S_1 \sqcup S_2 \mid R_1 \sqcup R_2\rangle
 	\]
 	where $ G_1 = \langle S_1 \mid R_1 \rangle $, $ G_2 = \langle S_2 \mid R_2 \rangle $.
 \end{definition}
@@ -945,7 +945,7 @@ where all of the homomorphisms are those induced on the fundamental group by the
 \begin{theorem}
 	(Seifert-van Kampen Theorem) Suppose that $ A\cap B $ is path-connected. Then $ \varphi $ is an isomorphism. In particular
 	\[
-		\pi_1(X,x_0) \cong \pi_1(A,x_0) *_{\pi_1(A\cup B,x_0)} \pi_1(B,x_0).
+		\pi_1(X,x_0) \cong \pi_1(A,x_0) *_{\pi_1(A\cap B,x_0)} \pi_1(B,x_0).
 	\]
 \end{theorem}
 \pf \textit{(Non-examinable)} We'll just sketch out a quick proof for the Seifert-van Kampen Theorem. Surjectivity is much easier to prove so we'll do that first and fully, but hand-wave the proof for injectivity.\par
@@ -969,7 +969,7 @@ The above claim is done by choosing paths between them. We won't prove them. Tak
 so we get that $ \ker\varphi = 1 $ and hence $ \varphi $ is an isomorphism.\qed
 
 \begin{example}
-(Path-connectedness of $ A\cap B $ is required) We can write that $ S^1 = A \cup B $ where $ A\cong B \cong \R $ and $ A\cap B \cong \R \sqcup \R $. We have that $ A $ and $ B $ are contractible, so $ \pi_1(X,x_0)=  \pi(B,x_0) = 1 $, and hence their amalgamated product is also trivial, but we know $ \pi_1(S^1,x_0) \cong \Z $.
+(Path-connectedness of $ A\cap B $ is required) We can write that $ S^1 = A \cup B $ where $ A\cong B \cong \R $ and $ A\cap B \cong \R \sqcup \R $. We have that $ A $ and $ B $ are contractible, so $ \pi_1(A,x_0)=  \pi_1(B,x_0) = 1 $, and hence their amalgamated product is also trivial, but we know $ \pi_1(S^1,x_0) \cong \Z $.
 \end{example}
 \begin{example}
 	Consider $ S^n =\{ v\in \R^{n+1} \mid ||v|| = 1 \}\subset \R^{n+1} $ for $ n\ge 2 $. Let $ A, B $ be the open sets which are $ S^n $ with the north/south pole remove respectively. Each of these are open and by a sterographic progrection there are homeomorphic to $ \R^n $ and hence simply connected. Their intersection is homeomorphic to an open cylinder which is path-connected. By the Seifert-van Kampen theorem we have that
@@ -1033,6 +1033,7 @@ So going back to $ T $ we have that
 \begin{example}
 	Consider $ X = S^1 $ and $ A = \{*\} $. Clearly $ A $ is not a strong deformation retract since $ S^1 $ is not homotopy equivalent to $ A $ since $ X $ is not contractible. However we can easily see that $ A $ is a neighbourhood deformation retract.
 \end{example}
+\subsection{A Refinement of the Saifert-van Kampen Theorem}
 We can now state a refinement of the Seifert-van Kampen theorem.
 \begin{theorem}
   Let $ X $ be a topological space and $ A,B\subset X $ be closed subsets such that $ A\cap B $ is path-connected and $ A\cap B $ is a neighbourhood deformation retract in both $ A $ and $ B $. Then the natural map
@@ -1063,7 +1064,7 @@ For based spaces $ (X,x_0) $ and $ (Y,y_0) $ define $ (X,x_0) \vee (Y,y_0) = (X\
 \begin{example}
 	For $ n>0 $ we consider the bouquet of $ n $ circles 
 	\[
-	  X_2 = S^1 \vee \dots \vee S^1.
+	  X_n = S^1 \vee \dots \vee S^1.
 	\]
 	We know that $ \pi_1(X_2) \cong F_2 $, so we suspect that $ \pi_1(X_n) \cong F_n $ which we can see from inductively applying the above corollary.
 \end{example}
