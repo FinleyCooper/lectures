@@ -737,10 +737,35 @@ We can get pressure from $ \nabla p = \mu \nabla^2 \mathbf u = \mu \nabla \times
 	\end{remark}
 	\begin{remark}
 	  if the denominator is zero which happens for $ 2\alpha = 257^\circ $ we have a problem.
-	\end{remark}
+  \end{remark}
 \end{example}
-
-
+\begin{example}
+	(Moffatt Eddies) Consider the same situation with $ Q = 0 $ but instead forced by some disturbance at large $ r $ outside the local solution. We try a separable solution $ \psi = r^\lambda f(\theta) $, so $ u\propto r^{\lambda -1} $. Hence we get that 
+	\[
+		\nabla^4 \psi = \nabla^2(r^{\lambda-2}(f''+\lambda^2 f)) = r^{\lambda -4}(D^2 + (\lambda -2)^2)(D^2 + \lambda^2)f = 0
+	\]
+	where $ D = \frac d{d\theta} $. We have that $ \mathbf u =0 $ at $ \theta = \pm\alpha $ so $ f(\pm \alpha) = f'(\pm \alpha) = 0 $, so this an eigenvalue problem for $ \lambda(\alpha) $. The general solution (avoiding the special cases where $ \lambda = 0,1,2 $) is
+	\[
+	  f(\theta) = A\cos(\lambda\theta) + B\sin(\lambda\theta) + C\cos(\lambda -2)\theta + D\sin(\lambda-2)\theta.
+	\]
+If $ f(\theta) $ is even then $ B=D = 0 $ and $ u_r $ is odd and $ u_\theta $ is even. We have that $ f(\pm \alpha) = 0 $ so \[ f = A'(\cos(\lambda-2)\alpha \cos(\lambda \theta) - \cos\lambda\alpha\cos(\lambda-2)\theta) \].
+We also have that $ f'(\pm \alpha) = 0 $ so $ \lambda \cos(\lambda-2)\alpha \sin(\lambda\alpha) = (\lambda-2)\cos(\lambda\alpha)\sin(\lambda -2)\alpha $ is an eigenvalue equation for $ \lambda(\alpha) $. There is an infinite series of roots, mostly complex, with $ \Re \lambda > 1 $ so $ u\to 0 $ in the corner. If $ 2\alpha \le 146^\circ $ all of the roots are complex. If $ \lambda = a \pm ib $ we can write $ \psi = r^{a+ib} f(\theta) + \text{(complex conjugate solution)} $ to get a real answer. So
+\[
+  \psi = r^a(\cos(b\log r) \Re f-\sin(b\log r) \Im f)
+\]
+so we get an infinite number of oscillations as $ r\to 0 $ so we get a geometric sequence o counter-rotating eddies of decreasing size and strength. The sizes decrease by a factor of $ e^{-\pi/b} $ so the velocities decrease by a factor of $ e^{-\pi(a-1)/b} $.\par
+If $ 2\alpha \ge 146^\circ $ then the smallest root (dominant eigenmode) is real so the motion is not oscillatory. We get similar results for $ f $ odd which gives $ A=C=0 $, which gives oscillator behaviour on the range $ 2\alpha \le 159^\circ $.
+\end{example}
+\section{Lubrication Theory}
+\subsection{Scaling and Equations}
+Consider a fluid on a rigid boundary with thickness $ h $ which varies along a length scale $ L\gg h $ with velocity $ \mathbf u = (u,v) $. We assume that $ \frac{\partial h}{\partial x} \ll 1 $ so the fluid surface has small variation. \par
+Incompressibility gives that $ \nabla\cdot\mathbf u = 0 $ so $ \frac{\partial u}{\partial x} +\frac{\partial v}{\partial y} = 0 $ so 
+\[
+  \frac uL \sim \frac vh
+\]
+and hence $ v\ll v $ since $ \frac hL \ll 1 $. So the flow is quasi-parallel to the boundary.
+\par
+For the viscous term, since $ \nabla^2 $ can be approximated by $ \frac {\partial^2}{\partial y^2} $ the viscous term is approximately $ \mu \frac{\partial^2}{\partial y^2} $ since $ h\ll L $.
 
 
 

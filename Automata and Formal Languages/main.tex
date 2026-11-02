@@ -681,5 +681,31 @@ So throwing away all $ \ep $ and unit productions from $ \hat P $ to get $ \math
 \par
 For $ \mathcal L(G)\subseteq \mathcal L(G') $, if in $ G $ we have $ A\longrightarrow (\text{something}) $ which contains terminals $ a_1, a_2, \dots $ then this was replaced by with $ A_{a_1},A_{a_2} $ then apply the production rules $ A_{a_i} \longrightarrow a_i $ which we added to $ P' $.\par
 For $ \mathcal L(G')\subseteq \mathcal L(G) $, note that the new non-terminals only appear on the RHS apart from $ A_a \longrightarrow a $ where they're replaced. So we can reverse the argument above thus $ G $ and $ G' $ define the same language.\qed
+\begin{theorem}
+	Any CFG $ G $ gives rise to a CFG $ \overline G $ in Chomsky normal form with $ \mathcal L(\overline G) = \mathcal (G) \setminus \{\ep\} $.
+\end{theorem}
+\pf From $ G = (N, \Sigma, P, S) $ for $ \mathring G' = (N',\Sigma, \mathring P', S) $ from the previous theorem and lemma together. The latter does not add $ \ep $ or unit productions, so everything in $ \mathring P' $ is of the form $ A\to a $ or $ A\to B_1\dots B_k $ (with $ k\ge 2 $). Now for each production $ A\to B_1\dots B_k $ with $ k\ge 3 $ we introduce a new non-terminal $ C $ and replace the previous production with the two productions $ A \to B_1C $ and $ C \to B_2\dots B_k $. Again the language is unchanged and the maximium length of production rules in the language has decreased by $ 1 $, so we can continue this inductively until the production rules are all in Chomsky normal form.\qed
+
+\par
+So given a CFG $ G = (N,\Sigma, P,S) $ and $ w\in \Sigma^* $, we have an algorithm to decide whether $ w\in \mathcal L(G) $. Without loss of generality we can say that $ G $ is in CNF then it's of type $ 1 $ (since it's of type $ 2 $) and hence it is a non-contracting grammar. What about $ \ep \in \mathcal L(G) $? When we enlarge $ P $ to $ \hat P $ we get $ \ep \in \mathcal L(\hat G) = \mathcal L(G) \iff S \to \ep $ is in $ \hat P $.\par
+What about a CNF for $ G $ \textit{with} $ \ep \in \mathcal L(G) $. If we convert $ G $ to CNF then na\"ively we try to throw in $ S\to \ep $ then this could be used to obtain other words since $ S $ might appear on the right of production rules. So instead we just introduce a new start symbol $ S'\in N $ and add the production rules $ S'\to \ep $ and $ S' \to S $ and we get the same language including the empty word.
+\begin{example}
+	Given the CFG of balanced brackets we have no unit productions but we have $ S \to [S] \mid SS $ and $ S \to\ep $. So replace the latter with $ S \to [\:] $ to get $ S \to [S]\mid SS\mid [\:] $. Now add non-terminals $ L,R $ with $ S \to LSR \mid SS\mid LR $ and $ L \to\: [ $ and $ R \to\: ] $. Add $ C $ and replace the first production with $ S \to LC \mid SS\mid LR $ with $ C \to SR $ and $ L \to\: [ $ and $ R \to \:] $ in CNF. 
+\end{example}
+\subsection{Parse Trees and The Pumping Lemma for Context-Free Languages}
+We picture how to derive a sentence in a CFG, like a path in the transition daigram in a DFA.
+\begin{definition}
+	(Rooted Tree) A \textit{rooted tree} is a connected finite graph with base vertex labelled $ S $ which is simply connected.
+\end{definition}
+\begin{definition}
+	(Parse Tree) Given a CFG $ G $ and derivation (without $ \ep $-productions) of a word $ w\in\mathcal L(G) \setminus \{\ep\} $ a \textit{parse tree} is a rooted tree drawn downwards from $ S $ and representing the productions used in deriving $ w $. Each vertex $ v $ is labelled with a symbol from $ N\cup \Sigma $ if $ \mathrm{deg}(v) > 1 $ but from $ \Sigma $ if $ \mathrm{deg}(v) = 1 $. We read off the leaves from left to right. It is constructed as follows
+	\begin{enumerate}
+		\item Take the first production $ S\to \alpha_1 $ and add $ |\alpha_1| $ branches drawn from $ S $ labelled by symbols of $ \alpha_1 $ from left to right.
+		\item For the next production, $ X\to\alpha_2 $ add $ |\alpha_2| $ branches drawn from this $ X $ with the labelling of $ \alpha_2 $ left to right.
+		\item Keep going until the derivation is finished and now all the leaves are labelled by terminals.
+		\item Extend these terminals down until all at the same level and then read $ w $.
+	\end{enumerate}
+\end{definition}
+We say that the rott is at level $ 0 $ and the \textit{depth} of the free is label $ n $ of the last level.
 
   \end{document}
