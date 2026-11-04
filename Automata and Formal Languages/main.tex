@@ -706,6 +706,91 @@ We picture how to derive a sentence in a CFG, like a path in the transition daig
 		\item Extend these terminals down until all at the same level and then read $ w $.
 	\end{enumerate}
 \end{definition}
-We say that the rott is at level $ 0 $ and the \textit{depth} of the free is label $ n $ of the last level.
+We say that the root is at level $ 0 $ and the \textit{depth} of the free is label $ n $ of the last level.
+\begin{remark}
+  If $ G $ is a CFG in CNF then a parse tree has $ \le 2^i $ symbols at level $ i $ as each vertex has at most $ 2 $ descendents. 
+\end{remark}
+\begin{theorem}
+	(Pumping Lemma for CFLs) Let $ L $ be a CFL. Then there exists a $ n\ge 1 $ such that for every word $ u\in L $ with $ |u| \ge n $ we can write $ u $ as $ 5 $ subwords
+	\[
+	  u = vwxyz
+	\]
+	such that
+	\begin{enumerate}
+		\item $ w $ and $ y $ are both not $ \ep $;
+		\item $ 1\le |wxy| \le n $;
+		\item For all $ k\ge 0 $ we have that $ vw^kxy^kz\in L $.
+	\end{enumerate}
+\end{theorem}
+\pf By previous theorem we can take a CFG, $ G $ for $ L $ in CNF. Take $ n > 2^m $ for $ m = |N| $ the number of non-terminals in $ G $. If $ u\in L $ and $ |u| \ge n $ then any parse tree for $ u $ has depth $ \ge m + 1 $ (else not enough symbols). Let $ \Pi $ be a path from the root down to the last level passing only through non-terminals except for the final vertex (i.e word back from last production), this it passes through $ \ge m +1 $ non-terminals and so some non-terminal occurs twice along $ \Pi $. Let $ A $ be the first repeated non-terminals going from the bottom. If we use the lower $ A $ vertex as a root for the subtree below it and regard this as a smaller parse tree with start symbol $ A $, we obtain 
+a parse tree $T_x$ with root $A$ and yield $x$, so $A\Rightarrow^* x$. Using the upper
+$A$ vertex as a root instead gives a parse tree $T_{wxy}$ with root $A$ and yield
+$wxy$, where $w$ and $y$ are the parts of the yield to the left and right of the
+subtree $T_x$ (the lower $A$ lies inside $T_{wxy}$). Let $v$ and $z$ be the parts of $u$
+to the left and right of the yield of $T_{wxy}$, so that $u = vwxyz$. Replacing the
+subtree $T_x$ in $T_{wxy}$ by a single leaf labelled $A$ shows $A \Rightarrow^* wAy$.
+Likewise the part of the tree above the upper $A$ gives $S \Rightarrow^* vAz$. Altogether,
+\[
+  S \Rightarrow^* vAz, \qquad A \Rightarrow^* wAy, \qquad A \Rightarrow^* x .
+\]
+
+\textbf{(3)} By induction on $k$ we have $A \Rightarrow^* w^k A y^k$ for all $k\ge 0$: the case
+$k=0$ is trivial, and if $A\Rightarrow^* w^kAy^k$ then applying $A\Rightarrow^* wAy$ to the
+middle $A$ gives $A\Rightarrow^* w^{k+1}Ay^{k+1}$. Hence for every $k\ge 0$
+\[
+  S \Rightarrow^* vAz \Rightarrow^* v w^k A y^k z \Rightarrow^* v w^k x y^k z,
+\]
+so $vw^kxy^kz \in L$. (For $k=0$ this is the derivation $S\Rightarrow^* vAz\Rightarrow^* vxz$.)
+
+\textbf{(1)} The upper $A$ vertex has a non-terminal descendant (the lower $A$), so it is not
+a leaf-production $A\to a$; as $G$ is in CNF it uses a production $A\to BC$. The lower $A$
+lies in the subtree of exactly one of $B$, $C$, say $B$ (or is $B$). Then the yield of the
+subtree at $C$ is disjoint from $x$, lies entirely within $w$ or $y$, and is non-empty:
+in CNF the only possible $\ep$-production is $S\to\ep$, and $S$ does not appear on the
+right-hand side of any production, so every non-root vertex has non-empty yield. Hence
+$wy\neq\ep$ (i.e.\ $|wy|\ge 1$).
+
+\textbf{(2)} Going up $\Pi$ from the bottom, $A$ was the \emph{first} repeated non-terminal.
+Since there are only $m$ non-terminals, this repetition occurs among the lowest $m+1$
+non-terminals of $\Pi$. So the part of $\Pi$ from the upper $A$ to the bottom contains at
+most $m+1$ non-terminals. Since $\Pi$ was a longest path, every path in $T_{wxy}$ has at
+most $m+1$ non-terminals.
+
+\emph{Claim.} If $T$ is a parse tree in CNF in which every path from the root to a leaf
+passes through at most $d$ non-terminals, then $|\text{yield}(T)|\le 2^{d-1}$.
+This is by induction on $d$. If $d=1$ the root uses a production $A\to a$, so the yield has
+length $1=2^0$. If $d>1$ the root uses $A\to BC$ (or $A\to a$, which is trivial), and each
+of the subtrees at $B$ and $C$ has at most $d-1$ non-terminals on every path, so each has
+yield at most $2^{d-2}$, giving at most $2\cdot 2^{d-2}=2^{d-1}$ in total.
+
+Applying the claim to $T_{wxy}$ with $d=m+1$ gives $|wxy|\le 2^m < n$. Together with (1),
+$1\le |wxy|\le n$. \qed
+\begin{remark}
+	\textit{This is a different proof which differs from the lecture's proof since it was confusing and incomplete.}
+\end{remark}
+\begin{example}
+	Let $ L = \{a^ib^i c^i\mid i \in \N \}$. Then from the above theorem, $ L $ is not a CFL. Suppose it was so whenever we write $ \alpha = a^n b^n c^n $ as $ vwxyz $ with $ |wxy|\le n $ and $ w,y $ not $ \ep $. Then $ wxy $ cannot contain both '$ a $'s and '$ c $'s. Suppose there's no '$ a $'s so take a suitable $ n $ from the pumping lemma to get that $ vw^k xy^kz\in L $ for $ k\ge 2 $. Now this has the same number of '$ a $'s but certainly more '$ b $'s and/or more '$ c $'s. This is a contradiction, hence the language is not context free. 
+\end{example}
+We can show (Example Sheet 2) that CFLs are not invariant under $ \cap $ or complement. 
+\begin{example}
+	Suppose that $ \sum = \{a,b,c,d\} $ and 
+	\[
+		L = \{w\in \Sigma^* \mid w \text{ has same number a's as c's and same number of b's as d's}\} 
+	\].
+	Then suppose that $ L $ was a CFL. Let $ u =a^nb^nc^nd^n $ with $ n $ a pumping number. So $ u=vwxyz $ with $ w,y\ne \ep $ and $ |wxy| \le n $ with $ vxz\in L $. So either the number of $ a $'s and/or $ b $'s changed or the number of $ b $'s and/or $ c $'s or $ c $'s and/or number of $ d $'s. Contradiction, so $ L $ is not context free.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   \end{document}

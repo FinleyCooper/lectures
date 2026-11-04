@@ -1344,7 +1344,7 @@ to $ O(\lambda^2) $.
 	\begin{align*}
 		\bra n V \ket n &= \frac 12 \hbar \omega (2n+1) \\
 		\bra{n+2} V \ket n &= \frac 12 \hbar \omega \sqrt{n+1}\sqrt{n+2} \\
-		\bra{n-2} V \ket n = \frac 12 \hbar \omega \sqrt n \sqrt{n-1} \
+		\bra{n-2} V \ket n &= \frac 12 \hbar \omega \sqrt n \sqrt{n-1} \
 		\bra{m} V \ket n = 0
 	\end{align*}
 	for all other $ m $. The perturbed energy of the $ n $th level to $ O(\lambda^2) $ is
@@ -1359,11 +1359,116 @@ to $ O(\lambda^2) $.
 						    &= \hbar \omega\left(n+\frac 12 \right) \left(1+\lambda - \frac 12 \lambda^2 + O(\lambda^2)\right).
 	\end{align*}
 \end{example}
-
-
-
-
-
-
-
+In general we expect perturbation theory to be valid and useful when $ |\lambda| $ is sufficiently small. But we really have an expansion in $ \lambda^2 \frac{|\bra i v \ket j|^2}{|E_i-E_j|} $ and similarly quantities. The condition for accuracy is therefore that
+\[
+	|\text{energy shifts}| \ll |\text{original energy differences}|
+\]
+so that $ H $ eigenvalues are close to $ H + \lambda V $ eigenvalues.\par
+In general perturbation series may not converge but are still useful as an asymptotic series. In the harmonic oscillator example we consider the total potential $ \frac 12 m\omega^2 (1+2\lambda) \hat x^2 $. For $ \lambda < - \frac 12 $ we expect the theory to not make sense since the sign is flipped, which suggests perturbation theory converges for $ |\lambda| < \frac 12 $.
+\begin{example}
+	(Ground state energy for Helium) For the unperturbed problem, we have two non-interacting electrons of charge $ -e $ oribiting a nucleus of charge $ +2e $ with Hamiltonian
+	\[
+		H(\hat \x_1, \hat{\mathbf p_1}) + H(\hat \x_2,\hat{\mathbf p_2})
+	\]
+	with
+	\[
+		H(\hat \x,\hat{\mathbf p}) = \frac{\hat{\mathbf p}^2}{2m} - \frac{2e^2}{4\pi \ep_0 |\hat{\mathbf x}|}.
+	\]
+	One electron state and energies are
+	\[
+		\ket{n, \ell, m} \quad E_n = -\frac 12 m \left(\frac {2e^2}{4\pi \ep_0 \hbar}\right)^2 \frac 1{n^2}.
+	\]
+	The lowest energy eigenstates for two electrons is
+	\[
+		\ket \Psi = \ket{1,0,0} \otimes \ket{1,0,0} \otimes \ket\chi
+	\]
+	with
+	\[
+		\ket\chi = \frac 1{\sqrt 2}(\ket \uparrow\ket \downarrow - \ket\downarrow\ket\uparrow)
+	\]
+	spin state. So the two electron wavefunction is
+	\[
+		\Psi (\mathbf x_1,\mathbf x_2) + \psi_{1,0,0}(\x_1)\psi_{1,0,0}(\x_2)
+	\]
+	and
+	\[
+		\psi_{1,0,0}(\mathbf x) = \frac 1{\sqrt \pi} \left(\frac 2{a_2}\right)^{3/2} e^{-|\x|/a}
+	\]
+	where
+	\[
+		a = \frac 12 \frac{4\pi \ep_0}{e^2}\frac{\hbar^2}{m}
+	\]
+	which is half the Bohr radius. And
+	\[
+		2E_1 = -m \left(\frac{2e^2}{4\pi \ep_0\hbar}\right)^2.
+	\]
+	Experimentally, the ground state energy for Helium is different, but we neglected the electron-electron interaction. Treat this as a perturbation so
+	\[
+		\lambda = \frac{e^2}{4\pi \ep_0} \quad \text{and} \quad V(\x_1,\x_2) = \frac 1{|\x_1-\x_2|}.
+	\]
+	The first order correctoin to the ground state energy is
+	\begin{align*}
+		\lambda \bra{\Psi} V \ket{\Psi} &= \lambda \int \mathrm d^3 \x_1 \int \mathrm d\x_2 \Psi(\x_1,\x_2)^* V(\x_1,\x_2) \Psi(\x_1,\x_2) \\
+						&= \lambda \int \mathrm d^3 \x_1 \int \mathrm d^3 \x_2 |\psi_{1,0,0}(\x_1)|^2|\psi_{1,0,0}(\x_2)|^2 \frac 1{|\x_1-\x_2|}
+	\end{align*}
+	 which on evaulation gives us a correction term which matches the experimental value.
+\end{example}
+\subsection{Degenerate Case}
+Consider the pertubration system
+\[
+	(H+ \lambda V)\ket \psi = E\ket\psi
+\]
+and suppose as before that $ \lambda \to 0 $, but now $ E \to E_r = E_s = \dots $ which are eigenvalues of denegerate states $ \ket r, \ket s, \dots $. So $\ket \psi $ can be written as a linear combination
+\[
+  \ket \psi \longrightarrow \sum_r a_r \ket r.
+\]
+We'll use $ j $ to label these other basis states only (the ones with eigenvalues not equal to $ E_r $. For a general $ \lambda $ we'll expand
+\[
+  \ket\psi = \sum_r \alpha_r \ket r + \sum_j \beta_j \ket j
+\]
+so we must have that $ \alpha_r = a_r + O(\lambda) $ and $ \beta_r = O(\lambda) $. Putting $ \ket\psi $ into the Schr\"odinger equation, we have that
+\begin{align*}
+  \sum_r \alpha_r(E_r + \lambda V)\ket r + \sum_j \beta_j (E_j +\lambda V) \ket j = E\left(\sum_r \alpha_r \ket r + \sum_j \beta_j \ket j\right)
+\end{align*}
+Rearraging we get that
+\[
+\sum_r \alpha_r(E-E_r) \ket r + \sum_j\beta_j (E-E_j)\ket j = \lambda \sum_r \alpha_r V \ket r + \lambda \sum_j \beta_j V \ket j.
+\]
+We seek $ E = E_r +\lambda E' + O(\lambda^2) $ and note that the correction $ E' $ is no longer associated with a specific basis state in our chosen set. Take the inner product of the rearranged equation with $ \bra s $ to get that
+\[
+	(E-E_s)\alpha_s = \lambda \sum_r\bra s V \ket r + \lambda \sum_j \beta_j \bra s V \ket j.
+\]
+Then to leading order in $ \lambda $ we have that
+\[
+  \sum_r \bra s V \ket r a_r = E'a_s.
+\]
+Thus $ E' $ is an eigenvalues of the matrix $ \bra s V \ket r $ and $ a_r $ components of the eigenvector. If there are $ N $ degenerate states then we have $ N $ solutions for $ E' $ in general and the corresponding eigenstates are $ \sum_r a_r \ket r $.\par
+In the general picture the degeneracy of $ H $ is a reflection of some symmetry. The perturbed hamiltonian $ H+\lambda V $ generally has less symmetry so levels split apart.
+\begin{example}
+	(Particle in a box in 2D) Suppose we have a box $ 0\le x,y \le a $ where the unperturbed problem has states $ \ket{ p\ q} $ and energies $ E_{pq} = \frac{\hbar^2 \pi^2}{2ma^2} (p^2+a^2) $. The wave functions are
+	\[
+		\psi_{pq} = \frac 2a \sin\frac{p\pi x}a \sin \frac{q\pi y}a
+	\]
+	where $ p,q\in \N $. The lowest energy level $ E_{11} =  \frac{\hbar \pi^2}{ma^2}$ is non-degnerate and the next level
+	\[
+		E_{12} = E_{21} = \frac{5\hbar^2\pi^2}{2ma^2}
+	\]
+	with degeneracy $ 2 $. Perturbation $ V(x,y) = \frac{xy}{a^2} $ which is dimensionless so $ \lambda $ has the dimension of energy. The shift in the lowest energy level is given by 
+	\[
+		\bra{1\ 1} V \ket{1\ 1} = \int_0^a \mathrm dx \int_0^a \mathrm dy \ \frac{xy}{a^2} |\psi_{11}(x,y)|^2 = \frac 14.
+	\]
+	The shifts in degenerate levels given by the eigenvalues of 
+	\[
+		\begin{pmatrix}
+			\bra{1\ 2} V \ket{1\ 2} & \bra{1\ 2}V \ket{2\ 1} \\
+			\bra{2\ 1} V \ket{1\ 2} & \bra{2\ 1}V \ket{2\ 1}
+		\end{pmatrix} = \begin{pmatrix}
+			\alpha & \beta \\
+			\beta & \alpha
+		\end{pmatrix}
+	\]
+	which are just $ \alpha \pm \beta $ with eigenvalues $ \frac 1 {\sqrt 2} \begin{pmatrix}
+	  1 \\ \pm 1
+	\end{pmatrix} $.
+\end{example}
 \end{document}

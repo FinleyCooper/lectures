@@ -763,12 +763,77 @@ Incompressibility gives that $ \nabla\cdot\mathbf u = 0 $ so $ \frac{\partial u}
 \[
   \frac uL \sim \frac vh
 \]
-and hence $ v\ll v $ since $ \frac hL \ll 1 $. So the flow is quasi-parallel to the boundary.
+and hence $ v\ll u $ since $ \frac hL \ll 1 $. So the flow is quasi-parallel to the boundary.
 \par
-For the viscous term, since $ \nabla^2 $ can be approximated by $ \frac {\partial^2}{\partial y^2} $ the viscous term is approximately $ \mu \frac{\partial^2}{\partial y^2} $ since $ h\ll L $.
-
-
-
-
+For the viscous term, since $ \nabla^2 $ can be approximated by $ \frac {\partial^2}{\partial y^2} $ the viscous term is approximately $ \mu \frac{\partial^2}{\partial y^2} $ since $ h\ll L $. \par
+In $ \rho \frac{Du}{Dt} $ note that $ u\frac{\partial}{\partial x} \sim v\frac{\partial}{\partial y} \sim \frac uL $ and if the geometry is changing, we have that $ \frac \partial{\partial t} \sim \frac vh \sim \frac uL $ from the kinematic boundary condition. So we have that
+\[
+	\frac{\rho \frac{Du}{Dt}}{\mu \nabla^2 u} \sim \frac{\rho u^2/L}{\mu u/h^2} \sim \frac{\rho uh^2}{\mu L}.
+\]
+The second approximation is that we assume that 
+\[
+	\frac{uh}{\nu} \cdot\frac hL \ll 1
+\]
+and neglect inertia term. This number above is called the \textit{reduced Reynolds number}. The leading-order equation therefore
+\[
+	0 = - \frac{\partial p}{\partial x} + \mu \frac{\partial^2 u }{\partial y^2} + f_x
+\]
+and we expect that $ p\sim \frac{\mu uL}{h^2} $ like Poiseuille flow.\par
+We have small flow in the $ y $-direction so
+\[
+	\mu\frac{\partial^2 u}{\partial y} \sim \frac{\mu(uh/L)}{h^2} \sim \frac{\mu u}{h^2} \frac hL \sim \frac ph \frac{h^2}{L^2}\ll \frac ph.
+\]
+The leading order equation in the $ y $-direction just says that
+\[
+	0 = \frac{\partial p}{\partial y} + f_y.
+\]
+This is the lubrication approximation. This is valid for $ h\ll L $, $ \frac{\partial h}{\partial x} \ll 1 $, $ \frac{uh}{\nu}\frac hL \ll 1 $.\par
+We can apply conservation of mass. Write $ q(x) = \int u \ \mathrm dy $, so we get that
+\[
+(q(x) - q(x+\delta x)) \delta t = \delta h \delta x
+\]
+hence taking the $ \delta $ quantities to zero we get that
+\[
+	\frac{\partial h}{\partial t} + \frac{\partial q}{\partial x} = 0.
+\]
+\subsection{The Thrust Bearing}
+Consider the problem of the tooth of a gear a distance $ d_1 $ from a solid boundary on the left side and $ d_2 $ on the right side in a viscous fluid. We'll let $ x=0 $ be the length of tooth and $ U $ motion of the gear (but we'll change the frame of reference to have the solid boundary moving in the negative $ x $-direction with velocity $ U $. The geometry gives that $ h(x) = d_1 + \alpha x $ where $ \alpha = \frac{d_2 -d_1}L $. The lubrication approximation is valid is $ d_2\ll L $ (and hence $ \alpha \ll 1 $ and $ \frac{Ud_2}\nu \frac{d_2}L \ll 1 $. Then if we have that, since there are no body forces we just have the equations
+\[
+   0 = - \frac{\partial p}{\partial x} + \mu \frac{\partial^2 u}{\partial y^2}
+\]
+and $0 = - \frac{\partial p}{\partial y} $ with boundary conditions $ u  = -U $ at $ y=0 $ and $ u = 0 $ at $ y =h $. Then we get that
+\begin{align*}
+	u = - \frac 1{2\mu}\frac{dp}{dx} y(h-y) - U\left(1-\frac yh\right)
+\end{align*}
+and 
+\[
+	q = -\frac{h^3}{12\mu} \frac{dp}{dx} - \frac 12 Uh.
+\]
+Mass conversation gives that $ \frac{\partial h}{\partial t} = 0 $ so $ \frac{\partial q}{\partial x} = 0 $ so $ q = q_0 $ independent of $ x $. We assume that the pressure is the same on both sides (i.e the gear is in a large volume of fluid) so we can rearranging the expression for $ q_0 $ and integrate. So
+\begin{align*}
+	\frac{dp}{dx} &= - 12 \mu \left(\frac{q_0}{h^3}+ \frac{U}{2h^2}\right)\\
+	\implies p(x) &= p_0 + \frac{6\mu}\alpha\left(q_0\left(\frac 1{h^2} - \frac 1{d_1^2}\right) + U\left(\frac 1h - \frac 1{d_1}\right)\right)
+\end{align*}
+but we have that $ p(L) = 0 $, so we must have that 
+\[
+	q_0 = -U \frac{d_1d_2}{d_1+d_2}.
+\]
+This allows us to calculate $ p(x) $, $ u(x,y) $ and the pressure gradient.
+\begin{remark}
+	There must be a point between $ x=0 $ and $ x=L $ where the pressure is at its maximum and $ \frac{dp}{dx} = 0 $. This occurs at
+	\[
+		h = \frac{1}{\frac 1{d_1} + \frac 1{d_2}}
+	\]
+	the harmonic mean and there the flow profile is just Couette.
+\end{remark}
+The force on the bottom plate, with $ \mathbf n = (0,1) $ can be calculated using the normal and tangential components. 
+\begin{align*}
+	F_{\mathrm N} &= -\int_0^L (p - p_0)\ \mathrm dx = - \frac{6\mu U}{\alpha^2}\left(\log \frac{d_2}{d_1} - 2 \frac{d_2-d_1}{d_2+d_1}\right) \\
+	F_{\mathrm T} &= \int_0^L \mu \left. \frac{\partial u}{\partial y}\right|_{y=0} \mathrm dx = \frac{4\mu U}\alpha\left(\log \frac{d_2}{d_1} - \frac 32 \frac{d_2 -d_1}{d_2+d_1}\right).
+\end{align*}
+So if $ d_2-d_1 \sim d_1 $ then the bracketed terms are $ O(1) $ and we have that $ \alpha\sim \frac{d_1}L $ so 
+\[
+	F_{\mathrm N} \sim \frac{\mu UL}{d_1^2} \cdot L \qquad F_{\mathrm T} \sim \frac{\mu U}{d_1} \cdot L.
+\]
 \end{document}
 
