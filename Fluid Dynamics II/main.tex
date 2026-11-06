@@ -822,7 +822,7 @@ This allows us to calculate $ p(x) $, $ u(x,y) $ and the pressure gradient.
 \begin{remark}
 	There must be a point between $ x=0 $ and $ x=L $ where the pressure is at its maximum and $ \frac{dp}{dx} = 0 $. This occurs at
 	\[
-		h = \frac{1}{\frac 1{d_1} + \frac 1{d_2}}
+		h = \frac{2}{\frac 1{d_1} + \frac 1{d_2}}
 	\]
 	the harmonic mean and there the flow profile is just Couette.
 \end{remark}
@@ -835,5 +835,75 @@ So if $ d_2-d_1 \sim d_1 $ then the bracketed terms are $ O(1) $ and we have tha
 \[
 	F_{\mathrm N} \sim \frac{\mu UL}{d_1^2} \cdot L \qquad F_{\mathrm T} \sim \frac{\mu U}{d_1} \cdot L.
 \]
+Hence we can support a large load/thrust $ F_{\mathrm N} $ with friction $ F_{\mathrm T} $ moderate to low. Note that $ d_1\sim \left(\frac{F_{\mathrm N}}{\mu u}\right)^\frac{12} L $ so choose oil sufficiently viscous that $ d_1  $ is greater than the roughness on the plate. We have normal and tangential vectors $ \mathbf n \propto \left(\frac{dh}{dx},-1\right) $ and $ \mathbf t \propto \left(1,\frac{dh}{dx}\right) $. From the general scalings we have that 
+\[
+  \sigma = -pI + \begin{pmatrix}
+	  0  & \mu \frac{\partial u}{\partial y} \\
+	  \mu\frac{\partial u}{\partial y} & 0
+  \end{pmatrix}
+\]
+where the first term is $ O\left(\frac{\mu uL}{h^2}\right) $ and the second term is $ O\left(\frac{\mu u}h\right) $ with additional correction terms being $ O\left(\frac {\mu u}L\right) $.\par
+At leading order, $ \mathbf n \cdot \sigma\cdot\mathbf n = -p $ hence $ F_{\mathrm N} \approx F_y $. We also have that $ \mathbf t \cdot \sigma\cdot \mathbf n = -\mu\left.\frac{\partial u}{\partial y} \right|_{y=h} $ which is the tangential stress. 
+\begin{remark}
+	Intuitively this is simple however $ F_{\mathrm T} \ne F_x $ even at leading order, beause $ \mathbf e_x \cdot \sigma \cdot\mathbf n =-\mu\left.\frac{\partial u}{\partial y}\right|_{y=h} -p\frac{dh}{dx}$, where the second term is $ O\left(\frac{\mu u}h\right) $ (the same order as the first term).
+\end{remark}
+The journal bearing is the same problem as this, but we wrap it around a circle with a changing gap thickness $ h(\theta) $ between the two cylinders. Take local coordinates $ y = r-a $ and $ x= a\theta $ so we get the same leading order equations locally and impose the condition that 
+\[
+	\int_0^{2\pi} \frac{dp}{d\theta} \ \mathrm d\theta = 0
+\]
+to find the flux $ q_0 $. The pressure difference from opposite sides supports the load and prevents the axel from coming into contact with the opposite cylinder.
+\subsection{Cylinder Approaching a Wall}
+Suppose we have a cylinder approaching a wall with the wall at $ y=0 $ and the $ x $ axis parallel to the wall's rigid surface. Let $ h(x) $ be the gap between the cylinder and the wall and the cylinder is in a large tank of fluid. The cylinder has radius $ a $ and velocity $ -V\mathbf e_y $. Let $ d $ be the minimum gap thinkness and assume that $ d \ll a $ and $ \frac{uh}\nu \frac hL  \sim \frac{Vh}\nu \ll 1 $.\par
+We have that $ h-d = a(1-\cos\theta) $ where $ \theta $ is the angle subtended from the center of the cylinder at $ x $, so $ x=a\sin\theta $. So 
+\[
+	h\approx d + a \frac{\theta^2}2,\qquad x\approx a\theta
+\]
+which together gives that
+\[
+	h \approx d\left(1 + \frac{x^2}{2ad}\right).
+\]
+Therefore the relevant lengthscale is $ L \sim \sqrt{ad} $, with $ d\ll \sqrt{ad} \ll a $. So we do have a long thin flow, hence we can apply lubrication theory. Since we have that $ \sqrt{ad}\ll a $ our parabolic approximation is all good.\par
+Now we look at the local quasiparallel with
+\[
+\mu\frac{\partial^2 u}{\partial y^2} = \frac{\partial p}{\partial x}, \quad u(0) = u(h) = 0
+\]
+which gives that
+\[
+	u = - \frac 1{2\mu} \frac{\partial p}{\partial x} y(h-y)\implies q = -\frac{h^3}{12\mu} \frac{\partial p}{\partial x}.
+\]
+Now we can apply mass conservation. Physically it's obvious that $ q=Vx $ and mathemaically 
+\[
+	\frac{\partial q}{\partial x} = - \frac{\partial h}{\partial t} = V \implies q=  Vx
+\]
+gives the same result. We have that 
+\begin{align*}
+	\frac{\partial p}{\partial x} = - \frac{12 \mu Vx}{d^3\left(1+\frac{x^2}{2ad}\right)^3} \implies p = p_0 + \frac{6\mu Va}{d^2\left(1+\frac{x^2}{2ad}\right)^2}
+\end{align*}
+with the constant of integration set to $ p_0 $ since the right term decays rapidly on lengthscale $ L $, so we can impose $ p \to p_0 $ as $ x\to \infty $ where $ x $ is much larger than $ d $ but not much larger than $ a $ i.e on the $ L $ lengthscale.
+\par
+Now let's look at the vertical force on the cylinder per unit length into the page.
+\begin{align*}
+	F = \int_{-\infty}^\infty(p-p_0) \ \mathrm dx &= \frac{6\mu Va}{d^2} \sqrt{2ad}\int_{-\infty}^\infty\frac{\mathrm dt}{(1+t^2)^2} \\
+						      &= \frac{3\pi\mu Va\sqrt{2ad}}{d^2}.
+\end{align*}
+Note that $ V = -\dot d $ so if the cylinder is settling under its own weight, so $ F= \Delta \rho g \pi a^2 $, the weight is constant so $ \frac{\dot d}{d^{3/2}} $ is constant, hence $ d \sim t^{-2} $ as $ t\to \infty $ so there is infinite time to contact. We can rewrite
+\[
+	F = 6\pi \mu a V \left(\frac{a}{2d^3}\right)^{3/2}
+\]
+so we can see the force here is much bigger than if the cylinder was just settling on its own in a fluid.
+\subsection{Hele-Shaw Flow}
+Take two long plates with a constant width $ h $ apart with an induced flow of velocity $ U $ on one side of the plate. We introduce an obstruction between the plates with lengthscale $ L $. Take the plates in the $ xy $ plane and the velocity coming in so it is positive in the $ x $ direction. Assume that $ h\ll L $ so the flow is mainly in the $ xy $ plane and $ \mathbf u = (u,v,w) $ with $ w = O\left(\frac{h}L u , \frac hLv\right) $. Assume that interial forces are negliable, so 
+\[
+	\frac{(u,v)h}{\nu} \frac hL \ll1
+\]
+hence we can apply lubrication theory. So we get that
+\[
+	\frac{\partial p}{\partial z} = 0,\quad \mu \frac{\partial^2 \mathbf u_{\mathrm H}}{\partial z^2} = \nabla_{\mathrm H} p
+\]
+where $ \mathbf u_{\mathrm H} = (u,v) $ and $ \nabla_{\mathrm H} = \left(\frac{\partial}{\partial x}, \frac\partial{\partial y}\right) $.
+
+
+
+
 \end{document}
 
