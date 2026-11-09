@@ -779,11 +779,109 @@ We can show (Example Sheet 2) that CFLs are not invariant under $ \cap $ or comp
 	\].
 	Then suppose that $ L $ was a CFL. Let $ u =a^nb^nc^nd^n $ with $ n $ a pumping number. So $ u=vwxyz $ with $ w,y\ne \ep $ and $ |wxy| \le n $ with $ vxz\in L $. So either the number of $ a $'s and/or $ b $'s changed or the number of $ b $'s and/or $ c $'s or $ c $'s and/or number of $ d $'s. Contradiction, so $ L $ is not context free.
 \end{example}
+\section{Register Machines and Computatbility}
+The set of all functions $ f: \N \to \N $ is uncountable. Which ones admit a finite description? Thus this means only countable functions have finite descriptions and most functions do not have a finite description. What actually does "description" mean. Well given a $ n\in \N $ it should allow us to evaulate $ f(n) $ by a deterministic procedure in finite time, but $ f $ could have many finite descriptions. Say we want to know if two descriptions of functions $ f $ and $ g $ describe the same function. Suppose that $ f\ne g $ so we would uncover that in finite time since there is a least $ m\in \N $ such that $ f(m) \ne g(m) $ and so by iterating from $ 0,1,\dots, m $ we eventually get to $ m $ in finite time. But if they are the same function, we can never find out in finite time.
+\subsection{Register Machines and Computable Functions}
+Register machines are a simple and versatile version of the "computer code" notion (i.e they are Turing complete). They input and output natural numbers directly. Suppose we have some property of functions from $ \N \to \N $ which a given function $ f $ may or may not have a formula definition of "can compute it". Given an arbitrary $ S\subseteq \N $ we can apply this definition to $ S $ via the indicator function on $ S $.\par
+What about languages? $ L\subseteq \Sigma^* $. Suppose that $ \Sigma = \{0,1\} $ then we can try binary. But we know that binary representations are not unique since of leading zeros. Instead if $ |\Sigma| = n $, then suppose $ \Sigma = \{1,\dots, n\} $ are use "shifted" base $ n $ notation. So now $ 11 \in \Sigma^* $ corresponds to $ n+1\in \N $ and $ nn $ corresponds to $ n^2+n $ etc. Formally
+\[
+  a_0\dots a_k \to a_0 + a_1n + \dots a_k n^k
+\]
+but $ 1\le a_0,\dots, a_k\le n $. This is a bijection $ b $, with no problems with leading zeros, and we can say that $ L $ has the property if and only if $ \chi_{b(L)} $ does (where $ \chi $ is the indicator function).
+\begin{definition}
+	(Register Machine) Given discrete time steps $ t=0,1,2,\dots $, a \textit{register machine} (RM) $ \mathcal R $ consists of
+	\begin{enumerate}
+		\item A sequence of \textit{registers} $ R_1,R_2,R_3,\dots $ where at each time $ t $ we have that $ R_i(t) \in \N $;
+		\item We have a \textit{finite program} $ F $ which is a fixed number of states with $ S_0 $ (terminal, $ S_1 $ (start), $ S_2 $,\dots, $ S_n $. Each state has a fixed instruction performed when the machine is in state $ i $.
+			\begin{itemize}
+				\item $ S_0 $: \verb-HALT-;
+				\item $ S_i: (j,+,k) $ means add $ 1 $ to the register $ R_j $ and then move to state $ k $ with $ j>0 $ and $ 0\le k \le n $;
+				\item $ S_i: (j,-,k,\ell) $ means if $ R_j \ne 0 $ then subtract $ 1 $ from the register $ R_j $ and move to $ k $. If $ R_j = 0 $ then just move to state $ \ell $ with $ j>0 $ and $ 0\le k,\ell \le n $.
+			\end{itemize}
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+(Sequence of instructions) A \textit{sequence of instructions} for a register machine $ \mathcal R $ is the ordered list of the instructions for the program.
+\end{definition}
+\begin{definition}
+	(Input) An \textit{input} for $ \mathcal R $ is, for some $ k \ge 1 $, a $ k $-tuple $ (n_1,\dots, n_k) \in \N^k $ which are the values of $ R_1,\dots, R_k $ at the start with all others $ 0 $. At $ t=0 $ we start in state $ S_1 $ then follow stopping when/if we reach the \verb-HALT- state $ S_0 $.
+\end{definition}
+\begin{definition}
+	(Program Diagram) A \textit{program diagram} for $ \mathcal R $ is a finite directed graph with vertices the state sand labelled arrowe for the instructions. We take an arrow with label $ R_j+1 $ for the instructions $ (j,+,k) $ and the arrow with label $ R_j - 1 $ for the instruction $ (j,-,k,\ell) $ with a dotted arrow to state $ \ell $.
+\end{definition}
 
+\begin{example}
+  The transfer register machine which copies $ R_i $ to $ R_j $ and sets $ R_i $ to zero. This can be done by emptying $ R_j $ first and then cycles between two states where we add one to $ R_j $ then remove one from $ R_i $ and repeat this until $ R_i $ is zero where we then go to $ S_0 $ and \verb-HALT-.
+\end{example}
 
-
-
-
+\begin{definition}
+	(Halting) For some $ k>0 $ a program $ \mathcal R $ \textit{halts} on an input $ (n_1,\dots, n_k) \in \N^k $ if it reaches state $ S_0 $ in finite time written $ \mathcal R(n_1,\dots, n_k)\downarrow $. If it never halts we write that $ \mathcal R(n_1,\dots, n_k)\uparrow $. The \textit{halting set} $ \Omega(\mathcal R) $ is a set of inputs on which $ \mathcal R $ halts
+	\[
+		\Omega(\mathcal R) =\bigcup_{k>0} \{(n_1,\dots, n_k)\in \N^k\mid \mathcal R(n_1,\dots, n_k)\downarrow\}.
+	\]
+\end{definition}
+\begin{remark}
+	$ (n_1,\dots, n_k) $ and $ (n_1,\dots, n_k,0) $ are the same input. The \textit{output} will be the value of $ R_1\in\N $ when the machine halts.
+\end{remark}
+\begin{definition}
+ 	For a program $ \mathcal R $, the \textit{upper register index}  $ \mathrm{upper}(\mathcal R) $ is the largest index of a register appearing in instructions for $ \mathcal R $ (which is finite since the instructions are finite).
+\end{definition}
+For input in $ \N^k $, think of $ \mathrm{upper}(\mathcal R)>k $ so we have our first $ k $ input registers and then some registers we use for computing.
+\begin{definition}
+	(Partial Function) A \textit{partial function} $ f: \N^k \dashrightarrow \N $ is one where $ \mathrm{dom}(f) \subseteq \N^k $ and is undefined otherwise. We say that $ f $ is \textit{partial computable} by a program $ P $ if for all $ (n_1,\dots, n_k)\ $ in the domain of $ f $, we have that $ P(n_1,\dots, n_k)\downarrow $ with $ f(n_1,\dots, n_k) $ equalling the value of $ R_1 $ or halting but if $ P(n_1,\dots, n_k)\uparrow $ then $ f $ is undefined at $ (n_1,\dots, n_k) $. Thus given $ P $ and $ k>0 $ then we obtain a partial function $ f:\N^k \to \N $.
+\end{definition}
+\begin{lemma}
+  We can add $ R_i $ to $ R_j $ ($ i\ne j $) leaving $ R_i $ unchanged.
+\end{lemma}
+\pf Do it yourself. \qed
+\par
+In fact the function obtained from this register machine in the proof corresponds to the partial function $ (n_1,n_2) \to n_1 + n_2 $ which is defined on the whole of $ \N^2 $ so it is total. Likewise the "emptying" function $ n \to 0 $ is also total on $ \N $.
+\begin{corollary}
+  We can copy the contents of the register $ R_i $ to $ R_j $, leaving $ R_j $ unchanged.
+\end{corollary}
+\pf First we empty $ R_j $ and then add $ R_i $ to $ R_j $, so done.\qed
+\begin{remark}
+	The idea of this proof is using \textit{subroutines} by forming a program by combining with another problem that proceeds it. We will never have any fighting between subroutines since we just allocate registers to be owned by a single subroutine only by reindexing.
+\end{remark}
+\subsection{Partial Recursive Functions}
+Partial computable functions have good closure properties.
+\begin{theorem}
+	The following total fuctions are computable:
+	\begin{enumerate}
+		\item For each $ i\le k $ we have the \textit{projection function} $ (n_1,\dots, n_k) \to n_i $;
+		\item The zero and successor function $ n \to 0 $ and $ n \to n + 1 $.
+	\end{enumerate}
+	These are called the \textit{basic functions}. We also have that:
+	\begin{enumerate}
+		\setcounter{enumi}{2}
+		\item If $ f: \N^k \dashrightarrow \N $ and $ g_1,\dots, g_k : \N^\ell \dashrightarrow \N $ are partial computable then so is $ h(n_1,\dots, n_\ell) = f(g_1(n_1,\dots, n_\ell),\dots, g_k(n_1,\dots, n_\ell)) $ where defined (if all are total functions then $ h $ is also total);
+		\item (Recursion) If $ f $ on $ k\ge 0 $ variables and $ g $ on $ k+2 $ variables are partial computable then so is the partial function $ h: \N^{k+1} \dashrightarrow \N $ defined inductively by
+			\[
+			  h(n_1,\dots, n_k, 0) = f(n_1,\dots,n_k) 
+			\]
+			and
+			\[
+				h(n_1,\dots, n_k,n_{k+1} +1) = g(n_1,\dots, n_{k+1}, h(n_1,\dots, n_{k+1})).
+			\]
+			Again if $ f $ and $ g $ are total then $ h $ is also.
+		\item (Minimisation) If $ f $ with $ k+1 $ variables is partially computable then so $ g: \N^k \dashrightarrow $ given by "finds the first zero as the last place varies", so
+			\[
+			  g(n_1,\dots, n_k) = \begin{cases}
+				  n & \text{if}\ f(n_1,\dots, n_k,n) = 0 \ \text{and}\ f(n_1,\dots, n_k,m) > 0 \ \forall m < n \\
+				  \text{undefined} & \text{otherwise}
+			  \end{cases}.
+			\]
+			However here we don't have that $ f $ total means $ g $ is total.
+	\end{enumerate}
+\end{theorem}
+\pf  \ 
+\begin{enumerate}
+	\item Previous example, just transfer $ R_i $ to $ R_1 $.
+	\item Empty $ R_1 $ to get $ n\to 0 $. To get $ n\to n+1 $ just add 1.
+	\item Use subroutines. First transfer $ R_1, \dots, R_\ell $ to $ R_{N+1},\dots, R_{N+\ell} $ for $ N $ sufficiently large. Then for each $ 1 \le i \le j $ in turn copy $ R_{N+1}, \dots, R_{N+\ell} $ to $ R_{k+1},\dots, R_{k\ell} $. Then perform $ g_i $ with all registers shifted up by $ k $ and transfer the answer from $ R_{k+1} $ to $ R_i $. Then empty $ R_{k+2},\dots, R_N $ and apply $ f $.
+	\item Ommitted.
+	\item Ommitted.\qed
+\end{enumerate}
 
 
 

@@ -1624,13 +1624,100 @@ hence
 \[
   j \ge m \ge -j.
 \]
-In addition, consider starting from some normalised state $ \ket{j\ m} $ if the states $ J_+^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar (m+n) $, but these are subject to bound $ j\ge m_n $; also to avoid a contradiction, there must be an integer $ k $ with $ j= m+k $ and hence $ J_+^n\ket{j\ m} = 0 $ for all $ n>k $. Similarly if $ \mathbf J^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar(m-n) $ and $ m-n\ge -j $. There mus tbe an integer $ k' $ such that $ -j = m-k' $ so that $ J^n_-\ket{j\ m} = 0 $ for all $ k'> 0$. Thus $ j = m+k $ and $ j = -m+k' $ for $ k.k' $ integers. And for a given value of $ j $ we have states $ \ket{j\ m} $ with $ m=-j,-j+1,\dots, j $ for a total of $ 2j+1 $ states (for fixed $ j $). Our general analysis gives two possibilities. That $ j $ is integral so $ m=0,\dots, \pm j $ or $ j $ is half-integral so $ m = \pm \frac 12, \frac 32 \dots, \pm j $ with an odd/even number of states respectively. These cases correspond to $ 2j = k+k' $ even or odd in the analysis above. The first possibility is realised in orbital angular momentum and the states $ \ket{j\ m} $ correspodn to wavefunctions $ \psi_{jm}(\x) $ or $ Y_{jm}(\theta,\varphi) $ discussed in the previous part. The second possibility cannot arise in this way: there are no solutions of differential equations which are well-behaved when $ j,m $ are half-integral. Such states must correspond to intrinstic angular momentum or spin and this can be half-integral or integral.\par
+In addition, consider starting from some normalised state $ \ket{j\ m} $ if the states $ J_+^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar (m+n) $, but these are subject to bound $ j\ge m_n $; also to avoid a contradiction, there must be an integer $ k $ with $ j= m+k $ and hence $ J_+^n\ket{j\ m} = 0 $ for all $ n>k $. Similarly if $ J_+^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar(m-n) $ and $ m-n\ge -j $. There must be an integer $ k' $ such that $ -j = m-k' $ so that $ J^n_-\ket{j\ m} = 0 $ for all $ n > k'$. Thus $ j = m+k $ and $ j = -m+k' $ for $ k,k' $ integers. And for a given value of $ j $ we have states $ \ket{j\ m} $ with $ m=-j,-j+1,\dots, j $ for a total of $ 2j+1 $ states (for fixed $ j $). Our general analysis gives two possibilities. That $ j $ is integral so $ m=0,\dots, \pm j $ or $ j $ is half-integral so $ m = \pm \frac 12, \frac 32 \dots, \pm j $ with an odd/even number of states respectively. These cases correspond to $ 2j = k+k' $ even or odd in the analysis above. The first possibility is realised in orbital angular momentum and the states $ \ket{j\ m} $ correspodn to wavefunctions $ \psi_{jm}(\x) $ or $ Y_{jm}(\theta,\varphi) $ discussed in the previous part. The second possibility cannot arise in this way: there are no solutions of differential equations which are well-behaved when $ j,m $ are half-integral. Such states must correspond to intrinstic angular momentum or spin and this can be half-integral or integral.\par
 from analysis above, we can choose are joint eigenstates to be related by 
 \begin{align*}
 	J_+ \ket{j\ m} &= \hbar [(j-m)(j+m+1)]^{1/2}\ket{j\ m+1}\\
 	J_- \ket{j\ m} &= \hbar[(j+m)(j-m+1)]^{1/2}\ket{j\ m - 1}.
 \end{align*}
-All states can be generated from any given state, but often it is convenient to start from the \textit{top state} which is corresponds to the maximum eigenvalues of $ J_3 $ so $ J_+-\ket{j\ j} = 0 $. All others are therefore obtained by $ (J_-)^n\ket{j\ j} $ up to normalisation.
+All states can be generated from any given state, but often it is convenient to start from the \textit{top state} which is corresponds to the maximum eigenvalues of $ J_3 $ so $ J_+-\ket{j\ j} = 0 $. All others are therefore obtained by $ (J_-)^n\ket{j\ j} $ up to normalisation.\par
+Note that eigenvalues of $ \mathbf n \cdot \mathbf J $ for $ \mathbf n $ any unit vector are the same as for $ J_3 $ but eigenstates related by some unitary transformation since the choice of orthonormal basis is irrelavent and can be transformed between with a unitary transformation.
+\subsection{Matrix Representations}
+Consider results in the previous section written in terms of vectors for states $ \ket{j\ m} $ and matrices for operators $ J_i $. Recall that in general $ \ket \psi \rightsquigarrow \alpha_n = \bra{n}\ket{\psi} $ and $ A\rightsquigarrow A_{mn} = \bra m A \ket n $. For $ j = 1 $ we have a 3 dimensional state space where
+\[
+	\ket{1\ 1} \rightsquigarrow \begin{pmatrix}
+	  1 \\ 0 \\ 0
+	\end{pmatrix},\quad	\ket{1\ 0} \rightsquigarrow \begin{pmatrix}
+	  0 \\ 1 \\ 0
+	\end{pmatrix},\quad 	\ket{1\ -1} \rightsquigarrow \begin{pmatrix}
+	  0 \\ 0 \\ 1
+	\end{pmatrix}
+\]
+\[
+  J_3 \rightsquigarrow \hbar \begin{pmatrix}
+	  1 & 0 & 0 \\
+	  0 & 0 & 0 \\
+	  0 & 0 & -1
+  \end{pmatrix},\quad J_+ \rightsquigarrow \hbar\sqrt 2 \begin{pmatrix}
+	  0 & 1 & 0 \\
+	  0 & 0 & 1 \\
+	  0 & 0 & 0
+  \end{pmatrix}.\quad J_- \rightsquigarrow \hbar \sqrt 2 \begin{pmatrix}
+	  0 & 0 & 0 \\
+	  1 & 0 & 0 \\
+	  0 & 1 & 0
+  \end{pmatrix}.
+\]
+These follow from
+\begin{align*}
+	J_3\ket{1\ 1} &= \hbar\ket{1\ 1} \\
+	J_3\ket{1\ 0} &= 0 \\
+	J_3\ket{1\ -1} &= -\hbar\ket{1\ -1} 
+\end{align*}
+and
+\begin{align*}
+	J_\pm\ket{1\ \mp 1} &=\hbar\sqrt 2\ket{1\ 0} \\
+	J_\pm\ket{1\ 0 } &= \hbar \sqrt 2\ket{1\ \pm 1}.
+\end{align*}
+Now take that $ j = s= \frac 12 $. This is a 2-dimensional state space and
+\[
+	\ket \uparrow = \ket{ \frac 12 \ \frac 12} \rightsquigarrow \begin{pmatrix}
+	  1 \\ 0
+  \end{pmatrix}, \quad \ket\downarrow = \ket{\frac 12 \ - \frac 12} \rightsquigarrow \begin{pmatrix}
+    0 \\ 1
+  \end{pmatrix}
+\]
+and
+\[
+  S_3 \rightsquigarrow \frac \hbar 2 \begin{pmatrix}
+	  1 & 0 \\
+	  0 & -1
+  \end{pmatrix},\quad S_+ \rightsquigarrow \hbar \begin{pmatrix}
+	  0 & 1 \\
+	  0 & 0
+  \end{pmatrix}, \quad S_- \rightsquigarrow \hbar \begin{pmatrix}
+	  0 & 0 \\
+	  1 & 0
+  \end{pmatrix}
+\]
+or we can write that $ S_i \sim \frac 12 \hbar \sigma_i $ where 
+\[
+  \sigma_1 = \begin{pmatrix}
+     0 & 1 \\
+     1 & 0
+  \end{pmatrix},\quad \begin{pmatrix}
+     0 & -i \\
+     i & 0 
+  \end{pmatrix}, \quad \begin{pmatrix}
+     1 & 0 \\
+     0 & -1
+  \end{pmatrix}.
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

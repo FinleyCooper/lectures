@@ -901,6 +901,68 @@ hence we can apply lubrication theory. So we get that
 	\frac{\partial p}{\partial z} = 0,\quad \mu \frac{\partial^2 \mathbf u_{\mathrm H}}{\partial z^2} = \nabla_{\mathrm H} p
 \]
 where $ \mathbf u_{\mathrm H} = (u,v) $ and $ \nabla_{\mathrm H} = \left(\frac{\partial}{\partial x}, \frac\partial{\partial y}\right) $.
+\par
+We have that
+\[
+	\mathbf u_{\mathrm H} = \frac 1{2\mu} \nabla_{\mathrm H} p \ z(h-z) \implies \mathbf q_{\mathrm H} = \int_0^h \mathbf u_{\mathrm H} \ \mathrm dz = - \frac{h^3}{12\mu} \nabla_{\mathrm H} p.
+\]
+From mass conservation, $ \nabla\cdot\mathbf u = 0 $ so $ \nabla_{\mathrm H} \cdot \mathbf u_{\mathrm H} + \frac{\partial w}{\partial z} = 0 $. So integrating with resepct to $ z $ (since $ w $ evaulated at $ 0 $ and $ h $ is zero, we get that $ \nabla_{\mathrm H} \cdot \mathbf q_{\mathrm H} = 0 $. So 
+\[
+	\mathbf q_{\mathrm H} =- \frac{h^3}{12\mu} \nabla_{\mathrm H} p \implies \nabla^2 _{\mathrm H}\  p (x,y) = 0.
+\]
+This looks like IB potential flow where $ \mathbf u = \nabla \phi $ and $ \nabla^2 \phi = 0 $. Therefore the viscous flow in a Hele-Shaw cell gives a visualation of 2D potential flow.
+\begin{example}
+  Consider uniform flow past a cylinder. As $ r\to\infty $ we have that $ \mathbf q \to Q\mathbf e_x $ which implies that
+  \[
+     p = -\frac{12 \mu Q}{h^3} r \cos\theta.
+  \]
+  On $ r=a $ we have that $ \mathbf q \cdot \mathbf n = 0 $ which gives that $ \frac{\partial p}{\partial r} = 0 $. Further we have that $ \nabla^2_{\mathrm H}\ p = 0 $.
+\end{example}
+\subsection{Gravitational Spreading of a Viscous Fluid}
+Assume we have axisymmetric fluid with height $ z = h(r,t) $ and radius $ r = r_N(t) $. We'll also assume inertia is negligible (so the reduced Reynolds number is $ \ll 1 $, along with neglecting any surface tension and issues at the moving contact line, and assume the surface is long and thin so $ h \ll r_N(t) $. Now we can use lubrication theory. How fast does thie viscous gravity current spread? Vertical balance gives that 
+\[
+  \begin{cases}
+     0 = -\frac{\partial p}{\partial z} - \rho g \\
+     p = p_0 \ \text{at}\ z = h
+  \end{cases} \implies p = p_0 + \rho g(h-z).
+\]
+Flow in the radial direction gives that 
+\[
+   0 = -\frac{\partial p}{\partial r} + \mu \frac{\partial^2 u}{\partial z^2}, \quad u = 0\ \text{at}\ z= 0\ \text{and}\ \mu\frac{\partial u}{\partial z} = 0\ \text{at}\ z=h.
+\]
+Now $ -\frac{\partial p}{\partial r} = - \rho g \frac{\partial h}{\partial r} $ independent of $ z $ implies that 
+\[
+	u_r = -\frac 1{2\mu} \frac{\partial p}{\partial r} z( 2h- z)
+\]
+so we get that
+\begin{align*}
+	q &= \int_0^h u \ \mathrm dz = -\frac{g}{3\nu} h^3 \frac{\partial h}{\partial r}.
+\end{align*}
+Now we can apply mass conservation. By considering a small change in the radius $ \delta r $ we have that
+\[
+	2\pi r q(r) - 2\pi (r+\delta r) q(r+\delta r) = 2\pi r\delta r \frac{\partial h}{\partial t}
+\]
+to leading order. Hence we get that
+\[
+	\frac{\partial h}{\partial t} + \frac 1r \frac{\partial}{\partial r} (rq) = 0 \tag{*}
+\]
+so applying to our $ q $ we get that 
+\[
+   \frac{\partial h}{\partial t} = \frac {g}{3\nu} \frac 1r\frac{\partial }{\partial r} \left(r h^3 \frac{\partial h}{\partial r}\right).
+\]
+No source at $ r=0 $ implies that $ 2\pi r q\to 0 $ as $ r\to 0 $ and $ h = 0 $ at $ r = r_N $. Now $ \int (*) r \mathrm dr $ and the other two conditions gives that $ \int hr \ \mathrm dr = V $, constant volume. Now since $ (*) $ is a nonlinear diffusion equation, we can't solve it analytically. Instead we have to solve it numerically. We find that its solution quickly forgets about the initial conditions, other than the initial volume $ V $, and tends towards a similarity solution of the form
+\[
+  h(r,t) = H(t)f(\eta)
+\]
+where $ \eta = \frac r{R(t)} $. Let's solve for $ H $ and $ f $. We solve by scaling  then substitute to find the shape $ f(\eta) $. We have a constant volume constraint, so $ HR^2 \sim V $ andadn  a governing time evolution equation 
+\[
+	\frac Ht \sim \frac g \nu \frac{H^4}{R^2} \sim \frac g\nu \frac{H^5} V
+\]
+and set $ H(t) = \left(\frac{\nu V}{gt}\right)^{\frac 14} $ and $ R(t) = \left(\frac{gt V^3}{\nu}\right)^{\frac 18} $ and $ \eta = \frac r{R(t)} $ and substitute.
+
+
+
+
 
 
 
