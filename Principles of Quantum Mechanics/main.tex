@@ -1469,6 +1469,169 @@ In the general picture the degeneracy of $ H $ is a reflection of some symmetry.
 	\]
 	which are just $ \alpha \pm \beta $ with eigenvalues $ \frac 1 {\sqrt 2} \begin{pmatrix}
 	  1 \\ \pm 1
-	\end{pmatrix} $.
+	\end{pmatrix} $.\par
+	We have that 
+	\begin{align*}
+		\alpha &= \int_0a \mathrm dx \ \int_0^a \mathrm dy \ \frac{xy}{a^2} | \psi_{12}(x,y)|^2 \\
+		       &= \left(\frac 2a \right)^2 \frac 1{a^2} \left(\int_0^a \mathrm dx \ \sin^2\frac{\pi x}a\right)\left(\int_0^a \mathrm dy \sin^2 \frac{2\pi y}a \right) \\
+		       &= \frac 14
+	\end{align*}
+	and
+	\begin{align*}
+		\beta &= \int_0^a \ \int_0^a \mathrm dy \ \frac{xy}{a^2} \psi_{12}(x,y)\psi_{21}(x,y) \\
+		      &= \left(\frac 2a\right)^2\frac 1{a^2} \left(\int_0^a \mathrm dx \ x\sin\frac{\pi x}a \sin\frac{2\pi x}a\right)^2 \\
+		      &= \left(\frac 4{3\pi}\right)^4.
+	\end{align*}
+	So summing up the new ground state energy is 
+	\[
+		\frac{\hbar^2 \pi^2}{ma^2} + \frac \lambda 4
+	\]
+	and the next two levels have energies
+	\[
+		\frac{5\hbar^2 \pi^2}{2ma^2} + \frac \lambda 4 \pm \lambda\left(\frac{4}{3\pi}\right)^4
+	\]
+	and the corresponding states are
+	\[
+		\frac 1{\sqrt 2} \left( \ket{1 \ 2} \pm \ket{2 \ 1}\right).
+	\]
+We expect perturbation theory to be accurate for $ \lambda \ll \frac{\hbar^2 \pi^2}{ma^2} $.
 \end{example}
+\section{Angular Momentum}
+\subsection{Recap of Orbital Angular Momentum}
+Consider a particle with position $ \hat \x $ and momentum $ \hat {\mathbf p} $. We have that 
+\[
+	\mathbf L = \hat \x \times \hat{\mathbf p} \quad \text{or}\quad L_i = \ep_{ijk}\hat x_j \hat p_k.
+\]
+From the relation $ [L_i,L_j] = i\hbar \ep_{ijk} L_k $ and $ \mathbf L^2 = L_iL_i $ which gives that $ [\mathbf L^2, L_i] = 0 $. Note that the commutator above can be derived from the relations
+\[
+	[L_i, \hat x_j] = i\hbar \ep_{ijk} \hat x_k \quad \text{and}\quad [L_i,\hat p_j] = i\hbar \ep_{ijk}\hat p_k.
+\]
+Consider the action of all operators on wavefunctions. In spherical polar coordinates $ (r,\theta,\varphi) $, the $ L_i $ involves only angular derivatives and 
+\[
+	\nabla^2 = \frac 1r \frac{\partial^2}{\partial r^2}(r) - \frac 1{r^2\hbar^2} \mathbf L^2. 
+\]
+We have joint eigenstates of $ \mathbf L^2 $ and $ L_3 $ which are the spherical harmoincs $ Y_{\ell m}(\theta, \varphi) $
+\begin{align*}
+	\mathbf L^2 Y_{\ell m} &= \hbar^2 \ell(\ell+1) Y_{\ell m} \\
+	L_3 Y_{\ell m} &= \hbar m Y_{\ell m}
+\end{align*}
+for $ Y_{\ell m} $ in terms of Legendre polynomials. We have well-behaved solutions of the eigenvalue problem only for
+\[
+  \ell = 0,1,2,\dots \quad \and \quad m = 0, \pm 1, \pm 2, \dots, \pm \ell. 
+\]
+If the Schr\"odinger equation has spherically symmetric potential, then we can seek separable solutions
+\[
+	\psi_{\ell m}(\mathbf x) = R_\ell(r)Y_{\ell m}(\theta,\varphi)
+\]
+where 
+\[
+	-\frac{\hbar^2}{2m} \frac 1r \frac{\partial^2}{\partial r^2} (rR_\ell) + \left(\frac{\hbar^2}{2mr^2}\ell(\ell+1) + V(r) \right)R_\ell = ER_\ell
+\]
+from the time-independent Schr\"odinger equation.\par
+Of particular importance, the behaviour of such solutions under the map $ \x \to -\x $ can give us a \textit{parity} of a solution. This is equivalent to
+\[
+  r \to r, \quad \theta \to \pi - \theta, \quad \varphi \to \varphi + \pi
+\]
+and it turns out this gives that 
+\[
+	Y_{\ell m}(\pi - \theta, \varphi+ \pi) = (-1)^\ell Y_{\ell m} (\theta, \varphi).
+\]
+Hence
+\[
+	\psi_{\ell m}(-\x) = (-1)^\ell \psi_{\ell m}(\x).
+\]
+\begin{example}
+  There is an important case where we have a system of two particles interacting through a potential which depends only on their relative separation.
+  \begin{align*}
+	  H &= \frac{\hat {\mathbf p_1}^2}{2m_1} + \frac{\hat{\mathbf p_2}^2}{2m_2} + V(|\hat{\mathbf x_1} - \hat{\mathbf x_2}|) \\
+&= \frac{\hat{\mathbf P}^2}{2m} + \frac{\hat{\mathbf p}^2}{2m} + V(|\hat \x|)
+  \end{align*}
+  where
+  \begin{align*}
+	  &\hat {\mathbf X} = \frac{m_1 \hat {\x_1} + m_2\hat{x_2}}M,\qquad \hat \x = \hat{\x_1} + \hat{\x_2} \\
+	  &\hat {\mathbf P} = \hat{\mathbf p_1} + \hat{\mathbf p_2},\qquad \hat{\mathbf p} = \frac{m_2 \hat{\mathbf p_1} - m_1\hat{\mathbf p_2}}N
+  \end{align*}
+  where $ M = m_1 + m_2 $ and $ m= \frac {m_1m_2}M $ is the reduced mass.\par
+  The centre of mass dynamics is trivial if no external force/potential and relative motion is governed by spherically symmetric potential. The wavefuntcion is
+  \[
+	  \Psi(\mathbf X,\x) = e^{i\mathbf k \cdot\mathbf X} \psi_{\ell m} (\x).
+  \]
+  Note that we have that under $ \x \to -\x $, $ \Psi \to (-1)^\ell \Psi $ we have an interchange of particles.
+\end{example}
+\subsection{General Analysis of Angular Momentum Eigenstates}
+Consider
+\[
+  \mathbf J = (J_1,J_2,J_3)
+\]
+which are such that $ J_i^\dagger = J_i $ and
+\[
+	[J_i,J_j] = i\hbar \ep_{ijk} J_k.
+\]
+Define $ \mathbf J^2 = J_iJ_i $ and it follows that $ \mathbf J^2 $ is also Hermitian and we get that
+\[
+	[\mathbf J^2, J_i] = 0.
+\]
+Seek all possible joint eigenstates of $ \mathbf J^2 $ and $ J_3 $. First observe that if we have $ \mathbf J^2 \ket \psi = \lambda \ket \psi $ then we get that
+\[
+	\lambda \bra \psi \mathbf J^2 \ket \psi = \sum_{i=1}^3 ||J_i\ket\psi||^2 \ge 0
+\]
+so it's convenient to set $ \lambda = \hbar j(j+1) $ where we can take $ j\ge 0 $ since $ \lambda $ is unchanged if $ j \to -(j+1) $. Now label states $ \ket {j \ m} $ where
+\begin{align*}
+	\mathbf J^2\ket{j \ m} &= \hbar^2 j(j+1) \ket{j \ m} \\
+	J_3\ket{j \ m} &= \hbar m\ket{j \ m}.
+\end{align*}
+the analyse allowed values of $ j, m $ define 
+\[
+J_\pm = J_1 \pm J_2,\quad (J_\pm)^\dagger = J_\mp
+\]
+and work with these. It's easy to check that 
+\begin{align*}
+	[J_3, J_\pm] &= \pm \hbar J_\pm\\
+	[J_+, J_-] &= 2\hbar J_3 \\
+	[\mathbf J^2, J_\pm] &= 0
+\end{align*}
+and
+\begin{align*}
+	J_+J_- &= \mathbf J^2 - J_3^2 + \hbar J_3 \\
+	J_-J_+ &= \mathbf J^2 - J_3^2 - \hbar J_3.
+\end{align*}
+Now given any state $ \ket{j \ m } $ we notice that $ J_\pm \ket{j \ m} $ gives an eigenstate of $ \mathbf J^2 $ with $ j $ unchanged and $ J_3 $ with $ m\to m\pm 1 $, provided the new states are non-zero.
+\begin{align*}
+	J_3(J_\pm \ket{j \ m} &= ([J_3, J_\pm] + J_\pm J_3)\ket{j\ m} \\
+			      &= ( \pm \hbar J_\pm + J_\pm \hbar m) \ket{j\ m} \\
+			      &= \hbar (m\pm 1) J_\pm \ket{j\ m}.
+\end{align*}
+We can compare with the oscillator where $ [N,a^\dagger] = a^\dagger $ and $ [N,a] =-a $ which implies that $ a^\dagger \ket n  $ and $ a\ket n $ have eigenvalues $ n\pm 1 $ under $ N $.\par
+To find out whether or not the new states vanish, we compute
+\begin{align*}
+	||J_+\ket{j\ m}||^2 &= \bra{j\ m} J_-J_+\ket{j\ m} \\
+			    &= \bra{j\ m} \mathbf J^2 - J_3^2 - \hbar J_3\ket{j\ m} \\
+			    &= \hbar^2(j(j+1) -m(m+1)) \\
+			    &=\hbar^2(j-m)(j+m+1) \ge 0
+\end{align*}
+and similarly
+\begin{align*}
+	||J_-\ket{j\ m}||^2 &= \bra{j\ m} J_+J_- \ket{j\ m} \\
+			    &= \bra{j\ m} \mathbf J^2 - J_3^2+ \hbar H_3\ket{j\ m}\\
+			    &= \hbar^2(j(j+1) - m(m-1)) \\
+			    &= \hbar^2(j+m)(j-m+1)\ge 0.
+\end{align*}
+The inequalities follow because the inner product is positive definite and we have that 
+\[
+  j\ge m \ge -(j+1)\qquad j+1\ge m \ge -j
+\]
+hence
+\[
+  j \ge m \ge -j.
+\]
+In addition, consider starting from some normalised state $ \ket{j\ m} $ if the states $ J_+^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar (m+n) $, but these are subject to bound $ j\ge m_n $; also to avoid a contradiction, there must be an integer $ k $ with $ j= m+k $ and hence $ J_+^n\ket{j\ m} = 0 $ for all $ n>k $. Similarly if $ \mathbf J^n\ket{j\ m} $ are non-vanishing then they have $ J_3 $ eigenvalues $ \hbar(m-n) $ and $ m-n\ge -j $. There mus tbe an integer $ k' $ such that $ -j = m-k' $ so that $ J^n_-\ket{j\ m} = 0 $ for all $ k'> 0$. Thus $ j = m+k $ and $ j = -m+k' $ for $ k.k' $ integers. And for a given value of $ j $ we have states $ \ket{j\ m} $ with $ m=-j,-j+1,\dots, j $ for a total of $ 2j+1 $ states (for fixed $ j $). Our general analysis gives two possibilities. That $ j $ is integral so $ m=0,\dots, \pm j $ or $ j $ is half-integral so $ m = \pm \frac 12, \frac 32 \dots, \pm j $ with an odd/even number of states respectively. These cases correspond to $ 2j = k+k' $ even or odd in the analysis above. The first possibility is realised in orbital angular momentum and the states $ \ket{j\ m} $ correspodn to wavefunctions $ \psi_{jm}(\x) $ or $ Y_{jm}(\theta,\varphi) $ discussed in the previous part. The second possibility cannot arise in this way: there are no solutions of differential equations which are well-behaved when $ j,m $ are half-integral. Such states must correspond to intrinstic angular momentum or spin and this can be half-integral or integral.\par
+from analysis above, we can choose are joint eigenstates to be related by 
+\begin{align*}
+	J_+ \ket{j\ m} &= \hbar [(j-m)(j+m+1)]^{1/2}\ket{j\ m+1}\\
+	J_- \ket{j\ m} &= \hbar[(j+m)(j-m+1)]^{1/2}\ket{j\ m - 1}.
+\end{align*}
+All states can be generated from any given state, but often it is convenient to start from the \textit{top state} which is corresponds to the maximum eigenvalues of $ J_3 $ so $ J_+-\ket{j\ j} = 0 $. All others are therefore obtained by $ (J_-)^n\ket{j\ j} $ up to normalisation.
+
+
+
 \end{document}
