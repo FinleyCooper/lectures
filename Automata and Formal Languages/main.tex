@@ -878,7 +878,7 @@ Partial computable functions have good closure properties.
 \begin{enumerate}
 	\item Previous example, just transfer $ R_i $ to $ R_1 $.
 	\item Empty $ R_1 $ to get $ n\to 0 $. To get $ n\to n+1 $ just add 1.
-	\item Use subroutines. First transfer $ R_1, \dots, R_\ell $ to $ R_{N+1},\dots, R_{N+\ell} $ for $ N $ sufficiently large. Then for each $ 1 \le i \le j $ in turn copy $ R_{N+1}, \dots, R_{N+\ell} $ to $ R_{k+1},\dots, R_{k\ell} $. Then perform $ g_i $ with all registers shifted up by $ k $ and transfer the answer from $ R_{k+1} $ to $ R_i $. Then empty $ R_{k+2},\dots, R_N $ and apply $ f $.
+	\item Use subroutines. First transfer $ R_1, \dots, R_\ell $ to $ R_{N+1},\dots, R_{N+\ell} $ for $ N $ sufficiently large. Then for each $ 1 \le i \le \ell $ in turn copy $ R_{N+1}, \dots, R_{N+\ell} $ to $ R_{k+1},\dots, R_{k+\ell} $. Then perform $ g_i $ with all registers shifted up by $ k $ and transfer the answer from $ R_{k+1} $ to $ R_i $. Then empty $ R_{k+2},\dots, R_N $ and apply $ f $.
 	\item Ommitted.
 	\item Ommitted.\qed
 \end{enumerate}
