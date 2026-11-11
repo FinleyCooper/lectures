@@ -1695,28 +1695,113 @@ or we can write that $ S_i \sim \frac 12 \hbar \sigma_i $ where
   \sigma_1 = \begin{pmatrix}
      0 & 1 \\
      1 & 0
-  \end{pmatrix},\quad \begin{pmatrix}
+  \end{pmatrix},\quad \sigma_2 = \begin{pmatrix}
      0 & -i \\
      i & 0 
-  \end{pmatrix}, \quad \begin{pmatrix}
+  \end{pmatrix}, \quad \sigma_3 = \begin{pmatrix}
      1 & 0 \\
      0 & -1
   \end{pmatrix}.
 \]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+These are the \textit{Pauli matrices} which are Hermitian, traceless matrices obeying
+\[
+  \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = 1
+\]
+and
+\[
+  \sigma_1\sigma_2 = -\sigma_2\sigma_1 = i\sigma_3
+\]
+and cyclic permutations, which is conveniently summarised as
+\[
+	\sigma_1\sigma_2 = \delta_{ij} + i \ep_{ijk}\sigma_k
+\]
+and the antisymmetric part (in $ i $ and $ j $) is
+\[
+	[\sigma_i,\sigma_j] = 2i\ep_{ijk}\sigma_k
+\]
+and this corresponds to
+\[
+	[S_i,S_j] = i\hbar \ep_{ijk} S_k
+\]
+but the symmetric part is special to spin-$ \frac 12 $. Pauli matrices are regarded as components of a vector 
+\[
+  \mathbf S \rightsquigarrow \frac 12 \hbar \boldsymbol \sigma
+\]
+where $ \boldsymbol\sigma = (\sigma_1,\sigma_2,\sigma_3) $. If $ \mathbf a $ and $ \mathbf b $ are any constant vectors (or operators which commute with $ S_i $) then
+\[
+	(\mathbf a \cdot\boldsymbol\sigma)(\mathbf b \cdot\boldsymbol \sigma) = (\mathbf a \cdot\mathbf b) I + i(\mathbf a \times \mathbf b) \cdot \boldsymbol \sigma
+\]
+and as a special case
+\[
+	(\mathbf n \cdot\boldsymbol \sigma)^2 = 1
+\]
+where $ \mathbf n $ is any unit vector; this is equivalent to
+\[
+	(\mathbf n \cdot\mathbf S)^2 =\frac{\hbar^2}4
+\]
+agreeing with the fact that eigenvalues are $ \pm\frac{\hbar}2 $, i.e two spin states for any choice of $ \mathbf n $. Finally note that
+\[
+  \boldsymbol\sigma^2 = \sigma_1^2 +\sigma_2^2 + \sigma_3^2 = 3
+\]
+which is consistant with 
+\[
+	\mathbf S^2 = \hbar^2 \left(\frac 12\right)\left(\frac 12 + 1\right) = \frac{\hbar^2}4\cdot 3.
+\]
+\subsection{Implications of Angular Momentum and Spin}
+An analysis of general states revealed the possibility of intrinsic angular momentum as spin. This is the origin of our previously introduced "internal" states $ \ket r \to \ket{s\ r} $ with $ -s\le r \le s $. The spin operators obey 
+\[
+	[S_i, \hat x_j] = [S_i, \hat p_j] = 0
+\]
+consistant with the previous assumption that basis states for a particle of spin $ s $ has for $ \ket x \otimes \ket r $. Note that $ \hat \x $, $ \mathbf S^2 $, and $ S_3 $ are a complete commuting set. Also commutation relations of $ \hat x_i $, $ \hat p_i $, with $ L_j $ are \textit{not} zero (see above). In general, a particle has both orbital angular momentum and spin angular momentum $ \mathbf L $ and $ \mathbf S $ respectively and a total or combined angular momentum
+\[
+  \mathbf J  = \mathbf L + \mathbf S
+\]
+with
+\[
+	[S_i,L_j ] =0.
+\]
+We know that 
+\begin{align*}
+	[S_i,S_j] &= i\hbar \ep_{ijk} S_k\\
+	[L_i,L_j] &= i\hbar \ep_{ijk} L_k \\
+	[J_i, J_j] &= i\hbar \ep_{ijk} J_k
+\end{align*}
+where the last result follows from the above two.\par
+We will now look at interactiosn and observation. The input from classical electrodynamics tells us that moving electric charges in a magnetic field $ \mathbf B $ have energy $ -\boldsymbol \mu \cdot\mathbf B $, where $ \boldsymbol\mu $ is the magnetic dipole moment (called $ \mathbf m $ in IB Electromagetism). We think of $ \boldsymbol \mu $ as a tiny magnet so energy is minimised/maximised when $ \boldsymbol \mu $ is aligned/anti-aligned with $ \mathbf B $.
+\begin{example}
+  For a single charge $ q $ in an orbit with angular momentum $ \mathbf L $ we can show 
+  \[
+	  \boldsymbol \mu = \frac q{2m} \mathbf L.
+  \]
+  Hence interaction energy gives a term in the Hamiltonian of the form
+  \[
+    -\gamma\mathbf L\cdot \mathbf B
+  \]
+  where $ \gamma $ is some constant. Consider the consequences in quantum mechanics when this term is included in $ H $ for the hydrogen atom (any spherically symmetric potential is similar). If $ \mathbf B = 0 $ we have joint eigenstates $ \psi_{\ell m}(\x) $ of $ H,\mathbf L^3, L_3 $ with degenerate energies $ E $. Adding a weak magnetic field laong $ 3 $-direciton
+  \[
+    H \to H -\gamma BL_3
+  \]
+  we see that $ \psi_{\ell m}(\x) $ are still eigenstates, but energies now split 
+  \[
+    E \to E - \gamma B\hbar m
+  \]
+  for $ -\ell \le m \le \ell $ and $ 2\ell + 1$ levels. This is observed in the Zeeman effect. \par
+  Similarly with spin, the expect and interaction ter in $ H $ of the form
+  \[
+    -\gamma' \mathbf S \cdot\mathbf B
+  \]
+  where $ \gamma' $ is another constant. For a spin-$ \frac 12 $ particle, initially in some eigenstate of $ H $, this new term splits energy level by
+  \[
+    \mp \gamma' B\frac \hbar 2
+  \]
+  and this is also observed and also called the Zeeman effect. Two distinct levels implies direct experimental evidence for spin-$ \frac 12 $.
+\end{example}
+In some physical situations, the system may be described entirely by spin degrees of freedom, then $ -\gamma \mathbf S \cdot\mathbf B $ is the entire Hamiltonian for interaction with some background $ \mathbf B $. Some other important consequences of spin
+\begin{enumerate}
+	\item Stern-Gerlach experiment - already mentioned. Form of interactions requires inhomogenous $ \mathbf B $ field to produce beams of particles separated in space.
+	\item Fine strucutre of atoms. For the electrons the $ \mathbf L $ and $ \mathbf S $ operators each behaved like a dispole giving a term proportional to $ \mathbf L \cdot\mathbf S $ in the Hamiltonian. The effect is of the same order as the first relatvisitc correction to kinetic energy $ \frac 38 \frac{p^4}{m^3 e^2} $. Together they produce small splittings of energy levels (fine structure).
+	\item Effect involving no external field and $ \mathbf L = 0 $ in the hydrogen atom.
+\end{enumerate}
 
 
 

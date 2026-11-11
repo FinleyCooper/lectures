@@ -954,11 +954,89 @@ No source at $ r=0 $ implies that $ 2\pi r q\to 0 $ as $ r\to 0 $ and $ h = 0 $ 
 \[
   h(r,t) = H(t)f(\eta)
 \]
-where $ \eta = \frac r{R(t)} $. Let's solve for $ H $ and $ f $. We solve by scaling  then substitute to find the shape $ f(\eta) $. We have a constant volume constraint, so $ HR^2 \sim V $ andadn  a governing time evolution equation 
+where $ \eta = \frac r{R(t)} $. Let's solve for $ H $ and $ f $. We solve by scaling  then substitute to find the shape $ f(\eta) $. We have a constant volume constraint, so $ HR^2 \sim V $ and a governing time evolution equation 
 \[
 	\frac Ht \sim \frac g \nu \frac{H^4}{R^2} \sim \frac g\nu \frac{H^5} V
 \]
-and set $ H(t) = \left(\frac{\nu V}{gt}\right)^{\frac 14} $ and $ R(t) = \left(\frac{gt V^3}{\nu}\right)^{\frac 18} $ and $ \eta = \frac r{R(t)} $ and substitute.
+and set $ H(t) = \left(\frac{\nu V}{gt}\right)^{\frac 14} $ and $ R(t) = \left(\frac{gt V^3}{\nu}\right)^{\frac 18} $ and $ \eta = \frac r{R(t)} $ and substitute into the governing PDE, noting that $ H(t) \propto t^{-1/4} $ so $ \frac{dH}{dt} = - \frac 14 \frac Ht $. Similarly $ \eta \propto t^{-1/8} $ so $ \frac{\partial \eta}{\partial t} = -\frac 18 \frac \eta t $ and $ \frac{\partial}{\partial r} = \frac 1R \frac{\partial}{\partial \eta} $. We have that
+\[
+	-\frac 14 \frac Ht f + H \frac{d f}{d\eta} \left(-\frac 18 \frac \eta t\right) = \frac g{3\nu}\frac{H^4}{R^2}\frac 1\eta \cdot \underbrace{\frac{d}{d\eta}\left( \eta f^3 \frac{df}{d\eta}\right)}_{\text{do not expand this term}}.
+\]
+Now we have that $ \frac Ht = \frac g\nu \frac{H^4}{R^2} $ by design which gives that
+\[
+  -\frac 14 f - \frac 1 8 \eta f' = \frac 13 \frac 1\eta(\eta f^3f')'
+\]
+which is an ODE for $ f(\eta) $. Similarly the volume constraint becomes
+\[
+	2\pi \int_0^{\eta_N} f \eta \ \mathrm d\eta = 1
+\]
+where $ \eta_N = \frac{r_N}R $. To solve the ODE, multiply by $ \eta $ and we can then integrate so we get that
+\begin{align*}
+	- \frac 18 \eta^2 f = \frac13 \eta f^3 f + \text{const.}
+\end{align*}
+Now we can use the fact that $ f' $ finite at $ \eta =0 $ since we don't have any source flux. So this gives that $ \frac 13 f^2f' = - \frac 18 \eta $. Hence $ \frac 19 f^3 = \frac 1{16} (\eta_N^2 - \eta^2) $. Choose constant so that $ f(\eta_N) = 0 $ hence
+\[
+	f(\eta) = \left[ \frac 9{16}(\eta_N^2 - \eta^2)\right]^{\frac 13}.
+\]
+We can find $ \eta_N $ frmo the volume constraint integral. 
+\begin{align*}
+	1 & 2\pi \left(\frac 9{16}\right)^{\frac 13} \int_0^{\eta_N} (\eta_N^2 - \eta^2)^{\frac 13} \eta \ \mathrm d\eta = \frac 38 \eta_N^{8/3}.
+\end{align*}
+So we get that
+\[
+	\eta_N = \left(\frac{2^{10}}{3^5 \pi^3}\right)^{\frac 18}.
+\]
+Gravity current spreads with 
+\[
+	r_N  =\eta_N \left(\frac{V^3 gt}\eta\right)^{\frac 18}
+\]
+which is very slow since $ r_N\propto t^{\frac 18} $. The 2D case is on Example Sheet 3. The boundary layer equations also have a similarity solution, but usually the nonlinear ODE for $ f(\eta) $ must be solved numerically.
+\section{Vorticity Generation and Confinement}
+\subsection{The Vorticity Equation}
+Starting now with the full incompressible Navier-Stokes equation and assume that body forces are conservative, so $ \mathbf f = - \nabla\chi $. Hence
+\[
+	\rho\left(\frac{\partial \mathbf u}{\partial t} + (\mathbf u \cdot\nabla) \mathbf u \right) =-\nabla p + \mu \nabla^2 \mathbf u - \nabla \chi.
+\]
+Recall from IB Fluid Dynamics that
+\[
+	\mathbf u \times(\nabla \times \mathbf u) = \nabla\left(\frac 12 u^2\right) - (\mathbf u \cdot \nabla)\mathbf u
+\]
+so 
+\begin{align*}
+	\nabla\times((\mathbf u\cdot\nabla)\nabla) &= - \nabla\times (\mathbf u \times \boldsymbol \omega) \\
+						   &= -( \mathbf u \nabla \cdot \boldsymbol \omega + \boldsymbol\omega \cdot\nabla\mathbf u - \boldsymbol \omega \nabla \cdot \mathbf u  - \mathbf u \cdot \nabla \boldsymbol \omega) \\
+						   &= \mathbf u \cdot \nabla\boldsymbol\omega - \boldsymbol\omega \cdot \nabla \mathbf u.
+\end{align*}
+Hence for $ \rho,\mu $ uniform, taking the curl of Navier-Stokes we have that
+\[
+	\frac{\partial \boldsymbol\omega} {\partial t} + \underbrace{(\mathbf u \cdot\nabla) \boldsymbol\omega}_{\text{advection}} = \underbrace{(\boldsymbol\omega \cdot\nabla)\mathbf u}_{\text{vortex stretching}} + \underbrace{\nu \nabla^2 \boldsymbol\omega}_{\text{diffusion}}.
+\]
+\begin{remark}
+  We have no source terms, so if $ \boldsymbol\omega = 0 $ in the volume then it is zero for all time, unless it comes from the boundary.
+\end{remark}
+\begin{remark}
+  In 2D flow, $ \mathbf u = (\psi_y,-\psi_x,0) $ so $ \boldsymbol\omega = (0,0,\omega) $ so $ (\boldsymbol \omega \cdot \nabla) \mathbf u =\mathbf 0 $, so no vortex stretching in a 2D flow.
+\end{remark}
+\subsection{Vortex Stretching}
+Recall from IB Fluid Dynamics that a material line element $ \boldsymbol{\delta \ell} $ is advected according to 
+\[
+	\frac d{dt} \boldsymbol{\delta \ell} = (\boldsymbol{\delta \ell} \cdot\nabla) \mathbf u.
+\]
+If its diffusion is negligible then vorticity is advected, rotated and stretched in just the same way as a material line ement with $ \boldsymbol{\delta \ell} $ parallel to $ \boldsymbol \omega $. Note that
+\[
+	(\boldsymbol\omega \cdot\nabla)\mathbf u = \boldsymbol\omega \cdot e \implies \boldsymbol \omega \times \boldsymbol \omega = 0
+\]
+i.e the vorticity doesn't rotate itself: it's is only rotated by straining type motion. Steady strain amplifies $ \boldsymbol\omega $ in the direction(s) of stretching.
+
+
+
+
+
+
+
+
+
+
 
 
 

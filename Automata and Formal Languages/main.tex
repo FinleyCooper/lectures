@@ -882,13 +882,84 @@ Partial computable functions have good closure properties.
 	\item Ommitted.
 	\item Ommitted.\qed
 \end{enumerate}
-
-
-
-
-
-
-
-
-
+\begin{definition}
+	(Partial Recursive Function) The class of \textit{partial recursive functions} is the smallest class of partial functions $ f: \N^k \dashrightarrow \N $ over all $ k \ge 1 $ which are closed under the operations in the theorem above. That is $ f $ can be constructed from basic functions and use of (iii), (iv), (v), finitely many times. 
+\end{definition}
+\begin{example}
+  If $ k = 1 $, then $ n \to n $ (projection) is partial recursive and constants $ n \to c $ via $ n \to 0 $ and composing the successor function $ c $ times.
+\end{example}
+So the previous theorem says that partial recursive $ \implies $ partial computable. 
+\begin{definition}
+	(Primitive Recursive) A function $ f $ is \textit{primitive recursive} if minimisation is never used in constructing $ f $. 
+\end{definition}
+So primitive recursive $ \implies $ total recursive.
+\begin{example}
+  Addition and multiplication are primitive recursive. Addition is done by recursion on the successor function and multiplication is then done by recursion on the addition function. Similarly by the same reasoning the function $ (m,n) \to m^n $ is also primitive recursive.
+\end{example}
+\begin{definition}
+  Write $ p_i $ for the $ i $th prime (with $ p_0 = 2 $). For $ n > 0 $ write $ (n)_i $ for the largest power of $ p_i \mid n $.
+\end{definition}
+\begin{lemma}
+  For fixed $ i $, the function $ n \to (n)_i $ is primitive recursive.
+\end{lemma}
+\pf We'll prove this is stages. First note that for any finite sequence $ m_0,\dots, m_s \in \N^{s+1} $ then the function
+\[
+  h(n) = \begin{cases}
+	  m_n & n \le s \\
+	  0 & n > s
+  \end{cases}
+\]
+is primitive recursive by induction on $ s $ and recursion. For $ k=0 $, if $ g: \N^2 \to N $ primitive recursive then so is $ h(0) = c $, $ h(n+1) = g(n,h(n)) $. The inductve step starts with a given $ f: \N \to \N $ primitive recursive, $ g(n,m) = f(n) $ is primitive recursive by projection and composition.  Thus $ h(0) = c $, $ h(n+1) = f(n) $ where $ f(n) $ is primitive recursive (or $ f(h(n)) $ is primitive recursive).This includes (for each fixed $ k \ge 2 $) the functions
+\begin{enumerate}
+	\item The step function 
+		\[
+			\mathrm{Step}_k(n) = \begin{cases}
+				1 & 0 \le n \le k -2 \\
+				0 & n > k -2
+			\end{cases}.
+		\]
+	\item The delta function
+		\[
+		  \delta_k(n) = \begin{cases}
+			  1 & n =k \\
+			  0 & n \ne k
+		  \end{cases}.
+		\]
+	\item The epsilon function
+		\[
+		  \ep(n) = \delta_0(\delta_0(n)) = \begin{cases}
+		     0 & n =0 \\
+		     1 & n > 0
+		  \end{cases}.
+		\]
+	\item The slope function
+		\[
+			\mathrm{Slope}_k(n) = \begin{cases}
+			   n +1 & 0 \le n \le k -2 \\
+			   0 & n > k -2
+			\end{cases}.
+		\]
+\end{enumerate}
+Now we can show the remainder function is primitive recursive, where $ \mathrm{Rem}_k(n) = n \ \mathrm{mod} k $. Recursion as above, $ h(0) = 0 $, $ h(n+1) = f(h(n)) $ primitive recursive if $ f $ is. Here $ \mathrm{Rem}_k(n+1) = \mathrm{Slope}_k(\mathrm{Rem}_k(n)) $. We can show by Example Sheet 3 that these are all primitive recursive. We can also therefore show the floor and divide functions are primitive recursive, given by
+\[
+	\mathrm{Floor}_k(n) = \left\lfloor \frac nk\right\rfloor \qquad \mathrm{Divide}_k(n) = \begin{cases}
+		\frac nk & n \equiv 0 \ \mathrm{mod} \ k \\
+		0 & \text{otherwise}
+	\end{cases}.
+\]
+Now we can show that division by powers
+\[
+	\mathrm{Powers}_k(n,m) = \begin{cases}
+		\frac n{k^m} & n \equiv 0 \ \mathrm{mod}\ k^m \\
+		0 & \text{otherwise}
+	\end{cases}
+\]
+and the function
+\[
+	\mathrm{Maxpow}_k(n) = \begin{cases}
+	   0 & n = 0 \\
+	   \text{largest power of } k \text{ dividing } & n \ne 0
+	\end{cases}.
+\]
+We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mahthrm{Maxpower}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.
   \end{document}
