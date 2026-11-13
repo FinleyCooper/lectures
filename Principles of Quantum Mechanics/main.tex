@@ -1185,7 +1185,7 @@ with the same alternative for all $ \pi $.
 Hence there are two fundamentally different kinds of particles:
 \begin{itemize}
 	\item \textit{Bosons} which obey \textit{Bose-Einstein} statistics where an interchange of identical bosons leave the state unchanged, $ \eta = +1 $ with multiparticle states in $ (V\otimes \cdots \otimes V)_{\mathrm S} $
-	\item \textit{Fermions} which obey \textit{Fermi-Dirac} statistics where the interchange of identical fermiions changes the state by a sign, $ \eta = -1 $ with mutliparticle states in $ (V\otimes \cdots\otimes V)_{\mathrm A} $
+	\item \textit{Fermions} which obey \textit{Fermi-Dirac} statistics where the interchange of identical fermions changes the state by a sign, $ \eta = -1 $ with mutliparticle states in $ (V\otimes \cdots\otimes V)_{\mathrm A} $
 \end{itemize}
 This fundamental principle states that integral spin particles are bosons and half integral spin particles are  fermions.\par
 This is confirmed by experiment and can be derived in relativistic quantum mechanics or quantum field theory where it becomes the spin-statistic theorem. The most common elementary particles are fermions such as electrons, protons, neutrons, neutrinos which are all spin $ \frac 12 $. So too are quarks, muon, etc.\par
@@ -1272,7 +1272,7 @@ with $ \{\ket n\} $ being an orthonormal basis of energy eigenstates. We calcula
 \[
 	(H+ \lambda V)\ket \psi = E\ket \psi.
 \]
-order-by-order in parameter $ \lambda $ with $ V $ some Hermitian operator. We assume that $ E $ and $ \ker\psi $ depend smoothly on $ \lambda $.
+order-by-order in parameter $ \lambda $ with $ V $ some Hermitian operator. We assume that $ E $ and $ \ket\psi $ depend smoothly on $ \lambda $.
 \subsection{Non-degenerate Case}
 Suppose that $ \lambda \to 0 $ so
 \begin{align*}
@@ -1349,7 +1349,7 @@ to $ O(\lambda^2) $.
 	\end{align*}
 	for all other $ m $. The perturbed energy of the $ n $th level to $ O(\lambda^2) $ is
 	\begin{align*}
-		E_n & + \lambda\bra n V \ket n + \lambda \sum_{m\ne n } \frac{|\bra m V \ket n|^2}{E_n-m} \\
+		E_n & + \lambda\bra n V \ket n + \lambda \sum_{m\ne n } \frac{|\bra m V \ket n|^2}{E_n-E_m} \\
 		&= \hbar \omega\left(n+\frac 12\right) + \lambda \hbar \omega\left(n+\frac 12\right) + \lambda^2 \left(\frac{\hbar \omega}2\right)^2\left(\frac{(n+1)(n+2)}{-2\hbar \omega} + \frac{n(n-1)}{2\hbar \omega}\right) \\
 													 &= \hbar \omega\left(n+\frac 12\right) \left(1+\lambda - \frac{\lambda^2}2\right)
 	\end{align*}
