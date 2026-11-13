@@ -961,5 +961,67 @@ and the function
 	   \text{largest power of } k \text{ dividing } & n \ne 0
 	\end{cases}.
 \]
-We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mahthrm{Maxpower}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.
+We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mathrm{Maxpower}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.\qed
+We use this to encode $ k $tuples in $ \N^k $ as elements of $ \N $ and functions too. Say $ F: \N^{r+1} \to \N^{r+1} $ with $ F = (f_0,\dots, f_r) $ primitive recursive. Given $ n\in N $ obtain $ \mathbf n = ((n)_0,\dots, (n)_r)\in \N^{r+1} $, apply $ F $ then encode. Obtain the encoded $ \overline F: \N \to \N $ as $ \overline F(n) = 2^{f_0(\mathbf n)}\dots p_r^{f_r(\mathbf n)} $ which is primitive recursive if $ F $ is from the previous work.
+\subsection{Partial Computable $ \iff $ Partial Recursive}
+We just saw that all partial recursive functions are partial computable, now we have a big theorem for the converse.
+\begin{theorem}
+  Every partial computable function $ f: \N^k \dashrightarrow \N $ is partial recursive.
+\end{theorem}
+\pf From a program $ P $ for $ f $, we'll define $ g: \N^{k+2} \to \N $ as what is happening in $ P $ i.e $ g(n_1, n_2,\dots, n_k, 0,t) $ is the state of $ P $ at time $ t $ with input $ (n_1,\dots, n_k) $. Note that $ t=0 $ gives $ 1 $ and if we halt at $ t=t_0 $ then we get that for all $ t\ge t_0 $, $ g(n_1,\dots, n_k,i,t) $ is the contents of $ R_i $ at time $ t $. So we have $ M = \mathrm{upper}(P) $ with $ g(n_1,\dots, n_k,i,t) = 0 $ for all $ i>M $. Now $ g $ is a total function. Suppose that $ g $ is primitive recursive. Define $ q(n_1,\dots, n_k) $ as the smallest $ t $ such that $ g(n_1,\dots, n_k,0,t) = 0 $ i.e it is the number of steps taken to halt on this input (if it does). Then $ q $ is partial recursive if $ g $ is by minimisation and hence 
+\[
+  f(n_1,\dots, n_k) = g(n_1,\dots, n_k,1,q(n_1,\dots, n_k))
+\]
+is partial recursive. So it's enough to prove the following claim.
+\begin{claim}
+  $ g $ as defined above is primitive recursive.
+\end{claim}
+\pf We will obtain $ g $ from the transition function $ \sigma $ which computes the changes for each instruction, but we use the encoded $ \overline \sigma $, so $ \sigma: \N^{M+1} \to \N^{M+1} $ is 
+\[
+	\sigma(i,n_1,\dots, n_M) = (\text{new state},\ \text{new values in the registers})
+\]
+and this is unchanged if $ i > \text{largest state} $. If the instruction is $ S_i(j,+,k) $ then 
+\[
+  \sigma(i,n_1,\dots, n_M) = (k, n_1,\dots, n_j+1,\dots, n_M). 
+\]
+Each component function of $ \sigma $ is primitive recursive, hence $ \sigma $ is primitive recursive, so the encoded $ \overline \sigma $ is also primitive recursive by the previous conservation. We can now recover $ g $ through $ h: \N^{k+2} \to \N $. This is like $ g $ but starting in any statem though with the $ i $ variable encoded. Thus $ h(n_0,n_1,\dots, n_k,t) $ is a coded integer of state and registers $ R_1,\dots, R_m $ of $ P $ at time $ t $ for input $ n_1,\dots, n_k $ and start state $ n_0 $. Formally define
+\[
+	h(n_0,n_1,\dots, n_k,0) = 2^{n_0}3^{n_1}\dots p_k^{n_k}p_{k+1}^0\dots p_m^0
+\]
+and
+\[
+  h(n_0,n_1,\dots, n_k,t+1) = \overline \sigma(h(n_0,\dots, n_k,t))
+\]
+thus $ h $ is primitive recursive (by recursion as $ \overline \sigma $ is primitive recursive). Finally 
+\[
+  g(n_0,\dots, n_k,i,t) = h(1,n_1,\dots, n_k,t)
+\]
+Finally
+\[
+  g(n_1,\dots, n_k,i,t) = (h(1,n_1,\dots, n_k,t))_m
+\]
+for $ 0\le m \le M $ where the RHS is primitive recurisve for fixed $ m $ and $ 0 $ if $ m > M $. Now
+\[
+	g(n_1,\dots, n_k,i,t) = \sum_{j=0}^M \delta_j(m) h(1,n_1,\dots, n_k,t)
+\]
+which is primitive recursive.\qedi
+\subsection{Algorithms and Recursive Sets}
+\begin{definition}
+	(Recursive/Computable) A (partial) function $ f: \N^k \dashrightarrow \N $ is \textit{recursive} or \textit{computable} if it's total recurisve.\par
+	A set $ X\subseteq \N^k $ is \textit{recursive} or \textit{computable} or \textit{decidable} if the character function 
+	\[
+	  \Chi_X(n) = \begin{cases}
+		  1 & n \in X \\
+		  0 & n \notin X
+	  \end{cases}
+	\]
+	is a computable function.
+\end{definition}
+\begin{definition}
+	(Algorithm) An algorithm is any process taking an input $ \N^k $ for some $ k $ or a recursive subset $ X\subseteq \N^k $ and giving an output $ \N $ which is simulated by a register/Turing machine. An algorithm is \textit{total} if it terminates for all elements in $ X $ and a \textit{partial} algorithm may fail to terminate for some elements of input $ X $.
+\end{definition}
+\begin{lemma}
+  For each $ k\ge 1 $ there exists a total function $ f : \N^k \to \N $ which is incomputable.
+\end{lemma}
+\pf Each partial computable function comes from a finite program with $ n+1 $ states for some $ n\ge 1 $. So taking union over $ n\in \N $ ther eexists countable many partial computable functions but uncountable many total functions $ f:\N^k \to \N $.\qed
   \end{document}

@@ -1800,10 +1800,100 @@ In some physical situations, the system may be described entirely by spin degree
 \begin{enumerate}
 	\item Stern-Gerlach experiment - already mentioned. Form of interactions requires inhomogenous $ \mathbf B $ field to produce beams of particles separated in space.
 	\item Fine strucutre of atoms. For the electrons the $ \mathbf L $ and $ \mathbf S $ operators each behaved like a dispole giving a term proportional to $ \mathbf L \cdot\mathbf S $ in the Hamiltonian. The effect is of the same order as the first relatvisitc correction to kinetic energy $ \frac 38 \frac{p^4}{m^3 e^2} $. Together they produce small splittings of energy levels (fine structure).
-	\item Effect involving no external field and $ \mathbf L = 0 $ in the hydrogen atom.
+	\item Effect involving no external field and $ \mathbf L = 0 $ in the hydrogen atom. Interaction (very weak) of the form $ \mathbf I \cdot \mathbf S $ between electron spin $ \mathbf S $ and proton spin $ \mathbf I $ gives two very narrowly spaced levels with transitions producing electromagnetic radiation of wavelength $ 21 \ \mathrm{cm} $. Observed from interstellar hydrogen and used to study the spiral structure of our galaxy.
 \end{enumerate}
-
-
-
-
+\subsection{Addition of Angular Momentum}
+Set $ \hbar = 1 $ in this motion and recall the standard relation for a set of angular momentum states (multiplet).
+\begin{align*}
+	\mathbf J^2 \ket{j\ m} &= j(j+1) \ket{j\ m} \\
+	J_3 \ket{j\ m} &= m \ket{j\ m} \\
+	J_\pm \ket{k\ m} &= [(j\mp m)(j\pm m +1 )]^{\frac 12}\ket{j \ m\pm 1}
+\end{align*}
+Consider two independent systems with angular momentum operators  $ \mathbf J^{(1)} $ and $ \mathbf J^{(2)} $ acting on spaces of states $ V^{(1)} $ and $ V^{(2)} $ and each with standard basis $ \{\ket{j_i\ m_i}\} $ consisting of joint eigenstates of $ (\mathbf J^{(i)})^2 $ and $ J_3^{(i)} $ for $ i=1,2 $. Construct a space of states for the combined system as $ V = V^{(1)}\otimes V^{(2)} $ with basis 
+\begin{align*}
+	\ket{m_1; m_2} &= \ket{j_1\ m_1} \otimes \ket{j_2\ m_2}\\
+		       &= \ket{m_1}\ket{m_2}
+\end{align*}
+since $ j_1,j_2 $ are fixed so the second line is an abuse of notation.\par
+The sum of nagular momentum operators in
+\[
+	\mathbf J = \mathbf J^{(1)}\otimes I + I \otimes \mathbf J^{(2)}
+\]
+or simply $ \mathbf J = \mathbf J^{(1)} + \mathbf J^{(2)} $. Recall that $ j_i \ge m_i \ge -j_i $ for each subsystem in integer steps so we have $ (2j_1+1)(2j_2+1) $ basis states for $ V $ in total. Our aim is to find new basis for $ V $ consisting of joint eigenstates $ \ket{J\ M} $ of $ \mathbf J^2 $ and $ J_3 $. Since $ J_3 = J_3^{(1)} + J_3^{(2)} $ we have that 
+\[
+	J_3 \ket{m_1; m_2} = (J_3^{(1)}\ket {m_1})\ket{m_2} + \ket{m_1}(J_3^{(2)} \ket{m_2}) = M\ket{m_1;m_2}
+\]
+where $ M = m_1 + m_2 $. Now we want to find a complete set of eigenstates for $ \mathbf J^2 $. We must have that
+\[
+	\ket{J\ M} = \sum_{m_1+ m_2 = M} C^J_{m_1m_2}\ket{m_1;m_2}.
+\]
+We want to find 
+\begin{enumerate}
+	\item The values of $ J $ which are allowed;
+	\item The value of the \textit{Clebsch-Gordan} coefficients for addition of $ j_1 $ and $ j_2 $
+		\[
+			C_{m_1m_2}^J= \bra{m_1;m_2}\ket{J\ M}.
+		\]
+\end{enumerate}
+To begin, note tha twe can seek \textit{top states} for angular momentum $ \mathbf J $ with
+\[
+	J_+\ket{J\ M} = 0 \iff J = M.
+\]
+Given $ M $, we know $ J $ for these states and can calculate others by applying $ J_- $. Start from the largest possible value for $ M $,
+\[
+	\ket{j_1}\ket{j_2}
+\]
+which has $ M = j_1 + j_2 $. This is unique (up to an overall constant).
+\begin{align*}
+	\ket{j_1+j_2\ j_1+j_2} = \ket{j_1}\ket{j_2}.
+\end{align*}
+Apply $ J_- = J_-^{(1)} + J_-^{(2)} $ so
+\[
+	\sqrt{2(j_1+j_2)}\ket{j_1+j_2\ j_1+j_2 - 1} = \sqrt{2j_1}\ket{j_1 -1}\ket{j_2} + \sqrt{2j_2}\ket{j_1}\ket{j_2-1}
+\]
+using standard formulas for $ V $ (on LHS) and $ V^{(1)} $ and $ V^{(2)} $ on the right. Hence we have that
+\[
+	\ket{j_1+j_2\ j_1+j_2 - 1} = \sqrt{\frac{j_1}{j_1+j_2}} \ket{j_1 -1}\ket{j_2} + \sqrt{\frac{j_2}{j_1+j_2}} \ket{j_1}\ket{j_2 -1}
+\]
+and note correctly normalised. Now continue to apply $ J_- $ and this will generate states
+\[
+	\ket{j_1+ j_2 \ M} \quad \text{with}\quad j_1+j_2 \ge M \ge -(j_1+j_2)
+\]
+and we can read off what Clebsch-Gordan coefficient are, for example
+\[
+	C^{j_1+j_2}_{j_1j_2} = 1, \quad C^{j_1+j_2}_{\inv j_1j_2} = \sqrt{\frac{j_1}{j_1+j_2}}.
+\]
+We have not found all eigenstates of combined angular momentum and continue we look at level with $ M = j_1+j_2 -1 $. There are two linear independent states
+\[
+	\ket{j_1 -1}\ket{j_2},\quad \ket{j_1}\ket{j_2 -1}.
+\]
+Take the combination orthogonal to the one found above. This must be
+\[
+	\ket{j_1+j_2-1 \ j_1+j_2 -1} ] \sqrt{\frac{j_1}{j_1+j_2}}\ket{j_1}\ket{j_2-1} - \sqrt{\frac{j_2}{j_1+j_2}}\ket{j_1-1}\ket{j_2}.
+\]
+This must be a new top state and we can check that $ J_+ $ acts on it to give zero. Then proceed as before and apply $ J_- $.
+\begin{example}
+	Set $ j_1=j_2=\frac 12 $ and for $ \ket{m_1}\ket{m_2} $, $ m_i = \pm \frac 12 $ therefore, hence we get 4 states.
+	\[
+		\ket{1\ 1} = \ket{\frac 12}\ket{\frac 12}.
+	\]
+	Apply $ J_- = J_-^{(1)} + J_-^{(2)} $, so we get
+	\[
+		\sqrt 2 \ket{1\ 0} = \ket{-\frac 12}\ket{\frac 12} +\ket{\frac 12}\ket{-\frac 12}
+	\]
+	and applying $ J_- $ again we get that
+	\[
+		\sqrt 2 \ket{1\ -1} = \frac 1{\sqrt 2}\left(\ket{-\frac 12}\ket{-\frac 12} + \ket{-\frac 12}\ket{-\frac 12}\right)
+	\]
+	hence
+	\[
+		\ket{1\ -1} = \ket{-\frac 12}\ket{-\frac 12}
+	\]
+	which completes a $ J =1 $ multiplet. At level $ M = 0 $, only independent (orthogonal combination) is 
+	\[
+		\ket{0\ 0} = \frac 1{\sqrt 2}\left(\ket{\frac 12}\ket{-\frac 12} - \ket{-\frac 12}\ket{\frac 12}\right)
+	\]
+	which is unique up to a constant.
+\end{example}
+Comparing to the discussion earlier on symmetric and antisymmetric combinations of spin-$ \frac 12 $ state. Now $ \ket {\frac 12} = \ket\uparrow $ and $ \ket{-\frac 12} = \ket\downarrow $. The $ J =1 $ states (triplet) are symmetric and the $ J = 0 $ state (singlet) is antisymmetric.
 \end{document}

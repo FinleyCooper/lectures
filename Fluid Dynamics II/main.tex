@@ -1027,12 +1027,73 @@ If its diffusion is negligible then vorticity is advected, rotated and stretched
 	(\boldsymbol\omega \cdot\nabla)\mathbf u = \boldsymbol\omega \cdot e \implies \boldsymbol \omega \times \boldsymbol \omega = 0
 \]
 i.e the vorticity doesn't rotate itself: it's is only rotated by straining type motion. Steady strain amplifies $ \boldsymbol\omega $ in the direction(s) of stretching. Recall from Ib we have conservation of angular momentum, so we have the "balleria effect" where spinning fluid tightens and gets taller by mass conservation which by conservation of angular momentum causes it to spin faster. 
-
-
-
-
-
-
+\subsection{Diffusion of Vorticity}
+Consider Stokes First Problem with an implusively started flat plate. Here we have that
+\begin{align*}
+	\frac{\partial \omega}{\partial t} &= \nu \frac{\partial^2 \omega}{\partial y^2} \\
+	\int_0^\infty \omega \ \mathrm dy &= U
+\end{align*}
+which gives a Gaussian solution. Vorticity is \textit{generated} by the no-slip boundary condition at $ y=0 $ and diffuses into the interior.
+\subsection{Confinement of Vorticity}
+Let's see an example of this.
+\begin{example}
+  Consider flow past a porous wall with suction. The wall is a rigid porous medium with preduced pressure (suction) which produces a downward volume flux per unit area of the wall $ V $. Far from the wall, we have uniform velocity $ U $ and vertical velocity $ -V $. We try a solution of the form 
+  \[
+    \mathbf u = (u(y), -V)
+  \]
+  so we have that $ \nabla\cdot\mathbf u = 0 $. The $ x $ component must satisfy Navier-Stokes so we get that
+  \[
+	  -\rho V \frac{\partial u}{\partial y} = \mu \frac{\partial^2u}{\partial y^2}
+  \]
+  with $ u = 0 $ at $ y=0 $ and $ u\to U $ at $ y\to\infty $. This gives the solution
+  \[
+	  u = U\left(1-e^{-\frac{Vy}\nu}\right).
+  \]
+  So vorticity is confined near the wall of thickness $ \delta \sim \frac \nu V $. This is because vorticity diffuses away from the wall at a distance $ \sim \sqrt{\nu t} $, but is advected towards to the wall a distance $ \sim Vt $. Balance between diffusion away and advection towards the wall is estabilished on a timescale $ t\sim \frac \nu{V^2} $ with $ \delta \sim \frac \nu V $.
+\end{example}
+\begin{remark}
+  The solution does not work with blowing $ (V < 0) $ rather than suction, so no balance is possible in this case.
+\end{remark}
+An alternative scaling argument uses the fact that
+\[
+	-\rho V \frac{\partial u}{\partial y} = \mu \frac{\partial^2 u}{\partial y^2}\implies \rho V \frac U \delta \sim \mu \frac U{\delta^2}
+\]
+so $ \delta \sim \frac \nu V $. 
+\begin{example}
+	(Flow near the forward stagnation point in the flow past a body) Consider a flow $ U $ past a sphere/cylinder. Far from the stagnation point, $ \mathbf u \approx (Ex,-Ey,0) $ where $ E \sim \frac UL $ which gives that $ \boldsymbol\omega \approx 0 $, so in the far-field the flow is irrotational. But vorticity is \textit{generated} by the no-slip boundary condition and diffuses away and is advected back by $ v \sim -E\delta $. We need to bring $ u $ down from $ Ex $ to $ 0 $ at $ y=0 $ which gives that $ \omega = -\frac{\partial u}{\partial y} \ne 0 $. We can estimate the thickness $ \delta $ by scaling,
+	\[
+		\rho v \frac{\partial u}{\partial y} \sim \rho E \delta \cdot \frac{Ex}\delta \sim \rho E^2x,\quad \mu\frac{\partial^2 u}{\partial y^2} \sim \mu \frac{Ex}{\delta^2}
+	\]
+	so balancing these we get that 
+	\[
+		\delta \sim \left(\frac \nu E\right)^{\frac 12}
+	\]
+which is independent of $ x $. Scaling for non-dimensionalisation, $ y\sim \delta $, $ u\sim Ex $, $ \psi \sim Ex\delta $, $ v\sim E\delta $. There is no physical scale for $ x $, suggest we try for a similarity solution
+\[
+  \psi = Ex \delta f(\eta)
+\]
+where $ \eta = \frac y\delta $ a dimensionless shape parameter with correspondign shape function $ f $. This gives that $ u = Ex f' (\eta) $ and $ v = -E \delta f(\eta) $.\par
+Since $ \psi $ is linear in $ x $ this allows us to get a full solution to the Naiver-Stokes equations. We immediately get that $ \mathbf u $ is incompressible and from 
+\[
+  \rho(\mathbf u \cdot \nabla)\mathbf u = -\nabla p + \mu \nabla^2 \mathbf u
+\]
+looking at the $ x $-component gives that 
+\[
+	Exf' \cdot Ef' - E\delta f\cdot Ex\frac{f''}\delta = -\frac 1\rho \frac{\partial p}{\partial x} + \nu \left(0 + Ex\frac{f'''}{\delta^2}\right)
+\]
+hence
+\[
+	E^2x((f')^2 - ff'' + f''') = -\frac 1\rho \frac{\partial p}{\partial x}.
+\]
+Similarly the $ y $-component becomes
+\[
+	E^2 \delta(ff'+ f'') = - \frac 1\rho \frac{\partial p}{\partial y}
+\]
+Differentiate the second equation with respect to $ x $ so we get that
+\[
+	\frac{\partial^2 p}{\partial x\partial y} = 0 \implies p = X(x) + Y(x).
+\]
+\end{example}
 
 
 
