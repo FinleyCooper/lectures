@@ -1069,5 +1069,196 @@ For based spaces $ (X,x_0) $ and $ (Y,y_0) $ define $ (X,x_0) \vee (Y,y_0) = (X\
 	\]
 	We know that $ \pi_1(X_2) \cong F_2 $, so we suspect that $ \pi_1(X_n) \cong F_n $ which we can see from inductively applying the above corollary.
 \end{example}
+\subsection{The Fundamental Group of a Surface}
+\begin{definition}
+	(Surface) A topological space $ X $ is a \textit{surface} if
+	\begin{enumerate}
+		\item $ X $ is paracompact;
+		\item secound-countable;
+		\item Hausdorff;
+		\item for all $ p\in X $, there is an open neighbourhood homeomorphic to $ \R^2 $.
+	\end{enumerate}
+	$ X $ is a closed surface if it is compact.
+\end{definition}
+\begin{remark}
+	(Finley's Comments) I'm not sure why the lecturer included paracompact in the definition, since it actually follows from (ii)-(iv). He also didn't define it very well, so I would just ignore it since this definition is non-examinable as well. He also didn't define what second-countable means but I think this is worth defining. He also gave some very bad definitions for the genus of a surface so I'm going to give better ones.
+\end{remark}
+\begin{definition}
+	(Secound-countable) A topological space $ X $ is said to be \textit{secound-countable} if there exists a basis $ \mathcal B $ for $ X $ such that $ \mathcal B $ is countable.
+\end{definition}
+\begin{definition}
+	(Orientable surface of genus $ g $) The \textit{orientable surface of genus} $ g $ is the surface formed from the connected sum of $ g $ tori
+	\[
+	  \Sigma_g = T \# T\# \cdots T\#
+	\]
+	and if $ g=1 $ then $ \Sigma_g = S^2 $.
+\end{definition}
+\begin{definition}
+	(Non-orientable surface of genus $ g $) The \textit{non-orientable surface of genus} $ g $ is the surface formed from the connected sum of $ g $ real projective planes for $ g \ge 1 $
+	\[
+		M_g = \mathbb{RP}^2 \# \mathbb{RP}^2 \# \cdots \# \mathbb{RP}^2
+	\]
+\end{definition}
+Now for the theorem the lecturer implicitly assumed.
+\begin{theorem}
+	(Classification of compact surfaces) Any closed surface is homeomorphic to $ \Sigma_g $ for some $ g\ge 0 $ or $ M_g $ for some $ g\ge 1 $.
+\end{theorem}
+\pf We'll just assume this theorem.\qed\par
+Now we'll calculate $ \pi_1(\Sigma_g) $ and $ \pi_1(M_g) $. Consider the topological space formed by gluing $ g $ tori to points on $ S^2 $ which is clearly homeomorphic to $ \Sigma_g $. Let $ \alpha_i $ be the loop that goes from the basepoint on the sphere through the $ i $th tori's hole and coming back on the other side of the torus. Let $ \beta_i $ be the longitude for the $ i $th torus, a loop from the basepoint going around the $ i $th torus' longitude and back. Cutting along $ \alpha_1,\dots, \alpha_g, \beta_1,\dots, \beta_g $ and thinking really hard we get a $ 4g $-gon with boundary loop $ \alpha_1\beta_1\inv\alpha_1\inv \beta_1\alpha_2\beta_2\dots $ so we can apply Seifert-van Kampen and we get that
+\[
+  \pi_1(\Sigma_g,x_0) \cong \langle \alpha_1,\beta_1,\dots \alpha_g,\beta_g\mid \alpha_1\beta_1\inv\alpha_1\inv\beta_1\dots \alpha_g\beta_g\inv\alpha_g\inv\beta_g\rangle
+\]
+which doesn't admit a nicer presentation annoyingly.\par
+Now for $ M_g $. For $ M_1 $ we can consider it as $ S^2 $ with a hole and a M\"obius strip glued onto the boundary called a \textit{cross-cap}. Consider the loop $ \alpha $ which goes from one side of the cross-cap to the other (jumping since opposite sides of the M\"obius strip are identified with each other. We could also think of this loop as the line between poles on the sphere with the antipole map. Now cut along this loop $ \alpha $ so we get a two cell with boundary attached to $ S^1 $ along the word $ \alpha^2 $. We can also just see this as a definition of $ \mathbb{RP}^2 $ in its CW-complex construction.\par
+Now generally for $ M_g $ consider the sphere with $ g $ cross-caps on it and get $ \alpha_i $ as the loop $ \alpha $ from before for each cross-cap. Cutting $ \alpha_1 $ we get a disc with the word $ \alpha_1^2 $ glued, but $ g-1 $ cross caps on the disc. Inductively continuting this we get disc with the word $ \alpha_1^2\alpha_2^2\dots \alpha_g^2 $ gluing a sphere to the boundary of the disc hence $ M_g $ we obtained by attaching a $ 2 $-cell to $ S^1\vee \dots \vee S^1 $ along that same word. So apply Seifert-van Kampen and we get that
+\[
+  \pi_1(M_g,x_0) \cong \langle \alpha_1,\dots, \alpha_g \mid \alpha_1^2\dots \alpha_g^2\rangle.
+\]
+\section{Simplicial Complexes}
+\begin{definition}
+	(Affine Independence) A finite set of points $ \{a_0,\dots, a_n\} \subset \R^m $ are \textit{affine independent} if
+	\[
+		\sum t_ia_i = \sum t_i = 0\implies t_i =0 \ \forall i.
+	\]
+\end{definition}
+\begin{lemma}
+  $ a_0,\dots, a_n $ are affinely independent if and only if 
+  \[
+    a_1-a_0,\dots, a_n-a_0
+  \]
+  are linearly independent.
+\end{lemma}
+\pf Basic linear algebra manipulation.\qed
+\begin{definition}
+	($ n $-simplex) If $ a_0,\dots, a_n\in \R^m $ are affine independent we defien the $ n $\textit{-simplex} spanned by $ a_0,\dots, a_n $ as 
+	\[
+		\sigma =\langle a_0,\dots, a_n\rangle = \left\{ \sum t_ia_i\mid \sum t_i  = 1, t_i \ge 0 \right\}
+	\]
+	and $ a_0,\dots, a_n $ are \textit{vertices} of $ \sigma $. The parameters $ t_i $ are the \textit{barycentric coordinates} of points in $ \sigma $. A \textit{face} of $ \sigma $ is a simplex spanned by a subset of $ \{a_0,\dots, a_n\} $. A \textit{proper face} is a face that is not the whole simplex. If $ \tau $ is a face then we write $ \tau \le \sigma $ and if it is proper we write that $ \tau <\sigma $.
+\end{definition}
+\begin{example}
+  A point is a $ 0 $-simplex. A line segment is a $ 1 $-simplex. A triangle is a $ 2 $-simplex. A  tetrahedron is a $ 3 $-simplex.
+\end{example}
+\begin{definition}
+	(Boundary of a simplex) The boundary of $ \sigma $, denoted by $ \partial \sigma $ is given by
+	\[
+		\bigcup_{\tau < \sigma} \tau.
+	\]
+	The interior of $ \sigma $ is given by $ \sigma\setminus \partial \sigma $.
+\end{definition}
+\begin{example}
+  Suppose we have a $ 0 $-simplex which is a point. Then it has a single face which is itself and it has no proper faces. hence the boundary is empty and the interior is eveything.
+\end{example}
+\begin{example}
+	Now suppose we have a $ 1 $-simplex $ \sigma $. This is a line segment and a point $ x\in \sigma $ is a some convex combination of the vertices. The faces are $ \langle a_0\rangle $, $ \langle a_1\rangle $, and the non-proper face $ \sigma $. So the boundary is $ \{a_0,a_1\} $ and the interior is the open line segment.
+\end{example}
+\begin{lemma}
+  Suppose that $ \sigma $ and $ \tau $ are $ p $-simplices. Then $ \sigma \cong \tau $.
+\end{lemma}
+\pf Write that $ \sigma = \langle a_0,\dots, a_p\rangle $ and $ \tau = \langle b_0,\dots, b_p\rangle $ so we have a map
+\[
+  \sum t_ia_i\longrightarrow \sum t_ib_i
+\]
+so by uniqueness of barycentric cooridinates this is a well-defined function and continuous. The same argument gives that the inverse map is well-defiend and continuous. Composing them together in either direction gives the identity map on the corresponding simplex, hence they are inverses and this homeomorphisms.\qed
+\begin{definition}
+	(Simplicial Complex) A geometric (or Euclidean) \textit{simplicial complex} in $ \R^m $ is a finite set $ K $ of simplices in $ \R^m $ such that 
+	\begin{enumerate}
+		\item $ \sigma \in K $, $ \tau\le \sigma \implies \tau \in K $;
+		\item $\forall \sigma,\tau \in K $, $ \sigma\cap \tau $ is either empty or is a face of both $ \sigma $ and $ \tau $.
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	(Dimension) Given a geometric simplicial complex $ K $, the \textit{dimension} of $ K $ is
+	\[
+		\dim K = \max\{n \ge 0 \mid K \text{ has a } n\text{-simplex}\}
+	\]
+\end{definition}
+\begin{definition}
+	(Polyhedron) For a simplicial complex $ K $, the \textit{polyhedron associated to} K is
+	\[
+		|K| = \bigcup_{\sigma\in K}\sigma.
+	\]
+\end{definition}
+\begin{definition}
+	($ d $-skeleton) For $ d\ge 0 $ the $ d $\textit{-skeleton} of $ K $ is a sub simplicial complex given by the simplicies of $ K $ of dimension at most $ d $.
+\end{definition}
+\begin{remark}
+  Note that simplices are compact as topological spaces. Since simplicial complexes contain only finitely many simplices and the union of finitely many finite compact spaces is compact, then $ |K| $ is compact for any geometric simplicial complex $ K $. Also they are Hausdorff, so they are normal ($ T_4 $).
+\end{remark}
+\begin{example}
+  Consider the square formed by $ 4 $ $ 1 $-simplices as straight line segments joints at the vertices by $ 4 $ $ 0 $-simplices. Then the polyhedron associated to $ K $ is exactly a square and is homeomorphic to $ S^1 $.
+\end{example}
+\begin{definition}
+	(Triangulation) A \textit{triangulation} of a space $ X $ is a geometric simplicial complex $ K $ together with a homeomorphism $ \phi: |K| \to X $.
+\end{definition}
+Therefore if $ X $ has a triangulation then it is compact and Hausdoff (and the converse is false).
+\begin{example}
+	Consider $ \Delta^n \subset \R^{n+1} $ spanned by $ e_0,e_1,\dots, e_{n} $ and let $ K $ be all faces of $ \Delta^n $ which is a geometric simplicial complex. Then $ |K| = \Delta^n $ is a triangulation of $ \Delta^n $. We call $ K $ the standard $ n $-simplex.
+\end{example}
+\begin{example}
+	Consider $ K $ as above. Then $ \partial K $ is homeomorphic to $ S^{n-1} $. We define $ \partial K $ as the \textit{simplicial} $ (n-1) $\textit{-sphere}.
+\end{example}
+\begin{example}
+	In $ \R^{n+1} $ consider $ 2^{n+1} $ $ n $-simplices given by
+	\[
+	  \langle \pm e_n, \dots, \pm e_n\rangle.
+	\]
+	Let $ K = \{\text{those and their faces}\} $, then $ K $ is a geometric simplicial complex. Define a function
+\[
+  h: |K| \to S^n 
+\]
+taking a vector $ x \longrightarrow \frac x{||x||} $. Since none of the simplices touch the origin, this is well-defined. We can also see fairly easily that is it continuous and bijective. Since we have a continuous bijection from a compact space to a Hausdoff space, this is a homeomorphism. This is another example of a triangulation of a sphere.
+\end{example}
+\begin{lemma}
+	Suppose that $ K $ is a geometric simplicial complex. Then any point in $ |K| $ lies in $ \mathrm{int}(\sigma) $ for a unique $ \sigma\in K $.
+\end{lemma}
+\pf Take $ x\in |K| = \bigcup_{\sigma\in K}\sigma $. Choose some $ \sigma\in K $ such that $ x\in \sigma $. Write that $ \sigma = \langle a_0,\dots a_p\rangle $. Then $ x = \sum t_ia_i $, $ \sum t_i = 1 $ and $ t_i \ge 0 $ for all $ i $. Write 
+\[
+A = \{ a_i \mid t_i > 0 \} \subset \{a_0,\dots a_p\}.
+\]
+Then $ A \ne \emptyset $ and $ x\in \mathrm{int}\langle A \rangle $. So $ x $ is contained in $ \mathrm{int}(\sigma) $ for some $ \sigma\in K $. If $ x\in \mathrm{int}(\sigma)\cap\mathrm{int}(\tau) $ for $ \sigma,\tau\in K $. Then the intersection of the interior of $ \tau $ and $ \sigma $ is non-empty. So $ \sigma\cap \tau $ is a non-empty face of both $ \sigma $ and $ \tau $. But $ \mathrm{int(\sigma)}\cap (\sigma\cap \tau)\ne \emptyset $ so $ \sigma\cap\tau = \sigma $ and this also implies that $ \sigma\cap \tau = \tau $, so $ \tau = \sigma $. \qed 
+\begin{definition}
+	(Vertices) We'll let
+	\[
+		V_K = \{0\text{-simplices of } K\}
+	\]
+	which are the vertices of $ K $.
+\end{definition}
+\begin{definition}
+(Simplicial Map) Suppose that $ K $ and $ L $ are simplicial complexes. A \textit{simplicial map} from $ K $ to $ L $ is a function $ f:V_K \to V_L $ such that if $ \sigma = \langle a_0,\dots, a_p\rangle \in K $, then $f(\sigma) = \langle f(a_0),\dots, f(a_p)\rangle \in L $. 
+\end{definition}
+\begin{lemma}
+  A simplicial map $ f: K \to L $ naturally induces a continuous map $ |f|: |K|\to |L| $.
+\end{lemma}
+\pf For any simplex, $ \sigma = \langle a_0,\dots, a_p\rangle z\in K $, we define $ f_\sigma : \sigma \to |L| $, sending 
+\[
+  \sum t_ia_i \to \sum t_if(a_i).
+\]
+This is continuous since it is Lipschitz. For any $ \tau\le \sigma $, we can define $ f $ on $ \tau $ by $ f_\tau = f_\sigma\mid_\tau $. So for any $ \sigma,\sigma' \in K $, we have that 
+\[
+	f_\sigma\mid_{\sigma\cap \sigma'} = f_{\sigma'}\mid_{\sigma\cap \sigma'} = f_{\sigma \cap \sigma'}.
+\]
+Therefore $ \{f_\sigma\}_{\sigma\in K} $ glue to a continuous function
+\[
+  |f|: |K| \to |L|
+\]
+sending $ x\to f_\sigma(x) $ for $ x\in \sigma $.\qed\par
+When we say "naturally" we mean the following 
+\[
+  |g\circ f| = |g| \circ |f|.
+\]
+\begin{definition}
+	(Star) Let $ K $ be a simplicial complex and $ x\in |K| $. We define the (open) \textit{star} of $ K $ at $ x $ as
+	\[
+		\mathrm{St}_K(x) = \bigcup_{x\in \sigma\in K}\mathrm{int}(\sigma).
+	\]
+\end{definition}
+\begin{definition}
+	(Link) Let $ K $ be a simplicial complex and $ x\in |K| $. The \textit{link} of $ x $ is the union of simplices in $ K $ which do not contain $ x $ but are a face of a simplex that contains $ x $.
+\end{definition}
+\begin{remark}
+	The complement of $ \mathrm{St}_K(x) $ is the union of simplices in $ K $ which do not contain $ x $. Hence the complement is compact and therefore closed since we're in a Hausdoff space, so the open star is indeed open.
+\end{remark}
+
 
 \end{document}
