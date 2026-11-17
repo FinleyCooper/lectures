@@ -1115,6 +1115,7 @@ Now generally for $ M_g $ consider the sphere with $ g $ cross-caps on it and ge
   \pi_1(M_g,x_0) \cong \langle \alpha_1,\dots, \alpha_g \mid \alpha_1^2\dots \alpha_g^2\rangle.
 \]
 \section{Simplicial Complexes}
+\subsection{Simplicial Complexes}
 \begin{definition}
 	(Affine Independence) A finite set of points $ \{a_0,\dots, a_n\} \subset \R^m $ are \textit{affine independent} if
 	\[
@@ -1259,6 +1260,121 @@ When we say "naturally" we mean the following
 \begin{remark}
 	The complement of $ \mathrm{St}_K(x) $ is the union of simplices in $ K $ which do not contain $ x $. Hence the complement is compact and therefore closed since we're in a Hausdoff space, so the open star is indeed open.
 \end{remark}
-
-
+\subsection{Simplicial Approximation}
+\begin{definition}
+	(Simplical Approximation) Given a continuous map $ f:|K|\to |L| $ we say that a function $ g:V_K\to V_L$ is a \textit{simplicial approximation} of $ f $ if
+	\[
+		f(\mathrm{St}_K(v)) \subset \mathrm{St}_L(g(v))
+	\]
+	for every vertex $ v\in V_K $.
+\end{definition}
+\begin{lemma}
+  If $ g:K\to L $ is a simplicial approximation of $ f:|K|\to |L| $, then $ g $ is a simplicial map and $ f $ is homotopic to $ |g| $ relative to the subspace
+  \[
+	  \{x\in |K| \mid f(x) = |g|(x)\} \subset |K|
+  \]
+\end{lemma}
+\pf To show that $ g $ is a simplicial map first choose a simplex $ \sigma\in K $. For any $ x\in\mathrm{int}(\sigma) $ we have that 
+\[
+	x\in \bigcap_{v\in V_\sigma} \mathrm{St}_K(v)
+\]
+so 
+\[
+	f(x) \in \bigcap_{v\in V_\sigma}f(\mathrm{St}_K(v)) \subset \bigcap_{v\in V_\sigma} \mathrm{St}_L(g(v)).
+\]
+Thus if $ \tau\in L $ is the unique simplex in $ L $ that satisfies $ f(x) \in \mathrm{int}(\tau) $, then every $ g(v) $ is a vertex of $ \tau $ for all $ v\in V_\sigma $ hence they span a face of $ \tau $ which is a simplex in $ L $. So $ g $ is a simplicial map. \par
+For the homotopy define 
+\[
+  H: |K|\times I \to \R^n \supset |L|
+\]
+by sending $ (x,t) \to tf(x) + (1-t)|g|(x) $. It suffices to show that $ \ima(H) \subset |L| $. Choose any $ x\in |K| $ and let $ \sigma\in K $ be the unique simplex in $ K $ such that $ x\in \mathrm{int}(\sigma) $. Write that $ \sigma = \langle a_0,\dots, a_p\rangle $. We know that each $ g(a_i) $ is a vertex of $ \tau $, so
+\[
+  |g|(x) = |g|\left(\sum t_ia_i\right) = \sum t_ig(a_i)\in \tau
+\]
+where $ \tau\in K $ is the unique simplex in $ L $ satisfying $ f(x)\in \mathrm{int}(\tau) $. By convexity of simplices, $ H(\{x\}\times I) \subset \tau \subset |L| $.\qed
+\begin{definition}
+	(Barycentre) For a simplex $ \sigma = \langle a_0,\dots, a_p\rangle $ we define its \textit{barycentre} as 
+	\[
+		\hat\sigma = \frac{a_0+\dots +a_p}{p+1}.
+	\]
+\end{definition}
+\begin{definition}
+	(Barycentric subdivison) Given a simplicial complex $ K $ its (first) \textit{barycentric subdivison} is
+	\[
+		K' = \{\langle\hat\sigma_0, \dots, \hat\sigma_p\rangle\mid \sigma_0<\dots<\sigma_p\in K\}
+	\]
+	and we note the $ r $th barycentric subdivison of $ K $ as $ K^{(r)} $.
+\end{definition}
+\begin{proposition}
+  Given any simplicial complex $ K $, its barycentric subdivison $ K' $ is also a simplicial complex and $ |K| = |K'| $.
+\end{proposition}
+\pf Omitted since non-examinable.
+\begin{example}
+	Note that vertices of $ K' $ are barycentres of simplicies in $ K $ so there is a canonical bijection $ V_{K'} \cong K $ as sets. If we choose a vertex $ v_\sigma $ of each $ \sigma\in K $, this gives a function 
+	\[
+		g:V_{K'} \to V_K
+	\]
+	sending $ \hat\sigma \to v_\sigma $.
+	\begin{claim}
+	  $ g $ is a simplicial map.
+	\end{claim}
+	\pf Suppose we have a simplex $ \langle\hat\sigma_0,\dots, \hat\sigma_p\rangle \in K' $ then $ \sigma_0 < \dots \sigma_p \in K $ implies that $ \langle v_{\sigma_0}\dots v_{\sigma p}\rangle $ is a face of $ \sigma_p $ so this is contained in $ K $ since $ K $ is closed under taking faces. Thus $ g $ is indeed a simplicial map.\qed\par
+	Furthermore if $ \hat\sigma = \langle \hat \tau_0,\dots, \hat\tau_p\rangle \in K' $ then $ \hat\sigma\in \tau_p $ which means that $ \sigma\le \tau_p $. In particular $ v_\sigma \in \sigma\in \tau_p  $ so $ v_\sigma $ is a vertex of $ \tau_p $. It follows that we have the chain
+	\[
+		\mathrm{int}(\tau')\subset \mathrm{int}(\tau_p)\subset\mathrm{St}_k(v_\sigma)
+	\]
+	so
+	\[
+		\mathrm{St}_{K'}(\hat\sigma) \subset \mathrm{St}_K(v_\sigma).
+	\]
+	Therefore $ g:K'\to K $ is a simplicial approximation of the identity between the corresponding polyhedra.
+\end{example}
+\begin{definition}
+	(Mesh) Given a simplicial complex $ K $, its \textit{mesh} is defined as 
+	\[
+		\mathrm{mesh}(K) = \max \left\{ ||v_0-v_1||\mid \langle v_0, v_1\rangle \in K\right\}
+	\]
+\end{definition}
+\begin{lemma}
+  If $ \dim K \le n $, then 
+  \[
+	  \mathrm{mesh}(K') \le \frac n{n+1}\mathrm{mesh}(K).
+  \]
+\end{lemma}
+\pf Let $ \langle \hat \tau, \hat \sigma\rangle \in K' $, so $ \tau < \sigma $. Clearly $ ||\hat\tau-\hat\sigma||\le \max_{v\in V_\sigma} ||v-\hat\sigma|| $. Now write that $ \sigma = \langle v_0,\dots, v_m\rangle $, $ m\le n $ and choose $ v_0\in v_\sigma $ so that $ ||v_0-\hat\sigma|| $ is maximal, then
+\begin{align*}
+	||v_0-\hat\sigma|| &= \left|\left|v_0 -\frac{v_0+\dots + v_m}{m+1}\right|\right| \\
+			   &= \frac 1{m+1}\left|\left|\sum_{i=1}^m (v_i-v_0)\right|\right| \\
+			   &\le \frac 1{m+1} \sum_{i=1}^m ||v_i-v_0|| \\
+			   &\le \frac m{m+1} \mathrm{mesh}(K).\qed
+\end{align*}
+\begin{theorem}
+	Let $ K $ and $ L $ be simplicial complexes and $ f: |K| \to |L| $ continuous. Then there exists a $ r\ge 0 $ such that there exists a simplicial map $ g:K^{(r)} \to L $ that is a simplicial approximation of $ f $. Furthermore if $ N\subset K $ is a subcomplex and $ f\mid_{|N|}: |N|\to |L| $ is already simplicial then we may choose $ g $ to agree with $ f\mid_{|N|} $ on $ V_N $.
+\end{theorem}
+\pf Consider the open cover 
+\[
+	\{ \inv f (\mathrm{St}_L(u)) \mid u\in V_L\}
+\]
+of $ |K| $. By the Lebesgue number lemma, there exists a $ r\ge 0 $ such that $ \mathrm{mesh}(K^{(r)}) < \delta $ where $ \delta $ is the Lebesgue number of the open cover. Then for each $ v\in V_{K^{(r)}} $ we have that
+\[
+	\mathrm{St}_{K^{(r)}}(v)\subset B_{\mathrm{mesh}(K^{(r)})}(v)\subset \inv f(\mathrm{St}_L(w))
+\]
+for some $ w\in V_L $. Define $ g : V_{K^{(r)}} \to V_L	$ by $ g(v) = w $. Since $ \mathrm{St}_{K^{(r)}}(v) \subset \inv f(\mathrm{St}_L(g(v))) $ we get that 
+\[
+f(\mathrm{St}_{K^{(r)}}(v))\subset \mathrm{St}_L(g(v))
+\]
+which implies that $ g $ is a simplicial approximation of $ f $ and thus it is also a simplicial map.\par
+if $ v\in V_N $, then $ f(v) = g_0(v)\in V_L $, so by increasing $ r $ if neccesary, we can also impose 
+\[
+	\mathrm{St}_{K^{(r)}}(v) \subset B_{\mathrm{mesh}(K^{(r)}}(v)\subset \inv f(\mathrm{St}_L(g_0(v)))
+\]
+for any $ v\in V_N $. So this gives a choice of $ g $ and hence choose $ g(v) = f(v) $ for these $ v $.\qed
+\section{Homology}
+\subsection{Simplicial Homology}
+\begin{definition}
+	Let $ K $ be a simplicial complex and let $ O_n(K) $ be the free abelian group generated by the symbols
+	\[
+		\{[v_0,\dots, v_n]\mid v_0,\dots, v_n \text{ span a simplex in } K\}.
+	\]
+\end{definition}
 \end{document}
