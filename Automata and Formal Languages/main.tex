@@ -961,7 +961,7 @@ and the function
 	   \text{largest power of } k \text{ dividing } & n \ne 0
 	\end{cases}.
 \]
-<<<<<<< HEAD
+
 We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mathrm{Maxpower}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.\qed
 We use this to encode $ k $tuples in $ \N^k $ as elements of $ \N $ and functions too. Say $ F: \N^{r+1} \to \N^{r+1} $ with $ F = (f_0,\dots, f_r) $ primitive recursive. Given $ n\in N $ obtain $ \mathbf n = ((n)_0,\dots, (n)_r)\in \N^{r+1} $, apply $ F $ then encode. Obtain the encoded $ \overline F: \N \to \N $ as $ \overline F(n) = 2^{f_0(\mathbf n)}\dots p_r^{f_r(\mathbf n)} $ which is primitive recursive if $ F $ is from the previous work.
 \subsection{Partial Computable $ \iff $ Partial Recursive}
@@ -1025,7 +1025,7 @@ which is primitive recursive.\qedi
   For each $ k\ge 1 $ there exists a total function $ f : \N^k \to \N $ which is incomputable.
 \end{lemma}
 \pf Each partial computable function comes from a finite program with $ n+1 $ states for some $ n\ge 1 $. So taking union over $ n\in \N $ ther eexists countable many partial computable functions but uncountable many total functions $ f:\N^k \to \N $.\qed
-=======
+
 We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mathrm{Maxpow}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.
->>>>>>> 5e4622233e78b36bdfb6c8342c7577ddc045cf28
+
   \end{document}
