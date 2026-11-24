@@ -1025,7 +1025,47 @@ which is primitive recursive.\qed
   For each $ k\ge 1 $ there exists a total function $ f : \N^k \to \N $ which is incomputable.
 \end{lemma}
 \pf Each partial computable function comes from a finite program with $ n+1 $ states for some $ n\ge 1 $. So taking union over $ n\in \N $ ther eexists countable many partial computable functions but uncountable many total functions $ f:\N^k \to \N $.\qed
-=======
+
 We first define (by recursion) $ h(n,0) = 0 $ and $ h(n,m+1) = h(n,m) + \ep(\mathrm{Power}_k(n,m+1)) $ which is therefore primitive recursive since addition is primitive recursive. With a bit more effort in things like this we can prove that $ \mathrm{Maxpower}_k(n) $ is primitive recursive, and hence since $ (n)_i = \mathrm{Maxpow}_{p_i}(n) $ this is also primitive recursive for fixed $ i $.
->>>>>>> 5e4622233e78b36bdfb6c8342c7577ddc045cf28
+\par
+We want to give a way of ordering $ \N \times \dots \times \N $.
+\begin{definition}
+	(Shortlex ordering) For a given $ m $, the \textit{shortlex} ordering on $ \N^m $ is that 
+	\[
+		(n_1,\dots, n_m) < (n_1',\dots, n_m')
+	\]
+	if $ \sum n_i <\sum n_i $ or if they are equal, then there exists a $ j $ with $ n_1=n_1'\dots, n_j=n_j' $ but $ n_{j+1}<n_{j+1}' $ i.e tiebreak starting componentwise.
+\end{definition}
+This gives us an indexed list of $ \N^m $ (explicit bijection) by taking $ (n_1,\dots, n_m) $ with $ \sum_i =0,1,\dots, $ and then ordering via shortlex the finite number of $ m $-tuples with constant $ \sum n_i $. Note for any finite subset $ S\subseteq \N $ we can order
+\[
+	\bigcup_{m\in \N} S^m
+\]
+by shortlex for $ m=1 $ then $ 2 $, etc.\par
+We can also encode register machines as integers (hence injective but not surjective).
+\begin{definition}
+  If a register machine program $ P $ has $ n $ instructions, then for the $ i $th instruction, let 
+  \[
+    t_i = \begin{cases}
+    2^i5^k & \text{if}\ (j,+,k) \\
+    2^j35^k7^\ell & \text{if}\ (j,-,k\ell)
+    \end{cases}
+  \]
+  and now encode $ (t_1,\dots, t_n) $ as $ m = 2^n 3^{t_1}\dots p_n^{t_n} $ and let $ P_m $ be the program encoded by $ m $. For these $ m\in \N $ we say that $ m $ \textit{codes} a program and $ P_m $ is the $ n $th machine.
+\end{definition}
+The input for a register machine is a $ k $-tuple, for varying $ k $, so we define the following.
+\begin{definition}
+	We write $ f_{n,k}: \N^k \dashrightarrow \N $ for the $ k $-variable partial funtion computed by the $ n $th machine $ P_n $ if $ P_n $ exists. If $ n $ does not code a program we'll say that the domain of $ f_{n,k} $ is the empty set.
+\end{definition}
+Here is a total function which is not recursive, given explicity (but not algorithmically)
+\begin{lemma}
+	Let $ g: \N \to \N $ be 
+	\[
+	  g(n) = \begin{cases}
+		  f_{n,1}(n) + 1 & \text{if } n \text{codes a program and } f_{n,1}(n) \text{defined} \\
+		0 & \text{otherwise}
+	  \end{cases}
+	\]
+	The $ g $ is not recursive.
+\end{lemma}
+\pf If yes, then $ g $ is computed by a machine, thus there exists a $ N $ such that $ g=f_{N,1} $. Now $ g $ is total so $ f_{N,1} $ also is. But $ f_{N,1}(N) = g(N) = f_{N,1}(N) + 1 $ which is a contradiction.
   \end{document}
