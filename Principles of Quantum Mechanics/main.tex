@@ -5,10 +5,10 @@
 \title{Principles of Quantum Mechanics}
 
 \author{Notes made by Finley Cooper}
-
-
+\usepackage{tikz}
+\usepackage{placeins}
+\usetikzlibrary{arrows.meta}
 \begin{document}
-
 \maketitle
 
 \newpage
@@ -1896,4 +1896,195 @@ This must be a new top state and we can check that $ J_+ $ acts on it to give ze
 	which is unique up to a constant.
 \end{example}
 Comparing to the discussion earlier on symmetric and antisymmetric combinations of spin-$ \frac 12 $ state. Now $ \ket {\frac 12} = \ket\uparrow $ and $ \ket{-\frac 12} = \ket\downarrow $. The $ J =1 $ states (triplet) are symmetric and the $ J = 0 $ state (singlet) is antisymmetric.
+\begin{example}
+  Suppose we have $ j_1 = 1 $ and $ j_2 = \frac 12 $. Then
+  \[
+	  \ket{\frac 32\ \frac 32} = \ket 1 \ket{\frac 12}
+  \]
+  so applying $ J_- $ we get that
+  \[
+	  \ket{\frac 32\ \frac 12} = \sqrt{\frac 23}\ket 0 \ket{\frac 12} + \frac 1{\sqrt 3} \ket 1 \ket{-\frac 12}
+  \]
+  and applying $ J_- $ again,
+  \[
+	  \ket{\frac 32\ -\frac 12} = \sqrt{\frac 23}\ket 0 \ket{-\frac 12} + \frac 1{\sqrt 3} \ket{-1}\ket{\frac 12}
+  \]
+  and once again,
+  \[
+	  \ket{\frac 32, -\frac 32} = \ket{-1}\ket{-\frac 12}.
+  \]
+  In general $ \ket{m_1}\ket{m_2} $ has $ (2j_1+1)(2j_2+1) $ number of states. so in this eample we have 6 states. So orthogonal to $ \ket{\frac 32 \ \frac 12} $ we have
+  \[
+	  \ket{\frac 12 \ \frac 12} = \sqrt{\frac 23} \ket 1 \ket{-\frac 12} -\sqrt{\frac 13}\ket 0 \ket{\frac 12}.
+  \]
+  so we can apply $ J_- $ to this to get
+  \[
+	  \ket{\frac 12\ - \frac 12} = \frac 1{\sqrt 3} \ket 0 \ket{-\frac 12} - \sqrt{\frac 23} \ket{-1}\ket{\frac 12}.
+  \]
+  The possible values are $ J = \frac 32, \frac 12 $.
+\end{example}
+Generally we have the following picture:
+\smallskip
+\FloatBarrier
+\begin{tikzpicture}[
+    >={Stealth[length=2.6mm,width=2mm]},
+    filled/.style={circle,fill=black,inner sep=0pt,minimum size=2.4mm},
+    open/.style={circle,draw=black,fill=white,inner sep=0pt,minimum size=2.4mm},
+    down/.style={->,thick},
+    right/.style={->,thick}
+]
+
+% column x-positions
+\def\xA{0}   \def\xB{3}   \def\xC{6}   \def\xD{9.5}
+
+% ---------- header ----------
+\draw[thick] (-3.3,1.45) -- (-2.8,0.65);
+\node at (-3.5,0.8) {$M$};
+\node at (-2.6,1.3) {$J$};
+\node at (\xA,1) {$j_1+j_2$};
+\node at (\xB,1) {$j_1+j_2-1$};
+\node at (\xC,1) {$j_1+j_2-2$};
+\node at (\xD,1) {$|j_1-j_2|$};
+
+% ---------- row labels (M values) ----------
+\node[anchor=east] at (-0.6, 0)   {$j_1+j_2$};
+\node[anchor=east] at (-0.6,-1)   {$j_1+j_2-1$};
+\node[anchor=east] at (-0.6,-2)   {$j_1+j_2-2$};
+\node[anchor=east] at (-0.6,-3)   {$j_1+j_2-3$};
+\node[anchor=east] at (-0.6,-5.4) {$-(j_1+j_2)+3$};
+\node[anchor=east] at (-0.6,-6.4) {$-(j_1+j_2)+2$};
+\node[anchor=east] at (-0.6,-7.4) {$-(j_1+j_2)+1$};
+\node[anchor=east] at (-0.6,-8.4) {$-(j_1+j_2)$};
+
+% ---------- J = j1+j2 : M runs from j1+j2 down to -(j1+j2) ----------
+\node[open]   (a0) at (\xA, 0)   {};
+\node[filled] (a1) at (\xA,-1)   {};
+\node[filled] (a2) at (\xA,-2)   {};
+\node[filled] (a3) at (\xA,-3)   {};
+\node[filled] (a4) at (\xA,-5.4) {};
+\node[filled] (a5) at (\xA,-6.4) {};
+\node[filled] (a6) at (\xA,-7.4) {};
+\node[filled] (a7) at (\xA,-8.4) {};
+\draw[down] (a0)--(a1); \draw[down] (a1)--(a2); \draw[down] (a2)--(a3);
+\draw[densely dashed,thick] (\xA,-3.4) -- (\xA,-5.0);
+\draw[down] (a4)--(a5); \draw[down] (a5)--(a6); \draw[down] (a6)--(a7);
+
+% ---------- J = j1+j2-1 : M runs from j1+j2-1 down to -(j1+j2)+1 ----------
+\node[open]   (b1) at (\xB,-1)   {};
+\node[filled] (b2) at (\xB,-2)   {};
+\node[filled] (b3) at (\xB,-3)   {};
+\node[filled] (b5) at (\xB,-6.4) {};
+\node[filled] (b6) at (\xB,-7.4) {};
+\draw[down] (b1)--(b2); \draw[down] (b2)--(b3);
+\draw[densely dashed,thick] (\xB,-3.4) -- (\xB,-6.0);
+\draw[down] (b5)--(b6);
+
+% ---------- J = j1+j2-2 : M runs from j1+j2-2 down to -(j1+j2)+2 ----------
+\node[open]   (c2) at (\xC,-2)   {};
+\node[filled] (c3) at (\xC,-3)   {};
+\node[filled] (c4) at (\xC,-5.4) {};
+\node[filled] (c5) at (\xC,-6.4) {};
+\draw[down] (c2)--(c3);
+\draw[densely dashed,thick] (\xC,-3.4) -- (\xC,-5.0);
+\draw[down] (c4)--(c5);
+
+% ---------- J = |j1-j2| : M from |j1-j2| to -|j1-j2|, symmetric about M=0 ----------
+\node[open]   (d1) at (\xD,-3.4) {};
+\node[filled] (d2) at (\xD,-5.0) {};
+\draw[densely dotted,thick] (d1) -- (d2);
+
+% ---------- horizontal arrows (orthogonality to higher-J states) ----------
+\draw[right] ([xshift=2mm]a1.east) -- (b1.west);
+\draw[right] ([xshift=2mm]b2.east) -- (c2.west);
+% pattern continues (omitted columns), on the same row as the arrows above
+\draw[densely dashed,thick] ([xshift=2mm]c3.east) -- (7.9,-3);
+
+\end{tikzpicture}
+\par
+Where the $ \circ $ are the top states and the $ \bullet $ are the other states. The down arrows correspond to applying $ J_- $ and the right arrows correspond to going to the unique state orthogonal to the others with the same $ M $ value.\par
+The whole process step with $ J = |j_1 -j_2 $ steps by counting
+\[
+	\sum_{j=|j_1-j_2|}^{j_1+j_2}(2j+1) = (2j_1+1)(2j_2+1) = (j_1+j_2+1)^2 - (j_1-j_2)^2
+\]
+\section{Transformations and Symmetries}
+\subsection{Introduction and Example}
+\begin{definition}
+	(Transformation) Given a unitary operator $ U $, define a \textit{transformation} of a quantum system to be \textit{either} a map of states (only)
+	\[
+	  \ket\psi\to U\ket \psi, \quad \bra\phi \to \bra U^\dagger
+	\]
+	\textit{or} a map of operators (only) 
+	\[
+	  A \to U^\dagger AU.
+	\]
+\end{definition}
+These are equivalent. Either way the inner product of states are unchanged. 
+\[
+	\bra {\phi} \ket {\psi} \to \bra {\phi}\ket {\psi}
+\]
+but matrix elements do change and
+\[
+	\bra{\phi} A \ket{\psi} \to \bra{\psi}U^\dagger A U \ket{\psi}.
+\]
+Note that unlike the change of picture, we change states or operators, but not both.\par
+Such a transformation is a \textit{symmetry} of the quantum system if
+\[
+	U^\dagger H U = H\quad \text{or}\quad [U,H] = 0.
+\]
+It follows that, in the Schr\"odinger picture, if $ \ket\psi $ solves the Schr\"odinger picture, then $ U\ket \psi $ is also a solution. In the Heisenberg solution if $ A $ is a solution then $ U^\dagger AU $ is also a solution.\par
+Consider a group $ G $ of transformations of a quantum system with $ U(g) $ for each $ g\in G $ with
+\begin{align*}
+	U(g_1)U(g_2) &= U(g_1g_2) \\
+	U(e) &= I \\
+	U(\inv g) &= \inv{U(g)} = U(g)^\dagger.
+\end{align*}
+Our aim is to find $ U(g) $ when $ G $ is a group of translations, rotations, and reflections. In these cases we know how $ G $ should act geometrically, so
+\[
+  \x \to g(\x)
+\]
+and similarly for $ \mathbf p $. From this we can infer the actcion of $ U(g) $ on position eigenstates as
+\[
+	U(g) \ket \x = \ket{g(\x)}
+\]
+or on operators
+\[
+U(g)^\dagger \hat{\mathbf x} U(g) = g(\hat \x).
+\]
+These statements are equivalent since
+\[
+  \hat \x(U(g)\ket\x) = U(g)g(\hat\x)\ket \x = g(\x)U(g)\ket \x
+\]
+which is the correct transformation of states.\par
+On a general state
+\[
+  \ket\psi \to U(g)\ket \psi
+\]
+and the position space wavefunction of the new state is
+\begin{align*}
+	\bra{\x}U(g)\ket{\psi} &= (U(g)^\dagger \ket{\x})^\dagger \ket \psi \\
+			       &= (U(\inv g)\ket \x)\ket\psi \\
+			       &= \bra{\inv g(\x)}\ket{\psi}
+\end{align*}
+so the transformation of wavefunctions is
+\[
+  \psi(\x) \to \psi(\inv g(\x)).
+\]
+\begin{example}
+  The simplest example of translation in 1D is
+  \[
+    x\to g_a(x) = x+a
+  \]
+  being a translation. We write $ U(a) = U(g_a) $ for shorthand. Then
+  \[
+	  U(a)\ket x = \ket{x+a}
+  \]
+  and 
+  \[
+    U(a)^\dagger \hat x U(a) = \hat x + a.
+  \]
+  We showed in the first section that $ U(a) = e^{-\frac {ia}\hbar \hat p} $ has just these properties.\par
+  The effecct of translation by a wavefunction $ \psi(x) $ should be $ \psi(x-a) $ from above.
+\end{example}
+\smallskip\smallskip
+\textit{Next lecture is on 18/22/2026}.
 \end{document}
